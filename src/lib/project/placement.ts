@@ -1,3 +1,4 @@
+import { NO_ADJUST } from "@/lib/color/params";
 import { centeredRect, coverCrop } from "./geometry";
 import { type ImageAsset, type ImageElement, type ProjectDoc, type Rect, SLIDE_SIZE, newId } from "./types";
 
@@ -18,6 +19,8 @@ export function imageElement(asset: Pick<ImageAsset, "id" | "width" | "height">,
     border: null,
     shadow: false,
     slot: false,
+    adjust: { ...NO_ADJUST },
+    filter: null,
   };
 }
 

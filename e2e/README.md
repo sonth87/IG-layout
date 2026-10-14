@@ -14,6 +14,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `m1.mjs` | Projects: tạo, tự lưu, tải lại, undo sau khi mở lại, đổi tên, theme / ngôn ngữ, offline, xóa |
 | `m2.mjs` | Editor: panorama, ảnh nổi, mask (✕ / ✓), style, crop, hít, pinch 2 ngón (CDP touch), nhân bản, nền, slide, lưu, xuất ZIP, project cũ |
 | `m3.mjs` | Layout: picker sau khi chọn ảnh, đổi thứ tự, seamless, lưới + khoảng cách, kéo trong ô, đổi chỗ, ô trống, undo, Skip |
+| `m4.mjs` | Màu: adjust (xem trước không ghi lịch sử, ✕ / ✓), vignette, giữ để so sánh, filter Classic, áp cho tất cả + xác nhận, ảnh xuất mang màu, lưu & mở lại |
 | `offline.mjs` | Vào trang 1 lần → tắt mạng → vẫn chạy |
 
 - Cần Chromium: `CHROME_PATH=...` hoặc `npx playwright install chromium-headless-shell`.

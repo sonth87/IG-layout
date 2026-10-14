@@ -113,6 +113,21 @@ const PATHS = {
       <path d="M7 8l5-5 5 5H7zM7 16l5 5 5-5H7z" />
     </>
   ),
+  adjust: (
+    <>
+      <path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12" />
+      <circle cx="16" cy="6" r="2" />
+      <circle cx="10" cy="12" r="2" />
+      <circle cx="18" cy="18" r="2" />
+    </>
+  ),
+  filters: (
+    <>
+      <circle cx="9" cy="9" r="5" />
+      <circle cx="15" cy="9" r="5" />
+      <circle cx="12" cy="15" r="5" />
+    </>
+  ),
   swap: <path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7" />,
   layout: (
     <>

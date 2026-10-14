@@ -2,6 +2,8 @@
 // SLIDE_SIZE[ratio] wide/high, and the canvas is slideCount slides side by side.
 // Full design: docs/architecture/editor-model.md.
 
+import type { Adjustments, FilterRef } from "@/lib/color/params";
+
 export type ProjectType = "post" | "story" | "grid";
 
 export type AspectRatio = "1:1" | "4:5" | "3:4" | "9:16";
@@ -75,6 +77,9 @@ export interface ImageElement extends ElementBase {
   shadow: boolean;
   /** Template cell: dragging pans the photo inside instead of moving the frame. */
   slot: boolean;
+  /** Manual colour adjustments (M4). */
+  adjust: Adjustments;
+  filter: FilterRef | null;
 }
 
 export type CanvasElement = ImageElement;

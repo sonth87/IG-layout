@@ -1,3 +1,4 @@
+import { NO_ADJUST } from "@/lib/color/params";
 import type { Background, ImageElement, ProjectDoc } from "./types";
 
 // Upgrades docs saved by older versions (M1 prototype) to the current model.
@@ -34,6 +35,8 @@ export function migrateDoc(raw: ProjectDoc | LegacyDoc, assetSize: (id: string) 
       border: el.border ?? null,
       shadow: el.shadow ?? false,
       slot: el.slot ?? false,
+      adjust: { ...NO_ADJUST, ...el.adjust },
+      filter: el.filter ?? null,
     };
   });
 

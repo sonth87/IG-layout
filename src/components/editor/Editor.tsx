@@ -10,6 +10,7 @@ import { useT } from "@/store/settings";
 import CanvasStage from "./canvas/CanvasStage";
 import { ExportSheet } from "./ExportSheet";
 import { CropTool } from "./tools/CropTool";
+import { AdjustTool, FilterTool } from "./tools/ColorTools";
 import { MaskTool, StyleTool } from "./tools/ElementTools";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
 import { LayoutPicker } from "@/components/layout/LayoutPicker";
@@ -18,9 +19,9 @@ import { useImportPhotos } from "./useImportPhotos";
 
 const STAGE_PADDING = 24;
 
-type Tool = "crop" | "mask" | "style" | "background" | "slides" | "layout";
+type Tool = "crop" | "mask" | "style" | "adjust" | "filters" | "background" | "slides" | "layout";
 /** Tools that edit a draft (✕ / ✓). Slides acts directly. */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "background"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "background"];
 
 /** Stage pixels per export pixel: a slide fits the area height and ~86% of its width. */
 function useViewScale(area: React.RefObject<HTMLDivElement | null>, slide: { width: number; height: number }) {
@@ -120,6 +121,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
   let bottom: React.ReactNode;
   if (tool === "mask" && selected) bottom = <MaskTool elementId={selected.id} onClose={() => setTool(null)} />;
   else if (tool === "style" && selected) bottom = <StyleTool elementId={selected.id} onClose={() => setTool(null)} />;
+  else if (tool === "adjust" && selected) bottom = <AdjustTool elementId={selected.id} onClose={() => setTool(null)} />;
+  else if (tool === "filters" && selected) bottom = <FilterTool elementId={selected.id} onClose={() => setTool(null)} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={() => setTool(null)} />;
   else if (tool === "slides") bottom = <SlidesTool onClose={() => setTool(null)} />;
   else if (selected)
@@ -143,6 +146,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
           />
           {selected.slot && <ToolButton label={t("editor.swap")} icon="swap" onClick={() => startSwap(selected.id)} />}
           {selected.assetId && <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />}
+          {selected.assetId && <ToolButton label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />}
+          {selected.assetId && <ToolButton label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />}
           <ToolButton label={t("editor.mask")} icon="mask" onClick={() => openTool("mask")} />
           <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
           <ToolButton label={t("editor.forward")} icon="layerUp" onClick={() => moveLayer(selected.id, "up")} />

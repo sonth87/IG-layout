@@ -105,6 +105,8 @@ File JSON, toạ độ **tương đối** (0..1 theo slide) để dùng cho mọ
 
 ## 7. Màu & filter (M4)
 
+> **Đã cài đặt (M4):** `src/lib/color/` — `params.ts` (13 thông số, đơn vị giao diện -100..100 → giá trị shader), `filters.ts` (danh sách filter), `processor.ts` (WebGL + cache). Hook `useProcessedImage` xử lý đồng bộ trong `useMemo` (không nháy). Vignette vẽ bằng gradient trong `ImageNode` để bám theo khung. Khi xuất: store bật `exporting` → ảnh xử lý lại full resolution → cắt slide → tắt.
+
 - Một shader WebGL nhận toàn bộ thông số: exposure, brightness, contrast, highlights, shadows, saturation, vibrance, temperature, tint, vignette, grain, fade.
 - **Filter = bộ thông số có sẵn** (+ tông màu vùng tối / vùng sáng, đơn sắc). Cường độ = nội suy từ 0 tới bộ thông số.
 - Thứ tự áp: filter → chỉnh tay. "Áp cho tất cả" chỉ đổi `filter` của mọi ảnh.

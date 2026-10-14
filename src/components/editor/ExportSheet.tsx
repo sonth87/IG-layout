@@ -30,7 +30,17 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
     let urls: string[] = [];
     const layer = contentLayerRef.current;
     if (!layer) return;
-    exportSlides(layer, doc, viewScale, BASE_NAME)
+    const { setExporting } = useEditor.getState();
+    // Re-render photos at full resolution, wait for the canvas to redraw, then cut slides.
+    setExporting(true);
+    const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r(null)));
+    nextFrame()
+      .then(nextFrame)
+      .then(() => {
+        layer.draw();
+        return exportSlides(layer, doc, viewScale, BASE_NAME);
+      })
+      .finally(() => setExporting(false))
       .then((result) => {
         if (cancelled) return;
         urls = result.map((f) => URL.createObjectURL(f));

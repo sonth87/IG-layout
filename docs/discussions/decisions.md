@@ -55,3 +55,5 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-49 | 2026-10-14 | Template là dữ liệu TypeScript (`library.ts`) thay vì file JSON | Có kiểm tra kiểu (sai báo lỗi khi build), có hàm phụ trợ (`cells(3, 3)`), thêm layout không sửa code; layout người dùng tự lưu (sau MVP) vẫn lưu JSON cùng cấu trúc. Chủ dự án: "cách nào tốt nhất, dễ mở rộng, dễ xử lý" | Đã chốt |
 | D-50 | 2026-10-14 | Ô template lưới: kéo = dịch ảnh trong ô (phương án A); đổi chỗ bằng nút Đổi chỗ rồi chạm ô thứ hai. Ảnh tự do vẫn kéo = di chuyển | Chỉnh vùng hiển thị dùng thường xuyên hơn đổi chỗ; kéo thả / giữ lâu dễ xung đột trên trình duyệt di động. Chủ dự án chọn A | Đã chốt |
 | D-51 | 2026-10-14 | Kiểm tra end-to-end nằm trong repo (`e2e/`, `pnpm e2e`), chạy trước khi merge | Giữ được chất lượng khi làm tiếp các mốc | Đã chốt |
+| D-52 | 2026-10-14 | Thêm thông số Hue (sắc độ) vào bộ chỉnh màu (13 thông số) | Có trong wireframe Adjust và ví dụ của chủ dự án về lịch sử | Đã chốt |
+| D-53 | 2026-10-14 | Ảnh khi chỉnh xử lý ở ≤ 1600 px; khi xuất xử lý lại full resolution | Giữ bộ nhớ thấp trên điện thoại mà ảnh xuất vẫn nét | Đề xuất |

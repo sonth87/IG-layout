@@ -106,13 +106,16 @@ Nhánh: `m3-layouts` — xong 2026-10-14, đã merge vào `main`. Thiết kế: 
 - [x] Kiểm tra tự động: đưa vào repo (`e2e/`, `pnpm e2e`), 4 bộ M1 / M2 / M3 / offline đều đạt
 
 ### M4 — Màu & filter
-Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 7.
-- [ ] Shader WebGL + cache kết quả theo (ảnh, thông số, kích thước); dự phòng khi không có WebGL
-- [ ] Công cụ Adjust: 12 thông số, slider, chấm đánh dấu đã chỉnh, chạm đúp để reset, giữ để so sánh, ✓ / ✕
-- [ ] 5 filter (Classic, Kyoto, Retro 70, Clean, Cyberpunk) + cường độ + tab nhóm
-- [ ] "Áp cho tất cả ảnh" (chỉ filter) + hộp xác nhận + 1 bước lịch sử
-- [ ] Xuất ảnh dùng full resolution qua cùng shader; so sánh preview vs export
-- [ ] Kiểm tra hiệu năng trên máy tầm trung + tài liệu
+Nhánh: `m4-color` — xong 2026-10-14, đã merge vào `main`. Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 7.
+- [x] Shader WebGL (1 lượt cho mọi thông số) + cache LRU; không có WebGL → hiện ảnh gốc
+- [x] Công cụ Adjust: 13 thông số (thêm Hue), chip có chấm đánh dấu, slider, chạm đúp để đặt lại, giữ để so sánh, ✓ / ✕
+- [x] Vignette vẽ theo khung ảnh (không theo cả ảnh gốc)
+- [x] 5 filter (Classic, Kyoto, Retro 70, Clean, Cyberpunk) + cường độ + tab nhóm + ảnh xem trước từng filter
+- [x] "Áp dụng cho tất cả ảnh" (chỉ filter) + hộp xác nhận + 1 bước lịch sử
+- [x] Xem trước ở độ phân giải ≤ 1600 px; xuất ảnh xử lý lại ở độ phân giải đầy đủ
+- [x] Kiểm tra tự động `e2e/m4.mjs` (đọc pixel trên canvas và trên ảnh xuất)
+- [ ] Tinh chỉnh màu 5 filter trên ảnh thật — chờ góp ý chủ dự án
+- [ ] Đo hiệu năng trên điện thoại tầm trung — gộp vào M7 (thử máy thật)
 
 ### M5 — Text & Elements
 Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 8.

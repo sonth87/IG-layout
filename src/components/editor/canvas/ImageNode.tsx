@@ -8,6 +8,7 @@ import { traceMask } from "@/lib/project/masks";
 import type { ImageElement, Rect } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useHtmlImage } from "./useHtmlImage";
+import { useProcessedImage } from "./useProcessedImage";
 
 interface Props {
   element: ImageElement;
@@ -27,7 +28,10 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
   const asset = useEditor((s) => (el.assetId ? s.assets[el.assetId] : undefined));
   const select = useEditor((s) => s.select);
   const updateElement = useEditor((s) => s.updateElement);
-  const image = useHtmlImage(asset?.url);
+  const original = useHtmlImage(asset?.url);
+  const compareThis = useEditor((s) => s.compare && s.selectedId === el.id);
+  const exporting = useEditor((s) => s.exporting);
+  const image = useProcessedImage(original, el, { original: compareThis, full: exporting });
   /** Crop while panning a slot (drawn live, committed on release). */
   const liveCrop = useRef<Rect | null>(null);
   const panStart = useRef<{ x: number; y: number } | null>(null);
@@ -55,13 +59,26 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
     c.save();
     traceMask(c, el.mask, w, h, el.cornerRadius);
     c.clip();
-    if (image) {
+    if (image && original) {
       const crop = liveCrop.current ?? el.crop;
+      // The processed copy may be smaller than the original: crop is in original pixels.
+      const k = image.width / original.width;
       const s = straightenScale(w, h, el.straighten);
+      c.save();
       c.translate(w / 2, h / 2);
       c.rotate((el.straighten * Math.PI) / 180);
       c.scale(s * (el.flipX ? -1 : 1), s * (el.flipY ? -1 : 1));
-      c.drawImage(image, crop.x, crop.y, crop.width, crop.height, -w / 2, -h / 2, w, h);
+      c.drawImage(image, crop.x * k, crop.y * k, crop.width * k, crop.height * k, -w / 2, -h / 2, w, h);
+      c.restore();
+      const vignette = compareThis ? 0 : (el.adjust?.vignette ?? 0) / 100;
+      if (vignette > 0) {
+        const r = Math.hypot(w, h) / 2;
+        const g = c.createRadialGradient(w / 2, h / 2, r * 0.35, w / 2, h / 2, r);
+        g.addColorStop(0, "rgba(0,0,0,0)");
+        g.addColorStop(1, `rgba(0,0,0,${0.75 * vignette})`);
+        c.fillStyle = g;
+        c.fillRect(0, 0, w, h);
+      }
     } else {
       c.fillStyle = "#d9d5cd";
       c.fillRect(0, 0, w, h);

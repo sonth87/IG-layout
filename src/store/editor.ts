@@ -35,6 +35,10 @@ interface EditorState {
   selectedId: string | null;
   /** While set, the next photo the user taps swaps photos with this one. */
   swapFrom: string | null;
+  /** "Hold to compare": the selected photo is drawn without colour changes. */
+  compare: boolean;
+  /** Export in progress: photos are processed at full resolution. */
+  exporting: boolean;
   /** Slide closest to the middle of the screen. */
   currentSlide: number;
   /** Content layer + scale of the mounted canvas, used for thumbnails and export. */
@@ -63,6 +67,8 @@ interface EditorState {
   cancelDraft: () => void;
 
   select: (id: string | null) => void;
+  setCompare: (on: boolean) => void;
+  setExporting: (on: boolean) => void;
   setCurrentSlide: (index: number) => void;
   setCanvas: (canvas: EditorState["canvas"]) => void;
   undo: () => void;
@@ -78,6 +84,8 @@ const EMPTY = {
   future: [],
   selectedId: null,
   swapFrom: null,
+  compare: false,
+  exporting: false,
   currentSlide: 0,
   canvas: null,
 } satisfies Partial<EditorState>;
@@ -249,6 +257,8 @@ export const useEditor = create<EditorState>()((set, get) => {
       }
       set({ selectedId: id, swapFrom: id ? swapFrom : null });
     },
+    setCompare: (on) => set({ compare: on }),
+    setExporting: (on) => set({ exporting: on }),
     setCurrentSlide: (index) => set({ currentSlide: index }),
     setCanvas: (canvas) => set({ canvas }),
 
