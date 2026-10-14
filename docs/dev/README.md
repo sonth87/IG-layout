@@ -49,10 +49,15 @@ src/
 scripts/generate-sw.mjs sinh out/sw.js sau khi build
 ```
 
+## Deploy
+
+- Vercel, nối với repo GitHub: mỗi lần push lên `main` tự build (`pnpm build`, gồm sinh `sw.js`) và deploy.
+- Bản chạy: https://ig-layout.vercel.app/ — dùng link này để thử trên điện thoại (có HTTPS: cài PWA, share sheet).
+
 ## Git
 
 - Repo: `git@github.com:sonth87/IG-layout.git`, nhánh chính `main`.
-- Mỗi mốc (M1, M2…) hoặc việc lớn làm trên nhánh riêng (`m1-foundation`, `feat/...`), xong thì merge vào `main`. *(Đề xuất)*
+- Mỗi mốc (M1, M2…) hoặc việc lớn làm trên nhánh riêng (`m1-foundation`, `feat/...`). Trước khi phát hành v1.0, merge vào `main` bất cứ lúc nào (chủ dự án đồng ý), không cần chờ duyệt.
 - Commit message theo Conventional Commits, tiếng Anh: `feat: ...`, `fix: ...`, `docs: ...`, `chore: ...`. *(Đề xuất)*
 - Không commit `node_modules/`, `.next/`, `out/` (đã có trong `.gitignore`).
 

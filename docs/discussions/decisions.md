@@ -47,3 +47,5 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-41 | 2026-10-14 | Font giao diện: Be Vietnam Pro (nội dung) + Space Grotesk (tiêu đề), thay DM Sans | DM Sans không có bộ ký tự tiếng Việt | Đã chốt |
 | D-42 | 2026-10-14 | Service worker tự sinh sau khi build (`scripts/generate-sw.mjs`), không dùng Serwist | App xuất tĩnh, chỉ cần precache toàn bộ `out/`; ít phụ thuộc, dễ kiểm soát | Đề xuất |
 | D-43 | 2026-10-14 | i18n tự viết (từ điển `en` / `vi` + `useT`), không dùng next-intl | App chỉ chạy client, không cần định tuyến theo ngôn ngữ | Đề xuất |
+| D-44 | 2026-10-14 | Host trên Vercel (https://ig-layout.vercel.app/), tự deploy khi push lên `main` | Chủ dự án đã cài đặt | Đã chốt |
+| D-45 | 2026-10-14 | Trước v1.0: được merge nhánh vào `main` bất cứ lúc nào | Chưa phát hành chính thức, `main` là bản chạy thử | Đã chốt |

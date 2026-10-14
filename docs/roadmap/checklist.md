@@ -36,7 +36,7 @@
 - [x] Export từng slide → JPEG đúng kích thước; ZIP / từng ảnh / share sheet
 - [x] Kiểm tra tự động trên Chromium: 3 slide 4:5 → 3 file 1080 × 1350, chỗ nối khớp, không lỗi console
 - [x] Khởi tạo git, push lên GitHub (`sonth87/IG-layout`)
-- [ ] Deploy thử (HTTPS) — chọn nơi host (Vercel / Cloudflare Pages / GitHub Pages)
+- [x] Deploy thử (HTTPS): Vercel — https://ig-layout.vercel.app/
 - [ ] Test trên iPhone (Safari): chạm, kéo, xoay, cuộn dải slide, Save images, nhập 20 ảnh
 - [ ] Test trên Android (Chrome): như trên
 - [ ] Chốt D-38: giữ Konva hay đổi Fabric
@@ -72,7 +72,7 @@ Nhánh: `m1-foundation`. Chi tiết hóa ngày 2026-10-14.
 **Kiểm tra & bàn giao**
 - [x] Kiểm tra tự động: tạo project → nhập ảnh → kéo → tải lại trang → project còn, undo được → đổi tên → xóa; đổi theme / ngôn ngữ; offline
 - [x] Cập nhật tài liệu, commit, push nhánh
-- [ ] Deploy tự động khi push lên `main` — **chờ chọn nơi host**
+- [x] Deploy tự động khi push lên `main` (Vercel nối với repo GitHub)
 
 ### M2 — Editor cốt lõi
 - [ ] Mô hình phần tử chung (ảnh / text / hình), thanh công cụ theo ngữ cảnh

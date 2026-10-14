@@ -1,6 +1,7 @@
 # Kế hoạch (Roadmap)
 
-> **Đang ở:** M1 — Nền tảng (nhánh `m1-foundation`, từ 2026-10-14) — **xong phần code**, còn deploy tự động (chờ chọn nơi host). Còn treo từ GĐ1: test trên điện thoại thật (để sau theo ý chủ dự án), chốt D-38. Từ GĐ0: duyệt phạm vi MVP, góp ý wireframe.
+> **Đang ở:** M1 — Nền tảng: **xong** (2026-10-14, đã merge vào `main`). Tiếp theo: M2 — Editor cốt lõi.
+> **Bản chạy thử:** https://ig-layout.vercel.app/ (tự deploy khi push lên `main`). Còn treo từ GĐ1: test trên điện thoại thật (để sau theo ý chủ dự án), chốt D-38. Từ GĐ0: duyệt phạm vi MVP, góp ý wireframe.
 > **Việc tiếp theo:** xem mục "Việc tiếp theo" cuối file và [checklist.md](checklist.md).
 > Cập nhật lần cuối: 2026-10-14.
 
@@ -110,7 +111,6 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 
 ## Việc tiếp theo
 
-1. Chọn nơi host → deploy tự động → đóng M1, merge `m1-foundation` vào `main`.
-2. Chủ dự án duyệt **Phạm vi MVP** (Q-15, Q-30).
-3. Thử trên điện thoại thật (đã hoãn theo ý chủ dự án); chốt D-38 (Konva).
-4. Bắt đầu **M2 — Editor cốt lõi**.
+1. Chủ dự án duyệt **Phạm vi MVP** (Q-15, Q-30).
+2. Thử trên điện thoại thật qua link Vercel (đã hoãn theo ý chủ dự án); chốt D-38 (Konva).
+3. Bắt đầu **M2 — Editor cốt lõi**.
