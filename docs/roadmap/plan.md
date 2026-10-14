@@ -1,6 +1,6 @@
 # Kế hoạch (Roadmap)
 
-> **Đang ở:** M1 — Nền tảng: **xong** (2026-10-14, đã merge vào `main`). Tiếp theo: M2 — Editor cốt lõi.
+> **Đang ở:** M2 — Editor cốt lõi (nhánh `m2-editor-core`). M1 xong 2026-10-14. Phạm vi MVP đã duyệt: toàn bộ plan (D-46).
 > **Bản chạy thử:** https://ig-layout.vercel.app/ (tự deploy khi push lên `main`). Còn treo từ GĐ1: test trên điện thoại thật (để sau theo ý chủ dự án), chốt D-38. Từ GĐ0: duyệt phạm vi MVP, góp ý wireframe.
 > **Việc tiếp theo:** xem mục "Việc tiếp theo" cuối file và [checklist.md](checklist.md).
 > Cập nhật lần cuối: 2026-10-14.
@@ -56,7 +56,7 @@ Không đặt ngày cố định; mỗi mốc có **điều kiện hoàn thành*
 
 ## Giai đoạn 2 — MVP
 
-### Phạm vi MVP (đề xuất — chờ duyệt)
+### Phạm vi MVP (đã duyệt 2026-10-14)
 
 Lấy từ các mục gắn nhãn **MVP** trong [features.md](../user/features.md) và [layouts.md](../user/layouts.md):
 
@@ -76,9 +76,10 @@ Lấy từ các mục gắn nhãn **MVP** trong [features.md](../user/features.m
 
 ### Các mốc (milestones)
 
-Mỗi mốc kết thúc bằng một bản chạy được, đã kiểm tra trên điện thoại.
+Các mốc là **gói việc nối tiếp nhau** để chia nhỏ công việc — không bắt buộc mỗi mốc ra một bản dùng được (D-47). Bản dùng được là **v1.0** sau M7.
+Thiết kế kỹ thuật chung cho mọi mốc: [architecture/editor-model.md](../architecture/editor-model.md).
 
-| Mốc | Nội dung | Điều kiện hoàn thành |
+| Mốc | Nội dung | Điều kiện xong (kỹ thuật) |
 |---|---|---|
 | **M1 — Nền tảng** | Lưu project vào IndexedDB (ảnh + doc + lịch sử); màn "Project của tôi"; service worker offline; Settings (theme, ngôn ngữ, dung lượng); khung đa ngôn ngữ EN / VI; deploy tự động | Tắt app mở lại vẫn sửa tiếp được; dùng offline; đổi theme / ngôn ngữ được |
 | **M2 — Editor cốt lõi** | Mô hình phần tử chung (ảnh, text, hình); thanh công cụ theo ngữ cảnh; cử chỉ pinch / xoay 2 ngón; căn chỉnh & hít; crop, nắn thẳng, mask; viền & nền; quản lý slide (thêm / xóa / đổi thứ tự) | Làm được một carousel scrapbook hoàn chỉnh chỉ bằng tay |
@@ -111,6 +112,5 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 
 ## Việc tiếp theo
 
-1. Chủ dự án duyệt **Phạm vi MVP** (Q-15, Q-30).
-2. Thử trên điện thoại thật qua link Vercel (đã hoãn theo ý chủ dự án); chốt D-38 (Konva).
-3. Bắt đầu **M2 — Editor cốt lõi**.
+1. **M2 — Editor cốt lõi** (đang làm), rồi lần lượt M3 → M7.
+2. Thử trên điện thoại thật qua link Vercel khi chủ dự án có thời gian; chốt D-38 (Konva).

@@ -21,8 +21,9 @@
 - [x] Phân tích các dạng layout ([layouts.md](../user/layouts.md))
 - [x] Wireframe v1 + v2 (19 màn hình) — lưu tại [design/wireframes/](../design/wireframes/index.html)
 - [x] Viết lộ trình, các mốc MVP (M1–M7), quy trình làm việc ([plan.md](plan.md))
-- [ ] Duyệt phạm vi MVP (Q-15, Q-30)
-- [ ] Chốt kiến trúc D-06, D-07 (Q-11, Q-12)
+- [x] Duyệt phạm vi MVP: toàn bộ plan (D-46)
+- [x] Chốt kiến trúc D-06, D-07
+- [x] Thiết kế kỹ thuật toàn dự án ([editor-model.md](../architecture/editor-model.md))
 - [ ] Góp ý & chốt wireframe
 - [ ] Xác minh lại thông số Instagram
 - [ ] Trả lời các câu hỏi còn lại: Q-03, Q-08, Q-13
@@ -75,33 +76,63 @@ Nhánh: `m1-foundation`. Chi tiết hóa ngày 2026-10-14.
 - [x] Deploy tự động khi push lên `main` (Vercel nối với repo GitHub)
 
 ### M2 — Editor cốt lõi
-- [ ] Mô hình phần tử chung (ảnh / text / hình), thanh công cụ theo ngữ cảnh
-- [ ] Cử chỉ pinch / xoay 2 ngón
-- [ ] Đường gióng & hít vào tâm, mép, ranh giới slide
-- [ ] Crop & nắn thẳng; mask theo hình
-- [ ] Viền ảnh; nền (màu, gradient, blur fill)
-- [ ] Quản lý slide: thêm / xóa / đổi thứ tự
+Nhánh: `m2-editor-core`. Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 1–5.
+- [ ] Mô hình phần tử chung (base + image mở rộng: crop, straighten, flip, mask, viền, bóng, opacity) + chuyển đổi dữ liệu project cũ
+- [ ] Bản nháp công cụ: `beginDraft / updateDraft / applyDraft / cancelDraft`; autosave bỏ qua draft
+- [ ] Hiển thị ảnh dạng Group + clip theo mask + viền + bóng
+- [ ] Thanh công cụ theo ngữ cảnh: chưa chọn (Photos, Background, Slides…) / chọn ảnh (Replace, Crop, Mask, Border, Opacity, Flip, Layer, Duplicate, Delete)
+- [ ] Cử chỉ 2 ngón: pinch + xoay phần tử đang chọn
+- [ ] Hít & đường gióng (slide, ranh giới, phần tử khác)
+- [ ] Công cụ Crop: khung cắt, tỉ lệ (Free, Original, 1:1, 4:5, 3:4, 16:9), nắn thẳng, xoay 90°, lật, reset
+- [ ] Công cụ Mask: 8 hình + bo góc
+- [ ] Công cụ Border: độ dày, màu; bóng đổ; độ mờ
+- [ ] Thay ảnh (Replace), nhân bản
+- [ ] Nền: màu, gradient, ảnh làm mờ
+- [ ] Quản lý slide: thêm sau slide đang xem, xóa, đổi chỗ; dịch phần tử theo
+- [ ] Kiểm tra tự động + cập nhật tài liệu
 
 ### M3 — Layout & template
-- [ ] Định dạng template JSON + bộ nạp
-- [ ] Bộ template đầu tiên theo [layouts.md](../user/layouts.md)
-- [ ] Màn chọn layout: gợi ý theo số ảnh, tự điền, đổi chỗ ảnh
+Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 6.
+- [ ] Định dạng template JSON (tọa độ tương đối) + bộ chuyển thành phần tử
+- [ ] Ô trống (`assetId: null`) hiển thị "chạm để thêm ảnh"; chạm → chọn ảnh vào ô
+- [ ] Bộ template đầu tiên: khung đơn (fill / fit), lưới đều 2–9 ô, lưới không đều, scrapbook, khung trang trí, panorama, seamless (ảnh nền + ảnh nổi, dải ảnh, cuộn film, polaroid rải, ảnh lớn 2 slide, zigzag)
+- [ ] Màn chọn layout sau khi chọn ảnh: khay ảnh (đổi thứ tự), nhóm, gợi ý theo số ảnh
+- [ ] Tự điền ảnh vào ô; đổi chỗ ảnh giữa hai ô (kéo thả); áp layout vào project đang mở
+- [ ] Khoảng cách giữa ô, bo góc, màu nền cho template lưới
+- [ ] Kiểm tra tự động + tài liệu
 
 ### M4 — Màu & filter
-- [ ] Pipeline WebGL cho preview và export
-- [ ] Công cụ Adjust với ✓ / ✕, nhớ giá trị, giữ để so sánh
-- [ ] 5 filter thử nghiệm + cường độ + áp cho tất cả (có xác nhận)
+Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 7.
+- [ ] Shader WebGL + cache kết quả theo (ảnh, thông số, kích thước); dự phòng khi không có WebGL
+- [ ] Công cụ Adjust: 12 thông số, slider, chấm đánh dấu đã chỉnh, chạm đúp để reset, giữ để so sánh, ✓ / ✕
+- [ ] 5 filter (Classic, Kyoto, Retro 70, Clean, Cyberpunk) + cường độ + tab nhóm
+- [ ] "Áp cho tất cả ảnh" (chỉ filter) + hộp xác nhận + 1 bước lịch sử
+- [ ] Xuất ảnh dùng full resolution qua cùng shader; so sánh preview vs export
+- [ ] Kiểm tra hiệu năng trên máy tầm trung + tài liệu
 
 ### M5 — Text & Elements
-- [ ] Công cụ text + bộ font tiếng Việt tự host
-- [ ] Hình khối, icon, khung cơ bản
+Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 8.
+- [ ] Phần tử text: font (6 font tiếng Việt), cỡ, đậm, màu, căn lề, giãn chữ, dòng; viền chữ; bóng; nền chữ
+- [ ] Sửa chữ qua ô nhập phủ lên; chờ font tải trước khi vẽ / xuất
+- [ ] Phần tử hình khối (6 loại) + icon (bộ icon có giấy phép mở) + màu
+- [ ] Khung ảnh: polaroid, cuộn film, viền trắng
+- [ ] Màn Elements: tìm kiếm, nhóm
+- [ ] Trang Credits (font, icon)
+- [ ] Kiểm tra tự động + tài liệu
 
 ### M6 — Story & Grid
-- [ ] Project Story: 9:16, vùng an toàn, nhiều khung
-- [ ] Project Grid: 3 × N, thứ tự đăng, bù khe hở, tên file theo thứ tự đăng
+Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 9.
+- [ ] Màn New project: chọn Post / Story / Grid
+- [ ] Story: 9:16, vùng an toàn bật / tắt, nhiều khung, template Story
+- [ ] Grid: canvas 3 × N, chọn số hàng, số thứ tự đăng trên ô, bù khe hở, xuất theo thứ tự đăng
+- [ ] Xác minh thông số Story / lưới profile hiện hành của Instagram
+- [ ] Kiểm tra tự động + tài liệu
 
 ### M7 — Xuất & hoàn thiện
-- [ ] Xem trước kiểu Instagram (carousel / profile)
-- [ ] Hiệu năng: 20 ảnh, ảnh lớn, máy tầm trung
-- [ ] Khả năng truy cập, hướng dẫn sử dụng, trang Credits
+- [ ] Xem trước kiểu Instagram: carousel (vuốt) và lưới profile
+- [ ] Màn Export hoàn chỉnh theo wireframe (mẹo đăng theo loại project)
+- [ ] Hiệu năng: 20 ảnh, ảnh lớn, giới hạn bộ nhớ iOS
+- [ ] Khả năng truy cập (nhãn, tương phản, bàn phím trên desktop)
+- [ ] Hướng dẫn sử dụng ([user/guide.md](../user/guide.md)) + màn trợ giúp ngắn
+- [ ] Thử trên iPhone + Android thật; chốt D-38
 - [ ] Checklist phát hành v1.0 ([plan.md](plan.md))

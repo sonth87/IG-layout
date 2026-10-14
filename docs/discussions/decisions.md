@@ -9,8 +9,8 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-03 | 2026-10-14 | Miễn phí, không đặt mục tiêu cạnh tranh | Định hướng của chủ dự án | Đã chốt |
 | D-04 | 2026-10-14 | Next.js + PWA | Định hướng của chủ dự án; PWA cho phép cài như app, dùng offline | Đã chốt |
 | D-05 | 2026-10-14 | Viết tài liệu và chốt yêu cầu trước khi code | Tránh mất định hướng | Đã chốt |
-| D-06 | 2026-10-14 | Xử lý ảnh 100% phía client | Riêng tư, không tốn chi phí server, phù hợp với việc miễn phí | Đề xuất |
-| D-07 | 2026-10-14 | Mô hình "canvas nhiều slide", cắt ra khi export | Một mô hình bao được mọi kiểu layout, không phải code riêng từng chế độ | Đề xuất |
+| D-06 | 2026-10-14 | Xử lý ảnh 100% phía client | Riêng tư, không tốn chi phí server, phù hợp với việc miễn phí | Đã chốt |
+| D-07 | 2026-10-14 | Mô hình "canvas nhiều slide", cắt ra khi export | Một mô hình bao được mọi kiểu layout, không phải code riêng từng chế độ | Đã chốt |
 | D-08 | 2026-10-14 | Mobile-first | Người dùng chủ yếu làm trên điện thoại | Đã chốt |
 | D-09 | 2026-10-14 | Chỉ làm ảnh đăng bài (feed / carousel); Story để sau | Chủ dự án chưa định hình nhu cầu Story | Thay thế bởi D-11 |
 | D-10 | 2026-10-14 | Chỉnh ảnh phạm vi rộng: chỉnh màu, hiệu ứng, filter có sẵn + tùy chỉnh, nhiều loại phần tử; mọi phần tử biến đổi được | Tham khảo các app khác; chia mức ưu tiên MVP / Sau | Đã chốt |
@@ -49,3 +49,6 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-43 | 2026-10-14 | i18n tự viết (từ điển `en` / `vi` + `useT`), không dùng next-intl | App chỉ chạy client, không cần định tuyến theo ngôn ngữ | Đề xuất |
 | D-44 | 2026-10-14 | Host trên Vercel (https://ig-layout.vercel.app/), tự deploy khi push lên `main` | Chủ dự án đã cài đặt | Đã chốt |
 | D-45 | 2026-10-14 | Trước v1.0: được merge nhánh vào `main` bất cứ lúc nào | Chưa phát hành chính thức, `main` là bản chạy thử | Đã chốt |
+| D-46 | 2026-10-14 | Phạm vi MVP = toàn bộ bảng "Có trong MVP" trong plan (M1–M7) | Chủ dự án duyệt | Đã chốt |
+| D-47 | 2026-10-14 | Các mốc là gói việc nối tiếp, không cần mỗi mốc ra bản dùng được; bản dùng được là v1.0 | Chủ dự án: tính cho toàn bộ dự án | Đã chốt |
+| D-48 | 2026-10-14 | Thiết kế kỹ thuật chung cho M2–M7 theo architecture/editor-model.md | Lập kế hoạch toàn dự án trước khi code tiếp | Đề xuất |

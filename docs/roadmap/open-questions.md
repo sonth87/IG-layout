@@ -8,13 +8,9 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-03.** Người dùng chính là ai? (Người dùng phổ thông, người chụp ảnh bằng máy ảnh, người làm nội dung…)
 
 ### Phạm vi tính năng
-- **Q-15.** Danh sách tính năng chỉnh ảnh xếp mức **MVP** trong [features.md](../user/features.md) đã hợp lý chưa? Có gì cần đưa lên / hạ xuống?
-- **Q-30.** Danh sách dạng layout và mức ưu tiên trong [layouts.md](../user/layouts.md) đã hợp lý chưa?
 - **Q-08.** Template layout: tự thiết kế, hay để người dùng tự tạo và lưu template?
 
 ### Kỹ thuật
-- **Q-11.** Chốt xử lý 100% trên client (D-06)?
-- **Q-12.** Chốt mô hình canvas nhiều slide (D-07)?
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?
 
 ## Đã trả lời
@@ -48,3 +44,6 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 | Q-09 | Nguồn sticker? | Thư viện riêng, tải về từ nguồn miễn phí có giấy phép | 2026-10-14 |
 | Q-10 | Font chữ? | Google Fonts (có tiếng Việt), tự host | 2026-10-14 |
 | Q-31 | Tùy chọn Grid? | Đồng ý cả hai: bù khe hở; mỗi ô là carousel (Sau) | 2026-10-14 |
+| Q-15 | Danh sách MVP chỉnh ảnh hợp lý? | Đồng ý toàn bộ theo plan | 2026-10-14 |
+| Q-30 | Danh sách layout hợp lý? | Đồng ý toàn bộ theo plan | 2026-10-14 |
+| Q-11, Q-12 | Chốt 100% client, canvas nhiều slide? | Có — đã làm theo hướng này từ prototype, chủ dự án đồng ý tiếp tục theo plan | 2026-10-14 |
