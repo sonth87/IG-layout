@@ -45,7 +45,7 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-39 | 2026-10-14 | Lộ trình: GĐ0 → GĐ1 → GĐ2 (mốc M1–M7) → v1.0 → GĐ3; mỗi mốc có điều kiện hoàn thành, không đặt ngày cố định | Làm bù lộ trình sau khi đã code prototype, để các bước tiếp theo rõ ràng | Đã chốt |
 | D-40 | 2026-10-14 | Mã nguồn trên GitHub `sonth87/IG-layout`, nhánh `main` | Chủ dự án tạo repo | Đã chốt |
 | D-41 | 2026-10-14 | Font giao diện: Be Vietnam Pro (nội dung) + Space Grotesk (tiêu đề), thay DM Sans | DM Sans không có bộ ký tự tiếng Việt | Đã chốt |
-| D-42 | 2026-10-14 | Service worker tự sinh sau khi build (`scripts/generate-sw.mjs`), không dùng Serwist | App xuất tĩnh, chỉ cần precache toàn bộ `out/`; ít phụ thuộc, dễ kiểm soát | Đề xuất |
+| D-42 | 2026-10-14 | Service worker là file tĩnh `public/sw.js` (không dùng Serwist): cache khi tải + trang gửi danh sách file đã tải để cache sẵn ("warm") | Bản đầu sinh `sw.js` sau build nhưng Vercel không chạy bước đó (404); file tĩnh chạy được trên mọi host | Đề xuất |
 | D-43 | 2026-10-14 | i18n tự viết (từ điển `en` / `vi` + `useT`), không dùng next-intl | App chỉ chạy client, không cần định tuyến theo ngôn ngữ | Đề xuất |
 | D-44 | 2026-10-14 | Host trên Vercel (https://ig-layout.vercel.app/), tự deploy khi push lên `main` | Chủ dự án đã cài đặt | Đã chốt |
 | D-45 | 2026-10-14 | Trước v1.0: được merge nhánh vào `main` bất cứ lúc nào | Chưa phát hành chính thức, `main` là bản chạy thử | Đã chốt |

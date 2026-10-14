@@ -3,7 +3,7 @@
 | Hạng mục | Lựa chọn | Trạng thái | Ghi chú |
 |---|---|---|---|
 | Framework | Next.js 16 (App Router), `output: "export"` | Đã chốt | Build ra trang tĩnh (`out/`). Tắt `cacheComponents` vì cần server Node |
-| PWA | `app/manifest.ts` + icon; service worker sinh bởi `scripts/generate-sw.mjs` | Đã có (M1) | Precache toàn bộ `out/`; trang: network-first, asset: cache-first |
+| PWA | `app/manifest.ts` + icon; service worker tĩnh `public/sw.js` | Đã có (M1) | Trang: network-first; asset: cache-first; "warm" danh sách file đã tải ngay lần đầu |
 | Ngôn ngữ | TypeScript | Đã chốt | |
 | Canvas tương tác | Konva 10 + react-konva | Dùng trong prototype | Đổi sang Fabric nếu test mobile có vấn đề |
 | Filter / chỉnh màu | WebGL (shader) | Đề xuất | |

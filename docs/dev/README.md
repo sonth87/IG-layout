@@ -46,12 +46,12 @@ src/
   store/editor.ts       Zustand: project đang mở, ảnh, lịch sử undo / redo
   store/autosave.ts     tự lưu sau mỗi bước (debounce) + ảnh thu nhỏ slide 1
   store/settings.ts     theme, ngôn ngữ (localStorage) + useT()
-scripts/generate-sw.mjs sinh out/sw.js sau khi build
+public/sw.js           service worker (offline); đổi tên CACHE khi đổi chiến lược cache
 ```
 
 ## Deploy
 
-- Vercel, nối với repo GitHub: mỗi lần push lên `main` tự build (`pnpm build`, gồm sinh `sw.js`) và deploy.
+- Vercel, nối với repo GitHub: mỗi lần push lên `main` tự build (`next build`) và deploy.
 - Bản chạy: https://ig-layout.vercel.app/ — dùng link này để thử trên điện thoại (có HTTPS: cài PWA, share sheet).
 
 ## Git

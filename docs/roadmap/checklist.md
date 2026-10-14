@@ -66,8 +66,8 @@ Nhánh: `m1-foundation`. Chi tiết hóa ngày 2026-10-14.
 - [x] Font giao diện có tiếng Việt: Be Vietnam Pro (thay DM Sans)
 
 **Offline (PWA)**
-- [x] Sinh `sw.js` sau khi build (liệt kê file trong `out/` để cache sẵn), đăng ký ở bản production
-- [x] Kiểm tra: tải trang → tắt mạng → tải lại vẫn chạy
+- [x] Service worker `public/sw.js` (cache khi tải + "warm" danh sách file đã tải), đăng ký ở bản production
+- [x] Kiểm tra: vào trang 1 lần → tắt mạng → tải lại vẫn chạy (local + Vercel)
 
 **Kiểm tra & bàn giao**
 - [x] Kiểm tra tự động: tạo project → nhập ảnh → kéo → tải lại trang → project còn, undo được → đổi tên → xóa; đổi theme / ngôn ngữ; offline

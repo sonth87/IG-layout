@@ -63,7 +63,23 @@ export function useInstall() {
   return { mode, install };
 }
 
-export function registerServiceWorker() {
+/** Files this page has already loaded, so the service worker can cache them for offline use. */
+function loadedUrls() {
+  const urls = new Set<string>(["/"]);
+  for (const entry of performance.getEntriesByType("resource")) urls.add(entry.name);
+  document.querySelectorAll<HTMLScriptElement>("script[src]").forEach((s) => urls.add(s.src));
+  document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"], link[rel="preload"]').forEach((l) => urls.add(l.href));
+  return [...urls].filter((u) => new URL(u, location.href).origin === location.origin);
+}
+
+export async function registerServiceWorker() {
   if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
-  navigator.serviceWorker.register("/sw.js").catch((err) => console.warn("Service worker registration failed", err));
+  try {
+    await navigator.serviceWorker.register("/sw.js");
+    const registration = await navigator.serviceWorker.ready;
+    const channel = new MessageChannel();
+    registration.active?.postMessage({ type: "warm", urls: loadedUrls() }, [channel.port2]);
+  } catch (err) {
+    console.warn("Service worker registration failed", err);
+  }
 }

@@ -22,7 +22,7 @@ export function App() {
   );
 
   useEffect(() => {
-    registerServiceWorker();
+    void registerServiceWorker();
     return startAutosave();
   }, []);
 
