@@ -7,6 +7,7 @@ import { iconDataUrl, ICON_KEYS } from "@/lib/elements/icons";
 import { drawShape } from "@/lib/elements/shapes";
 import type { CanvasElement, FrameStyle, ShapeKind } from "@/lib/project/types";
 import { SHAPES } from "@/lib/project/types";
+import { slideRect } from "@/lib/project/layout";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 
@@ -39,11 +40,12 @@ function ShapePreview({ shape }: { shape: ShapeKind }) {
 export function ElementsSheet({ onClose }: { onClose: () => void }) {
   const t = useT();
   const doc = useViewDoc();
-  const slide = useEditor((s) => s.currentSlide);
+  const current = useEditor((s) => s.currentSlide);
   const addElement = useEditor((s) => s.addElement);
   const [tab, setTab] = useState<Tab>("all");
   const [query, setQuery] = useState("");
   if (!doc) return null;
+  const slide = slideRect(doc, Math.min(current, doc.slideCount - 1));
 
   const q = query.trim().toLowerCase();
   const match = (label: string, key: string) => !q || label.toLowerCase().includes(q) || key.includes(q);

@@ -43,11 +43,6 @@ export function center(el: Pick<Rect, "x" | "y" | "width" | "height">) {
   return { x: el.x + el.width / 2, y: el.y + el.height / 2 };
 }
 
-/** Which slide an element belongs to: the slide containing its center. */
-export function slideOf(el: Pick<Rect, "x" | "width">, slideWidth: number, slideCount: number) {
-  return Math.max(0, Math.min(slideCount - 1, Math.floor((el.x + el.width / 2) / slideWidth)));
-}
-
 /**
  * Photo area inside a decorative frame, relative to the element box (M5):
  * polaroid = thick bottom, white = even margin, film = dark border with holes.

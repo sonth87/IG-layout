@@ -60,3 +60,6 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-54 | 2026-10-14 | Icon dùng bộ Lucide (giấy phép ISC), render SVG theo kích thước | Bộ icon mở, đồng bộ phong cách nét; ghi trong Credits | Đã chốt |
 | D-55 | 2026-10-14 | Khung ảnh (polaroid, viền trắng, film) là thuộc tính của ảnh; ảnh lấp vùng bên trong; khung thay cho mask | Khung đi theo ảnh khi kéo / xoay / đổi layout; đơn giản hơn ghép nhiều phần tử | Đề xuất |
 | D-56 | 2026-10-14 | Material và sticker để sau MVP (đúng plan); M5 làm hình khối, icon, khung | Cần thư viện ảnh có giấy phép (D-33) | Đã chốt |
+| D-57 | 2026-10-14 | Một module bố cục (`layout.ts`) cho cả Post / Story (1 hàng) và Grid (3 × N, có khe) | Tránh tính vị trí slide rải rác; Grid là canvas 2 chiều | Đã chốt |
+| D-58 | 2026-10-14 | Bù khe Grid = chèn dải 12 px giữa các ô trên canvas, dải này không xuất | Ảnh ghép khớp qua đường kẻ trắng trên profile; giá trị cần xác minh | Đề xuất |
+| D-59 | 2026-10-14 | Grid chỉ hiện layout phù hợp (panorama cả lưới, mỗi ô 1 ảnh, khung); thêm / bớt hàng thay cho thêm / xóa slide | Layout carousel không có nghĩa trên lưới profile | Đã chốt |

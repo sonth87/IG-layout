@@ -1,3 +1,4 @@
+import type { ProjectType } from "@/lib/project/types";
 import type { Template, TemplateSlot } from "./types";
 
 // First template set (M3). Coordinates relative to one slide; see types.ts.
@@ -169,6 +170,7 @@ export const TEMPLATES: Template[] = [
   // ── Panorama ─────────────────────────────────────────────────────────
   {
     id: "pano",
+    types: ["post", "story", "grid"],
     group: "panorama",
     name: { en: "Panorama", vi: "Panorama" },
     photos: 1,
@@ -219,6 +221,7 @@ export const TEMPLATES: Template[] = [
   // ── Frame (one framed photo per slide) ───────────────────────────────
   {
     id: "frame-white",
+    types: ["post", "story", "grid"],
     group: "frame",
     name: { en: "White frame", vi: "Khung trắng" },
     photos: 1,
@@ -229,6 +232,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "frame-arch",
+    types: ["post", "story", "grid"],
     group: "frame",
     name: { en: "Arch", vi: "Vòm" },
     photos: 1,
@@ -239,6 +243,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "frame-rounded",
+    types: ["post", "story", "grid"],
     group: "frame",
     name: { en: "Rounded", vi: "Bo góc" },
     photos: 1,
@@ -251,6 +256,7 @@ export const TEMPLATES: Template[] = [
   // ── Single (one photo per slide) ─────────────────────────────────────
   {
     id: "single-fill",
+    types: ["post", "story", "grid"],
     group: "single",
     name: { en: "One per slide", vi: "Mỗi slide 1 ảnh" },
     photos: 1,
@@ -260,6 +266,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: "single-border",
+    types: ["post", "story", "grid"],
     group: "single",
     name: { en: "One per slide, white margin", vi: "Mỗi slide 1 ảnh, lề trắng" },
     photos: 1,
@@ -274,12 +281,18 @@ export function templateById(id: string) {
   return TEMPLATES.find((t) => t.id === id);
 }
 
+export function templatesFor(type: ProjectType) {
+  return TEMPLATES.filter((t) => (t.types ?? ["post", "story"]).includes(type));
+}
+
 /** Templates that fit `count` photos best: exact matches first, then per-photo layouts. */
-export function suggestTemplates(count: number) {
+export function suggestTemplates(count: number, type: ProjectType = "post") {
+  const all = templatesFor(type);
+  if (type === "grid") return all;
   // No photos yet: any fixed layout (cells start empty).
-  if (count === 0) return TEMPLATES.filter((t) => !t.perPhoto);
-  const exact = TEMPLATES.filter((t) => !t.perPhoto && t.photos === count);
-  const perPhoto = TEMPLATES.filter((t) => t.perPhoto);
-  const panorama = count === 1 ? TEMPLATES.filter((t) => t.group === "panorama") : [];
+  if (count === 0) return all.filter((t) => !t.perPhoto);
+  const exact = all.filter((t) => !t.perPhoto && t.photos === count);
+  const perPhoto = all.filter((t) => t.perPhoto);
+  const panorama = count === 1 ? all.filter((t) => t.group === "panorama") : [];
   return [...exact, ...panorama, ...perPhoto];
 }

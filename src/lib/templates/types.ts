@@ -1,4 +1,4 @@
-import type { Border, FrameStyle, MaskShape, ShapeKind } from "@/lib/project/types";
+import type { Border, FrameStyle, MaskShape, ProjectType, ShapeKind } from "@/lib/project/types";
 
 // Layout templates are data (D-31): coordinates are relative to one slide
 // (0..1), so the same template works for every ratio. `slide` + `x` > 1 lets a
@@ -55,6 +55,8 @@ export interface Template {
   gridded?: boolean;
   /** One slot per photo, one photo per slide (`slots[0]` is the pattern). */
   perPhoto?: boolean;
+  /** Project types the layout suits (default: post + story). */
+  types?: ProjectType[];
   background?: TemplateBackground;
   shapes?: TemplateShape[];
   slots: TemplateSlot[];

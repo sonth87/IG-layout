@@ -179,7 +179,7 @@ export function ProjectsScreen({ onNew, onSettings }: { onNew: () => void; onSet
                   </span>
                 </div>
                 <div className="text-[13px] text-muted">
-                  {t("projects.meta", { ratio: p.ratio, slides: p.slideCount, size: formatBytes(p.size) })}
+                  {t(`projects.meta.${p.type}`, { ratio: p.ratio, slides: p.slideCount, rows: Math.ceil(p.slideCount / 3), size: formatBytes(p.size) })}
                 </div>
                 <div className="text-xs text-muted">
                   {t("projects.edited", { time: formatRelative(p.updatedAt, locale) })}

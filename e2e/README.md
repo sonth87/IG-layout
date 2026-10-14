@@ -16,6 +16,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `m3.mjs` | Layout: picker sau khi chọn ảnh, đổi thứ tự, seamless, lưới + khoảng cách, kéo trong ô, đổi chỗ, ô trống, undo, Skip |
 | `m4.mjs` | Màu: adjust (xem trước không ghi lịch sử, ✕ / ✓), vignette, giữ để so sánh, filter Classic, áp cho tất cả + xác nhận, ảnh xuất mang màu, lưu & mở lại |
 | `m5.mjs` | Chữ tiếng Việt (font tải đúng, chiều cao tự theo chữ), kiểu chữ 1 bước, Elements (tìm, icon đổi màu, cuộn film), khung polaroid + điền ảnh, khung từ Style, layout cuộn film, xuất, lưu, Credits |
+| `m6.mjs` | Story (9:16, vùng an toàn, xuất `story_01…`), Grid 3 × 2 có bù khe (layout lọc theo loại, ảnh phủ cả khe, thứ tự xuất `grid_01` = ô dưới phải kiểm bằng màu, thêm hàng, tắt bù khe), danh sách project |
 | `offline.mjs` | Vào trang 1 lần → tắt mạng → vẫn chạy |
 
 - Cần Chromium: `CHROME_PATH=...` hoặc `npx playwright install chromium-headless-shell`.

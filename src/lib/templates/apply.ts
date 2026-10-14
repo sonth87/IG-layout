@@ -1,12 +1,14 @@
 import { imageElement } from "@/lib/project/placement";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
+import { canvasSize, slideRect } from "@/lib/project/layout";
 import { type CanvasElement, MAX_SLIDES, type ImageAsset, newId, type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
 import type { Template, TemplateOptions, TemplateSlot } from "./types";
 
 const EPS = 0.001;
 
-/** Number of slides the template will produce for `photoCount` photos. */
-export function templateSlides(tpl: Template, photoCount: number, current: number) {
+/** Number of slides the template will produce for `photoCount` photos. Grid keeps its tiles. */
+export function templateSlides(tpl: Template, photoCount: number, current: number, type: ProjectDoc["type"] = "post") {
+  if (type === "grid") return current;
   if (tpl.perPhoto) return Math.max(1, Math.min(MAX_SLIDES, photoCount));
   return tpl.slides === "any" ? current : tpl.slides;
 }
@@ -23,7 +25,9 @@ export function applyTemplate(
   opts: TemplateOptions,
 ): ProjectDoc {
   const { width: W, height: H } = SLIDE_SIZE[doc.ratio];
-  const slideCount = templateSlides(tpl, photos.length, doc.slideCount);
+  const slideCount = templateSlides(tpl, photos.length, doc.slideCount, doc.type);
+  const sized = { ...doc, slideCount };
+  const full = canvasSize(sized);
   const elements: CanvasElement[] = [];
   let background = doc.background;
 
@@ -31,15 +35,16 @@ export function applyTemplate(
   if (bg?.kind === "color" || bg?.kind === "gradient") background = bg;
   else if (tpl.gridded) background = { kind: "color", color: opts.color };
   if (bg?.kind === "photo" && photos[bg.photo]) {
-    elements.push(imageElement(photos[bg.photo]!, { x: 0, y: 0, width: W * slideCount, height: H }));
+    elements.push(imageElement(photos[bg.photo]!, { x: 0, y: 0, width: full.width, height: full.height }));
   }
 
   for (const sh of tpl.shapes ?? []) {
+    const r = slideRect(sized, sh.slide);
     elements.push({
       id: newId(),
       type: "shape",
-      x: (sh.slide + sh.x) * W,
-      y: sh.y * H,
+      x: r.x + sh.x * W,
+      y: r.y + sh.y * H,
       width: sh.w * W,
       height: sh.h * H,
       rotation: 0,
@@ -54,8 +59,10 @@ export function applyTemplate(
     : tpl.slots;
 
   for (const slot of slots) {
-    let x = (slot.slide + slot.x) * W;
-    let y = slot.y * H;
+    if (slot.slide >= slideCount) continue;
+    const r = slideRect(sized, slot.slide);
+    let x = r.x + slot.x * W;
+    let y = r.y + slot.y * H;
     let w = slot.w * W;
     let h = slot.h * H;
 

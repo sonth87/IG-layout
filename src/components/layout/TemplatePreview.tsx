@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import { type AspectRatio, type ImageAsset, type ImageElement, type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
+import { canvasSize, slideRect } from "@/lib/project/layout";
+import type { AspectRatio, ImageAsset, ImageElement, ProjectDoc, ProjectType } from "@/lib/project/types";
 import { applyTemplate } from "@/lib/templates/apply";
 import type { Template, TemplateOptions } from "@/lib/templates/types";
 
@@ -25,29 +26,31 @@ export function TemplatePreview(props: {
   photos: ImageAsset[];
   ratio: AspectRatio;
   slides: number;
+  type?: ProjectType;
+  grid?: ProjectDoc["grid"];
   options: TemplateOptions;
   width: number;
 }) {
-  const { template, photos, ratio, slides, options, width } = props;
+  const { template, photos, ratio, slides, options, width, type = "post", grid } = props;
   const doc = useMemo(
     () =>
       applyTemplate(
-        { type: "post", ratio, slideCount: slides, background: { kind: "color", color: "#ffffff" }, elements: [] },
+        { type, ratio, slideCount: slides, grid, background: { kind: "color", color: "#ffffff" }, elements: [] },
         template,
         photos,
         options,
       ),
-    [template, photos, ratio, slides, options],
+    [template, photos, ratio, slides, options, type, grid],
   );
-  const slide = SLIDE_SIZE[ratio];
-  const k = width / (slide.width * doc.slideCount);
+  const size = canvasSize(doc);
+  const k = width / size.width;
   const byId = new Map(photos.map((p) => [p.id, p]));
 
   return (
     <div
       aria-hidden="true"
       className="relative overflow-hidden rounded-[4px]"
-      style={{ width, height: slide.height * k, background: cssBackground(doc) }}
+      style={{ width, height: size.height * k, background: cssBackground(doc) }}
     >
       {doc.elements.map((el) => {
         if (el.type === "shape")
@@ -84,11 +87,11 @@ export function TemplatePreview(props: {
           />
         );
       })}
-      {Array.from({ length: doc.slideCount - 1 }, (_, i) => (
+      {Array.from({ length: doc.slideCount }, (_, i) => slideRect(doc, i)).map((r, i) => (
         <div
           key={i}
-          className="absolute top-0 bottom-0 border-l border-dashed border-white/90"
-          style={{ left: (i + 1) * slide.width * k }}
+          className="absolute border border-dashed border-white/70"
+          style={{ left: r.x * k, top: r.y * k, width: r.width * k, height: r.height * k }}
         />
       ))}
     </div>

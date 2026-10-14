@@ -1,7 +1,9 @@
 import type Konva from "konva";
-import { type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
+import { exportOrder, slideRect } from "@/lib/project/layout";
+import type { ProjectDoc } from "@/lib/project/types";
 
 // Export = cut the continuous canvas exactly at slide boundaries (D-30).
+// Grid gaps (profile-gap compensation) are simply not exported.
 // Rendered one slide at a time to stay within mobile canvas limits.
 
 const JPEG_QUALITY = 0.92;
@@ -20,19 +22,29 @@ export async function exportSlides(
   viewScale: number,
   baseName: string,
 ): Promise<File[]> {
-  const slide = SLIDE_SIZE[doc.ratio];
   const files: File[] = [];
-  for (let i = 0; i < doc.slideCount; i++) {
-    const blob = (await layer.toBlob({
-      x: i * slide.width * viewScale,
-      y: 0,
-      width: slide.width * viewScale,
-      height: slide.height * viewScale,
+  // File n = n-th image to post (Grid: bottom-right tile first).
+  for (const [n, i] of exportOrder(doc).entries()) {
+    const r = slideRect(doc, i);
+    const rendered = layer.toCanvas({
+      x: r.x * viewScale,
+      y: r.y * viewScale,
+      width: r.width * viewScale,
+      height: r.height * viewScale,
       pixelRatio: 1 / viewScale,
-      mimeType: "image/jpeg",
-      quality: JPEG_QUALITY,
-    })) as Blob;
-    files.push(new File([blob], fileName(baseName, i), { type: "image/jpeg" }));
+    });
+    // Float rounding can make Konva's canvas a pixel off: redraw at the exact size.
+    const exact = document.createElement("canvas");
+    exact.width = Math.round(r.width);
+    exact.height = Math.round(r.height);
+    const ctx = exact.getContext("2d")!;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(rendered, 0, 0, exact.width, exact.height);
+    const blob = await new Promise<Blob>((resolve, reject) =>
+      exact.toBlob((b) => (b ? resolve(b) : reject(new Error("Export failed"))), "image/jpeg", JPEG_QUALITY),
+    );
+    rendered.width = rendered.height = exact.width = exact.height = 0; // free memory (iOS)
+    files.push(new File([blob], fileName(baseName, n), { type: "image/jpeg" }));
   }
   return files;
 }

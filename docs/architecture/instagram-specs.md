@@ -29,6 +29,12 @@
 - JPEG, không gian màu sRGB, chất lượng khoảng 90–95%.
 - Xuất đúng chiều rộng 1080px để Instagram không phải resize lại (đỡ bị nén thêm).
 
+## Giá trị đang dùng trong app (M6) — cần xác minh trên app thật
+
+- Vùng an toàn Story: trên 250 px, dưới 340 px (`STORY_SAFE` trong `layout.ts`).
+- Khe hở giữa các ô lưới profile: 12 px trên ô rộng 1080 px (`GRID_GAP`).
+- Ô Grid xuất 1080 × 1440 (3:4).
+
 ## Lưới profile
 
 - Thumbnail trên lưới là 3:4. Ảnh 1:1 và 4:5 sẽ bị cắt bớt khi hiển thị trên lưới.

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { type Background, isImage } from "@/lib/project/types";
+import { MAX_GRID_ROWS } from "@/lib/project/layout";
 import { MAX_SLIDES } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
@@ -119,25 +120,79 @@ export function BackgroundTool({ onClose }: { onClose: () => void }) {
   );
 }
 
-/** Slide management acts directly (each action = one history step). */
-export function SlidesTool({ onClose }: { onClose: () => void }) {
+/** Slide management acts directly (each action = one history step). Grid: rows + gap. */
+export function SlidesTool(props: { onClose: () => void; showSafeZone: boolean; onSafeZone: (on: boolean) => void }) {
   const t = useT();
   const doc = useViewDoc();
   const current = useEditor((s) => s.currentSlide);
-  const { insertSlide, deleteSlide, moveSlide, setCurrentSlide } = useEditor.getState();
+  const { insertSlide, deleteSlide, moveSlide, setCurrentSlide, setGridRows, setGridGap } = useEditor.getState();
   if (!doc) return null;
   const index = Math.min(current, doc.slideCount - 1);
+  const isStory = doc.type === "story";
 
-  const button = "flex h-16 flex-1 flex-col items-center justify-center gap-1 rounded-xl border border-border text-[11px] disabled:text-disabled";
-
-  return (
-    <section aria-label={t("editor.slides")} className="rounded-t-[20px] bg-surface px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+  const shell = (title: string, children: React.ReactNode) => (
+    <section aria-label={title} className="rounded-t-[20px] bg-surface px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
       <div className="flex items-center justify-between pb-3">
-        <h2 className="text-[15px] font-bold">{t("slides.title", { index: index + 1, count: doc.slideCount })}</h2>
-        <button type="button" onClick={onClose} className="h-8 rounded-[10px] border border-border px-3 text-[13px] font-semibold">
+        <h2 className="text-[15px] font-bold">{title}</h2>
+        <button type="button" onClick={props.onClose} className="h-8 rounded-[10px] border border-border px-3 text-[13px] font-semibold">
           {t("common.done")}
         </button>
       </div>
+      {children}
+    </section>
+  );
+
+  if (doc.type === "grid" && doc.grid) {
+    const rows = doc.grid.rows;
+    return shell(
+      t("grid.title", { rows, count: doc.slideCount }),
+      <>
+        <div className="flex items-center justify-between py-1">
+          <span className="text-sm">{t("grid.rows")}</span>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              aria-label={t("grid.fewerRows")}
+              disabled={rows <= 1}
+              onClick={() => setGridRows(rows - 1)}
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-border disabled:text-disabled"
+            >
+              <Icon name="minus" size={18} />
+            </button>
+            <span className="w-6 text-center font-display text-lg font-bold">{rows}</span>
+            <button
+              type="button"
+              aria-label={t("grid.moreRows")}
+              disabled={rows >= MAX_GRID_ROWS}
+              onClick={() => setGridRows(rows + 1)}
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-border disabled:text-disabled"
+            >
+              <Icon name="plus" size={18} />
+            </button>
+          </div>
+        </div>
+        <label className="flex items-center justify-between gap-3 py-2 text-sm">
+          <span>
+            {t("grid.gap")}
+            <span className="block text-xs text-muted">{t("grid.gapHint")}</span>
+          </span>
+          <input
+            type="checkbox"
+            checked={doc.grid.gapCompensation}
+            onChange={(e) => setGridGap(e.target.checked)}
+            className="h-[22px] w-[22px] accent-accent"
+          />
+        </label>
+        <p className="pt-1 text-xs leading-relaxed text-muted">{t("grid.orderHint")}</p>
+      </>,
+    );
+  }
+
+  const button = "flex h-16 flex-1 flex-col items-center justify-center gap-1 rounded-xl border border-border text-[11px] disabled:text-disabled";
+
+  return shell(
+    t(isStory ? "frames.title" : "slides.title", { index: index + 1, count: doc.slideCount }),
+    <>
       <div className="flex gap-2">
         <button
           type="button"
@@ -182,6 +237,17 @@ export function SlidesTool({ onClose }: { onClose: () => void }) {
           {t("slides.delete")}
         </button>
       </div>
-    </section>
+      {isStory && (
+        <label className="flex items-center justify-between pt-3 text-sm">
+          <span>{t("story.safeZone")}</span>
+          <input
+            type="checkbox"
+            checked={props.showSafeZone}
+            onChange={(e) => props.onSafeZone(e.target.checked)}
+            className="h-[22px] w-[22px] accent-accent"
+          />
+        </label>
+      )}
+    </>,
   );
 }

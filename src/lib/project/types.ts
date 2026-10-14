@@ -133,15 +133,13 @@ export function isImage(el: CanvasElement | undefined): el is ImageElement {
 export interface ProjectDoc {
   type: ProjectType;
   ratio: AspectRatio;
+  /** Post: slides, Story: frames, Grid: tiles (3 × rows). */
   slideCount: number;
+  /** Grid projects only (M6). */
+  grid?: { rows: number; gapCompensation: boolean };
   background: Background;
   /** Back to front. */
   elements: CanvasElement[];
-}
-
-export function canvasSize(doc: Pick<ProjectDoc, "ratio" | "slideCount">) {
-  const slide = SLIDE_SIZE[doc.ratio];
-  return { width: slide.width * doc.slideCount, height: slide.height, slide };
 }
 
 export function newId() {

@@ -1,6 +1,6 @@
 # Kế hoạch (Roadmap)
 
-> **Đang ở:** M6 — Story & Grid. M1–M5 xong 2026-10-14. Phạm vi MVP đã duyệt: toàn bộ plan (D-46).
+> **Đang ở:** M7 — Xuất & hoàn thiện. M1–M6 xong 2026-10-14. Phạm vi MVP đã duyệt: toàn bộ plan (D-46).
 > **Bản chạy thử:** https://ig-layout.vercel.app/ (tự deploy khi push lên `main`). Còn treo từ GĐ1: test trên điện thoại thật (để sau theo ý chủ dự án), chốt D-38. Từ GĐ0: duyệt phạm vi MVP, góp ý wireframe.
 > **Việc tiếp theo:** xem mục "Việc tiếp theo" cuối file và [checklist.md](checklist.md).
 > Cập nhật lần cuối: 2026-10-14.
@@ -112,5 +112,5 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 
 ## Việc tiếp theo
 
-1. **M6 — Story & Grid** (tiếp theo), rồi M7.
+1. **M7 — Xuất & hoàn thiện** (tiếp theo) → checklist phát hành v1.0.
 2. Thử trên điện thoại thật qua link Vercel khi chủ dự án có thời gian; chốt D-38 (Konva).

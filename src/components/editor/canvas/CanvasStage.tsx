@@ -2,10 +2,11 @@
 
 import type Konva from "konva";
 import { useEffect, useRef, useState } from "react";
-import { Layer, Line, Stage, Transformer } from "react-konva";
+import { Circle, Group, Layer, Line, Rect, Stage, Text, Transformer } from "react-konva";
 import { rotatedBounds } from "@/lib/project/geometry";
 import { snap, snapTargets } from "@/lib/project/snap";
-import { canvasSize, type CanvasElement } from "@/lib/project/types";
+import { canvasSize, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
+import type { CanvasElement } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { BackgroundNode } from "./BackgroundNode";
 import { ImageNode } from "./ImageNode";
@@ -70,9 +71,11 @@ function touchInfo(stage: Konva.Stage, touches: TouchList) {
 interface Props {
   viewScale: number;
   contentLayerRef: React.RefObject<Konva.Layer | null>;
+  /** Story: show the areas covered by Instagram's UI. */
+  showSafeZone?: boolean;
 }
 
-export default function CanvasStage({ viewScale, contentLayerRef }: Props) {
+export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone = true }: Props) {
   const doc = useViewDoc();
   const selectedId = useEditor((s) => s.selectedId);
   const select = useEditor((s) => s.select);
@@ -90,7 +93,8 @@ export default function CanvasStage({ viewScale, contentLayerRef }: Props) {
   }, [contentLayerRef, viewScale, setCanvas]);
 
   if (!doc) return null;
-  const { width, height, slide } = canvasSize(doc);
+  const { width, height } = canvasSize(doc);
+  const rects = Array.from({ length: doc.slideCount }, (_, i) => slideRect(doc, i));
 
   function onDragMove(node: Konva.Node, el: CanvasElement) {
     targets.current ??= snapTargets(doc!, el.id);
@@ -176,20 +180,88 @@ export default function CanvasStage({ viewScale, contentLayerRef }: Props) {
           return <ImageNode key={el.id} element={el} onDragMove={onDragMove} onDragEnd={onDragEnd} />;
         })}
       </Layer>
-      {/* Slide boundaries, never exported. */}
+      {/* Slide boundaries, grid gaps, story safe zones, posting order — never exported. */}
       <Layer listening={false}>
-        {Array.from({ length: doc.slideCount - 1 }, (_, i) => (
-          <Line
-            key={i}
-            points={[(i + 1) * slide.width, 0, (i + 1) * slide.width, height]}
-            stroke="#ffffff"
-            strokeWidth={2 / viewScale}
-            dash={[10 / viewScale, 8 / viewScale]}
-            shadowColor="#000000"
-            shadowBlur={2 / viewScale}
-            shadowOpacity={0.6}
-          />
-        ))}
+        {doc.type === "grid" &&
+          doc.grid?.gapCompensation &&
+          rects.slice(1).map((r, i) => (
+            // Gap strips are cut away on export: tint them so the user sees what disappears.
+            <Group key={`gap${i}`}>
+              {r.x > 0 && <Rect x={r.x - GRID_GAP} y={r.y} width={GRID_GAP} height={r.height} fill="rgba(255,79,163,0.35)" />}
+              {r.y > 0 && r.x === 0 && <Rect x={0} y={r.y - GRID_GAP} width={width} height={GRID_GAP} fill="rgba(255,79,163,0.35)" />}
+            </Group>
+          ))}
+        {[...new Set(rects.flatMap((r) => [r.x, r.x + r.width]))]
+          .filter((x) => x > 0.5 && x < width - 0.5)
+          .map((x) => (
+            <Line
+              key={`vx${x}`}
+              points={[x, 0, x, height]}
+              stroke="#ffffff"
+              strokeWidth={2 / viewScale}
+              dash={[10 / viewScale, 8 / viewScale]}
+              shadowColor="#000000"
+              shadowBlur={2 / viewScale}
+              shadowOpacity={0.6}
+            />
+          ))}
+        {[...new Set(rects.flatMap((r) => [r.y, r.y + r.height]))]
+          .filter((y) => y > 0.5 && y < height - 0.5)
+          .map((y) => (
+            <Line
+              key={`hy${y}`}
+              points={[0, y, width, y]}
+              stroke="#ffffff"
+              strokeWidth={2 / viewScale}
+              dash={[10 / viewScale, 8 / viewScale]}
+              shadowColor="#000000"
+              shadowBlur={2 / viewScale}
+              shadowOpacity={0.6}
+            />
+          ))}
+        {doc.type === "story" &&
+          showSafeZone &&
+          rects.map((r, i) => (
+            <Group key={`safe${i}`}>
+              <Rect x={r.x} y={r.y} width={r.width} height={STORY_SAFE.top} fill="rgba(242,139,130,0.28)" />
+              <Rect
+                x={r.x}
+                y={r.y + r.height - STORY_SAFE.bottom}
+                width={r.width}
+                height={STORY_SAFE.bottom}
+                fill="rgba(242,139,130,0.28)"
+              />
+              <Line points={[r.x, r.y + STORY_SAFE.top, r.x + r.width, r.y + STORY_SAFE.top]} stroke="#f28b82" strokeWidth={2 / viewScale} dash={[8 / viewScale, 6 / viewScale]} />
+              <Line
+                points={[r.x, r.y + r.height - STORY_SAFE.bottom, r.x + r.width, r.y + r.height - STORY_SAFE.bottom]}
+                stroke="#f28b82"
+                strokeWidth={2 / viewScale}
+                dash={[8 / viewScale, 6 / viewScale]}
+              />
+            </Group>
+          ))}
+        {doc.type === "grid" &&
+          rects.map((r, i) => {
+            const n = postingNumber(doc, i);
+            const radius = 22 / viewScale;
+            return (
+              <Group key={`num${i}`} x={r.x + r.width - radius * 1.6} y={r.y + r.height - radius * 1.6}>
+                <Circle radius={radius} fill={n === 1 ? "#f2b84b" : "rgba(17,18,20,0.8)"} />
+                <Text
+                  text={String(n)}
+                  width={radius * 2}
+                  height={radius * 2}
+                  offsetX={radius}
+                  offsetY={radius}
+                  align="center"
+                  verticalAlign="middle"
+                  fontSize={20 / viewScale}
+                  fontStyle="700"
+                  fill={n === 1 ? "#1a1408" : "#ffffff"}
+                />
+              </Group>
+            );
+          })}
       </Layer>
       {/* Selection + snapping guides, never exported. */}
       <Layer>

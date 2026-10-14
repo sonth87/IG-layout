@@ -5,7 +5,8 @@ import { create } from "zustand";
 import { migrateDoc } from "@/lib/project/migrate";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { placeImages } from "@/lib/project/placement";
-import { deleteSlide, insertSlide, moveSlide } from "@/lib/project/slides";
+import { GRID_COLS } from "@/lib/project/layout";
+import { deleteSlide, insertSlide, moveSlide, setGridGap, setGridRows } from "@/lib/project/slides";
 import { applyTemplate } from "@/lib/templates/apply";
 import type { Template, TemplateOptions } from "@/lib/templates/types";
 import {
@@ -14,6 +15,7 @@ import {
   type ImageAsset,
   isImage,
   type ProjectDoc,
+  type ProjectType,
   newId,
 } from "@/lib/project/types";
 import { createProjectRecord, loadProject, requestPersistence, saveAssets } from "@/lib/storage/projects";
@@ -45,7 +47,7 @@ interface EditorState {
   /** Content layer + scale of the mounted canvas, used for thumbnails and export. */
   canvas: { layer: Konva.Layer; viewScale: number } | null;
 
-  createProject: (ratio: AspectRatio, slideCount: number, name: string) => Promise<void>;
+  createProject: (opts: { type: ProjectType; ratio: AspectRatio; slideCount: number; name: string; gapCompensation?: boolean }) => Promise<void>;
   openProject: (id: string) => Promise<boolean>;
   closeProject: () => void;
 
@@ -62,6 +64,8 @@ interface EditorState {
   applyLayout: (tpl: Template, photos: ImageAsset[], opts: TemplateOptions) => void;
 
   insertSlide: (after: number) => void;
+  setGridRows: (rows: number) => void;
+  setGridGap: (on: boolean) => void;
   deleteSlide: (index: number) => void;
   moveSlide: (index: number, direction: -1 | 1) => void;
 
@@ -131,20 +135,18 @@ export const useEditor = create<EditorState>()((set, get) => {
   return {
     ...EMPTY,
 
-    createProject: async (ratio, slideCount, name) => {
+    createProject: async ({ type, ratio, slideCount, name, gapCompensation = true }) => {
       const id = newId();
       const doc: ProjectDoc = {
-        type: "post",
+        type,
         ratio,
         slideCount,
         background: { kind: "color", color: "#ffffff" },
         elements: [],
+        ...(type === "grid" ? { grid: { rows: Math.ceil(slideCount / GRID_COLS), gapCompensation } } : {}),
       };
       const now = Date.now();
-      await createProjectRecord(
-        { id, name, type: "post", ratio, slideCount, createdAt: now, updatedAt: now, size: 0 },
-        doc,
-      );
+      await createProjectRecord({ id, name, type, ratio, slideCount, createdAt: now, updatedAt: now, size: 0 }, doc);
       revokeAll();
       set({ ...EMPTY, projectId: id, doc });
       void requestPersistence();
@@ -240,6 +242,11 @@ export const useEditor = create<EditorState>()((set, get) => {
     },
 
     insertSlide: (after) => commit((d) => insertSlide(d, after)),
+    setGridRows: (rows) => {
+      commit((d) => setGridRows(d, rows));
+      set({ selectedId: null });
+    },
+    setGridGap: (on) => commit((d) => setGridGap(d, on)),
     deleteSlide: (index) => {
       commit((d) => deleteSlide(d, index));
       set({ selectedId: null });

@@ -10,7 +10,6 @@ import { SLIDE_SIZE } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useT } from "@/store/settings";
 
-const BASE_NAME = "post";
 
 interface Props {
   contentLayerRef: React.RefObject<Konva.Layer | null>;
@@ -42,7 +41,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
       .then(nextFrame)
       .then(() => {
         layer.draw();
-        return exportSlides(layer, doc, viewScale, BASE_NAME);
+        return exportSlides(layer, doc, viewScale, doc.type);
       })
       .finally(() => setExporting(false))
       .then((result) => {
@@ -102,7 +101,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
               </p>
               <aside className="mt-3 rounded-2xl border border-border bg-surface px-3.5 py-3 text-[13px] leading-relaxed text-text-2">
                 <strong className="text-text">{t("export.tipTitle")}</strong>{" "}
-                {t("export.tip", { last: String(files.length).padStart(2, "0"), ratio: doc.ratio })}
+                {t(`export.tip.${doc.type}`, { last: String(files.length).padStart(2, "0"), ratio: doc.ratio })}
               </aside>
             </>
           )}
@@ -128,7 +127,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
             <button
               type="button"
               disabled={!files}
-              onClick={() => run(() => downloadZip(files!, `${BASE_NAME}.zip`))}
+              onClick={() => run(() => downloadZip(files!, `${doc.type}.zip`))}
               className={`h-12 flex-1 rounded-[14px] text-sm font-semibold disabled:opacity-50 ${
                 shareable ? "border border-border-2" : "bg-accent text-on-accent"
               }`}

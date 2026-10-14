@@ -5,7 +5,15 @@ import { useImportPhotos } from "@/components/editor/useImportPhotos";
 import { LayoutPicker } from "@/components/layout/LayoutPicker";
 import { Icon } from "@/components/ui/Icon";
 import { formatShortDate } from "@/lib/format";
-import { type AspectRatio, type ImageAsset, MAX_SLIDES, POST_RATIOS, SLIDE_SIZE } from "@/lib/project/types";
+import { GRID_COLS, MAX_GRID_ROWS } from "@/lib/project/layout";
+import {
+  type AspectRatio,
+  type ImageAsset,
+  MAX_SLIDES,
+  POST_RATIOS,
+  type ProjectType,
+  SLIDE_SIZE,
+} from "@/lib/project/types";
 import { templateSlides } from "@/lib/templates/apply";
 import { useEditor } from "@/store/editor";
 import { useSettings, useT } from "@/store/settings";
@@ -17,19 +25,87 @@ const RATIO_ICON: Record<AspectRatio, string> = {
   "9:16": "h-[28px] w-[16px]",
 };
 
+const MAX_STORY_FRAMES = 10;
+
+function TypeIcon({ type, active }: { type: ProjectType; active: boolean }) {
+  const c = active ? "bg-accent" : "bg-muted";
+  if (type === "post")
+    return (
+      <span aria-hidden="true" className="flex gap-0.5">
+        <span className={`h-5 w-4 rounded-[2px] ${c}`} />
+        <span className={`h-5 w-4 rounded-[2px] opacity-60 ${c}`} />
+        <span className={`h-5 w-4 rounded-[2px] opacity-35 ${c}`} />
+      </span>
+    );
+  if (type === "story") return <span aria-hidden="true" className={`h-7 w-4 rounded-[3px] ${c}`} />;
+  return (
+    <span aria-hidden="true" className="grid w-[30px] grid-cols-3 gap-0.5">
+      {Array.from({ length: 6 }, (_, i) => (
+        <span key={i} className={`h-2 ${c}`} />
+      ))}
+    </span>
+  );
+}
+
+function Stepper(props: {
+  value: number;
+  min: number;
+  max: number;
+  onChange: (v: number) => void;
+  fewer: string;
+  more: string;
+  hint: string;
+}) {
+  return (
+    <div className="flex items-center justify-between rounded-2xl bg-surface px-3 py-2.5">
+      <button
+        type="button"
+        aria-label={props.fewer}
+        disabled={props.value <= props.min}
+        onClick={() => props.onChange(props.value - 1)}
+        className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface-2 disabled:text-disabled"
+      >
+        <Icon name="minus" />
+      </button>
+      <div className="text-center">
+        <div className="font-display text-3xl font-bold">{props.value}</div>
+        <div className="text-xs text-muted">{props.hint}</div>
+      </div>
+      <button
+        type="button"
+        aria-label={props.more}
+        disabled={props.value >= props.max}
+        onClick={() => props.onChange(props.value + 1)}
+        className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface-2 disabled:text-disabled"
+      >
+        <Icon name="plus" />
+      </button>
+    </div>
+  );
+}
+
+/** New project (wireframe 2): Post / Story / Grid, then photos, then a layout. */
 export function NewProject({ onClose }: { onClose: () => void }) {
   const t = useT();
   const locale = useSettings((s) => s.locale);
-  const [ratio, setRatio] = useState<AspectRatio>("4:5");
+  const [type, setType] = useState<ProjectType>("post");
+  const [postRatio, setPostRatio] = useState<AspectRatio>("4:5");
   const [slides, setSlides] = useState(5);
+  const [frames, setFrames] = useState(3);
+  const [rows, setRows] = useState(3);
+  const [gap, setGap] = useState(true);
   const fileInput = useRef<HTMLInputElement>(null);
   const createProject = useEditor((s) => s.createProject);
   const addImages = useEditor((s) => s.addImages);
   const applyLayout = useEditor((s) => s.applyLayout);
   const { decodeFiles, busy, errors } = useImportPhotos();
   const [picked, setPicked] = useState<ImageAsset[] | null>(null);
+
+  const ratio: AspectRatio = type === "story" ? "9:16" : type === "grid" ? "3:4" : postRatio;
+  const count = type === "story" ? frames : type === "grid" ? rows * GRID_COLS : slides;
   const size = SLIDE_SIZE[ratio];
-  const name = () => t("new.defaultName", { date: formatShortDate(Date.now(), locale) });
+  const name = () => t(`new.defaultName.${type}`, { date: formatShortDate(Date.now(), locale) });
+  const create = (slideCount: number) => createProject({ type, ratio, slideCount, name: name(), gapCompensation: gap });
 
   async function onFiles(files: FileList | null) {
     if (!files?.length) return;
@@ -43,101 +119,151 @@ export function NewProject({ onClose }: { onClose: () => void }) {
       <LayoutPicker
         photos={picked}
         ratio={ratio}
-        slides={slides}
+        slides={count}
+        type={type}
+        grid={type === "grid" ? { rows, gapCompensation: gap } : undefined}
         onClose={() => {
           picked.forEach((a) => URL.revokeObjectURL(a.url));
           setPicked(null);
         }}
         onSkip={async () => {
-          await createProject(ratio, slides, name());
+          await create(count);
           addImages(picked);
         }}
         onApply={async (tpl, photos, options) => {
-          await createProject(ratio, templateSlides(tpl, photos.length, slides), name());
+          await create(templateSlides(tpl, photos.length, count, type));
           applyLayout(tpl, photos, options);
         }}
       />
     );
   }
 
+  const types: ProjectType[] = ["post", "story", "grid"];
+  const sectionTitle = "text-sm font-semibold tracking-wider text-muted uppercase";
+
   return (
     <main className="mx-auto flex h-dvh max-w-md flex-col">
       <header className="flex items-center gap-1 px-3 pt-3.5 pb-1">
-        <button
-          type="button"
-          aria-label={t("common.close")}
-          onClick={onClose}
-          className="flex h-11 w-11 items-center justify-center"
-        >
+        <button type="button" aria-label={t("common.close")} onClick={onClose} className="flex h-11 w-11 items-center justify-center">
           <Icon name="close" />
         </button>
-        <div>
-          <h1 className="font-display text-xl font-semibold">{t("new.title")}</h1>
-          <p className="text-xs text-muted">{t("new.subtitle")}</p>
-        </div>
+        <h1 className="font-display text-xl font-semibold">{t("new.title")}</h1>
       </header>
 
-      <div className="flex flex-1 flex-col gap-7 overflow-y-auto px-5 pt-4">
+      <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-5 pt-3">
         <section className="flex flex-col gap-3">
-          <h2 className="text-sm font-semibold tracking-wider text-muted uppercase">{t("new.ratio")}</h2>
-          <div className="flex gap-2.5">
-            {POST_RATIOS.map((r) => (
+          <h2 className={sectionTitle}>{t("new.what")}</h2>
+          <div role="radiogroup" aria-label={t("new.what")} className="grid grid-cols-3 gap-2.5">
+            {types.map((ty) => (
               <button
-                key={r}
+                key={ty}
                 type="button"
-                aria-pressed={ratio === r}
-                onClick={() => setRatio(r)}
-                className={`flex h-[72px] flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl border text-sm ${
-                  ratio === r
-                    ? "border-2 border-accent bg-accent-soft font-bold"
-                    : "border-border bg-surface font-semibold"
+                role="radio"
+                aria-checked={type === ty}
+                onClick={() => setType(ty)}
+                className={`flex h-[124px] flex-col items-center justify-center gap-2.5 rounded-2xl p-2 ${
+                  type === ty ? "border-2 border-accent bg-accent-soft" : "border border-border bg-surface"
                 }`}
               >
-                <span
-                  className={`${RATIO_ICON[r]} rounded-[3px] border-2 ${ratio === r ? "border-accent" : "border-muted"}`}
-                />
-                {r}
+                <TypeIcon type={ty} active={type === ty} />
+                <span className="text-[15px] font-bold">{t(`type.${ty}`)}</span>
+                <span className="text-[11px] leading-tight text-muted">{t(`new.typeHint.${ty}`)}</span>
               </button>
             ))}
           </div>
         </section>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-sm font-semibold tracking-wider text-muted uppercase">{t("new.slides")}</h2>
-          <div className="flex items-center justify-between rounded-2xl bg-surface px-3 py-2.5">
-            <button
-              type="button"
-              aria-label={t("new.fewer")}
-              onClick={() => setSlides((n) => Math.max(1, n - 1))}
-              className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface-2"
-            >
-              <Icon name="minus" />
-            </button>
-            <div className="text-center">
-              <div className="font-display text-3xl font-bold">{slides}</div>
-              <div className="text-xs text-muted">{t("new.upTo", { max: MAX_SLIDES })}</div>
-            </div>
-            <button
-              type="button"
-              aria-label={t("new.more")}
-              onClick={() => setSlides((n) => Math.min(MAX_SLIDES, n + 1))}
-              className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface-2"
-            >
-              <Icon name="plus" />
-            </button>
-          </div>
-          <div aria-hidden="true" className="flex h-16 overflow-hidden rounded-lg border border-dashed border-border-2">
-            {Array.from({ length: slides }, (_, i) => (
+        {type === "post" && (
+          <>
+            <section className="flex flex-col gap-3">
+              <h2 className={sectionTitle}>{t("new.ratio")}</h2>
+              <div className="flex gap-2.5">
+                {POST_RATIOS.map((r) => (
+                  <button
+                    key={r}
+                    type="button"
+                    aria-pressed={postRatio === r}
+                    onClick={() => setPostRatio(r)}
+                    className={`flex h-[72px] flex-1 flex-col items-center justify-center gap-1.5 rounded-2xl border text-sm ${
+                      postRatio === r ? "border-2 border-accent bg-accent-soft font-bold" : "border-border bg-surface font-semibold"
+                    }`}
+                  >
+                    <span className={`${RATIO_ICON[r]} rounded-[3px] border-2 ${postRatio === r ? "border-accent" : "border-muted"}`} />
+                    {r}
+                  </button>
+                ))}
+              </div>
+            </section>
+            <section className="flex flex-col gap-3">
+              <h2 className={sectionTitle}>{t("new.slides")}</h2>
+              <Stepper
+                value={slides}
+                min={1}
+                max={MAX_SLIDES}
+                onChange={setSlides}
+                fewer={t("new.fewer")}
+                more={t("new.more")}
+                hint={t("new.upTo", { max: MAX_SLIDES })}
+              />
+            </section>
+          </>
+        )}
+
+        {type === "story" && (
+          <section className="flex flex-col gap-3">
+            <h2 className={sectionTitle}>{t("new.frames")}</h2>
+            <Stepper
+              value={frames}
+              min={1}
+              max={MAX_STORY_FRAMES}
+              onChange={setFrames}
+              fewer={t("new.fewerFrames")}
+              more={t("new.moreFrames")}
+              hint={t("new.upTo", { max: MAX_STORY_FRAMES })}
+            />
+          </section>
+        )}
+
+        {type === "grid" && (
+          <section className="flex flex-col gap-3">
+            <h2 className={sectionTitle}>{t("grid.rows")}</h2>
+            <Stepper
+              value={rows}
+              min={1}
+              max={MAX_GRID_ROWS}
+              onChange={setRows}
+              fewer={t("grid.fewerRows")}
+              more={t("grid.moreRows")}
+              hint={t("new.gridPosts", { count: rows * GRID_COLS })}
+            />
+            <label className="flex items-center justify-between gap-3 rounded-2xl bg-surface px-4 py-3 text-sm">
+              <span>
+                {t("grid.gap")}
+                <span className="block text-xs text-muted">{t("grid.gapHint")}</span>
+              </span>
+              <input type="checkbox" checked={gap} onChange={(e) => setGap(e.target.checked)} className="h-[22px] w-[22px] accent-accent" />
+            </label>
+          </section>
+        )}
+
+        <section>
+          <div
+            aria-hidden="true"
+            className="grid gap-[3px]"
+            style={{ gridTemplateColumns: `repeat(${type === "grid" ? GRID_COLS : count}, minmax(0, 1fr))` }}
+          >
+            {Array.from({ length: count }, (_, i) => (
               <div
                 key={i}
-                className="flex flex-1 items-center justify-center border-dashed border-border-2 text-xs text-muted [&:not(:last-child)]:border-r"
+                className="flex items-center justify-center rounded-[3px] border border-dashed border-border-2 text-[10px] text-muted"
+                style={{ aspectRatio: `${size.width} / ${size.height}`, maxHeight: type === "grid" ? 44 : 72 }}
               >
                 {i + 1}
               </div>
             ))}
           </div>
-          <p className="text-sm leading-relaxed text-muted">
-            {t("new.cutInfo", { count: slides, width: size.width, height: size.height })}
+          <p className="pt-3 text-sm leading-relaxed text-muted">
+            {t(`new.cutInfo.${type}`, { count, width: size.width, height: size.height })}
           </p>
         </section>
 

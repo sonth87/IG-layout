@@ -1,6 +1,6 @@
 "use client";
 
-import { SLIDE_SIZE } from "@/lib/project/types";
+import { canvasSize, slideRect } from "@/lib/project/layout";
 import { saveState } from "@/lib/storage/projects";
 import { useEditor } from "./editor";
 
@@ -16,14 +16,15 @@ let pending: Promise<void> = Promise.resolve();
 async function thumbnail(): Promise<Blob | undefined> {
   const { canvas, doc } = useEditor.getState();
   if (!canvas || !doc) return undefined;
-  const slide = SLIDE_SIZE[doc.ratio];
-  const w = slide.width * canvas.viewScale;
+  // Grid: the whole profile picture; otherwise the first slide.
+  const area = doc.type === "grid" ? { x: 0, y: 0, ...canvasSize(doc) } : slideRect(doc, 0);
+  const w = area.width * canvas.viewScale;
   try {
     return (await canvas.layer.toBlob({
       x: 0,
       y: 0,
       width: w,
-      height: slide.height * canvas.viewScale,
+      height: area.height * canvas.viewScale,
       pixelRatio: THUMB_WIDTH / w,
       mimeType: "image/jpeg",
       quality: 0.8,

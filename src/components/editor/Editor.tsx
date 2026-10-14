@@ -3,7 +3,8 @@
 import type Konva from "konva";
 import { useEffect, useRef, useState } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { canvasSize, isImage } from "@/lib/project/types";
+import { canvasSize, slideAt, slideRect } from "@/lib/project/layout";
+import { isImage } from "@/lib/project/types";
 import { flushSave } from "@/store/autosave";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
@@ -27,12 +28,21 @@ type Tool = "crop" | "mask" | "style" | "adjust" | "filters" | "text" | "fill" |
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background"];
 
 /** Stage pixels per export pixel: a slide fits the area height and ~86% of its width. */
-function useViewScale(area: React.RefObject<HTMLDivElement | null>, slide: { width: number; height: number }) {
+/**
+ * Stage pixels per export pixel. Post / Story: a slide fits the area height and
+ * ~86% of its width (scroll sideways). Grid: the whole grid width fits (scroll down).
+ */
+function useViewScale(
+  area: React.RefObject<HTMLDivElement | null>,
+  slide: { width: number; height: number },
+  gridWidth: number | null,
+) {
   const [scale, setScale] = useState(0);
   useEffect(() => {
     const el = area.current;
     if (!el) return;
     const update = () => {
+      if (gridWidth) return setScale(Math.max(0.05, (el.clientWidth - STAGE_PADDING * 2) / gridWidth));
       const h = el.clientHeight - STAGE_PADDING * 2 - 20;
       const w = el.clientWidth * 0.86;
       setScale(Math.max(0.05, Math.min(h / slide.height, w / slide.width)));
@@ -41,7 +51,7 @@ function useViewScale(area: React.RefObject<HTMLDivElement | null>, slide: { wid
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [area, slide.width, slide.height]);
+  }, [area, slide.width, slide.height, gridWidth]);
   return scale;
 }
 
@@ -93,10 +103,12 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const [exportOpen, setExportOpen] = useState(false);
   const [tool, setTool] = useState<Tool | null>(null);
   const [editingText, setEditingText] = useState<string | null>(null);
+  const [showSafeZone, setShowSafeZone] = useState(true);
 
-  const { slide } = canvasSize(doc);
-  const viewScale = useViewScale(areaRef, slide);
-  const slideW = slide.width * viewScale;
+  const size = canvasSize(doc);
+  const { slide } = size;
+  const isGrid = doc.type === "grid";
+  const viewScale = useViewScale(areaRef, slide, isGrid ? size.width : null);
   const selected = doc.elements.find((el) => el.id === selectedId);
   /** Photos used in the project, back to front, without duplicates (for re-layout). */
   const usedPhotos = [...new Set(doc.elements.filter(isImage).map((el) => el.assetId).filter((id): id is string => !!id))]
@@ -108,12 +120,14 @@ export function Editor({ onClose }: { onClose: () => void }) {
     setTool(next);
   }
 
+  /** Current slide = the one under the middle of the visible area. */
   function onScroll() {
     const area = areaRef.current;
-    if (!area || slideW <= 0) return;
-    const index = Math.round((area.scrollLeft + area.clientWidth / 2 - STAGE_PADDING) / slideW - 0.5);
-    const clamped = Math.max(0, Math.min(doc.slideCount - 1, index));
-    if (clamped !== useEditor.getState().currentSlide) setCurrentSlide(clamped);
+    if (!area || viewScale <= 0) return;
+    const x = (area.scrollLeft + area.clientWidth / 2 - STAGE_PADDING) / viewScale;
+    const y = (area.scrollTop + area.clientHeight / 2 - STAGE_PADDING - 20) / viewScale;
+    const index = slideAt(doc, x, y);
+    if (index !== useEditor.getState().currentSlide) setCurrentSlide(index);
   }
 
   async function onBack() {
@@ -147,7 +161,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "text" && selected) bottom = <TextTool elementId={selected.id} onClose={close} />;
   else if (tool === "fill" && selected) bottom = <FillTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
-  else if (tool === "slides") bottom = <SlidesTool onClose={close} />;
+  else if (tool === "slides")
+    bottom = <SlidesTool onClose={close} showSafeZone={showSafeZone} onSafeZone={setShowSafeZone} />;
   else if (selected) {
     const header = (
       <div className="flex items-center justify-between px-2.5 pb-1.5">
@@ -206,7 +221,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
           label={t("editor.text")}
           icon="text"
           onClick={() => {
-            const el = newText(doc.ratio, currentSlide, t("text.placeholder"));
+            const el = newText(doc.ratio, slideRect(doc, currentSlide), t("text.placeholder"));
             addElement(el);
             setEditingText(el.id);
           }}
@@ -214,7 +229,11 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <ToolButton label={t("editor.elements")} icon="shapes" onClick={() => setTool("elements")} />
         <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
         <ToolButton label={t("editor.background")} icon="background" onClick={() => openTool("background")} />
-        <ToolButton label={t("editor.slides")} icon="slides" onClick={() => openTool("slides")} />
+        <ToolButton
+          label={isGrid ? t("editor.grid") : doc.type === "story" ? t("editor.frames") : t("editor.slides")}
+          icon="slides"
+          onClick={() => openTool("slides")}
+        />
       </div>,
     );
 
@@ -225,7 +244,11 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <Icon name="back" />
         </button>
         <div className="min-w-0 flex-1 truncate text-[15px] font-semibold">
-          {t("editor.title", { ratio: doc.ratio, count: doc.slideCount })}
+          {doc.type === "grid"
+            ? t("editor.titleGrid", { rows: doc.grid?.rows ?? 1 })
+            : doc.type === "story"
+              ? t("editor.titleStory", { count: doc.slideCount })
+              : t("editor.title", { ratio: doc.ratio, count: doc.slideCount })}
         </div>
         <button
           type="button"
@@ -258,19 +281,23 @@ export function Editor({ onClose }: { onClose: () => void }) {
         </button>
       </header>
 
-      <div ref={areaRef} onScroll={onScroll} className="relative flex-1 overflow-x-auto overflow-y-hidden bg-canvas">
+      <div
+        ref={areaRef}
+        onScroll={onScroll}
+        className={`relative flex-1 bg-canvas ${isGrid ? "overflow-y-auto" : "overflow-x-auto overflow-y-hidden"}`}
+      >
         {viewScale > 0 && (
           <div className="relative inline-block" style={{ padding: STAGE_PADDING, paddingTop: STAGE_PADDING + 20 }}>
-            {Array.from({ length: doc.slideCount }, (_, i) => (
+            {!isGrid && Array.from({ length: doc.slideCount }, (_, i) => (
               <span
                 key={i}
                 className={`absolute text-xs ${i === currentSlide ? "font-bold text-accent-text" : "text-muted"}`}
-                style={{ left: STAGE_PADDING + i * slideW, top: STAGE_PADDING - 2 }}
+                style={{ left: STAGE_PADDING + slideRect(doc, i).x * viewScale, top: STAGE_PADDING - 2 }}
               >
                 {t("editor.slideOf", { index: i + 1, count: doc.slideCount })}
               </span>
             ))}
-            <CanvasStage viewScale={viewScale} contentLayerRef={contentLayerRef} />
+            <CanvasStage viewScale={viewScale} contentLayerRef={contentLayerRef} showSafeZone={showSafeZone} />
           </div>
         )}
         {doc.elements.length === 0 && (
@@ -328,6 +355,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
           photos={usedPhotos}
           ratio={doc.ratio}
           slides={doc.slideCount}
+          type={doc.type}
+          grid={doc.grid}
           onClose={() => setTool(null)}
           onApply={(tpl, photos, options) => {
             applyLayout(tpl, photos, options);

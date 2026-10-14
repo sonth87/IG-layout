@@ -44,7 +44,8 @@ src/
     project/geometry.ts   cover crop, nắn thẳng, bounds khi xoay, slide của phần tử
     project/masks.ts      đường viền 8 hình mask
     project/snap.ts       hít & đường gióng
-    project/slides.ts     thêm / xóa / đổi chỗ slide
+    project/layout.ts     vị trí slide / ô (Post, Story: 1 hàng; Grid: 3 × N + khe), thứ tự xuất, vùng an toàn Story
+    project/slides.ts     thêm / xóa / đổi chỗ slide; Grid: thêm / bớt hàng, bật / tắt bù khe
     project/migrate.ts    nâng cấp dữ liệu project cũ
     templates/          types, library (danh sách template), apply (template → phần tử)
     color/              params (thông số màu), filters (danh sách filter), processor (WebGL + cache)
@@ -80,6 +81,7 @@ public/sw.js           service worker (offline); đổi tên CACHE khi đổi ch
 ## Quy ước
 
 - Mọi tọa độ trong `ProjectDoc` là **pixel xuất** (1 slide 4:5 = 1080 × 1350). Màn hình chỉ là `viewScale` của canvas.
+- Không tự tính vị trí slide kiểu `i * width`: luôn dùng `slideRect` / `canvasSize` trong `layout.ts` (Grid có 2 chiều và khe hở).
 - Chỉ thay đổi project qua action của store; mỗi action = 1 bước lịch sử. Cử chỉ kéo / xoay / pinch ghi khi thả tay.
 - Công cụ có ✕ / ✓ sửa trên `draft` (`beginDraft` → `updateDraft` → `applyDraft` / `cancelDraft`); hiển thị dùng `useViewDoc()` (= draft ?? doc).
 - Đổi cấu trúc `ProjectDoc` → cập nhật `migrate.ts` để project đã lưu vẫn mở được.

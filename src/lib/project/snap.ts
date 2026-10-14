@@ -1,6 +1,6 @@
 import { rotatedBounds } from "./geometry";
-import type { CanvasElement, ProjectDoc, Rect } from "./types";
-import { SLIDE_SIZE } from "./types";
+import { canvasSize, slideRect } from "./layout";
+import type { ProjectDoc, Rect } from "./types";
 
 // Snapping while dragging (docs/architecture/editor-model.md, mục 4).
 
@@ -13,12 +13,17 @@ export interface SnapResult {
 }
 
 export function snapTargets(doc: ProjectDoc, movingId: string) {
-  const slide = SLIDE_SIZE[doc.ratio];
   const xs: number[] = [];
-  const ys = [0, slide.height / 2, slide.height];
-  for (let i = 0; i < doc.slideCount; i++) xs.push(i * slide.width, i * slide.width + slide.width / 2);
-  xs.push(doc.slideCount * slide.width);
-  for (const el of doc.elements as CanvasElement[]) {
+  const ys: number[] = [];
+  for (let i = 0; i < doc.slideCount; i++) {
+    const r = slideRect(doc, i);
+    xs.push(r.x, r.x + r.width / 2, r.x + r.width);
+    ys.push(r.y, r.y + r.height / 2, r.y + r.height);
+  }
+  const size = canvasSize(doc);
+  xs.push(0, size.width / 2, size.width);
+  ys.push(0, size.height / 2, size.height);
+  for (const el of doc.elements) {
     if (el.id === movingId) continue;
     const b = rotatedBounds(el);
     xs.push(b.x, b.x + b.width / 2, b.x + b.width);

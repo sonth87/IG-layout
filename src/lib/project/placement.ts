@@ -1,6 +1,7 @@
 import { NO_ADJUST } from "@/lib/color/params";
 import { centeredRect, coverCrop } from "./geometry";
-import { type ImageAsset, type ImageElement, type ProjectDoc, type Rect, SLIDE_SIZE, newId } from "./types";
+import { canvasSize, slideRect } from "./layout";
+import { type ImageAsset, type ImageElement, type ProjectDoc, type Rect, newId } from "./types";
 
 export function imageElement(asset: Pick<ImageAsset, "id" | "width" | "height">, frame: Rect): ImageElement {
   return {
@@ -32,24 +33,22 @@ export function imageElement(asset: Pick<ImageAsset, "id" | "width" | "height">,
  * - photos added to a project that already has content → floating on the current slide.
  */
 export function placeImages(doc: ProjectDoc, assets: ImageAsset[], firstSlide = 0): ImageElement[] {
-  const slide = SLIDE_SIZE[doc.ratio];
   const empty = doc.elements.length === 0;
 
   if (empty && assets.length === 1) {
-    return [imageElement(assets[0], { x: 0, y: 0, width: slide.width * doc.slideCount, height: slide.height })];
+    const size = canvasSize(doc);
+    return [imageElement(assets[0], { x: 0, y: 0, width: size.width, height: size.height })];
   }
   if (empty) {
-    return assets.map((asset, i) => {
-      const index = Math.min(firstSlide + i, doc.slideCount - 1);
-      return imageElement(asset, { x: index * slide.width, y: 0, width: slide.width, height: slide.height });
-    });
+    return assets.map((asset, i) => imageElement(asset, slideRect(doc, Math.min(firstSlide + i, doc.slideCount - 1))));
   }
   return assets.map((asset, i) => {
+    const slide = slideRect(doc, firstSlide);
     const box = centeredRect({ width: slide.width * 0.7, height: slide.height * 0.7 }, asset.width / asset.height);
     const offset = i * 40;
     return imageElement(asset, {
-      x: firstSlide * slide.width + slide.width * 0.15 + box.x + offset,
-      y: slide.height * 0.15 + box.y + offset,
+      x: slide.x + slide.width * 0.15 + box.x + offset,
+      y: slide.y + slide.height * 0.15 + box.y + offset,
       width: box.width,
       height: box.height,
     });

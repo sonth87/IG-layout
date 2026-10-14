@@ -122,6 +122,8 @@ File JSON, toạ độ **tương đối** (0..1 theo slide) để dùng cho mọ
 
 ## 9. Story & Grid (M6)
 
+> **Đã cài đặt (M6):** `src/lib/project/layout.ts` là nơi duy nhất tính vị trí slide (`slideRect`), kích thước canvas (`canvasSize`), slide của một điểm (`slideAt`), thứ tự xuất (`exportOrder`). Grid: 3 cột, ô 3:4; bật bù khe → giữa các ô có dải `GRID_GAP` px (tô màu trong editor, không xuất). Thao tác slide / hàng dời phần tử theo ô chứa tâm (`slides.ts`). Template khai báo `types` để lọc theo loại project.
+
 - **Story:** `ratio = 9:16`, các khung nằm liền nhau như Post nhưng hiển thị **vùng an toàn** (trên ~250 px, dưới ~340 px — cần xác minh).
 - **Grid:** canvas 2 chiều 3 cột × `rows` hàng, mỗi ô 1080 × 1440. Xuất theo **thứ tự đăng** (ô dưới cùng bên phải = `_01`). Bù khe hở: thu nhỏ nội dung mỗi ô một chút quanh mép (tham số cần thử).
 

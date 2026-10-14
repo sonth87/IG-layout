@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { Slider, Swatches } from "@/components/editor/tools/controls";
 import { Icon } from "@/components/ui/Icon";
-import type { AspectRatio, ImageAsset } from "@/lib/project/types";
+import type { AspectRatio, ImageAsset, ProjectDoc, ProjectType } from "@/lib/project/types";
 import { templateSlides } from "@/lib/templates/apply";
-import { suggestTemplates, TEMPLATES } from "@/lib/templates/library";
+import { suggestTemplates, templatesFor } from "@/lib/templates/library";
 import { DEFAULT_OPTIONS, TEMPLATE_GROUPS, type Template, type TemplateGroup, type TemplateOptions } from "@/lib/templates/types";
 import { useSettings, useT } from "@/store/settings";
 import { TemplatePreview } from "./TemplatePreview";
@@ -13,8 +13,10 @@ import { TemplatePreview } from "./TemplatePreview";
 interface Props {
   photos: ImageAsset[];
   ratio: AspectRatio;
-  /** Slide count used by "any"-slide templates. */
+  /** Slide count used by "any"-slide templates (Grid: tiles). */
   slides: number;
+  type: ProjectType;
+  grid?: ProjectDoc["grid"];
   onApply: (template: Template, photos: ImageAsset[], options: TemplateOptions) => void;
   onClose: () => void;
   /** Shown when choosing a layout is optional (new project). */
@@ -24,17 +26,18 @@ interface Props {
 type Tab = "suggested" | TemplateGroup;
 
 /** Choose a layout for the picked photos (wireframe 3). Full-screen. */
-export function LayoutPicker({ photos: initial, ratio, slides, onApply, onClose, onSkip }: Props) {
+export function LayoutPicker({ photos: initial, ratio, slides, type, grid, onApply, onClose, onSkip }: Props) {
   const t = useT();
   const locale = useSettings((s) => s.locale);
   const [photos, setPhotos] = useState(initial);
   const [picked, setPicked] = useState<number | null>(null);
   const [tab, setTab] = useState<Tab>("suggested");
-  const suggested = suggestTemplates(photos.length);
-  const [selected, setSelected] = useState<Template>(suggested[0] ?? TEMPLATES[0]);
+  const suggested = suggestTemplates(photos.length, type);
+  const forType = templatesFor(type);
+  const [selected, setSelected] = useState<Template>(suggested[0] ?? forType[0]);
   const [options, setOptions] = useState<TemplateOptions>(DEFAULT_OPTIONS);
 
-  const list = tab === "suggested" ? suggested : TEMPLATES.filter((tpl) => tpl.group === tab);
+  const list = tab === "suggested" ? suggested : forType.filter((tpl) => tpl.group === tab);
 
   /** Tap one photo, then another, to swap their order. */
   function onPhoto(i: number) {
@@ -47,7 +50,8 @@ export function LayoutPicker({ photos: initial, ratio, slides, onApply, onClose,
     setPicked(null);
   }
 
-  const tabs: Tab[] = ["suggested", ...TEMPLATE_GROUPS];
+  // Only groups that have layouts for this project type.
+  const tabs: Tab[] = ["suggested", ...TEMPLATE_GROUPS.filter((g) => forType.some((tpl) => tpl.group === g))];
 
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="layout-title" className="fixed inset-0 z-20 flex flex-col bg-bg">
@@ -111,7 +115,7 @@ export function LayoutPicker({ photos: initial, ratio, slides, onApply, onClose,
         <div className="grid flex-1 auto-rows-min grid-cols-2 gap-3 overflow-y-auto px-5 pb-3">
           {list.map((tpl) => {
             const active = tpl.id === selected.id;
-            const s = templateSlides(tpl, photos.length, slides);
+            const s = templateSlides(tpl, photos.length, slides, type);
             return (
               <button
                 key={tpl.id}
@@ -120,10 +124,10 @@ export function LayoutPicker({ photos: initial, ratio, slides, onApply, onClose,
                 onClick={() => setSelected(tpl)}
                 className={`flex flex-col gap-2 rounded-[14px] bg-surface p-2.5 text-left ${active ? "border-2 border-accent" : "border border-border"}`}
               >
-                <TemplatePreview template={tpl} photos={photos} ratio={ratio} slides={slides} options={options} width={148} />
+                <TemplatePreview template={tpl} photos={photos} ratio={ratio} slides={slides} type={type} grid={grid} options={options} width={148} />
                 <span className="text-[13px] leading-tight font-semibold">{tpl.name[locale]}</span>
                 <span className="text-[11px] text-muted">
-                  {t("layout.meta", { photos: tpl.perPhoto ? photos.length : tpl.photos, slides: s })}
+                  {type === "grid" ? t("layout.metaGrid", { photos: tpl.perPhoto ? s : tpl.photos }) : t("layout.meta", { photos: tpl.perPhoto ? photos.length : tpl.photos, slides: s })}
                 </span>
               </button>
             );

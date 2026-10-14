@@ -132,12 +132,16 @@ Nhánh: `m5-text-elements` — xong 2026-10-14, đã merge vào `main`. Thiết 
 - [ ] Material (băng dính washi, giấy note, giấy kraft…) và sticker — để sau MVP như plan
 
 ### M6 — Story & Grid
-Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 9.
-- [ ] Màn New project: chọn Post / Story / Grid
-- [ ] Story: 9:16, vùng an toàn bật / tắt, nhiều khung, template Story
-- [ ] Grid: canvas 3 × N, chọn số hàng, số thứ tự đăng trên ô, bù khe hở, xuất theo thứ tự đăng
-- [ ] Xác minh thông số Story / lưới profile hiện hành của Instagram
-- [ ] Kiểm tra tự động + tài liệu
+Nhánh: `m6-story-grid` — xong 2026-10-14, đã merge vào `main`. Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 9.
+- [x] Module bố cục chung `lib/project/layout.ts` (vị trí slide, kích thước canvas, slide chứa điểm, thứ tự xuất); mọi phần dùng chung module này
+- [x] Màn New project: chọn Post / Story / Grid + tùy chọn từng loại
+- [x] Story: 9:16, 1–10 khung, vùng an toàn bật / tắt, xuất `story_01…`
+- [x] Grid: canvas 3 × N (1–8 hàng), ô 1080 × 1440, số thứ tự đăng trên ô, bù khe hở (vùng khe tô màu, không xuất), thêm / bớt hàng, xuất `grid_01` = ô dưới phải
+- [x] Layout lọc theo loại project (Grid: panorama cả lưới, mỗi ô 1 ảnh, khung)
+- [x] Mẹo đăng theo loại project; thông tin project trong danh sách theo loại
+- [x] Sửa lỗi: ảnh xuất có thể lệch 1 px do làm tròn → vẽ lại đúng kích thước
+- [x] Kiểm tra tự động `e2e/m6.mjs` (kiểm thứ tự xuất Grid bằng màu ảnh)
+- [ ] Xác minh thông số thật của Instagram: vùng an toàn Story (250 / 340 px), khe hở lưới profile (12 px) — chuyển sang M7 (thử trên app thật)
 
 ### M7 — Xuất & hoàn thiện
 - [ ] Xem trước kiểu Instagram: carousel (vuốt) và lưới profile
