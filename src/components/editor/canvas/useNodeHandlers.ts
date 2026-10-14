@@ -3,6 +3,7 @@
 import type Konva from "konva";
 import type { CanvasElement } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
+import { useElementInteraction } from "./interaction";
 
 export interface DragHooks {
   onDragMove: (node: Konva.Node, element: CanvasElement) => void;
@@ -20,8 +21,8 @@ export function useNodeHandlers(
   hooks: DragHooks,
   onResize?: (scale: number) => Partial<CanvasElement>,
 ) {
-  const select = useEditor((s) => s.select);
   const updateElement = useEditor((s) => s.updateElement);
+  const { draggable, preventDefault, onSelect, onMouseSelect } = useElementInteraction(el);
   const w = el.width;
   const h = el.height;
 
@@ -33,10 +34,10 @@ export function useNodeHandlers(
     offsetY: h / 2,
     rotation: el.rotation,
     opacity: el.opacity,
-    draggable: true,
-    onMouseDown: () => select(el.id),
-    onTap: () => select(el.id),
-    onDragStart: () => select(el.id),
+    draggable,
+    preventDefault,
+    onMouseDown: onMouseSelect,
+    onTap: onSelect,
     onDragMove: (e: Konva.KonvaEventObject<DragEvent>) => hooks.onDragMove(e.target, el),
     onDragEnd: (e: Konva.KonvaEventObject<DragEvent>) => {
       hooks.onDragEnd();

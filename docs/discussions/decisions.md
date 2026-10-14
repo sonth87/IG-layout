@@ -63,6 +63,12 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-57 | 2026-10-14 | Một module bố cục (`layout.ts`) cho cả Post / Story (1 hàng) và Grid (3 × N, có khe) | Tránh tính vị trí slide rải rác; Grid là canvas 2 chiều | Đã chốt |
 | D-58 | 2026-10-14 | Bù khe Grid = chèn dải 12 px giữa các ô trên canvas, dải này không xuất | Ảnh ghép khớp qua đường kẻ trắng trên profile; giá trị cần xác minh | Đề xuất |
 | D-59 | 2026-10-14 | Grid chỉ hiện layout phù hợp (panorama cả lưới, mỗi ô 1 ảnh, khung); thêm / bớt hàng thay cho thêm / xóa slide | Layout carousel không có nghĩa trên lưới profile | Đã chốt |
+| D-60 | 2026-10-15 | Trên cảm ứng: chạm để chọn, chỉ kéo được phần tử đã chọn; chuột vẫn kéo ngay | Vuốt trên canvas phải cuộn slide, không kéo nhầm ảnh (UX-01) | Đã chốt (M8) |
+| D-61 | 2026-10-15 | Phần tử có cờ `locked`; ảnh panorama phủ cả canvas và ảnh nền của layout tự khoá; mở khoá trong bảng Lớp | Ảnh nền không bị kéo lệch; chạm vào nền = bỏ chọn | Đã chốt (M8) |
+| D-62 | 2026-10-15 | Phần tử do layout sinh ra có cờ `fromLayout`; đổi layout chỉ thay các phần tử này | Giữ chữ / hình / icon người dùng đã thêm (UX-02) | Đã chốt (M8) |
+| D-63 | 2026-10-15 | Thanh công cụ tối đa 5 nút + "Thêm" (bảng hành động); Nhân bản / Xoá / Xong ở thanh trên | Vừa màn 360–390 px, nút quan trọng không bị khuất (UX-03) | Đã chốt (M8) |
+| D-64 | 2026-10-15 | Tên file xuất = tên project dạng slug (bỏ dấu) + số thứ tự | Không trùng tên giữa các project (UX-16) | Đã chốt (M8) |
+| D-65 | 2026-10-15 | Hộp thoại trong app thay prompt / confirm của trình duyệt | Đồng bộ giao diện, không bị chặn trong webview (UX-15) | Đã chốt (M8) |
 | D-60 | 2026-10-14 | Khi chỉnh, ảnh luôn vẽ từ bản thu nhỏ ≤ 1600 px (kể cả không có filter); xuất mới dùng ảnh đầy đủ | Đo: vẽ lại 432 → 38 ms với 20 ảnh lớn | Đã chốt |
 | D-61 | 2026-10-14 | Giới hạn ~8 MP mỗi layer canvas (giảm mật độ điểm ảnh hiển thị khi dải slide dài) | Tránh vượt giới hạn bộ nhớ canvas của iOS Safari | Đã chốt |
 | D-62 | 2026-10-14 | Xem trước Instagram là bản mô phỏng gần đúng (không sao chép giao diện Instagram) | Đủ để thấy thứ tự, cách cắt 3:4, vùng bị che | Đã chốt |

@@ -2,7 +2,13 @@
 
 import { canvasSize, slideRect } from "@/lib/project/layout";
 import { saveState } from "@/lib/storage/projects";
+import { create } from "zustand";
 import { useEditor } from "./editor";
+
+/** Shown in the editor header (UX-11). */
+export const useSaveStatus = create<{ status: "idle" | "pending" | "saving" | "saved" | "error" }>()(() => ({
+  status: "idle",
+}));
 
 // Saves doc + history after every recorded step (debounced), plus a thumbnail
 // of slide 1. Saving is "nice to have" (D-22): failures are logged, never thrown.
@@ -37,11 +43,14 @@ async function thumbnail(): Promise<Blob | undefined> {
 async function save() {
   const { projectId, doc, past, future } = useEditor.getState();
   if (!projectId || !doc) return;
+  useSaveStatus.setState({ status: "saving" });
   try {
     const thumb = await thumbnail();
     await saveState({ id: projectId, doc, past, future }, thumb ? { thumbnail: thumb } : {});
+    useSaveStatus.setState({ status: timer ? "pending" : "saved" });
   } catch (err) {
     console.warn("Autosave failed", err);
+    useSaveStatus.setState({ status: "error" });
   }
 }
 
@@ -67,6 +76,7 @@ export function startAutosave() {
   const unsubscribe = useEditor.subscribe((state, prev) => {
     if (!state.projectId || state.projectId !== prev.projectId) return;
     if (state.doc === prev.doc && state.past === prev.past && state.future === prev.future) return;
+    useSaveStatus.setState({ status: "pending" });
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
       timer = null;

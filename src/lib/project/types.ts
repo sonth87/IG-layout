@@ -58,6 +58,10 @@ interface ElementBase {
   height: number;
   rotation: number;
   opacity: number;
+  /** Locked: not draggable / resizable (e.g. a background photo). Still selectable for its tools. */
+  locked?: boolean;
+  /** Created by a layout; replaced when another layout is applied (user-added items are kept). */
+  fromLayout?: boolean;
 }
 
 export const FRAME_STYLES = ["none", "polaroid", "white", "film"] as const;

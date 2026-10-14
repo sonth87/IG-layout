@@ -1,6 +1,6 @@
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { more, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
 
 const url = URL_ARG;
 const shot = (p, n) => p.screenshot({ path: path.join(out, `m6-${n}.png`) });
@@ -12,6 +12,7 @@ const check = (cond, msg) => {
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+await skipTips(context);
 const page = await context.newPage();
 const errors = [];
 page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
@@ -66,13 +67,13 @@ check(st.doc.type === "story" && st.doc.ratio === "9:16" && st.doc.slideCount ==
 check(st.doc.elements.length === 2 && st.doc.elements[1].x === 1080, "one photo per frame");
 await page.getByRole("button", { name: "Done" }).click();
 await shot(page, "2-story-editor");
-await page.getByRole("button", { name: "Frames" }).click();
+await more(page, "Frames");
 check(await page.getByRole("checkbox", { name: "Show areas covered by Instagram" }).isChecked(), "safe zone shown by default");
 await page.getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: "Export" }).click();
 await page.getByText("2 images · JPEG · 1080 × 1920").waitFor();
 let files = await exported();
-check(files.length === 2 && files[0].name === "story_01.jpg" && files.every((f) => f.w === 1080 && f.h === 1920), "story_01/02 at 1080 × 1920");
+check(files.length === 2 && /^story-.*_01\.jpg$/.test(files[0].name) && files.every((f) => f.w === 1080 && f.h === 1920), "story_01/02 at 1080 × 1920");
 await page.getByLabel("Back to editor").click();
 await page.getByLabel("Back").click();
 
@@ -100,7 +101,7 @@ console.log("3. Export order: _01 = bottom-right tile");
 await page.getByRole("button", { name: "Export" }).click();
 await page.getByText("6 images · JPEG · 1080 × 1440").waitFor();
 files = await exported();
-check(files.map((f) => f.name).join() === ["01", "02", "03", "04", "05", "06"].map((n) => `grid_${n}.jpg`).join(), "files grid_01 … grid_06");
+check(files.every((f, i) => new RegExp(`^grid-.*_0${i + 1}\\.jpg$`).test(f.name)), `files …_01 … _06 named after the project (${files[0].name})`);
 check(files.every((f) => f.w === 1080 && f.h === 1440), `1080 × 1440 each (${files.map((f) => f.w + "×" + f.h).join(" ")})`);
 // The panorama gets redder to the right: _01 (bottom-right) is reddest, _03 (bottom-left) least.
 check(files[0].r > files[1].r && files[1].r > files[2].r, `bottom row right→left (r: ${files.slice(0, 3).map((f) => Math.round(f.r)).join(" > ")})`);
@@ -109,7 +110,7 @@ await shot(page, "5-grid-export");
 await page.getByLabel("Back to editor").click();
 
 console.log("4. Rows and gap");
-await page.getByRole("button", { name: "Grid", exact: true }).click();
+await more(page, "Grid");
 await page.getByRole("button", { name: "More rows" }).click();
 st = await S();
 check(st.doc.slideCount === 9 && st.doc.grid.rows === 3, "3 rows → 9 posts");

@@ -156,8 +156,24 @@ Nhánh: `m7-polish` — phần code xong 2026-10-14, đã merge vào `main`.
 - [ ] Chốt D-38 (Konva) sau khi thử máy thật
 - [ ] Checklist phát hành v1.0 ([plan.md](plan.md))
 
-### M8 — Sửa UX (đề xuất, chờ duyệt)
-Nguồn: [đánh giá UX 2026-10-14](../discussions/2026-10-14-danh-gia-ux.md).
-- [ ] P0: UX-01 vuốt / chọn / khoá ảnh nền; UX-02 giữ chữ khi đổi layout; UX-03 thanh công cụ gọn + thanh nổi
-- [ ] P1: UX-04 dải thumbnail slide; UX-05..UX-14
-- [ ] P2: UX-15..UX-22 (chọn lọc)
+### M8 — Sửa UX ✅ (2026-10-15)
+Nguồn: [đánh giá UX 2026-10-14](../discussions/2026-10-14-danh-gia-ux.md). Quyết định: D-60..D-65.
+- [x] UX-01 Cảm ứng: chạm để chọn, chỉ kéo phần tử đã chọn → vuốt cuộn được slide; ảnh nền (panorama, nền layout) bị khoá; chạm nền khoá = bỏ chọn
+- [x] UX-02 Đổi layout giữ chữ / hình / icon / ảnh tự thêm (chỉ thay phần tử do layout sinh ra), kẹp vào trong canvas mới
+- [x] UX-03 Thanh công cụ ≤ 5 nút + "Thêm"; Nhân bản / Xoá / Xong luôn ở thanh trên khi đang chọn
+- [x] UX-04 + UX-05 Dải thumbnail slide dưới canvas (chạm để tới slide, "+" thêm slide)
+- [x] UX-06 Phóng to vùng làm việc (nút + / − / Vừa, pinch trên vùng trống, 1–4×); tay nắm 26 px trên cảm ứng
+- [x] UX-07 Pinch hai ngón trên phần tử chưa chọn → chọn và co giãn phần tử đó
+- [x] UX-08 Canvas không đổi kích thước khi mở công cụ; tự cuộn tới phần tử đang chọn
+- [x] UX-09 Ô lưới / phần tử khoá: chỉ có khung, không tay nắm co giãn / xoay
+- [x] UX-10 Bảng Lớp: chọn phần tử bị che, khoá / mở khoá; "Lên trên cùng / Xuống dưới cùng"
+- [x] UX-11 Chữ "Đang lưu… / Đã lưu" ở thanh trên
+- [x] UX-12 Chạm đúp chữ để sửa; chữ mới có nền tối mờ, dễ đọc trên mọi ảnh
+- [x] UX-13 Nút đặt lại cạnh mỗi thanh trượt (ẩn khi đang ở mặc định)
+- [x] UX-14 Story không gợi ý layout liền mạch
+- [x] UX-15 Hộp thoại trong app thay prompt / confirm (đổi tên, xoá, xoá tất cả)
+- [x] UX-16 Tên file xuất theo tên project (bỏ dấu), ví dụ `post-oct-15_01.jpg`
+- [x] UX-17 Mẹo lần đầu khi mở editor (3 mẹo, nhớ đã xem)
+- [x] UX-20 Lỗi đọc ảnh gợi ý cách xử lý HEIC
+- [x] Kiểm tra tự động `e2e/m8.mjs`; các suite cũ cập nhật theo giao diện mới
+- [ ] Để sau v1.0: UX-18 (thêm thư viện), UX-19 (giữ trên ảnh để so sánh), UX-22 (chất lượng xuất, xuất 1 slide). UX-21 nằm trong device-test

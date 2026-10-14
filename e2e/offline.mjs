@@ -1,8 +1,9 @@
 import { chromium } from "playwright-core";
-import { chromePath, URL_ARG } from "./lib.mjs";
+import { skipTips, chromePath, URL_ARG } from "./lib.mjs";
 const url = URL_ARG;
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+await skipTips(context);
 const page = await context.newPage();
 const errors = [];
 page.on("pageerror", (e) => errors.push(String(e)));

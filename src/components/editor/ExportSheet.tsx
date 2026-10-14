@@ -4,7 +4,7 @@ import type Konva from "konva";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { canShareFiles, downloadEach, downloadZip, shareFiles } from "@/lib/export/deliver";
-import { exportSlides } from "@/lib/export/slices";
+import { exportSlides, fileBase } from "@/lib/export/slices";
 import { loadFont } from "@/lib/text/fonts";
 import { SLIDE_SIZE } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
@@ -44,7 +44,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
       .then(nextFrame)
       .then(() => {
         layer.draw();
-        return exportSlides(layer, doc, viewScale, doc.type);
+        return exportSlides(layer, doc, viewScale, fileBase(useEditor.getState().projectName, doc.type));
       })
       .finally(() => setExporting(false))
       .then((result) => {
@@ -154,7 +154,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
             <button
               type="button"
               disabled={!files}
-              onClick={() => run(() => downloadZip(files!, `${doc.type}.zip`))}
+              onClick={() => run(() => downloadZip(files!, `${fileBase(useEditor.getState().projectName, doc.type)}.zip`))}
               className={`h-12 flex-1 rounded-[14px] text-sm font-semibold disabled:opacity-50 ${
                 shareable ? "border border-border-2" : "bg-accent text-on-accent"
               }`}

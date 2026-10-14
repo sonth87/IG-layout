@@ -31,16 +31,19 @@ src/
     NewProject.tsx      chọn tỉ lệ, số slide, chọn ảnh
     SettingsScreen.tsx  theme, ngôn ngữ, dung lượng, xóa tất cả
     editor/
-      Editor.tsx        khung editor: header, vùng canvas, thanh công cụ theo ngữ cảnh, mở công cụ
+      Editor.tsx        khung editor: header (trạng thái lưu, nhân bản / xoá / xong), vùng canvas (zoom, cuộn tới phần tử), thanh công cụ ≤ 5 nút + Thêm
+      EditorSheets.tsx  ActionSheet (menu Thêm), LayersSheet (bảng lớp, khoá), CoachTips (mẹo lần đầu)
+      SlideNavigator.tsx dải thumbnail slide (Post / Story)
       ExportSheet.tsx   xem trước & tải về
       useImportPhotos.ts
-      canvas/           CanvasStage (3 layer, pinch, hít, giới hạn pixel), ImageNode, TextNode, ShapeIconNodes, BackgroundNode, useNodeHandlers, useProcessedImage (bản xem trước + màu)
+      canvas/           interaction.ts (quy tắc chọn / kéo cảm ứng vs chuột, phần tử khoá), CanvasStage (3 layer, pinch, hít, giới hạn pixel), ImageNode, TextNode, ShapeIconNodes, BackgroundNode, useNodeHandlers, useProcessedImage (bản xem trước + màu)
       useShortcuts.ts   phím tắt trên máy tính
       tools/            controls (ToolSheet ✕/✓, Slider, Swatches), CropTool, ElementTools (Mask, Style), ColorTools (Adjust, Filters), TextTools (TextTool, TextEditDialog), ElementsSheet, ProjectTools (Background, Slides)
     layout/             LayoutPicker (chọn layout), TemplatePreview
     export/             InstagramPreview (carousel, trang cá nhân, story)
     HelpScreen.tsx      hướng dẫn ngắn trong app
     ui/Icon.tsx
+    ui/Dialog.tsx       ConfirmDialog, PromptDialog (thay prompt / confirm)
   lib/
     project/types.ts    mô hình dữ liệu (tọa độ theo pixel xuất)
     project/placement.ts  đặt ảnh ban đầu (1 ảnh → panorama, nhiều ảnh → mỗi slide 1 ảnh, thêm sau → nổi trên slide đang xem)
@@ -53,7 +56,7 @@ src/
     templates/          types, library (danh sách template), apply (template → phần tử)
     color/              params (thông số màu), filters (danh sách filter), processor (WebGL + cache)
     text/fonts.ts       font chữ cho canvas + chờ font tải
-    elements/           create (tạo chữ / hình / icon / khung), shapes (vẽ hình), icons (Lucide)
+    elements/           create (tạo chữ / hình / icon / khung), resize (co giãn cỡ chữ, viền theo tỉ lệ), shapes (vẽ hình), icons (Lucide)
   app/fonts.ts          khai báo 6 font (next/font), dùng chung cho giao diện và canvas
     image/import.ts     đọc ảnh, xoay theo EXIF, thu nhỏ (D-29)
     export/slices.ts    cắt canvas theo ranh giới slide → JPEG

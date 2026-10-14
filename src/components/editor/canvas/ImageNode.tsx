@@ -8,6 +8,7 @@ import { frameInset, straightenScale } from "@/lib/project/geometry";
 import { traceMask } from "@/lib/project/masks";
 import type { ImageElement, Rect } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
+import { useElementInteraction } from "./interaction";
 import { useHtmlImage } from "./useHtmlImage";
 import { useProcessedImage } from "./useProcessedImage";
 
@@ -27,7 +28,7 @@ interface Props {
  */
 export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
   const asset = useEditor((s) => (el.assetId ? s.assets[el.assetId] : undefined));
-  const select = useEditor((s) => s.select);
+  const { draggable, preventDefault, onSelect, onMouseSelect } = useElementInteraction(el);
   const updateElement = useEditor((s) => s.updateElement);
   const original = useHtmlImage(asset?.url);
   const compareThis = useEditor((s) => s.compare && s.selectedId === el.id);
@@ -167,11 +168,11 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       opacity={el.opacity}
       sceneFunc={draw}
       hitFunc={hit}
-      draggable
-      onMouseDown={() => select(el.id)}
-      onTap={() => select(el.id)}
+      draggable={draggable}
+      preventDefault={preventDefault}
+      onMouseDown={onMouseSelect}
+      onTap={onSelect}
       onDragStart={(e) => {
-        select(el.id);
         if (el.slot) panStart.current = { x: e.target.x(), y: e.target.y() };
       }}
       onDragMove={(e) => (el.slot ? panSlot(e.target) : onDragMove(e.target, el))}

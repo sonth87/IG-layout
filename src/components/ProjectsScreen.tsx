@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { ConfirmDialog, PromptDialog } from "@/components/ui/Dialog";
 import { Icon } from "@/components/ui/Icon";
 import { formatBytes, formatRelative } from "@/lib/format";
 import type { ProjectType } from "@/lib/project/types";
@@ -97,29 +98,58 @@ export function ProjectsScreen({ onNew, onSettings, onHelp }: { onNew: () => voi
     }
   }
 
-  async function onRename(p: ProjectMeta) {
+  const [dialog, setDialog] = useState<{ kind: "rename" | "delete"; project: ProjectMeta } | null>(null);
+
+  function onRename(p: ProjectMeta) {
     setMenuFor(null);
-    const name = prompt(t("projects.renamePrompt"), p.name)?.trim();
-    if (name && name !== p.name) {
-      await renameProject(p.id, name);
-      refresh();
-    }
+    setDialog({ kind: "rename", project: p });
   }
 
-  async function onDelete(p: ProjectMeta) {
+  function onDelete(p: ProjectMeta) {
     setMenuFor(null);
-    if (confirm(t("projects.deleteConfirm", { name: p.name }))) {
-      await deleteProject(p.id);
-      refresh();
-    }
+    setDialog({ kind: "delete", project: p });
   }
 
   const visible = projects?.filter((p) => filter === "all" || p.type === filter) ?? [];
   const usedPct = usage.quota ? Math.min(100, Math.max(1, (usage.usage / usage.quota) * 100)) : 0;
   const filters: (ProjectType | "all")[] = ["all", "post", "story", "grid"];
 
+  const dialogs = dialog && (
+    <>
+      {dialog.kind === "rename" ? (
+        <PromptDialog
+          title={t("common.rename")}
+          label={t("projects.renamePrompt")}
+          initial={dialog.project.name}
+          confirmLabel={t("common.save")}
+          onCancel={() => setDialog(null)}
+          onConfirm={async (name) => {
+            setDialog(null);
+            if (name !== dialog.project.name) {
+              await renameProject(dialog.project.id, name);
+              refresh();
+            }
+          }}
+        />
+      ) : (
+        <ConfirmDialog
+          title={t("projects.deleteConfirm", { name: dialog.project.name })}
+          confirmLabel={t("common.delete")}
+          danger
+          onCancel={() => setDialog(null)}
+          onConfirm={async () => {
+            setDialog(null);
+            await deleteProject(dialog.project.id);
+            refresh();
+          }}
+        />
+      )}
+    </>
+  );
+
   return (
     <main className="mx-auto flex h-dvh max-w-md flex-col">
+      {dialogs}
       <header className="flex items-center justify-between px-5 pt-5 pb-2">
         <h1 className="font-display text-3xl font-bold tracking-tight">{t("projects.title")}</h1>
         <div className="flex gap-2">

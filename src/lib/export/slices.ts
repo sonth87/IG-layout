@@ -8,6 +8,19 @@ import type { ProjectDoc } from "@/lib/project/types";
 
 const JPEG_QUALITY = 0.92;
 
+/** File-name base from the project name: lowercase, no Vietnamese accents, dashes (UX-16). */
+export function fileBase(projectName: string, fallback: string) {
+  const slug = projectName
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[đĐ]/g, "d")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40);
+  return slug || fallback;
+}
+
 export function fileName(base: string, index: number) {
   return `${base}_${String(index + 1).padStart(2, "0")}.jpg`;
 }

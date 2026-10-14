@@ -6,21 +6,28 @@ import { Circle, Group, Layer, Line, Rect, Stage, Text, Transformer } from "reac
 import { rotatedBounds } from "@/lib/project/geometry";
 import { snap, snapTargets } from "@/lib/project/snap";
 import { canvasSize, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
+import { scaleExtras } from "@/lib/elements/resize";
 import type { CanvasElement } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { BackgroundNode } from "./BackgroundNode";
 import { ImageNode } from "./ImageNode";
 import { IconNode, ShapeNode } from "./ShapeIconNodes";
+import { isTouchUI } from "./interaction";
 import { TextNode } from "./TextNode";
 
 const SNAP_SCREEN_PX = 8;
 /** Max backing-store pixels per layer (~32 MB each). */
 const MAX_LAYER_PIXELS = 8_000_000;
 
-/** Lives in its own layer so selection handles never end up in exports. */
+/**
+ * Lives in its own layer so selection handles never end up in exports.
+ * Grid cells and locked elements show the outline only (UX-09). Bigger handles on touch (UX-06).
+ */
 function SelectionTransformer({ selectedId }: { selectedId: string | null }) {
   const trRef = useRef<Konva.Transformer>(null);
   const elements = useViewDoc()?.elements;
+  const el = elements?.find((e) => e.id === selectedId);
+  const fixed = !!el && (el.locked || (el.type === "image" && el.slot));
 
   useEffect(() => {
     const tr = trRef.current;
@@ -34,14 +41,15 @@ function SelectionTransformer({ selectedId }: { selectedId: string | null }) {
     <Transformer
       ref={trRef}
       keepRatio
-      rotateEnabled
-      anchorSize={18}
-      anchorCornerRadius={9}
+      rotateEnabled={!fixed}
+      resizeEnabled={!fixed}
+      anchorSize={isTouchUI ? 26 : 16}
+      anchorCornerRadius={13}
       borderStroke="#f2b84b"
       borderStrokeWidth={2}
       anchorStroke="#f2b84b"
       anchorFill="#ffffff"
-      rotateAnchorOffset={36}
+      rotateAnchorOffset={isTouchUI ? 44 : 32}
       rotationSnaps={[0, 90, 180, 270]}
       rotationSnapTolerance={4}
       enabledAnchors={["top-left", "top-right", "bottom-left", "bottom-right"]}
@@ -50,14 +58,9 @@ function SelectionTransformer({ selectedId }: { selectedId: string | null }) {
   );
 }
 
-interface Pinch {
-  node: Konva.Node;
-  dist: number;
-  angle: number;
-  mid: { x: number; y: number };
-  rotation: number;
-  pos: { x: number; y: number };
-}
+type Pinch =
+  | { kind: "element"; node: Konva.Node; dist: number; angle: number; mid: { x: number; y: number }; rotation: number; pos: { x: number; y: number } }
+  | { kind: "zoom"; dist: number; angle: number; mid: { x: number; y: number } };
 
 function touchInfo(stage: Konva.Stage, touches: TouchList) {
   const rect = stage.container().getBoundingClientRect();
@@ -75,9 +78,11 @@ interface Props {
   contentLayerRef: React.RefObject<Konva.Layer | null>;
   /** Story: show the areas covered by Instagram's UI. */
   showSafeZone?: boolean;
+  /** Two-finger pinch on empty space: zoom the view (k = distance ratio since start). */
+  onPinchZoom?: (k: number, phase: "start" | "move" | "end") => void;
 }
 
-export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone = true }: Props) {
+export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone = true, onPinchZoom }: Props) {
   const doc = useViewDoc();
   const selectedId = useEditor((s) => s.selectedId);
   const select = useEditor((s) => s.select);
@@ -137,23 +142,45 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
     setGuides({ xs: [], ys: [] });
   }
 
-  // Two fingers: pinch to scale + rotate the selected element (one history step on release).
+  /**
+   * Two fingers (UX-07): pinch / rotate the element under the fingers (selecting it),
+   * or the selected one; on empty space, locked or grid-cell elements, zoom the canvas.
+   * One history step on release.
+   */
+  function startPinch(stage: Konva.Stage, info: ReturnType<typeof touchInfo>) {
+    const movable = (id: string | null | undefined) => {
+      const el = doc!.elements.find((x) => x.id === id);
+      return el && !el.locked && !(el.type === "image" && el.slot) ? el : undefined;
+    };
+    let target = movable(selectedId);
+    if (!target) {
+      let hit: Konva.Node | null = stage.getIntersection(info.mid);
+      while (hit && !movable(hit.id())) hit = hit.getParent();
+      target = movable(hit?.id());
+      if (target) select(target.id);
+    }
+    if (!target) {
+      onPinchZoom?.(1, "start");
+      pinch.current = { kind: "zoom", ...info };
+      return;
+    }
+    const node = stage.findOne(`#${target.id}`);
+    if (!node) return;
+    node.stopDrag();
+    node.draggable(false);
+    pinch.current = { kind: "element", node, ...info, rotation: node.rotation(), pos: node.position() };
+  }
+
   function onTouchMove(e: Konva.KonvaEventObject<TouchEvent>) {
     const stage = e.target.getStage();
     const touches = e.evt.touches;
-    if (!stage || !selectedId || touches.length !== 2) return;
+    if (!stage || touches.length !== 2) return;
     e.evt.preventDefault();
     const info = touchInfo(stage, touches);
-    if (!pinch.current) {
-      const node = stage.findOne(`#${selectedId}`);
-      if (!node) return;
-      node.stopDrag();
-      node.draggable(false);
-      pinch.current = { node, ...info, rotation: node.rotation(), pos: node.position() };
-      return;
-    }
+    if (!pinch.current) return startPinch(stage, info);
     const p = pinch.current;
     const k = info.dist / p.dist;
+    if (p.kind === "zoom") return onPinchZoom?.(k, "move");
     p.node.scale({ x: k, y: k });
     p.node.rotation(p.rotation + info.angle - p.angle);
     p.node.position({
@@ -167,14 +194,22 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
     const p = pinch.current;
     if (!p || e.evt.touches.length >= 2) return;
     pinch.current = null;
-    p.node.draggable(true);
+    if (p.kind === "zoom") return onPinchZoom?.(1, "end");
     const el = doc!.elements.find((x) => x.id === p.node.id());
+    p.node.draggable(!!el && !el.locked);
     if (!el) return;
     const k = p.node.scaleX();
     p.node.scale({ x: 1, y: 1 });
     const w = Math.max(20, el.width * k);
     const h = Math.max(20, el.height * k);
-    updateElement(el.id, { x: p.node.x() - w / 2, y: p.node.y() - h / 2, width: w, height: h, rotation: p.node.rotation() });
+    updateElement(el.id, {
+      x: p.node.x() - w / 2,
+      y: p.node.y() - h / 2,
+      width: w,
+      height: h,
+      rotation: p.node.rotation(),
+      ...scaleExtras(el, k),
+    });
   }
 
   return (

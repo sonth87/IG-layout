@@ -35,7 +35,7 @@ export function applyTemplate(
   if (bg?.kind === "color" || bg?.kind === "gradient") background = bg;
   else if (tpl.gridded) background = { kind: "color", color: opts.color };
   if (bg?.kind === "photo" && photos[bg.photo]) {
-    elements.push(imageElement(photos[bg.photo]!, { x: 0, y: 0, width: full.width, height: full.height }));
+    elements.push({ ...imageElement(photos[bg.photo]!, { x: 0, y: 0, width: full.width, height: full.height }), locked: true });
   }
 
   for (const sh of tpl.shapes ?? []) {
@@ -102,5 +102,5 @@ export function applyTemplate(
     elements.push(el);
   }
 
-  return { ...doc, slideCount, background, elements };
+  return { ...doc, slideCount, background, elements: elements.map((e) => ({ ...e, fromLayout: true })) };
 }

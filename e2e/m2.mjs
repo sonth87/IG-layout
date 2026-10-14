@@ -1,5 +1,5 @@
 import { chromium } from "playwright-core";
-import { chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { more, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
 import { execSync } from "node:child_process";
 import path from "node:path";
 
@@ -13,11 +13,11 @@ const check = (cond, msg) => {
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true, acceptDownloads: true });
+await skipTips(context);
 const page = await context.newPage();
 const errors = [];
 page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
 page.on("pageerror", (e) => errors.push(String(e)));
-page.on("dialog", (d) => d.accept());
 
 async function state() {
   await page.waitForTimeout(150);
@@ -63,12 +63,12 @@ check(photo.width < 1080 && photo.x > 0, `floating on slide 1 (${Math.round(phot
 
 console.log("3. Mask: cancel keeps old value, apply records one step");
 const pastBefore = st.past.length;
-await page.getByRole("button", { name: "Mask" }).click();
+await more(page, "Mask");
 await page.getByRole("radio", { name: "Heart" }).click();
 await page.getByLabel("Cancel").click();
 st = await state();
 check(st.doc.elements[1].mask === "none" && st.past.length === pastBefore, "✕ discards draft, no history");
-await page.getByRole("button", { name: "Mask" }).click();
+await more(page, "Mask");
 await page.getByRole("radio", { name: "Circle" }).click();
 await page.getByLabel("Apply").click();
 st = await state();
@@ -134,7 +134,7 @@ await page.waitForTimeout(200);
 
 console.log("9. Background gradient");
 await page.getByRole("button", { name: "Done" }).click().catch(() => {});
-await page.getByRole("button", { name: "Background" }).click();
+await more(page, "Background");
 await page.getByRole("tab", { name: "Gradient" }).click();
 await page.locator('button[aria-label*="→"]').first().click();
 await page.getByLabel("Apply").click();
@@ -142,7 +142,7 @@ st = await state();
 check(st.doc.background.kind === "gradient", `background = gradient (${JSON.stringify(st.doc.background)})`);
 
 console.log("10. Slides: add, move, delete");
-await page.getByRole("button", { name: "Slides" }).click();
+await more(page, "Slides");
 await page.getByRole("button", { name: "Add after" }).click();
 st = await state();
 check(st.doc.slideCount === 4, "4 slides");
