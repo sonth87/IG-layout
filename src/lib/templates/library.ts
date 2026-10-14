@@ -282,7 +282,8 @@ export function templateById(id: string) {
 }
 
 export function templatesFor(type: ProjectType) {
-  return TEMPLATES.filter((t) => (t.types ?? ["post", "story"]).includes(type));
+  // Seamless layouts need swiping, which stories don't have (UX-14).
+  return TEMPLATES.filter((t) => (t.types ?? (t.group === "seamless" ? ["post"] : ["post", "story"])).includes(type));
 }
 
 /** Templates that fit `count` photos best: exact matches first, then per-photo layouts. */

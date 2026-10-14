@@ -5,7 +5,7 @@ import { create } from "zustand";
 import { migrateDoc } from "@/lib/project/migrate";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { placeImages } from "@/lib/project/placement";
-import { GRID_COLS } from "@/lib/project/layout";
+import { canvasSize, GRID_COLS } from "@/lib/project/layout";
 import { deleteSlide, insertSlide, moveSlide, setGridGap, setGridRows } from "@/lib/project/slides";
 import { applyTemplate } from "@/lib/templates/apply";
 import type { Template, TemplateOptions } from "@/lib/templates/types";
@@ -30,6 +30,8 @@ import { createProjectRecord, loadProject, requestPersistence, saveAssets } from
 
 interface EditorState {
   projectId: string | null;
+  /** Name of the open project (used for exported file names). */
+  projectName: string;
   doc: ProjectDoc | null;
   draft: ProjectDoc | null;
   assets: Record<string, ImageAsset>;
@@ -62,6 +64,11 @@ interface EditorState {
   moveLayer: (id: string, direction: "up" | "down") => void;
   startSwap: (id: string | null) => void;
   applyLayout: (tpl: Template, photos: ImageAsset[], opts: TemplateOptions) => void;
+  moveLayerTo: (id: string, where: "front" | "back") => void;
+  toggleLock: (id: string) => void;
+  /** Text element whose words are being edited (dialog), or null. */
+  editingTextId: string | null;
+  setEditingText: (id: string | null) => void;
 
   insertSlide: (after: number) => void;
   setGridRows: (rows: number) => void;
@@ -85,6 +92,8 @@ interface EditorState {
 
 const EMPTY = {
   projectId: null,
+  projectName: "",
+  editingTextId: null,
   doc: null,
   draft: null,
   assets: {},
@@ -148,7 +157,7 @@ export const useEditor = create<EditorState>()((set, get) => {
       const now = Date.now();
       await createProjectRecord({ id, name, type, ratio, slideCount, createdAt: now, updatedAt: now, size: 0 }, doc);
       revokeAll();
-      set({ ...EMPTY, projectId: id, doc });
+      set({ ...EMPTY, projectId: id, projectName: name, doc });
       void requestPersistence();
     },
 
@@ -161,6 +170,7 @@ export const useEditor = create<EditorState>()((set, get) => {
       set({
         ...EMPTY,
         projectId: id,
+        projectName: loaded.meta.name,
         doc: migrateDoc(loaded.state.doc, size),
         past: loaded.state.past.map((d) => migrateDoc(d, size)),
         future: loaded.state.future.map((d) => migrateDoc(d, size)),
@@ -237,9 +247,38 @@ export const useEditor = create<EditorState>()((set, get) => {
 
     applyLayout: (tpl, photos, opts) => {
       storeAssets(photos);
-      commit((d) => applyTemplate(d, tpl, photos, opts));
+      commit((d) => {
+        const next = applyTemplate(d, tpl, photos, opts);
+        // Keep what the user added (text, shapes, icons) on top of the new layout (UX-02),
+        // moved back inside the canvas if the layout has fewer slides.
+        const size = canvasSize(next);
+        const kept = d.elements
+          .filter((e) => e.type !== "image" && !e.fromLayout)
+          .map((e) => ({
+            ...e,
+            x: Math.min(e.x, size.width - e.width / 2 - Math.min(e.width / 2, 40)),
+            y: Math.min(e.y, size.height - e.height / 2 - Math.min(e.height / 2, 40)),
+          }));
+        return { ...next, elements: [...next.elements, ...kept] };
+      });
       set({ selectedId: null, swapFrom: null });
     },
+
+    moveLayerTo: (id, where) =>
+      commit((d) => {
+        const el = d.elements.find((e) => e.id === id);
+        if (!el) return d;
+        const rest = d.elements.filter((e) => e.id !== id);
+        return { ...d, elements: where === "front" ? [...rest, el] : [el, ...rest] };
+      }),
+
+    toggleLock: (id) =>
+      commit((d) => {
+        const el = d.elements.find((e) => e.id === id);
+        return el ? updateEl(d, id, { locked: !el.locked }) : d;
+      }),
+
+    setEditingText: (id) => set({ editingTextId: id }),
 
     insertSlide: (after) => commit((d) => insertSlide(d, after)),
     setGridRows: (rows) => {

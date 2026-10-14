@@ -24,16 +24,20 @@ Chọn ảnh → chọn **layout** (hoặc **Bỏ qua**). Chạm hai ảnh trong
 
 ## 2. Chỉnh sửa
 
-- **Chọn:** chạm vào ảnh / chữ / hình. Chạm vùng trống để bỏ chọn.
-- **Di chuyển, phóng to, xoay:** kéo; chụm hoặc xoay hai ngón; hoặc kéo các nút ở góc khung chọn. Phần tử tự hít vào tâm, mép slide và các phần tử khác (đường hồng).
+- **Chọn:** chạm vào ảnh / chữ / hình. Chạm vùng trống hoặc ảnh nền để bỏ chọn. Thứ bị che bên dưới: **Thêm → Các lớp**.
+- **Di chuyển, phóng to, xoay:** trên điện thoại, chạm để chọn **rồi mới kéo** (vuốt khi chưa chọn gì = cuộn xem slide). Chụm hoặc xoay hai ngón trên một phần tử để đổi cỡ / xoay, kể cả khi chưa chọn. Phần tử tự hít vào tâm, mép slide và các phần tử khác (đường hồng).
+- **Ảnh nền bị khoá:** ảnh panorama phủ cả canvas và ảnh nền của layout tự khoá để không kéo nhầm. Mở khoá trong **Thêm → Các lớp** (biểu tượng ổ khoá).
+- **Xem toàn bộ / phóng to:** dải ảnh nhỏ dưới canvas — chạm để tới slide, **+** thêm slide. Nút **+ / −** (hoặc chụm hai ngón trên vùng trống) để phóng to vùng làm việc.
+- **Đổi layout** chỉ thay ảnh của layout; chữ, hình, icon bạn đã thêm vẫn giữ.
 - **Ô lưới của layout:** kéo = dịch ảnh bên trong ô. **Đổi chỗ** → chạm ô khác để đổi hai ảnh. Ô trống: **Thêm ảnh**.
 - **Công cụ cho ảnh:** Thay ảnh, Cắt (tỉ lệ, nắn thẳng, xoay 90°, lật), Chỉnh màu (13 thông số), Filter (5 filter, cường độ, áp cho tất cả), Hình dạng (8 mask), Kiểu (khung polaroid / viền trắng / film, viền, bóng, độ mờ).
-- **Chữ:** nút **Chữ** → gõ nội dung → **Kiểu chữ** (font, cỡ, màu, căn lề, viền chữ, bóng, nền chữ).
+- **Chữ:** nút **Chữ** → gõ nội dung (chạm đúp vào chữ để sửa lại) → **Kiểu chữ** (font, cỡ, màu, căn lề, viền chữ, bóng, nền chữ).
 - **Thành phần:** hình khối, cuộn film, icon, khung ảnh trống.
 - **Nền:** màu, chuyển màu, ảnh làm mờ.
 - **Slide / Khung / Lưới:** thêm, xoá, đổi chỗ slide; Grid: thêm / bớt hàng, bù khe.
-- **Thanh trượt** xem trước ngay; **✓** giữ thay đổi (1 bước hoàn tác), **✕** huỷ. **Giữ để so sánh** xem ảnh gốc.
-- **Hoàn tác / Làm lại** ở trên cùng, không giới hạn số bước. Project tự lưu.
+- Thanh công cụ hiện các nút chính; các nút còn lại trong **Thêm**. Khi đang chọn: **Nhân bản / Xoá / Xong** ở thanh trên.
+- **Thanh trượt** xem trước ngay, nút ↺ cạnh giá trị để đặt lại; **✓** giữ thay đổi (1 bước hoàn tác), **✕** huỷ. **Giữ để so sánh** xem ảnh gốc.
+- **Hoàn tác / Làm lại** ở trên cùng, không giới hạn số bước. Project tự lưu (chữ "Đã lưu" trên thanh trên).
 
 Bàn phím (máy tính): ⌘/Ctrl+Z hoàn tác · ⇧⌘Z hoặc Ctrl+Y làm lại · Delete xoá · mũi tên dịch chuyển (Shift = nhanh) · Esc bỏ chọn.
 
@@ -41,9 +45,9 @@ Bàn phím (máy tính): ⌘/Ctrl+Z hoàn tác · ⇧⌘Z hoặc Ctrl+Y làm l�
 
 **Xuất ảnh** → xem trước kiểu Instagram → **Lưu vào Ảnh** (điện thoại), **Tải ZIP** hoặc **Tải từng ảnh**.
 
-- **Post / carousel:** trong Instagram chọn ảnh theo thứ tự `post_01`, `post_02`… Khi Instagram hỏi kích thước, **giữ đúng tỉ lệ** (đừng để cắt vuông). Ảnh bìa trên trang cá nhân hiển thị dạng 3:4.
-- **Story:** đăng mỗi khung thành một story riêng theo thứ tự `story_01`, `story_02`… Tránh đặt chữ quan trọng ở vùng tô màu trên / dưới.
-- **Grid:** đăng lần lượt từ `grid_01` (ô dưới cùng bên phải) đến hết. Instagram hiện bài mới nhất ở góc trên bên trái nên ảnh lớn tự ghép đúng.
+- **Post / carousel:** trong Instagram chọn ảnh theo thứ tự `…_01`, `…_02`… (tên file bắt đầu bằng tên project) Khi Instagram hỏi kích thước, **giữ đúng tỉ lệ** (đừng để cắt vuông). Ảnh bìa trên trang cá nhân hiển thị dạng 3:4.
+- **Story:** đăng mỗi khung thành một story riêng theo thứ tự `…_01`, `…_02`… Tránh đặt chữ quan trọng ở vùng tô màu trên / dưới.
+- **Grid:** đăng lần lượt từ `…_01` (ô dưới cùng bên phải) đến hết. Instagram hiện bài mới nhất ở góc trên bên trái nên ảnh lớn tự ghép đúng.
 
 ## Dữ liệu
 

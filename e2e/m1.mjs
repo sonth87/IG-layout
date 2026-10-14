@@ -1,5 +1,5 @@
 import { chromium } from "playwright-core";
-import { chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
 import path from "node:path";
 
 const url = URL_ARG;
@@ -8,11 +8,11 @@ const log = (...a) => console.log("•", ...a);
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+await skipTips(context);
 const page = await context.newPage();
 const errors = [];
 page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
 page.on("pageerror", (e) => errors.push(String(e)));
-page.on("dialog", (d) => (d.type() === "prompt" ? d.accept("Da Lat trip") : d.accept()));
 
 await page.goto(url);
 await page.getByText("No projects yet").waitFor();
@@ -50,6 +50,8 @@ await page.getByRole("button", { name: "New project" }).waitFor();
 
 await page.getByRole("button", { name: /Actions for/ }).click();
 await page.getByRole("menuitem", { name: "Rename" }).click();
+await page.getByLabel("Project name").fill("Da Lat trip");
+await page.getByRole("button", { name: "Save" }).click();
 await page.getByText("Da Lat trip").waitFor();
 log("rename OK");
 
@@ -74,6 +76,7 @@ await context.setOffline(false);
 
 await page.getByRole("button", { name: /Tùy chọn cho/ }).click();
 await page.getByRole("menuitem", { name: "Xóa" }).click();
+await page.getByRole("alertdialog").getByRole("button", { name: "Xóa" }).click();
 await page.getByText("Chưa có project nào").waitFor();
 log("delete OK");
 

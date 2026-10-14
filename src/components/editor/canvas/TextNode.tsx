@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Group, Rect, Text } from "react-konva";
 import type { TextElement } from "@/lib/project/types";
 import { fontWeight, loadFont, TEXT_FONTS } from "@/lib/text/fonts";
+import { scaleExtras } from "@/lib/elements/resize";
 import { useEditor } from "@/store/editor";
 import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
 
@@ -15,16 +16,12 @@ import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
  */
 export function TextNode({ element: el, hooks }: { element: TextElement; hooks: DragHooks }) {
   const setDerived = useEditor((s) => s.setDerived);
+  const setEditingText = useEditor((s) => s.setEditingText);
   const textRef = useRef<Konva.Text>(null);
   const family = TEXT_FONTS[el.font].family;
   const fontKey = `${el.font}:${el.bold}`;
   const [loadedKey, setLoadedKey] = useState<string | null>(null);
-  const props = useNodeHandlers(el, hooks, (scale) => ({
-    fontSize: Math.max(8, el.fontSize * scale),
-    letterSpacing: el.letterSpacing * scale,
-    background: el.background ? { ...el.background, padding: el.background.padding * scale, radius: el.background.radius * scale } : null,
-    stroke: el.stroke ? { ...el.stroke, width: el.stroke.width * scale } : null,
-  }));
+  const props = useNodeHandlers(el, hooks, (scale) => scaleExtras(el, scale));
 
   // Draw with a fallback until the web font is loaded, then switch (re-measures).
   useEffect(() => {
@@ -45,7 +42,7 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
 
   const pad = el.background?.padding ?? 0;
   return (
-    <Group {...props}>
+    <Group {...props} onDblTap={() => setEditingText(el.id)} onDblClick={() => setEditingText(el.id)}>
       {el.background && (
         <Rect width={el.width} height={el.height} fill={el.background.color} cornerRadius={el.background.radius} />
       )}

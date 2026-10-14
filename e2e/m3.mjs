@@ -1,5 +1,5 @@
 import { chromium } from "playwright-core";
-import { chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { more, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
 import path from "node:path";
 
 const url = URL_ARG;
@@ -11,6 +11,7 @@ const check = (cond, msg) => {
 };
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+await skipTips(context);
 const page = await context.newPage();
 const errors = [];
 page.on("console", (m) => { if (m.text().startsWith("DBG")) console.log("   " + m.text()); if (m.type() === "error") errors.push(m.text()); });
@@ -86,7 +87,7 @@ check(c0b.crop.x !== c0.crop.x || c0b.crop.y !== c0.crop.y, `crop moved (${c0.cr
 console.log("4. Swap two cells");
 const a0 = st.doc.elements[0].assetId;
 const a1 = st.doc.elements[1].assetId;
-await page.getByRole("button", { name: "Swap" }).click();
+await more(page, "Swap");
 check((await S()).swapFrom === st.doc.elements[0].id, "swap mode on");
 await tapEl(st.doc.elements[1]);
 st = await S();

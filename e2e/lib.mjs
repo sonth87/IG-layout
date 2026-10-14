@@ -25,3 +25,20 @@ export function chromePath() {
 }
 
 export const URL_ARG = process.argv[2] ?? "http://localhost:4321/";
+
+/** Marks the first-run tips as seen (they would cover part of the canvas). */
+export async function skipTips(context) {
+  await context.addInitScript(() => {
+    try {
+      localStorage.setItem("ig-layout:tips-seen", "1");
+    } catch {
+      // ignore
+    }
+  });
+}
+
+/** Opens the editor's "More" sheet and taps an action in it. */
+export async function more(page, label) {
+  await page.getByRole("button", { name: "More", exact: true }).click();
+  await page.getByRole("region", { name: "More" }).getByRole("button", { name: label, exact: true }).click();
+}

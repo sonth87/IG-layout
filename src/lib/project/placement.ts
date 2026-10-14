@@ -37,7 +37,8 @@ export function placeImages(doc: ProjectDoc, assets: ImageAsset[], firstSlide = 
 
   if (empty && assets.length === 1) {
     const size = canvasSize(doc);
-    return [imageElement(assets[0], { x: 0, y: 0, width: size.width, height: size.height })];
+    // Covers the whole canvas: lock it so swipes scroll the slides instead of dragging it (UX-01).
+    return [{ ...imageElement(assets[0], { x: 0, y: 0, width: size.width, height: size.height }), locked: true }];
   }
   if (empty) {
     return assets.map((asset, i) => imageElement(asset, slideRect(doc, Math.min(firstSlide + i, doc.slideCount - 1))));

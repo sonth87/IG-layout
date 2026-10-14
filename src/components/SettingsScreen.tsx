@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ConfirmDialog } from "@/components/ui/Dialog";
 import { Icon } from "@/components/ui/Icon";
 import { formatBytes } from "@/lib/format";
 import { deleteAllProjects, listProjects, storageEstimate } from "@/lib/storage/projects";
@@ -31,11 +32,12 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
     };
   }, [reloadKey]);
 
+  const [confirming, setConfirming] = useState(false);
+
   async function onDeleteAll() {
-    if (confirm(t("settings.deleteAllConfirm"))) {
-      await deleteAllProjects();
-      setReloadKey((k) => k + 1);
-    }
+    setConfirming(false);
+    await deleteAllProjects();
+    setReloadKey((k) => k + 1);
   }
 
   const themes: ThemeSetting[] = ["system", "light", "dark"];
@@ -46,6 +48,15 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
 
   return (
     <main className="mx-auto flex h-dvh max-w-md flex-col">
+      {confirming && (
+        <ConfirmDialog
+          title={t("settings.deleteAllConfirm")}
+          confirmLabel={t("common.delete")}
+          danger
+          onCancel={() => setConfirming(false)}
+          onConfirm={onDeleteAll}
+        />
+      )}
       <header className="flex items-center gap-1 px-2 pt-2.5 pb-1">
         <button type="button" aria-label={t("common.back")} onClick={onBack} className="flex h-11 w-11 items-center justify-center">
           <Icon name="back" />
@@ -109,7 +120,7 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
           </div>
           <button
             type="button"
-            onClick={onDeleteAll}
+            onClick={() => setConfirming(true)}
             disabled={info.count === 0}
             className="h-12 rounded-[14px] border border-border text-sm font-semibold text-danger disabled:opacity-50"
           >

@@ -53,8 +53,9 @@ export function Slider(props: {
   format?: (v: number) => string;
   onChange: (v: number) => void;
 }) {
+  const t = useT();
   return (
-    <label className="flex items-center gap-3 py-2 text-[13px]">
+    <label className="flex items-center gap-2 py-2 text-[13px]">
       <span className="w-24 shrink-0 text-muted">{props.label}</span>
       <input
         type="range"
@@ -70,6 +71,16 @@ export function Slider(props: {
       <span className="w-12 text-right font-display tabular-nums">
         {props.format ? props.format(props.value) : props.value}
       </span>
+      {/* Visible reset: double-tap on a slider is unreliable on phones (UX-13). */}
+      <button
+        type="button"
+        aria-label={t("tool.reset", { name: props.label })}
+        disabled={props.value === props.defaultValue}
+        onClick={() => props.onChange(props.defaultValue)}
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted disabled:invisible"
+      >
+        <Icon name="reset" size={16} />
+      </button>
     </label>
   );
 }

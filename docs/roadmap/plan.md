@@ -1,6 +1,6 @@
 # Kế hoạch (Roadmap)
 
-> **Đang ở:** M1–M7 xong phần code (2026-10-14). Còn lại trước v1.0: thử trên điện thoại thật ([device-test.md](device-test.md)), xác minh thông số Instagram, góp ý filter. Phạm vi MVP đã duyệt: toàn bộ plan (D-46).
+> **Đang ở:** M1–M8 xong phần code (M8 — sửa UX, 2026-10-15). Còn lại trước v1.0: thử trên điện thoại thật ([device-test.md](device-test.md)), xác minh thông số Instagram, góp ý filter. Phạm vi MVP đã duyệt: toàn bộ plan (D-46).
 > **Bản chạy thử:** https://ig-layout.vercel.app/ (tự deploy khi push lên `main`). Còn treo từ GĐ1: test trên điện thoại thật (để sau theo ý chủ dự án), chốt D-38. Từ GĐ0: duyệt phạm vi MVP, góp ý wireframe.
 > **Việc tiếp theo:** xem mục "Việc tiếp theo" cuối file và [checklist.md](checklist.md).
 > Cập nhật lần cuối: 2026-10-14.
@@ -112,7 +112,7 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 
 ## Việc tiếp theo
 
-1. **Đề xuất M8 — Sửa UX** theo [đánh giá UX 2026-10-14](../discussions/2026-10-14-danh-gia-ux.md) (3 P0: vuốt kéo nhầm ảnh nền, đổi layout mất chữ, thanh công cụ tràn; và các P1) — chờ chủ dự án duyệt.
+1. ~~M8 — Sửa UX~~ xong (2026-10-15), xem [checklist](checklist.md).
 2. Chủ dự án thử trên iPhone + Android theo [device-test.md](device-test.md); tôi sửa theo kết quả.
 3. Chỉnh thông số Instagram (vùng an toàn, khe lưới) và màu filter theo kết quả thử.
 4. Đi qua checklist phát hành v1.0 → phát hành.
