@@ -1,0 +1,254 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "at": "2026-10-13T20:07:42.916Z",
+    "v": 1
+  },
+  "title": "IG Layout Wireframes",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 300,
+      "w": 390,
+      "h": 844,
+      "title": "1 · My Projects",
+      "is_interactive": true
+    },
+    "New.dc.html": {
+      "x": 470,
+      "y": 300,
+      "w": 390,
+      "h": 844,
+      "title": "2 · New project",
+      "is_interactive": true
+    },
+    "Layouts.dc.html": {
+      "x": 940,
+      "y": 300,
+      "w": 390,
+      "h": 844,
+      "title": "3 · Choose layout",
+      "is_interactive": true
+    },
+    "Editor.dc.html": {
+      "x": 0,
+      "y": 1500,
+      "w": 390,
+      "h": 844,
+      "title": "4 · Editor — photo selected",
+      "is_interactive": true
+    },
+    "Adjust.dc.html": {
+      "x": 470,
+      "y": 1500,
+      "w": 390,
+      "h": 844,
+      "title": "5 · Adjust (Apply / Cancel)"
+    },
+    "Filters.dc.html": {
+      "x": 940,
+      "y": 1500,
+      "w": 390,
+      "h": 844,
+      "title": "6 · Filters",
+      "is_interactive": true
+    },
+    "ApplyAll.dc.html": {
+      "x": 1410,
+      "y": 1500,
+      "w": 390,
+      "h": 844,
+      "title": "7 · Apply to all — confirm",
+      "is_interactive": true
+    },
+    "GridEditor.dc.html": {
+      "x": 0,
+      "y": 2700,
+      "w": 390,
+      "h": 844,
+      "title": "8 · Grid project"
+    },
+    "StoryEditor.dc.html": {
+      "x": 470,
+      "y": 2700,
+      "w": 390,
+      "h": 844,
+      "title": "9 · Story project"
+    },
+    "Export.dc.html": {
+      "x": 940,
+      "y": 2700,
+      "w": 390,
+      "h": 844,
+      "title": "10 · Preview & export",
+      "is_interactive": true
+    },
+    "TextTool.dc.html": {
+      "x": 0,
+      "y": 3900,
+      "w": 390,
+      "h": 844,
+      "title": "11 · Text"
+    },
+    "Elements.dc.html": {
+      "x": 470,
+      "y": 3900,
+      "w": 390,
+      "h": 844,
+      "title": "12 · Elements"
+    },
+    "Crop.dc.html": {
+      "x": 940,
+      "y": 3900,
+      "w": 390,
+      "h": 844,
+      "title": "13 · Crop & rotate"
+    },
+    "Mask.dc.html": {
+      "x": 1410,
+      "y": 3900,
+      "w": 390,
+      "h": 844,
+      "title": "14 · Mask"
+    },
+    "Settings.dc.html": {
+      "x": 1880,
+      "y": 3900,
+      "w": 390,
+      "h": 844,
+      "title": "15 · Settings",
+      "is_interactive": true
+    },
+    "MainLight.dc.html": {
+      "x": 0,
+      "y": 5400,
+      "w": 390,
+      "h": 844,
+      "title": "1L · My Projects (light)",
+      "is_interactive": true
+    },
+    "EditorLight.dc.html": {
+      "x": 470,
+      "y": 5400,
+      "w": 390,
+      "h": 844,
+      "title": "4L · Editor (light)",
+      "is_interactive": true
+    },
+    "FiltersLight.dc.html": {
+      "x": 940,
+      "y": 5400,
+      "w": 390,
+      "h": 844,
+      "title": "6L · Filters (light)",
+      "is_interactive": true
+    },
+    "ExportLight.dc.html": {
+      "x": 1410,
+      "y": 5400,
+      "w": 390,
+      "h": 844,
+      "title": "10L · Export (light)",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "New.dc.html",
+    "Layouts.dc.html",
+    "Editor.dc.html",
+    "Adjust.dc.html",
+    "Filters.dc.html",
+    "ApplyAll.dc.html",
+    "GridEditor.dc.html",
+    "StoryEditor.dc.html",
+    "Export.dc.html",
+    "TextTool.dc.html",
+    "Elements.dc.html",
+    "Crop.dc.html",
+    "Mask.dc.html",
+    "Settings.dc.html",
+    "MainLight.dc.html",
+    "EditorLight.dc.html",
+    "FiltersLight.dc.html",
+    "ExportLight.dc.html"
+  ],
+  "notes": {
+    "t1": {
+      "x": 0,
+      "y": 0,
+      "text": "Start: projects → new → layout",
+      "kind": "title1",
+      "maxW": 1800
+    },
+    "t2": {
+      "x": 0,
+      "y": 1200,
+      "text": "Editor (Post / carousel)",
+      "kind": "title1",
+      "maxW": 1800
+    },
+    "t3": {
+      "x": 0,
+      "y": 2400,
+      "text": "Grid, Story, Export",
+      "kind": "title1",
+      "maxW": 1800
+    },
+    "s1": {
+      "x": 1410,
+      "y": 300,
+      "w": 380,
+      "fill": "orange",
+      "text": "Luồng bắt đầu\n\n• Project của tôi: nhiều project, lưu trên máy, hiện dung lượng (D-23).\n• Banner nhắc cài app (PWA) để Safari iOS không tự xóa dữ liệu.\n• Tạo mới: chọn loại Post / Story / Grid, mỗi project một loại (D-18, D-28).\n• Chọn ảnh xong → app gợi ý layout theo số ảnh."
+    },
+    "s2": {
+      "x": 1880,
+      "y": 1500,
+      "w": 380,
+      "fill": "orange",
+      "text": "Editor\n\n• Canvas là một dải liền gồm N slide; xuất ra = cắt đúng ranh giới slide (D-30).\n• Back / Next = undo / redo, không giới hạn, không danh sách lịch sử.\n• Chỉnh thông số: xem trước ngay, chỉ ghi lịch sử khi bấm ✓ (D-12).\n• \"Apply to all\" chỉ áp filter, có hộp xác nhận (D-16)."
+    },
+    "s3": {
+      "x": 1410,
+      "y": 2700,
+      "w": 380,
+      "fill": "orange",
+      "text": "Grid / Story / Export\n\n• Grid: số trên ô = thứ tự đăng (ô dưới phải đăng trước); có bù khe hở.\n• Story: hiện vùng an toàn trên / dưới.\n• Export: mobile ưu tiên Lưu vào Ảnh (share sheet), ZIP dự phòng; file đánh số; có mẹo đăng đúng tỉ lệ."
+    },
+    "t4": {
+      "x": 0,
+      "y": 3600,
+      "text": "Tools: Text, Elements, Crop, Mask, Settings",
+      "kind": "title1",
+      "maxW": 2270
+    },
+    "t5": {
+      "x": 0,
+      "y": 5100,
+      "text": "Light theme",
+      "kind": "title1",
+      "maxW": 1800
+    },
+    "s4": {
+      "x": 2350,
+      "y": 3900,
+      "w": 380,
+      "fill": "orange",
+      "text": "Công cụ\n\n• Mọi công cụ dạng bottom sheet, có ✕ Hủy / ✓ Áp dụng → 1 bước lịch sử.\n• Text: font Google Fonts có tiếng Việt, xem trước bằng chữ có dấu.\n• Elements: Shapes, Icons, Frames, Materials, Stickers (thư viện riêng).\n• Settings: Theme (System / Light / Dark), ngôn ngữ EN / VI, dung lượng, Credits."
+    },
+    "s5": {
+      "x": 1880,
+      "y": 5400,
+      "w": 380,
+      "fill": "orange",
+      "text": "Theme sáng / tối\n\n• Mọi màn hình đều có tweak \"theme\" (dark / light) — bấm nút Tweaks trên artboard để đổi.\n• Hàng này là bản sáng của 4 màn hình chính.\n• Mặc định theo hệ thống (System); user đổi trong Settings.\n• Vùng canvas chỉnh ảnh vẫn tối hơn nền để ảnh nổi bật."
+    }
+  },
+  "designSystems": [],
+  "attachments": {}
+}

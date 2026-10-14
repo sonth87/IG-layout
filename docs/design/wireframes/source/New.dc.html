@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New project</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#0b0b0c}
+a{color:var(--accent-text)}
+.theme-dark{--bg:#111214;--canvas:#0B0B0C;--surface:#1C1D21;--surface2:#26282D;--border:#2E3036;--border2:#3A3C42;--divider:#1F2024;--text:#F2F2F0;--text2:#C4C6CC;--muted:#A3A6AD;--disabled:#55585F;--accent-text:#F2B84B;--accent-soft:#2A2312;--accent-soft-border:#5A4618;--accent-soft-text:#F5E6C4;--info-bg:#142430;--info-border:#23445A;--info-text:#CFE6F5;--info-strong:#7CC4F2;--story-bg:#2A1730;--story-text:#E59BF0;--danger:#F28B82;--ig-bg:#000000;--dash:#4A4D55}
+.theme-light{--bg:#F6F5F2;--canvas:#E6E3DD;--surface:#FFFFFF;--surface2:#EFEDE8;--border:#DAD7D0;--border2:#C9C5BC;--divider:#E4E1DA;--text:#1A1B1E;--text2:#3D4047;--muted:#5F636B;--disabled:#B5B8BE;--accent-text:#8A5A00;--accent-soft:#FCEFD2;--accent-soft-border:#EED9A6;--accent-soft-text:#5C4310;--info-bg:#E3F1FA;--info-border:#B9DCF0;--info-text:#1F4F70;--info-strong:#0F5C8A;--story-bg:#F6E6F8;--story-text:#8A2E99;--danger:#C0392B;--ig-bg:#FFFFFF;--dash:#B8B3A9}
+button{font-family:inherit}
+</style>
+</helmet>
+<div class="theme-{{theme}}" style="width: 390px; height: 844px; box-sizing: border-box; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+  <header style="display: flex; align-items: center; gap: 8px; padding: 14px 12px 8px">
+    <a href="Main.dc.html" aria-label="Close" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--text)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </a>
+    <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600">New project</h1>
+  </header>
+
+  <div style="flex: 1; padding: 8px 20px 0; display: flex; flex-direction: column; gap: 24px; overflow: hidden">
+
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px">What are you making?</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+        <button aria-pressed="true" style="height: 132px; border-radius: 16px; border: 2px solid #F2B84B; background: var(--accent-soft); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 8px">
+          <div style="display: flex; gap: 2px"><div style="width: 16px; height: 20px; border-radius: 2px; background: #F2B84B"></div><div style="width: 16px; height: 20px; border-radius: 2px; background: #F2B84B; opacity: 0.6"></div><div style="width: 16px; height: 20px; border-radius: 2px; background: #F2B84B; opacity: 0.35"></div></div>
+          <span style="font-weight: 700; font-size: 15px">Post</span>
+          <span style="font-size: 11px; color: var(--accent-soft-text); line-height: 1.3">Feed &amp; carousel</span>
+        </button>
+        <button aria-pressed="false" style="height: 132px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 8px">
+          <div style="width: 16px; height: 28px; border-radius: 3px; border: 2px solid var(--muted)"></div>
+          <span style="font-weight: 700; font-size: 15px">Story</span>
+          <span style="font-size: 11px; color: var(--muted); line-height: 1.3">9:16 frames</span>
+        </button>
+        <button aria-pressed="false" style="height: 132px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 8px">
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; width: 30px"><div style="height: 8px; background: var(--muted)"></div><div style="height: 8px; background: var(--muted)"></div><div style="height: 8px; background: var(--muted)"></div><div style="height: 8px; background: var(--muted)"></div><div style="height: 8px; background: var(--muted)"></div><div style="height: 8px; background: var(--muted)"></div></div>
+          <span style="font-weight: 700; font-size: 15px">Grid</span>
+          <span style="font-size: 11px; color: var(--muted); line-height: 1.3">Profile puzzle</span>
+        </button>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px">Ratio</h2>
+      <div style="display: flex; gap: 10px">
+        <button style="flex: 1; height: 72px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px">
+          <div style="width: 22px; height: 22px; border: 2px solid var(--muted); border-radius: 3px"></div><span style="font-size: 13px; font-weight: 600">1:1</span>
+        </button>
+        <button aria-pressed="true" style="flex: 1; height: 72px; border-radius: 14px; border: 2px solid #F2B84B; background: var(--accent-soft); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px">
+          <div style="width: 20px; height: 25px; border: 2px solid #F2B84B; border-radius: 3px"></div><span style="font-size: 13px; font-weight: 700">4:5</span>
+        </button>
+        <button style="flex: 1; height: 72px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px">
+          <div style="width: 19px; height: 26px; border: 2px solid var(--muted); border-radius: 3px"></div><span style="font-size: 13px; font-weight: 600">3:4</span>
+        </button>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px">Slides</h2>
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: 14px; background: var(--surface)">
+        <button aria-label="Fewer slides" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 22px">−</button>
+        <div style="text-align: center">
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700">5</div>
+          <div style="font-size: 12px; color: var(--muted)">up to 20 · change later</div>
+        </div>
+        <button aria-label="More slides" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 22px">+</button>
+      </div>
+      <div aria-hidden="true" style="display: flex; gap: 0; height: 70px; border-radius: 8px; overflow: hidden; border: 1px dashed var(--dash)">
+        <div style="flex: 1; border-right: 1px dashed var(--dash); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted)">1</div>
+        <div style="flex: 1; border-right: 1px dashed var(--dash); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted)">2</div>
+        <div style="flex: 1; border-right: 1px dashed var(--dash); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted)">3</div>
+        <div style="flex: 1; border-right: 1px dashed var(--dash); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted)">4</div>
+        <div style="flex: 1; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted)">5</div>
+      </div>
+      <p style="margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5">One continuous canvas. On export it is cut into 5 images of 1080 × 1350.</p>
+    </section>
+  </div>
+
+  <div style="padding: 16px 20px 28px; border-top: 1px solid var(--divider)">
+    <a href="Layouts.dc.html" style="height: 56px; border-radius: 16px; background: #F2B84B; color: #1A1408; font-weight: 700; font-size: 17px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>
+      Choose photos
+    </a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { theme: this.props.theme ?? 'dark' };
+  }
+}
+</script>
+</body>
+</html>

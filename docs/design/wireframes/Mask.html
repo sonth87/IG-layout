@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mask</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#0b0b0c}
+a{color:var(--accent-text)}
+.theme-dark{--bg:#111214;--canvas:#0B0B0C;--surface:#1C1D21;--surface2:#26282D;--border:#2E3036;--border2:#3A3C42;--divider:#1F2024;--text:#F2F2F0;--text2:#C4C6CC;--muted:#A3A6AD;--disabled:#55585F;--accent-text:#F2B84B;--accent-soft:#2A2312;--accent-soft-border:#5A4618;--accent-soft-text:#F5E6C4;--info-bg:#142430;--info-border:#23445A;--info-text:#CFE6F5;--info-strong:#7CC4F2;--story-bg:#2A1730;--story-text:#E59BF0;--danger:#F28B82;--ig-bg:#000000;--dash:#4A4D55}
+.theme-light{--bg:#F6F5F2;--canvas:#E6E3DD;--surface:#FFFFFF;--surface2:#EFEDE8;--border:#DAD7D0;--border2:#C9C5BC;--divider:#E4E1DA;--text:#1A1B1E;--text2:#3D4047;--muted:#5F636B;--disabled:#B5B8BE;--accent-text:#8A5A00;--accent-soft:#FCEFD2;--accent-soft-border:#EED9A6;--accent-soft-text:#5C4310;--info-bg:#E3F1FA;--info-border:#B9DCF0;--info-text:#1F4F70;--info-strong:#0F5C8A;--story-bg:#F6E6F8;--story-text:#8A2E99;--danger:#C0392B;--ig-bg:#FFFFFF;--dash:#B8B3A9}
+button{font-family:inherit}
+</style>
+<style>body{display:flex;justify-content:center;padding:24px 0}</style>
+</head>
+<body>
+<div class="theme-dark" style="width: 390px; height: 844px; box-sizing: border-box; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+  <div style="position: relative; flex: 1; background: var(--canvas); display: flex; align-items: center; justify-content: center">
+    <div style="position: relative; width: 272px; height: 340px; background: #EFE6D8; display: flex; align-items: center; justify-content: center">
+      <div style="position: relative; width: 180px; height: 250px; border-radius: 90px 90px 0 0; overflow: hidden; background: linear-gradient(170deg, #6E8FB3, #C9A27A 60%, #4A5634)">
+        <div style="position: absolute; inset: 0; border-radius: 90px 90px 0 0; border: 2px solid #F2B84B"></div>
+      </div>
+      <div style="position: absolute; left: 0; right: 0; bottom: 18px; text-align: center; font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: #3B2F25; letter-spacing: 3px">HELLO OCTOBER</div>
+    </div>
+    <div style="position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-size: 12px; color: var(--muted)">Drag the photo to reposition it inside the shape</div>
+  </div>
+
+  <section aria-label="Mask" style="background: var(--surface); border-top-left-radius: 20px; border-top-right-radius: 20px; padding: 8px 0 24px">
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 8px">
+      <button aria-label="Cancel" style="width: 48px; height: 48px; border: none; background: transparent; color: var(--text); display: flex; align-items: center; justify-content: center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div style="font-size: 15px; font-weight: 700">Mask</div>
+      <button aria-label="Apply" style="width: 48px; height: 48px; border: none; border-radius: 24px; background: #F2B84B; color: #1A1408; display: flex; align-items: center; justify-content: center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+      </button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; padding: 12px 16px 0">
+      <button style="height: 74px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>None</button>
+      <button style="height: 74px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px"><span style="width: 24px; height: 28px; border-radius: 7px; background: var(--text)"></span>Rounded</button>
+      <button style="height: 74px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px"><span style="width: 28px; height: 28px; border-radius: 14px; background: var(--text)"></span>Circle</button>
+      <button aria-pressed="true" style="height: 74px; border-radius: 12px; border: 2px solid #F2B84B; background: var(--accent-soft); color: var(--accent-text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px; font-weight: 700"><span style="width: 22px; height: 28px; border-radius: 11px 11px 0 0; background: #F2B84B"></span>Arch</button>
+      <button style="height: 74px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z" fill="currentColor"/></svg>Heart</button>
+      <button style="height: 74px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21.1l1.4-7L2 9.3l7-.8z" fill="currentColor"/></svg>Star</button>
+      <button style="height: 74px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8.7 5v10L12 22l-8.7-5V7z" fill="currentColor"/></svg>Hexagon</button>
+      <button style="height: 74px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface2); color: var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 4.5c3 2 4 6 2.5 9.5s-5 6.5-9 6-7.5-3.5-7.5-7.5S6 4 10 3s5.5-.5 7.5 1.5z" fill="currentColor"/></svg>Blob</button>
+    </div>
+
+    <label style="display: flex; align-items: center; justify-content: space-between; margin: 14px 16px 0; padding: 12px 14px; border-radius: 14px; background: var(--surface2); font-size: 14px">
+      <span>Outline</span>
+      <input type="checkbox" style="width: 22px; height: 22px; accent-color: #F2B84B; margin: 0">
+    </label>
+  </section>
+</div>
+</body>
+</html>

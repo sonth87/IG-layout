@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview and export (light)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#0b0b0c}
+a{color:var(--accent-text)}
+.theme-dark{--bg:#111214;--canvas:#0B0B0C;--surface:#1C1D21;--surface2:#26282D;--border:#2E3036;--border2:#3A3C42;--divider:#1F2024;--text:#F2F2F0;--text2:#C4C6CC;--muted:#A3A6AD;--disabled:#55585F;--accent-text:#F2B84B;--accent-soft:#2A2312;--accent-soft-border:#5A4618;--accent-soft-text:#F5E6C4;--info-bg:#142430;--info-border:#23445A;--info-text:#CFE6F5;--info-strong:#7CC4F2;--story-bg:#2A1730;--story-text:#E59BF0;--danger:#F28B82;--ig-bg:#000000;--dash:#4A4D55}
+.theme-light{--bg:#F6F5F2;--canvas:#E6E3DD;--surface:#FFFFFF;--surface2:#EFEDE8;--border:#DAD7D0;--border2:#C9C5BC;--divider:#E4E1DA;--text:#1A1B1E;--text2:#3D4047;--muted:#5F636B;--disabled:#B5B8BE;--accent-text:#8A5A00;--accent-soft:#FCEFD2;--accent-soft-border:#EED9A6;--accent-soft-text:#5C4310;--info-bg:#E3F1FA;--info-border:#B9DCF0;--info-text:#1F4F70;--info-strong:#0F5C8A;--story-bg:#F6E6F8;--story-text:#8A2E99;--danger:#C0392B;--ig-bg:#FFFFFF;--dash:#B8B3A9}
+button{font-family:inherit}
+</style>
+<style>body{display:flex;justify-content:center;padding:24px 0}</style>
+</head>
+<body>
+<div class="theme-light" style="width: 390px; height: 844px; box-sizing: border-box; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+  <header style="display: flex; align-items: center; gap: 4px; padding: 10px 8px 4px">
+    <a href="Editor.html" aria-label="Back to editor" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--text)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </a>
+    <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600">Preview &amp; export</h1>
+  </header>
+
+  <div role="tablist" aria-label="Preview mode" style="display: flex; margin: 6px 20px 0; padding: 4px; border-radius: 12px; background: var(--surface)">
+    <button role="tab" aria-selected="true" style="flex: 1; height: 36px; border: none; border-radius: 9px; background: var(--text); color: var(--bg); font-weight: 600; font-size: 14px">Carousel</button>
+    <button role="tab" aria-selected="false" style="flex: 1; height: 36px; border: none; border-radius: 9px; background: transparent; color: var(--muted); font-size: 14px">Profile</button>
+  </div>
+
+  <section aria-label="Instagram preview" style="margin: 12px 20px 0; border-radius: 16px; background: var(--ig-bg); overflow: hidden; border: 1px solid var(--surface2)">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px">
+      <div style="width: 28px; height: 28px; border-radius: 14px; background: var(--border2)"></div>
+      <span style="font-size: 13px; font-weight: 600">your_account</span>
+      <span style="margin-left: auto; font-size: 12px; color: var(--muted)">1 / 5</span>
+    </div>
+    <div style="position: relative; height: 262px; overflow: hidden">
+      <div style="position: absolute; left: 0; top: 0; width: 1050px; height: 262px; background: linear-gradient(180deg, #6E8FB3 0%, #9CB1C4 30%, #C9A27A 58%, #6E7A4C 80%, #4A5634 100%)">
+        <div style="position: absolute; left: 20px; top: 26px; width: 84px; height: 104px; background: #FFFFFF; padding: 5px 5px 16px; box-sizing: border-box; transform: rotate(-6deg)"><div style="width: 100%; height: 100%; background: linear-gradient(160deg, #3E5B4A, #9DBF8E)"></div></div>
+        <div style="position: absolute; left: 147px; top: 72px; width: 105px; height: 132px; background: linear-gradient(160deg, #A9574A, #F0C08A)"></div>
+        <div style="position: absolute; left: 18px; top: 212px; font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: #FFFFFF; letter-spacing: 4px">DA LAT</div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 5px; padding: 10px 0 12px">
+      <span style="width: 6px; height: 6px; border-radius: 3px; background: #4F8EF7"></span>
+      <span style="width: 6px; height: 6px; border-radius: 3px; background: var(--disabled)"></span>
+      <span style="width: 6px; height: 6px; border-radius: 3px; background: var(--disabled)"></span>
+      <span style="width: 6px; height: 6px; border-radius: 3px; background: var(--disabled)"></span>
+      <span style="width: 6px; height: 6px; border-radius: 3px; background: var(--disabled)"></span>
+    </div>
+  </section>
+
+  <div style="margin: 12px 20px 0; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted)">
+    <span>5 images · JPEG · 1080 × 1350</span>
+    <span>dalat_01 → dalat_05</span>
+  </div>
+
+  <aside style="margin: 12px 20px 0; padding: 12px 14px; border-radius: 14px; background: var(--info-bg); border: 1px solid var(--info-border); display: flex; gap: 10px">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7CC4F2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+    <div style="font-size: 13px; line-height: 1.5; color: var(--info-text)">
+      <strong style="color: var(--text)">Posting tip:</strong> select the photos in order 01 → 05. When Instagram asks for the size, keep <strong style="color: var(--text)">4:5</strong> — don’t crop to square.
+    </div>
+  </aside>
+
+  <div style="flex: 1"></div>
+
+  <div style="padding: 12px 20px 26px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--divider)">
+    <button style="height: 56px; border-radius: 16px; border: none; background: #F2B84B; color: #1A1408; font-weight: 700; font-size: 17px; display: flex; align-items: center; justify-content: center; gap: 8px">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 10l6 6 6-6M4 20h16"/></svg>
+      Save 5 images to Photos
+    </button>
+    <div style="display: flex; gap: 10px">
+      <button style="flex: 1; height: 48px; border-radius: 14px; border: 1px solid var(--border2); background: transparent; color: var(--text); font-weight: 600; font-size: 14px">Download ZIP</button>
+      <button style="flex: 1; height: 48px; border-radius: 14px; border: 1px solid var(--border2); background: transparent; color: var(--text); font-weight: 600; font-size: 14px">One by one</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

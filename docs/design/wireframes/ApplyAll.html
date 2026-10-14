@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply filter to all — confirm</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#0b0b0c}
+a{color:var(--accent-text)}
+.theme-dark{--bg:#111214;--canvas:#0B0B0C;--surface:#1C1D21;--surface2:#26282D;--border:#2E3036;--border2:#3A3C42;--divider:#1F2024;--text:#F2F2F0;--text2:#C4C6CC;--muted:#A3A6AD;--disabled:#55585F;--accent-text:#F2B84B;--accent-soft:#2A2312;--accent-soft-border:#5A4618;--accent-soft-text:#F5E6C4;--info-bg:#142430;--info-border:#23445A;--info-text:#CFE6F5;--info-strong:#7CC4F2;--story-bg:#2A1730;--story-text:#E59BF0;--danger:#F28B82;--ig-bg:#000000;--dash:#4A4D55}
+.theme-light{--bg:#F6F5F2;--canvas:#E6E3DD;--surface:#FFFFFF;--surface2:#EFEDE8;--border:#DAD7D0;--border2:#C9C5BC;--divider:#E4E1DA;--text:#1A1B1E;--text2:#3D4047;--muted:#5F636B;--disabled:#B5B8BE;--accent-text:#8A5A00;--accent-soft:#FCEFD2;--accent-soft-border:#EED9A6;--accent-soft-text:#5C4310;--info-bg:#E3F1FA;--info-border:#B9DCF0;--info-text:#1F4F70;--info-strong:#0F5C8A;--story-bg:#F6E6F8;--story-text:#8A2E99;--danger:#C0392B;--ig-bg:#FFFFFF;--dash:#B8B3A9}
+button{font-family:inherit}
+</style>
+<style>body{display:flex;justify-content:center;padding:24px 0}</style>
+</head>
+<body>
+<div class="theme-dark" style="position: relative; width: 390px; height: 844px; box-sizing: border-box; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow: hidden">
+
+  <div aria-hidden="true" style="position: absolute; inset: 0; display: flex; flex-direction: column">
+    <div style="flex: 1; background: var(--canvas); display: flex; align-items: center; justify-content: center">
+      <div style="width: 250px; height: 312px; background: linear-gradient(160deg, #8A6A4A, #D8C49A)"></div>
+    </div>
+    <div style="height: 300px; background: var(--surface); border-top-left-radius: 20px; border-top-right-radius: 20px"></div>
+  </div>
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(0,0,0,0.62)"></div>
+
+  <div role="dialog" aria-modal="true" aria-labelledby="dlg-title" style="position: absolute; left: 24px; right: 24px; top: 250px; padding: 24px 20px 20px; border-radius: 22px; background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; gap: 6px">
+      <div style="width: 40px; height: 50px; border-radius: 6px; background: linear-gradient(160deg, #8A6A4A, #D8C49A)"></div>
+      <div style="width: 40px; height: 50px; border-radius: 6px; background: linear-gradient(160deg, #7C735A, #CFC39C)"></div>
+      <div style="width: 40px; height: 50px; border-radius: 6px; background: linear-gradient(160deg, #94704E, #E0C79A)"></div>
+      <div style="width: 40px; height: 50px; border-radius: 6px; background: linear-gradient(160deg, #6E6A5C, #BDB497)"></div>
+      <div style="width: 40px; height: 50px; border-radius: 6px; background: linear-gradient(160deg, #84654A, #D2B98F)"></div>
+    </div>
+    <h2 id="dlg-title" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 21px; font-weight: 700; line-height: 1.25">Apply “Kyoto” to all 5 photos?</h2>
+    <p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--text2)">This replaces the filter on every photo in this project. Your manual adjustments stay as they are. You can undo this in one step.</p>
+    <div style="display: flex; gap: 10px; margin-top: 6px">
+      <a href="Filters.html" style="flex: 1; height: 50px; border-radius: 14px; border: 1px solid var(--border2); color: var(--text); font-weight: 600; font-size: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none">Cancel</a>
+      <a href="Editor.html" style="flex: 1.4; height: 50px; border-radius: 14px; background: #F2B84B; color: #1A1408; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none">Apply to all</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

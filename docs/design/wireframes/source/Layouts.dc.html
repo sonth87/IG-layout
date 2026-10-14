@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Choose layout</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#0b0b0c}
+a{color:var(--accent-text)}
+.theme-dark{--bg:#111214;--canvas:#0B0B0C;--surface:#1C1D21;--surface2:#26282D;--border:#2E3036;--border2:#3A3C42;--divider:#1F2024;--text:#F2F2F0;--text2:#C4C6CC;--muted:#A3A6AD;--disabled:#55585F;--accent-text:#F2B84B;--accent-soft:#2A2312;--accent-soft-border:#5A4618;--accent-soft-text:#F5E6C4;--info-bg:#142430;--info-border:#23445A;--info-text:#CFE6F5;--info-strong:#7CC4F2;--story-bg:#2A1730;--story-text:#E59BF0;--danger:#F28B82;--ig-bg:#000000;--dash:#4A4D55}
+.theme-light{--bg:#F6F5F2;--canvas:#E6E3DD;--surface:#FFFFFF;--surface2:#EFEDE8;--border:#DAD7D0;--border2:#C9C5BC;--divider:#E4E1DA;--text:#1A1B1E;--text2:#3D4047;--muted:#5F636B;--disabled:#B5B8BE;--accent-text:#8A5A00;--accent-soft:#FCEFD2;--accent-soft-border:#EED9A6;--accent-soft-text:#5C4310;--info-bg:#E3F1FA;--info-border:#B9DCF0;--info-text:#1F4F70;--info-strong:#0F5C8A;--story-bg:#F6E6F8;--story-text:#8A2E99;--danger:#C0392B;--ig-bg:#FFFFFF;--dash:#B8B3A9}
+button{font-family:inherit}
+</style>
+</helmet>
+<div class="theme-{{theme}}" style="width: 390px; height: 844px; box-sizing: border-box; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 14px 12px 4px">
+    <div style="display: flex; align-items: center; gap: 4px">
+      <a href="New.dc.html" aria-label="Back" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--text)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600">Choose a layout</h1>
+    </div>
+    <a href="Editor.dc.html" style="padding: 10px 12px; font-size: 15px; font-weight: 600; text-decoration: none">Skip</a>
+  </header>
+
+  <section style="padding: 8px 20px 0; display: flex; flex-direction: column; gap: 8px">
+    <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--muted)">
+      <span>5 photos · drag to reorder</span>
+      <button style="border: none; background: transparent; color: var(--accent-text); font-size: 13px; font-weight: 600; padding: 0">+ Add</button>
+    </div>
+    <div style="display: flex; gap: 8px">
+      <div style="position: relative; width: 58px; height: 58px; border-radius: 10px; background: linear-gradient(180deg, #6E8FB3, #C9A27A 60%, #5A6B44)"><span style="position: absolute; top: 4px; left: 4px; width: 18px; height: 18px; border-radius: 9px; background: var(--bg); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">1</span></div>
+      <div style="position: relative; width: 58px; height: 58px; border-radius: 10px; background: linear-gradient(160deg, #3E5B4A, #9DBF8E)"><span style="position: absolute; top: 4px; left: 4px; width: 18px; height: 18px; border-radius: 9px; background: var(--bg); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</span></div>
+      <div style="position: relative; width: 58px; height: 58px; border-radius: 10px; background: linear-gradient(160deg, #A9574A, #F0C08A)"><span style="position: absolute; top: 4px; left: 4px; width: 18px; height: 18px; border-radius: 9px; background: var(--bg); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</span></div>
+      <div style="position: relative; width: 58px; height: 58px; border-radius: 10px; background: linear-gradient(160deg, #3B3F6B, #8E8FC9)"><span style="position: absolute; top: 4px; left: 4px; width: 18px; height: 18px; border-radius: 9px; background: var(--bg); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">4</span></div>
+      <div style="position: relative; width: 58px; height: 58px; border-radius: 10px; background: linear-gradient(160deg, #5C4033, #D9B48F)"><span style="position: absolute; top: 4px; left: 4px; width: 18px; height: 18px; border-radius: 9px; background: var(--bg); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center">5</span></div>
+    </div>
+  </section>
+
+  <nav aria-label="Layout groups" style="display: flex; gap: 8px; padding: 18px 20px 12px; overflow: hidden">
+    <button style="height: 36px; padding: 0 14px; border-radius: 18px; border: none; background: var(--text); color: var(--bg); font-weight: 600; font-size: 14px; white-space: nowrap">For 5 photos</button>
+    <button style="height: 36px; padding: 0 14px; border-radius: 18px; border: 1px solid var(--border); background: transparent; color: var(--text); font-size: 14px; white-space: nowrap">Seamless</button>
+    <button style="height: 36px; padding: 0 14px; border-radius: 18px; border: 1px solid var(--border); background: transparent; color: var(--text); font-size: 14px; white-space: nowrap">Panorama</button>
+    <button style="height: 36px; padding: 0 14px; border-radius: 18px; border: 1px solid var(--border); background: transparent; color: var(--text); font-size: 14px; white-space: nowrap">Collage</button>
+  </nav>
+
+  <div style="flex: 1; padding: 0 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-content: start; overflow: hidden">
+
+    <button aria-pressed="true" style="border-radius: 14px; border: 2px solid #F2B84B; background: var(--surface); color: var(--text); padding: 10px; display: flex; flex-direction: column; gap: 8px; text-align: left">
+      <div style="position: relative; width: 100%; height: 40px; border-radius: 4px; overflow: hidden; background: linear-gradient(180deg, #6E8FB3, #C9A27A 60%, #5A6B44)">
+        <div style="position: absolute; left: 20%; top: 0; bottom: 0; border-left: 1px dashed var(--text)"></div><div style="position: absolute; left: 40%; top: 0; bottom: 0; border-left: 1px dashed var(--text)"></div><div style="position: absolute; left: 60%; top: 0; bottom: 0; border-left: 1px dashed var(--text)"></div><div style="position: absolute; left: 80%; top: 0; bottom: 0; border-left: 1px dashed var(--text)"></div>
+        <div style="position: absolute; left: 14%; top: 8px; width: 14%; height: 22px; background: #9DBF8E; border: 2px solid var(--text)"></div>
+        <div style="position: absolute; left: 47%; top: 12px; width: 12%; height: 20px; background: #F0C08A; border: 2px solid var(--text)"></div>
+        <div style="position: absolute; left: 74%; top: 6px; width: 13%; height: 22px; background: #8E8FC9; border: 2px solid var(--text)"></div>
+      </div>
+      <span style="font-size: 13px; font-weight: 600">Panorama + floating</span>
+    </button>
+
+    <button style="border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 10px; display: flex; flex-direction: column; gap: 8px; text-align: left">
+      <div style="position: relative; width: 100%; height: 40px; border-radius: 4px; overflow: hidden; background: #E9E4DA">
+        <div style="position: absolute; left: 0; right: 0; top: 7px; height: 26px; background: #1A1A1A; display: flex; gap: 3px; padding: 3px 4px; box-sizing: border-box">
+          <div style="flex: 1; background: #6E8FB3"></div><div style="flex: 1; background: #9DBF8E"></div><div style="flex: 1; background: #F0C08A"></div><div style="flex: 1; background: #8E8FC9"></div><div style="flex: 1; background: #D9B48F"></div>
+        </div>
+      </div>
+      <span style="font-size: 13px; font-weight: 600">Film strip</span>
+    </button>
+
+    <button style="border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 10px; display: flex; flex-direction: column; gap: 8px; text-align: left">
+      <div style="position: relative; width: 100%; height: 40px; border-radius: 4px; overflow: hidden; background: #D8CFC2">
+        <div style="position: absolute; left: 6%; top: 5px; width: 18%; height: 26px; background: #FFFFFF; padding: 2px 2px 6px; box-sizing: border-box; transform: rotate(-8deg)"><div style="width: 100%; height: 100%; background: #6E8FB3"></div></div>
+        <div style="position: absolute; left: 32%; top: 8px; width: 18%; height: 26px; background: #FFFFFF; padding: 2px 2px 6px; box-sizing: border-box; transform: rotate(6deg)"><div style="width: 100%; height: 100%; background: #9DBF8E"></div></div>
+        <div style="position: absolute; left: 56%; top: 4px; width: 18%; height: 26px; background: #FFFFFF; padding: 2px 2px 6px; box-sizing: border-box; transform: rotate(-4deg)"><div style="width: 100%; height: 100%; background: #F0C08A"></div></div>
+        <div style="position: absolute; left: 78%; top: 9px; width: 18%; height: 26px; background: #FFFFFF; padding: 2px 2px 6px; box-sizing: border-box; transform: rotate(9deg)"><div style="width: 100%; height: 100%; background: #8E8FC9"></div></div>
+      </div>
+      <span style="font-size: 13px; font-weight: 600">Polaroid scatter</span>
+    </button>
+
+    <button style="border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 10px; display: flex; flex-direction: column; gap: 8px; text-align: left">
+      <div style="display: flex; width: 100%; height: 40px; border-radius: 4px; overflow: hidden; gap: 2px; background: var(--text)">
+        <div style="flex: 2; background: linear-gradient(180deg, #6E8FB3, #C9A27A 60%, #5A6B44)"></div>
+        <div style="flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px"><div style="background: #9DBF8E"></div><div style="background: #F0C08A"></div><div style="background: #8E8FC9"></div><div style="background: #D9B48F"></div></div>
+        <div style="flex: 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px"><div style="background: #F0C08A"></div><div style="background: #8E8FC9"></div></div>
+      </div>
+      <span style="font-size: 13px; font-weight: 600">Big + collage</span>
+    </button>
+
+    <button style="border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 10px; display: flex; flex-direction: column; gap: 8px; text-align: left">
+      <div style="display: flex; width: 100%; height: 40px; border-radius: 4px; overflow: hidden; gap: 2px; background: var(--text); padding: 3px; box-sizing: border-box">
+        <div style="flex: 1; background: #6E8FB3"></div><div style="flex: 1; background: #9DBF8E"></div><div style="flex: 1; background: #F0C08A"></div><div style="flex: 1; background: #8E8FC9"></div><div style="flex: 1; background: #D9B48F"></div>
+      </div>
+      <span style="font-size: 13px; font-weight: 600">One per slide</span>
+    </button>
+
+    <button style="border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 10px; display: flex; flex-direction: column; gap: 8px; text-align: left">
+      <div style="position: relative; width: 100%; height: 40px; border-radius: 4px; overflow: hidden; background: #1F2A36">
+        <div style="position: absolute; left: 4%; top: 4px; width: 16%; height: 16px; background: #6E8FB3"></div>
+        <div style="position: absolute; left: 22%; top: 20px; width: 16%; height: 16px; background: #9DBF8E"></div>
+        <div style="position: absolute; left: 41%; top: 4px; width: 16%; height: 16px; background: #F0C08A"></div>
+        <div style="position: absolute; left: 60%; top: 20px; width: 16%; height: 16px; background: #8E8FC9"></div>
+        <div style="position: absolute; left: 79%; top: 4px; width: 16%; height: 16px; background: #D9B48F"></div>
+      </div>
+      <span style="font-size: 13px; font-weight: 600">Zigzag</span>
+    </button>
+  </div>
+
+  <div style="padding: 16px 20px 28px; border-top: 1px solid var(--divider)">
+    <a href="Editor.dc.html" style="height: 56px; border-radius: 16px; background: #F2B84B; color: #1A1408; font-weight: 700; font-size: 17px; display: flex; align-items: center; justify-content: center; text-decoration: none">Use this layout</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { theme: this.props.theme ?? 'dark' };
+  }
+}
+</script>
+</body>
+</html>

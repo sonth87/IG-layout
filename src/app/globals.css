@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* Theme tokens — same palette as docs/design/wireframes.md.
+   Default follows the system; [data-theme] on <html> overrides it. */
+:root {
+  --bg: #f6f5f2;
+  --canvas: #e6e3dd;
+  --surface: #ffffff;
+  --surface-2: #efede8;
+  --border: #dad7d0;
+  --border-2: #c9c5bc;
+  --text: #1a1b1e;
+  --text-2: #3d4047;
+  --muted: #5f636b;
+  --disabled: #b5b8be;
+  --accent: #f2b84b;
+  --on-accent: #1a1408;
+  --accent-text: #8a5a00;
+  --accent-soft: #fcefd2;
+  --danger: #c0392b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111214;
+    --canvas: #0b0b0c;
+    --surface: #1c1d21;
+    --surface-2: #26282d;
+    --border: #2e3036;
+    --border-2: #3a3c42;
+    --text: #f2f2f0;
+    --text-2: #c4c6cc;
+    --muted: #a3a6ad;
+    --disabled: #55585f;
+    --accent-text: #f2b84b;
+    --accent-soft: #2a2312;
+    --danger: #f28b82;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #111214;
+  --canvas: #0b0b0c;
+  --surface: #1c1d21;
+  --surface-2: #26282d;
+  --border: #2e3036;
+  --border-2: #3a3c42;
+  --text: #f2f2f0;
+  --text-2: #c4c6cc;
+  --muted: #a3a6ad;
+  --disabled: #55585f;
+  --accent-text: #f2b84b;
+  --accent-soft: #2a2312;
+  --danger: #f28b82;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-2: var(--border-2);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-muted: var(--muted);
+  --color-disabled: var(--disabled);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-space-grotesk);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
