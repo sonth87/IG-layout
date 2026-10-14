@@ -1,0 +1,79 @@
+import { imageElement } from "@/lib/project/placement";
+import { MAX_SLIDES, type ImageAsset, type ImageElement, type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
+import type { Template, TemplateOptions, TemplateSlot } from "./types";
+
+const EPS = 0.001;
+
+/** Number of slides the template will produce for `photoCount` photos. */
+export function templateSlides(tpl: Template, photoCount: number, current: number) {
+  if (tpl.perPhoto) return Math.max(1, Math.min(MAX_SLIDES, photoCount));
+  return tpl.slides === "any" ? current : tpl.slides;
+}
+
+/**
+ * Builds the project content from a template. `photos[i]` fills slots with
+ * `photo: i`; missing photos leave empty slots (assetId null).
+ * Replaces all elements and the background (one history step for the caller).
+ */
+export function applyTemplate(
+  doc: ProjectDoc,
+  tpl: Template,
+  photos: (ImageAsset | undefined)[],
+  opts: TemplateOptions,
+): ProjectDoc {
+  const { width: W, height: H } = SLIDE_SIZE[doc.ratio];
+  const slideCount = templateSlides(tpl, photos.length, doc.slideCount);
+  const elements: ImageElement[] = [];
+  let background = doc.background;
+
+  const bg = tpl.background;
+  if (bg?.kind === "color" || bg?.kind === "gradient") background = bg;
+  else if (tpl.gridded) background = { kind: "color", color: opts.color };
+  if (bg?.kind === "photo" && photos[bg.photo]) {
+    elements.push(imageElement(photos[bg.photo]!, { x: 0, y: 0, width: W * slideCount, height: H }));
+  }
+
+  const slots: TemplateSlot[] = tpl.perPhoto
+    ? Array.from({ length: slideCount }, (_, i) => ({ ...tpl.slots[0], photo: i, slide: i }))
+    : tpl.slots;
+
+  for (const slot of slots) {
+    let x = (slot.slide + slot.x) * W;
+    let y = slot.y * H;
+    let w = slot.w * W;
+    let h = slot.h * H;
+
+    if (tpl.gridded && opts.spacing > 0) {
+      // Half a gap on inner edges, a full gap on slide edges.
+      const g = opts.spacing * W;
+      const left = Math.abs(slot.x) < EPS ? g : g / 2;
+      const right = Math.abs(slot.x + slot.w - Math.round(slot.x + slot.w)) < EPS ? g : g / 2;
+      const top = Math.abs(slot.y) < EPS ? g : g / 2;
+      const bottom = Math.abs(slot.y + slot.h - 1) < EPS ? g : g / 2;
+      x += left;
+      y += top;
+      w -= left + right;
+      h -= top + bottom;
+    }
+
+    const asset = photos[slot.photo];
+    const frame = { x, y, width: w, height: h };
+    const el = asset
+      ? imageElement(asset, frame)
+      : { ...imageElement({ id: "", width: w, height: h }, frame), assetId: null };
+
+    el.rotation = slot.rotation ?? 0;
+    el.mask = slot.mask ?? "none";
+    if (slot.cornerRadius) el.cornerRadius = slot.cornerRadius * W;
+    if (tpl.gridded && opts.radius > 0) {
+      el.mask = "rounded";
+      el.cornerRadius = opts.radius * W;
+    }
+    if (slot.border) el.border = { width: slot.border.width * W, color: slot.border.color };
+    el.shadow = slot.shadow ?? false;
+    el.slot = tpl.gridded ?? false;
+    elements.push(el);
+  }
+
+  return { ...doc, slideCount, background, elements };
+}

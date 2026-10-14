@@ -1,10 +1,11 @@
 "use client";
 
 import type Konva from "konva";
+import { useRef } from "react";
 import { Shape } from "react-konva";
 import { straightenScale } from "@/lib/project/geometry";
 import { traceMask } from "@/lib/project/masks";
-import type { ImageElement } from "@/lib/project/types";
+import type { ImageElement, Rect } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useHtmlImage } from "./useHtmlImage";
 
@@ -18,15 +19,23 @@ interface Props {
  * One Konva shape draws the whole photo: shadow, masked + cropped + straightened
  * image, border. Its self rect is exactly the frame, so selection handles fit it.
  * Positioned by its center (rotation around the center).
+ *
+ * Template cells (`slot`): dragging pans the photo inside the frame instead of
+ * moving the frame. Empty cells (no photo) show a "+" placeholder.
  */
 export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
   const asset = useEditor((s) => (el.assetId ? s.assets[el.assetId] : undefined));
   const select = useEditor((s) => s.select);
   const updateElement = useEditor((s) => s.updateElement);
   const image = useHtmlImage(asset?.url);
+  /** Crop while panning a slot (drawn live, committed on release). */
+  const liveCrop = useRef<Rect | null>(null);
+  const panStart = useRef<{ x: number; y: number } | null>(null);
 
   const w = el.width;
   const h = el.height;
+  const cx = el.x + w / 2;
+  const cy = el.y + h / 2;
 
   function draw(ctx: Konva.Context, shape: Konva.Shape) {
     const c = ctx._context;
@@ -47,14 +56,32 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
     traceMask(c, el.mask, w, h, el.cornerRadius);
     c.clip();
     if (image) {
+      const crop = liveCrop.current ?? el.crop;
       const s = straightenScale(w, h, el.straighten);
       c.translate(w / 2, h / 2);
       c.rotate((el.straighten * Math.PI) / 180);
       c.scale(s * (el.flipX ? -1 : 1), s * (el.flipY ? -1 : 1));
-      c.drawImage(image, el.crop.x, el.crop.y, el.crop.width, el.crop.height, -w / 2, -h / 2, w, h);
+      c.drawImage(image, crop.x, crop.y, crop.width, crop.height, -w / 2, -h / 2, w, h);
     } else {
       c.fillStyle = "#d9d5cd";
       c.fillRect(0, 0, w, h);
+      if (!el.assetId) {
+        // "+" placeholder for an empty template cell.
+        const r = Math.min(w, h) * 0.12;
+        c.fillStyle = "rgba(255,255,255,0.85)";
+        c.beginPath();
+        c.arc(w / 2, h / 2, r, 0, Math.PI * 2);
+        c.fill();
+        c.strokeStyle = "#8a857c";
+        c.lineWidth = r * 0.16;
+        c.lineCap = "round";
+        c.beginPath();
+        c.moveTo(w / 2 - r * 0.45, h / 2);
+        c.lineTo(w / 2 + r * 0.45, h / 2);
+        c.moveTo(w / 2, h / 2 - r * 0.45);
+        c.lineTo(w / 2, h / 2 + r * 0.45);
+        c.stroke();
+      }
     }
     c.restore();
 
@@ -73,11 +100,31 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
     ctx.fillStrokeShape(shape);
   }
 
+  /** Slot panning: keep the frame in place, shift the crop instead. */
+  function panSlot(node: Konva.Node) {
+    const start = panStart.current;
+    if (!start || !asset) return;
+    const scale = el.crop.width / w; // image px per frame px
+    const t = (-el.rotation * Math.PI) / 180;
+    const dx = node.x() - start.x;
+    const dy = node.y() - start.y;
+    // Finger movement in the frame's own (rotated) axes.
+    const fx = dx * Math.cos(t) - dy * Math.sin(t);
+    const fy = dx * Math.sin(t) + dy * Math.cos(t);
+    node.position(start);
+    liveCrop.current = {
+      ...el.crop,
+      x: Math.max(0, Math.min(asset.width - el.crop.width, el.crop.x - fx * scale * (el.flipX ? -1 : 1))),
+      y: Math.max(0, Math.min(asset.height - el.crop.height, el.crop.y - fy * scale * (el.flipY ? -1 : 1))),
+    };
+    node.getLayer()?.batchDraw();
+  }
+
   return (
     <Shape
       id={el.id}
-      x={el.x + w / 2}
-      y={el.y + h / 2}
+      x={cx}
+      y={cy}
       width={w}
       height={h}
       offsetX={w / 2}
@@ -89,10 +136,21 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       draggable
       onMouseDown={() => select(el.id)}
       onTap={() => select(el.id)}
-      onDragStart={() => select(el.id)}
-      onDragMove={(e) => onDragMove(e.target, el)}
+      onDragStart={(e) => {
+        select(el.id);
+        if (el.slot) panStart.current = { x: e.target.x(), y: e.target.y() };
+      }}
+      onDragMove={(e) => (el.slot ? panSlot(e.target) : onDragMove(e.target, el))}
       // One history step per gesture: recorded when the finger is lifted.
       onDragEnd={(e) => {
+        if (el.slot) {
+          const crop = liveCrop.current;
+          liveCrop.current = null;
+          panStart.current = null;
+          e.target.position({ x: cx, y: cy });
+          if (crop) updateElement(el.id, { crop });
+          return;
+        }
         onDragEnd();
         updateElement(el.id, { x: e.target.x() - w / 2, y: e.target.y() - h / 2 });
       }}

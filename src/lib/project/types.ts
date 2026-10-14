@@ -73,6 +73,8 @@ export interface ImageElement extends ElementBase {
   cornerRadius: number;
   border: Border | null;
   shadow: boolean;
+  /** Template cell: dragging pans the photo inside instead of moving the frame. */
+  slot: boolean;
 }
 
 export type CanvasElement = ImageElement;

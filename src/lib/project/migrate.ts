@@ -33,6 +33,7 @@ export function migrateDoc(raw: ProjectDoc | LegacyDoc, assetSize: (id: string) 
       cornerRadius: el.cornerRadius ?? 40,
       border: el.border ?? null,
       shadow: el.shadow ?? false,
+      slot: el.slot ?? false,
     };
   });
 

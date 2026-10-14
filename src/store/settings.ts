@@ -65,7 +65,13 @@ export const useSettings = create<SettingsState>()((set, get) => ({
 
 export function translate(locale: Locale, key: MessageKey, vars?: Record<string, string | number>) {
   let text: string = DICTS[locale][key] ?? en[key];
-  if (vars) for (const [k, v] of Object.entries(vars)) text = text.replaceAll(`{${k}}`, String(v));
+  if (vars) {
+    // Plurals: "{count|photo|photos}" picks the form by the value of `count`.
+    text = text.replace(/\{(\w+)\|([^|}]*)\|([^}]*)\}/g, (_, k: string, one: string, many: string) =>
+      Number(vars[k]) === 1 ? one : many,
+    );
+    for (const [k, v] of Object.entries(vars)) text = text.replaceAll(`{${k}}`, String(v));
+  }
   return text;
 }
 

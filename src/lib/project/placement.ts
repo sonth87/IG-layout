@@ -17,6 +17,7 @@ export function imageElement(asset: Pick<ImageAsset, "id" | "width" | "height">,
     cornerRadius: 40,
     border: null,
     shadow: false,
+    slot: false,
   };
 }
 

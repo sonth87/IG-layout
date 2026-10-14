@@ -16,6 +16,10 @@ Xem bản build: phục vụ thư mục `out/` bằng bất kỳ static server n
 Thử trên điện thoại (cùng mạng Wi-Fi): `pnpm dev -H 0.0.0.0` rồi mở `http://<IP-máy>:3000`.
 Lưu ý: share sheet ("Save images") và cài PWA cần **HTTPS** (hoặc localhost) — dùng tunnel (ví dụ cloudflared) hoặc deploy thử.
 
+## Kiểm tra tự động
+
+`pnpm build && pnpm e2e` — chạy Chromium headless qua các luồng chính (xem [e2e/README.md](../../e2e/README.md)). Chạy trên bản deploy: `node e2e/run.mjs https://ig-layout.vercel.app/`. **Chạy trước khi merge vào `main`.**
+
 ## Cấu trúc thư mục
 
 ```
@@ -32,6 +36,7 @@ src/
       useImportPhotos.ts
       canvas/           CanvasStage (3 layer, pinch, hít), ImageNode, BackgroundNode, useHtmlImage
       tools/            controls (ToolSheet ✕/✓, Slider, Swatches), CropTool, ElementTools (Mask, Style), ProjectTools (Background, Slides)
+    layout/             LayoutPicker (chọn layout), TemplatePreview
     ui/Icon.tsx
   lib/
     project/types.ts    mô hình dữ liệu (tọa độ theo pixel xuất)
@@ -41,6 +46,7 @@ src/
     project/snap.ts       hít & đường gióng
     project/slides.ts     thêm / xóa / đổi chỗ slide
     project/migrate.ts    nâng cấp dữ liệu project cũ
+    templates/          types, library (danh sách template), apply (template → phần tử)
     image/import.ts     đọc ảnh, xoay theo EXIF, thu nhỏ (D-29)
     export/slices.ts    cắt canvas theo ranh giới slide → JPEG
     export/deliver.ts   share sheet / ZIP / tải từng ảnh

@@ -113,6 +113,13 @@ const PATHS = {
       <path d="M7 8l5-5 5 5H7zM7 16l5 5 5-5H7z" />
     </>
   ),
+  swap: <path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7" />,
+  layout: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M3 10h18M10 10v11" />
+    </>
+  ),
   reset: (
     <>
       <path d="M4 4v6h6" />

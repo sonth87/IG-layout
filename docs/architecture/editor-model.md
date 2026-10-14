@@ -81,6 +81,8 @@ Store có `draft: ProjectDoc | null`.
 
 ## 6. Template (M3)
 
+> **Đã cài đặt (M3):** template là dữ liệu TypeScript trong `src/lib/templates/library.ts` (có kiểu, dễ kiểm tra hơn JSON thuần; vẫn là dữ liệu — thêm layout không sửa code). `applyTemplate` trong `apply.ts`. Ô của template lưới có `slot: true`: kéo = dịch ảnh trong ô (đổi `crop`), đổi ảnh giữa hai ô bằng nút Swap. Template `perPhoto` sinh mỗi slide 1 ô theo số ảnh.
+
 File JSON, toạ độ **tương đối** (0..1 theo slide) để dùng cho mọi tỉ lệ:
 
 ```json

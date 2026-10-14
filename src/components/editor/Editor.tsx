@@ -12,11 +12,13 @@ import { ExportSheet } from "./ExportSheet";
 import { CropTool } from "./tools/CropTool";
 import { MaskTool, StyleTool } from "./tools/ElementTools";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
+import { LayoutPicker } from "@/components/layout/LayoutPicker";
+import type { ImageAsset } from "@/lib/project/types";
 import { useImportPhotos } from "./useImportPhotos";
 
 const STAGE_PADDING = 24;
 
-type Tool = "crop" | "mask" | "style" | "background" | "slides";
+type Tool = "crop" | "mask" | "style" | "background" | "slides" | "layout";
 /** Tools that edit a draft (✕ / ✓). Slides acts directly. */
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "background"];
 
@@ -59,10 +61,24 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const doc = useViewDoc()!;
   const selectedId = useEditor((s) => s.selectedId);
   const currentSlide = useEditor((s) => s.currentSlide);
+  const swapFrom = useEditor((s) => s.swapFrom);
+  const assets = useEditor((s) => s.assets);
   const canUndo = useEditor((s) => s.past.length > 0);
   const canRedo = useEditor((s) => s.future.length > 0);
-  const { undo, redo, select, removeElement, moveLayer, duplicateElement, replaceImage, closeProject, beginDraft, setCurrentSlide } =
-    useEditor.getState();
+  const {
+    undo,
+    redo,
+    select,
+    removeElement,
+    moveLayer,
+    duplicateElement,
+    replaceImage,
+    closeProject,
+    beginDraft,
+    setCurrentSlide,
+    startSwap,
+    applyLayout,
+  } = useEditor.getState();
   const { importFiles, decodeFiles, busy, errors } = useImportPhotos();
 
   const areaRef = useRef<HTMLDivElement>(null);
@@ -76,6 +92,10 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const viewScale = useViewScale(areaRef, slide);
   const slideW = slide.width * viewScale;
   const selected = doc.elements.find((el) => el.id === selectedId);
+  /** Photos used in the project, back to front, without duplicates (for re-layout). */
+  const usedPhotos = [...new Set(doc.elements.map((el) => el.assetId).filter((id): id is string => !!id))]
+    .map((id) => assets[id])
+    .filter((a): a is ImageAsset => !!a);
 
   function openTool(next: Tool) {
     if (DRAFT_TOOLS.includes(next)) beginDraft();
@@ -116,8 +136,13 @@ export function Editor({ onClose }: { onClose: () => void }) {
           </button>
         </div>
         <div className="flex overflow-x-auto">
-          <ToolButton label={t("editor.replace")} icon="replace" onClick={() => replaceInput.current?.click()} />
-          <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />
+          <ToolButton
+            label={selected.assetId ? t("editor.replace") : t("editor.addPhoto")}
+            icon={selected.assetId ? "replace" : "image"}
+            onClick={() => replaceInput.current?.click()}
+          />
+          {selected.slot && <ToolButton label={t("editor.swap")} icon="swap" onClick={() => startSwap(selected.id)} />}
+          {selected.assetId && <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />}
           <ToolButton label={t("editor.mask")} icon="mask" onClick={() => openTool("mask")} />
           <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
           <ToolButton label={t("editor.forward")} icon="layerUp" onClick={() => moveLayer(selected.id, "up")} />
@@ -136,6 +161,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
             icon="image"
             onClick={() => addInput.current?.click()}
           />
+          <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
           <ToolButton label={t("editor.background")} icon="background" onClick={() => openTool("background")} />
           <ToolButton label={t("editor.slides")} icon="slides" onClick={() => openTool("slides")} />
         </div>
@@ -227,15 +253,38 @@ export function Editor({ onClose }: { onClose: () => void }) {
         accept="image/*"
         hidden
         onChange={async (e) => {
-          const files = e.target.files;
+          // Copy before clearing the input: clearing empties its FileList.
+          const files = Array.from(e.target.files ?? []);
           e.target.value = "";
-          if (!files?.length || !selected) return;
+          if (!files.length || !selected) return;
           const [asset] = await decodeFiles(files);
           if (asset) replaceImage(selected.id, asset);
         }}
       />
 
+      {swapFrom && (
+        <div role="status" className="flex items-center justify-between gap-3 bg-accent-soft px-4 py-2.5 text-sm">
+          <span>{t("editor.swapHint")}</span>
+          <button type="button" onClick={() => startSwap(null)} className="font-semibold text-accent-text">
+            {t("common.cancel")}
+          </button>
+        </div>
+      )}
+
       {bottom}
+
+      {tool === "layout" && (
+        <LayoutPicker
+          photos={usedPhotos}
+          ratio={doc.ratio}
+          slides={doc.slideCount}
+          onClose={() => setTool(null)}
+          onApply={(tpl, photos, options) => {
+            applyLayout(tpl, photos, options);
+            setTool(null);
+          }}
+        />
+      )}
 
       {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={() => setTool(null)} />}
 

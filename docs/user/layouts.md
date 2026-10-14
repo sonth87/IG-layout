@@ -1,6 +1,6 @@
 # Các dạng layout
 
-> Trạng thái: **Đang chốt dần.** Loại project: Post / Story / Grid (đã chốt). Mức ưu tiên: **MVP** / **Sau** / **Cân nhắc**.
+> Trạng thái: **Đang chốt dần.** Loại project: Post / Story / Grid (đã chốt). Bộ template đầu tiên đã có trong app (M3) — danh sách: `src/lib/templates/library.ts`. Mức ưu tiên: **MVP** / **Sau** / **Cân nhắc**.
 
 ## Khái niệm
 

@@ -2,9 +2,11 @@
 
 import { useRef, useState } from "react";
 import { useImportPhotos } from "@/components/editor/useImportPhotos";
+import { LayoutPicker } from "@/components/layout/LayoutPicker";
 import { Icon } from "@/components/ui/Icon";
 import { formatShortDate } from "@/lib/format";
-import { type AspectRatio, MAX_SLIDES, POST_RATIOS, SLIDE_SIZE } from "@/lib/project/types";
+import { type AspectRatio, type ImageAsset, MAX_SLIDES, POST_RATIOS, SLIDE_SIZE } from "@/lib/project/types";
+import { templateSlides } from "@/lib/templates/apply";
 import { useEditor } from "@/store/editor";
 import { useSettings, useT } from "@/store/settings";
 
@@ -23,16 +25,39 @@ export function NewProject({ onClose }: { onClose: () => void }) {
   const fileInput = useRef<HTMLInputElement>(null);
   const createProject = useEditor((s) => s.createProject);
   const addImages = useEditor((s) => s.addImages);
+  const applyLayout = useEditor((s) => s.applyLayout);
   const { decodeFiles, busy, errors } = useImportPhotos();
+  const [picked, setPicked] = useState<ImageAsset[] | null>(null);
   const size = SLIDE_SIZE[ratio];
+  const name = () => t("new.defaultName", { date: formatShortDate(Date.now(), locale) });
 
   async function onFiles(files: FileList | null) {
     if (!files?.length) return;
-    // Decode first so this screen can show progress and errors; then open the editor.
+    // Decode first so this screen can show progress and errors; then choose a layout.
     const assets = await decodeFiles(files);
-    if (assets.length === 0) return;
-    await createProject(ratio, slides, t("new.defaultName", { date: formatShortDate(Date.now(), locale) }));
-    addImages(assets);
+    if (assets.length > 0) setPicked(assets);
+  }
+
+  if (picked) {
+    return (
+      <LayoutPicker
+        photos={picked}
+        ratio={ratio}
+        slides={slides}
+        onClose={() => {
+          picked.forEach((a) => URL.revokeObjectURL(a.url));
+          setPicked(null);
+        }}
+        onSkip={async () => {
+          await createProject(ratio, slides, name());
+          addImages(picked);
+        }}
+        onApply={async (tpl, photos, options) => {
+          await createProject(ratio, templateSlides(tpl, photos.length, slides), name());
+          applyLayout(tpl, photos, options);
+        }}
+      />
+    );
   }
 
   return (

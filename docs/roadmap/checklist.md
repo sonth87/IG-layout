@@ -93,14 +93,17 @@ Nhánh: `m2-editor-core` — xong 2026-10-14, đã merge vào `main`. Thiết k�
 - [x] Lưu ngay khi app bị ẩn / đóng (không mất thay đổi cuối)
 
 ### M3 — Layout & template
-Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 6.
-- [ ] Định dạng template JSON (tọa độ tương đối) + bộ chuyển thành phần tử
-- [ ] Ô trống (`assetId: null`) hiển thị "chạm để thêm ảnh"; chạm → chọn ảnh vào ô
-- [ ] Bộ template đầu tiên: khung đơn (fill / fit), lưới đều 2–9 ô, lưới không đều, scrapbook, khung trang trí, panorama, seamless (ảnh nền + ảnh nổi, dải ảnh, cuộn film, polaroid rải, ảnh lớn 2 slide, zigzag)
-- [ ] Màn chọn layout sau khi chọn ảnh: khay ảnh (đổi thứ tự), nhóm, gợi ý theo số ảnh
-- [ ] Tự điền ảnh vào ô; đổi chỗ ảnh giữa hai ô (kéo thả); áp layout vào project đang mở
-- [ ] Khoảng cách giữa ô, bo góc, màu nền cho template lưới
-- [ ] Kiểm tra tự động + tài liệu
+Nhánh: `m3-layouts` — xong 2026-10-14, đã merge vào `main`. Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 6.
+- [x] Định dạng template (dữ liệu TypeScript, tọa độ tương đối theo slide) + `applyTemplate` sinh phần tử thật
+- [x] Ô trống (`assetId: null`) hiển thị "+"; chọn ô → "Add photo"
+- [x] Bộ template đầu tiên (25 mẫu): lưới (2–9 ô, không đều, 2 slide), seamless (panorama + ảnh nổi, dải ảnh, zigzag, ảnh lớn 2 slide + ghép ô, polaroid rải), panorama, scrapbook, khung (viền trắng, vòm, bo góc), mỗi slide 1 ảnh
+- [ ] Cuộn film chạy ngang — chuyển sang M5 (cần phần tử hình khối)
+- [x] Màn chọn layout sau khi chọn ảnh (có Skip) và từ editor (nút Layout): khay ảnh (chạm 2 ảnh để đổi thứ tự), tab nhóm, gợi ý theo số ảnh, xem trước bằng ảnh thật
+- [x] Tự điền ảnh vào ô; ô lưới: kéo = dịch ảnh trong ô; nút "Swap" đổi ảnh giữa hai ô
+- [x] Khoảng cách giữa ô, bo góc, màu nền cho template lưới
+- [x] i18n số nhiều (`{n|slide|slides}`)
+- [x] Sửa lỗi: Thay ảnh / Thêm ảnh không nhận file (xóa input trước khi đọc)
+- [x] Kiểm tra tự động: đưa vào repo (`e2e/`, `pnpm e2e`), 4 bộ M1 / M2 / M3 / offline đều đạt
 
 ### M4 — Màu & filter
 Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 7.

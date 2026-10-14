@@ -6,6 +6,8 @@ import { migrateDoc } from "@/lib/project/migrate";
 import { coverCrop } from "@/lib/project/geometry";
 import { placeImages } from "@/lib/project/placement";
 import { deleteSlide, insertSlide, moveSlide } from "@/lib/project/slides";
+import { applyTemplate } from "@/lib/templates/apply";
+import type { Template, TemplateOptions } from "@/lib/templates/types";
 import {
   type AspectRatio,
   type CanvasElement,
@@ -31,6 +33,8 @@ interface EditorState {
   past: ProjectDoc[];
   future: ProjectDoc[];
   selectedId: string | null;
+  /** While set, the next photo the user taps swaps photos with this one. */
+  swapFrom: string | null;
   /** Slide closest to the middle of the screen. */
   currentSlide: number;
   /** Content layer + scale of the mounted canvas, used for thumbnails and export. */
@@ -46,6 +50,8 @@ interface EditorState {
   duplicateElement: (id: string) => void;
   removeElement: (id: string) => void;
   moveLayer: (id: string, direction: "up" | "down") => void;
+  startSwap: (id: string | null) => void;
+  applyLayout: (tpl: Template, photos: ImageAsset[], opts: TemplateOptions) => void;
 
   insertSlide: (after: number) => void;
   deleteSlide: (index: number) => void;
@@ -71,6 +77,7 @@ const EMPTY = {
   past: [],
   future: [],
   selectedId: null,
+  swapFrom: null,
   currentSlide: 0,
   canvas: null,
 } satisfies Partial<EditorState>;
@@ -98,9 +105,10 @@ export const useEditor = create<EditorState>()((set, get) => {
     Object.values(get().assets).forEach((a) => URL.revokeObjectURL(a.url));
   }
 
-  function storeAssets(assets: ImageAsset[]) {
+  function storeAssets(all: ImageAsset[]) {
     const projectId = get().projectId;
-    if (!projectId) return;
+    const assets = all.filter((a) => !get().assets[a.id]);
+    if (!projectId || assets.length === 0) return;
     set((s) => ({ assets: { ...s.assets, ...Object.fromEntries(assets.map((a) => [a.id, a])) } }));
     void saveAssets(assets.map(({ id, blob, width, height, name }) => ({ id, projectId, blob, width, height, name })));
   }
@@ -197,6 +205,14 @@ export const useEditor = create<EditorState>()((set, get) => {
         return { ...d, elements };
       }),
 
+    startSwap: (id) => set({ swapFrom: id }),
+
+    applyLayout: (tpl, photos, opts) => {
+      storeAssets(photos);
+      commit((d) => applyTemplate(d, tpl, photos, opts));
+      set({ selectedId: null, swapFrom: null });
+    },
+
     insertSlide: (after) => commit((d) => insertSlide(d, after)),
     deleteSlide: (index) => {
       commit((d) => deleteSlide(d, index));
@@ -213,7 +229,26 @@ export const useEditor = create<EditorState>()((set, get) => {
     },
     cancelDraft: () => set({ draft: null }),
 
-    select: (id) => set({ selectedId: id }),
+    select: (id) => {
+      const { swapFrom } = get();
+      if (swapFrom && id && id !== swapFrom) {
+        // Swap the photos of two frames; each keeps its frame and gets a fresh cover crop.
+        commit((d) => {
+          const a = d.elements.find((e) => e.id === swapFrom);
+          const b = d.elements.find((e) => e.id === id);
+          if (!a || !b) return d;
+          const assets = get().assets;
+          const cropFor = (assetId: string | null, frame: { width: number; height: number }) =>
+            assetId && assets[assetId] ? coverCrop(assets[assetId], frame) : { x: 0, y: 0, width: 1, height: 1 };
+          let next = updateEl(d, a.id, { assetId: b.assetId, crop: cropFor(b.assetId, a), straighten: 0 });
+          next = updateEl(next, b.id, { assetId: a.assetId, crop: cropFor(a.assetId, b), straighten: 0 });
+          return next;
+        });
+        set({ swapFrom: null, selectedId: id });
+        return;
+      }
+      set({ selectedId: id, swapFrom: id ? swapFrom : null });
+    },
     setCurrentSlide: (index) => set({ currentSlide: index }),
     setCanvas: (canvas) => set({ canvas }),
 
