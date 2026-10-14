@@ -1,5 +1,6 @@
 "use client";
 
+import { layerRegion } from "@/lib/export/slices";
 import { canvasSize, slideRect } from "@/lib/project/layout";
 import { saveState } from "@/lib/storage/projects";
 import { create } from "zustand";
@@ -24,14 +25,11 @@ async function thumbnail(): Promise<Blob | undefined> {
   if (!canvas || !doc) return undefined;
   // Grid: the whole profile picture; otherwise the first slide.
   const area = doc.type === "grid" ? { x: 0, y: 0, ...canvasSize(doc) } : slideRect(doc, 0);
-  const w = area.width * canvas.viewScale;
+  const region = layerRegion(canvas.layer, area, canvas.viewScale);
   try {
     return (await canvas.layer.toBlob({
-      x: 0,
-      y: 0,
-      width: w,
-      height: area.height * canvas.viewScale,
-      pixelRatio: THUMB_WIDTH / w,
+      ...region,
+      pixelRatio: THUMB_WIDTH / region.width,
       mimeType: "image/jpeg",
       quality: 0.8,
     })) as Blob;

@@ -11,6 +11,7 @@ import { flushSave, useSaveStatus } from "@/store/autosave";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import CanvasStage from "./canvas/CanvasStage";
+import { isTouchUI } from "./canvas/interaction";
 import { type Action, ActionSheet, CoachTips, LayersSheet } from "./EditorSheets";
 import { ExportSheet } from "./ExportSheet";
 import { SlideNavigator } from "./SlideNavigator";
@@ -25,6 +26,12 @@ import { useShortcuts } from "./useShortcuts";
 
 const STAGE_PADDING = 24;
 const LABEL_SPACE = 20;
+/**
+ * Room kept for the tallest bottom bar (slide strip + selection toolbar). The canvas is
+ * sized against the screen minus this, not against whatever bar is showing, so it
+ * never changes size when you select something or open a tool (F-03).
+ */
+const DOCK_RESERVE = 210;
 const MIN_ZOOM = 1;
 const REPLACE_INPUT_ID = "replace-photo-input";
 
@@ -52,32 +59,44 @@ type Tool =
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background"];
 
 /**
- * Stage pixels per export pixel at zoom 1. Post / Story: a slide fits the area
- * height and ~86% of its width (scroll sideways). Grid: the whole grid width fits.
- * Frozen while a tool is open so the canvas doesn't jump when a sheet appears (UX-08).
+ * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
+ * Post / Story: a slide fits the height and ~86% of the width (scroll sideways).
+ * Grid: the whole grid width fits. Depends on the screen only, never on which bottom
+ * bar or sheet is showing, so the canvas doesn't jump (UX-08, F-03).
  */
-function useBaseScale(
-  area: React.RefObject<HTMLDivElement | null>,
-  slide: { width: number; height: number },
-  gridWidth: number | null,
-  frozen: boolean,
-) {
-  const [scale, setScale] = useState(0);
+function useBaseScale(area: React.RefObject<HTMLDivElement | null>, slide: { width: number; height: number }, gridWidth: number | null) {
+  const [base, setBase] = useState({ scale: 0, height: 0 });
   useEffect(() => {
     const el = area.current;
-    if (!el || frozen) return;
+    if (!el) return;
     const update = () => {
-      if (gridWidth) return setScale(Math.max(0.05, (el.clientWidth - STAGE_PADDING * 2) / gridWidth));
-      const h = el.clientHeight - STAGE_PADDING * 2 - LABEL_SPACE;
-      const w = el.clientWidth * 0.86;
-      setScale(Math.max(0.05, Math.min(h / slide.height, w / slide.width)));
+      const height = window.innerHeight - el.getBoundingClientRect().top - (gridWidth ? 90 : DOCK_RESERVE);
+      const scale = gridWidth
+        ? (el.clientWidth - STAGE_PADDING * 2) / gridWidth
+        : Math.min((height - STAGE_PADDING * 2 - LABEL_SPACE) / slide.height, (el.clientWidth * 0.86) / slide.width);
+      setBase((b) => (b.scale === scale && b.height === height ? b : { scale: Math.max(0.05, scale), height }));
     };
+    update();
+    // Width only changes with the window; the height used is the window's.
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [area, slide.width, slide.height, gridWidth]);
+  return base;
+}
+
+/** Visible size of the canvas area (the stage covers just that, D-69). */
+function useAreaSize(area: React.RefObject<HTMLDivElement | null>) {
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  useEffect(() => {
+    const el = area.current;
+    if (!el) return;
+    const update = () => setSize((s) => (s.width === el.clientWidth && s.height === el.clientHeight ? s : { width: el.clientWidth, height: el.clientHeight }));
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [area, slide.width, slide.height, gridWidth, frozen]);
-  return scale;
+  }, [area]);
+  return size;
 }
 
 function ToolButton(props: { label: string; icon: IconName; onClick: () => void; danger?: boolean }) {
@@ -135,8 +154,16 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const { slide } = size;
   const isGrid = doc.type === "grid";
   const sheetOpen = tool !== null && tool !== "more" && tool !== "layers" && tool !== "elements" && tool !== "layout";
-  const baseScale = useBaseScale(areaRef, slide, isGrid ? size.width : null, sheetOpen);
+  const base = useBaseScale(areaRef, slide, isGrid ? size.width : null);
+  const baseScale = base.scale;
   const viewScale = baseScale * zoom;
+  /** Canvas origin inside the scroll content: vertically centred when it fits. */
+  const originFor = (s: number) => ({
+    x: STAGE_PADDING,
+    y: Math.max(STAGE_PADDING + LABEL_SPACE, Math.round((base.height - size.height * s + LABEL_SPACE) / 2)),
+  });
+  const origin = originFor(viewScale);
+  const areaSize = useAreaSize(areaRef);
   const selected = doc.elements.find((el) => el.id === selectedId);
   /** Photos used in the project, back to front, without duplicates (for re-layout). */
   const usedPhotos = [...new Set(doc.elements.filter(isImage).map((el) => el.assetId).filter((id): id is string => !!id))]
@@ -147,8 +174,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
   function reveal(x: number, y: number, force = false) {
     const area = areaRef.current;
     if (!area) return;
-    const px = STAGE_PADDING + x * viewScale;
-    const py = STAGE_PADDING + LABEL_SPACE + y * viewScale;
+    const px = origin.x + x * viewScale;
+    const py = origin.y + y * viewScale;
     const visible =
       px > area.scrollLeft + 24 && px < area.scrollLeft + area.clientWidth - 24 && py > area.scrollTop + 24 && py < area.scrollTop + area.clientHeight - 24;
     if (visible && !force) return;
@@ -172,8 +199,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
   function onScroll() {
     const area = areaRef.current;
     if (!area || viewScale <= 0) return;
-    const x = (area.scrollLeft + area.clientWidth / 2 - STAGE_PADDING) / viewScale;
-    const y = (area.scrollTop + area.clientHeight / 2 - STAGE_PADDING - LABEL_SPACE) / viewScale;
+    const x = (area.scrollLeft + area.clientWidth / 2 - origin.x) / viewScale;
+    const y = (area.scrollTop + area.clientHeight / 2 - origin.y) / viewScale;
     const index = slideAt(doc, x, y);
     if (index !== useEditor.getState().currentSlide) store.setCurrentSlide(index);
   }
@@ -183,14 +210,15 @@ export function Editor({ onClose }: { onClose: () => void }) {
     const area = areaRef.current;
     const z = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, next));
     if (!area || z === zoom) return;
-    const cx = (area.scrollLeft + area.clientWidth / 2 - STAGE_PADDING) / viewScale;
-    const cy = (area.scrollTop + area.clientHeight / 2 - STAGE_PADDING - LABEL_SPACE) / viewScale;
+    const cx = (area.scrollLeft + area.clientWidth / 2 - origin.x) / viewScale;
+    const cy = (area.scrollTop + area.clientHeight / 2 - origin.y) / viewScale;
     setZoom(z);
     requestAnimationFrame(() => {
       const s = baseScale * z;
+      const o = originFor(s);
       area.scrollTo({
-        left: STAGE_PADDING + cx * s - area.clientWidth / 2,
-        top: STAGE_PADDING + LABEL_SPACE + cy * s - area.clientHeight / 2,
+        left: o.x + cx * s - area.clientWidth / 2,
+        top: o.y + cy * s - area.clientHeight / 2,
       });
     });
   }
@@ -215,7 +243,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     </section>
   );
 
-  type MoreKey = "background" | "slides" | "layers" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock";
+  type MoreKey = "background" | "slides" | "layers" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate";
 
   /** Secondary actions for the selection ("⋯ More"), described as data. */
   function moreActions(): Action<MoreKey>[] {
@@ -232,6 +260,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       if (selected.slot) list.push({ key: "swap", label: t("editor.swap"), icon: "swap" });
       if (selected.frame === "none") list.push({ key: "mask", label: t("editor.mask"), icon: "mask" });
     }
+    if (selected.rotation !== 0 && !selected.locked) list.push({ key: "unrotate", label: t("editor.unrotate"), icon: "rotate" });
     list.push(
       { key: "up", label: t("editor.forward"), icon: "layerUp" },
       { key: "down", label: t("editor.backward"), icon: "layerDown" },
@@ -255,6 +284,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (key === "up" || key === "down") return store.moveLayer(id, key);
     if (key === "front" || key === "back") return store.moveLayerTo(id, key);
     if (key === "lock") return store.toggleLock(id);
+    if (key === "unrotate") return store.updateElement(id, { rotation: 0 });
   }
 
   const more = <ToolButton label={t("editor.more")} icon="more" onClick={() => setTool("more")} />;
@@ -411,27 +441,45 @@ export function Editor({ onClose }: { onClose: () => void }) {
           style={{ touchAction: "pan-x pan-y" }}
           className="relative flex-1 overflow-auto bg-canvas"
         >
-          {viewScale > 0 && (
-            <div className="relative inline-block" style={{ padding: STAGE_PADDING, paddingTop: STAGE_PADDING + LABEL_SPACE }}>
+          {viewScale > 0 && areaSize.width > 0 && (
+            // Scroll content at full size; the stage sticks to the visible part (D-69).
+            <div
+              className="relative"
+              style={{
+                width: Math.max(areaSize.width, origin.x + STAGE_PADDING + size.width * viewScale),
+                height: Math.max(areaSize.height, origin.y + STAGE_PADDING + size.height * viewScale),
+              }}
+            >
+              <div className="sticky top-0 left-0" style={{ width: areaSize.width, height: areaSize.height }}>
+                <CanvasStage
+                  viewScale={viewScale}
+                  viewport={areaSize}
+                  scrollRef={areaRef}
+                  origin={origin}
+                  contentLayerRef={contentLayerRef}
+                  showSafeZone={showSafeZone}
+                  onPinchZoom={(k, phase) => {
+                    if (phase === "start") pinchZoomStart.current = zoom;
+                    else if (phase === "move") zoomTo(pinchZoomStart.current * k);
+                  }}
+                />
+              </div>
+              {/* Where the canvas is in the scroll content (layout reference for tests). */}
+              <div
+                data-stage-frame
+                className="pointer-events-none absolute"
+                style={{ left: origin.x, top: origin.y, width: size.width * viewScale, height: size.height * viewScale }}
+              />
               {!isGrid &&
                 Array.from({ length: doc.slideCount }, (_, i) => (
                   <span
                     key={i}
-                    className={`absolute text-xs ${i === currentSlide ? "font-bold text-accent-text" : "text-muted"}`}
-                    style={{ left: STAGE_PADDING + slideRect(doc, i).x * viewScale, top: STAGE_PADDING - 2 }}
+                    className={`pointer-events-none absolute text-xs ${i === currentSlide ? "font-bold text-accent-text" : "text-muted"}`}
+                    style={{ left: origin.x + slideRect(doc, i).x * viewScale, top: origin.y - LABEL_SPACE - 2 }}
                   >
                     {t("editor.slideOf", { index: i + 1, count: doc.slideCount })}
                   </span>
                 ))}
-              <CanvasStage
-                viewScale={viewScale}
-                contentLayerRef={contentLayerRef}
-                showSafeZone={showSafeZone}
-                onPinchZoom={(k, phase) => {
-                  if (phase === "start") pinchZoomStart.current = zoom;
-                  else if (phase === "move") zoomTo(pinchZoomStart.current * k);
-                }}
-              />
             </div>
           )}
           {doc.elements.length === 0 && (
@@ -441,32 +489,45 @@ export function Editor({ onClose }: { onClose: () => void }) {
           )}
         </div>
 
-        {/* Zoom controls (UX-06). */}
-        <div className="absolute top-2 right-2 flex items-center gap-0.5 rounded-full border border-border bg-surface/90 p-0.5 shadow-sm">
-          <button
-            type="button"
-            aria-label={t("zoom.out")}
-            disabled={zoom <= MIN_ZOOM}
-            onClick={() => zoomTo(zoom / 1.5)}
-            className="flex h-9 w-9 items-center justify-center rounded-full disabled:text-disabled"
-          >
-            <Icon name="minus" size={18} />
-          </button>
-          {zoom > 1 && (
-            <button type="button" aria-label={t("zoom.fit")} onClick={() => zoomTo(1)} className="h-9 px-1 text-xs font-semibold tabular-nums">
+        {/* Zoom (UX-06). Touch: pinch, with a pill to get back to fit; mouse: buttons. */}
+        {isTouchUI ? (
+          zoom > 1 && (
+            <button
+              type="button"
+              aria-label={t("zoom.fit")}
+              onClick={() => zoomTo(1)}
+              className="absolute right-2 bottom-2 h-9 rounded-full border border-border bg-surface/90 px-3 text-xs font-semibold tabular-nums shadow-sm"
+            >
               {Math.round(zoom * 100)}%
             </button>
-          )}
-          <button
-            type="button"
-            aria-label={t("zoom.in")}
-            disabled={zoom >= MAX_ZOOM}
-            onClick={() => zoomTo(zoom * 1.5)}
-            className="flex h-9 w-9 items-center justify-center rounded-full disabled:text-disabled"
-          >
-            <Icon name="plus" size={18} />
-          </button>
-        </div>
+          )
+        ) : (
+          <div className="absolute top-2 right-2 flex items-center gap-0.5 rounded-full border border-border bg-surface/90 p-0.5 shadow-sm">
+            <button
+              type="button"
+              aria-label={t("zoom.out")}
+              disabled={zoom <= MIN_ZOOM}
+              onClick={() => zoomTo(zoom / 1.5)}
+              className="flex h-9 w-9 items-center justify-center rounded-full disabled:text-disabled"
+            >
+              <Icon name="minus" size={18} />
+            </button>
+            {zoom > 1 && (
+              <button type="button" aria-label={t("zoom.fit")} onClick={() => zoomTo(1)} className="h-9 px-1 text-xs font-semibold tabular-nums">
+                {Math.round(zoom * 100)}%
+              </button>
+            )}
+            <button
+              type="button"
+              aria-label={t("zoom.in")}
+              disabled={zoom >= MAX_ZOOM}
+              onClick={() => zoomTo(zoom * 1.5)}
+              className="flex h-9 w-9 items-center justify-center rounded-full disabled:text-disabled"
+            >
+              <Icon name="plus" size={18} />
+            </button>
+          </div>
+        )}
 
         {!sheetOpen && <CoachTips />}
       </div>

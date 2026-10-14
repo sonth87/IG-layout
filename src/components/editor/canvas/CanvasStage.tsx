@@ -1,8 +1,8 @@
 "use client";
 
-import type Konva from "konva";
-import { useEffect, useRef, useState } from "react";
-import { Circle, Group, Layer, Line, Rect, Stage, Text, Transformer } from "react-konva";
+import Konva from "konva";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { Circle, Group, Label, Layer, Line, Rect, Stage, Tag, Text, Transformer } from "react-konva";
 import { rotatedBounds } from "@/lib/project/geometry";
 import { snap, snapTargets } from "@/lib/project/snap";
 import { canvasSize, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
@@ -16,14 +16,28 @@ import { isTouchUI } from "./interaction";
 import { TextNode } from "./TextNode";
 
 const SNAP_SCREEN_PX = 8;
-/** Max backing-store pixels per layer (~32 MB each). */
-const MAX_LAYER_PIXELS = 8_000_000;
+/** Two-finger twist ignored below this, so a pinch doesn't tilt the photo (F-02). */
+const ROTATE_DEAD_ZONE = 8;
+/** Rotation sticks to 0 / 90 / 180 / 270° within this many degrees (F-02). */
+const ROTATE_SNAP = 6;
+
+/** Rotation with snapping to right angles; `snapped` = it stuck to one. */
+export function snapRotation(deg: number): { rotation: number; snapped: boolean } {
+  const r = ((((deg + 180) % 360) + 360) % 360) - 180; // -180..180
+  const nearest = Math.round(r / 90) * 90;
+  return Math.abs(r - nearest) <= ROTATE_SNAP ? { rotation: nearest === -180 ? 180 : nearest, snapped: true } : { rotation: r, snapped: false };
+}
+
+// Gesture smoothness (D-69): every frame of a drag redraws whole layers, and the cost
+// grows with their pixel count. 2× is sharp on phones; 3× costs 2.25× the pixels.
+// Exports render at their own pixel ratio, unaffected.
+if (typeof window !== "undefined") Konva.pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
 
 /**
  * Lives in its own layer so selection handles never end up in exports.
  * Grid cells and locked elements show the outline only (UX-09). Bigger handles on touch (UX-06).
  */
-function SelectionTransformer({ selectedId }: { selectedId: string | null }) {
+function SelectionTransformer({ selectedId, onRotate }: { selectedId: string | null; onRotate: (deg: number | null) => void }) {
   const trRef = useRef<Konva.Transformer>(null);
   const elements = useViewDoc()?.elements;
   const el = elements?.find((e) => e.id === selectedId);
@@ -51,7 +65,11 @@ function SelectionTransformer({ selectedId }: { selectedId: string | null }) {
       anchorFill="#ffffff"
       rotateAnchorOffset={isTouchUI ? 44 : 32}
       rotationSnaps={[0, 90, 180, 270]}
-      rotationSnapTolerance={4}
+      rotationSnapTolerance={ROTATE_SNAP}
+      onTransform={(e) => {
+        if (trRef.current?.getActiveAnchor() === "rotater") onRotate(e.target.rotation());
+      }}
+      onTransformEnd={() => onRotate(null)}
       enabledAnchors={["top-left", "top-right", "bottom-left", "bottom-right"]}
       ignoreStroke
     />
@@ -59,7 +77,18 @@ function SelectionTransformer({ selectedId }: { selectedId: string | null }) {
 }
 
 type Pinch =
-  | { kind: "element"; node: Konva.Node; dist: number; angle: number; mid: { x: number; y: number }; rotation: number; pos: { x: number; y: number } }
+  | {
+      kind: "element";
+      node: Konva.Node;
+      dist: number;
+      angle: number;
+      mid: { x: number; y: number };
+      rotation: number;
+      pos: { x: number; y: number };
+      /** The twist passed the dead zone: rotation follows the fingers from then on. */
+      rotating: boolean;
+      snapped: boolean;
+    }
   | { kind: "zoom"; dist: number; angle: number; mid: { x: number; y: number } };
 
 function touchInfo(stage: Konva.Stage, touches: TouchList) {
@@ -75,6 +104,11 @@ function touchInfo(stage: Konva.Stage, touches: TouchList) {
 
 interface Props {
   viewScale: number;
+  /** Size of the visible area: the stage covers only that (D-69). */
+  viewport: { width: number; height: number };
+  /** The scrolling element, and where the canvas origin is inside its content (px). */
+  scrollRef: React.RefObject<HTMLDivElement | null>;
+  origin: { x: number; y: number };
   contentLayerRef: React.RefObject<Konva.Layer | null>;
   /** Story: show the areas covered by Instagram's UI. */
   showSafeZone?: boolean;
@@ -82,31 +116,41 @@ interface Props {
   onPinchZoom?: (k: number, phase: "start" | "move" | "end") => void;
 }
 
-export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone = true, onPinchZoom }: Props) {
+export default function CanvasStage({ viewScale, viewport, scrollRef, origin, contentLayerRef, showSafeZone = true, onPinchZoom }: Props) {
   const doc = useViewDoc();
   const selectedId = useEditor((s) => s.selectedId);
   const select = useEditor((s) => s.select);
   const setCanvas = useEditor((s) => s.setCanvas);
   const updateElement = useEditor((s) => s.updateElement);
-  const [guides, setGuides] = useState<{ xs: number[]; ys: number[] }>({ xs: [], ys: [] });
+  /** Snapping guides are drawn straight into Konva: no React render per drag frame (F-01). */
+  const guidesRef = useRef<Konva.Group>(null);
+  const angleRef = useRef<Konva.Label>(null);
+  const shownGuides = useRef("");
   const targets = useRef<{ xs: number[]; ys: number[] } | null>(null);
   const pinch = useRef<Pinch | null>(null);
 
-  // Cap each layer's backing store: a long strip at 3× pixel density can exceed
-  // iOS Safari's canvas memory (M7). Display only — exports render separately.
+  // The stage stays put (sticky) over the visible area; scrolling shifts its content.
+  // Layers are only as big as the screen, whatever the number of slides (D-69).
   const stageRef = useRef<Konva.Stage>(null);
-  const stageArea = doc ? canvasSize(doc) : null;
-  const stagePixels = stageArea ? stageArea.width * stageArea.height * viewScale * viewScale : 0;
-  useEffect(() => {
+  const hasDoc = !!doc;
+  useLayoutEffect(() => {
     const stage = stageRef.current;
-    if (!stage || !stagePixels) return;
-    const ratio = Math.min(window.devicePixelRatio || 1, Math.sqrt(MAX_LAYER_PIXELS / stagePixels));
-    for (const layer of stage.getLayers()) {
-      if (Math.abs(layer.getCanvas().getPixelRatio() - ratio) < 0.01) continue;
-      layer.getCanvas().setPixelRatio(ratio);
-      layer.draw();
-    }
-  }, [stagePixels]);
+    const area = scrollRef.current;
+    if (!stage || !area) return;
+    let frame = 0;
+    const place = () => {
+      frame = 0;
+      stage.position({ x: origin.x - area.scrollLeft, y: origin.y - area.scrollTop });
+      stage.batchDraw();
+    };
+    place();
+    const onScroll = () => (frame ||= requestAnimationFrame(place));
+    area.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      area.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [scrollRef, origin.x, origin.y, viewScale, viewport.width, viewport.height, hasDoc]);
 
   // Expose the content layer for thumbnails (autosave) and export.
   useEffect(() => {
@@ -130,16 +174,24 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
     });
     const result = snap(bounds, targets.current, SNAP_SCREEN_PX / viewScale);
     node.position({ x: node.x() + result.dx, y: node.y() + result.dy });
-    setGuides((g) =>
-      g.xs.join() === result.guidesX.join() && g.ys.join() === result.guidesY.join()
-        ? g
-        : { xs: result.guidesX, ys: result.guidesY },
-    );
+    showGuides(result.guidesX, result.guidesY);
   }
 
   function onDragEnd() {
     targets.current = null;
-    setGuides({ xs: [], ys: [] });
+    showGuides([], []);
+  }
+
+  function showGuides(xs: number[], ys: number[]) {
+    const group = guidesRef.current;
+    const key = `${xs}|${ys}`;
+    if (!group || key === shownGuides.current) return;
+    shownGuides.current = key;
+    group.destroyChildren();
+    const stroke = { stroke: "#ff4fa3", strokeWidth: 1.5 / viewScale, listening: false };
+    for (const x of xs) group.add(new Konva.Line({ points: [x, 0, x, height], ...stroke }));
+    for (const y of ys) group.add(new Konva.Line({ points: [0, y, width, y], ...stroke }));
+    group.getLayer()?.batchDraw();
   }
 
   /**
@@ -168,7 +220,7 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
     if (!node) return;
     node.stopDrag();
     node.draggable(false);
-    pinch.current = { kind: "element", node, ...info, rotation: node.rotation(), pos: node.position() };
+    pinch.current = { kind: "element", node, ...info, rotation: node.rotation(), pos: node.position(), rotating: false, snapped: false };
   }
 
   function onTouchMove(e: Konva.KonvaEventObject<TouchEvent>) {
@@ -182,7 +234,16 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
     const k = info.dist / p.dist;
     if (p.kind === "zoom") return onPinchZoom?.(k, "move");
     p.node.scale({ x: k, y: k });
-    p.node.rotation(p.rotation + info.angle - p.angle);
+    let twist = ((info.angle - p.angle + 540) % 360) - 180;
+    if (!p.rotating && Math.abs(twist) > ROTATE_DEAD_ZONE) p.rotating = true;
+    if (p.rotating) {
+      twist -= Math.sign(twist) * Math.min(Math.abs(twist), ROTATE_DEAD_ZONE); // no jump when it starts
+      const r = snapRotation(p.rotation + twist);
+      if (r.snapped && !p.snapped) navigator.vibrate?.(8);
+      p.snapped = r.snapped;
+      p.node.rotation(r.rotation);
+      showAngle(r.rotation);
+    }
     p.node.position({
       x: p.pos.x + (info.mid.x - p.mid.x) / viewScale,
       y: p.pos.y + (info.mid.y - p.mid.y) / viewScale,
@@ -190,10 +251,26 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
     p.node.getLayer()?.batchDraw();
   }
 
+  /** Angle badge at the top of the visible area while rotating (F-02). */
+  function showAngle(deg: number | null) {
+    const badge = angleRef.current;
+    const stage = badge?.getStage();
+    if (!badge || !stage) return;
+    badge.visible(deg !== null);
+    if (deg !== null) {
+      badge.findOne<Konva.Text>("Text")?.text(`${Math.round(deg)}°`);
+      badge.offsetX(badge.width() / 2);
+      badge.absolutePosition({ x: stage.width() / 2, y: 14 });
+      badge.scale({ x: 1 / viewScale, y: 1 / viewScale });
+    }
+    badge.getLayer()?.batchDraw();
+  }
+
   function onTouchEnd(e: Konva.KonvaEventObject<TouchEvent>) {
     const p = pinch.current;
     if (!p || e.evt.touches.length >= 2) return;
     pinch.current = null;
+    showAngle(null);
     if (p.kind === "zoom") return onPinchZoom?.(1, "end");
     const el = doc!.elements.find((x) => x.id === p.node.id());
     p.node.draggable(!!el && !el.locked);
@@ -215,8 +292,8 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
   return (
     <Stage
       ref={stageRef}
-      width={width * viewScale}
-      height={height * viewScale}
+      width={viewport.width}
+      height={viewport.height}
       scaleX={viewScale}
       scaleY={viewScale}
       onMouseDown={(e) => e.target === e.target.getStage() && select(null)}
@@ -224,7 +301,8 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
       onTouchEnd={onTouchEnd}
     >
       {/* Content layer: exactly what gets exported. */}
-      <Layer ref={contentLayerRef}>
+      {/* The stage also covers the margins around the canvas: clip to the canvas. */}
+      <Layer ref={contentLayerRef} clipX={0} clipY={0} clipWidth={width} clipHeight={height}>
         <BackgroundNode background={doc.background} width={width} height={height} />
         {doc.elements.map((el) => {
           const hooks = { onDragMove, onDragEnd };
@@ -319,13 +397,12 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
       </Layer>
       {/* Selection + snapping guides, never exported. */}
       <Layer>
-        {guides.xs.map((x) => (
-          <Line key={`x${x}`} points={[x, 0, x, height]} stroke="#ff4fa3" strokeWidth={1.5 / viewScale} listening={false} />
-        ))}
-        {guides.ys.map((y) => (
-          <Line key={`y${y}`} points={[0, y, width, y]} stroke="#ff4fa3" strokeWidth={1.5 / viewScale} listening={false} />
-        ))}
-        <SelectionTransformer selectedId={selectedId} />
+        <Group ref={guidesRef} listening={false} />
+        <SelectionTransformer selectedId={selectedId} onRotate={showAngle} />
+        <Label ref={angleRef} visible={false} listening={false}>
+          <Tag fill="rgba(17,18,20,0.85)" cornerRadius={12} pointerDirection="none" />
+          <Text text="" fill="#ffffff" fontSize={14} fontStyle="700" padding={7} offsetX={0} />
+        </Label>
       </Layer>
     </Stage>
   );

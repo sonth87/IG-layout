@@ -26,7 +26,7 @@ await page.locator('input[type="file"]').setInputFiles(path.join(dir, "panorama.
 await page.getByRole("button", { name: "Skip" }).click();
 await page.getByText("4:5 · 3 slides").waitFor();
 await page.waitForTimeout(500);
-const box = await page.locator("canvas").first().boundingBox();
+const box = await page.locator("[data-stage-frame]").boundingBox();
 await page.mouse.move(box.x + 150, box.y + 150);
 await page.mouse.down();
 await page.mouse.move(box.x + 200, box.y + 180, { steps: 6 });

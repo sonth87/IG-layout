@@ -1,6 +1,6 @@
 # Tham khảo Grids + góp ý sau khi thử M8 (2026-10-15)
 
-> Trạng thái: **đề xuất, chờ chủ dự án duyệt**. Nguồn: góp ý của chủ dự án sau khi dùng thử bản M8, cùng thông tin công khai về Grids.
+> Trạng thái: **đã duyệt hướng** (D-66..D-68): làm theo toàn bộ Grids trừ đăng nhập / trả phí; sửa F-01..F-04 trước. Nguồn: góp ý của chủ dự án sau khi dùng thử bản M8, cùng thông tin công khai về Grids.
 > Chủ dự án chọn **Grids** ("GRIDS Post maker for Instagram") làm app chuẩn để tham chiếu.
 
 ## 1. Góp ý của chủ dự án
@@ -51,9 +51,9 @@ Mỗi mục làm xong: quay màn hình (390 × 844) gửi chủ dự án duyệt
 
 ## 5. Câu hỏi cho chủ dự án
 
-- **Q-M9-1:** Luồng tạo: theo Grids (mẫu trước) hay giữ hiện tại (ảnh trước)? → mục 4.4
+- **Q-M9-1:** ~~Luồng tạo theo Grids?~~ → Có, làm theo Grids (D-66).
 - **Q-M9-2:** Trong Grids, bạn thích nhất màn hay thao tác nào? Gửi giúp 3–5 ảnh chụp hoặc một đoạn quay màn hình: màn chọn mẫu, editor carousel, thanh công cụ.
-- **Q-M9-3:** Có thể làm ngay F-01..F-04 (lỗi rõ ràng, không đổi thiết kế) trong lúc chờ trả lời Q-M9-1/2 không?
+- **Q-M9-3:** ~~Làm ngay F-01..F-04?~~ → Có (D-68). Thêm: chặn bôi đen / zoom trang (D-67).
 
 ## 6. Nguồn
 

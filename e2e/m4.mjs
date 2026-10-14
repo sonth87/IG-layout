@@ -32,9 +32,12 @@ async function pixel(x, y) {
     ({ x, y }) => {
       const s = window.__igEditor.getState();
       const layer = s.canvas.layer;
+      // The stage covers the visible area only, shifted by scrolling.
       const c = layer.getCanvas()._canvas;
-      const k = (c.width / (1080 * s.doc.slideCount));
-      const d = c.getContext("2d").getImageData(Math.round(x * k) - 2, Math.round(y * k) - 2, 5, 5).data;
+      const ratio = layer.getCanvas().getPixelRatio();
+      const o = layer.getStage().position();
+      const vs = s.canvas.viewScale;
+      const d = c.getContext("2d").getImageData(Math.round((o.x + x * vs) * ratio) - 2, Math.round((o.y + y * vs) * ratio) - 2, 5, 5).data;
       let r = 0, g = 0, b = 0;
       for (let i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; }
       const n = d.length / 4;
@@ -65,7 +68,7 @@ check(base[1] > base[0] && base[1] > base[2], `baseline pixel is green (${base})
 console.log("1. Adjust: preview without history, ✕ restores, ✓ = 1 step");
 await page.mouse.click(...(await toScreen(p0.x + p0.width / 2, p0.y + p0.height / 2)));
 async function toScreen(x, y) {
-  const box = await page.locator("canvas").first().boundingBox();
+  const box = await page.locator("[data-stage-frame]").boundingBox();
   const k = box.width / (1080 * (await S()).doc.slideCount);
   return [box.x + x * k, box.y + y * k];
 }

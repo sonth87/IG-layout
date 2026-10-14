@@ -1,6 +1,6 @@
 import type Konva from "konva";
 import { exportOrder, slideRect } from "@/lib/project/layout";
-import type { ProjectDoc } from "@/lib/project/types";
+import type { ProjectDoc, Rect } from "@/lib/project/types";
 
 // Export = cut the continuous canvas exactly at slide boundaries (D-30).
 // Grid gaps (profile-gap compensation) are simply not exported.
@@ -21,6 +21,16 @@ export function fileBase(projectName: string, fallback: string) {
   return slug || fallback;
 }
 
+/**
+ * Where an area of the canvas (export px) is on the stage, for `layer.toCanvas` & co.
+ * The stage only covers the visible part and is shifted while scrolling (D-69), so
+ * add its offset. Konva renders areas outside the visible part just the same.
+ */
+export function layerRegion(layer: Konva.Layer, r: Rect, viewScale: number) {
+  const o = layer.getStage()?.position() ?? { x: 0, y: 0 };
+  return { x: o.x + r.x * viewScale, y: o.y + r.y * viewScale, width: r.width * viewScale, height: r.height * viewScale };
+}
+
 export function fileName(base: string, index: number) {
   return `${base}_${String(index + 1).padStart(2, "0")}.jpg`;
 }
@@ -39,13 +49,7 @@ export async function exportSlides(
   // File n = n-th image to post (Grid: bottom-right tile first).
   for (const [n, i] of exportOrder(doc).entries()) {
     const r = slideRect(doc, i);
-    const rendered = layer.toCanvas({
-      x: r.x * viewScale,
-      y: r.y * viewScale,
-      width: r.width * viewScale,
-      height: r.height * viewScale,
-      pixelRatio: 1 / viewScale,
-    });
+    const rendered = layer.toCanvas({ ...layerRegion(layer, r, viewScale), pixelRatio: 1 / viewScale });
     // Float rounding can make Konva's canvas a pixel off: redraw at the exact size.
     const exact = document.createElement("canvas");
     exact.width = Math.round(r.width);

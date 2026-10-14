@@ -3,7 +3,8 @@ import { fontVariables } from "./fonts";
 import "./globals.css";
 
 // Applies the saved theme before first paint (no flash). Key: SETTINGS_KEY in store/settings.ts.
-const themeScript = `try{var s=JSON.parse(localStorage.getItem("ig-layout:settings")||"{}");if(s.theme==="light"||s.theme==="dark")document.documentElement.dataset.theme=s.theme;if(s.locale==="vi")document.documentElement.lang="vi"}catch(e){}`;
+// Also blocks Safari's page pinch-zoom gesture, which ignores user-scalable=no (D-67).
+const themeScript = `try{var s=JSON.parse(localStorage.getItem("ig-layout:settings")||"{}");if(s.theme==="light"||s.theme==="dark")document.documentElement.dataset.theme=s.theme;if(s.locale==="vi")document.documentElement.lang="vi"}catch(e){}document.addEventListener("gesturestart",function(e){e.preventDefault()});`;
 
 export const metadata: Metadata = {
   title: "IG Layout",
@@ -22,6 +23,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  // App feel (D-67): no page zoom. The canvas has its own zoom.
+  maximumScale: 1,
+  userScalable: false,
   viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f6f5f2" },

@@ -295,5 +295,6 @@ export function suggestTemplates(count: number, type: ProjectType = "post") {
   const exact = all.filter((t) => !t.perPhoto && t.photos === count);
   const perPhoto = all.filter((t) => t.perPhoto);
   const panorama = count === 1 ? all.filter((t) => t.group === "panorama") : [];
-  return [...exact, ...panorama, ...perPhoto];
+  // A template can match more than one rule (e.g. a 1-photo panorama): list it once (F-04).
+  return [...new Set([...exact, ...panorama, ...perPhoto])];
 }

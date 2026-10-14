@@ -25,7 +25,7 @@ const S = async () => {
   });
 };
 async function tapEl(el, dx = 0, dy = 0) {
-  const box = await page.locator("canvas").first().boundingBox();
+  const box = await page.locator("[data-stage-frame]").boundingBox();
   const st = await S();
   const k = box.width / (1080 * st.doc.slideCount);
   await page.mouse.click(box.x + (el.x + el.width / 2 + dx) * k, box.y + (el.y + el.height / 2 + dy) * k);
@@ -72,7 +72,7 @@ await shot(page, "3-grid");
 
 console.log("3. Drag inside a cell pans the photo");
 await tapEl(c0);
-const box = await page.locator("canvas").first().boundingBox();
+const box = await page.locator("[data-stage-frame]").boundingBox();
 const k = box.width / 1080;
 const start = { x: box.x + (c0.x + c0.width / 2) * k, y: box.y + (c0.y + c0.height / 2) * k };
 await page.mouse.move(start.x, start.y);
