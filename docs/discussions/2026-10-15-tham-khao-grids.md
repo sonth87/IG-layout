@@ -19,6 +19,8 @@ Bài học về cách làm: e2e chỉ chứng minh tính năng chạy được, 
 | F-04 | Màn chọn layout bị trùng | Bug ở [library.ts](../../src/lib/templates/library.ts) `suggestTemplates`: với 1 ảnh, layout panorama nằm trong cả `exact` lẫn `panorama` nên hiện 2 lần. Ngoài ra có vài layout trông gần như giống nhau | Bỏ trùng. Rà lại bộ layout để mỗi mẫu khác nhau rõ ràng |
 | F-05 | Màn chọn style / layout lúc đầu "khá tệ" | Cần chủ dự án chỉ rõ (ảnh chụp). Đánh giá của tôi: bản xem trước nhỏ, tab nhóm khó hiểu, khay ảnh đổi thứ tự bằng "chạm 2 ảnh" khó đoán | Làm lại theo mục 4 |
 
+**Kết quả (2026-10-15):** F-01..F-04 đã sửa, xem [checklist M9](../roadmap/checklist.md). F-01 hoá ra không do JavaScript (chỉ vài ms) mà do mỗi khung hình phải vẽ lại cả dải canvas nhiều slide ở mật độ 3×. Canvas giờ chỉ to bằng màn hình.
+
 ## 3. Grids — những gì biết được
 
 Nguồn: [App Store](https://apps.apple.com/us/app/grids-post-maker-for-instagram/id666575203) cùng các bài giới thiệu. Tôi **chưa dùng trực tiếp** được Grids, nên phần giao diện chi tiết cần chủ dự án xác nhận bằng ảnh chụp hoặc quay màn hình (mục 6).

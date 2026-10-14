@@ -177,3 +177,16 @@ Nguồn: [đánh giá UX 2026-10-14](../discussions/2026-10-14-danh-gia-ux.md). 
 - [x] UX-20 Lỗi đọc ảnh gợi ý cách xử lý HEIC
 - [x] Kiểm tra tự động `e2e/m8.mjs`; các suite cũ cập nhật theo giao diện mới
 - [ ] Để sau v1.0: UX-18 (thêm thư viện), UX-19 (giữ trên ảnh để so sánh), UX-22 (chất lượng xuất, xuất 1 slide). UX-21 nằm trong device-test
+
+### M9 — Làm cho "ngon" theo Grids (đang làm)
+Nguồn: [tham khảo Grids](../discussions/2026-10-15-tham-khao-grids.md). Quyết định: D-66..D-69.
+- [x] D-67 Không bôi đen chữ, không zoom cả trang (viewport + chặn gesture Safari + `touch-action`)
+- [x] F-01 Kéo / chụm mượt: canvas chỉ to bằng màn hình (dính cố định, cuộn = dịch nội dung), mật độ ≤ 2×, đường gióng vẽ thẳng bằng Konva. Đo `e2e/drag-perf.mjs` (CPU chậm 4×): khung chậm nhất khi kéo 88 → 26 ms, khi chụm 109 → 27 ms
+- [x] F-02 Xoay: vùng chết 8° (chụm không làm lệch góc), hít 0 / 90 / 180 / 270° (±6°, rung nhẹ trên Android), hiện số độ khi xoay, "Thêm → Xoay về 0°"
+- [x] F-03 Canvas không nhảy: kích thước tính theo màn hình (chừa chỗ cho thanh dưới cao nhất), căn giữa dọc; trên cảm ứng bỏ nút +/− (chụm để zoom, nút % để về vừa màn)
+- [x] F-04 Màn chọn layout không còn mẫu trùng
+- [x] Kiểm tra tự động `e2e/m9.mjs`
+- [ ] Chủ dự án gửi ảnh / video Grids (màn chọn mẫu, editor carousel, thanh công cụ)
+- [ ] Làm lại màn chọn layout theo Grids (xem trước lớn, kéo thả đổi thứ tự ảnh)
+- [ ] Luồng tạo theo Grids: chọn mẫu trước, thêm ảnh sau
+- [ ] Bộ template đẹp sẵn (chữ, nền, trang trí)

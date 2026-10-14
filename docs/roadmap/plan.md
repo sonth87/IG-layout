@@ -113,7 +113,7 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 ## Việc tiếp theo
 
 1. ~~M8 — Sửa UX~~ xong (2026-10-15), xem [checklist](checklist.md).
-2. **Đề xuất M9 — Làm cho ngon** (thao tác mượt, màn layout kiểu Grids, template đẹp sẵn): [tham khảo Grids](../discussions/2026-10-15-tham-khao-grids.md) — chờ chủ dự án duyệt.
+2. **M9 — Làm cho ngon theo Grids** (D-66): đã sửa F-01..F-04 + chặn zoom / bôi đen trang; tiếp theo làm lại màn chọn layout và luồng tạo theo Grids — xem [checklist](checklist.md).
 2. Chủ dự án thử trên iPhone + Android theo [device-test.md](device-test.md); tôi sửa theo kết quả.
 3. Chỉnh thông số Instagram (vùng an toàn, khe lưới) và màu filter theo kết quả thử.
 4. Đi qua checklist phát hành v1.0 → phát hành.

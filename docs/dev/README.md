@@ -36,7 +36,7 @@ src/
       SlideNavigator.tsx dải thumbnail slide (Post / Story)
       ExportSheet.tsx   xem trước & tải về
       useImportPhotos.ts
-      canvas/           interaction.ts (quy tắc chọn / kéo cảm ứng vs chuột, phần tử khoá), CanvasStage (3 layer, pinch, hít, giới hạn pixel), ImageNode, TextNode, ShapeIconNodes, BackgroundNode, useNodeHandlers, useProcessedImage (bản xem trước + màu)
+      canvas/           CanvasStage chỉ to bằng vùng nhìn (dính cố định, cuộn = dịch nội dung, mật độ ≤ 2×; lấy ảnh 1 vùng thì dùng `layerRegion` trong export/slices), interaction.ts (quy tắc chọn / kéo cảm ứng vs chuột, phần tử khoá), CanvasStage (3 layer, pinch, hít, giới hạn pixel), ImageNode, TextNode, ShapeIconNodes, BackgroundNode, useNodeHandlers, useProcessedImage (bản xem trước + màu)
       useShortcuts.ts   phím tắt trên máy tính
       tools/            controls (ToolSheet ✕/✓, Slider, Swatches), CropTool, ElementTools (Mask, Style), ColorTools (Adjust, Filters), TextTools (TextTool, TextEditDialog), ElementsSheet, ProjectTools (Background, Slides)
     layout/             LayoutPicker (chọn layout), TemplatePreview
