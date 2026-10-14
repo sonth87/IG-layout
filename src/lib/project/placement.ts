@@ -1,39 +1,52 @@
-import { type ImageAsset, type ImageElement, type ProjectDoc, SLIDE_SIZE, newId } from "./types";
+import { centeredRect, coverCrop } from "./geometry";
+import { type ImageAsset, type ImageElement, type ProjectDoc, type Rect, SLIDE_SIZE, newId } from "./types";
 
-/** Size and position that make the image cover the box (centered). */
-export function cover(
-  asset: Pick<ImageAsset, "width" | "height">,
-  box: { x: number; y: number; width: number; height: number },
-) {
-  const scale = Math.max(box.width / asset.width, box.height / asset.height);
-  const width = asset.width * scale;
-  const height = asset.height * scale;
+export function imageElement(asset: Pick<ImageAsset, "id" | "width" | "height">, frame: Rect): ImageElement {
   return {
-    x: box.x + (box.width - width) / 2,
-    y: box.y + (box.height - height) / 2,
-    width,
-    height,
+    id: newId(),
+    type: "image",
+    assetId: asset.id,
+    ...frame,
+    rotation: 0,
+    opacity: 1,
+    crop: coverCrop(asset, frame),
+    straighten: 0,
+    flipX: false,
+    flipY: false,
+    mask: "none",
+    cornerRadius: 40,
+    border: null,
+    shadow: false,
   };
 }
 
 /**
  * Initial placement for freshly added photos:
- * - one photo → panorama across all slides,
- * - several photos → one per slide starting at `firstSlide`, extras stacked on the last slide.
+ * - first photo of an empty project → panorama across all slides,
+ * - several photos into an empty project → one per slide starting at `firstSlide`,
+ * - photos added to a project that already has content → floating on the current slide.
  */
-export function placeImages(
-  doc: ProjectDoc,
-  assets: ImageAsset[],
-  firstSlide = 0,
-): ImageElement[] {
+export function placeImages(doc: ProjectDoc, assets: ImageAsset[], firstSlide = 0): ImageElement[] {
   const slide = SLIDE_SIZE[doc.ratio];
-  if (assets.length === 1 && doc.elements.length === 0) {
-    const box = { x: 0, y: 0, width: slide.width * doc.slideCount, height: slide.height };
-    return [{ id: newId(), type: "image", assetId: assets[0].id, rotation: 0, ...cover(assets[0], box) }];
+  const empty = doc.elements.length === 0;
+
+  if (empty && assets.length === 1) {
+    return [imageElement(assets[0], { x: 0, y: 0, width: slide.width * doc.slideCount, height: slide.height })];
+  }
+  if (empty) {
+    return assets.map((asset, i) => {
+      const index = Math.min(firstSlide + i, doc.slideCount - 1);
+      return imageElement(asset, { x: index * slide.width, y: 0, width: slide.width, height: slide.height });
+    });
   }
   return assets.map((asset, i) => {
-    const index = Math.min(firstSlide + i, doc.slideCount - 1);
-    const box = { x: index * slide.width, y: 0, width: slide.width, height: slide.height };
-    return { id: newId(), type: "image", assetId: asset.id, rotation: 0, ...cover(asset, box) };
+    const box = centeredRect({ width: slide.width * 0.7, height: slide.height * 0.7 }, asset.width / asset.height);
+    const offset = i * 40;
+    return imageElement(asset, {
+      x: firstSlide * slide.width + slide.width * 0.15 + box.x + offset,
+      y: slide.height * 0.15 + box.y + offset,
+      width: box.width,
+      height: box.height,
+    });
   });
 }

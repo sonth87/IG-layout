@@ -53,6 +53,8 @@ Kích thước khung (`width`, `height`) là khung hiển thị; ảnh được 
 
 ## 2. Hiển thị (Konva)
 
+> **Đã cài đặt (M2):** mỗi ảnh là **một** `Konva.Shape` tự vẽ (bóng → clip theo mask → ảnh crop / nắn thẳng / lật → viền) trong `sceneFunc`, hit theo đường mask. Lý do: khung chọn (Transformer) lấy kích thước từ `width/height` của shape nên luôn khớp khung, kể cả khi ảnh bên trong được phóng to để nắn thẳng. Code: `src/components/editor/canvas/ImageNode.tsx`, đường mask: `src/lib/project/masks.ts`.
+
 - Mỗi phần tử ảnh = `Group` (vị trí, xoay, `clipFunc` theo mask) chứa `Image` (crop, lật, nắn thẳng) + viền vẽ cùng đường mask phía trên + bóng vẽ phía dưới.
 - 3 layer: **nội dung** (được xuất), **đường chia slide** (không xuất), **UI** (khung chọn, đường gióng — không xuất).
 - Ảnh hiển thị dùng ảnh đã nhập (≤ 4000 px). Ảnh đã qua filter / chỉnh màu (M4) được xử lý bằng WebGL thành canvas riêng ở độ phân giải xem trước; khi xuất xử lý lại ở độ phân giải đầy đủ.

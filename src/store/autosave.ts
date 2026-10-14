@@ -56,7 +56,14 @@ export function flushSave() {
 
 /** Starts watching the editor store; returns the unsubscribe function. */
 export function startAutosave() {
-  return useEditor.subscribe((state, prev) => {
+  // Save right away when the app is hidden or closed (switching apps on a phone).
+  const onHide = () => {
+    if (document.visibilityState === "hidden") void flushSave();
+  };
+  document.addEventListener("visibilitychange", onHide);
+  window.addEventListener("pagehide", onHide);
+
+  const unsubscribe = useEditor.subscribe((state, prev) => {
     if (!state.projectId || state.projectId !== prev.projectId) return;
     if (state.doc === prev.doc && state.past === prev.past && state.future === prev.future) return;
     if (timer) clearTimeout(timer);
@@ -65,4 +72,10 @@ export function startAutosave() {
       pending = pending.then(save);
     }, SAVE_DELAY);
   });
+
+  return () => {
+    unsubscribe();
+    document.removeEventListener("visibilitychange", onHide);
+    window.removeEventListener("pagehide", onHide);
+  };
 }

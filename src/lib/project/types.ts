@@ -1,6 +1,6 @@
 // Project data model. All coordinates are in export pixels: one slide is
 // SLIDE_SIZE[ratio] wide/high, and the canvas is slideCount slides side by side.
-// See docs/architecture/overview.md ("Mô hình canvas nhiều slide").
+// Full design: docs/architecture/editor-model.md.
 
 export type ProjectType = "post" | "story" | "grid";
 
@@ -27,15 +27,52 @@ export interface ImageAsset {
   name: string;
 }
 
-export interface ImageElement {
+export interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export const MASK_SHAPES = ["none", "rounded", "circle", "arch", "heart", "star", "hexagon", "blob"] as const;
+export type MaskShape = (typeof MASK_SHAPES)[number];
+
+export interface Border {
+  width: number;
+  color: string;
+}
+
+export type Background =
+  | { kind: "color"; color: string }
+  | { kind: "gradient"; from: string; to: string; angle: number }
+  | { kind: "blur"; assetId: string };
+
+interface ElementBase {
   id: string;
-  type: "image";
-  assetId: string;
+  /** Top-left of the frame before rotation. Rotation is around the frame center. */
   x: number;
   y: number;
   width: number;
   height: number;
   rotation: number;
+  opacity: number;
+}
+
+export interface ImageElement extends ElementBase {
+  type: "image";
+  /** null = empty template slot. */
+  assetId: string | null;
+  /** Region of the image shown in the frame, in image pixels. */
+  crop: Rect;
+  /** Degrees; rotates the image inside the frame (auto-zoomed to keep it covered). */
+  straighten: number;
+  flipX: boolean;
+  flipY: boolean;
+  mask: MaskShape;
+  /** For the "rounded" mask, in export pixels. */
+  cornerRadius: number;
+  border: Border | null;
+  shadow: boolean;
 }
 
 export type CanvasElement = ImageElement;
@@ -44,7 +81,7 @@ export interface ProjectDoc {
   type: ProjectType;
   ratio: AspectRatio;
   slideCount: number;
-  background: string;
+  background: Background;
   /** Back to front. */
   elements: CanvasElement[];
 }

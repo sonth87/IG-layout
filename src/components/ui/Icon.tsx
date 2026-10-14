@@ -57,6 +57,68 @@ const PATHS = {
     </>
   ),
   minus: <path d="M5 12h14" />,
+  crop: (
+    <>
+      <path d="M6 2v14a2 2 0 0 0 2 2h14" />
+      <path d="M18 22V8a2 2 0 0 0-2-2H2" />
+    </>
+  ),
+  mask: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="12" cy="12" r="5" />
+    </>
+  ),
+  style: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <rect x="7" y="7" width="10" height="10" />
+    </>
+  ),
+  replace: <path d="M4 7h13l-3-3M20 17H7l3 3" />,
+  duplicate: (
+    <>
+      <rect x="8" y="8" width="12" height="12" rx="2" />
+      <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+    </>
+  ),
+  background: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M3 15l6-6 12 12" />
+    </>
+  ),
+  slides: (
+    <>
+      <rect x="2" y="6" width="6" height="12" rx="1" />
+      <rect x="9" y="6" width="6" height="12" rx="1" />
+      <rect x="16" y="6" width="6" height="12" rx="1" />
+    </>
+  ),
+  rotate: (
+    <>
+      <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+      <path d="M3 3v5h5" />
+    </>
+  ),
+  flipH: (
+    <>
+      <path d="M12 3v18" />
+      <path d="M8 7L3 12l5 5V7zM16 7l5 5-5 5V7z" />
+    </>
+  ),
+  flipV: (
+    <>
+      <path d="M3 12h18" />
+      <path d="M7 8l5-5 5 5H7zM7 16l5 5 5-5H7z" />
+    </>
+  ),
+  reset: (
+    <>
+      <path d="M4 4v6h6" />
+      <path d="M20 20a8 8 0 0 0-14.9-10" />
+    </>
+  ),
 };
 
 export type IconName = keyof typeof PATHS;

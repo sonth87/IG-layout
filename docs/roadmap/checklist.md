@@ -76,20 +76,21 @@ Nhánh: `m1-foundation`. Chi tiết hóa ngày 2026-10-14.
 - [x] Deploy tự động khi push lên `main` (Vercel nối với repo GitHub)
 
 ### M2 — Editor cốt lõi
-Nhánh: `m2-editor-core`. Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 1–5.
-- [ ] Mô hình phần tử chung (base + image mở rộng: crop, straighten, flip, mask, viền, bóng, opacity) + chuyển đổi dữ liệu project cũ
-- [ ] Bản nháp công cụ: `beginDraft / updateDraft / applyDraft / cancelDraft`; autosave bỏ qua draft
-- [ ] Hiển thị ảnh dạng Group + clip theo mask + viền + bóng
-- [ ] Thanh công cụ theo ngữ cảnh: chưa chọn (Photos, Background, Slides…) / chọn ảnh (Replace, Crop, Mask, Border, Opacity, Flip, Layer, Duplicate, Delete)
-- [ ] Cử chỉ 2 ngón: pinch + xoay phần tử đang chọn
-- [ ] Hít & đường gióng (slide, ranh giới, phần tử khác)
-- [ ] Công cụ Crop: khung cắt, tỉ lệ (Free, Original, 1:1, 4:5, 3:4, 16:9), nắn thẳng, xoay 90°, lật, reset
-- [ ] Công cụ Mask: 8 hình + bo góc
-- [ ] Công cụ Border: độ dày, màu; bóng đổ; độ mờ
-- [ ] Thay ảnh (Replace), nhân bản
-- [ ] Nền: màu, gradient, ảnh làm mờ
-- [ ] Quản lý slide: thêm sau slide đang xem, xóa, đổi chỗ; dịch phần tử theo
-- [ ] Kiểm tra tự động + cập nhật tài liệu
+Nhánh: `m2-editor-core` — xong 2026-10-14, đã merge vào `main`. Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 1–5.
+- [x] Mô hình phần tử chung (base + image mở rộng: crop, straighten, flip, mask, viền, bóng, opacity) + chuyển đổi dữ liệu project cũ
+- [x] Bản nháp công cụ: `beginDraft / updateDraft / applyDraft / cancelDraft`; autosave bỏ qua draft
+- [x] Hiển thị ảnh dạng Group + clip theo mask + viền + bóng
+- [x] Thanh công cụ theo ngữ cảnh: chưa chọn (Add photos, Background, Slides) / chọn ảnh (Replace, Crop, Mask, Style, Forward, Backward, Duplicate, Delete); lật nằm trong Crop
+- [x] Cử chỉ 2 ngón: pinch + xoay phần tử đang chọn
+- [x] Hít & đường gióng (slide, ranh giới, phần tử khác)
+- [x] Công cụ Crop: khung cắt, tỉ lệ (Free, Original, 1:1, 4:5, 3:4, 16:9), nắn thẳng, xoay 90°, lật, reset
+- [x] Công cụ Mask: 8 hình + bo góc
+- [x] Công cụ Border: độ dày, màu; bóng đổ; độ mờ
+- [x] Thay ảnh (Replace), nhân bản
+- [x] Nền: màu, gradient, ảnh làm mờ
+- [x] Quản lý slide: thêm sau slide đang xem, xóa, đổi chỗ; dịch phần tử theo
+- [x] Kiểm tra tự động (13 nhóm, gồm pinch 2 ngón qua sự kiện chạm thật, tải lại trang, project cũ M1) + cập nhật tài liệu
+- [x] Lưu ngay khi app bị ẩn / đóng (không mất thay đổi cuối)
 
 ### M3 — Layout & template
 Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 6.

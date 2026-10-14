@@ -27,14 +27,20 @@ src/
     NewProject.tsx      chọn tỉ lệ, số slide, chọn ảnh
     SettingsScreen.tsx  theme, ngôn ngữ, dung lượng, xóa tất cả
     editor/
-      Editor.tsx        khung editor: header, vùng canvas, thanh công cụ
-      CanvasStage.tsx   canvas Konva: lớp nội dung (được export), lớp đường chia slide, lớp khung chọn
+      Editor.tsx        khung editor: header, vùng canvas, thanh công cụ theo ngữ cảnh, mở công cụ
       ExportSheet.tsx   xem trước & tải về
       useImportPhotos.ts
+      canvas/           CanvasStage (3 layer, pinch, hít), ImageNode, BackgroundNode, useHtmlImage
+      tools/            controls (ToolSheet ✕/✓, Slider, Swatches), CropTool, ElementTools (Mask, Style), ProjectTools (Background, Slides)
     ui/Icon.tsx
   lib/
     project/types.ts    mô hình dữ liệu (tọa độ theo pixel xuất)
-    project/placement.ts  đặt ảnh ban đầu (1 ảnh → panorama, nhiều ảnh → mỗi slide 1 ảnh)
+    project/placement.ts  đặt ảnh ban đầu (1 ảnh → panorama, nhiều ảnh → mỗi slide 1 ảnh, thêm sau → nổi trên slide đang xem)
+    project/geometry.ts   cover crop, nắn thẳng, bounds khi xoay, slide của phần tử
+    project/masks.ts      đường viền 8 hình mask
+    project/snap.ts       hít & đường gióng
+    project/slides.ts     thêm / xóa / đổi chỗ slide
+    project/migrate.ts    nâng cấp dữ liệu project cũ
     image/import.ts     đọc ảnh, xoay theo EXIF, thu nhỏ (D-29)
     export/slices.ts    cắt canvas theo ranh giới slide → JPEG
     export/deliver.ts   share sheet / ZIP / tải từng ảnh
@@ -64,7 +70,10 @@ public/sw.js           service worker (offline); đổi tên CACHE khi đổi ch
 ## Quy ước
 
 - Mọi tọa độ trong `ProjectDoc` là **pixel xuất** (1 slide 4:5 = 1080 × 1350). Màn hình chỉ là `viewScale` của canvas.
-- Chỉ thay đổi project qua action của store; mỗi action = 1 bước lịch sử. Cử chỉ kéo / xoay ghi khi thả tay.
+- Chỉ thay đổi project qua action của store; mỗi action = 1 bước lịch sử. Cử chỉ kéo / xoay / pinch ghi khi thả tay.
+- Công cụ có ✕ / ✓ sửa trên `draft` (`beginDraft` → `updateDraft` → `applyDraft` / `cancelDraft`); hiển thị dùng `useViewDoc()` (= draft ?? doc).
+- Đổi cấu trúc `ProjectDoc` → cập nhật `migrate.ts` để project đã lưu vẫn mở được.
+- Kiểm tra tự động đọc store qua `window.__igEditor` (chỉ đọc).
 - Mọi chữ hiển thị đi qua `useT()`; thêm key vào **cả** `en.ts` và `vi.ts` (TypeScript báo lỗi nếu thiếu bên `vi`).
 - Service worker chỉ chạy ở bản build (`pnpm build`), không chạy ở `pnpm dev`.
 - Thứ gì không được xuất ra ảnh (đường chia slide, khung chọn) phải nằm ở layer khác layer nội dung.

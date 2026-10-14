@@ -2,16 +2,23 @@
 
 import type Konva from "konva";
 import { useEffect, useRef, useState } from "react";
-import { Icon } from "@/components/ui/Icon";
-import { canvasSize, MAX_SLIDES } from "@/lib/project/types";
+import { Icon, type IconName } from "@/components/ui/Icon";
+import { canvasSize } from "@/lib/project/types";
 import { flushSave } from "@/store/autosave";
-import { useEditor } from "@/store/editor";
+import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
-import CanvasStage from "./CanvasStage";
+import CanvasStage from "./canvas/CanvasStage";
 import { ExportSheet } from "./ExportSheet";
+import { CropTool } from "./tools/CropTool";
+import { MaskTool, StyleTool } from "./tools/ElementTools";
+import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
 import { useImportPhotos } from "./useImportPhotos";
 
 const STAGE_PADDING = 24;
+
+type Tool = "crop" | "mask" | "style" | "background" | "slides";
+/** Tools that edit a draft (✕ / ✓). Slides acts directly. */
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "background"];
 
 /** Stage pixels per export pixel: a slide fits the area height and ~86% of its width. */
 function useViewScale(area: React.RefObject<HTMLDivElement | null>, slide: { width: number; height: number }) {
@@ -32,14 +39,16 @@ function useViewScale(area: React.RefObject<HTMLDivElement | null>, slide: { wid
   return scale;
 }
 
-function ToolButton(props: { label: string; onClick: () => void; danger?: boolean; children: React.ReactNode }) {
+function ToolButton(props: { label: string; icon: IconName; onClick: () => void; danger?: boolean }) {
   return (
     <button
       type="button"
       onClick={props.onClick}
-      className={`flex h-16 flex-1 flex-col items-center justify-center gap-1.5 text-[11px] ${props.danger ? "text-danger" : ""}`}
+      className={`flex h-16 min-w-16 flex-1 shrink-0 flex-col items-center justify-center gap-1.5 text-[11px] ${
+        props.danger ? "text-danger" : ""
+      }`}
     >
-      {props.children}
+      <Icon name={props.icon} />
       {props.label}
     </button>
   );
@@ -47,21 +56,39 @@ function ToolButton(props: { label: string; onClick: () => void; danger?: boolea
 
 export function Editor({ onClose }: { onClose: () => void }) {
   const t = useT();
-  const doc = useEditor((s) => s.doc)!;
+  const doc = useViewDoc()!;
   const selectedId = useEditor((s) => s.selectedId);
+  const currentSlide = useEditor((s) => s.currentSlide);
   const canUndo = useEditor((s) => s.past.length > 0);
   const canRedo = useEditor((s) => s.future.length > 0);
-  const { undo, redo, select, removeElement, moveLayer, setSlideCount, closeProject } = useEditor.getState();
-  const { importFiles, busy, errors } = useImportPhotos();
+  const { undo, redo, select, removeElement, moveLayer, duplicateElement, replaceImage, closeProject, beginDraft, setCurrentSlide } =
+    useEditor.getState();
+  const { importFiles, decodeFiles, busy, errors } = useImportPhotos();
 
   const areaRef = useRef<HTMLDivElement>(null);
   const contentLayerRef = useRef<Konva.Layer>(null);
-  const fileInput = useRef<HTMLInputElement>(null);
+  const addInput = useRef<HTMLInputElement>(null);
+  const replaceInput = useRef<HTMLInputElement>(null);
   const [exportOpen, setExportOpen] = useState(false);
+  const [tool, setTool] = useState<Tool | null>(null);
 
   const { slide } = canvasSize(doc);
   const viewScale = useViewScale(areaRef, slide);
   const slideW = slide.width * viewScale;
+  const selected = doc.elements.find((el) => el.id === selectedId);
+
+  function openTool(next: Tool) {
+    if (DRAFT_TOOLS.includes(next)) beginDraft();
+    setTool(next);
+  }
+
+  function onScroll() {
+    const area = areaRef.current;
+    if (!area || slideW <= 0) return;
+    const index = Math.round((area.scrollLeft + area.clientWidth / 2 - STAGE_PADDING) / slideW - 0.5);
+    const clamped = Math.max(0, Math.min(doc.slideCount - 1, index));
+    if (clamped !== useEditor.getState().currentSlide) setCurrentSlide(clamped);
+  }
 
   async function onBack() {
     select(null);
@@ -69,6 +96,51 @@ export function Editor({ onClose }: { onClose: () => void }) {
     closeProject();
     onClose();
   }
+
+  let bottom: React.ReactNode;
+  if (tool === "mask" && selected) bottom = <MaskTool elementId={selected.id} onClose={() => setTool(null)} />;
+  else if (tool === "style" && selected) bottom = <StyleTool elementId={selected.id} onClose={() => setTool(null)} />;
+  else if (tool === "background") bottom = <BackgroundTool onClose={() => setTool(null)} />;
+  else if (tool === "slides") bottom = <SlidesTool onClose={() => setTool(null)} />;
+  else if (selected)
+    bottom = (
+      <section aria-label={t("editor.photoTools")} className="rounded-t-[18px] bg-surface px-2 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+        <div className="flex items-center justify-between px-2.5 pb-1.5">
+          <span className="text-[13px] font-semibold tracking-wider text-muted uppercase">{t("editor.photo")}</span>
+          <button
+            type="button"
+            onClick={() => select(null)}
+            className="h-8 rounded-[10px] border border-border px-3 text-[13px] font-semibold"
+          >
+            {t("common.done")}
+          </button>
+        </div>
+        <div className="flex overflow-x-auto">
+          <ToolButton label={t("editor.replace")} icon="replace" onClick={() => replaceInput.current?.click()} />
+          <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />
+          <ToolButton label={t("editor.mask")} icon="mask" onClick={() => openTool("mask")} />
+          <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
+          <ToolButton label={t("editor.forward")} icon="layerUp" onClick={() => moveLayer(selected.id, "up")} />
+          <ToolButton label={t("editor.backward")} icon="layerDown" onClick={() => moveLayer(selected.id, "down")} />
+          <ToolButton label={t("editor.duplicate")} icon="duplicate" onClick={() => duplicateElement(selected.id)} />
+          <ToolButton label={t("common.delete")} icon="trash" danger onClick={() => removeElement(selected.id)} />
+        </div>
+      </section>
+    );
+  else
+    bottom = (
+      <section aria-label={t("editor.tools")} className="rounded-t-[18px] bg-surface px-2 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+        <div className="flex">
+          <ToolButton
+            label={busy ? t("editor.importing") : t("editor.addPhotos")}
+            icon="image"
+            onClick={() => addInput.current?.click()}
+          />
+          <ToolButton label={t("editor.background")} icon="background" onClick={() => openTool("background")} />
+          <ToolButton label={t("editor.slides")} icon="slides" onClick={() => openTool("slides")} />
+        </div>
+      </section>
+    );
 
   return (
     <main className="mx-auto flex h-dvh max-w-3xl flex-col">
@@ -82,7 +154,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           aria-label={t("editor.undo")}
-          disabled={!canUndo}
+          disabled={!canUndo || tool !== null}
           onClick={undo}
           className="flex h-11 w-11 items-center justify-center disabled:text-disabled"
         >
@@ -91,7 +163,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           aria-label={t("editor.redo")}
-          disabled={!canRedo}
+          disabled={!canRedo || tool !== null}
           onClick={redo}
           className="flex h-11 w-11 items-center justify-center disabled:text-disabled"
         >
@@ -99,7 +171,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         </button>
         <button
           type="button"
-          disabled={doc.elements.length === 0}
+          disabled={doc.elements.length === 0 || tool !== null}
           onClick={() => {
             select(null);
             setExportOpen(true);
@@ -110,13 +182,13 @@ export function Editor({ onClose }: { onClose: () => void }) {
         </button>
       </header>
 
-      <div ref={areaRef} className="relative flex-1 overflow-x-auto overflow-y-hidden bg-canvas">
+      <div ref={areaRef} onScroll={onScroll} className="relative flex-1 overflow-x-auto overflow-y-hidden bg-canvas">
         {viewScale > 0 && (
           <div className="relative inline-block" style={{ padding: STAGE_PADDING, paddingTop: STAGE_PADDING + 20 }}>
             {Array.from({ length: doc.slideCount }, (_, i) => (
               <span
                 key={i}
-                className="absolute text-xs text-muted"
+                className={`absolute text-xs ${i === currentSlide ? "font-bold text-accent-text" : "text-muted"}`}
                 style={{ left: STAGE_PADDING + i * slideW, top: STAGE_PADDING - 2 }}
               >
                 {t("editor.slideOf", { index: i + 1, count: doc.slideCount })}
@@ -139,84 +211,36 @@ export function Editor({ onClose }: { onClose: () => void }) {
       )}
 
       <input
-        ref={fileInput}
+        ref={addInput}
         type="file"
         accept="image/*"
         multiple
         hidden
         onChange={(e) => {
-          if (e.target.files?.length) importFiles(e.target.files);
+          if (e.target.files?.length) void importFiles(e.target.files, currentSlide);
           e.target.value = "";
         }}
       />
+      <input
+        ref={replaceInput}
+        type="file"
+        accept="image/*"
+        hidden
+        onChange={async (e) => {
+          const files = e.target.files;
+          e.target.value = "";
+          if (!files?.length || !selected) return;
+          const [asset] = await decodeFiles(files);
+          if (asset) replaceImage(selected.id, asset);
+        }}
+      />
 
-      <section
-        aria-label={selectedId ? t("editor.photoTools") : t("editor.tools")}
-        className="rounded-t-[18px] bg-surface px-2 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
-      >
-        {selectedId ? (
-          <>
-            <div className="flex items-center justify-between px-2.5 pb-1.5">
-              <span className="text-[13px] font-semibold tracking-wider text-muted uppercase">{t("editor.photo")}</span>
-              <button
-                type="button"
-                onClick={() => select(null)}
-                className="h-8 rounded-[10px] border border-border px-3 text-[13px] font-semibold"
-              >
-                {t("common.done")}
-              </button>
-            </div>
-            <div className="flex">
-              <ToolButton label={t("editor.forward")} onClick={() => moveLayer(selectedId, "up")}>
-                <Icon name="layerUp" />
-              </ToolButton>
-              <ToolButton label={t("editor.backward")} onClick={() => moveLayer(selectedId, "down")}>
-                <Icon name="layerDown" />
-              </ToolButton>
-              <ToolButton label={t("common.delete")} danger onClick={() => removeElement(selectedId)}>
-                <Icon name="trash" />
-              </ToolButton>
-            </div>
-          </>
-        ) : (
-          <div className="flex items-center">
-            <ToolButton label={busy ? t("editor.importing") : t("editor.addPhotos")} onClick={() => fileInput.current?.click()}>
-              <Icon name="image" />
-            </ToolButton>
-            <div className="flex flex-1 flex-col items-center gap-1">
-              <div className="flex items-center gap-1">
-                <button
-                  type="button"
-                  aria-label={t("editor.removeSlide")}
-                  disabled={doc.slideCount <= 1}
-                  onClick={() => setSlideCount(doc.slideCount - 1)}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border disabled:text-disabled"
-                >
-                  <Icon name="minus" size={18} />
-                </button>
-                <span className="w-8 text-center font-display text-lg font-bold">{doc.slideCount}</span>
-                <button
-                  type="button"
-                  aria-label={t("editor.addSlide")}
-                  disabled={doc.slideCount >= MAX_SLIDES}
-                  onClick={() => setSlideCount(doc.slideCount + 1)}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border disabled:text-disabled"
-                >
-                  <Icon name="plus" size={18} />
-                </button>
-              </div>
-              <span className="text-[11px]">{t("editor.slides")}</span>
-            </div>
-          </div>
-        )}
-      </section>
+      {bottom}
+
+      {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={() => setTool(null)} />}
 
       {exportOpen && (
-        <ExportSheet
-          contentLayerRef={contentLayerRef}
-          viewScale={viewScale}
-          onClose={() => setExportOpen(false)}
-        />
+        <ExportSheet contentLayerRef={contentLayerRef} viewScale={viewScale} onClose={() => setExportOpen(false)} />
       )}
     </main>
   );
