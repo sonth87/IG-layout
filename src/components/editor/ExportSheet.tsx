@@ -9,6 +9,7 @@ import { loadFont } from "@/lib/text/fonts";
 import { SLIDE_SIZE } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useT } from "@/store/settings";
+import { CarouselPreview, type PreviewTab, previewTabs, ProfilePreview, StoryPreview } from "@/components/export/InstagramPreview";
 
 
 interface Props {
@@ -24,6 +25,8 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
   const [previews, setPreviews] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const size = SLIDE_SIZE[doc.ratio];
+  const tabs = previewTabs(doc.type);
+  const [tab, setTab] = useState<PreviewTab>(tabs[0]);
 
   useEffect(() => {
     let cancelled = false;
@@ -83,15 +86,39 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
         <div className="flex-1 overflow-y-auto px-5">
           {!files && !error && <p className="py-10 text-center text-muted">{t("export.rendering", { count: doc.slideCount })}</p>}
           {previews.length > 0 && (
-            <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto pt-2 pb-3">
-              {previews.map((url, i) => (
-                <figure key={url} className="w-[78%] shrink-0 snap-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
-                  <img src={url} alt={t("export.slide", { index: i + 1 })} className="w-full rounded-lg border border-border" />
-                  <figcaption className="mt-1 text-xs text-muted">{files?.[i].name}</figcaption>
-                </figure>
-              ))}
-            </div>
+            <>
+              {tabs.length > 1 && (
+                <div role="tablist" aria-label={t("preview.mode")} className="mb-3 flex rounded-xl bg-surface p-1">
+                  {tabs.map((tb) => (
+                    <button
+                      key={tb}
+                      type="button"
+                      role="tab"
+                      aria-selected={tab === tb}
+                      onClick={() => setTab(tb)}
+                      className={`h-9 flex-1 rounded-[9px] text-sm ${tab === tb ? "bg-text font-semibold text-bg" : "text-muted"}`}
+                    >
+                      {t(`preview.${tb}`)}
+                    </button>
+                  ))}
+                </div>
+              )}
+              {tab === "carousel" && <CarouselPreview urls={previews} aspect={size.width / size.height} />}
+              {/* Profile: newest post first. Grid files are numbered in posting order, so reverse them. */}
+              {tab === "profile" && <ProfilePreview newestFirst={doc.type === "grid" ? [...previews].reverse() : previews.slice(0, 1)} />}
+              {tab === "story" && <StoryPreview urls={previews} />}
+
+              <h2 className="pt-4 pb-1.5 text-[13px] font-semibold text-muted">{t("preview.files")}</h2>
+              <div className="flex gap-2 overflow-x-auto pb-3">
+                {previews.map((url, i) => (
+                  <figure key={url} className="w-20 shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
+                    <img src={url} alt={t("export.slide", { index: i + 1 })} className="w-full rounded-md border border-border" />
+                    <figcaption className="mt-1 truncate text-[11px] text-muted">{files?.[i].name}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </>
           )}
 
           {files && (

@@ -144,10 +144,14 @@ Nhánh: `m6-story-grid` — xong 2026-10-14, đã merge vào `main`. Thiết k�
 - [ ] Xác minh thông số thật của Instagram: vùng an toàn Story (250 / 340 px), khe hở lưới profile (12 px) — chuyển sang M7 (thử trên app thật)
 
 ### M7 — Xuất & hoàn thiện
-- [ ] Xem trước kiểu Instagram: carousel (vuốt) và lưới profile
-- [ ] Màn Export hoàn chỉnh theo wireframe (mẹo đăng theo loại project)
-- [ ] Hiệu năng: 20 ảnh, ảnh lớn, giới hạn bộ nhớ iOS
-- [ ] Khả năng truy cập (nhãn, tương phản, bàn phím trên desktop)
-- [ ] Hướng dẫn sử dụng ([user/guide.md](../user/guide.md)) + màn trợ giúp ngắn
-- [ ] Thử trên iPhone + Android thật; chốt D-38
+Nhánh: `m7-polish` — phần code xong 2026-10-14, đã merge vào `main`.
+- [x] Xem trước kiểu Instagram: carousel (vuốt, chấm, đếm), trang cá nhân (ảnh bìa 3:4; Grid ghép đúng thứ tự), story (thanh tiến trình, chạm chuyển khung, ô trả lời)
+- [x] Màn Export: tab xem trước theo loại project, danh sách file, mẹo đăng theo loại
+- [x] Hiệu năng: vẽ từ bản xem trước ≤ 1600 px (vẽ lại 432 → 38 ms với 20 ảnh 4000 px, đo bằng `e2e/perf.mjs`); giới hạn bộ nhớ canvas ~8 MP / layer (tránh vượt giới hạn iOS)
+- [x] Khả năng truy cập: viền focus bàn phím, phím tắt (hoàn tác, làm lại, xoá, mũi tên, Esc), nhãn cho nút icon
+- [x] Hướng dẫn: màn **?** trong app (EN / VI) + [user/guide.md](../user/guide.md)
+- [x] Kiểm tra tự động `e2e/m7.mjs`
+- [ ] **Thử trên iPhone + Android thật** — checklist: [device-test.md](device-test.md) (chủ dự án)
+- [ ] Xác minh thông số Instagram (vùng an toàn Story, khe lưới) — trong device-test
+- [ ] Chốt D-38 (Konva) sau khi thử máy thật
 - [ ] Checklist phát hành v1.0 ([plan.md](plan.md))

@@ -63,3 +63,6 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-57 | 2026-10-14 | Một module bố cục (`layout.ts`) cho cả Post / Story (1 hàng) và Grid (3 × N, có khe) | Tránh tính vị trí slide rải rác; Grid là canvas 2 chiều | Đã chốt |
 | D-58 | 2026-10-14 | Bù khe Grid = chèn dải 12 px giữa các ô trên canvas, dải này không xuất | Ảnh ghép khớp qua đường kẻ trắng trên profile; giá trị cần xác minh | Đề xuất |
 | D-59 | 2026-10-14 | Grid chỉ hiện layout phù hợp (panorama cả lưới, mỗi ô 1 ảnh, khung); thêm / bớt hàng thay cho thêm / xóa slide | Layout carousel không có nghĩa trên lưới profile | Đã chốt |
+| D-60 | 2026-10-14 | Khi chỉnh, ảnh luôn vẽ từ bản thu nhỏ ≤ 1600 px (kể cả không có filter); xuất mới dùng ảnh đầy đủ | Đo: vẽ lại 432 → 38 ms với 20 ảnh lớn | Đã chốt |
+| D-61 | 2026-10-14 | Giới hạn ~8 MP mỗi layer canvas (giảm mật độ điểm ảnh hiển thị khi dải slide dài) | Tránh vượt giới hạn bộ nhớ canvas của iOS Safari | Đã chốt |
+| D-62 | 2026-10-14 | Xem trước Instagram là bản mô phỏng gần đúng (không sao chép giao diện Instagram) | Đủ để thấy thứ tự, cách cắt 3:4, vùng bị che | Đã chốt |

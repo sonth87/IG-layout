@@ -14,6 +14,8 @@ import { IconNode, ShapeNode } from "./ShapeIconNodes";
 import { TextNode } from "./TextNode";
 
 const SNAP_SCREEN_PX = 8;
+/** Max backing-store pixels per layer (~32 MB each). */
+const MAX_LAYER_PIXELS = 8_000_000;
 
 /** Lives in its own layer so selection handles never end up in exports. */
 function SelectionTransformer({ selectedId }: { selectedId: string | null }) {
@@ -84,6 +86,22 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
   const [guides, setGuides] = useState<{ xs: number[]; ys: number[] }>({ xs: [], ys: [] });
   const targets = useRef<{ xs: number[]; ys: number[] } | null>(null);
   const pinch = useRef<Pinch | null>(null);
+
+  // Cap each layer's backing store: a long strip at 3× pixel density can exceed
+  // iOS Safari's canvas memory (M7). Display only — exports render separately.
+  const stageRef = useRef<Konva.Stage>(null);
+  const stageArea = doc ? canvasSize(doc) : null;
+  const stagePixels = stageArea ? stageArea.width * stageArea.height * viewScale * viewScale : 0;
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage || !stagePixels) return;
+    const ratio = Math.min(window.devicePixelRatio || 1, Math.sqrt(MAX_LAYER_PIXELS / stagePixels));
+    for (const layer of stage.getLayers()) {
+      if (Math.abs(layer.getCanvas().getPixelRatio() - ratio) < 0.01) continue;
+      layer.getCanvas().setPixelRatio(ratio);
+      layer.draw();
+    }
+  }, [stagePixels]);
 
   // Expose the content layer for thumbnails (autosave) and export.
   useEffect(() => {
@@ -161,6 +179,7 @@ export default function CanvasStage({ viewScale, contentLayerRef, showSafeZone =
 
   return (
     <Stage
+      ref={stageRef}
       width={width * viewScale}
       height={height * viewScale}
       scaleX={viewScale}

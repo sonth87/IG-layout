@@ -1,6 +1,6 @@
 # Kế hoạch (Roadmap)
 
-> **Đang ở:** M7 — Xuất & hoàn thiện. M1–M6 xong 2026-10-14. Phạm vi MVP đã duyệt: toàn bộ plan (D-46).
+> **Đang ở:** M1–M7 xong phần code (2026-10-14). Còn lại trước v1.0: thử trên điện thoại thật ([device-test.md](device-test.md)), xác minh thông số Instagram, góp ý filter. Phạm vi MVP đã duyệt: toàn bộ plan (D-46).
 > **Bản chạy thử:** https://ig-layout.vercel.app/ (tự deploy khi push lên `main`). Còn treo từ GĐ1: test trên điện thoại thật (để sau theo ý chủ dự án), chốt D-38. Từ GĐ0: duyệt phạm vi MVP, góp ý wireframe.
 > **Việc tiếp theo:** xem mục "Việc tiếp theo" cuối file và [checklist.md](checklist.md).
 > Cập nhật lần cuối: 2026-10-14.
@@ -112,5 +112,7 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 
 ## Việc tiếp theo
 
-1. **M7 — Xuất & hoàn thiện** (tiếp theo) → checklist phát hành v1.0.
+1. Chủ dự án thử trên iPhone + Android theo [device-test.md](device-test.md); tôi sửa theo kết quả.
+2. Chỉnh thông số Instagram (vùng an toàn, khe lưới) và màu filter theo kết quả thử.
+3. Đi qua checklist phát hành v1.0 → phát hành.
 2. Thử trên điện thoại thật qua link Vercel khi chủ dự án có thời gian; chốt D-38 (Konva).

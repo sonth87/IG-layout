@@ -66,7 +66,7 @@ function InstallBanner() {
   );
 }
 
-export function ProjectsScreen({ onNew, onSettings }: { onNew: () => void; onSettings: () => void }) {
+export function ProjectsScreen({ onNew, onSettings, onHelp }: { onNew: () => void; onSettings: () => void; onHelp: () => void }) {
   const t = useT();
   const locale = useSettings((s) => s.locale);
   const openProject = useEditor((s) => s.openProject);
@@ -122,6 +122,15 @@ export function ProjectsScreen({ onNew, onSettings }: { onNew: () => void; onSet
     <main className="mx-auto flex h-dvh max-w-md flex-col">
       <header className="flex items-center justify-between px-5 pt-5 pb-2">
         <h1 className="font-display text-3xl font-bold tracking-tight">{t("projects.title")}</h1>
+        <div className="flex gap-2">
+        <button
+          type="button"
+          aria-label={t("help.title")}
+          onClick={onHelp}
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface"
+        >
+          <Icon name="help" />
+        </button>
         <button
           type="button"
           aria-label={t("projects.settings")}
@@ -130,6 +139,7 @@ export function ProjectsScreen({ onNew, onSettings }: { onNew: () => void; onSet
         >
           <Icon name="globe" />
         </button>
+        </div>
       </header>
 
       <InstallBanner />

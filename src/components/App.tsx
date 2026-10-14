@@ -7,9 +7,10 @@ import { useEditor } from "@/store/editor";
 import { Editor } from "./editor/Editor";
 import { NewProject } from "./NewProject";
 import { ProjectsScreen } from "./ProjectsScreen";
+import { HelpScreen } from "./HelpScreen";
 import { SettingsScreen } from "./SettingsScreen";
 
-type View = "projects" | "new" | "settings";
+type View = "projects" | "new" | "settings" | "help";
 
 export function App() {
   const hasProject = useEditor((s) => s.doc !== null);
@@ -31,5 +32,6 @@ export function App() {
   if (hasProject) return <Editor onClose={() => setView("projects")} />;
   if (view === "new") return <NewProject onClose={() => setView("projects")} />;
   if (view === "settings") return <SettingsScreen onBack={() => setView("projects")} />;
-  return <ProjectsScreen onNew={() => setView("new")} onSettings={() => setView("settings")} />;
+  if (view === "help") return <HelpScreen onBack={() => setView("projects")} />;
+  return <ProjectsScreen onNew={() => setView("new")} onSettings={() => setView("settings")} onHelp={() => setView("help")} />;
 }

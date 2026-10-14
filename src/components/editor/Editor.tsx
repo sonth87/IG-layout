@@ -20,6 +20,7 @@ import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
 import { LayoutPicker } from "@/components/layout/LayoutPicker";
 import type { ImageAsset } from "@/lib/project/types";
 import { useImportPhotos } from "./useImportPhotos";
+import { useShortcuts } from "./useShortcuts";
 
 const STAGE_PADDING = 24;
 
@@ -104,6 +105,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const [tool, setTool] = useState<Tool | null>(null);
   const [editingText, setEditingText] = useState<string | null>(null);
   const [showSafeZone, setShowSafeZone] = useState(true);
+  useShortcuts(tool === null && !editingText && !exportOpen);
 
   const size = canvasSize(doc);
   const { slide } = size;

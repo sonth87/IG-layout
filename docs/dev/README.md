@@ -34,9 +34,12 @@ src/
       Editor.tsx        khung editor: header, vùng canvas, thanh công cụ theo ngữ cảnh, mở công cụ
       ExportSheet.tsx   xem trước & tải về
       useImportPhotos.ts
-      canvas/           CanvasStage (3 layer, pinch, hít), ImageNode, TextNode, ShapeIconNodes, BackgroundNode, useNodeHandlers
+      canvas/           CanvasStage (3 layer, pinch, hít, giới hạn pixel), ImageNode, TextNode, ShapeIconNodes, BackgroundNode, useNodeHandlers, useProcessedImage (bản xem trước + màu)
+      useShortcuts.ts   phím tắt trên máy tính
       tools/            controls (ToolSheet ✕/✓, Slider, Swatches), CropTool, ElementTools (Mask, Style), ColorTools (Adjust, Filters), TextTools (TextTool, TextEditDialog), ElementsSheet, ProjectTools (Background, Slides)
     layout/             LayoutPicker (chọn layout), TemplatePreview
+    export/             InstagramPreview (carousel, trang cá nhân, story)
+    HelpScreen.tsx      hướng dẫn ngắn trong app
     ui/Icon.tsx
   lib/
     project/types.ts    mô hình dữ liệu (tọa độ theo pixel xuất)
@@ -86,6 +89,7 @@ public/sw.js           service worker (offline); đổi tên CACHE khi đổi ch
 - Công cụ có ✕ / ✓ sửa trên `draft` (`beginDraft` → `updateDraft` → `applyDraft` / `cancelDraft`); hiển thị dùng `useViewDoc()` (= draft ?? doc).
 - Đổi cấu trúc `ProjectDoc` → cập nhật `migrate.ts` để project đã lưu vẫn mở được.
 - Kiểm tra tự động đọc store qua `window.__igEditor` (chỉ đọc).
+- Hiệu năng: khi chỉnh, ảnh luôn vẽ từ bản xem trước ≤ 1600 px; chỉ khi xuất (`exporting`) mới dùng ảnh đầy đủ. Đo lại bằng `node e2e/perf.mjs <url>` khi đổi phần vẽ.
 - Mọi chữ hiển thị đi qua `useT()`; thêm key vào **cả** `en.ts` và `vi.ts` (TypeScript báo lỗi nếu thiếu bên `vi`).
 - Service worker chỉ chạy ở bản build (`pnpm build`), không chạy ở `pnpm dev`.
 - Thứ gì không được xuất ra ảnh (đường chia slide, khung chọn) phải nằm ở layer khác layer nội dung.
