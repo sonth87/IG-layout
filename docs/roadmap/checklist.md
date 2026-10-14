@@ -155,3 +155,9 @@ Nhánh: `m7-polish` — phần code xong 2026-10-14, đã merge vào `main`.
 - [ ] Xác minh thông số Instagram (vùng an toàn Story, khe lưới) — trong device-test
 - [ ] Chốt D-38 (Konva) sau khi thử máy thật
 - [ ] Checklist phát hành v1.0 ([plan.md](plan.md))
+
+### M8 — Sửa UX (đề xuất, chờ duyệt)
+Nguồn: [đánh giá UX 2026-10-14](../discussions/2026-10-14-danh-gia-ux.md).
+- [ ] P0: UX-01 vuốt / chọn / khoá ảnh nền; UX-02 giữ chữ khi đổi layout; UX-03 thanh công cụ gọn + thanh nổi
+- [ ] P1: UX-04 dải thumbnail slide; UX-05..UX-14
+- [ ] P2: UX-15..UX-22 (chọn lọc)
