@@ -40,7 +40,7 @@ async function tap(x, y) {
 }
 /** Canvas (export px) → page coordinates, accounting for scroll. */
 async function toPage(x, y) {
-  const box = await page.locator("canvas").first().boundingBox();
+  const box = await page.locator("[data-stage-frame]").boundingBox();
   const st = await S();
   const w = st.doc.slideCount * 1080;
   const k = box.width / w;
@@ -63,7 +63,7 @@ await page.getByRole("button", { name: "Got it" }).click();
 console.log("UX-01 swipe scrolls; background photo is locked");
 let st = await S();
 check(st.doc.elements[0].locked === true, "panorama background is locked");
-const area = await page.locator("canvas").first().boundingBox();
+const area = await page.locator("[data-stage-frame]").boundingBox();
 await swipe(area.x + 300, area.y + area.height - 30, area.x + 40);
 st = await S();
 check((await scrollLeft()) > 100 && st.doc.elements[0].x === 0, `swipe scrolled the slides (${await scrollLeft()} px), background did not move`);
@@ -177,10 +177,10 @@ await page.getByRole("button", { name: "Done" }).click();
 const textEl = st.doc.elements.find((e) => e.type === "text");
 await page.evaluate((id) => window.__igEditor.getState().select(id), textEl.id);
 await page.waitForTimeout(200);
-const h0 = (await page.locator("canvas").first().boundingBox()).height;
+const h0 = (await page.locator("[data-stage-frame]").boundingBox()).height;
 await page.getByRole("button", { name: "Style" }).click();
 await page.waitForTimeout(300);
-const h1 = (await page.locator("canvas").first().boundingBox()).height;
+const h1 = (await page.locator("[data-stage-frame]").boundingBox()).height;
 check(Math.abs(h1 - h0) < 1, `canvas keeps its size (${Math.round(h0)} → ${Math.round(h1)})`);
 
 console.log("UX-13 slider reset button");
@@ -192,12 +192,20 @@ await page.getByLabel("Cancel").click();
 
 console.log("UX-06 zoom");
 await page.getByRole("button", { name: "Done" }).click();
-const w0 = (await page.locator("canvas").first().boundingBox()).width;
-await page.getByRole("button", { name: "Zoom in" }).click();
+const w0 = (await page.locator("[data-stage-frame]").boundingBox()).width;
+check(!(await page.getByRole("button", { name: "Zoom in" }).isVisible()), "touch: no zoom buttons over the canvas (pinch instead)");
+// Pinch on the empty space under the canvas.
+const fb = await page.locator("[data-stage-frame]").boundingBox();
+const zy = fb.y + fb.height + 14;
+await touch("touchStart", [{ x: 150, y: zy }, { x: 240, y: zy }]);
+for (let i = 1; i <= 10; i++) await touch("touchMove", [{ x: 150 - i * 6, y: zy }, { x: 240 + i * 6, y: zy }]);
+await touch("touchEnd", []);
 await page.waitForTimeout(300);
-const w1 = (await page.locator("canvas").first().boundingBox()).width;
-check(w1 > w0 * 1.4, `zoom in enlarges the canvas (${Math.round(w0)} → ${Math.round(w1)})`);
+const w1 = (await page.locator("[data-stage-frame]").boundingBox()).width;
+check(w1 > w0 * 1.4, `pinch zooms the canvas (${Math.round(w0)} → ${Math.round(w1)})`);
 await page.getByRole("button", { name: "Fit" }).click();
+await page.waitForTimeout(300);
+check(Math.abs((await page.locator("[data-stage-frame]").boundingBox()).width - w0) < 1, "the % pill fits the canvas back");
 
 console.log("UX-04 slide thumbnails");
 await page.getByRole("button", { name: "Add slide" }).click();

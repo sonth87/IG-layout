@@ -323,6 +323,7 @@ export const en = {
   "editor.toFront": "To front",
   "editor.toBack": "To back",
   "editor.lock": "Lock",
+  "editor.unrotate": "Rotate to 0°",
   "editor.unlock": "Unlock",
   "layers.title": "Layers",
   "layers.hint": "Tap to select — even items hidden behind others. Top of the list is in front.",

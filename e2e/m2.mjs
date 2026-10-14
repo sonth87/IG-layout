@@ -26,7 +26,7 @@ async function state() {
     return { doc: s.doc, past: { length: s.past.length } };
   });
 }
-const stageBox = () => page.locator("canvas").first().boundingBox();
+const stageBox = () => page.locator("[data-stage-frame]").boundingBox();
 // Canvas (export px) → page coordinates.
 async function toPage(x, y) {
   const box = await stageBox();

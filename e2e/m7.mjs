@@ -42,7 +42,7 @@ await newProject("Post", ["p3.jpg", "p4.jpg"], async () => {
   for (let i = 0; i < 15; i++) await page.getByLabel("More slides").click(); // 20 slides
 });
 const canvasMP = await page.evaluate(() => [...document.querySelectorAll(".konvajs-content canvas")].reduce((s, c) => s + c.width * c.height, 0) / 1e6);
-check(canvasMP <= 3 * 8.2, `20 slides at 3× density: canvas memory capped (${canvasMP.toFixed(1)} MP for 3 layers)`);
+check(canvasMP <= 3, `20 slides at 3× density: layers only cover the screen (${canvasMP.toFixed(1)} MP for 3 layers)`);
 let st = await S();
 const id = st.selected;
 const x0 = st.doc.elements.find((e) => e.id === id).x;

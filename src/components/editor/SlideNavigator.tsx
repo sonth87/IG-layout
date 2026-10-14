@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
+import { layerRegion } from "@/lib/export/slices";
 import { slideRect } from "@/lib/project/layout";
 import { MAX_SLIDES } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
@@ -30,10 +31,7 @@ export function SlideNavigator({ onPick }: { onPick: (index: number) => void }) 
         Array.from({ length: doc.slideCount }, (_, i) => {
           const r = slideRect(doc, i);
           return canvas.layer.toDataURL({
-            x: r.x * vs,
-            y: r.y * vs,
-            width: r.width * vs,
-            height: r.height * vs,
+            ...layerRegion(canvas.layer, r, vs),
             pixelRatio: (THUMB_HEIGHT * 2) / (r.height * vs),
             mimeType: "image/jpeg",
             quality: 0.7,

@@ -322,6 +322,7 @@ export const vi: Record<MessageKey, string> = {
   "editor.toFront": "Lên trên cùng",
   "editor.toBack": "Xuống dưới cùng",
   "editor.lock": "Khoá",
+  "editor.unrotate": "Xoay về 0°",
   "editor.unlock": "Mở khoá",
   "layers.title": "Các lớp",
   "layers.hint": "Chạm để chọn — kể cả thứ bị che. Trên cùng danh sách là lớp ở trước.",
