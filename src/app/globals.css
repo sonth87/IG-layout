@@ -70,7 +70,7 @@
   --color-accent-text: var(--accent-text);
   --color-accent-soft: var(--accent-soft);
   --color-danger: var(--danger);
-  --font-sans: var(--font-dm-sans);
+  --font-sans: var(--font-body);
   --font-display: var(--font-space-grotesk);
 }
 
@@ -81,6 +81,6 @@ body {
 }
 
 body {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   -webkit-tap-highlight-color: transparent;
 }

@@ -4,7 +4,9 @@ import type Konva from "konva";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { canvasSize, MAX_SLIDES } from "@/lib/project/types";
+import { flushSave } from "@/store/autosave";
 import { useEditor } from "@/store/editor";
+import { useT } from "@/store/settings";
 import CanvasStage from "./CanvasStage";
 import { ExportSheet } from "./ExportSheet";
 import { useImportPhotos } from "./useImportPhotos";
@@ -43,7 +45,8 @@ function ToolButton(props: { label: string; onClick: () => void; danger?: boolea
   );
 }
 
-export function Editor() {
+export function Editor({ onClose }: { onClose: () => void }) {
+  const t = useT();
   const doc = useEditor((s) => s.doc)!;
   const selectedId = useEditor((s) => s.selectedId);
   const canUndo = useEditor((s) => s.past.length > 0);
@@ -60,24 +63,25 @@ export function Editor() {
   const viewScale = useViewScale(areaRef, slide);
   const slideW = slide.width * viewScale;
 
-  function onBack() {
-    if (doc.elements.length === 0 || confirm("Leave this project? It is not saved yet in this prototype.")) {
-      closeProject();
-    }
+  async function onBack() {
+    select(null);
+    await flushSave();
+    closeProject();
+    onClose();
   }
 
   return (
     <main className="mx-auto flex h-dvh max-w-3xl flex-col">
       <header className="flex items-center gap-0.5 px-2 pt-2.5 pb-1.5">
-        <button type="button" aria-label="Back" onClick={onBack} className="flex h-11 w-11 items-center justify-center">
+        <button type="button" aria-label={t("common.back")} onClick={onBack} className="flex h-11 w-11 items-center justify-center">
           <Icon name="back" />
         </button>
         <div className="min-w-0 flex-1 truncate text-[15px] font-semibold">
-          Post · {doc.ratio} · {doc.slideCount} slides
+          {t("editor.title", { ratio: doc.ratio, count: doc.slideCount })}
         </div>
         <button
           type="button"
-          aria-label="Undo"
+          aria-label={t("editor.undo")}
           disabled={!canUndo}
           onClick={undo}
           className="flex h-11 w-11 items-center justify-center disabled:text-disabled"
@@ -86,7 +90,7 @@ export function Editor() {
         </button>
         <button
           type="button"
-          aria-label="Redo"
+          aria-label={t("editor.redo")}
           disabled={!canRedo}
           onClick={redo}
           className="flex h-11 w-11 items-center justify-center disabled:text-disabled"
@@ -102,7 +106,7 @@ export function Editor() {
           }}
           className="ml-1 h-[38px] rounded-xl bg-accent px-3.5 text-sm font-bold text-on-accent disabled:opacity-50"
         >
-          Export
+          {t("editor.export")}
         </button>
       </header>
 
@@ -115,7 +119,7 @@ export function Editor() {
                 className="absolute text-xs text-muted"
                 style={{ left: STAGE_PADDING + i * slideW, top: STAGE_PADDING - 2 }}
               >
-                {i + 1} / {doc.slideCount}
+                {t("editor.slideOf", { index: i + 1, count: doc.slideCount })}
               </span>
             ))}
             <CanvasStage viewScale={viewScale} contentLayerRef={contentLayerRef} />
@@ -123,7 +127,7 @@ export function Editor() {
         )}
         {doc.elements.length === 0 && (
           <p className="pointer-events-none absolute inset-x-0 bottom-4 text-center text-sm text-muted">
-            {busy ? "Importing photos…" : "Add photos to start"}
+            {busy ? t("editor.importingPhotos") : t("editor.emptyHint")}
           </p>
         )}
       </div>
@@ -147,43 +151,43 @@ export function Editor() {
       />
 
       <section
-        aria-label={selectedId ? "Photo tools" : "Tools"}
+        aria-label={selectedId ? t("editor.photoTools") : t("editor.tools")}
         className="rounded-t-[18px] bg-surface px-2 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
       >
         {selectedId ? (
           <>
             <div className="flex items-center justify-between px-2.5 pb-1.5">
-              <span className="text-[13px] font-semibold tracking-wider text-muted uppercase">Photo</span>
+              <span className="text-[13px] font-semibold tracking-wider text-muted uppercase">{t("editor.photo")}</span>
               <button
                 type="button"
                 onClick={() => select(null)}
                 className="h-8 rounded-[10px] border border-border px-3 text-[13px] font-semibold"
               >
-                Done
+                {t("common.done")}
               </button>
             </div>
             <div className="flex">
-              <ToolButton label="Forward" onClick={() => moveLayer(selectedId, "up")}>
+              <ToolButton label={t("editor.forward")} onClick={() => moveLayer(selectedId, "up")}>
                 <Icon name="layerUp" />
               </ToolButton>
-              <ToolButton label="Backward" onClick={() => moveLayer(selectedId, "down")}>
+              <ToolButton label={t("editor.backward")} onClick={() => moveLayer(selectedId, "down")}>
                 <Icon name="layerDown" />
               </ToolButton>
-              <ToolButton label="Delete" danger onClick={() => removeElement(selectedId)}>
+              <ToolButton label={t("common.delete")} danger onClick={() => removeElement(selectedId)}>
                 <Icon name="trash" />
               </ToolButton>
             </div>
           </>
         ) : (
           <div className="flex items-center">
-            <ToolButton label={busy ? "Importing…" : "Add photos"} onClick={() => fileInput.current?.click()}>
+            <ToolButton label={busy ? t("editor.importing") : t("editor.addPhotos")} onClick={() => fileInput.current?.click()}>
               <Icon name="image" />
             </ToolButton>
             <div className="flex flex-1 flex-col items-center gap-1">
               <div className="flex items-center gap-1">
                 <button
                   type="button"
-                  aria-label="Remove last slide"
+                  aria-label={t("editor.removeSlide")}
                   disabled={doc.slideCount <= 1}
                   onClick={() => setSlideCount(doc.slideCount - 1)}
                   className="flex h-10 w-10 items-center justify-center rounded-xl border border-border disabled:text-disabled"
@@ -193,7 +197,7 @@ export function Editor() {
                 <span className="w-8 text-center font-display text-lg font-bold">{doc.slideCount}</span>
                 <button
                   type="button"
-                  aria-label="Add slide"
+                  aria-label={t("editor.addSlide")}
                   disabled={doc.slideCount >= MAX_SLIDES}
                   onClick={() => setSlideCount(doc.slideCount + 1)}
                   className="flex h-10 w-10 items-center justify-center rounded-xl border border-border disabled:text-disabled"
@@ -201,7 +205,7 @@ export function Editor() {
                   <Icon name="plus" size={18} />
                 </button>
               </div>
-              <span className="text-[11px]">Slides</span>
+              <span className="text-[11px]">{t("editor.slides")}</span>
             </div>
           </div>
         )}

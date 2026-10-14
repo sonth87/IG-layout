@@ -3,6 +3,11 @@
 > Trạng thái: **Đã chốt IndexedDB** (D-20). OPFS chỉ là phương án dự phòng cho ảnh nếu IndexedDB chậm. Yêu cầu: giữ project + lịch sử sau khi đóng app / tải lại trang — **nên có, không bắt buộc**.
 > Mọi dữ liệu nằm trên máy người dùng, không gửi lên server.
 
+## Đã cài đặt (M1)
+
+DB `ig-layout` (v1), 3 store: `projects` (thông tin hiển thị + ảnh thu nhỏ + dung lượng), `states` (doc + lịch sử `past` / `future`), `assets` (ảnh đã thu nhỏ, index theo `projectId`). Code: `src/lib/storage/`.
+Lưu ý: khi lưu, các bước lịch sử được ghi riêng rẽ (không còn chia sẻ phần chung như trong bộ nhớ) — cần theo dõi dung lượng nếu lịch sử rất dài.
+
 ## Cần lưu gì
 
 | Dữ liệu | Đặc điểm | Dung lượng |

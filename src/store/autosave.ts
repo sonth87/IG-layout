@@ -1,0 +1,68 @@
+"use client";
+
+import { SLIDE_SIZE } from "@/lib/project/types";
+import { saveState } from "@/lib/storage/projects";
+import { useEditor } from "./editor";
+
+// Saves doc + history after every recorded step (debounced), plus a thumbnail
+// of slide 1. Saving is "nice to have" (D-22): failures are logged, never thrown.
+
+const SAVE_DELAY = 400;
+const THUMB_WIDTH = 240;
+
+let timer: ReturnType<typeof setTimeout> | null = null;
+let pending: Promise<void> = Promise.resolve();
+
+async function thumbnail(): Promise<Blob | undefined> {
+  const { canvas, doc } = useEditor.getState();
+  if (!canvas || !doc) return undefined;
+  const slide = SLIDE_SIZE[doc.ratio];
+  const w = slide.width * canvas.viewScale;
+  try {
+    return (await canvas.layer.toBlob({
+      x: 0,
+      y: 0,
+      width: w,
+      height: slide.height * canvas.viewScale,
+      pixelRatio: THUMB_WIDTH / w,
+      mimeType: "image/jpeg",
+      quality: 0.8,
+    })) as Blob;
+  } catch {
+    return undefined;
+  }
+}
+
+async function save() {
+  const { projectId, doc, past, future } = useEditor.getState();
+  if (!projectId || !doc) return;
+  try {
+    const thumb = await thumbnail();
+    await saveState({ id: projectId, doc, past, future }, thumb ? { thumbnail: thumb } : {});
+  } catch (err) {
+    console.warn("Autosave failed", err);
+  }
+}
+
+/** Writes any pending change now. Call before leaving the editor. */
+export function flushSave() {
+  if (timer) {
+    clearTimeout(timer);
+    timer = null;
+    pending = pending.then(save);
+  }
+  return pending;
+}
+
+/** Starts watching the editor store; returns the unsubscribe function. */
+export function startAutosave() {
+  return useEditor.subscribe((state, prev) => {
+    if (!state.projectId || state.projectId !== prev.projectId) return;
+    if (state.doc === prev.doc && state.past === prev.past && state.future === prev.future) return;
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = null;
+      pending = pending.then(save);
+    }, SAVE_DELAY);
+  });
+}

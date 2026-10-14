@@ -44,13 +44,35 @@
 ## Giai đoạn 2 — MVP
 
 ### M1 — Nền tảng
-- [ ] Lưu project vào IndexedDB (doc, ảnh, lịch sử); tự lưu sau mỗi bước
-- [ ] Màn "Project của tôi": danh sách, ảnh thu nhỏ, dung lượng, đổi tên, xóa
-- [ ] Xin quyền lưu lâu dài (`navigator.storage.persist`), banner nhắc cài app
-- [ ] Service worker offline (Serwist)
-- [ ] Settings: theme (System / Light / Dark), ngôn ngữ, dung lượng, xóa tất cả
-- [ ] Khung đa ngôn ngữ EN / VI; chọn font giao diện có tiếng Việt
-- [ ] Deploy tự động khi push lên `main`
+Nhánh: `m1-foundation`. Chi tiết hóa ngày 2026-10-14.
+
+**Lưu trữ (IndexedDB)**
+- [x] DB `ig-layout`: store `projects` (thông tin hiển thị: tên, loại, tỉ lệ, số slide, ngày sửa, ảnh thu nhỏ, dung lượng), `states` (doc + lịch sử), `assets` (ảnh, theo project)
+- [x] Tạo project → lưu ngay; nhập ảnh → lưu ảnh ngay
+- [x] Tự lưu doc + lịch sử sau mỗi bước (debounce), cập nhật ảnh thu nhỏ slide 1
+- [x] Mở lại project: nạp doc, lịch sử (undo được tiếp), ảnh
+- [x] Đổi tên, xóa project (xóa cả ảnh)
+- [x] Xin quyền lưu lâu dài (`navigator.storage.persist`) khi tạo project đầu tiên
+
+**Màn hình**
+- [x] "Project của tôi": danh sách (ảnh thu nhỏ, loại, tỉ lệ · số slide · dung lượng, lần sửa), lọc theo loại, thanh dung lượng, nút New project
+- [x] Banner nhắc cài app (Android/Chrome: nút Install; iOS: hướng dẫn Add to Home Screen); ẩn khi đã cài
+- [x] Settings: theme (System / Light / Dark), ngôn ngữ (English / Tiếng Việt), dung lượng, xóa tất cả, About
+- [x] Editor: nút Back lưu rồi về danh sách (bỏ hộp xác nhận)
+
+**Theme & ngôn ngữ**
+- [x] Theme lưu ở localStorage, áp trước khi hiển thị (không nháy màu)
+- [x] i18n gọn tự viết (từ điển EN / VI + hook `useT`), không dùng thư viện vì app chỉ chạy client
+- [x] Font giao diện có tiếng Việt: Be Vietnam Pro (thay DM Sans)
+
+**Offline (PWA)**
+- [x] Sinh `sw.js` sau khi build (liệt kê file trong `out/` để cache sẵn), đăng ký ở bản production
+- [x] Kiểm tra: tải trang → tắt mạng → tải lại vẫn chạy
+
+**Kiểm tra & bàn giao**
+- [x] Kiểm tra tự động: tạo project → nhập ảnh → kéo → tải lại trang → project còn, undo được → đổi tên → xóa; đổi theme / ngôn ngữ; offline
+- [x] Cập nhật tài liệu, commit, push nhánh
+- [ ] Deploy tự động khi push lên `main` — **chờ chọn nơi host**
 
 ### M2 — Editor cốt lõi
 - [ ] Mô hình phần tử chung (ảnh / text / hình), thanh công cụ theo ngữ cảnh

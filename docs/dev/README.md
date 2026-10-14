@@ -22,8 +22,10 @@ Lưu ý: share sheet ("Save images") và cài PWA cần **HTTPS** (hoặc localh
 src/
   app/                  layout, page, manifest (PWA), globals.css (biến theme)
   components/
-    App.tsx             chuyển giữa màn tạo project và editor
+    App.tsx             điều hướng giữa các màn: Projects, New, Settings, Editor
+    ProjectsScreen.tsx  "Project của tôi": danh sách, dung lượng, banner cài app
     NewProject.tsx      chọn tỉ lệ, số slide, chọn ảnh
+    SettingsScreen.tsx  theme, ngôn ngữ, dung lượng, xóa tất cả
     editor/
       Editor.tsx        khung editor: header, vùng canvas, thanh công cụ
       CanvasStage.tsx   canvas Konva: lớp nội dung (được export), lớp đường chia slide, lớp khung chọn
@@ -36,7 +38,15 @@ src/
     image/import.ts     đọc ảnh, xoay theo EXIF, thu nhỏ (D-29)
     export/slices.ts    cắt canvas theo ranh giới slide → JPEG
     export/deliver.ts   share sheet / ZIP / tải từng ảnh
-  store/editor.ts       Zustand: project, ảnh, lịch sử undo / redo
+    storage/db.ts       IndexedDB: projects (thông tin), states (doc + lịch sử), assets (ảnh)
+    storage/projects.ts các thao tác lưu / mở / đổi tên / xóa, xin quyền lưu lâu dài
+    i18n/en.ts, vi.ts   từ điển giao diện
+    pwa.ts              cài app (install prompt), đăng ký service worker
+    format.ts           định dạng dung lượng, thời gian
+  store/editor.ts       Zustand: project đang mở, ảnh, lịch sử undo / redo
+  store/autosave.ts     tự lưu sau mỗi bước (debounce) + ảnh thu nhỏ slide 1
+  store/settings.ts     theme, ngôn ngữ (localStorage) + useT()
+scripts/generate-sw.mjs sinh out/sw.js sau khi build
 ```
 
 ## Git
@@ -50,6 +60,8 @@ src/
 
 - Mọi tọa độ trong `ProjectDoc` là **pixel xuất** (1 slide 4:5 = 1080 × 1350). Màn hình chỉ là `viewScale` của canvas.
 - Chỉ thay đổi project qua action của store; mỗi action = 1 bước lịch sử. Cử chỉ kéo / xoay ghi khi thả tay.
+- Mọi chữ hiển thị đi qua `useT()`; thêm key vào **cả** `en.ts` và `vi.ts` (TypeScript báo lỗi nếu thiếu bên `vi`).
+- Service worker chỉ chạy ở bản build (`pnpm build`), không chạy ở `pnpm dev`.
 - Thứ gì không được xuất ra ảnh (đường chia slide, khung chọn) phải nằm ở layer khác layer nội dung.
 - Next.js 16 khác nhiều so với bản cũ: đọc `node_modules/next/dist/docs/` trước khi dùng API mới (xem `AGENTS.md`).
 

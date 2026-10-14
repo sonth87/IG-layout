@@ -102,6 +102,15 @@ export default function CanvasStage({ viewScale, contentLayerRef }: Props) {
   const doc = useEditor((s) => s.doc);
   const selectedId = useEditor((s) => s.selectedId);
   const select = useEditor((s) => s.select);
+  const setCanvas = useEditor((s) => s.setCanvas);
+
+  // Expose the content layer for thumbnails (autosave) and export.
+  useEffect(() => {
+    const layer = contentLayerRef.current;
+    if (layer) setCanvas({ layer, viewScale });
+    return () => setCanvas(null);
+  }, [contentLayerRef, viewScale, setCanvas]);
+
   if (!doc) return null;
 
   const { width, height, slide } = canvasSize(doc);

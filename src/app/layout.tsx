@@ -1,16 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Space_Grotesk } from "next/font/google";
+import { Be_Vietnam_Pro, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin", "latin-ext"],
+// Both fonts include Vietnamese glyphs (D-41).
+const bodyFont = Be_Vietnam_Pro({
+  variable: "--font-body",
+  subsets: ["latin", "latin-ext", "vietnamese"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const spaceGrotesk = Space_Grotesk({
+const displayFont = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin", "latin-ext", "vietnamese"],
 });
+
+// Applies the saved theme before first paint (no flash). Key: SETTINGS_KEY in store/settings.ts.
+const themeScript = `try{var s=JSON.parse(localStorage.getItem("ig-layout:settings")||"{}");if(s.theme==="light"||s.theme==="dark")document.documentElement.dataset.theme=s.theme;if(s.locale==="vi")document.documentElement.lang="vi"}catch(e){}`;
 
 export const metadata: Metadata = {
   title: "IG Layout",
@@ -40,8 +45,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${bodyFont.variable} ${displayFont.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="h-full">{children}</body>
     </html>
   );

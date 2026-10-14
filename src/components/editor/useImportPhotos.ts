@@ -1,17 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { importImage } from "@/lib/image/import";
+import { ImportError, importImage } from "@/lib/image/import";
 import { type ImageAsset, newId } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
+import { useT } from "@/store/settings";
 
-/** Imports picked files (sequentially, to limit memory on phones) and adds them to the project. */
+/**
+ * Decodes picked files (sequentially, to limit memory on phones).
+ * `importFiles` also adds them to the open project.
+ */
 export function useImportPhotos() {
   const addImages = useEditor((s) => s.addImages);
+  const t = useT();
   const [busy, setBusy] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
 
-  async function importFiles(files: FileList | File[], firstSlide = 0) {
+  async function decodeFiles(files: FileList | File[]) {
     setBusy(true);
     setErrors([]);
     const assets: ImageAsset[] = [];
@@ -28,13 +33,18 @@ export function useImportPhotos() {
           name: file.name,
         });
       } catch (err) {
-        failed.push(err instanceof Error ? err.message : String(err));
+        const code = err instanceof ImportError ? err.code : "failed";
+        failed.push(t(code === "unreadable" ? "import.unreadable" : "import.failed", { name: file.name }));
       }
     }
-    addImages(assets, firstSlide);
     setErrors(failed);
     setBusy(false);
+    return assets;
   }
 
-  return { importFiles, busy, errors };
+  async function importFiles(files: FileList | File[], firstSlide = 0) {
+    addImages(await decodeFiles(files), firstSlide);
+  }
+
+  return { decodeFiles, importFiles, busy, errors };
 }

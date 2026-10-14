@@ -36,6 +36,26 @@ const PATHS = {
   download: <path d="M12 4v12M6 10l6 6 6-6M4 20h16" />,
   share: <path d="M12 3v13M7 8l5-5 5 5M5 14v6h14v-6" />,
   plus: <path d="M12 5v14M5 12h14" />,
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+    </>
+  ),
+  more: (
+    <>
+      <circle cx="5" cy="12" r="1.2" fill="currentColor" />
+      <circle cx="12" cy="12" r="1.2" fill="currentColor" />
+      <circle cx="19" cy="12" r="1.2" fill="currentColor" />
+    </>
+  ),
+  check: <path d="M20 6L9 17l-5-5" />,
+  pencil: (
+    <>
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" />
+    </>
+  ),
   minus: <path d="M5 12h14" />,
 };
 

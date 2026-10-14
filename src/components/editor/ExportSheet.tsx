@@ -7,6 +7,7 @@ import { canShareFiles, downloadEach, downloadZip, shareFiles } from "@/lib/expo
 import { exportSlides } from "@/lib/export/slices";
 import { SLIDE_SIZE } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
+import { useT } from "@/store/settings";
 
 const BASE_NAME = "post";
 
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
+  const t = useT();
   const doc = useEditor((s) => s.doc)!;
   const [files, setFiles] = useState<File[] | null>(null);
   const [previews, setPreviews] = useState<string[]>([]);
@@ -57,22 +59,22 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
     <div role="dialog" aria-modal="true" aria-labelledby="export-title" className="fixed inset-0 z-10 flex flex-col bg-bg">
       <div className="mx-auto flex h-full w-full max-w-md flex-col">
         <header className="flex items-center gap-1 px-2 pt-2.5 pb-1">
-          <button type="button" aria-label="Back to editor" onClick={onClose} className="flex h-11 w-11 items-center justify-center">
+          <button type="button" aria-label={t("export.backToEditor")} onClick={onClose} className="flex h-11 w-11 items-center justify-center">
             <Icon name="back" />
           </button>
           <h1 id="export-title" className="font-display text-xl font-semibold">
-            Preview &amp; export
+            {t("export.title")}
           </h1>
         </header>
 
         <div className="flex-1 overflow-y-auto px-5">
-          {!files && !error && <p className="py-10 text-center text-muted">Rendering {doc.slideCount} images…</p>}
+          {!files && !error && <p className="py-10 text-center text-muted">{t("export.rendering", { count: doc.slideCount })}</p>}
           {previews.length > 0 && (
             <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto pt-2 pb-3">
               {previews.map((url, i) => (
                 <figure key={url} className="w-[78%] shrink-0 snap-center">
                   {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
-                  <img src={url} alt={`Slide ${i + 1}`} className="w-full rounded-lg border border-border" />
+                  <img src={url} alt={t("export.slide", { index: i + 1 })} className="w-full rounded-lg border border-border" />
                   <figcaption className="mt-1 text-xs text-muted">{files?.[i].name}</figcaption>
                 </figure>
               ))}
@@ -82,11 +84,11 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
           {files && (
             <>
               <p className="text-[13px] text-muted">
-                {files.length} images · JPEG · {size.width} × {size.height}
+                {t("export.summary", { count: files.length, width: size.width, height: size.height })}
               </p>
               <aside className="mt-3 rounded-2xl border border-border bg-surface px-3.5 py-3 text-[13px] leading-relaxed text-text-2">
-                <strong className="text-text">Posting tip:</strong> select the photos in order 01 → {String(files.length).padStart(2, "0")}.
-                When Instagram asks for the size, keep <strong className="text-text">{doc.ratio}</strong> — don’t crop to square.
+                <strong className="text-text">{t("export.tipTitle")}</strong>{" "}
+                {t("export.tip", { last: String(files.length).padStart(2, "0"), ratio: doc.ratio })}
               </aside>
             </>
           )}
@@ -105,7 +107,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
               className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-accent text-[17px] font-bold text-on-accent"
             >
               <Icon name="share" />
-              Save {files!.length} images to Photos
+              {t("export.saveToPhotos", { count: files!.length })}
             </button>
           )}
           <div className="flex gap-2.5">
@@ -117,7 +119,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
                 shareable ? "border border-border-2" : "bg-accent text-on-accent"
               }`}
             >
-              Download ZIP
+              {t("export.zip")}
             </button>
             <button
               type="button"
@@ -125,7 +127,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
               onClick={() => run(() => downloadEach(files!))}
               className="h-12 flex-1 rounded-[14px] border border-border-2 text-sm font-semibold disabled:opacity-50"
             >
-              One by one
+              {t("export.oneByOne")}
             </button>
           </div>
         </div>

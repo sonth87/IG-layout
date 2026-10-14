@@ -1,6 +1,6 @@
 # Kế hoạch (Roadmap)
 
-> **Đang ở:** Giai đoạn 1 — Prototype kỹ thuật (từ 2026-10-14). Phần còn lại của Giai đoạn 0 (chốt MVP, góp ý wireframe) làm song song.
+> **Đang ở:** M1 — Nền tảng (nhánh `m1-foundation`, từ 2026-10-14) — **xong phần code**, còn deploy tự động (chờ chọn nơi host). Còn treo từ GĐ1: test trên điện thoại thật (để sau theo ý chủ dự án), chốt D-38. Từ GĐ0: duyệt phạm vi MVP, góp ý wireframe.
 > **Việc tiếp theo:** xem mục "Việc tiếp theo" cuối file và [checklist.md](checklist.md).
 > Cập nhật lần cuối: 2026-10-14.
 
@@ -110,7 +110,7 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 
 ## Việc tiếp theo
 
-1. Chủ dự án duyệt **Phạm vi MVP** ở trên (Q-15, Q-30).
-2. Thử prototype trên điện thoại thật; deploy thử để có HTTPS.
-3. Chốt D-38 (Konva) → đóng Giai đoạn 1.
-4. Bắt đầu **M1 — Nền tảng**.
+1. Chọn nơi host → deploy tự động → đóng M1, merge `m1-foundation` vào `main`.
+2. Chủ dự án duyệt **Phạm vi MVP** (Q-15, Q-30).
+3. Thử trên điện thoại thật (đã hoãn theo ý chủ dự án); chốt D-38 (Konva).
+4. Bắt đầu **M2 — Editor cốt lõi**.

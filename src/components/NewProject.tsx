@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Icon } from "@/components/ui/Icon";
 import { useImportPhotos } from "@/components/editor/useImportPhotos";
+import { Icon } from "@/components/ui/Icon";
+import { formatShortDate } from "@/lib/format";
 import { type AspectRatio, MAX_SLIDES, POST_RATIOS, SLIDE_SIZE } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
+import { useSettings, useT } from "@/store/settings";
 
 const RATIO_ICON: Record<AspectRatio, string> = {
   "1:1": "h-[22px] w-[22px]",
@@ -13,30 +15,46 @@ const RATIO_ICON: Record<AspectRatio, string> = {
   "9:16": "h-[28px] w-[16px]",
 };
 
-export function NewProject() {
+export function NewProject({ onClose }: { onClose: () => void }) {
+  const t = useT();
+  const locale = useSettings((s) => s.locale);
   const [ratio, setRatio] = useState<AspectRatio>("4:5");
   const [slides, setSlides] = useState(5);
   const fileInput = useRef<HTMLInputElement>(null);
   const createProject = useEditor((s) => s.createProject);
-  const { importFiles, busy } = useImportPhotos();
+  const addImages = useEditor((s) => s.addImages);
+  const { decodeFiles, busy, errors } = useImportPhotos();
   const size = SLIDE_SIZE[ratio];
 
   async function onFiles(files: FileList | null) {
     if (!files?.length) return;
-    createProject(ratio, slides);
-    await importFiles(files);
+    // Decode first so this screen can show progress and errors; then open the editor.
+    const assets = await decodeFiles(files);
+    if (assets.length === 0) return;
+    await createProject(ratio, slides, t("new.defaultName", { date: formatShortDate(Date.now(), locale) }));
+    addImages(assets);
   }
 
   return (
     <main className="mx-auto flex h-dvh max-w-md flex-col">
-      <header className="px-5 pt-6 pb-2">
-        <h1 className="font-display text-3xl font-bold tracking-tight">New post</h1>
-        <p className="mt-1 text-sm text-muted">Prototype · Post (carousel) only for now</p>
+      <header className="flex items-center gap-1 px-3 pt-3.5 pb-1">
+        <button
+          type="button"
+          aria-label={t("common.close")}
+          onClick={onClose}
+          className="flex h-11 w-11 items-center justify-center"
+        >
+          <Icon name="close" />
+        </button>
+        <div>
+          <h1 className="font-display text-xl font-semibold">{t("new.title")}</h1>
+          <p className="text-xs text-muted">{t("new.subtitle")}</p>
+        </div>
       </header>
 
       <div className="flex flex-1 flex-col gap-7 overflow-y-auto px-5 pt-4">
         <section className="flex flex-col gap-3">
-          <h2 className="text-sm font-semibold tracking-wider text-muted uppercase">Ratio</h2>
+          <h2 className="text-sm font-semibold tracking-wider text-muted uppercase">{t("new.ratio")}</h2>
           <div className="flex gap-2.5">
             {POST_RATIOS.map((r) => (
               <button
@@ -60,11 +78,11 @@ export function NewProject() {
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="text-sm font-semibold tracking-wider text-muted uppercase">Slides</h2>
+          <h2 className="text-sm font-semibold tracking-wider text-muted uppercase">{t("new.slides")}</h2>
           <div className="flex items-center justify-between rounded-2xl bg-surface px-3 py-2.5">
             <button
               type="button"
-              aria-label="Fewer slides"
+              aria-label={t("new.fewer")}
               onClick={() => setSlides((n) => Math.max(1, n - 1))}
               className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface-2"
             >
@@ -72,11 +90,11 @@ export function NewProject() {
             </button>
             <div className="text-center">
               <div className="font-display text-3xl font-bold">{slides}</div>
-              <div className="text-xs text-muted">up to {MAX_SLIDES} · change later</div>
+              <div className="text-xs text-muted">{t("new.upTo", { max: MAX_SLIDES })}</div>
             </div>
             <button
               type="button"
-              aria-label="More slides"
+              aria-label={t("new.more")}
               onClick={() => setSlides((n) => Math.min(MAX_SLIDES, n + 1))}
               className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface-2"
             >
@@ -94,10 +112,17 @@ export function NewProject() {
             ))}
           </div>
           <p className="text-sm leading-relaxed text-muted">
-            One continuous canvas. On export it is cut into {slides} image{slides > 1 ? "s" : ""} of{" "}
-            {size.width} × {size.height}.
+            {t("new.cutInfo", { count: slides, width: size.width, height: size.height })}
           </p>
         </section>
+
+        {errors.length > 0 && (
+          <div role="alert" className="text-sm text-danger">
+            {errors.map((e) => (
+              <p key={e}>{e}</p>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="border-t border-border px-5 pt-4 pb-[max(1.75rem,env(safe-area-inset-bottom))]">
@@ -107,7 +132,10 @@ export function NewProject() {
           accept="image/*"
           multiple
           hidden
-          onChange={(e) => onFiles(e.target.files)}
+          onChange={(e) => {
+            void onFiles(e.target.files);
+            e.target.value = "";
+          }}
         />
         <button
           type="button"
@@ -116,7 +144,7 @@ export function NewProject() {
           className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-accent text-[17px] font-bold text-on-accent disabled:opacity-60"
         >
           <Icon name="image" />
-          {busy ? "Importing…" : "Choose photos"}
+          {busy ? t("new.importing") : t("new.choosePhotos")}
         </button>
       </div>
     </main>
