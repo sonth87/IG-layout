@@ -34,8 +34,8 @@ src/
       Editor.tsx        khung editor: header, vùng canvas, thanh công cụ theo ngữ cảnh, mở công cụ
       ExportSheet.tsx   xem trước & tải về
       useImportPhotos.ts
-      canvas/           CanvasStage (3 layer, pinch, hít), ImageNode, BackgroundNode, useHtmlImage
-      tools/            controls (ToolSheet ✕/✓, Slider, Swatches), CropTool, ElementTools (Mask, Style), ColorTools (Adjust, Filters), ProjectTools (Background, Slides)
+      canvas/           CanvasStage (3 layer, pinch, hít), ImageNode, TextNode, ShapeIconNodes, BackgroundNode, useNodeHandlers
+      tools/            controls (ToolSheet ✕/✓, Slider, Swatches), CropTool, ElementTools (Mask, Style), ColorTools (Adjust, Filters), TextTools (TextTool, TextEditDialog), ElementsSheet, ProjectTools (Background, Slides)
     layout/             LayoutPicker (chọn layout), TemplatePreview
     ui/Icon.tsx
   lib/
@@ -48,6 +48,9 @@ src/
     project/migrate.ts    nâng cấp dữ liệu project cũ
     templates/          types, library (danh sách template), apply (template → phần tử)
     color/              params (thông số màu), filters (danh sách filter), processor (WebGL + cache)
+    text/fonts.ts       font chữ cho canvas + chờ font tải
+    elements/           create (tạo chữ / hình / icon / khung), shapes (vẽ hình), icons (Lucide)
+  app/fonts.ts          khai báo 6 font (next/font), dùng chung cho giao diện và canvas
     image/import.ts     đọc ảnh, xoay theo EXIF, thu nhỏ (D-29)
     export/slices.ts    cắt canvas theo ranh giới slide → JPEG
     export/deliver.ts   share sheet / ZIP / tải từng ảnh

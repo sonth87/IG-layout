@@ -128,6 +128,31 @@ const PATHS = {
       <circle cx="12" cy="15" r="5" />
     </>
   ),
+  text: <path d="M5 6V4h14v2M12 4v16M9 20h6" />,
+  shapes: (
+    <>
+      <circle cx="8" cy="8" r="4" />
+      <rect x="13" y="13" width="8" height="8" rx="1" />
+      <path d="M4 21l4-6 4 6z" />
+    </>
+  ),
+  palette: (
+    <>
+      <path d="M12 3a9 9 0 1 0 0 18c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.4A4.6 4.6 0 0 0 22 9.8C22 6 17.5 3 12 3z" />
+      <circle cx="7.5" cy="11" r="1" fill="currentColor" />
+      <circle cx="10.5" cy="7" r="1" fill="currentColor" />
+      <circle cx="15" cy="7" r="1" fill="currentColor" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-4-4" />
+    </>
+  ),
+  alignLeft: <path d="M4 6h16M4 12h10M4 18h14" />,
+  alignCenter: <path d="M4 6h16M7 12h10M5 18h14" />,
+  alignRight: <path d="M4 6h16M10 12h10M6 18h14" />,
   swap: <path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7" />,
   layout: (
     <>

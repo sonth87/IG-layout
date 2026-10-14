@@ -60,6 +60,9 @@ interface ElementBase {
   opacity: number;
 }
 
+export const FRAME_STYLES = ["none", "polaroid", "white", "film"] as const;
+export type FrameStyle = (typeof FRAME_STYLES)[number];
+
 export interface ImageElement extends ElementBase {
   type: "image";
   /** null = empty template slot. */
@@ -80,9 +83,52 @@ export interface ImageElement extends ElementBase {
   /** Manual colour adjustments (M4). */
   adjust: Adjustments;
   filter: FilterRef | null;
+  /** Decorative frame around the photo (M5); the photo fills the inner area. */
+  frame: FrameStyle;
 }
 
-export type CanvasElement = ImageElement;
+export const FONT_KEYS = ["beVietnam", "playfair", "lora", "montserrat", "dancing", "spaceGrotesk"] as const;
+export type FontKey = (typeof FONT_KEYS)[number];
+
+export interface TextElement extends ElementBase {
+  type: "text";
+  text: string;
+  font: FontKey;
+  bold: boolean;
+  /** Export pixels. `width` wraps the text; `height` follows the text (derived). */
+  fontSize: number;
+  color: string;
+  align: "left" | "center" | "right";
+  /** Export pixels. */
+  letterSpacing: number;
+  /** Multiplier of the font size. */
+  lineHeight: number;
+  stroke: Border | null;
+  shadow: boolean;
+  background: { color: string; padding: number; radius: number } | null;
+}
+
+export const SHAPES = ["rect", "roundRect", "circle", "triangle", "line", "arrow", "film"] as const;
+export type ShapeKind = (typeof SHAPES)[number];
+
+export interface ShapeElement extends ElementBase {
+  type: "shape";
+  shape: ShapeKind;
+  fill: string;
+}
+
+export interface IconElement extends ElementBase {
+  type: "icon";
+  /** Key in lib/elements/icons.ts. */
+  icon: string;
+  color: string;
+}
+
+export type CanvasElement = ImageElement | TextElement | ShapeElement | IconElement;
+
+export function isImage(el: CanvasElement | undefined): el is ImageElement {
+  return el?.type === "image";
+}
 
 export interface ProjectDoc {
   type: ProjectType;

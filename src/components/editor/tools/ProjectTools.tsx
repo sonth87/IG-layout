@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
-import type { Background } from "@/lib/project/types";
+import { type Background, isImage } from "@/lib/project/types";
 import { MAX_SLIDES } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
@@ -28,7 +28,7 @@ export function BackgroundTool({ onClose }: { onClose: () => void }) {
   if (!doc) return null;
   const bg = doc.background;
   const set = (background: Background) => updateDraft((d) => ({ ...d, background }));
-  const usedAssets = Object.values(assets).filter((a) => doc.elements.some((el) => el.assetId === a.id));
+  const usedAssets = Object.values(assets).filter((a) => doc.elements.some((el) => isImage(el) && el.assetId === a.id));
 
   return (
     <ToolSheet

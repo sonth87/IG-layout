@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { coverCrop, straightenScale } from "@/lib/project/geometry";
+import { coverCrop, innerFrame, straightenScale } from "@/lib/project/geometry";
 import type { ImageElement, Rect } from "@/lib/project/types";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
@@ -21,7 +21,8 @@ type Drag =
 /** Crop + straighten + flip in a full-screen editor (docs/design wireframe 13). */
 export function CropTool({ elementId, onClose }: { elementId: string; onClose: () => void }) {
   const t = useT();
-  const el = useViewDoc()?.elements.find((e) => e.id === elementId) as ImageElement | undefined;
+  const found = useViewDoc()?.elements.find((e) => e.id === elementId);
+  const el = found?.type === "image" ? found : undefined;
   const asset = useEditor((s) => (el?.assetId ? s.assets[el.assetId] : undefined));
   const { updateDraft, applyDraft, cancelDraft } = useEditor.getState();
   const image = useHtmlImage(asset?.url);
@@ -29,7 +30,11 @@ export function CropTool({ elementId, onClose }: { elementId: string; onClose: (
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [area, setArea] = useState({ width: 0, height: 0 });
   const [ratio, setRatio] = useState<RatioKey>("frame");
-  const [frameAspect] = useState(() => (el ? el.width / el.height : 1));
+  const [frameAspect] = useState(() => {
+    if (!el) return 1;
+    const inner = innerFrame(el);
+    return inner.width / inner.height;
+  });
   const drag = useRef<Drag | null>(null);
 
   useEffect(() => {
@@ -193,6 +198,16 @@ export function CropTool({ elementId, onClose }: { elementId: string; onClose: (
     updateDraft((d) => {
       const cur = d.elements.find((x) => x.id === elementId) as ImageElement;
       const aspect = cur.crop.width / cur.crop.height;
+      if (cur.frame !== "none") {
+        // Decorative frames keep their size: trim the crop to the inner area's aspect.
+        const inner = innerFrame(cur);
+        const target = inner.width / inner.height;
+        if (Math.abs(aspect - target) < 0.001) return d;
+        const c = cur.crop;
+        const w = aspect > target ? c.height * target : c.width;
+        const h = aspect > target ? c.height : c.width / target;
+        return updateEl(d, elementId, { crop: { x: c.x + (c.width - w) / 2, y: c.y + (c.height - h) / 2, width: w, height: h } });
+      }
       if (Math.abs(aspect - cur.width / cur.height) < 0.001) return d;
       const height = cur.width / aspect;
       return updateEl(d, elementId, { height, y: cur.y + (cur.height - height) / 2 });

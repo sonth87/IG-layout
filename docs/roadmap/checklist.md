@@ -118,14 +118,18 @@ Nhánh: `m4-color` — xong 2026-10-14, đã merge vào `main`. Thiết kế: [e
 - [ ] Đo hiệu năng trên điện thoại tầm trung — gộp vào M7 (thử máy thật)
 
 ### M5 — Text & Elements
-Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 8.
-- [ ] Phần tử text: font (6 font tiếng Việt), cỡ, đậm, màu, căn lề, giãn chữ, dòng; viền chữ; bóng; nền chữ
-- [ ] Sửa chữ qua ô nhập phủ lên; chờ font tải trước khi vẽ / xuất
-- [ ] Phần tử hình khối (6 loại) + icon (bộ icon có giấy phép mở) + màu
-- [ ] Khung ảnh: polaroid, cuộn film, viền trắng
-- [ ] Màn Elements: tìm kiếm, nhóm
-- [ ] Trang Credits (font, icon)
-- [ ] Kiểm tra tự động + tài liệu
+Nhánh: `m5-text-elements` — xong 2026-10-14, đã merge vào `main`. Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 8.
+- [x] Mô hình phần tử nhiều loại: ảnh, chữ, hình khối, icon (+ chuyển đổi dữ liệu cũ)
+- [x] Phần tử chữ: 6 font có tiếng Việt (tự host), đậm, cỡ, màu, căn lề, giãn chữ, giãn dòng, viền chữ, bóng, nền chữ (màu, bo góc); co giãn = đổi cỡ chữ
+- [x] Sửa chữ bằng ô nhập (bàn phím điện thoại); chờ font tải xong trước khi vẽ và khi xuất
+- [x] Hình khối (chữ nhật, bo góc, tròn, tam giác, đường kẻ, mũi tên, cuộn film) + icon (Lucide, 17 icon) + màu, độ mờ
+- [x] Khung ảnh: polaroid, viền trắng, film (ảnh lấp phần bên trong khung); chọn trong Style hoặc thêm khung trống từ Elements
+- [x] Màn Elements: tìm kiếm, nhóm (Khung ảnh, Hình khối, Icon)
+- [x] Layout "Cuộn film" (dời từ M3); "Polaroid rải" dùng khung polaroid thật
+- [x] Thanh công cụ theo loại phần tử (ảnh / chữ / hình & icon); thanh chung có Text, Elements
+- [x] Trang Credits (font OFL, Lucide ISC, thư viện MIT) trong Settings
+- [x] Kiểm tra tự động `e2e/m5.mjs`
+- [ ] Material (băng dính washi, giấy note, giấy kraft…) và sticker — để sau MVP như plan
 
 ### M6 — Story & Grid
 Thiết kế: [editor-model.md](../architecture/editor-model.md) mục 9.

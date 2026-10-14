@@ -114,6 +114,8 @@ File JSON, toạ độ **tương đối** (0..1 theo slide) để dùng cho mọ
 
 ## 8. Text & font (M5)
 
+> **Đã cài đặt (M5):** `CanvasElement` = image | text | shape | icon (`types.ts`, `isImage`). Font khai báo một lần ở `src/app/fonts.ts`, canvas dùng qua `lib/text/fonts.ts` (`loadFont`). Chiều cao chữ là giá trị suy ra: `TextNode` đo rồi ghi bằng `setDerived` (không tạo bước lịch sử). Hình khối vẽ trong `lib/elements/shapes.ts`; icon Lucide render thành SVG theo kích thước (`lib/elements/icons.ts`). Khung ảnh: `frameInset` trong `geometry.ts`, ảnh lấp vùng bên trong.
+
 - Font qua `next/font/google` (tự host), mỗi font có `vietnamese` subset; danh sách: Be Vietnam Pro, Playfair Display, Lora, Montserrat, Dancing Script, Space Grotesk.
 - Trước khi vẽ / xuất: `document.fonts.load()` cho đúng font + độ đậm.
 - Sửa chữ bằng ô nhập HTML phủ lên (bàn phím điện thoại), không gõ trực tiếp trên canvas.

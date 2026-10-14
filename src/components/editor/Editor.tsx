@@ -3,7 +3,7 @@
 import type Konva from "konva";
 import { useEffect, useRef, useState } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { canvasSize } from "@/lib/project/types";
+import { canvasSize, isImage } from "@/lib/project/types";
 import { flushSave } from "@/store/autosave";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
@@ -11,7 +11,10 @@ import CanvasStage from "./canvas/CanvasStage";
 import { ExportSheet } from "./ExportSheet";
 import { CropTool } from "./tools/CropTool";
 import { AdjustTool, FilterTool } from "./tools/ColorTools";
-import { MaskTool, StyleTool } from "./tools/ElementTools";
+import { ElementsSheet } from "./tools/ElementsSheet";
+import { FillTool, MaskTool, StyleTool } from "./tools/ElementTools";
+import { TextEditDialog, TextTool } from "./tools/TextTools";
+import { newText } from "@/lib/elements/create";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
 import { LayoutPicker } from "@/components/layout/LayoutPicker";
 import type { ImageAsset } from "@/lib/project/types";
@@ -19,9 +22,9 @@ import { useImportPhotos } from "./useImportPhotos";
 
 const STAGE_PADDING = 24;
 
-type Tool = "crop" | "mask" | "style" | "adjust" | "filters" | "background" | "slides" | "layout";
+type Tool = "crop" | "mask" | "style" | "adjust" | "filters" | "text" | "fill" | "elements" | "background" | "slides" | "layout";
 /** Tools that edit a draft (✕ / ✓). Slides acts directly. */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "background"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background"];
 
 /** Stage pixels per export pixel: a slide fits the area height and ~86% of its width. */
 function useViewScale(area: React.RefObject<HTMLDivElement | null>, slide: { width: number; height: number }) {
@@ -79,6 +82,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     setCurrentSlide,
     startSwap,
     applyLayout,
+    addElement,
   } = useEditor.getState();
   const { importFiles, decodeFiles, busy, errors } = useImportPhotos();
 
@@ -88,13 +92,14 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const replaceInput = useRef<HTMLInputElement>(null);
   const [exportOpen, setExportOpen] = useState(false);
   const [tool, setTool] = useState<Tool | null>(null);
+  const [editingText, setEditingText] = useState<string | null>(null);
 
   const { slide } = canvasSize(doc);
   const viewScale = useViewScale(areaRef, slide);
   const slideW = slide.width * viewScale;
   const selected = doc.elements.find((el) => el.id === selectedId);
   /** Photos used in the project, back to front, without duplicates (for re-layout). */
-  const usedPhotos = [...new Set(doc.elements.map((el) => el.assetId).filter((id): id is string => !!id))]
+  const usedPhotos = [...new Set(doc.elements.filter(isImage).map((el) => el.assetId).filter((id): id is string => !!id))]
     .map((id) => assets[id])
     .filter((a): a is ImageAsset => !!a);
 
@@ -118,27 +123,44 @@ export function Editor({ onClose }: { onClose: () => void }) {
     onClose();
   }
 
+  const close = () => setTool(null);
+  const sheet = (label: string, children: React.ReactNode) => (
+    <section aria-label={label} className="rounded-t-[18px] bg-surface px-2 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+      {children}
+    </section>
+  );
+  /** Tools shared by every element type. */
+  const commonTools = (id: string) => (
+    <>
+      <ToolButton label={t("editor.forward")} icon="layerUp" onClick={() => moveLayer(id, "up")} />
+      <ToolButton label={t("editor.backward")} icon="layerDown" onClick={() => moveLayer(id, "down")} />
+      <ToolButton label={t("editor.duplicate")} icon="duplicate" onClick={() => duplicateElement(id)} />
+      <ToolButton label={t("common.delete")} icon="trash" danger onClick={() => removeElement(id)} />
+    </>
+  );
+
   let bottom: React.ReactNode;
-  if (tool === "mask" && selected) bottom = <MaskTool elementId={selected.id} onClose={() => setTool(null)} />;
-  else if (tool === "style" && selected) bottom = <StyleTool elementId={selected.id} onClose={() => setTool(null)} />;
-  else if (tool === "adjust" && selected) bottom = <AdjustTool elementId={selected.id} onClose={() => setTool(null)} />;
-  else if (tool === "filters" && selected) bottom = <FilterTool elementId={selected.id} onClose={() => setTool(null)} />;
-  else if (tool === "background") bottom = <BackgroundTool onClose={() => setTool(null)} />;
-  else if (tool === "slides") bottom = <SlidesTool onClose={() => setTool(null)} />;
-  else if (selected)
-    bottom = (
-      <section aria-label={t("editor.photoTools")} className="rounded-t-[18px] bg-surface px-2 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-center justify-between px-2.5 pb-1.5">
-          <span className="text-[13px] font-semibold tracking-wider text-muted uppercase">{t("editor.photo")}</span>
-          <button
-            type="button"
-            onClick={() => select(null)}
-            className="h-8 rounded-[10px] border border-border px-3 text-[13px] font-semibold"
-          >
-            {t("common.done")}
-          </button>
-        </div>
-        <div className="flex overflow-x-auto">
+  if (tool === "mask" && selected) bottom = <MaskTool elementId={selected.id} onClose={close} />;
+  else if (tool === "style" && selected) bottom = <StyleTool elementId={selected.id} onClose={close} />;
+  else if (tool === "adjust" && selected) bottom = <AdjustTool elementId={selected.id} onClose={close} />;
+  else if (tool === "filters" && selected) bottom = <FilterTool elementId={selected.id} onClose={close} />;
+  else if (tool === "text" && selected) bottom = <TextTool elementId={selected.id} onClose={close} />;
+  else if (tool === "fill" && selected) bottom = <FillTool elementId={selected.id} onClose={close} />;
+  else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
+  else if (tool === "slides") bottom = <SlidesTool onClose={close} />;
+  else if (selected) {
+    const header = (
+      <div className="flex items-center justify-between px-2.5 pb-1.5">
+        <span className="text-[13px] font-semibold tracking-wider text-muted uppercase">{t(`editor.kind.${selected.type}`)}</span>
+        <button type="button" onClick={() => select(null)} className="h-8 rounded-[10px] border border-border px-3 text-[13px] font-semibold">
+          {t("common.done")}
+        </button>
+      </div>
+    );
+    let tools: React.ReactNode;
+    if (selected.type === "image")
+      tools = (
+        <>
           <ToolButton
             label={selected.assetId ? t("editor.replace") : t("editor.addPhoto")}
             icon={selected.assetId ? "replace" : "image"}
@@ -148,29 +170,52 @@ export function Editor({ onClose }: { onClose: () => void }) {
           {selected.assetId && <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />}
           {selected.assetId && <ToolButton label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />}
           {selected.assetId && <ToolButton label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />}
-          <ToolButton label={t("editor.mask")} icon="mask" onClick={() => openTool("mask")} />
+          {selected.frame === "none" && <ToolButton label={t("editor.mask")} icon="mask" onClick={() => openTool("mask")} />}
           <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
-          <ToolButton label={t("editor.forward")} icon="layerUp" onClick={() => moveLayer(selected.id, "up")} />
-          <ToolButton label={t("editor.backward")} icon="layerDown" onClick={() => moveLayer(selected.id, "down")} />
-          <ToolButton label={t("editor.duplicate")} icon="duplicate" onClick={() => duplicateElement(selected.id)} />
-          <ToolButton label={t("common.delete")} icon="trash" danger onClick={() => removeElement(selected.id)} />
-        </div>
-      </section>
+          {commonTools(selected.id)}
+        </>
+      );
+    else if (selected.type === "text")
+      tools = (
+        <>
+          <ToolButton label={t("editor.editText")} icon="pencil" onClick={() => setEditingText(selected.id)} />
+          <ToolButton label={t("editor.textStyle")} icon="text" onClick={() => openTool("text")} />
+          {commonTools(selected.id)}
+        </>
+      );
+    else
+      tools = (
+        <>
+          <ToolButton label={t("tool.color")} icon="palette" onClick={() => openTool("fill")} />
+          {commonTools(selected.id)}
+        </>
+      );
+    bottom = sheet(
+      t("editor.tools"),
+      <>
+        {header}
+        <div className="flex overflow-x-auto">{tools}</div>
+      </>,
     );
-  else
-    bottom = (
-      <section aria-label={t("editor.tools")} className="rounded-t-[18px] bg-surface px-2 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <div className="flex">
-          <ToolButton
-            label={busy ? t("editor.importing") : t("editor.addPhotos")}
-            icon="image"
-            onClick={() => addInput.current?.click()}
-          />
-          <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
-          <ToolButton label={t("editor.background")} icon="background" onClick={() => openTool("background")} />
-          <ToolButton label={t("editor.slides")} icon="slides" onClick={() => openTool("slides")} />
-        </div>
-      </section>
+  } else
+    bottom = sheet(
+      t("editor.tools"),
+      <div className="flex overflow-x-auto">
+        <ToolButton label={busy ? t("editor.importing") : t("editor.addPhotos")} icon="image" onClick={() => addInput.current?.click()} />
+        <ToolButton
+          label={t("editor.text")}
+          icon="text"
+          onClick={() => {
+            const el = newText(doc.ratio, currentSlide, t("text.placeholder"));
+            addElement(el);
+            setEditingText(el.id);
+          }}
+        />
+        <ToolButton label={t("editor.elements")} icon="shapes" onClick={() => setTool("elements")} />
+        <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
+        <ToolButton label={t("editor.background")} icon="background" onClick={() => openTool("background")} />
+        <ToolButton label={t("editor.slides")} icon="slides" onClick={() => openTool("slides")} />
+      </div>,
     );
 
   return (
@@ -291,7 +336,9 @@ export function Editor({ onClose }: { onClose: () => void }) {
         />
       )}
 
-      {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={() => setTool(null)} />}
+      {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
+      {tool === "elements" && <ElementsSheet onClose={close} />}
+      {editingText && <TextEditDialog elementId={editingText} onClose={() => setEditingText(null)} />}
 
       {exportOpen && (
         <ExportSheet contentLayerRef={contentLayerRef} viewScale={viewScale} onClose={() => setExportOpen(false)} />

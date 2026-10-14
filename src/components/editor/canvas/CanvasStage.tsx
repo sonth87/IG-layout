@@ -5,10 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { Layer, Line, Stage, Transformer } from "react-konva";
 import { rotatedBounds } from "@/lib/project/geometry";
 import { snap, snapTargets } from "@/lib/project/snap";
-import { canvasSize, type ImageElement } from "@/lib/project/types";
+import { canvasSize, type CanvasElement } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { BackgroundNode } from "./BackgroundNode";
 import { ImageNode } from "./ImageNode";
+import { IconNode, ShapeNode } from "./ShapeIconNodes";
+import { TextNode } from "./TextNode";
 
 const SNAP_SCREEN_PX = 8;
 
@@ -90,7 +92,7 @@ export default function CanvasStage({ viewScale, contentLayerRef }: Props) {
   if (!doc) return null;
   const { width, height, slide } = canvasSize(doc);
 
-  function onDragMove(node: Konva.Node, el: ImageElement) {
+  function onDragMove(node: Konva.Node, el: CanvasElement) {
     targets.current ??= snapTargets(doc!, el.id);
     const bounds = rotatedBounds({
       x: node.x() - el.width / 2,
@@ -166,9 +168,13 @@ export default function CanvasStage({ viewScale, contentLayerRef }: Props) {
       {/* Content layer: exactly what gets exported. */}
       <Layer ref={contentLayerRef}>
         <BackgroundNode background={doc.background} width={width} height={height} />
-        {doc.elements.map((el) => (
-          <ImageNode key={el.id} element={el} onDragMove={onDragMove} onDragEnd={onDragEnd} />
-        ))}
+        {doc.elements.map((el) => {
+          const hooks = { onDragMove, onDragEnd };
+          if (el.type === "text") return <TextNode key={el.id} element={el} hooks={hooks} />;
+          if (el.type === "shape") return <ShapeNode key={el.id} element={el} hooks={hooks} />;
+          if (el.type === "icon") return <IconNode key={el.id} element={el} hooks={hooks} />;
+          return <ImageNode key={el.id} element={el} onDragMove={onDragMove} onDragEnd={onDragEnd} />;
+        })}
       </Layer>
       {/* Slide boundaries, never exported. */}
       <Layer listening={false}>

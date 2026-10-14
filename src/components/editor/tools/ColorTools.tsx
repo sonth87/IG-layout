@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { FILTER_GROUPS, FILTERS, filterById, type FilterDef, type FilterGroup } from "@/lib/color/filters";
 import { ADJUST_KEYS, ADJUST_MIN, type AdjustKey, type FilterRef, NO_ADJUST, shaderParams } from "@/lib/color/params";
 import { processImage } from "@/lib/color/processor";
-import type { ImageElement } from "@/lib/project/types";
+import { type ImageElement, isImage } from "@/lib/project/types";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { useHtmlImage } from "../canvas/useHtmlImage";
@@ -36,7 +36,8 @@ function CompareButton() {
 }
 
 function useDraftImage(id: string) {
-  const el = useViewDoc()?.elements.find((e) => e.id === id) as ImageElement | undefined;
+  const found = useViewDoc()?.elements.find((e) => e.id === id);
+  const el = found?.type === "image" ? found : undefined;
   const updateDraft = useEditor((s) => s.updateDraft);
   const patch = (p: Partial<ImageElement>) => updateDraft((d) => updateEl(d, id, p));
   return { el, patch };
@@ -153,7 +154,7 @@ export function FilterTool({ elementId, onClose }: ToolProps) {
   const [confirming, setConfirming] = useState(false);
   if (!el || !doc) return null;
 
-  const photoCount = doc.elements.filter((e) => e.assetId).length;
+  const photoCount = doc.elements.filter((e) => isImage(e) && e.assetId).length;
   const choose = (f: FilterDef | null) => patch({ filter: f ? { id: f.id, intensity: el.filter?.intensity ?? 80 } : null });
 
   function apply() {
@@ -164,7 +165,7 @@ export function FilterTool({ elementId, onClose }: ToolProps) {
   function applyToAll() {
     const filter: FilterRef | null = el!.filter;
     // Filter only (D-16): manual adjustments of each photo stay as they are. One history step.
-    updateDraft((d) => ({ ...d, elements: d.elements.map((e) => (e.assetId ? { ...e, filter } : e)) }));
+    updateDraft((d) => ({ ...d, elements: d.elements.map((e) => (isImage(e) && e.assetId ? { ...e, filter } : e)) }));
     setConfirming(false);
     actions.onApply();
   }

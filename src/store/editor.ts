@@ -3,7 +3,7 @@
 import type Konva from "konva";
 import { create } from "zustand";
 import { migrateDoc } from "@/lib/project/migrate";
-import { coverCrop } from "@/lib/project/geometry";
+import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { placeImages } from "@/lib/project/placement";
 import { deleteSlide, insertSlide, moveSlide } from "@/lib/project/slides";
 import { applyTemplate } from "@/lib/templates/apply";
@@ -12,6 +12,7 @@ import {
   type AspectRatio,
   type CanvasElement,
   type ImageAsset,
+  isImage,
   type ProjectDoc,
   newId,
 } from "@/lib/project/types";
@@ -50,6 +51,9 @@ interface EditorState {
 
   addImages: (assets: ImageAsset[], firstSlide?: number) => void;
   replaceImage: (id: string, asset: ImageAsset) => void;
+  addElement: (el: CanvasElement) => void;
+  /** Values derived from rendering (e.g. text height): no history step. */
+  setDerived: (id: string, patch: Partial<CanvasElement>) => void;
   updateElement: (id: string, patch: Partial<CanvasElement>) => void;
   duplicateElement: (id: string) => void;
   removeElement: (id: string) => void;
@@ -96,7 +100,10 @@ export function useViewDoc() {
 }
 
 export function updateEl(doc: ProjectDoc, id: string, patch: Partial<CanvasElement>): ProjectDoc {
-  return { ...doc, elements: doc.elements.map((el) => (el.id === id ? { ...el, ...patch } : el)) };
+  return {
+    ...doc,
+    elements: doc.elements.map((el) => (el.id === id ? ({ ...el, ...patch } as CanvasElement) : el)),
+  };
 }
 
 export const useEditor = create<EditorState>()((set, get) => {
@@ -178,10 +185,21 @@ export const useEditor = create<EditorState>()((set, get) => {
       storeAssets([asset]);
       commit((d) => {
         const el = d.elements.find((e) => e.id === id);
-        if (!el) return d;
-        return updateEl(d, id, { assetId: asset.id, crop: coverCrop(asset, el), straighten: 0 });
+        if (!isImage(el)) return d;
+        return updateEl(d, id, { assetId: asset.id, crop: coverCrop(asset, innerFrame(el)), straighten: 0 });
       });
     },
+
+    addElement: (el) => {
+      commit((d) => ({ ...d, elements: [...d.elements, el] }));
+      set({ selectedId: el.id });
+    },
+
+    setDerived: (id, patch) =>
+      set((s) => ({
+        doc: s.doc && s.doc.elements.some((e) => e.id === id) ? updateEl(s.doc, id, patch) : s.doc,
+        draft: s.draft ? updateEl(s.draft, id, patch) : null,
+      })),
 
     updateElement: (id, patch) => commit((d) => updateEl(d, id, patch)),
 
@@ -244,12 +262,12 @@ export const useEditor = create<EditorState>()((set, get) => {
         commit((d) => {
           const a = d.elements.find((e) => e.id === swapFrom);
           const b = d.elements.find((e) => e.id === id);
-          if (!a || !b) return d;
+          if (!isImage(a) || !isImage(b)) return d;
           const assets = get().assets;
           const cropFor = (assetId: string | null, frame: { width: number; height: number }) =>
             assetId && assets[assetId] ? coverCrop(assets[assetId], frame) : { x: 0, y: 0, width: 1, height: 1 };
-          let next = updateEl(d, a.id, { assetId: b.assetId, crop: cropFor(b.assetId, a), straighten: 0 });
-          next = updateEl(next, b.id, { assetId: a.assetId, crop: cropFor(a.assetId, b), straighten: 0 });
+          let next = updateEl(d, a.id, { assetId: b.assetId, crop: cropFor(b.assetId, innerFrame(a)), straighten: 0 });
+          next = updateEl(next, b.id, { assetId: a.assetId, crop: cropFor(a.assetId, innerFrame(b)), straighten: 0 });
           return next;
         });
         set({ swapFrom: null, selectedId: id });

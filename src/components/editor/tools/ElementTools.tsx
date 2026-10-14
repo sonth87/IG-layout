@@ -1,6 +1,7 @@
 "use client";
 
-import { MASK_SHAPES, type ImageElement } from "@/lib/project/types";
+import { coverCrop, innerFrame } from "@/lib/project/geometry";
+import { type CanvasElement, FRAME_STYLES, type FrameStyle, type ImageElement, MASK_SHAPES } from "@/lib/project/types";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { MaskPreview, Slider, Swatches, ToolSheet } from "./controls";
@@ -11,7 +12,8 @@ interface ToolProps {
 }
 
 function useDraftElement(id: string) {
-  const el = useViewDoc()?.elements.find((e) => e.id === id) as ImageElement | undefined;
+  const found = useViewDoc()?.elements.find((e) => e.id === id);
+  const el = found?.type === "image" ? found : undefined;
   const updateDraft = useEditor((s) => s.updateDraft);
   const patch = (p: Partial<ImageElement>) => updateDraft((d) => updateEl(d, id, p));
   return { el, patch };
@@ -78,11 +80,29 @@ export function StyleTool({ elementId, onClose }: ToolProps) {
   const t = useT();
   const { el, patch } = useDraftElement(elementId);
   const actions = useSheetActions(onClose);
+  const asset = useEditor((s) => (el?.assetId ? s.assets[el.assetId] : undefined));
   if (!el) return null;
   const border = el.border ?? { width: 0, color: "#ffffff" };
+  const setFrame = (frame: FrameStyle) =>
+    // The photo fills the inside of the frame: re-fit the crop to that area.
+    patch({ frame, crop: asset ? coverCrop(asset, innerFrame({ ...el, frame })) : el.crop });
 
   return (
     <ToolSheet title={t("tool.style")} {...actions}>
+      <div role="radiogroup" aria-label={t("tool.frame")} className="flex gap-2 overflow-x-auto pb-1">
+        {FRAME_STYLES.map((f) => (
+          <button
+            key={f}
+            type="button"
+            role="radio"
+            aria-checked={el.frame === f}
+            onClick={() => setFrame(f)}
+            className={`h-9 shrink-0 rounded-full px-3.5 text-[13px] ${el.frame === f ? "bg-text font-bold text-bg" : "border border-border"}`}
+          >
+            {t(`frame.${f}`)}
+          </button>
+        ))}
+      </div>
       <Slider
         label={t("tool.borderWidth")}
         value={border.width}
@@ -113,6 +133,32 @@ export function StyleTool({ elementId, onClose }: ToolProps) {
           className="h-[22px] w-[22px] accent-accent"
         />
       </label>
+    </ToolSheet>
+  );
+}
+
+/** Colour + opacity for shapes and icons. */
+export function FillTool({ elementId, onClose }: ToolProps) {
+  const t = useT();
+  const found = useViewDoc()?.elements.find((e) => e.id === elementId);
+  const updateDraft = useEditor((s) => s.updateDraft);
+  const actions = useSheetActions(onClose);
+  if (!found || (found.type !== "shape" && found.type !== "icon")) return null;
+  const color = found.type === "shape" ? found.fill : found.color;
+  const patch = (p: Partial<CanvasElement>) => updateDraft((d) => updateEl(d, elementId, p));
+
+  return (
+    <ToolSheet title={t("tool.color")} {...actions}>
+      <Swatches value={color} onChange={(c) => patch(found.type === "shape" ? { fill: c } : { color: c })} />
+      <Slider
+        label={t("tool.opacity")}
+        value={Math.round(found.opacity * 100)}
+        min={10}
+        max={100}
+        defaultValue={100}
+        format={(v) => `${v}%`}
+        onChange={(v) => patch({ opacity: v / 100 })}
+      />
     </ToolSheet>
   );
 }

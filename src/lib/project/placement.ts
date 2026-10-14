@@ -21,6 +21,7 @@ export function imageElement(asset: Pick<ImageAsset, "id" | "width" | "height">,
     slot: false,
     adjust: { ...NO_ADJUST },
     filter: null,
+    frame: "none",
   };
 }
 

@@ -57,3 +57,6 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-51 | 2026-10-14 | Kiểm tra end-to-end nằm trong repo (`e2e/`, `pnpm e2e`), chạy trước khi merge | Giữ được chất lượng khi làm tiếp các mốc | Đã chốt |
 | D-52 | 2026-10-14 | Thêm thông số Hue (sắc độ) vào bộ chỉnh màu (13 thông số) | Có trong wireframe Adjust và ví dụ của chủ dự án về lịch sử | Đã chốt |
 | D-53 | 2026-10-14 | Ảnh khi chỉnh xử lý ở ≤ 1600 px; khi xuất xử lý lại full resolution | Giữ bộ nhớ thấp trên điện thoại mà ảnh xuất vẫn nét | Đề xuất |
+| D-54 | 2026-10-14 | Icon dùng bộ Lucide (giấy phép ISC), render SVG theo kích thước | Bộ icon mở, đồng bộ phong cách nét; ghi trong Credits | Đã chốt |
+| D-55 | 2026-10-14 | Khung ảnh (polaroid, viền trắng, film) là thuộc tính của ảnh; ảnh lấp vùng bên trong; khung thay cho mask | Khung đi theo ảnh khi kéo / xoay / đổi layout; đơn giản hơn ghép nhiều phần tử | Đề xuất |
+| D-56 | 2026-10-14 | Material và sticker để sau MVP (đúng plan); M5 làm hình khối, icon, khung | Cần thư viện ảnh có giấy phép (D-33) | Đã chốt |

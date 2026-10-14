@@ -1,0 +1,151 @@
+"use client";
+
+import { useState } from "react";
+import { Icon } from "@/components/ui/Icon";
+import { newFramedPhoto, newIcon, newShape } from "@/lib/elements/create";
+import { iconDataUrl, ICON_KEYS } from "@/lib/elements/icons";
+import { drawShape } from "@/lib/elements/shapes";
+import type { CanvasElement, FrameStyle, ShapeKind } from "@/lib/project/types";
+import { SHAPES } from "@/lib/project/types";
+import { useEditor, useViewDoc } from "@/store/editor";
+import { useT } from "@/store/settings";
+
+type Tab = "all" | "shapes" | "icons" | "frames";
+const PHOTO_FRAMES: FrameStyle[] = ["polaroid", "white", "film"];
+
+function ShapePreview({ shape }: { shape: ShapeKind }) {
+  return (
+    <canvas
+      aria-hidden="true"
+      width={64}
+      height={64}
+      className="h-8 w-8 text-text"
+      ref={(c) => {
+        if (!c) return;
+        const ctx = c.getContext("2d")!;
+        ctx.clearRect(0, 0, 64, 64);
+        const color = getComputedStyle(c).color;
+        const box = shape === "line" ? [64, 8] : shape === "arrow" ? [64, 26] : shape === "film" ? [64, 30] : [56, 56];
+        ctx.save();
+        ctx.translate((64 - box[0]) / 2, (64 - box[1]) / 2);
+        drawShape(ctx, shape, box[0], box[1], color);
+        ctx.restore();
+      }}
+    />
+  );
+}
+
+/** "Add element" sheet (wireframe 12): shapes, icons, photo frames, with search. */
+export function ElementsSheet({ onClose }: { onClose: () => void }) {
+  const t = useT();
+  const doc = useViewDoc();
+  const slide = useEditor((s) => s.currentSlide);
+  const addElement = useEditor((s) => s.addElement);
+  const [tab, setTab] = useState<Tab>("all");
+  const [query, setQuery] = useState("");
+  if (!doc) return null;
+
+  const q = query.trim().toLowerCase();
+  const match = (label: string, key: string) => !q || label.toLowerCase().includes(q) || key.includes(q);
+  const add = (el: CanvasElement) => {
+    addElement(el);
+    onClose();
+  };
+  const shapes = SHAPES.filter((s) => match(t(`shape.${s}`), s));
+  const icons = ICON_KEYS.filter((k) => match(t(`icon.${k}` as "icon.heart"), k));
+  const frames = PHOTO_FRAMES.filter((f) => match(t(`frame.${f}`), f));
+  const show = (k: Tab) => tab === "all" || tab === k;
+  const tile = "flex h-[72px] flex-col items-center justify-center gap-1 rounded-xl bg-surface-2 text-[11px]";
+
+  return (
+    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40" onClick={onClose}>
+      <section
+        aria-label={t("elements.title")}
+        onClick={(e) => e.stopPropagation()}
+        className="flex max-h-[78dvh] flex-col rounded-t-[22px] bg-surface pb-[max(1rem,env(safe-area-inset-bottom))]"
+      >
+        <div className="flex items-center justify-between px-5 pt-3">
+          <h2 className="text-[17px] font-bold">{t("elements.title")}</h2>
+          <button type="button" aria-label={t("common.close")} onClick={onClose} className="flex h-11 w-11 items-center justify-center">
+            <Icon name="close" />
+          </button>
+        </div>
+        <label className="mx-4 flex h-11 items-center gap-2.5 rounded-xl bg-surface-2 px-3 text-muted">
+          <Icon name="search" size={18} />
+          <span className="sr-only">{t("elements.search")}</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={t("elements.search")}
+            className="flex-1 bg-transparent text-sm text-text outline-none"
+          />
+        </label>
+        <nav className="flex gap-2 px-4 pt-3 pb-2">
+          {(["all", "shapes", "icons", "frames"] as const).map((k) => (
+            <button
+              key={k}
+              type="button"
+              aria-pressed={tab === k}
+              onClick={() => setTab(k)}
+              className={`h-9 rounded-full px-3.5 text-[13px] ${tab === k ? "bg-text font-semibold text-bg" : "border border-border"}`}
+            >
+              {t(`elements.${k}`)}
+            </button>
+          ))}
+        </nav>
+
+        <div className="flex flex-col gap-4 overflow-y-auto px-4 pt-1 pb-2">
+          {show("frames") && frames.length > 0 && (
+            <section>
+              <h3 className="pb-2 text-[13px] font-bold">{t("elements.frames")}</h3>
+              <div className="grid grid-cols-3 gap-2">
+                {frames.map((f) => (
+                  <button key={f} type="button" className={tile} onClick={() => add(newFramedPhoto(doc.ratio, slide, f))}>
+                    <span
+                      aria-hidden="true"
+                      className={`block h-10 w-8 ${f === "film" ? "border-y-[5px] border-[#161616] bg-[#9cb1c4]" : f === "polaroid" ? "border-[3px] border-b-[9px] border-white bg-[#9cb1c4] shadow" : "border-[3px] border-white bg-[#d9728a] shadow"}`}
+                    />
+                    {t(`frame.${f}`)}
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+          {show("shapes") && shapes.length > 0 && (
+            <section>
+              <h3 className="pb-2 text-[13px] font-bold">{t("elements.shapes")}</h3>
+              <div className="grid grid-cols-4 gap-2">
+                {shapes.map((s) => (
+                  <button key={s} type="button" className={tile} onClick={() => add(newShape(doc.ratio, slide, s, s === "film" ? "#161616" : "#ffffff"))}>
+                    <ShapePreview shape={s} />
+                    {t(`shape.${s}`)}
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+          {show("icons") && icons.length > 0 && (
+            <section>
+              <h3 className="pb-2 text-[13px] font-bold">{t("elements.icons")}</h3>
+              <div className="grid grid-cols-6 gap-2">
+                {icons.map((k) => (
+                  <button
+                    key={k}
+                    type="button"
+                    aria-label={t(`icon.${k}` as "icon.heart")}
+                    className="flex h-12 items-center justify-center rounded-xl bg-surface-2"
+                    onClick={() => add(newIcon(doc.ratio, slide, k, "#ffffff"))}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element -- generated SVG */}
+                    <img src={iconDataUrl(k, "#888888", 24)} alt="" width={24} height={24} />
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}

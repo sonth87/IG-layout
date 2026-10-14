@@ -1,4 +1,4 @@
-import type { ImageAsset, ImageElement, Rect } from "./types";
+import type { FrameStyle, ImageAsset, ImageElement, Rect } from "./types";
 
 /** Largest rect with the given aspect (w/h) centered inside `area`. */
 export function centeredRect(area: { width: number; height: number }, aspect: number): Rect {
@@ -46,4 +46,28 @@ export function center(el: Pick<Rect, "x" | "y" | "width" | "height">) {
 /** Which slide an element belongs to: the slide containing its center. */
 export function slideOf(el: Pick<Rect, "x" | "width">, slideWidth: number, slideCount: number) {
   return Math.max(0, Math.min(slideCount - 1, Math.floor((el.x + el.width / 2) / slideWidth)));
+}
+
+/**
+ * Photo area inside a decorative frame, relative to the element box (M5):
+ * polaroid = thick bottom, white = even margin, film = dark border with holes.
+ */
+export function frameInset(frame: FrameStyle, width: number, height: number): Rect {
+  const m = Math.min(width, height);
+  switch (frame) {
+    case "polaroid":
+      return { x: m * 0.06, y: m * 0.06, width: width - m * 0.12, height: height - m * 0.06 - m * 0.22 };
+    case "white":
+      return { x: m * 0.04, y: m * 0.04, width: width - m * 0.08, height: height - m * 0.08 };
+    case "film":
+      return { x: m * 0.05, y: m * 0.14, width: width - m * 0.1, height: height - m * 0.28 };
+    default:
+      return { x: 0, y: 0, width, height };
+  }
+}
+
+/** Size of the area the photo fills (whole frame unless a decorative frame is set). */
+export function innerFrame(el: Pick<ImageElement, "width" | "height" | "frame">) {
+  const r = frameInset(el.frame ?? "none", el.width, el.height);
+  return { width: r.width, height: r.height };
 }

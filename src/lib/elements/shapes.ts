@@ -1,0 +1,67 @@
+import type { ShapeKind } from "@/lib/project/types";
+
+// Shape outlines drawn in a w×h box (M5). "film" is a film strip band with
+// sprocket holes (also used by the film strip layout).
+
+export function drawShape(c: CanvasRenderingContext2D, kind: ShapeKind, w: number, h: number, fill: string) {
+  c.fillStyle = fill;
+  c.beginPath();
+  switch (kind) {
+    case "rect":
+      c.rect(0, 0, w, h);
+      break;
+    case "roundRect": {
+      const r = Math.min(w, h) * 0.18;
+      c.roundRect(0, 0, w, h, r);
+      break;
+    }
+    case "circle":
+      c.ellipse(w / 2, h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
+      break;
+    case "triangle":
+      c.moveTo(w / 2, 0);
+      c.lineTo(w, h);
+      c.lineTo(0, h);
+      c.closePath();
+      break;
+    case "line":
+      c.roundRect(0, 0, w, h, h / 2);
+      break;
+    case "arrow": {
+      const head = Math.min(w * 0.4, h * 1.2);
+      const shaft = h * 0.34;
+      c.moveTo(0, h / 2 - shaft / 2);
+      c.lineTo(w - head, h / 2 - shaft / 2);
+      c.lineTo(w - head, 0);
+      c.lineTo(w, h / 2);
+      c.lineTo(w - head, h);
+      c.lineTo(w - head, h / 2 + shaft / 2);
+      c.lineTo(0, h / 2 + shaft / 2);
+      c.closePath();
+      break;
+    }
+    case "film": {
+      c.rect(0, 0, w, h);
+      c.fill();
+      // Sprocket holes along the top and bottom edges.
+      const hole = h * 0.06;
+      const gap = hole * 1.6;
+      c.fillStyle = "rgba(255,255,255,0.88)";
+      c.beginPath();
+      for (let x = gap / 2; x + hole <= w; x += hole + gap) {
+        c.roundRect(x, h * 0.035, hole, hole * 0.75, hole * 0.15);
+        c.roundRect(x, h - h * 0.035 - hole * 0.75, hole, hole * 0.75, hole * 0.15);
+      }
+      break;
+    }
+  }
+  c.fill();
+}
+
+/** Default size (export px) when adding a shape. */
+export function defaultShapeSize(kind: ShapeKind, slideWidth: number) {
+  if (kind === "line") return { width: slideWidth * 0.5, height: slideWidth * 0.012 };
+  if (kind === "arrow") return { width: slideWidth * 0.4, height: slideWidth * 0.12 };
+  if (kind === "film") return { width: slideWidth, height: slideWidth * 0.45 };
+  return { width: slideWidth * 0.3, height: slideWidth * 0.3 };
+}

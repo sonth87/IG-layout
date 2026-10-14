@@ -1,5 +1,6 @@
 import { imageElement } from "@/lib/project/placement";
-import { MAX_SLIDES, type ImageAsset, type ImageElement, type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
+import { coverCrop, innerFrame } from "@/lib/project/geometry";
+import { type CanvasElement, MAX_SLIDES, type ImageAsset, newId, type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
 import type { Template, TemplateOptions, TemplateSlot } from "./types";
 
 const EPS = 0.001;
@@ -23,7 +24,7 @@ export function applyTemplate(
 ): ProjectDoc {
   const { width: W, height: H } = SLIDE_SIZE[doc.ratio];
   const slideCount = templateSlides(tpl, photos.length, doc.slideCount);
-  const elements: ImageElement[] = [];
+  const elements: CanvasElement[] = [];
   let background = doc.background;
 
   const bg = tpl.background;
@@ -31,6 +32,21 @@ export function applyTemplate(
   else if (tpl.gridded) background = { kind: "color", color: opts.color };
   if (bg?.kind === "photo" && photos[bg.photo]) {
     elements.push(imageElement(photos[bg.photo]!, { x: 0, y: 0, width: W * slideCount, height: H }));
+  }
+
+  for (const sh of tpl.shapes ?? []) {
+    elements.push({
+      id: newId(),
+      type: "shape",
+      x: (sh.slide + sh.x) * W,
+      y: sh.y * H,
+      width: sh.w * W,
+      height: sh.h * H,
+      rotation: 0,
+      opacity: 1,
+      shape: sh.shape,
+      fill: sh.fill,
+    });
   }
 
   const slots: TemplateSlot[] = tpl.perPhoto
@@ -72,6 +88,10 @@ export function applyTemplate(
     if (slot.border) el.border = { width: slot.border.width * W, color: slot.border.color };
     el.shadow = slot.shadow ?? false;
     el.slot = tpl.gridded ?? false;
+    if (slot.frame) {
+      el.frame = slot.frame;
+      if (asset) el.crop = coverCrop(asset, innerFrame(el));
+    }
     elements.push(el);
   }
 

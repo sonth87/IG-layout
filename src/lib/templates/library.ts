@@ -142,6 +142,16 @@ export const TEMPLATES: Template[] = [
     ],
   },
   {
+    id: "seam-film-5",
+    group: "seamless",
+    name: { en: "Film strip", vi: "Cuộn film" },
+    photos: 5,
+    slides: 3,
+    background: { kind: "color", color: "#e9e4da" },
+    shapes: [{ slide: 0, x: 0, y: 0.2, w: 3, h: 0.6, shape: "film", fill: "#161616" }],
+    slots: along([0.08, 0.68, 1.28, 1.88, 2.48].map((p) => ({ p, y: 0.29, w: 0.5, h: 0.42 }))),
+  },
+  {
     id: "seam-polaroid-4",
     group: "seamless",
     name: { en: "Polaroid scatter", vi: "Polaroid rải" },
@@ -149,10 +159,10 @@ export const TEMPLATES: Template[] = [
     slides: 2,
     background: { kind: "color", color: "#d8cfc2" },
     slots: [
-      { photo: 0, slide: 0, x: 0.08, y: 0.1, w: 0.5, h: 0.5, rotation: -6, border: { width: 0.03, color: "#ffffff" }, shadow: true },
-      { photo: 1, slide: 0, x: 0.64, y: 0.36, w: 0.5, h: 0.5, rotation: 5, border: { width: 0.03, color: "#ffffff" }, shadow: true },
-      { photo: 2, slide: 1, x: 0.34, y: 0.08, w: 0.46, h: 0.46, rotation: -3, border: { width: 0.03, color: "#ffffff" }, shadow: true },
-      { photo: 3, slide: 1, x: 0.44, y: 0.5, w: 0.44, h: 0.42, rotation: 7, border: { width: 0.03, color: "#ffffff" }, shadow: true },
+      { photo: 0, slide: 0, x: 0.08, y: 0.08, w: 0.48, h: 0.46, rotation: -6, frame: "polaroid", shadow: true },
+      { photo: 1, slide: 0, x: 0.64, y: 0.36, w: 0.48, h: 0.46, rotation: 5, frame: "polaroid", shadow: true },
+      { photo: 2, slide: 1, x: 0.34, y: 0.06, w: 0.44, h: 0.42, rotation: -3, frame: "polaroid", shadow: true },
+      { photo: 3, slide: 1, x: 0.44, y: 0.5, w: 0.44, h: 0.42, rotation: 7, frame: "polaroid", shadow: true },
     ],
   },
 

@@ -3,7 +3,8 @@
 import type Konva from "konva";
 import { useRef } from "react";
 import { Shape } from "react-konva";
-import { straightenScale } from "@/lib/project/geometry";
+import { drawShape } from "@/lib/elements/shapes";
+import { frameInset, straightenScale } from "@/lib/project/geometry";
 import { traceMask } from "@/lib/project/masks";
 import type { ImageElement, Rect } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
@@ -43,6 +44,9 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
 
   function draw(ctx: Konva.Context, shape: Konva.Shape) {
     const c = ctx._context;
+    const framed = el.frame !== "none";
+    // Framed photos are rectangular (the frame replaces the mask).
+    const mask = framed ? "none" : el.mask;
     if (el.shadow) {
       c.save();
       c.shadowColor = "rgba(0,0,0,0.35)";
@@ -50,53 +54,66 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       const k = shape.getAbsoluteScale().x * ctx.canvas.getPixelRatio();
       c.shadowBlur = Math.max(w, h) * 0.04 * k;
       c.shadowOffsetY = Math.max(w, h) * 0.015 * k;
-      traceMask(c, el.mask, w, h, el.cornerRadius);
+      traceMask(c, mask, w, h, el.cornerRadius);
       c.fillStyle = "#000";
       c.fill();
       c.restore();
     }
 
+    if (framed) {
+      if (el.frame === "film") drawShape(c, "film", w, h, "#161616");
+      else {
+        c.fillStyle = "#ffffff";
+        c.fillRect(0, 0, w, h);
+      }
+    }
+
+    // Photo area: the whole frame, or the inside of the decorative frame.
+    const inner = frameInset(el.frame, w, h);
+    const iw = inner.width;
+    const ih = inner.height;
     c.save();
-    traceMask(c, el.mask, w, h, el.cornerRadius);
+    c.translate(inner.x, inner.y);
+    traceMask(c, mask, iw, ih, el.cornerRadius);
     c.clip();
     if (image && original) {
       const crop = liveCrop.current ?? el.crop;
       // The processed copy may be smaller than the original: crop is in original pixels.
       const k = image.width / original.width;
-      const s = straightenScale(w, h, el.straighten);
+      const s = straightenScale(iw, ih, el.straighten);
       c.save();
-      c.translate(w / 2, h / 2);
+      c.translate(iw / 2, ih / 2);
       c.rotate((el.straighten * Math.PI) / 180);
       c.scale(s * (el.flipX ? -1 : 1), s * (el.flipY ? -1 : 1));
-      c.drawImage(image, crop.x * k, crop.y * k, crop.width * k, crop.height * k, -w / 2, -h / 2, w, h);
+      c.drawImage(image, crop.x * k, crop.y * k, crop.width * k, crop.height * k, -iw / 2, -ih / 2, iw, ih);
       c.restore();
       const vignette = compareThis ? 0 : (el.adjust?.vignette ?? 0) / 100;
       if (vignette > 0) {
-        const r = Math.hypot(w, h) / 2;
-        const g = c.createRadialGradient(w / 2, h / 2, r * 0.35, w / 2, h / 2, r);
+        const r = Math.hypot(iw, ih) / 2;
+        const g = c.createRadialGradient(iw / 2, ih / 2, r * 0.35, iw / 2, ih / 2, r);
         g.addColorStop(0, "rgba(0,0,0,0)");
         g.addColorStop(1, `rgba(0,0,0,${0.75 * vignette})`);
         c.fillStyle = g;
-        c.fillRect(0, 0, w, h);
+        c.fillRect(0, 0, iw, ih);
       }
     } else {
       c.fillStyle = "#d9d5cd";
-      c.fillRect(0, 0, w, h);
+      c.fillRect(0, 0, iw, ih);
       if (!el.assetId) {
-        // "+" placeholder for an empty template cell.
-        const r = Math.min(w, h) * 0.12;
+        // "+" placeholder for an empty cell / frame.
+        const r = Math.min(iw, ih) * 0.12;
         c.fillStyle = "rgba(255,255,255,0.85)";
         c.beginPath();
-        c.arc(w / 2, h / 2, r, 0, Math.PI * 2);
+        c.arc(iw / 2, ih / 2, r, 0, Math.PI * 2);
         c.fill();
         c.strokeStyle = "#8a857c";
         c.lineWidth = r * 0.16;
         c.lineCap = "round";
         c.beginPath();
-        c.moveTo(w / 2 - r * 0.45, h / 2);
-        c.lineTo(w / 2 + r * 0.45, h / 2);
-        c.moveTo(w / 2, h / 2 - r * 0.45);
-        c.lineTo(w / 2, h / 2 + r * 0.45);
+        c.moveTo(iw / 2 - r * 0.45, ih / 2);
+        c.lineTo(iw / 2 + r * 0.45, ih / 2);
+        c.moveTo(iw / 2, ih / 2 - r * 0.45);
+        c.lineTo(iw / 2, ih / 2 + r * 0.45);
         c.stroke();
       }
     }
@@ -104,7 +121,7 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
 
     if (el.border && el.border.width > 0) {
       c.save();
-      traceMask(c, el.mask, w, h, el.cornerRadius, el.border.width / 2);
+      traceMask(c, mask, w, h, el.cornerRadius, el.border.width / 2);
       c.lineWidth = el.border.width;
       c.strokeStyle = el.border.color;
       c.stroke();
@@ -113,7 +130,7 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
   }
 
   function hit(ctx: Konva.Context, shape: Konva.Shape) {
-    traceMask(ctx._context, el.mask, w, h, el.cornerRadius);
+    traceMask(ctx._context, el.frame !== "none" ? "none" : el.mask, w, h, el.cornerRadius);
     ctx.fillStrokeShape(shape);
   }
 
@@ -121,7 +138,7 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
   function panSlot(node: Konva.Node) {
     const start = panStart.current;
     if (!start || !asset) return;
-    const scale = el.crop.width / w; // image px per frame px
+    const scale = el.crop.width / frameInset(el.frame, w, h).width; // image px per frame px
     const t = (-el.rotation * Math.PI) / 180;
     const dx = node.x() - start.x;
     const dy = node.y() - start.y;

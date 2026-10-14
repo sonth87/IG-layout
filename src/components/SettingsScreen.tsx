@@ -117,6 +117,20 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
           </button>
         </section>
 
+        <section aria-labelledby="credits-title" className="flex flex-col gap-2.5">
+          <h2 id="credits-title" className="text-[13px] font-semibold tracking-wider text-muted uppercase">
+            {t("credits.title")}
+          </h2>
+          <dl className="flex flex-col gap-3 rounded-[14px] bg-surface p-3.5 text-[13px] leading-relaxed">
+            {(["fonts", "icons", "libraries"] as const).map((k) => (
+              <div key={k}>
+                <dt className="font-semibold">{t(`credits.${k}`)}</dt>
+                <dd className="text-muted">{t(`credits.${k}Body`)}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
         <section className="flex items-center justify-between rounded-[14px] bg-surface px-3.5 py-3.5 text-sm">
           <span>{t("settings.about")}</span>
           <span className="text-[13px] text-muted">IG Layout · {t("settings.version", { version: VERSION })}</span>

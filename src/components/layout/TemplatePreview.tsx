@@ -50,7 +50,17 @@ export function TemplatePreview(props: {
       style={{ width, height: slide.height * k, background: cssBackground(doc) }}
     >
       {doc.elements.map((el) => {
+        if (el.type === "shape")
+          return (
+            <div
+              key={el.id}
+              className="absolute"
+              style={{ left: el.x * k, top: el.y * k, width: el.width * k, height: el.height * k, background: el.fill }}
+            />
+          );
+        if (el.type !== "image") return null;
         const asset = el.assetId ? byId.get(el.assetId) : undefined;
+        const framed = el.frame === "polaroid" || el.frame === "white";
         return (
           <div
             key={el.id}
@@ -62,7 +72,12 @@ export function TemplatePreview(props: {
               height: el.height * k,
               transform: `rotate(${el.rotation}deg)`,
               borderRadius: radius(el, k),
-              border: el.border ? `${Math.max(1, el.border.width * k)}px solid ${el.border.color}` : undefined,
+              border: framed
+                ? `${Math.max(1.5, el.width * k * 0.05)}px solid #ffffff`
+                : el.border
+                  ? `${Math.max(1, el.border.width * k)}px solid ${el.border.color}`
+                  : undefined,
+              borderBottomWidth: el.frame === "polaroid" ? Math.max(3, el.width * k * 0.18) : undefined,
               boxShadow: el.shadow ? "0 2px 4px rgba(0,0,0,0.3)" : undefined,
               background: asset ? `center / cover no-repeat url(${asset.url})` : "#d9d5cd",
             }}
