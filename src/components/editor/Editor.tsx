@@ -439,7 +439,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
           onScroll={onScroll}
           // Browser pinch-zoom off: two fingers resize elements or zoom the canvas instead.
           style={{ touchAction: "pan-x pan-y" }}
-          className="relative flex-1 overflow-auto bg-canvas"
+          className="relative flex-1 overflow-auto overscroll-contain bg-canvas"
         >
           {viewScale > 0 && areaSize.width > 0 && (
             // Scroll content at full size; the stage sticks to the visible part (D-69).

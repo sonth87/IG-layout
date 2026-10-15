@@ -133,6 +133,39 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   // Layers are only as big as the screen, whatever the number of slides (D-69).
   const stageRef = useRef<Konva.Stage>(null);
   const hasDoc = !!doc;
+  // Touch: a gesture on the selected element (or with two fingers) belongs to the canvas,
+  // not to the page. Decided at touchstart, the only moment the browser lets us stop
+  // its scrolling for the whole gesture. Otherwise the item and the page both move.
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const box = stage.container();
+    const owned = (e: TouchEvent) => {
+      if (e.touches.length >= 2) return true;
+      const r = box.getBoundingClientRect();
+      const t = e.touches[0];
+      let hit: Konva.Node | null = stage.getIntersection({ x: t.clientX - r.left, y: t.clientY - r.top });
+      const s = useEditor.getState();
+      while (hit && hit.id() !== s.selectedId) hit = hit.getParent();
+      const el = hit && (s.draft ?? s.doc)?.elements.find((x) => x.id === s.selectedId);
+      return !!el && !el.locked;
+    };
+    let gesture = false;
+    const onStart = (e: TouchEvent) => {
+      gesture = owned(e);
+      if (gesture && e.cancelable) e.preventDefault();
+    };
+    const onMove = (e: TouchEvent) => {
+      if ((gesture || Konva.isDragging()) && e.cancelable) e.preventDefault();
+    };
+    box.addEventListener("touchstart", onStart, { passive: false });
+    box.addEventListener("touchmove", onMove, { passive: false });
+    return () => {
+      box.removeEventListener("touchstart", onStart);
+      box.removeEventListener("touchmove", onMove);
+    };
+  }, [hasDoc]);
+
   useLayoutEffect(() => {
     const stage = stageRef.current;
     const area = scrollRef.current;
