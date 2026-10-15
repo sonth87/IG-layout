@@ -185,6 +185,7 @@ Nguồn: [tham khảo Grids](../discussions/2026-10-15-tham-khao-grids.md). Quy�
 - [x] F-02 Xoay: vùng chết 8° (chụm không làm lệch góc), hít 0 / 90 / 180 / 270° (±6°, rung nhẹ trên Android), hiện số độ khi xoay, "Thêm → Xoay về 0°"
 - [x] F-03 Canvas không nhảy: kích thước tính theo màn hình (chừa chỗ cho thanh dưới cao nhất), căn giữa dọc; trên cảm ứng bỏ nút +/− (chụm để zoom, nút % để về vừa màn)
 - [x] F-04 Màn chọn layout không còn mẫu trùng
+- [x] Góp ý lần 2 (2026-10-15): chặn kéo xuống để tải lại (`overscroll-behavior`); kéo phần tử đã chọn không còn cuộn cả nền (chặn cuộn ngay từ lúc chạm, cả khi hai ngón); thumbnail slide chỉ vẽ lại slide thay đổi, từng slide lúc rảnh, tự lưu chờ nhấc tay — không còn khựng sau khi thả
 - [x] Kiểm tra tự động `e2e/m9.mjs`
 - [ ] Chủ dự án gửi ảnh / video Grids (màn chọn mẫu, editor carousel, thanh công cụ)
 - [ ] Làm lại màn chọn layout theo Grids (xem trước lớn, kéo thả đổi thứ tự ảnh)

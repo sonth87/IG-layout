@@ -78,6 +78,8 @@ html,
 body {
   background: var(--bg);
   color: var(--text);
+  /* No pull-to-refresh / rubber-band on the page (app feel). */
+  overscroll-behavior: none;
 }
 
 body {

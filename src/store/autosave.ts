@@ -1,6 +1,7 @@
 "use client";
 
 import { layerRegion } from "@/lib/export/slices";
+import { isGestureActive } from "@/lib/gesture";
 import { canvasSize, slideRect } from "@/lib/project/layout";
 import { saveState } from "@/lib/storage/projects";
 import { create } from "zustand";
@@ -76,10 +77,13 @@ export function startAutosave() {
     if (state.doc === prev.doc && state.past === prev.past && state.future === prev.future) return;
     useSaveStatus.setState({ status: "pending" });
     if (timer) clearTimeout(timer);
-    timer = setTimeout(() => {
+    const due = () => {
+      // Saving renders a thumbnail (a full canvas redraw): not while a finger is down.
+      if (isGestureActive()) return (timer = setTimeout(due, SAVE_DELAY));
       timer = null;
       pending = pending.then(save);
-    }, SAVE_DELAY);
+    };
+    timer = setTimeout(due, SAVE_DELAY);
   });
 
   return () => {

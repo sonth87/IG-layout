@@ -1,14 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { layerRegion } from "@/lib/export/slices";
+import { whenIdle } from "@/lib/gesture";
+import { rotatedBounds } from "@/lib/project/geometry";
 import { slideRect } from "@/lib/project/layout";
-import { MAX_SLIDES } from "@/lib/project/types";
+import { MAX_SLIDES, type ProjectDoc } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 
 const THUMB_HEIGHT = 52;
+
+/** What a slide's thumbnail depends on: the background and the elements over it. */
+function slideKey(doc: ProjectDoc, index: number) {
+  const r = slideRect(doc, index);
+  const over = doc.elements.filter((el) => {
+    const b = rotatedBounds(el);
+    return b.x < r.x + r.width && b.x + b.width > r.x && b.y < r.y + r.height && b.y + b.height > r.y;
+  });
+  return JSON.stringify([doc.background, r, over]);
+}
 
 /**
  * Strip of slide thumbnails under the canvas (UX-04): see the whole carousel,
@@ -22,24 +34,34 @@ export function SlideNavigator({ onPick }: { onPick: (index: number) => void }) 
   const insertSlide = useEditor((s) => s.insertSlide);
   const [thumbs, setThumbs] = useState<string[]>([]);
 
-  // Re-render thumbnails shortly after the content changes.
+  // Re-render thumbnails after the content changes: only slides whose content changed,
+  // one per idle moment, never during a gesture (they force a full redraw).
+  const rendered = useRef<string[]>([]);
   useEffect(() => {
     if (!doc || !canvas) return;
-    const timer = setTimeout(() => {
-      const vs = canvas.viewScale;
-      setThumbs(
-        Array.from({ length: doc.slideCount }, (_, i) => {
-          const r = slideRect(doc, i);
-          return canvas.layer.toDataURL({
-            ...layerRegion(canvas.layer, r, vs),
-            pixelRatio: (THUMB_HEIGHT * 2) / (r.height * vs),
-            mimeType: "image/jpeg",
-            quality: 0.7,
-          });
-        }),
-      );
-    }, 350);
-    return () => clearTimeout(timer);
+    const keys = Array.from({ length: doc.slideCount }, (_, i) => slideKey(doc, i));
+    let cancel = () => {};
+    const next = () => {
+      const i = keys.findIndex((k, n) => rendered.current[n] !== k);
+      if (i < 0) return;
+      cancel = whenIdle(() => {
+        const r = slideRect(doc, i);
+        const url = canvas.layer.toDataURL({
+          ...layerRegion(canvas.layer, r, canvas.viewScale),
+          pixelRatio: (THUMB_HEIGHT * 2) / (r.height * canvas.viewScale),
+          mimeType: "image/jpeg",
+          quality: 0.7,
+        });
+        rendered.current[i] = keys[i];
+        setThumbs((t) => Object.assign([...t], { [i]: url }));
+        next();
+      });
+    };
+    const timer = setTimeout(next, 300);
+    return () => {
+      clearTimeout(timer);
+      cancel();
+    };
   }, [doc, canvas]);
 
   if (!doc) return null;

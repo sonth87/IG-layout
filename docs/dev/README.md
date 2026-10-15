@@ -64,6 +64,7 @@ src/
     storage/db.ts       IndexedDB: projects (thông tin), states (doc + lịch sử), assets (ảnh)
     storage/projects.ts các thao tác lưu / mở / đổi tên / xóa, xin quyền lưu lâu dài
     i18n/en.ts, vi.ts   từ điển giao diện
+    gesture.ts          đang có ngón tay / chuột nhấn? + whenIdle: việc nền (thumbnail, lưu) chờ hết thao tác
     pwa.ts              cài app (install prompt), đăng ký service worker
     format.ts           định dạng dung lượng, thời gian
   store/editor.ts       Zustand: project đang mở, ảnh, lịch sử undo / redo

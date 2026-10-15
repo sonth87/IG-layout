@@ -105,6 +105,30 @@ await more(page, "Rotate to 0°");
 el = (await S()).doc.elements.find((e) => e.id === photo.id);
 check(el.rotation === 0, "More → Rotate to 0°");
 
+console.log("Touch: dragging the selected item doesn't scroll the page or the canvas");
+check((await page.evaluate(() => getComputedStyle(document.body).overscrollBehaviorY)) === "none", "no pull-to-refresh");
+await page.evaluate(() => (document.querySelector(".bg-canvas").scrollLeft = 0));
+await page.evaluate((id) => window.__igEditor.getState().select(id), photo.id);
+await page.waitForTimeout(300);
+const fd = await frame();
+const p0 = { x: 200, y: fd.y + fd.height / 2 };
+const before = (await S()).doc.elements.find((e) => e.id === photo.id).x;
+await touch("touchStart", [p0]);
+for (let i = 1; i <= 12; i++) await touch("touchMove", [{ x: p0.x - i * 8, y: p0.y }]);
+await touch("touchEnd", []);
+await page.waitForTimeout(400);
+const after = (await S()).doc.elements.find((e) => e.id === photo.id).x;
+const scrolled = await page.evaluate(() => document.querySelector(".bg-canvas").scrollLeft);
+check(after < before - 100 && scrolled === 0, `the item moved (${Math.round(before)} → ${Math.round(after)}), the canvas did not scroll (${scrolled})`);
+// Unselected: the same swipe scrolls instead.
+await page.evaluate(() => window.__igEditor.getState().select(null));
+await page.waitForTimeout(200);
+await touch("touchStart", [p0]);
+for (let i = 1; i <= 12; i++) await touch("touchMove", [{ x: p0.x - i * 8, y: p0.y }]);
+await touch("touchEnd", []);
+await page.waitForTimeout(500);
+check((await page.evaluate(() => document.querySelector(".bg-canvas").scrollLeft)) > 30, "nothing selected: the swipe scrolls");
+
 console.log(`console errors: ${JSON.stringify(errors)}`);
 await browser.close();
 console.log(failures ? `${failures} FAILED` : "ALL PASSED");
