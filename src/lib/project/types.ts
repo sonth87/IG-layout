@@ -93,7 +93,7 @@ export interface ImageElement extends ElementBase {
   frame: FrameStyle;
 }
 
-export const FONT_KEYS = ["beVietnam", "playfair", "lora", "montserrat", "dancing", "spaceGrotesk"] as const;
+export const FONT_KEYS = ["beVietnam", "playfair", "lora", "montserrat", "dancing", "spaceGrotesk", "inter", "manrope", "jakarta", "lexend", "nunito", "quicksand", "raleway", "workSans", "josefin", "openSans", "roboto", "mulish", "archivo", "bricolage", "hanken", "comfortaa", "kanit", "prompt", "geologica", "fraunces", "ebGaramond", "cormorant", "bodoni", "newsreader", "literata", "crimson", "bitter", "merriweather", "vollkorn", "alegreya", "sourceSerif", "robotoSlab", "brygada", "yeseva", "taviraj", "oswald", "anton", "bungee", "unbounded", "bigShoulders", "anybody", "leagueSpartan", "smooch", "yanone", "tektur", "museo", "grenze", "dela", "paytone", "chonburi", "amatic", "pacifico", "greatVibes", "lobster", "charm", "allura", "pinyon", "playball", "corinthia", "moonDance", "patrickHand", "itim", "mali", "shantell", "playpen", "merienda", "gluten", "sriracha", "jetbrains", "spaceMono", "robotoMono", "recursive"] as const;
 export type FontKey = (typeof FONT_KEYS)[number];
 
 export interface TextElement extends ElementBase {
@@ -101,6 +101,8 @@ export interface TextElement extends ElementBase {
   text: string;
   font: FontKey;
   bold: boolean;
+  /** 100–900; overrides `bold` when set (M11, variable fonts). */
+  weight?: number;
   /** Export pixels. `width` wraps the text; `height` follows the text (derived). */
   fontSize: number;
   color: string;

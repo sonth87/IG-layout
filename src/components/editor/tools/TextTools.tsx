@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { FONT_KEYS, type TextElement } from "@/lib/project/types";
-import { TEXT_FONTS } from "@/lib/text/fonts";
+import { FONT_CATEGORIES, type FontCategory, fontWeight, nearestWeight, TEXT_FONTS } from "@/lib/text/fonts";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { Slider, Swatches, ToolSheet } from "./controls";
@@ -59,36 +59,19 @@ export function TextTool({ elementId, onClose }: ToolProps) {
         ))}
       </div>
 
-      {tab === "font" && (
-        <div role="radiogroup" aria-label={t("text.tab.font")} className="grid grid-cols-2 gap-2">
-          {FONT_KEYS.map((key) => (
-            <button
-              key={key}
-              type="button"
-              role="radio"
-              aria-checked={el.font === key}
-              onClick={() => patch({ font: key })}
-              className={`flex h-16 flex-col items-start justify-center rounded-xl px-3 ${
-                el.font === key ? "border-2 border-accent bg-accent-soft" : "border border-border bg-surface-2"
-              }`}
-            >
-              <span style={{ fontFamily: TEXT_FONTS[key].family, fontWeight: 700 }} className="text-xl leading-tight">
-                Đà Lạt
-              </span>
-              <span className="text-[11px] text-muted">{TEXT_FONTS[key].label}</span>
-            </button>
-          ))}
-        </div>
-      )}
+      {tab === "font" && <FontPicker el={el} patch={patch} />}
 
       {tab === "style" && (
         <>
           <div className="flex items-center gap-2 py-1">
             <button
               type="button"
-              aria-pressed={el.bold}
-              onClick={() => patch({ bold: !el.bold })}
-              className={`h-10 rounded-xl px-4 text-sm font-bold ${toggle(el.bold)}`}
+              aria-pressed={fontWeight(el) >= 600}
+              onClick={() => {
+                const bold = fontWeight(el) < 600;
+                patch({ bold, weight: nearestWeight(el.font, bold ? 700 : 400) });
+              }}
+              className={`h-10 rounded-xl px-4 text-sm font-bold ${toggle(fontWeight(el) >= 600)}`}
             >
               B
             </button>
@@ -206,9 +189,83 @@ export function TextEditDialog({ elementId, onClose }: ToolProps) {
           onFocus={(e) => e.target.select()}
           rows={4}
           className="w-full rounded-xl border border-border bg-surface-2 p-3 text-lg outline-none focus:border-accent"
-          style={{ fontFamily: TEXT_FONTS[el.font].family, fontWeight: el.bold ? 700 : 400 }}
+          style={{ fontFamily: TEXT_FONTS[el.font].family, fontWeight: fontWeight(el) }}
         />
       </div>
     </div>
+  );
+}
+
+/**
+ * Font list (M11, S12): category chips, each font shown in itself, then the weight.
+ * Off-screen rows are not rendered (content-visibility), so their font files are not
+ * fetched until scrolled to.
+ */
+function FontPicker({ el, patch }: { el: TextElement; patch: (p: Partial<TextElement>) => void }) {
+  const t = useT();
+  const [category, setCategory] = useState<FontCategory>(TEXT_FONTS[el.font].category);
+  const keys = FONT_KEYS.filter((k) => TEXT_FONTS[k].category === category);
+  const weights = TEXT_FONTS[el.font].weights;
+  const weight = fontWeight(el);
+  const setWeight = (w: number) => patch({ weight: w, bold: w >= 600 });
+
+  return (
+    <>
+      <div className="flex gap-1.5 overflow-x-auto pb-2">
+        {FONT_CATEGORIES.map((c) => (
+          <button
+            key={c}
+            type="button"
+            aria-pressed={category === c}
+            onClick={() => setCategory(c)}
+            className={`h-8 shrink-0 rounded-full px-3 text-[13px] ${category === c ? "bg-text font-semibold text-bg" : "border border-border"}`}
+          >
+            {t(`font.category.${c}`)}
+          </button>
+        ))}
+      </div>
+      <div role="radiogroup" aria-label={t("text.tab.font")} className="grid max-h-44 grid-cols-2 gap-2 overflow-y-auto">
+        {keys.map((key) => (
+          <button
+            key={key}
+            type="button"
+            role="radio"
+            aria-checked={el.font === key}
+            aria-label={TEXT_FONTS[key].label}
+            onClick={() => patch({ font: key, weight: nearestWeight(key, weight) })}
+            style={{ contentVisibility: "auto", containIntrinsicSize: "auto 56px" }}
+            className={`flex h-14 flex-col items-start justify-center rounded-xl px-3 ${
+              el.font === key ? "border-2 border-accent bg-accent-soft" : "border border-border bg-surface-2"
+            }`}
+          >
+            <span style={{ fontFamily: TEXT_FONTS[key].family, fontWeight: nearestWeight(key, 600) }} className="truncate text-lg leading-tight">
+              Đà Lạt
+            </span>
+            <span className="max-w-full truncate text-[11px] text-muted">{TEXT_FONTS[key].label}</span>
+          </button>
+        ))}
+      </div>
+      {Array.isArray(weights) ? (
+        weights.length > 1 && (
+          <div role="radiogroup" aria-label={t("text.weight")} className="flex flex-wrap gap-1.5 pt-2.5">
+            {weights.map((w) => (
+              <button
+                key={w}
+                type="button"
+                role="radio"
+                aria-checked={weight === w}
+                onClick={() => setWeight(w)}
+                style={{ fontFamily: TEXT_FONTS[el.font].family, fontWeight: w }}
+                className={`h-9 min-w-11 rounded-lg px-2 text-sm ${weight === w ? "bg-text text-bg" : "border border-border"}`}
+              >
+                {w}
+              </button>
+            ))}
+          </div>
+        )
+      ) : (
+        <Slider label={t("text.weight")} value={weight} min={weights.min} max={weights.max} step={10} defaultValue={nearestWeight(el.font, 400)} onChange={setWeight} />
+      )}
+    </>
   );
 }

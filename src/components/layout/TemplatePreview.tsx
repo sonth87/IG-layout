@@ -82,7 +82,7 @@ export function TemplatePreview(props: {
                 width: el.width * k,
                 transform: el.rotation ? `rotate(${el.rotation}deg)` : undefined,
                 fontFamily: TEXT_FONTS[el.font].family,
-                fontWeight: fontWeight(el.bold),
+                fontWeight: fontWeight(el),
                 fontSize: el.fontSize * k,
                 lineHeight: el.lineHeight,
                 letterSpacing: el.letterSpacing * k,

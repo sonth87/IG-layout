@@ -9,6 +9,7 @@ import { canvasSize, slideAt, slideRect } from "@/lib/project/layout";
 import { type ImageAsset, isImage } from "@/lib/project/types";
 import { flushSave, useSaveStatus } from "@/store/autosave";
 import { useEditor, useViewDoc } from "@/store/editor";
+import { WEB_FONTS } from "@/lib/text/webfonts";
 import { useT } from "@/store/settings";
 import CanvasStage from "./canvas/CanvasStage";
 import { isTouchUI } from "./canvas/interaction";
@@ -358,7 +359,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
     );
 
   return (
-    <main className="mx-auto flex h-dvh max-w-3xl flex-col">
+    // data-fonts uses the text-font module so its @font-face CSS ships with the editor (M11).
+    <main data-fonts={WEB_FONTS} className="mx-auto flex h-dvh max-w-3xl flex-col">
       <header className="flex items-center gap-0.5 px-2 pt-2.5 pb-1.5">
         <button type="button" aria-label={t("common.back")} onClick={onBack} className="flex h-11 w-11 items-center justify-center">
           <Icon name="back" />

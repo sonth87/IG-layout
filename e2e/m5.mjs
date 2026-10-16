@@ -51,12 +51,13 @@ await page.waitForTimeout(600);
 st = await S();
 text = last(st, "text");
 check(text.height > text.fontSize * 0.9, `height follows the text (${Math.round(text.height)} for size ${text.fontSize})`);
-const fontOk = await page.evaluate(() => document.fonts.check("700 64px " + getComputedStyle(document.documentElement).getPropertyValue("--font-playfair"), "Đà"));
+const fontOk = await page.evaluate(() => document.fonts.check("700 64px 'Playfair Display'", "Đà"));
 check(fontOk, "Playfair Display (with Vietnamese) loaded for canvas");
 
 console.log("2. Text style: font, size, background — one step");
 const past0 = st.past;
 await page.getByRole("button", { name: "Style" }).click();
+await page.getByRole("button", { name: "Sans", exact: true }).click(); // font categories (M11)
 await page.getByRole("radio", { name: /Montserrat/ }).click();
 await page.getByRole("tab", { name: "Style" }).click();
 await page.getByRole("slider").first().fill("150");
