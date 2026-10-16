@@ -1,5 +1,6 @@
 # Đánh giá độc lập: bản phân tích SCRL + Grids (2026-10-16)
 
+> **Đã xử lý:** bản 2 (cùng file) sửa theo đánh giá này; chủ dự án chọn chỉ SCRL (D-71).
 > Đối tượng đánh giá: [2026-10-16-phan-tich-scrl-grids.md](2026-10-16-phan-tich-scrl-grids.md) (bản lần 1).
 > Cách làm: đọc lại toàn bộ, kiểm tra lại nguồn, đối chiếu với yêu cầu của chủ dự án ("clone hoàn toàn luồng, thao tác, tính năng, phong cách, hiệu ứng, cách dùng, layout, grid").
 

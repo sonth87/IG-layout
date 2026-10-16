@@ -113,7 +113,7 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 ## Việc tiếp theo
 
 1. ~~M8 — Sửa UX~~ xong (2026-10-15), xem [checklist](checklist.md).
-2. **Hướng mới (D-70): SCRL + Grids** — [phân tích tính năng](../discussions/2026-10-16-phan-tich-scrl-grids.md), lộ trình đề xuất M9–M12, chờ ảnh / video và trả lời Q-S1..Q-S4.
+2. **Hướng mới (D-71): làm theo SCRL** — [phân tích bản 2](../discussions/2026-10-16-phan-tich-scrl-grids.md). Lộ trình: M9 menu nổi / zoom toàn dải / lớp kéo thả → M10 trang chủ + template → M11 font, filter, sticker, vẽ → M12 xoá nền → M13 video.
 3. **M9 — Làm cho ngon theo Grids** (D-66): đã sửa F-01..F-04 + chặn zoom / bôi đen trang; tiếp theo làm lại màn chọn layout và luồng tạo theo Grids — xem [checklist](checklist.md).
 2. Chủ dự án thử trên iPhone + Android theo [device-test.md](device-test.md); tôi sửa theo kết quả.
 3. Chỉnh thông số Instagram (vùng an toàn, khe lưới) và màu filter theo kết quả thử.
