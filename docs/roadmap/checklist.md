@@ -240,7 +240,7 @@ Quyết định: D-79. Tìm hiểu thêm: [SVG Repo](../discussions/2026-10-16-s
 
 ### M13 — Video: thử nghiệm (đang chờ kết quả máy thật)
 Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
-- [x] Trang thử `/labs/video.html`: khả năng trình duyệt, phát video trên canvas, xuất MP4 H.264 1080×1350 3 s, lưu / chia sẻ, sao chép kết quả
+- [x] Trang thử `/labs/video`: khả năng trình duyệt, phát video trên canvas, xuất MP4 H.264 1080×1350 3 s, lưu / chia sẻ, sao chép kết quả
 - [x] Máy tính: xuất 3 s trong 1,9 s, MP4 hợp lệ (ffprobe)
 - [x] Service worker: trang khác `/` không ghi đè bản offline của app
 - [ ] **Chủ dự án chạy trang thử trên iPhone (+ Android nếu có), gửi kết quả**
