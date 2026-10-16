@@ -166,6 +166,7 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       offsetY={h / 2}
       rotation={el.rotation}
       opacity={el.opacity}
+      visible={!el.hidden}
       sceneFunc={draw}
       hitFunc={hit}
       draggable={draggable}

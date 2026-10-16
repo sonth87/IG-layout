@@ -14,6 +14,7 @@ import CanvasStage from "./canvas/CanvasStage";
 import { isTouchUI } from "./canvas/interaction";
 import { type Action, ActionSheet, CoachTips, LayersSheet } from "./EditorSheets";
 import { ExportSheet } from "./ExportSheet";
+import { FloatingMenu } from "./FloatingMenu";
 import { SlideNavigator } from "./SlideNavigator";
 import { AdjustTool, FilterTool } from "./tools/ColorTools";
 import { CropTool } from "./tools/CropTool";
@@ -32,7 +33,6 @@ const LABEL_SPACE = 20;
  * never changes size when you select something or open a tool (F-03).
  */
 const DOCK_RESERVE = 210;
-const MIN_ZOOM = 1;
 const REPLACE_INPUT_ID = "replace-photo-input";
 
 /** Opens the photo picker for "Replace" / "Add photo". */
@@ -157,13 +157,16 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const base = useBaseScale(areaRef, slide, isGrid ? size.width : null);
   const baseScale = base.scale;
   const viewScale = baseScale * zoom;
+  const areaSize = useAreaSize(areaRef);
+  /** Zoom out down to the whole strip fitting the screen (S5, like SCRL's overview). */
+  const minZoom = baseScale > 0 && areaSize.width > 0 ? Math.min(1, (areaSize.width - STAGE_PADDING * 2) / (size.width * baseScale)) : 1;
   /** Canvas origin inside the scroll content: vertically centred when it fits. */
   const originFor = (s: number) => ({
-    x: STAGE_PADDING,
+    // Zoomed out narrower than the screen: centred (S5).
+    x: Math.max(STAGE_PADDING, Math.round((areaSize.width - size.width * s) / 2)),
     y: Math.max(STAGE_PADDING + LABEL_SPACE, Math.round((base.height - size.height * s + LABEL_SPACE) / 2)),
   });
   const origin = originFor(viewScale);
-  const areaSize = useAreaSize(areaRef);
   const selected = doc.elements.find((el) => el.id === selectedId);
   /** Photos used in the project, back to front, without duplicates (for re-layout). */
   const usedPhotos = [...new Set(doc.elements.filter(isImage).map((el) => el.assetId).filter((id): id is string => !!id))]
@@ -208,7 +211,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   /** Zoom around the middle of the visible area. */
   function zoomTo(next: number) {
     const area = areaRef.current;
-    const z = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, next));
+    const z = Math.max(minZoom, Math.min(MAX_ZOOM, next));
     if (!area || z === zoom) return;
     const cx = (area.scrollLeft + area.clientWidth / 2 - origin.x) / viewScale;
     const cy = (area.scrollTop + area.clientHeight / 2 - origin.y) / viewScale;
@@ -288,6 +291,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   }
 
   const more = <ToolButton label={t("editor.more")} icon="more" onClick={() => setTool("more")} />;
+  const done = <ToolButton label={t("common.done")} icon="check" onClick={() => store.select(null)} />;
 
   let bottom: React.ReactNode;
   if (tool === "mask" && selected) bottom = <MaskTool elementId={selected.id} onClose={close} />;
@@ -299,7 +303,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "slides") bottom = <SlidesTool onClose={close} showSafeZone={showSafeZone} onSafeZone={setShowSafeZone} />;
   else if (selected) {
-    // Primary tools (≤ 5) + "More"; duplicate / delete always visible in the header (UX-03).
+    // Tools for the selection (≤ 4) + Done. Duplicate / delete / lock / more float over
+    // the element (S7). Same height as the bar with nothing selected (F-03).
     let tools: React.ReactNode;
     if (selected.type === "image" && !selected.assetId)
       tools = (
@@ -307,7 +312,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <ToolButton label={t("editor.addPhoto")} icon="image" onClick={() => pickReplacement()} />
           {selected.slot && <ToolButton label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(selected.id)} />}
           <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
-          {more}
+          {done}
         </>
       );
     else if (selected.type === "image")
@@ -321,7 +326,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
           ) : (
             <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
           )}
-          {more}
+          {done}
         </>
       );
     else if (selected.type === "text")
@@ -329,51 +334,17 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <>
           <ToolButton label={t("editor.editText")} icon="pencil" onClick={() => store.setEditingText(selected.id)} />
           <ToolButton label={t("editor.textStyle")} icon="text" onClick={() => openTool("text")} />
-          {more}
+          {done}
         </>
       );
     else
       tools = (
         <>
           <ToolButton label={t("tool.color")} icon="palette" onClick={() => openTool("fill")} />
-          {more}
+          {done}
         </>
       );
-    bottom = sheet(
-      t("editor.tools"),
-      <>
-        <div className="flex items-center gap-1 px-2.5 pb-1">
-          <span className="flex-1 text-[13px] font-semibold tracking-wider text-muted uppercase">
-            {t(`editor.kind.${selected.type}`)}
-            {selected.locked && <Icon name="lock" size={13} />}
-          </span>
-          <button
-            type="button"
-            aria-label={t("editor.duplicate")}
-            onClick={() => store.duplicateElement(selected.id)}
-            className="flex h-9 w-10 items-center justify-center rounded-[10px]"
-          >
-            <Icon name="duplicate" size={20} />
-          </button>
-          <button
-            type="button"
-            aria-label={t("common.delete")}
-            onClick={() => store.removeElement(selected.id)}
-            className="flex h-9 w-10 items-center justify-center rounded-[10px] text-danger"
-          >
-            <Icon name="trash" size={20} />
-          </button>
-          <button
-            type="button"
-            onClick={() => store.select(null)}
-            className="ml-1 h-8 rounded-[10px] border border-border px-3 text-[13px] font-semibold"
-          >
-            {t("common.done")}
-          </button>
-        </div>
-        <div className="flex">{tools}</div>
-      </>,
-    );
+    bottom = sheet(t("editor.tools"), <div className="flex">{tools}</div>);
   } else
     bottom = sheet(
       t("editor.tools"),
@@ -450,7 +421,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
                 height: Math.max(areaSize.height, origin.y + STAGE_PADDING + size.height * viewScale),
               }}
             >
-              <div className="sticky top-0 left-0" style={{ width: areaSize.width, height: areaSize.height }}>
+              <div className="sticky top-0 left-0 z-[1]" style={{ width: areaSize.width, height: areaSize.height }}>
                 <CanvasStage
                   viewScale={viewScale}
                   viewport={areaSize}
@@ -463,6 +434,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
                     else if (phase === "move") zoomTo(pinchZoomStart.current * k);
                   }}
                 />
+                {!sheetOpen && <FloatingMenu scrollRef={areaRef} onMore={() => setTool("more")} />}
               </div>
               {/* Where the canvas is in the scroll content (layout reference for tests). */}
               <div
@@ -491,28 +463,28 @@ export function Editor({ onClose }: { onClose: () => void }) {
 
         {/* Zoom (UX-06). Touch: pinch, with a pill to get back to fit; mouse: buttons. */}
         {isTouchUI ? (
-          zoom > 1 && (
+          Math.abs(zoom - 1) > 0.01 && (
             <button
               type="button"
               aria-label={t("zoom.fit")}
               onClick={() => zoomTo(1)}
-              className="absolute right-2 bottom-2 h-9 rounded-full border border-border bg-surface/90 px-3 text-xs font-semibold tabular-nums shadow-sm"
+              className="absolute right-2 bottom-2 z-10 h-9 rounded-full border border-border bg-surface/90 px-3 text-xs font-semibold tabular-nums shadow-sm"
             >
               {Math.round(zoom * 100)}%
             </button>
           )
         ) : (
-          <div className="absolute top-2 right-2 flex items-center gap-0.5 rounded-full border border-border bg-surface/90 p-0.5 shadow-sm">
+          <div className="absolute top-2 right-2 z-10 flex items-center gap-0.5 rounded-full border border-border bg-surface/90 p-0.5 shadow-sm">
             <button
               type="button"
               aria-label={t("zoom.out")}
-              disabled={zoom <= MIN_ZOOM}
+              disabled={zoom <= minZoom + 0.001}
               onClick={() => zoomTo(zoom / 1.5)}
               className="flex h-9 w-9 items-center justify-center rounded-full disabled:text-disabled"
             >
               <Icon name="minus" size={18} />
             </button>
-            {zoom > 1 && (
+            {Math.abs(zoom - 1) > 0.01 && (
               <button type="button" aria-label={t("zoom.fit")} onClick={() => zoomTo(1)} className="h-9 px-1 text-xs font-semibold tabular-nums">
                 {Math.round(zoom * 100)}%
               </button>

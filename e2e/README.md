@@ -19,7 +19,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `m6.mjs` | Story (9:16, vùng an toàn, xuất `story_01…`), Grid 3 × 2 có bù khe (layout lọc theo loại, ảnh phủ cả khe, thứ tự xuất `grid_01` = ô dưới phải kiểm bằng màu, thêm hàng, tắt bù khe), danh sách project |
 | `m7.mjs` | Giới hạn bộ nhớ canvas (20 slide, mật độ 3×), phím tắt, xem trước carousel / trang cá nhân / story / lưới Grid ghép đúng, màn trợ giúp EN / VI |
 | `m8.mjs` | Sửa UX: mẹo lần đầu, vuốt cuộn + ảnh nền khoá, chạm chọn rồi kéo, chạm nền bỏ chọn, thanh công cụ gọn, ô lưới không tay nắm, đổi layout giữ chữ, chạm đúp sửa chữ, pinch phần tử chưa chọn, bảng Lớp, canvas không nhảy, nút đặt lại thanh trượt, zoom, thumbnail slide, "Đã lưu", tên file theo project, Story không có layout liền mạch |
-| `m9.mjs` | Không zoom / bôi đen trang, layout không trùng, canvas chỉ to bằng màn hình, canvas không nhảy khi chọn / mở công cụ, xoay: vùng chết, hít 0°, "Xoay về 0°" |
+| `m9.mjs` | Menu nổi (nhân bản / xoá / khoá), thu nhỏ xem cả dải, bảng lớp kéo thả + ẩn, kéo phần tử không cuộn nền, không zoom / bôi đen trang, layout không trùng, canvas chỉ to bằng màn hình, canvas không nhảy khi chọn / mở công cụ, xoay: vùng chết, hít 0°, "Xoay về 0°" |
 | `drag-perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian khung hình khi kéo / chụm trên điện thoại giả lập, CPU chậm 4× |
 | `perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian nhập 20 ảnh 4000 px, thời gian vẽ lại, bộ nhớ canvas |
 | `offline.mjs` | Vào trang 1 lần → tắt mạng → vẫn chạy |

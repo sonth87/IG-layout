@@ -4,7 +4,7 @@ import type { Background, CanvasElement, ImageElement, ProjectDoc } from "./type
 // Upgrades docs saved by older versions to the current model:
 // - M1: image elements had no crop; background was a plain color string.
 // - M2–M5: image fields added over time (slot, adjust, filter, frame).
-// - M8: optional `locked` / `fromLayout` on every element.
+// - M8: optional `locked` / `fromLayout` on every element; M9: optional `hidden`.
 // Elements without a `type` are images (M1). Text / shape / icon (M5+) pass through.
 
 type LegacyDoc = Omit<ProjectDoc, "background" | "elements"> & {
@@ -40,6 +40,7 @@ function migrateImage(el: Partial<ImageElement>, assetSize: AssetSize): ImageEle
     frame: el.frame ?? "none",
     // M8 flags: only present when set, so a reload gives back the exact same doc.
     ...(el.locked !== undefined && { locked: el.locked }),
+    ...(el.hidden !== undefined && { hidden: el.hidden }),
     ...(el.fromLayout !== undefined && { fromLayout: el.fromLayout }),
   };
 }

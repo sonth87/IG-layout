@@ -66,6 +66,9 @@ interface EditorState {
   applyLayout: (tpl: Template, photos: ImageAsset[], opts: TemplateOptions) => void;
   moveLayerTo: (id: string, where: "front" | "back") => void;
   toggleLock: (id: string) => void;
+  toggleHidden: (id: string) => void;
+  /** Layers panel drag (S8): put an element at `index` in back-to-front order. */
+  moveLayerToIndex: (id: string, index: number) => void;
   /** Text element whose words are being edited (dialog), or null. */
   editingTextId: string | null;
   setEditingText: (id: string | null) => void;
@@ -276,6 +279,25 @@ export const useEditor = create<EditorState>()((set, get) => {
       commit((d) => {
         const el = d.elements.find((e) => e.id === id);
         return el ? updateEl(d, id, { locked: !el.locked }) : d;
+      }),
+
+    toggleHidden: (id) => {
+      commit((d) => {
+        const el = d.elements.find((e) => e.id === id);
+        return el ? updateEl(d, id, { hidden: !el.hidden }) : d;
+      });
+      if (get().selectedId === id) set({ selectedId: null });
+    },
+
+    moveLayerToIndex: (id, index) =>
+      commit((d) => {
+        const from = d.elements.findIndex((e) => e.id === id);
+        const to = Math.max(0, Math.min(d.elements.length - 1, index));
+        if (from < 0 || from === to) return d;
+        const elements = [...d.elements];
+        const [el] = elements.splice(from, 1);
+        elements.splice(to, 0, el);
+        return { ...d, elements };
       }),
 
     setEditingText: (id) => set({ editingTextId: id }),
