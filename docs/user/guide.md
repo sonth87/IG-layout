@@ -37,6 +37,10 @@ Chọn ảnh → chọn **layout** (hoặc **Bỏ qua**). Chạm hai ảnh trong
 - **Chữ:** nút **Chữ** → gõ nội dung (chạm đúp vào chữ để sửa lại) → **Kiểu chữ → Font**: 78 font theo nhóm, chỉnh **độ đậm**. Font tải lần đầu khi dùng (cần mạng lần đầu). → **Kiểu chữ** (font, cỡ, màu, căn lề, viền chữ, bóng, nền chữ).
 - **Thành phần:** sticker (đổi màu bằng Màu), lớp phủ (vệt sáng, bụi, giấy… — chỉnh **Hoà trộn** trong Kiểu), hình khối, icon, khung ảnh trống (polaroid trắng / đen, viền trắng / đen, triển lãm, film).
 - **Video:** chọn video như chọn ảnh (app tự nén về 1080p, tối đa 60 giây, giữ tiếng). Dùng như ảnh (kéo, khung, mask, ô template). Thanh **Phát / Dừng** dưới canvas. Chọn video → **Âm thanh** để tắt tiếng / chỉnh âm lượng. Khi xuất, slide có video thành file MP4; bỏ chọn **"Xuất video có tiếng"** nếu muốn video câm.
+- **Cắt đoạn video:** chọn video → **Cắt đoạn**: kéo hai tay nắm trên dải hình, **Phát đoạn đã chọn** để nghe / xem, ±0,1 giây để chỉnh chính xác; chọn **tốc độ** (khác 1× sẽ tắt tiếng) và **lặp lại**.
+- **Chuyển động:** chọn chữ / sticker / ảnh → **Chuyển động** (video: ⋯ → Chuyển động): Vào, Ra, Liên tục, Trong khung (ảnh); chỉnh thời lượng, độ dài slide; **Xem thử**. Slide có chuyển động được xuất thành video.
+- **Nhạc nền:** ⋯ → **Nhạc**: chọn file nhạc, điểm bắt đầu, âm lượng, nhỏ dần đầu / cuối.
+- **Một video 9:16:** trong màn Xuất → **Tạo video 9:16** để có cả carousel thành một video cho Reels / Story / TikTok.
 - **Xoá nền:** chọn ảnh → ⋯ → **Xoá nền**. Lần đầu app tải mô hình ~60 MB (nên dùng Wi-Fi), sau đó dùng được cả khi offline. Ảnh xử lý ngay trên máy. Không ưng thì **Hoàn tác**.
 - **Vẽ tay:** ⋯ → **Vẽ**, chọn màu và cỡ nét, vẽ bằng một ngón tay, **✓** để thêm.
 - **Nền:** màu, chuyển màu, ảnh làm mờ.

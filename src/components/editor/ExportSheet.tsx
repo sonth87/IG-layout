@@ -10,7 +10,8 @@ import { SLIDE_SIZE } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { CarouselPreview, type PreviewTab, previewTabs, ProfilePreview, StoryPreview, videoUrls } from "@/components/export/InstagramPreview";
-import { pause as pausePlayback } from "@/lib/video/playback";
+import { pause as pausePlayback, seek as seekPlayback } from "@/lib/video/playback";
+import { hasMotion, slideHasMotion } from "@/lib/motion/motion";
 
 
 interface Props {
@@ -27,8 +28,9 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
   const [error, setError] = useState<string | null>(null);
   const assets = useEditor((s) => s.assets);
   // Video (M13): export with sound unless switched off; progress per slide.
-  const hasVideo = doc.elements.some((el) => el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video);
-  const hasSound = doc.elements.some((el) => el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video?.hasAudio);
+  // Slides with video or animation (M13.3) are exported as MP4.
+  const hasVideo = doc.elements.some((el) => (el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video) || hasMotion(el));
+  const hasSound = !!doc.music || doc.elements.some((el) => el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video?.hasAudio);
   const [withAudio, setWithAudio] = useState(true);
   const [progress, setProgress] = useState<{ n: number; total: number; p: number } | null>(null);
   const size = SLIDE_SIZE[doc.ratio];
@@ -41,7 +43,9 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
     const layer = contentLayerRef.current;
     if (!layer) return;
     const { setExporting } = useEditor.getState();
+    // Start from 0 s: elements at their real positions (no animation state) for still slides.
     pausePlayback();
+    seekPlayback(0);
     // Re-render photos at full resolution, wait for the canvas to redraw, then cut slides.
     setExporting(true);
     const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r(null)));
@@ -62,7 +66,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
             viewScale,
             base,
             {
-              isVideoSlide: (i) => slideVideos(doc, i, assets).length > 0,
+              isVideoSlide: (i) => slideVideos(doc, i, assets).length > 0 || slideHasMotion(doc, i),
               render: (index, onProgress) => exportVideoSlide({ layer, doc, index, viewScale, assets, withAudio, onProgress }),
             },
             (n, total, p) => !cancelled && setProgress({ n, total, p }),
@@ -87,6 +91,37 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
       });
     };
   }, [contentLayerRef, doc, viewScale, hasVideo, withAudio]);
+
+  // The whole carousel as one 9:16 video (M13.4): made on request.
+  const [reel, setReel] = useState<{ file: File; url: string } | null>(null);
+  const [reelProgress, setReelProgress] = useState<number | null>(null);
+  async function makeReel() {
+    const layer = contentLayerRef.current;
+    if (!layer) return;
+    setError(null);
+    setReelProgress(0);
+    const { setExporting } = useEditor.getState();
+    setExporting(true);
+    try {
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      layer.draw();
+      const { exportReel } = await import("@/lib/video/reel");
+      const blob = await exportReel({ layer, doc, viewScale, assets: useEditor.getState().assets, withAudio, onProgress: setReelProgress });
+      const file = new File([blob], `${fileBase(useEditor.getState().projectName, doc.type)}_reel.mp4`, { type: "video/mp4" });
+      setReel({ file, url: URL.createObjectURL(file) });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setExporting(false);
+      setReelProgress(null);
+    }
+  }
+  useEffect(
+    () => () => {
+      if (reel) URL.revokeObjectURL(reel.url);
+    },
+    [reel],
+  );
 
   async function run(action: () => Promise<unknown>) {
     try {
@@ -188,6 +223,36 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
                 {t(`export.tip.${doc.type}`, { last: String(files.length).padStart(2, "0"), ratio: doc.ratio })}
               </aside>
             </>
+          )}
+          {files && doc.type !== "grid" && (
+            <section aria-label={t("reel.title")} className="mt-3 rounded-2xl border border-border bg-surface px-3.5 py-3">
+              <h2 className="text-sm font-bold">{t("reel.title")}</h2>
+              <p className="pt-0.5 text-[13px] leading-relaxed text-text-2">{t("reel.body")}</p>
+              {reel ? (
+                <div className="mt-2.5 flex items-center gap-3">
+                  <video src={reel.url} aria-label={t("reel.title")} className="h-28 rounded-md border border-border" muted playsInline autoPlay loop />
+                  <div className="flex flex-1 flex-col gap-2">
+                    {canShareFiles([reel.file]) && (
+                      <button type="button" onClick={() => run(() => shareFiles([reel.file]))} className="h-10 rounded-xl bg-accent text-sm font-bold text-on-accent">
+                        {t("reel.save")}
+                      </button>
+                    )}
+                    <button type="button" onClick={() => run(() => downloadEach([reel.file]))} className="h-10 rounded-xl border border-border-2 text-sm font-semibold">
+                      {t("reel.download")}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  disabled={reelProgress !== null}
+                  onClick={() => void makeReel()}
+                  className="mt-2.5 h-11 w-full rounded-xl border border-border-2 text-sm font-semibold disabled:opacity-60"
+                >
+                  {reelProgress !== null ? t("reel.making", { pct: Math.round(reelProgress * 100) }) : t("reel.make")}
+                </button>
+              )}
+            </section>
           )}
           {error && (
             <p role="alert" className="mt-3 text-sm text-danger">

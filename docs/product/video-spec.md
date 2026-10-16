@@ -1,6 +1,6 @@
 # Đặc tả video (M13) — 2026-10-16
 
-> Trạng thái: **đã chốt hướng**, làm theo giai đoạn. Nguồn: kết quả [video lab](../discussions/2026-10-16-video-lab.md) trên iPhone + yêu cầu của chủ dự án.
+> Trạng thái: **M13.1–M13.4 xong phần code (2026-10-16)**, chờ thử trên iPhone. Chi tiết đã làm: [checklist](../roadmap/checklist.md). Nguồn: kết quả [video lab](../discussions/2026-10-16-video-lab.md) trên iPhone + yêu cầu của chủ dự án.
 > Yêu cầu gốc: "cần giữ tiếng, có tuỳ chọn tắt tiếng; nên nén video; nhiều tuỳ chọn tinh chỉnh: chọn từ đoạn nào đến đoạn nào (có khung chọn kèm hình / âm thanh để phát thử trong khoảng đó), zoom, di chuyển vị trí hiển thị, hiệu ứng, bộ lọc, sticker, text, animation… thiếu thì bổ sung, chưa đủ thì mở rộng".
 > Ký hiệu: **[Y]** chủ dự án yêu cầu · **[S]** có trong SCRL · **[+]** tôi đề xuất thêm.
 
@@ -8,7 +8,7 @@
 
 - Phát video thật trên canvas 60 fps; xuất MP4 H.264 1080 × 1350 nhanh hơn thời gian thực (1,7 ×); **lưu vào Ảnh được**.
 - **Mã hoá âm thanh AAC trên iPhone: được** (trang thử bước 4: video iPhone H.264 1920×1080 + AAC 48 kHz stereo → nén lại, file ra có tiếng).
-- Chưa kiểm: Instagram chọn được file MP4 khi tạo bài.
+- Instagram chọn được file MP4: **chưa kiểm, tạm coi là được** (chủ dự án, 2026-10-16).
 
 ## Thư viện
 
@@ -29,7 +29,7 @@
 - **Màn cắt đoạn** [Y]: **dải hình** (các khung theo thời gian) + **dạng sóng âm thanh**; **2 tay nắm** chọn đầu / cuối; số giây chính xác; **phát thử trong đoạn** (có tiếng) với vạch đang phát; chạm dải hình để tua.
 - **Lặp** trong slide khi video ngắn hơn slide, hoặc dừng ở khung cuối [+].
 - **Tốc độ** 0,5× / 1× / 1,5× / 2× [+] (tiếng đổi theo, hoặc tắt tiếng khi khác 1×).
-- **Ảnh bìa** (khung đầu khi chưa phát) [+].
+- ~~Ảnh bìa~~ — bỏ: Instagram tự cho chọn ảnh bìa khi đăng (2026-10-16).
 
 ### M13.3 — Hiệu ứng và chuyển động
 - **Bộ lọc + chỉnh màu** [Y][S] áp lên video (cùng 25 filter, 13 thông số, xử lý từng khung bằng WebGL).
@@ -41,7 +41,7 @@
 ### M13.4 — Âm nhạc và xuất nâng cao
 - **Nhạc nền** [+] từ file trong máy (MP3 / M4A): cắt đoạn, âm lượng, nhỏ dần đầu / cuối; trộn với tiếng video.
 - **Xuất cả carousel thành một video** [S] (dải cuộn ngang — cho Reels / Story / TikTok).
-- **Story có video** [+]: tự chia video dài thành các story 15 s.
+- ~~Story: tự chia video dài thành story 15 s~~ — bỏ: Instagram nhận story video tới 60 s, app đã giới hạn 60 s (2026-10-16).
 
 ## Giới hạn và rủi ro
 

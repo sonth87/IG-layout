@@ -22,8 +22,11 @@ import { AdjustTool, FilterTool } from "./tools/ColorTools";
 import { CropTool } from "./tools/CropTool";
 import { DrawTool } from "./tools/DrawTool";
 import { SoundTool } from "./tools/SoundTool";
+import { TrimTool } from "./tools/TrimTool";
+import { AnimationTool } from "./tools/AnimationTool";
+import { MusicTool } from "./tools/MusicTool";
 import { PlaybackBar } from "./PlaybackBar";
-import { resetPlayback } from "@/lib/video/playback";
+import { attachMusic, detachMusic, pause as pausePlayback, resetPlayback, seek, usePlayback } from "@/lib/video/playback";
 import { ElementsSheet } from "./tools/ElementsSheet";
 import { FillTool, MaskTool, StyleTool } from "./tools/ElementTools";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
@@ -62,9 +65,12 @@ type Tool =
   | "more"
   | "layers"
   | "draw"
-  | "sound";
+  | "sound"
+  | "trim"
+  | "animate"
+  | "music";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -195,6 +201,25 @@ export function Editor({ onClose }: { onClose: () => void }) {
     area.scrollTo({ left: px - area.clientWidth / 2, top: py - area.clientHeight / 2, behavior: "smooth" });
   }
 
+  // Background music plays with the project (M13.4).
+  const musicAsset = doc.music ? assets[doc.music.assetId] : undefined;
+  useEffect(() => {
+    if (doc.music && musicAsset?.audio) attachMusic(musicAsset.url, doc.music, musicAsset.audio.duration);
+    else detachMusic();
+  }, [doc.music, musicAsset]);
+  useEffect(() => detachMusic, []);
+
+  // Editing an element: stop playing and go back to the start, where elements sit at
+  // their real positions (animations are only shown while playing, M13.3).
+  useEffect(() => {
+    if (!selectedId) return;
+    const p = usePlayback.getState();
+    if (p.playing || p.time > 0) {
+      pausePlayback();
+      seek(0);
+    }
+  }, [selectedId]);
+
   function openTool(next: Tool) {
     if (DRAFT_TOOLS.includes(next)) store.beginDraft();
     setTool(next);
@@ -257,7 +282,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     </section>
   );
 
-  type MoreKey = "background" | "slides" | "layers" | "draw" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg";
+  type MoreKey = "background" | "slides" | "layers" | "draw" | "music" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg" | "crop" | "animate";
 
   /** Secondary actions for the selection ("⋯ More"), described as data. */
   function moreActions(): Action<MoreKey>[] {
@@ -265,6 +290,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       return [
         { key: "background", label: t("editor.background"), icon: "background" },
         { key: "slides", label: isGrid ? t("editor.grid") : doc.type === "story" ? t("editor.frames") : t("editor.slides"), icon: "slides" },
+        { key: "music", label: t("music.title"), icon: "music" },
         { key: "draw", label: t("editor.draw"), icon: "pencil" },
         { key: "layers", label: t("layers.title"), icon: "layers" },
       ];
@@ -272,7 +298,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
     const list: Action<MoreKey>[] = [];
     if (selected.type === "image") {
       if (selected.assetId) list.push({ key: "replace", label: t("editor.replace"), icon: "replace" });
-      if (selected.assetId) list.push({ key: "removeBg", label: t("removeBg.title"), icon: "sparkles" });
+      if (selectedIsVideo) list.unshift({ key: "crop", label: t("editor.crop"), icon: "crop" }, { key: "animate", label: t("editor.animate"), icon: "motion" });
+      else if (selected.assetId) list.push({ key: "removeBg", label: t("removeBg.title"), icon: "sparkles" });
       if (selected.slot) list.push({ key: "swap", label: t("editor.swap"), icon: "swap" });
       if (selected.frame === "none") list.push({ key: "mask", label: t("editor.mask"), icon: "mask" });
     }
@@ -293,6 +320,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (key === "background") return openTool("background");
     if (key === "slides") return openTool("slides");
     if (key === "layers") return setTool("layers");
+    if (key === "music") return setTool("music");
     if (key === "draw") {
       store.startDrawing();
       return setTool("draw");
@@ -306,6 +334,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (key === "lock") return store.toggleLock(id);
     if (key === "unrotate") return store.updateElement(id, { rotation: 0 });
     if (key === "removeBg") return setRemoveBgFor(id);
+    if (key === "crop") return openTool("crop");
+    if (key === "animate") return openTool("animate");
   }
 
   const more = <ToolButton label={t("editor.more")} icon="more" onClick={() => setTool("more")} />;
@@ -320,7 +350,9 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "fill" && selected) bottom = <FillTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "draw") bottom = <DrawTool onClose={close} />;
+  else if (tool === "music") bottom = <MusicTool onClose={close} />;
   else if (tool === "sound" && selected) bottom = <SoundTool elementId={selected.id} onClose={close} />;
+  else if (tool === "animate" && selected) bottom = <AnimationTool elementId={selected.id} onClose={close} />;
   else if (tool === "slides") bottom = <SlidesTool onClose={close} showSafeZone={showSafeZone} onSafeZone={setShowSafeZone} />;
   else if (selected) {
     // Tools for the selection (≤ 4) + Done. Duplicate / delete / lock / more float over
@@ -336,11 +368,13 @@ export function Editor({ onClose }: { onClose: () => void }) {
         </>
       );
     else if (selected.type === "image" && selectedIsVideo)
-      // Video (M13.1): colour tools come in M13.3.
+      // Video: trim, sound, colour; crop is in ⋯ (M13.3).
       tools = (
         <>
-          <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />
+          <ToolButton label={t("trim.title")} icon="scissors" onClick={() => openTool("trim")} />
           <ToolButton label={t("video.sound")} icon="volume" onClick={() => openTool("sound")} />
+          <ToolButton label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />
+          <ToolButton label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />
           {selected.locked ? (
             <ToolButton label={t("editor.unlock")} icon="unlock" onClick={() => store.toggleLock(selected.id)} />
           ) : (
@@ -360,6 +394,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
           ) : (
             <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
           )}
+          <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
           {done}
         </>
       );
@@ -368,6 +403,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <>
           <ToolButton label={t("editor.editText")} icon="pencil" onClick={() => store.setEditingText(selected.id)} />
           <ToolButton label={t("editor.textStyle")} icon="text" onClick={() => openTool("text")} />
+          <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
           {done}
         </>
       );
@@ -376,6 +412,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <>
           {/* Emoji keep their own colours: opacity only (still in the Color tool). */}
           <ToolButton label={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} icon="palette" onClick={() => openTool("fill")} />
+          <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
           {done}
         </>
       );
@@ -612,6 +649,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       {tool === "more" && <ActionSheet title={t("editor.more")} actions={moreActions()} onAction={runMore} onClose={close} />}
       {tool === "layers" && <LayersSheet onClose={close} />}
       {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
+      {tool === "trim" && selected && <TrimTool elementId={selected.id} onClose={close} />}
       {tool === "elements" && <ElementsSheet onClose={close} />}
       {editingText && <TextEditDialog elementId={editingText} onClose={() => store.setEditingText(null)} />}
 

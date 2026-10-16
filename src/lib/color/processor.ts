@@ -151,11 +151,18 @@ function fit(source: CanvasImageSource & { width: number; height: number }, max:
   return { image: c as CanvasImageSource, width: c.width, height: c.height };
 }
 
-function render(source: HTMLImageElement | HTMLCanvasElement, p: ShaderParams, maxSize: number): HTMLCanvasElement | null {
+function render(
+  source: HTMLImageElement | HTMLCanvasElement,
+  p: ShaderParams,
+  maxSize: number,
+  /** Video frames (M13.3): always upload (the picture changed), draw into this canvas. */
+  frame?: { out: HTMLCanvasElement },
+): HTMLCanvasElement | null {
   const g = context();
   if (!g) return null;
   const { gl, uniforms: u } = g;
   const { image, width, height } = fit(source, Math.min(maxSize, g.maxSize));
+  if (frame) g.uploaded = null;
 
   g.canvas.width = width;
   g.canvas.height = height;
@@ -174,11 +181,21 @@ function render(source: HTMLImageElement | HTMLCanvasElement, p: ShaderParams, m
   gl.uniform3fv(u.splitHighlights, p.splitHighlights);
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
-  const out = document.createElement("canvas");
-  out.width = width;
-  out.height = height;
+  const out = frame?.out ?? document.createElement("canvas");
+  if (out.width !== width || out.height !== height) {
+    out.width = width;
+    out.height = height;
+  }
   out.getContext("2d")!.drawImage(g.canvas, 0, 0);
   return out;
+}
+
+/**
+ * One video frame with colour applied (M13.3), drawn into `out` (reused every frame,
+ * no cache). `source` must have width / height (canvas, or a <video> wrapped by the caller).
+ */
+export function processFrame(source: HTMLCanvasElement, params: ShaderParams, maxSize: number, out: HTMLCanvasElement) {
+  return render(source, params, maxSize, { out });
 }
 
 // Small LRU cache: slider drags produce many short-lived results.

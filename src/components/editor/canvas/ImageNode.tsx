@@ -1,7 +1,7 @@
 "use client";
 
 import type Konva from "konva";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Shape } from "react-konva";
 import { drawShape } from "@/lib/elements/shapes";
 import { frameInset, straightenScale } from "@/lib/project/geometry";
@@ -12,6 +12,13 @@ import { useElementInteraction } from "./interaction";
 import { useHtmlImage } from "./useHtmlImage";
 import { frameOverrides } from "@/lib/video/frames";
 import { attachVideo, defaultMedia, detachVideo } from "@/lib/video/playback";
+import { filterById } from "@/lib/color/filters";
+import { isNeutral, shaderParams } from "@/lib/color/params";
+import { processFrame } from "@/lib/color/processor";
+
+/** Long edge of video frames while editing (colour processed every frame). */
+const VIDEO_PREVIEW_MAX = 1080;
+import { kenBurnsCrop, motionClock } from "@/lib/motion/motion";
 import { useProcessedImage } from "./useProcessedImage";
 
 interface Props {
@@ -54,6 +61,13 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
   const compareThis = useEditor((s) => s.compare && s.selectedId === el.id);
   const exporting = useEditor((s) => s.exporting);
   const image = useProcessedImage(original, el, { original: compareThis, full: exporting });
+  // Colour on video frames (M13.3): processed each draw into reused canvases.
+  const preset = filterById(el.filter?.id)?.preset;
+  const videoParams = useMemo(
+    () => (isVideo && !compareThis && !isNeutral(el.adjust, el.filter) ? shaderParams(el.adjust, preset, el.filter?.intensity ?? 0) : null),
+    [isVideo, compareThis, el.adjust, el.filter, preset],
+  );
+  const frameCanvas = useRef<{ scratch: HTMLCanvasElement; out: HTMLCanvasElement } | null>(null);
   /** Crop while panning a slot (drawn live, committed on release). */
   const liveCrop = useRef<Rect | null>(null);
   const panStart = useRef<{ x: number; y: number } | null>(null);
@@ -108,12 +122,35 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
     // Video: the exporter's decoded frame, else the live player, else the poster.
     const override = frameOverrides.get(el.id);
     const live = player.current && player.current.readyState >= 2 ? player.current : null;
-    const source: CanvasImageSource | null = isVideo ? (override ?? live ?? original) : image;
+    let source: CanvasImageSource | null = isVideo ? (override ?? live ?? original) : image;
+    let videoScale = 1; // processed frame px per source px
+    if (isVideo && source && videoParams && asset) {
+      const max = exporting ? Infinity : VIDEO_PREVIEW_MAX;
+      const k = Math.min(1, max / Math.max(asset.width, asset.height));
+      frameCanvas.current ??= { scratch: document.createElement("canvas"), out: document.createElement("canvas") };
+      const { scratch, out } = frameCanvas.current;
+      const w = Math.round(asset.width * k);
+      const h = Math.round(asset.height * k);
+      if (scratch.width !== w || scratch.height !== h) {
+        scratch.width = w;
+        scratch.height = h;
+      }
+      scratch.getContext("2d")!.drawImage(source, 0, 0, w, h);
+      const processed = processFrame(scratch, videoParams, max, out);
+      if (processed) {
+        source = processed;
+        videoScale = processed.width / asset.width;
+      }
+    }
     if (source && original) {
-      const crop = liveCrop.current ?? el.crop;
+      let crop = liveCrop.current ?? el.crop;
+      // Ken Burns (M13.3): drift inside the frame while playing / exporting.
+      const kb = el.motion?.kenBurns;
+      const progress = kb ? motionClock()?.progress.get(el.id) : undefined;
+      if (kb && progress !== undefined && asset) crop = kenBurnsCrop(crop, kb, progress, asset);
       // The processed copy may be smaller than the original: crop is in original pixels.
       // Crop is in source pixels; the processed photo copy may be smaller (videos: same size).
-      const k = isVideo ? (source === original ? original.width / (asset?.width || original.width) : 1) : image!.width / original.width;
+      const k = isVideo ? (source === original ? original.width / (asset?.width || original.width) : videoScale) : image!.width / original.width;
       const s = straightenScale(iw, ih, el.straighten);
       c.save();
       c.translate(iw / 2, ih / 2);

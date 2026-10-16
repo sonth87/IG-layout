@@ -2,10 +2,12 @@ import type Konva from "konva";
 import { layerRegion } from "@/lib/export/slices";
 import { rotatedBounds } from "@/lib/project/geometry";
 import { slideRect } from "@/lib/project/layout";
-import type { ImageAsset, ImageElement, MediaSettings, ProjectDoc, Rect } from "@/lib/project/types";
+import { type ImageAsset, type ImageElement, type MediaSettings, type Music, type ProjectDoc, type Rect, SLIDE_SIZE } from "@/lib/project/types";
+import { musicGain } from "./music";
+import { applyMotion, clearMotion, hasMotion, motionDuration } from "@/lib/motion/motion";
 import { frameOverrides } from "./frames";
 import { ensureAac } from "./import";
-import { defaultMedia } from "./playback";
+import { defaultMedia, isAudible, sourceTime, timelineLength } from "./playback";
 
 // Exporting a slide that contains video (M13.1): an MP4 (H.264 + AAC), the size of the
 // slide, as long as the longest video part on it (others loop). Frames are rendered
@@ -36,13 +38,42 @@ export function slideVideos(doc: ProjectDoc, index: number, assets: Record<strin
   });
 }
 
-const partLength = (m: MediaSettings) => Math.max(0.05, m.end - m.start);
+const partLength = timelineLength;
 
-/** Mixes the sound of the slide's videos over `duration` seconds (null if there is none). */
-async function mixAudio(mb: typeof import("mediabunny"), videos: SlideVideo[], duration: number) {
-  const audible = videos.filter((v) => v.asset.video?.hasAudio && !v.media.muted && v.media.volume > 0);
-  if (audible.length === 0) return null;
+/** Places the background music on `ctx`: from `music.start`, `offset` seconds into the piece, with fades. */
+export async function addMusic(mb: typeof import("mediabunny"), ctx: OfflineAudioContext, music: Music, asset: ImageAsset, offset: number, total: number) {
+  const input = new mb.Input({ source: new mb.BlobSource(asset.blob), formats: mb.ALL_FORMATS });
+  const track = await input.getPrimaryAudioTrack();
+  if (!track) return;
+  const gain = ctx.createGain();
+  gain.connect(ctx.destination);
+  // Volume envelope (fades) sampled every 0.1 s.
+  for (let t = 0; t <= ctx.length / ctx.sampleRate + 0.1; t += 0.1) gain.gain.setValueAtTime(musicGain(music, offset + t, total), t);
+  const trackLen = Math.max(0.1, (asset.audio?.duration ?? 0) - music.start);
+  const span = ctx.length / ctx.sampleRate;
+  const chunks: { buffer: AudioBuffer; at: number }[] = [];
+  for await (const { buffer, timestamp } of new mb.AudioBufferSink(track).buffers(music.start, music.start + Math.min(trackLen, span + offset + 1))) {
+    chunks.push({ buffer, at: timestamp - music.start });
+  }
+  // Loops when the track is shorter than the piece.
+  for (let loop = 0; loop * trackLen < offset + span; loop++) {
+    for (const { buffer, at } of chunks) {
+      const when = loop * trackLen + at - offset;
+      if (when + buffer.duration <= 0 || when >= span) continue;
+      const src = ctx.createBufferSource();
+      src.buffer = buffer;
+      src.connect(gain);
+      src.start(Math.max(0, when), Math.max(0, -when));
+    }
+  }
+}
+
+/** Mixes the sound of the slide's videos (+ music) over `duration` seconds (null if silent). */
+async function mixAudio(mb: typeof import("mediabunny"), videos: SlideVideo[], duration: number, music?: { music: Music; asset: ImageAsset }) {
+  const audible = videos.filter((v) => v.asset.video?.hasAudio && isAudible(v.media));
+  if (audible.length === 0 && !music) return null;
   const ctx = new OfflineAudioContext(2, Math.ceil(duration * AUDIO_RATE), AUDIO_RATE);
+  if (music) await addMusic(mb, ctx, music.music, music.asset, 0, duration);
   for (const v of audible) {
     const input = new mb.Input({ source: new mb.BlobSource(v.asset.blob), formats: mb.ALL_FORMATS });
     const track = await input.getPrimaryAudioTrack();
@@ -55,8 +86,8 @@ async function mixAudio(mb: typeof import("mediabunny"), videos: SlideVideo[], d
     for await (const { buffer, timestamp } of new mb.AudioBufferSink(track).buffers(v.media.start, v.media.end)) {
       chunks.push({ buffer, at: timestamp - v.media.start });
     }
-    // Loop the part until the slide ends, like the picture.
-    for (let offset = 0; offset < duration; offset += len) {
+    // Loop the part until the slide ends, like the picture (once when not looping).
+    for (let offset = 0; offset < (v.media.loop === false ? Math.min(len, duration) : duration); offset += len) {
       for (const { buffer, at } of chunks) {
         const when = offset + at;
         if (when >= duration || at >= len) continue;
@@ -86,7 +117,9 @@ export async function exportVideoSlide(opts: {
   const { layer, doc, index, viewScale, assets, withAudio, onProgress } = opts;
   const mb = await import("mediabunny");
   const videos = slideVideos(doc, index, assets);
-  const duration = Math.max(...videos.map((v) => partLength(v.media)));
+  // Video slides last as long as their longest video; animation-only slides: the animation length.
+  const duration = videos.length ? Math.max(...videos.map((v) => partLength(v.media))) : motionDuration(doc);
+  const animated = doc.elements.some(hasMotion);
   const frames = Math.max(1, Math.round(duration * VIDEO_FPS));
   const r = slideRect(doc, index);
   const width = Math.round(r.width);
@@ -101,7 +134,9 @@ export async function exportVideoSlide(opts: {
   const output = new mb.Output({ format: new mb.Mp4OutputFormat({ fastStart: "in-memory" }), target: new mb.BufferTarget() });
   const videoSource = new mb.CanvasSource(canvas, { codec: "avc", bitrate: VIDEO_BITRATE, keyFrameInterval: 2 });
   output.addVideoTrack(videoSource, { frameRate: VIDEO_FPS });
-  const audio = withAudio ? await mixAudio(mb, videos, duration) : null;
+  const musicAsset = doc.music && assets[doc.music.assetId];
+  const music = doc.music && musicAsset?.audio ? { music: doc.music, asset: musicAsset } : undefined;
+  const audio = withAudio ? await mixAudio(mb, videos, duration, music) : null;
   let audioSource: InstanceType<typeof mb.AudioBufferSource> | null = null;
   if (audio) {
     await ensureAac(mb);
@@ -116,8 +151,7 @@ export async function exportVideoSlide(opts: {
     videos.map(async (v) => {
       const input = new mb.Input({ source: new mb.BlobSource(v.asset.blob), formats: mb.ALL_FORMATS });
       const track = (await input.getPrimaryVideoTrack())!;
-      const len = partLength(v.media);
-      const times = Array.from({ length: frames }, (_, i) => v.media.start + ((i / VIDEO_FPS) % len));
+      const times = Array.from({ length: frames }, (_, i) => sourceTime(v.media, i / VIDEO_FPS));
       return { id: v.el.id, it: new mb.CanvasSink(track, { poolSize: 2 }).canvasesAtTimestamps(times)[Symbol.asyncIterator]() };
     }),
   );
@@ -128,6 +162,7 @@ export async function exportVideoSlide(opts: {
         const next = await s.it.next();
         if (!next.done && next.value) frameOverrides.set(s.id, next.value.canvas);
       }
+      if (animated) applyMotion(layer, doc, i / VIDEO_FPS, () => duration, SLIDE_SIZE[doc.ratio]);
       const rendered = layer.toCanvas({ ...layerRegion(layer, r, viewScale), pixelRatio: 1 / viewScale });
       ctx.clearRect(0, 0, width, height);
       ctx.drawImage(rendered, 0, 0, width, height);
@@ -139,6 +174,7 @@ export async function exportVideoSlide(opts: {
     audioSource?.close();
     await output.finalize();
   } finally {
+    if (animated) clearMotion(layer, doc);
     for (const s of streams) {
       frameOverrides.delete(s.id);
       await s.it.return?.();

@@ -43,6 +43,7 @@ function migrateImage(el: Partial<ImageElement>, assetSize: AssetSize): ImageEle
     ...(el.hidden !== undefined && { hidden: el.hidden }),
     ...(el.blend !== undefined && { blend: el.blend }),
     ...(el.media !== undefined && { media: el.media }),
+    ...(el.motion !== undefined && { motion: el.motion }),
     ...(el.fromLayout !== undefined && { fromLayout: el.fromLayout }),
   };
 }
