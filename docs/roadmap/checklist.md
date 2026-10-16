@@ -245,5 +245,7 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Service worker: trang khác `/` không ghi đè bản offline của app
 - [x] Chủ dự án chạy trên iPhone: video thật 1902×1080 phát 60 fps trên canvas; xuất 3 s MP4 H.264 trong 1,8 s
 - [ ] Xác nhận: file MP4 lưu vào Ảnh được và Instagram nhận (chọn được khi tạo bài)
-- [x] Theo tiêu chí: **làm M13 đầy đủ** (chờ xác nhận lưu / đăng)
+- [x] Theo tiêu chí: **làm M13 đầy đủ** — [đặc tả video](../product/video-spec.md) (D-80, D-81)
+- [x] Trang thử bước 4: nén video đã chọn về 1080p, giữ tiếng (Mediabunny) — máy tính: 10 s trong 1,4 s, H.264 + AAC
+- [ ] Chủ dự án chạy bước 4 trên iPhone: có tiếng không, Instagram chọn được file không
 

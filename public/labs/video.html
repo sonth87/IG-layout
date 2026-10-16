@@ -53,6 +53,14 @@
     <p class="muted">Sau khi lưu: mở Ảnh xem có phát được không, thử đăng thử vào Instagram (không cần đăng thật).</p>
   </section>
 
+  <section>
+    <h2>4. Nén video đã chọn, giữ tiếng (10 giây đầu)</h2>
+    <p class="muted">Chọn video ở bước 2 trước (nên chọn video có tiếng). Dùng đúng thư viện sẽ dùng trong app.</p>
+    <p class="row"><button id="convert">Nén thử</button> <button id="saveConv" disabled>Lưu / Chia sẻ</button></p>
+    <pre id="convOut">—</pre>
+    <p class="muted">Sau khi lưu: mở trong Ảnh, nghe có tiếng không; thử chọn nó khi tạo bài Instagram.</p>
+  </section>
+
   <p class="row"><button id="copy">Sao chép kết quả</button></p>
 </main>
 
@@ -241,6 +249,65 @@ $("save").onclick = async () => {
   a.download = file.name;
   a.click();
   report.saved = "download";
+};
+
+// ── 4. Convert the chosen video with audio (Mediabunny, MPL-2.0) ──────
+let converted = null;
+let chosenFile = null;
+$("file").addEventListener("change", (e) => (chosenFile = e.target.files[0] ?? null));
+$("convert").onclick = async () => {
+  if (!chosenFile) return ($("convOut").textContent = "Chọn video ở bước 2 trước.");
+  $("convert").disabled = true;
+  $("convOut").textContent = "Đang nén…";
+  try {
+    const mb = await import("https://cdn.jsdelivr.net/npm/mediabunny@1.61.5/+esm");
+    const info = { aacNative: await mb.canEncodeAudio("aac"), opusNative: await mb.canEncodeAudio("opus") };
+    if (!info.aacNative) {
+      // Fallback AAC encoder (WASM) when the browser has none.
+      const { registerAacEncoder } = await import("https://cdn.jsdelivr.net/npm/@mediabunny/aac-encoder@1.61.5/+esm");
+      registerAacEncoder();
+      info.aacFallback = await mb.canEncodeAudio("aac");
+    }
+    const input = new mb.Input({ source: new mb.BlobSource(chosenFile), formats: mb.ALL_FORMATS });
+    const vt = await input.getPrimaryVideoTrack();
+    const at = await input.getPrimaryAudioTrack();
+    info.source = { video: vt ? `${await vt.getCodec()} ${vt.displayWidth}×${vt.displayHeight}` : null, audio: at ? `${await at.getCodec()} ${at.sampleRate} Hz ${at.numberOfChannels}ch` : null };
+    const output = new mb.Output({ format: new mb.Mp4OutputFormat({ fastStart: "in-memory" }), target: new mb.BufferTarget() });
+    const long = Math.max(vt.displayWidth, vt.displayHeight);
+    const k = Math.min(1, 1920 / long); // 1080p: longest side ≤ 1920
+    const conversion = await mb.Conversion.init({
+      input,
+      output,
+      trim: { start: 0, end: Math.min(10, await input.computeDuration()) },
+      video: { width: Math.round((vt.displayWidth * k) / 2) * 2, height: Math.round((vt.displayHeight * k) / 2) * 2, fit: "contain", codec: "avc", bitrate: 6e6, forceTranscode: true },
+      audio: { codec: "aac", bitrate: 128e3 },
+    });
+    info.discarded = conversion.discardedTracks.map((d) => `${d.track.type}: ${d.reason}`);
+    conversion.onProgress = (p) => ($("convOut").textContent = `Đang nén… ${Math.round(p * 100)}%`);
+    const t0 = performance.now();
+    await conversion.execute();
+    info.seconds = +((performance.now() - t0) / 1000).toFixed(1);
+    converted = new Blob([output.target.buffer], { type: "video/mp4" });
+    info.sizeMB = +(converted.size / 1e6).toFixed(2);
+    info.inputMB = +(chosenFile.size / 1e6).toFixed(1);
+    report.convert = info;
+    $("convOut").textContent = JSON.stringify(info, null, 2);
+    $("saveConv").disabled = false;
+  } catch (e) {
+    report.convert = { error: String(e) };
+    $("convOut").textContent = "Lỗi: " + e;
+  }
+  $("convert").disabled = false;
+};
+$("saveConv").onclick = async () => {
+  const file = new File([converted], "lab-audio.mp4", { type: "video/mp4" });
+  if (navigator.canShare?.({ files: [file] })) {
+    try { await navigator.share({ files: [file] }); return; } catch {}
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(file);
+  a.download = file.name;
+  a.click();
 };
 
 $("copy").onclick = async () => {
