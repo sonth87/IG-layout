@@ -34,8 +34,9 @@ Chọn ảnh → chọn **layout** (hoặc **Bỏ qua**). Chạm hai ảnh trong
 - **Đổi layout** chỉ thay ảnh của layout; chữ, hình, icon bạn đã thêm vẫn giữ.
 - **Ô lưới của layout:** kéo = dịch ảnh bên trong ô. **Đổi chỗ** → chạm ô khác để đổi hai ảnh. Ô trống: **Thêm ảnh**.
 - **Công cụ cho ảnh:** Thay ảnh, Cắt (tỉ lệ, nắn thẳng, xoay 90°, lật), Chỉnh màu (13 thông số), Filter (5 filter, cường độ, áp cho tất cả), Hình dạng (8 mask), Kiểu (khung polaroid / viền trắng / film, viền, bóng, độ mờ).
-- **Chữ:** nút **Chữ** → gõ nội dung (chạm đúp vào chữ để sửa lại) → **Kiểu chữ** (font, cỡ, màu, căn lề, viền chữ, bóng, nền chữ).
-- **Thành phần:** hình khối, cuộn film, icon, khung ảnh trống.
+- **Chữ:** nút **Chữ** → gõ nội dung (chạm đúp vào chữ để sửa lại) → **Kiểu chữ → Font**: 78 font theo nhóm, chỉnh **độ đậm**. Font tải lần đầu khi dùng (cần mạng lần đầu). → **Kiểu chữ** (font, cỡ, màu, căn lề, viền chữ, bóng, nền chữ).
+- **Thành phần:** sticker (đổi màu bằng Màu), lớp phủ (vệt sáng, bụi, giấy… — chỉnh **Hoà trộn** trong Kiểu), hình khối, icon, khung ảnh trống (polaroid trắng / đen, viền trắng / đen, triển lãm, film).
+- **Vẽ tay:** ⋯ → **Vẽ**, chọn màu và cỡ nét, vẽ bằng một ngón tay, **✓** để thêm.
 - **Nền:** màu, chuyển màu, ảnh làm mờ.
 - **Slide / Khung / Lưới:** thêm, xoá, đổi chỗ slide; Grid: thêm / bớt hàng, bù khe.
 - Thanh công cụ hiện các nút chính; các nút còn lại trong **Thêm**. Khi đang chọn: **Nhân bản / Xoá / Xong** ở thanh trên.

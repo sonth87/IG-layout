@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { canvasSize, slideRect } from "@/lib/project/layout";
-import type { AspectRatio, ImageAsset, ImageElement, ProjectDoc, ProjectType } from "@/lib/project/types";
+import { type AspectRatio, frameColor, type ImageAsset, type ImageElement, type ProjectDoc, type ProjectType } from "@/lib/project/types";
 import { applyTemplate } from "@/lib/templates/apply";
 import type { Template, TemplateOptions } from "@/lib/templates/types";
 import { TEXT_FONTS, fontWeight } from "@/lib/text/fonts";
@@ -99,7 +99,8 @@ export function TemplatePreview(props: {
         if (el.type !== "image") return null;
         const tone = PLACEHOLDERS[cell++ % PLACEHOLDERS.length];
         const asset = el.assetId ? byId.get(el.assetId) : undefined;
-        const framed = el.frame === "polaroid" || el.frame === "white";
+        const framed = el.frame !== "none" && el.frame !== "film";
+        const polaroid = el.frame === "polaroid" || el.frame === "polaroidBlack";
         return (
           <div
             key={el.id}
@@ -112,11 +113,11 @@ export function TemplatePreview(props: {
               transform: `rotate(${el.rotation}deg)`,
               borderRadius: radius(el, k),
               border: framed
-                ? `${Math.max(1.5, el.width * k * 0.05)}px solid #ffffff`
+                ? `${Math.max(1.5, el.width * k * (el.frame === "gallery" ? 0.11 : 0.05))}px solid ${frameColor(el.frame)}`
                 : el.border
                   ? `${Math.max(1, el.border.width * k)}px solid ${el.border.color}`
                   : undefined,
-              borderBottomWidth: el.frame === "polaroid" ? Math.max(3, el.width * k * 0.18) : undefined,
+              borderBottomWidth: polaroid ? Math.max(3, el.width * k * 0.18) : undefined,
               boxShadow: el.shadow ? "0 2px 4px rgba(0,0,0,0.3)" : undefined,
               background: asset ? `center / cover no-repeat url(${asset.url})` : tone,
             }}

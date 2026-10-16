@@ -2,16 +2,17 @@
 
 import Konva from "konva";
 import { useEffect, useLayoutEffect, useRef } from "react";
-import { Circle, Group, Label, Layer, Line, Rect, Stage, Tag, Text, Transformer } from "react-konva";
+import { Circle, Group, Label, Layer, Line, Rect, Shape, Stage, Tag, Text, Transformer } from "react-konva";
 import { rotatedBounds } from "@/lib/project/geometry";
 import { snap, snapTargets } from "@/lib/project/snap";
 import { canvasSize, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
 import { scaleExtras } from "@/lib/elements/resize";
+import { strokePath } from "@/lib/elements/shapes";
 import type { CanvasElement } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { BackgroundNode } from "./BackgroundNode";
 import { ImageNode } from "./ImageNode";
-import { IconNode, ShapeNode } from "./ShapeIconNodes";
+import { DrawingNode, IconNode, ShapeNode } from "./ShapeIconNodes";
 import { isTouchUI } from "./interaction";
 import { TextNode } from "./TextNode";
 
@@ -124,6 +125,11 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   const updateElement = useEditor((s) => s.updateElement);
   /** Snapping guides are drawn straight into Konva: no React render per drag frame (F-01). */
   const guidesRef = useRef<Konva.Group>(null);
+  const drawing = useEditor((s) => s.drawing);
+  const addStroke = useEditor((s) => s.addStroke);
+  /** Stroke being drawn (M11): drawn live into a Konva line, saved on release. */
+  const liveRef = useRef<Konva.Shape>(null);
+  const live = useRef<{ points: number[]; pointers: Set<number> }>({ points: [], pointers: new Set() });
   const angleRef = useRef<Konva.Label>(null);
   const shownGuides = useRef("");
   const targets = useRef<{ xs: number[]; ys: number[] } | null>(null);
@@ -141,7 +147,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     if (!stage) return;
     const box = stage.container();
     const owned = (e: TouchEvent) => {
-      if (e.touches.length >= 2) return true;
+      if (e.touches.length >= 2 || useEditor.getState().drawing) return true;
       const r = box.getBoundingClientRect();
       const t = e.touches[0];
       let hit: Konva.Node | null = stage.getIntersection({ x: t.clientX - r.left, y: t.clientY - r.top });
@@ -256,7 +262,43 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     pinch.current = { kind: "element", node, ...info, rotation: node.rotation(), pos: node.position(), rotating: false, snapped: false };
   }
 
+  function drawLive() {
+    liveRef.current?.getLayer()?.batchDraw();
+  }
+
+  function onDrawDown(e: Konva.KonvaEventObject<PointerEvent>) {
+    const l = live.current;
+    l.pointers.add(e.evt.pointerId);
+    // A second finger cancels the stroke (it was probably a pinch).
+    if (l.pointers.size > 1) l.points = [];
+    else {
+      const p = e.target.getStage()!.getRelativePointerPosition()!;
+      l.points = [p.x, p.y];
+    }
+    drawLive();
+  }
+
+  function onDrawMove(e: Konva.KonvaEventObject<PointerEvent>) {
+    const l = live.current;
+    if (l.pointers.size !== 1 || l.points.length === 0) return;
+    const p = e.target.getStage()!.getRelativePointerPosition()!;
+    const lx = l.points[l.points.length - 2];
+    const ly = l.points[l.points.length - 1];
+    if (Math.hypot(p.x - lx, p.y - ly) * viewScale < 2) return; // skip tiny moves
+    l.points.push(p.x, p.y);
+    drawLive();
+  }
+
+  function onDrawUp(e: Konva.KonvaEventObject<PointerEvent>) {
+    const l = live.current;
+    l.pointers.delete(e.evt.pointerId);
+    if (l.points.length >= 2 && l.pointers.size === 0) addStroke(l.points);
+    l.points = [];
+    drawLive();
+  }
+
   function onTouchMove(e: Konva.KonvaEventObject<TouchEvent>) {
+    if (drawing) return;
     const stage = e.target.getStage();
     const touches = e.evt.touches;
     if (!stage || touches.length !== 2) return;
@@ -332,16 +374,21 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       onMouseDown={(e) => e.target === e.target.getStage() && select(null)}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
+      onPointerDown={drawing ? onDrawDown : undefined}
+      onPointerMove={drawing ? onDrawMove : undefined}
+      onPointerUp={drawing ? onDrawUp : undefined}
+      onPointerCancel={drawing ? onDrawUp : undefined}
     >
       {/* Content layer: exactly what gets exported. */}
       {/* The stage also covers the margins around the canvas: clip to the canvas. */}
-      <Layer ref={contentLayerRef} clipX={0} clipY={0} clipWidth={width} clipHeight={height}>
+      <Layer ref={contentLayerRef} clipX={0} clipY={0} clipWidth={width} clipHeight={height} listening={!drawing}>
         <BackgroundNode background={doc.background} width={width} height={height} />
         {doc.elements.map((el) => {
           const hooks = { onDragMove, onDragEnd };
           if (el.type === "text") return <TextNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "shape") return <ShapeNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "icon") return <IconNode key={el.id} element={el} hooks={hooks} />;
+          if (el.type === "drawing") return <DrawingNode key={el.id} element={el} hooks={hooks} />;
           return <ImageNode key={el.id} element={el} onDragMove={onDragMove} onDragEnd={onDragEnd} />;
         })}
       </Layer>
@@ -431,6 +478,27 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       {/* Selection + snapping guides, never exported. */}
       <Layer>
         <Group ref={guidesRef} listening={false} />
+        {drawing && (
+          // Strokes of the drawing in progress + the live one (not exported until ✓).
+          <Shape
+            ref={liveRef}
+            listening={false}
+            sceneFunc={(ctx) => {
+              const c = ctx._context;
+              c.save();
+              c.strokeStyle = drawing.color;
+              c.lineWidth = drawing.size;
+              c.lineCap = "round";
+              c.lineJoin = "round";
+              for (const st of [...drawing.strokes, live.current.points]) {
+                if (st.length < 2) continue;
+                strokePath(c, st);
+                c.stroke();
+              }
+              c.restore();
+            }}
+          />
+        )}
         <SelectionTransformer selectedId={selectedId} onRotate={showAngle} />
         <Label ref={angleRef} visible={false} listening={false}>
           <Tag fill="rgba(17,18,20,0.85)" cornerRadius={12} pointerDirection="none" />

@@ -41,6 +41,7 @@ function migrateImage(el: Partial<ImageElement>, assetSize: AssetSize): ImageEle
     // M8 flags: only present when set, so a reload gives back the exact same doc.
     ...(el.locked !== undefined && { locked: el.locked }),
     ...(el.hidden !== undefined && { hidden: el.hidden }),
+    ...(el.blend !== undefined && { blend: el.blend }),
     ...(el.fromLayout !== undefined && { fromLayout: el.fromLayout }),
   };
 }

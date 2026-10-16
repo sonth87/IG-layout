@@ -1,7 +1,7 @@
 "use client";
 
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
-import { type CanvasElement, FRAME_STYLES, type FrameStyle, type ImageElement, MASK_SHAPES } from "@/lib/project/types";
+import { BLEND_MODES, type CanvasElement, FRAME_STYLES, type FrameStyle, type ImageElement, MASK_SHAPES } from "@/lib/project/types";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { MaskPreview, Slider, Swatches, ToolSheet } from "./controls";
@@ -124,6 +124,22 @@ export function StyleTool({ elementId, onClose }: ToolProps) {
         format={(v) => `${v}%`}
         onChange={(v) => patch({ opacity: v / 100 })}
       />
+      {/* Blend with what is below (M11, overlays). */}
+      <div role="radiogroup" aria-label={t("tool.blend")} className="flex items-center gap-2 overflow-x-auto py-1.5">
+        <span className="w-24 shrink-0 text-[13px] text-muted">{t("tool.blend")}</span>
+        {BLEND_MODES.map((b) => (
+          <button
+            key={b}
+            type="button"
+            role="radio"
+            aria-checked={(el.blend ?? "normal") === b}
+            onClick={() => patch({ blend: b === "normal" ? undefined : b })}
+            className={`h-8 shrink-0 rounded-full px-3 text-[12px] ${(el.blend ?? "normal") === b ? "bg-text font-bold text-bg" : "border border-border"}`}
+          >
+            {t(`blend.${b}`)}
+          </button>
+        ))}
+      </div>
       <label className="flex items-center justify-between py-2 text-sm">
         <span>{t("tool.shadow")}</span>
         <input
@@ -143,7 +159,7 @@ export function FillTool({ elementId, onClose }: ToolProps) {
   const found = useViewDoc()?.elements.find((e) => e.id === elementId);
   const updateDraft = useEditor((s) => s.updateDraft);
   const actions = useSheetActions(onClose);
-  if (!found || (found.type !== "shape" && found.type !== "icon")) return null;
+  if (!found || (found.type !== "shape" && found.type !== "icon" && found.type !== "drawing")) return null;
   const color = found.type === "shape" ? found.fill : found.color;
   const patch = (p: Partial<CanvasElement>) => updateDraft((d) => updateEl(d, elementId, p));
 

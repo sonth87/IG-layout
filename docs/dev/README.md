@@ -57,8 +57,8 @@ src/
     project/migrate.ts    nâng cấp dữ liệu project cũ
     templates/          types, library (layout cho LayoutPicker), designs (template thiết kế sẵn có chữ, cho trang chủ), apply (template → phần tử)
     color/              params (thông số màu), filters (danh sách filter), processor (WebGL + cache)
-    text/fonts.ts       font chữ cho canvas + chờ font tải
-    elements/           create (tạo chữ / hình / icon / khung), resize (co giãn cỡ chữ, viền theo tỉ lệ), shapes (vẽ hình), icons (Lucide)
+    text/fonts.ts       danh sách 78 font (nhóm, độ đậm) + chờ font tải; text/webfonts.ts khai báo next/font (đi cùng trình chỉnh sửa)
+    elements/           create (tạo chữ / hình / icon / sticker / lớp phủ / khung), stickers (SVG tự vẽ), overlays (lớp phủ sinh bằng code), resize (co giãn cỡ chữ, viền theo tỉ lệ), shapes (vẽ hình), icons (Lucide)
   app/fonts.ts          khai báo 6 font (next/font), dùng chung cho giao diện và canvas
     image/import.ts     đọc ảnh, xoay theo EXIF, thu nhỏ (D-29)
     export/slices.ts    cắt canvas theo ranh giới slide → JPEG

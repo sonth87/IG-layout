@@ -19,6 +19,7 @@ import { FloatingMenu } from "./FloatingMenu";
 import { SlideNavigator } from "./SlideNavigator";
 import { AdjustTool, FilterTool } from "./tools/ColorTools";
 import { CropTool } from "./tools/CropTool";
+import { DrawTool } from "./tools/DrawTool";
 import { ElementsSheet } from "./tools/ElementsSheet";
 import { FillTool, MaskTool, StyleTool } from "./tools/ElementTools";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
@@ -55,7 +56,8 @@ type Tool =
   | "slides"
   | "layout"
   | "more"
-  | "layers";
+  | "layers"
+  | "draw";
 /** Tools that edit a draft (✕ / ✓). */
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background"];
 
@@ -247,7 +249,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     </section>
   );
 
-  type MoreKey = "background" | "slides" | "layers" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate";
+  type MoreKey = "background" | "slides" | "layers" | "draw" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate";
 
   /** Secondary actions for the selection ("⋯ More"), described as data. */
   function moreActions(): Action<MoreKey>[] {
@@ -255,6 +257,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       return [
         { key: "background", label: t("editor.background"), icon: "background" },
         { key: "slides", label: isGrid ? t("editor.grid") : doc.type === "story" ? t("editor.frames") : t("editor.slides"), icon: "slides" },
+        { key: "draw", label: t("editor.draw"), icon: "pencil" },
         { key: "layers", label: t("layers.title"), icon: "layers" },
       ];
     }
@@ -281,6 +284,10 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (key === "background") return openTool("background");
     if (key === "slides") return openTool("slides");
     if (key === "layers") return setTool("layers");
+    if (key === "draw") {
+      store.startDrawing();
+      return setTool("draw");
+    }
     if (!id) return;
     if (key === "replace") return pickReplacement();
     if (key === "swap") return store.startSwap(id);
@@ -302,6 +309,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "text" && selected) bottom = <TextTool elementId={selected.id} onClose={close} />;
   else if (tool === "fill" && selected) bottom = <FillTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
+  else if (tool === "draw") bottom = <DrawTool onClose={close} />;
   else if (tool === "slides") bottom = <SlidesTool onClose={close} showSafeZone={showSafeZone} onSafeZone={setShowSafeZone} />;
   else if (selected) {
     // Tools for the selection (≤ 4) + Done. Duplicate / delete / lock / more float over

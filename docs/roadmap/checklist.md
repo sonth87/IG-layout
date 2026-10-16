@@ -208,3 +208,17 @@ Quyết định: D-72..D-74.
 - [ ] Chủ dự án duyệt từng template (đẹp chưa, thêm / bỏ mẫu nào)
 - [ ] Chỉnh theo video SCRL khi có (bố cục trang chủ, cách mở template)
 
+### M11 — Thư viện (theo SCRL) — xong phần code 2026-10-16
+Quyết định: D-75..D-78.
+- [x] S12 **78 font** có tiếng Việt (Google Fonts), 5 nhóm (Không chân, Có chân, Trang trí, Viết tay, Đơn cách); **độ đậm** (thanh trượt cho font biến thiên, nút cho font có độ đậm cố định); nút B vẫn dùng được
+- [x] Font chỉ tải khi dùng; CSS khai báo font đi cùng trình chỉnh sửa (tải muộn) — trang chủ chỉ còn 1 file CSS ~10 KB nén; trình chỉnh sửa được tải sẵn lúc rảnh để chạy offline
+- [x] S10 **25 filter**: đủ danh sách đã chốt (Mono 5, Vintage 5, Modern 5, Future 5) + Thiên nhiên (Forest, Golden, Skyline) + Ẩm thực (Warm Plate, Fresh)
+- [x] S13 **20 sticker** tự vẽ (SVG): băng dính, tim, lấp lánh, sao, mũi tên, vòng khoanh, gạch chân, bong bóng thoại, nhãn, tem, hoa, mặt trời, mây, kẹp giấy, đinh ghim, băng rôn, tia sét, mặt cười; đổi màu chính bằng công cụ Màu
+- [x] S13 **8 lớp phủ** sinh bằng code: vệt sáng, vệt hồng, cháy phim, lăng kính, bokeh, bụi, vết xước, giấy; thành ảnh thường + **chế độ hoà trộn** (Thường, Làm sáng, Nhân, Phủ, Sáng dịu) chỉnh trong Kiểu
+- [x] S14 Thêm 3 khung: viền đen, polaroid đen, triển lãm
+- [x] S17 **Vẽ tay**: ⋯ → Vẽ, màu, cỡ nét, bỏ nét cuối, ✓ thành một phần tử (1 bước hoàn tác), co giãn / đổi màu được
+- [x] Credits cập nhật (78 font OFL / Apache; sticker, lớp phủ, template tự làm)
+- [x] Kiểm tra tự động `e2e/m11.mjs`
+- [ ] Chủ dự án xem filter trên ảnh thật, sticker, lớp phủ, font (bỏ / thêm)
+- [ ] Font chưa dùng lần nào sẽ không có khi offline (chấp nhận; ghi trong hướng dẫn)
+

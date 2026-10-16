@@ -4,7 +4,8 @@ import { useState } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import type { CanvasElement } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
-import { useT } from "@/store/settings";
+import { isSticker, STICKERS } from "@/lib/elements/stickers";
+import { useSettings, useT } from "@/store/settings";
 
 export interface Action<K extends string = string> {
   key: K;
@@ -63,11 +64,12 @@ export function ActionSheet<K extends string>({
 function elementLabel(el: CanvasElement, index: number, t: ReturnType<typeof useT>) {
   if (el.type === "text") return `“${el.text.slice(0, 24)}${el.text.length > 24 ? "…" : ""}”`;
   if (el.type === "shape") return t(`shape.${el.shape}`);
-  if (el.type === "icon") return t(`icon.${el.icon}` as "icon.heart");
+  if (el.type === "icon") return isSticker(el.icon) ? STICKERS[el.icon].name[useSettings.getState().locale] : t(`icon.${el.icon}` as "icon.heart");
+  if (el.type === "drawing") return t("editor.kind.drawing");
   return `${t("editor.kind.image")} ${index}`;
 }
 
-const KIND_ICON: Record<CanvasElement["type"], IconName> = { image: "image", text: "text", shape: "shapes", icon: "heart" };
+const KIND_ICON: Record<CanvasElement["type"], IconName> = { image: "image", text: "text", shape: "shapes", icon: "heart", drawing: "pencil" };
 
 /** Layers list (UX-10): select anything, even when it is covered; lock / unlock. Top of the list = front. */
 const LAYER_ROW = 48;

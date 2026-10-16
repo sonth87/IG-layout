@@ -17,6 +17,7 @@ import {
   Star,
   Sun,
 } from "lucide-static";
+import { isSticker, stickerSvg } from "./stickers";
 
 // Icon set (Lucide, ISC licence — listed on the Credits screen).
 // Rendered as SVG images at the size they are drawn, so they stay sharp.
@@ -53,6 +54,8 @@ export function iconSvg(icon: string, color: string, size: number) {
     .replace(/stroke="currentColor"/, `stroke="${color}"`);
 }
 
+/** Icon or sticker (M11) as an image URL; `size` = width in px. */
 export function iconDataUrl(icon: string, color: string, size: number) {
-  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(iconSvg(icon, color, size))}`;
+  const svg = isSticker(icon) ? stickerSvg(icon, color, size) : iconSvg(icon, color, size);
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }

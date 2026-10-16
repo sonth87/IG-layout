@@ -1,6 +1,7 @@
 # Bộ filter
 
 > Trạng thái: **Đã chốt** nhóm và tên filter (2026-10-14). Tên filter dùng **tiếng Anh**.
+> **Đã làm đủ** (M11, 2026-10-16): 20 filter trong bảng + nhóm Thiên nhiên (Forest, Golden, Skyline) và Ẩm thực (Warm Plate, Fresh) = 25 filter. Cần chủ dự án xem trên ảnh thật.
 > Nguyên tắc: filter có **tên** và được chia theo **nhóm phong cách**. Làm trước 5 filter thử nghiệm, bổ sung dần.
 
 ## Nguyên tắc đặt tên
