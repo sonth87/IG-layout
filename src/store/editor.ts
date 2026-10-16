@@ -58,6 +58,8 @@ interface EditorState {
 
   addImages: (assets: ImageAsset[], firstSlide?: number) => void;
   replaceImage: (id: string, asset: ImageAsset) => void;
+  /** Same picture, new pixels (background removed, M12): keeps the framing, scales the crop. */
+  swapAsset: (id: string, asset: ImageAsset) => void;
   addElement: (el: CanvasElement) => void;
   /** Freehand drawing in progress (M11): strokes in canvas pixels, not in the doc yet. */
   drawing: { color: string; size: number; strokes: number[][] } | null;
@@ -276,6 +278,18 @@ export const useEditor = create<EditorState>()((set, get) => {
       };
       commit((d) => ({ ...d, elements: [...d.elements, el] }));
       set({ selectedId: el.id });
+    },
+
+    swapAsset: (id, asset) => {
+      storeAssets([asset]);
+      commit((d) => {
+        const el = d.elements.find((e) => e.id === id);
+        if (!isImage(el) || !el.assetId) return d;
+        const old = get().assets[el.assetId];
+        const k = old ? asset.width / old.width : 1;
+        const crop = { x: el.crop.x * k, y: el.crop.y * k, width: el.crop.width * k, height: el.crop.height * k };
+        return updateEl(d, id, { assetId: asset.id, crop });
+      });
     },
 
     addAssetElement: (asset, el) => {

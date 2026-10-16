@@ -222,3 +222,14 @@ Quyết định: D-75..D-78.
 - [ ] Chủ dự án xem filter trên ảnh thật, sticker, lớp phủ, font (bỏ / thêm)
 - [ ] Font chưa dùng lần nào sẽ không có khi offline (chấp nhận; ghi trong hướng dẫn)
 
+### M12 — Xoá nền ảnh (theo SCRL) — xong phần code 2026-10-16
+Quyết định: D-79. Tìm hiểu thêm: [SVG Repo](../discussions/2026-10-16-svgrepo.md) (chưa làm).
+- [x] Chọn mô hình: **ormbg** (Apache-2.0, người + đồ vật), bản int8 ~44 MB; loại `@imgly/background-removal` (AGPL), RMBG-1.4 (phi thương mại), BiRefNet (tràn bộ nhớ WASM); MODNet (Apache, chỉ người) để dự phòng
+- [x] Chạy trên máy bằng Transformers.js (Apache-2.0) trong Web Worker (không đơ giao diện); runtime ONNX (MIT) tự host ở `/ort/` (copy lúc build) → offline được sau lần đầu
+- [x] ⋯ → **Xoá nền**: lần đầu hỏi trước khi tải ~60 MB (mô hình + runtime, khuyên Wi-Fi); thanh tiến độ tải → đang xử lý; ảnh đổi thành PNG trong suốt, giữ khung / vùng cắt; 1 bước hoàn tác; lần sau không hỏi
+- [x] Làm sạch viền (alpha smoothstep) để không còn quầng nền cũ; ảnh > 2048 px được thu nhỏ trước khi xử lý
+- [x] Ảnh không rời máy (chỉ tải mô hình từ Hugging Face)
+- [x] Kiểm tra `e2e/m12.mjs` (chạy riêng, không nằm trong `pnpm e2e` vì tải 44 MB): 18 s trên máy tính kể cả tải
+- [ ] Chủ dự án thử trên điện thoại với ảnh thật (người, đồ vật, thú cưng): chất lượng, thời gian
+- [ ] Nếu chậm trên điện thoại: thêm WebGPU (fp16, 88 MB) hoặc MODNet nhẹ cho ảnh chân dung
+

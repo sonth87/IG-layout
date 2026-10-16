@@ -42,3 +42,4 @@ next-env.d.ts
 
 # e2e output
 /e2e/.out/
+public/ort/
