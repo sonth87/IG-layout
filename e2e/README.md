@@ -22,6 +22,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `m9.mjs` | Menu nổi (nhân bản / xoá / khoá), thu nhỏ xem cả dải, bảng lớp kéo thả + ẩn, kéo phần tử không cuộn nền, không zoom / bôi đen trang, layout không trùng, canvas chỉ to bằng màn hình, canvas không nhảy khi chọn / mở công cụ, xoay: vùng chết, hít 0°, "Xoay về 0°" |
 | `m10.mjs` | Onboarding lần đầu, thư viện template (nhóm), dùng template → ô trống + chữ (EN / VI), Thêm ảnh điền ô trống, template nền ảnh, xuất |
 | `m11.mjs` | 78 font (nhóm, độ đậm, font tải đúng), 25 filter, sticker (thêm, đổi màu), lớp phủ (hoà trộn làm sáng ảnh, đổi chế độ), vẽ tay (chạm thật, bỏ nét, ✓), khung triển lãm, lưu & mở lại, xuất |
+| `m12.mjs` | (chạy riêng: `node e2e/m12.mjs <url>`, tải mô hình 44 MB) Xoá nền: hỏi trước lần đầu, PNG trong suốt, 1 bước hoàn tác, runtime từ cùng domain, ảnh không tải lên, lần sau không hỏi |
 | `drag-perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian khung hình khi kéo / chụm trên điện thoại giả lập, CPU chậm 4× |
 | `perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian nhập 20 ảnh 4000 px, thời gian vẽ lại, bộ nhớ canvas |
 | `offline.mjs` | Vào trang 1 lần → tắt mạng → vẫn chạy, kể cả mở trình chỉnh sửa lần đầu (tải muộn, M11) |

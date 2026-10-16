@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/copy-ort.mjs && next dev",
+    "build": "node scripts/copy-ort.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "e2e": "node e2e/run.mjs"
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.3.1",
     "fflate": "^0.8.3",
     "idb": "^8.0.4",
     "konva": "^10.8.0",

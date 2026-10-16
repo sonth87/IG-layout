@@ -15,6 +15,7 @@ import CanvasStage from "./canvas/CanvasStage";
 import { isTouchUI } from "./canvas/interaction";
 import { type Action, ActionSheet, CoachTips, LayersSheet } from "./EditorSheets";
 import { ExportSheet } from "./ExportSheet";
+import { RemoveBgDialog } from "./RemoveBgDialog";
 import { FloatingMenu } from "./FloatingMenu";
 import { SlideNavigator } from "./SlideNavigator";
 import { AdjustTool, FilterTool } from "./tools/ColorTools";
@@ -147,6 +148,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const contentLayerRef = useRef<Konva.Layer>(null);
   const addInput = useRef<HTMLInputElement>(null);
   const [exportOpen, setExportOpen] = useState(false);
+  const [removeBgFor, setRemoveBgFor] = useState<string | null>(null);
   const [tool, setTool] = useState<Tool | null>(null);
   const [showSafeZone, setShowSafeZone] = useState(true);
   const [zoom, setZoom] = useState(1);
@@ -249,7 +251,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     </section>
   );
 
-  type MoreKey = "background" | "slides" | "layers" | "draw" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate";
+  type MoreKey = "background" | "slides" | "layers" | "draw" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg";
 
   /** Secondary actions for the selection ("⋯ More"), described as data. */
   function moreActions(): Action<MoreKey>[] {
@@ -264,6 +266,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     const list: Action<MoreKey>[] = [];
     if (selected.type === "image") {
       if (selected.assetId) list.push({ key: "replace", label: t("editor.replace"), icon: "replace" });
+      if (selected.assetId) list.push({ key: "removeBg", label: t("removeBg.title"), icon: "sparkles" });
       if (selected.slot) list.push({ key: "swap", label: t("editor.swap"), icon: "swap" });
       if (selected.frame === "none") list.push({ key: "mask", label: t("editor.mask"), icon: "mask" });
     }
@@ -296,6 +299,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (key === "front" || key === "back") return store.moveLayerTo(id, key);
     if (key === "lock") return store.toggleLock(id);
     if (key === "unrotate") return store.updateElement(id, { rotation: 0 });
+    if (key === "removeBg") return setRemoveBgFor(id);
   }
 
   const more = <ToolButton label={t("editor.more")} icon="more" onClick={() => setTool("more")} />;
@@ -579,6 +583,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       {tool === "elements" && <ElementsSheet onClose={close} />}
       {editingText && <TextEditDialog elementId={editingText} onClose={() => store.setEditingText(null)} />}
 
+      {removeBgFor && <RemoveBgDialog elementId={removeBgFor} onClose={() => setRemoveBgFor(null)} />}
       {exportOpen && <ExportSheet contentLayerRef={contentLayerRef} viewScale={viewScale} onClose={() => setExportOpen(false)} />}
     </main>
   );
