@@ -615,9 +615,11 @@ export function Editor({ onClose }: { onClose: () => void }) {
           // Copy before clearing the input: clearing empties its FileList.
           const files = Array.from(e.target.files ?? []);
           e.target.value = "";
-          if (!files.length || !selected) return;
+          // The cell selected when the picker opened (tapping an empty "+" cell selects it).
+          const target = useEditor.getState().selectedId;
+          if (!files.length || !target) return;
           const [asset] = await decodeFiles(files);
-          if (asset) store.replaceImage(selected.id, asset);
+          if (asset) store.replaceImage(target, asset);
         }}
       />
 

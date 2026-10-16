@@ -281,4 +281,4 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] ~~Tự chia story 15 s~~ bỏ (Instagram nhận story 60 s)
 - [x] Kiểm tra `e2e/m13c.mjs`
 - [ ] Chủ dự án thử toàn bộ video trên iPhone (cắt đoạn, tốc độ, filter, chuyển động, nhạc, video 9:16)
-
+- [x] Sửa (2026-10-17): chạm ô trống "+" mở ngay trình chọn ảnh và điền vào đúng ô đó (trước chỉ chọn ô, không phản hồi) — kiểm trong `e2e/m10.mjs`

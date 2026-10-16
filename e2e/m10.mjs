@@ -79,6 +79,25 @@ check(filled.slice(0, 3).every((c) => c.assetId) && filled[3].assetId === null, 
 check(filled.length === 4, "no extra floating photos");
 await shot(page, "6-editor-filled");
 
+console.log("Tap an empty '+' cell → photo picker → fills that cell");
+const empty = filled[3];
+await page.evaluate(() => window.__igEditor.getState().select(null));
+await page.getByRole("button", { name: `Go to slide ${Math.floor(empty.x / 1080) + 1}` }).click();
+await page.waitForTimeout(700);
+const fr = await page.locator("[data-stage-frame]").boundingBox();
+const kk = fr.width / (st.doc.slideCount * 1080);
+await page.evaluate(() => window.__igEditor.getState().select(null));
+const [chooser] = await Promise.all([
+  page.waitForEvent("filechooser", { timeout: 5000 }),
+  page.mouse.click(fr.x + (empty.x + empty.width / 2) * kk, fr.y + (empty.y + empty.height / 2) * kk),
+]);
+check(!!chooser, "tapping the empty cell opens the photo picker");
+await chooser.setFiles(path.join(dir, "p4.jpg"));
+await page.waitForTimeout(1500);
+st = await S();
+const cell = st.doc.elements.find((e) => e.id === empty.id);
+check(!!cell.assetId && st.doc.elements.filter((e) => e.type === "image").length === 4, "the photo goes into that cell (no extra photo)");
+
 console.log("Export works with template text");
 await page.getByRole("button", { name: "Export" }).click();
 await page.getByText(/3 images/i).first().waitFor({ timeout: 20000 }).catch(() => {});

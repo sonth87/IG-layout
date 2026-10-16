@@ -72,6 +72,12 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
   const liveCrop = useRef<Rect | null>(null);
   const panStart = useRef<{ x: number; y: number } | null>(null);
 
+  /** Selects the empty cell and opens the photo picker (the editor fills the selected cell). */
+  function fillEmpty() {
+    useEditor.getState().select(el.id);
+    document.getElementById("replace-photo-input")?.click();
+  }
+
   const w = el.width;
   const h = el.height;
   const cx = el.x + w / 2;
@@ -252,8 +258,10 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       hitFunc={hit}
       draggable={draggable}
       preventDefault={preventDefault}
-      onMouseDown={onMouseSelect}
-      onTap={onSelect}
+      onMouseDown={el.assetId ? onMouseSelect : undefined}
+      // Empty cell ("+"): tap / click opens the photo picker right away and fills this cell.
+      onClick={el.assetId ? undefined : () => fillEmpty()}
+      onTap={el.assetId ? onSelect : () => fillEmpty()}
       onDragStart={(e) => {
         if (el.slot) panStart.current = { x: e.target.x(), y: e.target.y() };
       }}
