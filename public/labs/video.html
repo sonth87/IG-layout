@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Video lab</title>
+<!--
+  M13 feasibility lab (not part of the app): can this phone play video on a canvas and
+  encode an Instagram-ready MP4 (H.264) in the browser? Open on the phone, run the
+  tests, copy the report back. Uses mp4-muxer (MIT) from jsDelivr.
+-->
+<style>
+  :root { color-scheme: light dark; --bg: #f6f5f2; --fg: #1a1b1e; --muted: #5f636b; --card: #fff; --accent: #f2b84b; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #111214; --fg: #f2f2f0; --muted: #a3a6ad; --card: #1c1d21; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, sans-serif; }
+  main { max-width: 560px; margin: 0 auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+  section { background: var(--card); border-radius: 14px; padding: 14px; }
+  h1 { font-size: 22px; margin: 4px 0; } h2 { font-size: 16px; margin: 0 0 8px; }
+  button, label.btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 16px; border: 0; border-radius: 12px; background: var(--accent); color: #1a1408; font-weight: 700; font-size: 15px; cursor: pointer; }
+  button:disabled { opacity: .5; }
+  canvas { width: 100%; height: auto; border-radius: 8px; background: #000; }
+  pre { white-space: pre-wrap; word-break: break-word; font-size: 12px; background: rgba(127,127,127,.12); padding: 10px; border-radius: 8px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Video lab (M13)</h1>
+  <p class="muted">Thử xem điện thoại này có làm được video cho carousel không. Chạy lần lượt 3 bước, rồi bấm “Sao chép kết quả” và gửi lại.</p>
+
+  <section>
+    <h2>1. Khả năng của trình duyệt</h2>
+    <pre id="caps">Đang kiểm tra…</pre>
+  </section>
+
+  <section>
+    <h2>2. Phát video trên canvas</h2>
+    <div class="row">
+      <label class="btn">Chọn video<input id="file" type="file" accept="video/*" hidden /></label>
+      <span class="muted">(hoặc bỏ qua: dùng video tự tạo)</span>
+    </div>
+    <p></p>
+    <canvas id="stage" width="1080" height="1350"></canvas>
+    <p class="row"><button id="play" disabled>Phát 5 giây và đo</button></p>
+    <pre id="playOut">—</pre>
+  </section>
+
+  <section>
+    <h2>3. Xuất MP4 1080×1350, 3 giây</h2>
+    <p class="row"><button id="encode">Xuất thử</button> <button id="save" disabled>Lưu / Chia sẻ</button></p>
+    <pre id="encOut">—</pre>
+    <p class="muted">Sau khi lưu: mở Ảnh xem có phát được không, thử đăng thử vào Instagram (không cần đăng thật).</p>
+  </section>
+
+  <p class="row"><button id="copy">Sao chép kết quả</button></p>
+</main>
+
+<script type="module">
+const $ = (id) => document.getElementById(id);
+const report = { ua: navigator.userAgent };
+const W = 1080, H = 1350, FPS = 30;
+const stage = $("stage");
+const ctx = stage.getContext("2d");
+let video = null;
+
+// ── 1. Capabilities ───────────────────────────────────────────────
+async function caps() {
+  const c = {
+    VideoEncoder: "VideoEncoder" in window,
+    VideoDecoder: "VideoDecoder" in window,
+    OffscreenCanvas: "OffscreenCanvas" in window,
+    requestVideoFrameCallback: "requestVideoFrameCallback" in HTMLVideoElement.prototype,
+    WebGPU: "gpu" in navigator,
+    shareFiles: !!navigator.canShare && navigator.canShare({ files: [new File([new Blob(["x"])], "a.mp4", { type: "video/mp4" })] }),
+    deviceMemoryGB: navigator.deviceMemory ?? "?",
+    cores: navigator.hardwareConcurrency ?? "?",
+  };
+  const codecs = { h264_high: "avc1.640028", h264_main: "avc1.4d0028", h264_base: "avc1.42001f", hevc: "hvc1.1.6.L120.B0", vp9: "vp09.00.10.08", av1: "av01.0.08M.08" };
+  c.encode = {};
+  if (c.VideoEncoder) {
+    for (const [k, codec] of Object.entries(codecs)) {
+      try {
+        const r = await VideoEncoder.isConfigSupported({ codec, width: W, height: H, bitrate: 8e6, framerate: FPS });
+        c.encode[k] = r.supported;
+      } catch { c.encode[k] = false; }
+    }
+  }
+  c.mediaRecorder = typeof MediaRecorder === "undefined" ? false : ["video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm"].filter((m) => MediaRecorder.isTypeSupported(m));
+  report.caps = c;
+  $("caps").textContent = JSON.stringify(c, null, 2);
+}
+
+// ── 2. Playback on canvas ────────────────────────────────────────
+$("file").onchange = async (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  video = document.createElement("video");
+  video.src = URL.createObjectURL(f);
+  video.muted = true;
+  video.playsInline = true;
+  video.loop = true;
+  await new Promise((ok, fail) => { video.onloadeddata = ok; video.onerror = () => fail(new Error("Không đọc được video")); });
+  report.video = { name: f.name, type: f.type, sizeMB: +(f.size / 1e6).toFixed(1), w: video.videoWidth, h: video.videoHeight, sec: +video.duration.toFixed(1) };
+  $("playOut").textContent = JSON.stringify(report.video, null, 2);
+  $("play").disabled = false;
+};
+
+/** One frame of the "project": the video (or a synthetic animation) + a photo-like card + text. */
+function drawFrame(t) {
+  ctx.fillStyle = "#efe9e1";
+  ctx.fillRect(0, 0, W, H);
+  if (video && video.readyState >= 2) {
+    const k = Math.max(W / video.videoWidth, H * 0.7 / video.videoHeight);
+    const vw = video.videoWidth * k, vh = video.videoHeight * k;
+    ctx.save(); ctx.beginPath(); ctx.roundRect(60, 60, W - 120, H * 0.7, 30); ctx.clip();
+    ctx.drawImage(video, (W - vw) / 2, 60 + (H * 0.7 - vh) / 2, vw, vh);
+    ctx.restore();
+  } else {
+    // Synthetic video: moving gradient circles.
+    for (let i = 0; i < 6; i++) {
+      const x = W / 2 + Math.cos(t * 1.3 + i) * 320, y = H * 0.4 + Math.sin(t * 1.1 + i * 2) * 300;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, 260);
+      g.addColorStop(0, `hsla(${(i * 60 + t * 40) % 360}, 80%, 60%, .9)`); g.addColorStop(1, "hsla(0,0%,0%,0)");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    }
+  }
+  ctx.fillStyle = "#1d1c1a";
+  ctx.font = "700 88px Georgia, serif";
+  ctx.fillText("Đà Lạt", 70, H - 170);
+  ctx.font = "40px system-ui";
+  ctx.fillText(`${t.toFixed(2)} s`, 70, H - 100);
+}
+
+$("play").onclick = async () => {
+  $("play").disabled = true;
+  await video.play();
+  const frames = [];
+  const t0 = performance.now();
+  await new Promise((done) => {
+    const step = () => {
+      const now = performance.now();
+      frames.push(now);
+      drawFrame((now - t0) / 1000);
+      if (now - t0 < 5000) requestAnimationFrame(step); else done();
+    };
+    requestAnimationFrame(step);
+  });
+  video.pause();
+  const gaps = frames.slice(1).map((f, i) => f - frames[i]).sort((a, b) => a - b);
+  report.playback = { fps: +(frames.length / 5).toFixed(1), p95FrameMs: +gaps[Math.floor(gaps.length * 0.95)].toFixed(1), maxFrameMs: +gaps.at(-1).toFixed(1) };
+  $("playOut").textContent = JSON.stringify({ ...report.video, ...report.playback }, null, 2);
+  $("play").disabled = false;
+};
+
+// ── 3. Encode an MP4 ─────────────────────────────────────────────
+let mp4 = null;
+$("encode").onclick = async () => {
+  $("encode").disabled = true;
+  $("encOut").textContent = "Đang xuất…";
+  try {
+    const { Muxer, ArrayBufferTarget } = await import("https://cdn.jsdelivr.net/npm/mp4-muxer@5.2.2/+esm");
+    const enc = report.caps?.encode ?? {};
+    const pick = enc.h264_high ? ["avc1.640028", "avc"] : enc.h264_main ? ["avc1.4d0028", "avc"] : enc.h264_base ? ["avc1.42001f", "avc"] : enc.hevc ? ["hvc1.1.6.L120.B0", "hevc"] : enc.vp9 ? ["vp09.00.10.08", "vp9"] : null;
+    if (!pick) throw new Error("Không có bộ mã hoá video phù hợp");
+    const muxer = new Muxer({ target: new ArrayBufferTarget(), video: { codec: pick[1], width: W, height: H, frameRate: FPS }, fastStart: "in-memory" });
+    const encoder = new VideoEncoder({ output: (chunk, meta) => muxer.addVideoChunk(chunk, meta), error: (e) => { throw e; } });
+    encoder.configure({ codec: pick[0], width: W, height: H, bitrate: 8e6, framerate: FPS });
+    if (video) { video.currentTime = 0; await video.play(); }
+    const t0 = performance.now();
+    const frames = FPS * 3;
+    for (let i = 0; i < frames; i++) {
+      if (video) {
+        // Real time: wait for the video to advance one frame.
+        await new Promise((ok) => ("requestVideoFrameCallback" in video ? video.requestVideoFrameCallback(() => ok()) : setTimeout(ok, 1000 / FPS)));
+      }
+      drawFrame(i / FPS);
+      const frame = new VideoFrame(stage, { timestamp: (i * 1e6) / FPS, duration: 1e6 / FPS });
+      encoder.encode(frame, { keyFrame: i % FPS === 0 });
+      frame.close();
+      if (encoder.encodeQueueSize > 5) await new Promise((ok) => setTimeout(ok, 0));
+    }
+    await encoder.flush();
+    muxer.finalize();
+    video?.pause();
+    const secs = (performance.now() - t0) / 1000;
+    mp4 = new Blob([muxer.target.buffer], { type: "video/mp4" });
+    report.encode = { codec: pick[0], seconds: +secs.toFixed(1), realtimeX: +(3 / secs).toFixed(2), sizeMB: +(mp4.size / 1e6).toFixed(2) };
+    $("encOut").textContent = JSON.stringify(report.encode, null, 2);
+    $("save").disabled = false;
+  } catch (e) {
+    report.encode = { error: String(e) };
+    $("encOut").textContent = "Lỗi: " + e;
+  }
+  $("encode").disabled = false;
+};
+
+$("save").onclick = async () => {
+  const file = new File([mp4], "lab-test.mp4", { type: "video/mp4" });
+  if (navigator.canShare?.({ files: [file] })) {
+    try { await navigator.share({ files: [file] }); report.saved = "share sheet"; return; } catch {}
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(file);
+  a.download = file.name;
+  a.click();
+  report.saved = "download";
+};
+
+$("copy").onclick = async () => {
+  const text = JSON.stringify(report, null, 2);
+  try { await navigator.clipboard.writeText(text); $("copy").textContent = "Đã sao chép ✓"; }
+  catch { prompt("Sao chép kết quả:", text); }
+};
+
+caps();
+</script>
+</body>
+</html>

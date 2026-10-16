@@ -53,11 +53,14 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET" || !sameOrigin(request.url)) return;
 
   // Pages: network first (picks up new deploys), cached shell when offline.
+  // Only the app itself ("/") is kept as the offline shell — other pages (e.g. /labs/)
+  // must not replace it.
   if (request.mode === "navigate") {
+    const isApp = new URL(request.url).pathname === "/";
     event.respondWith(
       fetch(request)
-        .then((response) => putInCache("/", response))
-        .catch(() => caches.match("/")),
+        .then((response) => (isApp ? putInCache("/", response) : response))
+        .catch(() => caches.match(isApp ? "/" : request).then((hit) => hit || caches.match("/"))),
     );
     return;
   }
