@@ -243,6 +243,7 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Trang thử `/labs/video`: khả năng trình duyệt, phát video trên canvas, xuất MP4 H.264 1080×1350 3 s, lưu / chia sẻ, sao chép kết quả
 - [x] Máy tính: xuất 3 s trong 1,9 s, MP4 hợp lệ (ffprobe)
 - [x] Service worker: trang khác `/` không ghi đè bản offline của app
-- [ ] **Chủ dự án chạy trang thử trên iPhone (+ Android nếu có), gửi kết quả**
-- [ ] Quyết định làm / làm giới hạn / không làm video theo tiêu chí trong tài liệu
+- [x] Chủ dự án chạy trên iPhone: video thật 1902×1080 phát 60 fps trên canvas; xuất 3 s MP4 H.264 trong 1,8 s
+- [ ] Xác nhận: file MP4 lưu vào Ảnh được và Instagram nhận (chọn được khi tạo bài)
+- [x] Theo tiêu chí: **làm M13 đầy đủ** (chờ xác nhận lưu / đăng)
 
