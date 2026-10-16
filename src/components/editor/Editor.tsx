@@ -375,11 +375,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <ToolButton label={t("video.sound")} icon="volume" onClick={() => openTool("sound")} />
           <ToolButton label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />
           <ToolButton label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />
-          {selected.locked ? (
-            <ToolButton label={t("editor.unlock")} icon="unlock" onClick={() => store.toggleLock(selected.id)} />
-          ) : (
-            <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
-          )}
+          {/* Lock / unlock is in the floating menu, not instead of Style. */}
+          <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
           {done}
         </>
       );
@@ -389,11 +386,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />
           <ToolButton label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />
           <ToolButton label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />
-          {selected.locked ? (
-            <ToolButton label={t("editor.unlock")} icon="unlock" onClick={() => store.toggleLock(selected.id)} />
-          ) : (
-            <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
-          )}
+          {/* Lock / unlock is in the floating menu, not instead of Style. */}
+          <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
           <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
           {done}
         </>

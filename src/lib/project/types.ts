@@ -220,6 +220,14 @@ export function isImage(el: CanvasElement | undefined): el is ImageElement {
   return el?.type === "image";
 }
 
+/**
+ * Drag / pinch move the picture inside its frame instead of the frame (template cells,
+ * and locked photos such as a background: the frame stays, the view inside can change).
+ */
+export function pansInside(el: CanvasElement | undefined): boolean {
+  return isImage(el) && !!el.assetId && (el.slot || !!el.locked);
+}
+
 /** Background music of the project (M13.4). Times in seconds of the track. */
 export interface Music {
   assetId: string;

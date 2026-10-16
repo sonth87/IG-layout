@@ -6,7 +6,7 @@ import { Shape } from "react-konva";
 import { drawShape } from "@/lib/elements/shapes";
 import { frameInset, straightenScale } from "@/lib/project/geometry";
 import { traceMask } from "@/lib/project/masks";
-import { frameColor, type ImageElement, type Rect } from "@/lib/project/types";
+import { frameColor, type ImageElement, pansInside, type Rect } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useElementInteraction } from "./interaction";
 import { useHtmlImage } from "./useHtmlImage";
@@ -19,6 +19,7 @@ import { processFrame } from "@/lib/color/processor";
 /** Long edge of video frames while editing (colour processed every frame). */
 const VIDEO_PREVIEW_MAX = 1080;
 import { kenBurnsCrop, motionClock } from "@/lib/motion/motion";
+import { liveCrops } from "@/lib/project/liveCrop";
 import { useProcessedImage } from "./useProcessedImage";
 
 interface Props {
@@ -71,6 +72,8 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
   /** Crop while panning a slot (drawn live, committed on release). */
   const liveCrop = useRef<Rect | null>(null);
   const panStart = useRef<{ x: number; y: number } | null>(null);
+
+  const inside = pansInside(el);
 
   /** Selects the empty cell and opens the photo picker (the editor fills the selected cell). */
   function fillEmpty() {
@@ -149,7 +152,7 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       }
     }
     if (source && original) {
-      let crop = liveCrop.current ?? el.crop;
+      let crop = liveCrops.get(el.id) ?? liveCrop.current ?? el.crop;
       // Ken Burns (M13.3): drift inside the frame while playing / exporting.
       const kb = el.motion?.kenBurns;
       const progress = kb ? motionClock()?.progress.get(el.id) : undefined;
@@ -263,12 +266,12 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       onClick={el.assetId ? undefined : () => fillEmpty()}
       onTap={el.assetId ? onSelect : () => fillEmpty()}
       onDragStart={(e) => {
-        if (el.slot) panStart.current = { x: e.target.x(), y: e.target.y() };
+        if (inside) panStart.current = { x: e.target.x(), y: e.target.y() };
       }}
-      onDragMove={(e) => (el.slot ? panSlot(e.target) : onDragMove(e.target, el))}
+      onDragMove={(e) => (inside ? panSlot(e.target) : onDragMove(e.target, el))}
       // One history step per gesture: recorded when the finger is lifted.
       onDragEnd={(e) => {
-        if (el.slot) {
+        if (inside) {
           const crop = liveCrop.current;
           liveCrop.current = null;
           panStart.current = null;

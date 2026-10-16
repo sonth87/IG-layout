@@ -8,7 +8,9 @@ import { snap, snapTargets } from "@/lib/project/snap";
 import { canvasSize, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
 import { scaleExtras } from "@/lib/elements/resize";
 import { strokePath } from "@/lib/elements/shapes";
-import { type CanvasElement, type ImageAsset, SLIDE_SIZE } from "@/lib/project/types";
+import { type CanvasElement, type ImageAsset, type ImageElement, pansInside, type Rect as Box, SLIDE_SIZE } from "@/lib/project/types";
+import { liveCrops } from "@/lib/project/liveCrop";
+import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { BackgroundNode } from "./BackgroundNode";
 import { ImageNode } from "./ImageNode";
@@ -92,7 +94,24 @@ type Pinch =
       rotating: boolean;
       snapped: boolean;
     }
-  | { kind: "zoom"; dist: number; angle: number; mid: { x: number; y: number } };
+  | { kind: "zoom"; dist: number; angle: number; mid: { x: number; y: number } }
+  /** Pinch on a selected cell / locked photo: zoom the picture inside its frame. */
+  | { kind: "crop"; el: ImageElement; dist: number; angle: number; mid: { x: number; y: number } };
+
+/** Crop of `el` zoomed by `k` around its centre: from "just covers the frame" up to 5×. */
+function zoomCrop(el: ImageElement, asset: ImageAsset, k: number): Box {
+  const max = coverCrop(asset, innerFrame(el));
+  const w = Math.min(max.width, Math.max(max.width / 5, el.crop.width / k));
+  const h = (w * el.crop.height) / el.crop.width;
+  const cx = el.crop.x + el.crop.width / 2;
+  const cy = el.crop.y + el.crop.height / 2;
+  return {
+    x: Math.max(0, Math.min(asset.width - w, cx - w / 2)),
+    y: Math.max(0, Math.min(asset.height - h, cy - h / 2)),
+    width: w,
+    height: h,
+  };
+}
 
 function touchInfo(stage: Konva.Stage, touches: TouchList) {
   const rect = stage.container().getBoundingClientRect();
@@ -156,7 +175,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       const s = useEditor.getState();
       while (hit && hit.id() !== s.selectedId) hit = hit.getParent();
       const el = hit && (s.draft ?? s.doc)?.elements.find((x) => x.id === s.selectedId);
-      return !!el && !el.locked;
+      return !!el && (!el.locked || pansInside(el));
     };
     let gesture = false;
     const onStart = (e: TouchEvent) => {
@@ -267,6 +286,12 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       const el = doc!.elements.find((x) => x.id === id);
       return el && !el.locked && !(el.type === "image" && el.slot) ? el : undefined;
     };
+    const sel = doc!.elements.find((x) => x.id === selectedId);
+    if (sel?.type === "image" && pansInside(sel)) {
+      stage.findOne(`#${sel.id}`)?.stopDrag();
+      pinch.current = { kind: "crop", el: sel, ...info };
+      return;
+    }
     let target = movable(selectedId);
     if (!target) {
       let hit: Konva.Node | null = stage.getIntersection(info.mid);
@@ -332,6 +357,11 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     const p = pinch.current;
     const k = info.dist / p.dist;
     if (p.kind === "zoom") return onPinchZoom?.(k, "move");
+    if (p.kind === "crop") {
+      const asset = useEditor.getState().assets[p.el.assetId!];
+      if (asset) liveCrops.set(p.el.id, zoomCrop(p.el, asset, k));
+      return contentLayerRef.current?.batchDraw();
+    }
     p.node.scale({ x: k, y: k });
     let twist = ((info.angle - p.angle + 540) % 360) - 180;
     if (!p.rotating && Math.abs(twist) > ROTATE_DEAD_ZONE) p.rotating = true;
@@ -371,8 +401,14 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     pinch.current = null;
     showAngle(null);
     if (p.kind === "zoom") return onPinchZoom?.(1, "end");
+    if (p.kind === "crop") {
+      const crop = liveCrops.get(p.el.id);
+      liveCrops.delete(p.el.id);
+      if (crop) updateElement(p.el.id, { crop });
+      return;
+    }
     const el = doc!.elements.find((x) => x.id === p.node.id());
-    p.node.draggable(!!el && !el.locked);
+    p.node.draggable(!!el && (!el.locked || pansInside(el)));
     if (!el) return;
     const k = p.node.scaleX();
     p.node.scale({ x: 1, y: 1 });

@@ -29,7 +29,7 @@ Chọn ảnh → chọn **layout** (hoặc **Bỏ qua**). Chạm hai ảnh trong
 - **Chọn:** chạm vào ảnh / chữ / hình. Một menu nhỏ nổi trên phần tử: **Nhân bản, Xoá, Khoá, ⋯**. Chạm vùng trống / ảnh nền hoặc **Xong** để bỏ chọn.
 - **Các lớp** (⋯ → Các lớp): kéo ⠿ để đổi thứ tự, mắt để ẩn / hiện, ổ khoá để khoá. Dùng để chọn thứ bị che bên dưới.
 - **Di chuyển, phóng to, xoay:** trên điện thoại, chạm để chọn **rồi mới kéo** (vuốt khi chưa chọn gì = cuộn xem slide). Chụm hoặc xoay hai ngón trên một phần tử để đổi cỡ / xoay, kể cả khi chưa chọn. Phần tử tự hít vào tâm, mép slide và các phần tử khác (đường hồng).
-- **Ảnh nền bị khoá:** ảnh panorama phủ cả canvas và ảnh nền của layout tự khoá để không kéo nhầm. Mở khoá trong **Thêm → Các lớp** (biểu tượng ổ khoá).
+- **Ảnh nền bị khoá:** ảnh panorama phủ cả canvas và ảnh nền của layout tự khoá: **khung đứng yên**, nhưng chọn ảnh rồi **kéo để dời phần ảnh hiển thị**, **chụm hai ngón để phóng** (giống ô lưới). Mở khoá ở biểu tượng ổ khoá trên menu nổi hoặc **Thêm → Các lớp**.
 - **Xem toàn bộ / phóng to:** dải ảnh nhỏ dưới canvas — chạm để tới slide, **+** thêm slide. Chụm hai ngón trên vùng trống để phóng to, hoặc thu nhỏ để thấy cả dải (máy tính: nút + / −).
 - **Đổi layout** chỉ thay ảnh của layout; chữ, hình, icon bạn đã thêm vẫn giữ.
 - **Ô lưới của layout:** kéo = dịch ảnh bên trong ô. **Đổi chỗ** → chạm ô khác để đổi hai ảnh. Ô trống: **Thêm ảnh**.

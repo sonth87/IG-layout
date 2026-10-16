@@ -282,3 +282,4 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Kiểm tra `e2e/m13c.mjs`
 - [ ] Chủ dự án thử toàn bộ video trên iPhone (cắt đoạn, tốc độ, filter, chuyển động, nhạc, video 9:16)
 - [x] Sửa (2026-10-17): chạm ô trống "+" mở ngay trình chọn ảnh và điền vào đúng ô đó (trước chỉ chọn ô, không phản hồi) — kiểm trong `e2e/m10.mjs`
+- [x] Sửa (2026-10-17, D-85): ảnh bị khoá (nền template, panorama) vẫn kéo / chụm để dời / phóng ảnh trong khung, khung không đổi; thanh công cụ luôn có Kiểu (Mở khoá chỉ ở menu nổi); chụm trên ô lưới đã chọn cũng phóng ảnh trong ô — kiểm trong `e2e/m10.mjs`

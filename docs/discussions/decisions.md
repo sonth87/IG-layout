@@ -72,6 +72,7 @@ Mỗi quyết định ghi: ngày, nội dung, lý do, trạng thái. Không xóa
 | D-66 | 2026-10-15 | Lấy Grids làm chuẩn: được làm theo luồng, chức năng, thao tác, cách xử lý của Grids; **bỏ** đăng nhập và trả phí (app miễn phí). Không sao chép tên, logo, hình ảnh hay template có bản quyền của Grids — chỉ làm theo cách hoạt động | Chủ dự án thích toàn bộ Grids | Đã chốt |
 | D-67 | 2026-10-15 | App không cho bôi đen / chọn chữ (trừ ô nhập) và không zoom cả trang (viewport `user-scalable=no`, chặn gesture của Safari); zoom chỉ trong vùng canvas | Cảm giác như app cài trên máy | Đã chốt |
 | D-68 | 2026-10-15 | Sửa ngay F-01..F-04 (kéo giật, xoay không về 0°, canvas nhảy, layout trùng) trước khi làm lại các màn theo Grids | Lỗi rõ ràng, không đổi thiết kế | Đã chốt |
+| D-85 | 2026-10-17 | **Khoá = khung đứng yên**, ảnh bên trong vẫn kéo để dời / chụm để phóng (như ô lưới); nút Mở khoá chỉ ở menu nổi / bảng lớp, không thay nút Kiểu | Chủ dự án: chọn ảnh và mở khoá không nên liên quan; ảnh nền phải chỉnh được vị trí hiển thị | Đã chốt |
 | D-82 | 2026-10-16 | Chuyển động chỉ hiện khi phát / tua; dừng ở 0 s hoặc sửa phần tử → về vị trí thật | Không bao giờ sửa nhầm phần tử đang ở trạng thái "đang bay vào" | Đã chốt |
 | D-83 | 2026-10-16 | Slide có chuyển động (không video) cũng xuất MP4, dài theo "độ dài slide" (mặc định 5 s); ảnh tĩnh trong video 9:16 hiện 2,5 s | Animation phải nằm trong file mới đăng được | Đã chốt |
 | D-84 | 2026-10-16 | Bỏ "ảnh bìa" và "tự chia story 15 s" khỏi đặc tả video | Instagram tự chọn ảnh bìa; story nhận 60 s | Đã chốt |

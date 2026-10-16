@@ -120,6 +120,38 @@ st = await S();
 check(!!st.doc.elements[0].assetId && st.doc.elements.filter((e) => e.type === "image").length === 1, "the photo becomes the background");
 await shot(page, "8-panorama");
 
+console.log("Locked background: pan / zoom the picture inside, frame stays; no Unlock instead of Style");
+const cdp = await context.newCDPSession(page);
+const touch = (type, points) => cdp.send("Input.dispatchTouchEvent", { type, touchPoints: points });
+const bg0 = st.doc.elements[0];
+const fb = await page.locator("[data-stage-frame]").boundingBox();
+const tp = { x: 200, y: fb.y + fb.height * 0.6 };
+await touch("touchStart", [tp]);
+await touch("touchEnd", []);
+await page.waitForTimeout(300);
+check((await page.evaluate(() => window.__igEditor.getState().selectedId)) === bg0.id, "tap selects the background photo");
+check(
+  (await page.getByRole("region", { name: "Tools" }).getByRole("button", { name: "Style", exact: true }).isVisible()) &&
+    (await page.getByRole("region", { name: "Tools" }).getByRole("button", { name: "Unlock", exact: true }).count()) === 0 &&
+    (await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Unlock" }).isVisible()),
+  "toolbar shows Style, not Unlock (unlock is in the floating menu)",
+);
+await touch("touchStart", [tp]);
+for (let i = 1; i <= 10; i++) await touch("touchMove", [{ x: tp.x - i * 8, y: tp.y }]);
+await touch("touchEnd", []);
+await page.waitForTimeout(400);
+let bg = (await S()).doc.elements[0];
+check(bg.x === bg0.x && bg.width === bg0.width && bg.crop.x > bg0.crop.x + 20, `drag pans the picture inside (crop x ${Math.round(bg0.crop.x)} → ${Math.round(bg.crop.x)}), frame stays`);
+const scrolled = await page.evaluate(() => document.querySelector(".bg-canvas").scrollLeft);
+check(scrolled === 0, "the canvas did not scroll while panning");
+const c0 = bg.crop;
+await touch("touchStart", [{ x: tp.x - 40, y: tp.y }, { x: tp.x + 40, y: tp.y }]);
+for (let i = 1; i <= 10; i++) await touch("touchMove", [{ x: tp.x - 40 - i * 6, y: tp.y }, { x: tp.x + 40 + i * 6, y: tp.y }]);
+await touch("touchEnd", []);
+await page.waitForTimeout(400);
+bg = (await S()).doc.elements[0];
+check(bg.crop.width < c0.width * 0.8 && bg.width === bg0.width, `pinch zooms the picture inside (crop width ${Math.round(c0.width)} → ${Math.round(bg.crop.width)})`);
+
 console.log("Vietnamese template text");
 await page.getByRole("button", { name: "Back" }).click();
 await page.evaluate(() => {
