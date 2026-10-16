@@ -8,6 +8,7 @@ import { type ImageElement, isImage } from "@/lib/project/types";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { useHtmlImage } from "../canvas/useHtmlImage";
+import { stillUrl } from "@/lib/project/types";
 import { Slider, ToolSheet } from "./controls";
 
 interface ToolProps {
@@ -145,7 +146,7 @@ export function FilterTool({ elementId, onClose }: ToolProps) {
   const { el, patch } = useDraftImage(elementId);
   const actions = useSheet(onClose);
   const asset = useEditor((s) => (el?.assetId ? s.assets[el.assetId] : undefined));
-  const image = useHtmlImage(asset?.url);
+  const image = useHtmlImage(asset && stillUrl(asset)); // videos: thumbnails from the poster
   const doc = useViewDoc();
   const updateDraft = useEditor((s) => s.updateDraft);
   const current = filterById(el?.filter?.id);

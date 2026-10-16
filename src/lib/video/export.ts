@@ -2,7 +2,8 @@ import type Konva from "konva";
 import { layerRegion } from "@/lib/export/slices";
 import { rotatedBounds } from "@/lib/project/geometry";
 import { slideRect } from "@/lib/project/layout";
-import type { ImageAsset, ImageElement, MediaSettings, ProjectDoc, Rect } from "@/lib/project/types";
+import { type ImageAsset, type ImageElement, type MediaSettings, type ProjectDoc, type Rect, SLIDE_SIZE } from "@/lib/project/types";
+import { applyMotion, clearMotion, hasMotion, motionDuration } from "@/lib/motion/motion";
 import { frameOverrides } from "./frames";
 import { ensureAac } from "./import";
 import { defaultMedia, isAudible, sourceTime, timelineLength } from "./playback";
@@ -86,7 +87,9 @@ export async function exportVideoSlide(opts: {
   const { layer, doc, index, viewScale, assets, withAudio, onProgress } = opts;
   const mb = await import("mediabunny");
   const videos = slideVideos(doc, index, assets);
-  const duration = Math.max(...videos.map((v) => partLength(v.media)));
+  // Video slides last as long as their longest video; animation-only slides: the animation length.
+  const duration = videos.length ? Math.max(...videos.map((v) => partLength(v.media))) : motionDuration(doc);
+  const animated = doc.elements.some(hasMotion);
   const frames = Math.max(1, Math.round(duration * VIDEO_FPS));
   const r = slideRect(doc, index);
   const width = Math.round(r.width);
@@ -127,6 +130,7 @@ export async function exportVideoSlide(opts: {
         const next = await s.it.next();
         if (!next.done && next.value) frameOverrides.set(s.id, next.value.canvas);
       }
+      if (animated) applyMotion(layer, doc, i / VIDEO_FPS, () => duration, SLIDE_SIZE[doc.ratio]);
       const rendered = layer.toCanvas({ ...layerRegion(layer, r, viewScale), pixelRatio: 1 / viewScale });
       ctx.clearRect(0, 0, width, height);
       ctx.drawImage(rendered, 0, 0, width, height);
@@ -138,6 +142,7 @@ export async function exportVideoSlide(opts: {
     audioSource?.close();
     await output.finalize();
   } finally {
+    if (animated) clearMotion(layer, doc);
     for (const s of streams) {
       frameOverrides.delete(s.id);
       await s.it.return?.();

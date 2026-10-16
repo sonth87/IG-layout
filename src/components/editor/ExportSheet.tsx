@@ -10,7 +10,8 @@ import { SLIDE_SIZE } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { CarouselPreview, type PreviewTab, previewTabs, ProfilePreview, StoryPreview, videoUrls } from "@/components/export/InstagramPreview";
-import { pause as pausePlayback } from "@/lib/video/playback";
+import { pause as pausePlayback, seek as seekPlayback } from "@/lib/video/playback";
+import { hasMotion, slideHasMotion } from "@/lib/motion/motion";
 
 
 interface Props {
@@ -27,7 +28,8 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
   const [error, setError] = useState<string | null>(null);
   const assets = useEditor((s) => s.assets);
   // Video (M13): export with sound unless switched off; progress per slide.
-  const hasVideo = doc.elements.some((el) => el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video);
+  // Slides with video or animation (M13.3) are exported as MP4.
+  const hasVideo = doc.elements.some((el) => (el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video) || hasMotion(el));
   const hasSound = doc.elements.some((el) => el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video?.hasAudio);
   const [withAudio, setWithAudio] = useState(true);
   const [progress, setProgress] = useState<{ n: number; total: number; p: number } | null>(null);
@@ -41,7 +43,9 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
     const layer = contentLayerRef.current;
     if (!layer) return;
     const { setExporting } = useEditor.getState();
+    // Start from 0 s: elements at their real positions (no animation state) for still slides.
     pausePlayback();
+    seekPlayback(0);
     // Re-render photos at full resolution, wait for the canvas to redraw, then cut slides.
     setExporting(true);
     const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r(null)));
@@ -62,7 +66,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
             viewScale,
             base,
             {
-              isVideoSlide: (i) => slideVideos(doc, i, assets).length > 0,
+              isVideoSlide: (i) => slideVideos(doc, i, assets).length > 0 || slideHasMotion(doc, i),
               render: (index, onProgress) => exportVideoSlide({ layer, doc, index, viewScale, assets, withAudio, onProgress }),
             },
             (n, total, p) => !cancelled && setProgress({ n, total, p }),

@@ -21,6 +21,19 @@ interface Entry {
 const entries = new Map<string, Entry>();
 let host: HTMLDivElement | null = null;
 let redraw: () => void = () => {};
+/** Called with the clock (M13.3 animation): active = show the animation state at t. */
+let frameHook: (t: number, active: boolean) => void = () => {};
+/** Length of animations when the project has no video (M13.3). */
+let extraDuration = 0;
+
+export function setFrameHook(fn: (t: number, active: boolean) => void) {
+  frameHook = fn;
+}
+
+export function setExtraDuration(d: number) {
+  extraDuration = d;
+  updateDuration();
+}
 let frame = 0;
 let startedAt = 0;
 
@@ -54,7 +67,7 @@ const length = timelineLength;
 const localTime = sourceTime;
 
 function updateDuration() {
-  let d = 0;
+  let d = extraDuration;
   for (const e of entries.values()) d = Math.max(d, length(e.media));
   usePlayback.setState({ duration: d });
 }
@@ -108,7 +121,7 @@ export function detachVideo(elementId: string) {
   e.video.remove();
   entries.delete(elementId);
   updateDuration();
-  if (entries.size === 0) pause();
+  if (usePlayback.getState().duration <= 0) pause();
 }
 
 function seekOne(e: Entry, t: number) {
@@ -141,12 +154,13 @@ function tick() {
     if (e.video.paused) void e.video.play().catch(() => {});
   }
   usePlayback.setState({ time: t });
+  frameHook(t, true);
   redraw();
   frame = requestAnimationFrame(tick);
 }
 
 export function play() {
-  if (entries.size === 0 || usePlayback.getState().playing) return;
+  if (usePlayback.getState().duration <= 0 || usePlayback.getState().playing) return;
   usePlayback.setState({ playing: true });
   startedAt = performance.now() - usePlayback.getState().time * 1000;
   for (const e of entries.values()) {
@@ -165,6 +179,8 @@ export function pause() {
     e.video.pause();
     applySound(e);
   }
+  // Paused at the start: back to editing positions; elsewhere: keep the frame shown.
+  frameHook(usePlayback.getState().time, usePlayback.getState().time > 0);
   redraw();
 }
 
@@ -179,10 +195,13 @@ export function seek(t: number) {
   usePlayback.setState({ time });
   if (playing) startedAt = performance.now() - time * 1000;
   for (const e of entries.values()) seekOne(e, time);
+  frameHook(time, playing || time > 0);
+  redraw();
 }
 
 /** Stops everything and forgets the players (closing a project). */
 export function resetPlayback() {
+  usePlayback.setState({ time: 0 });
   pause();
   for (const id of [...entries.keys()]) detachVideo(id);
   usePlayback.setState({ time: 0, duration: 0 });

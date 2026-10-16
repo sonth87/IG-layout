@@ -91,8 +91,30 @@ interface ElementBase {
   locked?: boolean;
   /** Hidden: not drawn on the canvas nor exported (layers panel, S8). */
   hidden?: boolean;
+  /** Animation (M13.3): how it enters / leaves the slide; photos can also drift (Ken Burns). */
+  motion?: Motion;
   /** Created by a layout; replaced when another layout is applied (user-added items are kept). */
   fromLayout?: boolean;
+}
+
+export const ANIM_IN = ["fade", "slideUp", "slideDown", "slideLeft", "slideRight", "zoom", "pop", "typewriter"] as const;
+export type AnimIn = (typeof ANIM_IN)[number];
+export const ANIM_OUT = ["fade", "slideUp", "slideDown", "slideLeft", "slideRight", "zoom"] as const;
+export type AnimOut = (typeof ANIM_OUT)[number];
+export const KEN_BURNS = ["zoomIn", "zoomOut", "panLeft", "panRight"] as const;
+export type KenBurns = (typeof KEN_BURNS)[number];
+
+export interface Motion {
+  in?: AnimIn;
+  /** Seconds (default 0.6). */
+  inDuration?: number;
+  /** Seconds after the slide starts before it enters (default 0). */
+  delay?: number;
+  out?: AnimOut;
+  /** Seconds, ending with the slide (default 0.6). */
+  outDuration?: number;
+  /** Photos / videos: slow zoom or pan of the picture inside its frame, over the whole slide. */
+  kenBurns?: KenBurns;
 }
 
 export const FRAME_STYLES = ["none", "polaroid", "white", "film", "black", "polaroidBlack", "gallery"] as const;
@@ -192,6 +214,8 @@ export function isImage(el: CanvasElement | undefined): el is ImageElement {
 }
 
 export interface ProjectDoc {
+  /** Seconds a slide with animation but no video lasts when exported as video (M13.3, default 5). */
+  motionDuration?: number;
   type: ProjectType;
   ratio: AspectRatio;
   /** Post: slides, Story: frames, Grid: tiles (3 × rows). */

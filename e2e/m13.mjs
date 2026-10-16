@@ -90,7 +90,7 @@ await page.evaluate(() => {
 });
 await page.waitForTimeout(200);
 check(await page.getByRole("button", { name: "Sound" }).isVisible(), "Sound tool for videos");
-check(!(await page.getByRole("button", { name: "Filters" }).isVisible()), "no colour tools on video yet (M13.3)");
+check(await page.getByRole("button", { name: "Filters" }).isVisible(), "colour tools for videos (M13.3)");
 await page.getByRole("button", { name: "Sound" }).click();
 await page.getByRole("slider", { name: /Volume/ }).fill("60");
 await page.getByRole("button", { name: "Apply", exact: true }).click();
