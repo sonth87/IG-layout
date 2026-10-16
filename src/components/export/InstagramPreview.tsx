@@ -3,6 +3,16 @@
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import type { ProjectType } from "@/lib/project/types";
+
+/** Exported files that are videos (M13): previews play them instead of showing an image. */
+export const videoUrls = new Set<string>();
+
+function Media(props: { src: string; alt: string; className?: string; style?: React.CSSProperties }) {
+  if (videoUrls.has(props.src))
+    return <video src={props.src} aria-label={props.alt} className={props.className} style={props.style} autoPlay muted loop playsInline />;
+  // eslint-disable-next-line @next/next/no-img-element -- local blob preview
+  return <img src={props.src} alt={props.alt} className={props.className} style={props.style} />;
+}
 import { useT } from "@/store/settings";
 
 // Approximate Instagram views of the exported images (wireframe 10, M7):
@@ -33,8 +43,7 @@ export function CarouselPreview({ urls, aspect }: { urls: string[]; aspect: numb
         }}
       >
         {urls.map((u, i) => (
-          // eslint-disable-next-line @next/next/no-img-element -- local blob preview
-          <img key={u} src={u} alt={t("export.slide", { index: i + 1 })} className="w-full shrink-0 snap-center" style={{ aspectRatio: aspect }} />
+          <Media key={u} src={u} alt={t("export.slide", { index: i + 1 })} className="w-full shrink-0 snap-center object-cover" style={{ aspectRatio: aspect }} />
         ))}
       </div>
       <div className="flex items-center justify-center gap-1.5 py-2.5" aria-hidden="true">
@@ -66,8 +75,7 @@ export function ProfilePreview({ newestFirst }: { newestFirst: string[] }) {
       </div>
       <div className="grid grid-cols-3 gap-[2px]">
         {newestFirst.map((u, i) => (
-          // eslint-disable-next-line @next/next/no-img-element -- local blob preview
-          <img key={u} src={u} alt={t("preview.post", { index: i + 1 })} className="aspect-[3/4] w-full object-cover" />
+          <Media key={u} src={u} alt={t("preview.post", { index: i + 1 })} className="aspect-[3/4] w-full object-cover" />
         ))}
         {Array.from({ length: placeholders }, (_, i) => (
           <span key={i} aria-hidden="true" className="aspect-[3/4] w-full bg-[#26282d]" />
@@ -83,8 +91,7 @@ export function StoryPreview({ urls }: { urls: string[] }) {
   const go = (d: number) => setIndex((i) => Math.max(0, Math.min(urls.length - 1, i + d)));
   return (
     <div className="relative mx-auto aspect-[9/16] w-full max-w-[300px] overflow-hidden rounded-2xl bg-black text-white">
-      {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
-      <img src={urls[index]} alt={t("export.slide", { index: index + 1 })} className="absolute inset-0 h-full w-full object-cover" />
+      <Media src={urls[index]} alt={t("export.slide", { index: index + 1 })} className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-x-2 top-2 flex gap-1" aria-hidden="true">
         {urls.map((u, i) => (
           <span key={u} className={`h-[3px] flex-1 rounded-full ${i <= index ? "bg-white" : "bg-white/40"}`} />

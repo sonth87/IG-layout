@@ -14,6 +14,7 @@ import { BackgroundNode } from "./BackgroundNode";
 import { ImageNode } from "./ImageNode";
 import { DrawingNode, IconNode, ShapeNode } from "./ShapeIconNodes";
 import { isTouchUI } from "./interaction";
+import { setRedraw } from "@/lib/video/playback";
 import { TextNode } from "./TextNode";
 
 const SNAP_SCREEN_PX = 8;
@@ -190,6 +191,12 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       cancelAnimationFrame(frame);
     };
   }, [scrollRef, origin.x, origin.y, viewScale, viewport.width, viewport.height, hasDoc]);
+
+  // Videos redraw the canvas as they play / seek (M13.1).
+  useEffect(() => {
+    setRedraw(() => contentLayerRef.current?.batchDraw());
+    return () => setRedraw(() => {});
+  }, [contentLayerRef]);
 
   // Expose the content layer for thumbnails (autosave) and export.
   useEffect(() => {

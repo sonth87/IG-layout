@@ -42,6 +42,8 @@ export const vi: Record<MessageKey, string> = {
   "new.choosePhotos": "Chọn ảnh",
   "new.importing": "Đang nhập ảnh…",
 
+  "import.videoFailed": "Không đọc được video {name}. Thử file khác hoặc quay lại.",
+  "import.videoProgress": "Đang nén video {name}: {pct}%",
   "import.unreadable": "Không đọc được “{name}”. Nếu là ảnh HEIC từ iPhone, hãy mở app bằng Safari, hoặc chọn Cài đặt → Camera → Định dạng → Tương thích nhất.",
   "import.failed": "Không xử lý được “{name}”.",
 
@@ -189,6 +191,14 @@ export const vi: Record<MessageKey, string> = {
   "removeBg.downloading": "Đang tải mô hình: {done} / {total}",
   "removeBg.running": "Đang xoá nền… (vài giây đến một phút trên điện thoại)",
   "removeBg.failed": "Không xoá được nền. Kiểm tra mạng cho lần tải đầu, hoặc thử ảnh nhỏ hơn.",
+  "video.play": "Phát",
+  "video.pause": "Dừng",
+  "video.timeline": "Thanh thời gian",
+  "video.sound": "Âm thanh",
+  "video.soundOn": "Bật tiếng",
+  "video.volume": "Âm lượng",
+  "video.noAudio": "Video này không có tiếng.",
+  "video.kind": "Video",
   "editor.kind.image": "Ảnh",
   "editor.kind.text": "Chữ",
   "editor.kind.shape": "Hình",
@@ -377,6 +387,8 @@ export const vi: Record<MessageKey, string> = {
   "tips.ok": "Đã hiểu",
 
   "export.title": "Xem trước & xuất ảnh",
+  "export.withSound": "Xuất video có tiếng",
+  "export.videoProgress": "Đang xuất video — file {index}/{total}: {pct}%",
   "export.backToEditor": "Quay lại chỉnh sửa",
   "export.rendering": "Đang tạo {count} ảnh…",
   "export.summary": "{count} ảnh · JPEG · {width} × {height}",

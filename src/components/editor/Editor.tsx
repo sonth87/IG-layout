@@ -21,6 +21,9 @@ import { SlideNavigator } from "./SlideNavigator";
 import { AdjustTool, FilterTool } from "./tools/ColorTools";
 import { CropTool } from "./tools/CropTool";
 import { DrawTool } from "./tools/DrawTool";
+import { SoundTool } from "./tools/SoundTool";
+import { PlaybackBar } from "./PlaybackBar";
+import { resetPlayback } from "@/lib/video/playback";
 import { ElementsSheet } from "./tools/ElementsSheet";
 import { FillTool, MaskTool, StyleTool } from "./tools/ElementTools";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
@@ -58,9 +61,10 @@ type Tool =
   | "layout"
   | "more"
   | "layers"
-  | "draw";
+  | "draw"
+  | "sound";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -142,7 +146,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const canUndo = useEditor((s) => s.past.length > 0);
   const canRedo = useEditor((s) => s.future.length > 0);
   const store = useEditor.getState();
-  const { importFiles, decodeFiles, busy, errors } = useImportPhotos();
+  const { importFiles, decodeFiles, busy, errors, videoProgress } = useImportPhotos();
 
   const areaRef = useRef<HTMLDivElement>(null);
   const contentLayerRef = useRef<Konva.Layer>(null);
@@ -173,6 +177,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   });
   const origin = originFor(viewScale);
   const selected = doc.elements.find((el) => el.id === selectedId);
+  const selectedIsVideo = selected?.type === "image" && !!(selected.assetId && assets[selected.assetId]?.video);
   /** Photos used in the project, back to front, without duplicates (for re-layout). */
   const usedPhotos = [...new Set(doc.elements.filter(isImage).map((el) => el.assetId).filter((id): id is string => !!id))]
     .map((id) => assets[id])
@@ -232,6 +237,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   }
 
   async function onBack() {
+    resetPlayback();
     store.select(null);
     await flushSave();
     store.closeProject();
@@ -314,6 +320,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "fill" && selected) bottom = <FillTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "draw") bottom = <DrawTool onClose={close} />;
+  else if (tool === "sound" && selected) bottom = <SoundTool elementId={selected.id} onClose={close} />;
   else if (tool === "slides") bottom = <SlidesTool onClose={close} showSafeZone={showSafeZone} onSafeZone={setShowSafeZone} />;
   else if (selected) {
     // Tools for the selection (≤ 4) + Done. Duplicate / delete / lock / more float over
@@ -325,6 +332,20 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <ToolButton label={t("editor.addPhoto")} icon="image" onClick={() => pickReplacement()} />
           {selected.slot && <ToolButton label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(selected.id)} />}
           <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
+          {done}
+        </>
+      );
+    else if (selected.type === "image" && selectedIsVideo)
+      // Video (M13.1): colour tools come in M13.3.
+      tools = (
+        <>
+          <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />
+          <ToolButton label={t("video.sound")} icon="volume" onClick={() => openTool("sound")} />
+          {selected.locked ? (
+            <ToolButton label={t("editor.unlock")} icon="unlock" onClick={() => store.toggleLock(selected.id)} />
+          ) : (
+            <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
+          )}
           {done}
         </>
       );
@@ -519,7 +540,17 @@ export function Editor({ onClose }: { onClose: () => void }) {
         {!sheetOpen && <CoachTips />}
       </div>
 
+      {!sheetOpen && <PlaybackBar />}
       {!isGrid && !sheetOpen && <SlideNavigator onPick={goToSlide} />}
+
+      {videoProgress && (
+        <div role="status" className="flex items-center gap-3 bg-surface px-4 py-2 text-sm">
+          <span className="min-w-0 flex-1 truncate">{t("import.videoProgress", { name: videoProgress.name, pct: Math.round(videoProgress.value * 100) })}</span>
+          <span className="h-1.5 w-24 overflow-hidden rounded-full bg-surface-2">
+            <span className="block h-full bg-accent" style={{ width: `${Math.round(videoProgress.value * 100)}%` }} />
+          </span>
+        </div>
+      )}
 
       {errors.length > 0 && (
         <div role="alert" className="bg-surface px-4 py-2 text-sm text-danger">
@@ -530,7 +561,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       <input
         ref={addInput}
         type="file"
-        accept="image/*"
+        accept="image/*,video/*"
         multiple
         hidden
         onChange={(e) => {
@@ -541,7 +572,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       <input
         id={REPLACE_INPUT_ID}
         type="file"
-        accept="image/*"
+        accept="image/*,video/*"
         hidden
         onChange={async (e) => {
           // Copy before clearing the input: clearing empties its FileList.

@@ -3,6 +3,7 @@
 import { Image as KImage, Rect } from "react-konva";
 import type { Background } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
+import { stillUrl } from "@/lib/project/types";
 import { useBlurredImage } from "./useHtmlImage";
 
 interface Props {
@@ -24,7 +25,7 @@ function gradientPoints(angle: number, width: number, height: number) {
 /** Background of the whole canvas. Tapping it clears the selection. */
 export function BackgroundNode({ background, width, height }: Props) {
   const select = useEditor((s) => s.select);
-  const blurUrl = useEditor((s) => (background.kind === "blur" ? s.assets[background.assetId]?.url : undefined));
+  const blurUrl = useEditor((s) => (background.kind === "blur" ? s.assets[background.assetId] && stillUrl(s.assets[background.assetId]) : undefined));
   const blurred = useBlurredImage(blurUrl, width / height);
 
   const common = {

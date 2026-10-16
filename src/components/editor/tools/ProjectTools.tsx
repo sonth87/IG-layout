@@ -7,6 +7,7 @@ import { MAX_GRID_ROWS } from "@/lib/project/layout";
 import { MAX_SLIDES } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
+import { stillUrl } from "@/lib/project/types";
 import { Slider, Swatches, ToolSheet } from "./controls";
 
 const GRADIENTS: [string, string][] = [
@@ -110,7 +111,7 @@ export function BackgroundTool({ onClose }: { onClose: () => void }) {
                 className={`h-16 w-16 shrink-0 overflow-hidden rounded-xl ${active ? "ring-2 ring-accent" : ""}`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element -- local blob thumbnail */}
-                <img src={a.url} alt="" className="h-full w-full object-cover blur-[2px]" />
+                <img src={stillUrl(a)} alt="" className="h-full w-full object-cover blur-[2px]" />
               </button>
             );
           })}

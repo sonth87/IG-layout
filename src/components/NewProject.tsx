@@ -98,7 +98,7 @@ export function NewProject({ onClose }: { onClose: () => void }) {
   const createProject = useEditor((s) => s.createProject);
   const addImages = useEditor((s) => s.addImages);
   const applyLayout = useEditor((s) => s.applyLayout);
-  const { decodeFiles, busy, errors } = useImportPhotos();
+  const { decodeFiles, busy, errors, videoProgress } = useImportPhotos();
   const [picked, setPicked] = useState<ImageAsset[] | null>(null);
 
   const ratio: AspectRatio = type === "story" ? "9:16" : type === "grid" ? "3:4" : postRatio;
@@ -280,7 +280,7 @@ export function NewProject({ onClose }: { onClose: () => void }) {
         <input
           ref={fileInput}
           type="file"
-          accept="image/*"
+          accept="image/*,video/*"
           multiple
           hidden
           onChange={(e) => {
@@ -295,7 +295,11 @@ export function NewProject({ onClose }: { onClose: () => void }) {
           className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-accent text-[17px] font-bold text-on-accent disabled:opacity-60"
         >
           <Icon name="image" />
-          {busy ? t("new.importing") : t("new.choosePhotos")}
+          {videoProgress
+            ? t("import.videoProgress", { name: videoProgress.name, pct: Math.round(videoProgress.value * 100) })
+            : busy
+              ? t("new.importing")
+              : t("new.choosePhotos")}
         </button>
       </div>
     </main>

@@ -23,6 +23,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `m10.mjs` | Onboarding lần đầu, thư viện template (nhóm), dùng template → ô trống + chữ (EN / VI), Thêm ảnh điền ô trống, template nền ảnh, xuất |
 | `m11.mjs` | 78 font (nhóm, độ đậm, font tải đúng), 25 filter, sticker (thêm, đổi màu), lớp phủ (hoà trộn làm sáng ảnh, đổi chế độ), vẽ tay (chạm thật, bỏ nét, ✓), khung triển lãm, lưu & mở lại, xuất |
 | `m12.mjs` | (chạy riêng: `node e2e/m12.mjs <url>`, tải mô hình 44 MB) Xoá nền: hỏi trước lần đầu, PNG trong suốt, 1 bước hoàn tác, runtime từ cùng domain, ảnh không tải lên, lần sau không hỏi |
+| `m13.mjs` | Video: nhập + nén (giữ tiếng, ảnh bìa), phát / dừng, công cụ Âm thanh, xuất MP4 (ffprobe: H.264 1080×1350 + AAC, độ dài; tắt tiếng), mở lại. Cần ffmpeg / ffprobe |
 | `drag-perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian khung hình khi kéo / chụm trên điện thoại giả lập, CPU chậm 4× |
 | `perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian nhập 20 ảnh 4000 px, thời gian vẽ lại, bộ nhớ canvas |
 | `offline.mjs` | Vào trang 1 lần → tắt mạng → vẫn chạy, kể cả mở trình chỉnh sửa lần đầu (tải muộn, M11) |

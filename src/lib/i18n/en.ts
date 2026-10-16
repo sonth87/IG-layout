@@ -43,6 +43,8 @@ export const en = {
   "new.choosePhotos": "Choose photos",
   "new.importing": "Importing…",
 
+  "import.videoFailed": "Couldn't read the video {name}. Try another file or record again.",
+  "import.videoProgress": "Compressing video {name}: {pct}%",
   "import.unreadable": "Can’t read “{name}”. If it’s an iPhone HEIC photo, open this app in Safari, or set Camera → Formats → Most Compatible.",
   "import.failed": "Can’t process “{name}”.",
 
@@ -190,6 +192,14 @@ export const en = {
   "removeBg.downloading": "Downloading the model: {done} / {total}",
   "removeBg.running": "Removing the background… (a few seconds to a minute on a phone)",
   "removeBg.failed": "Couldn't remove the background. Check the connection for the first download, or try a smaller photo.",
+  "video.play": "Play",
+  "video.pause": "Pause",
+  "video.timeline": "Timeline",
+  "video.sound": "Sound",
+  "video.soundOn": "Sound on",
+  "video.volume": "Volume",
+  "video.noAudio": "This video has no sound.",
+  "video.kind": "Video",
   "editor.kind.image": "Photo",
   "editor.kind.text": "Text",
   "editor.kind.shape": "Shape",
@@ -378,6 +388,8 @@ export const en = {
   "tips.ok": "Got it",
 
   "export.title": "Preview & export",
+  "export.withSound": "Export videos with sound",
+  "export.videoProgress": "Rendering video — file {index} of {total}: {pct}%",
   "export.backToEditor": "Back to editor",
   "export.rendering": "Rendering {count} {count|image|images}…",
   "export.summary": "{count} {count|image|images} · JPEG · {width} × {height}",

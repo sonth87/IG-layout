@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { canvasSize, slideRect } from "@/lib/project/layout";
-import { type AspectRatio, frameColor, type ImageAsset, type ImageElement, type ProjectDoc, type ProjectType } from "@/lib/project/types";
+import { type AspectRatio, frameColor, stillUrl, type ImageAsset, type ImageElement, type ProjectDoc, type ProjectType } from "@/lib/project/types";
 import { applyTemplate } from "@/lib/templates/apply";
 import type { Template, TemplateOptions } from "@/lib/templates/types";
 import { TEXT_FONTS, fontWeight } from "@/lib/text/fonts";
@@ -119,7 +119,7 @@ export function TemplatePreview(props: {
                   : undefined,
               borderBottomWidth: polaroid ? Math.max(3, el.width * k * 0.18) : undefined,
               boxShadow: el.shadow ? "0 2px 4px rgba(0,0,0,0.3)" : undefined,
-              background: asset ? `center / cover no-repeat url(${asset.url})` : tone,
+              background: asset ? `center / cover no-repeat url(${stillUrl(asset)})` : tone,
             }}
           />
         );

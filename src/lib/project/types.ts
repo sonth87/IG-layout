@@ -27,6 +27,31 @@ export interface ImageAsset {
   width: number;
   height: number;
   name: string;
+  /** Video (M13): `blob` is an MP4 (compressed on import); `poster` is its first frame. */
+  video?: VideoInfo;
+}
+
+/** URL to show an asset as a still picture (videos: their first frame). */
+export function stillUrl(a: Pick<ImageAsset, "url" | "video">) {
+  return a.video?.posterUrl ?? a.url;
+}
+
+export interface VideoInfo {
+  /** Seconds. */
+  duration: number;
+  hasAudio: boolean;
+  poster: Blob;
+  /** Object URL of `poster` (runtime only). */
+  posterUrl: string;
+}
+
+/** Playback settings of a video element (M13). Times in seconds of the source video. */
+export interface MediaSettings {
+  muted: boolean;
+  /** 0..1 */
+  volume: number;
+  start: number;
+  end: number;
 }
 
 export interface Rect {
@@ -98,6 +123,8 @@ export interface ImageElement extends ElementBase {
   frame: FrameStyle;
   /** How it mixes with what is below (M11 overlays: light leaks "screen", paper "multiply"). */
   blend?: BlendMode;
+  /** Video elements (asset is a video, M13): sound and the part that plays. */
+  media?: MediaSettings;
 }
 
 export const BLEND_MODES = ["normal", "screen", "multiply", "overlay", "soft-light"] as const;

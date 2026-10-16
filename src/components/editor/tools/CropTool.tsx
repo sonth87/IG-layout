@@ -25,7 +25,7 @@ export function CropTool({ elementId, onClose }: { elementId: string; onClose: (
   const el = found?.type === "image" ? found : undefined;
   const asset = useEditor((s) => (el?.assetId ? s.assets[el.assetId] : undefined));
   const { updateDraft, applyDraft, cancelDraft } = useEditor.getState();
-  const image = useHtmlImage(asset?.url);
+  const image = useHtmlImage(asset?.video ? asset.video.posterUrl : asset?.url); // videos: crop on the poster (M13)
   const areaRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [area, setArea] = useState({ width: 0, height: 0 });

@@ -32,6 +32,8 @@ export interface StoredAsset {
   width: number;
   height: number;
   name: string;
+  /** Videos (M13). */
+  video?: { duration: number; hasAudio: boolean; poster: Blob };
 }
 
 interface Schema extends DBSchema {
