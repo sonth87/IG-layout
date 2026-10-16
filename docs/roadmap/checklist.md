@@ -247,7 +247,8 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [ ] Xác nhận: file MP4 lưu vào Ảnh được và Instagram nhận (chọn được khi tạo bài)
 - [x] Theo tiêu chí: **làm M13 đầy đủ** — [đặc tả video](../product/video-spec.md) (D-80, D-81)
 - [x] Trang thử bước 4: nén video đã chọn về 1080p, giữ tiếng (Mediabunny) — máy tính: 10 s trong 1,4 s, H.264 + AAC
-- [ ] Chủ dự án chạy bước 4 trên iPhone: có tiếng không, Instagram chọn được file không
+- [x] Chủ dự án chạy bước 4 trên iPhone: nguồn H.264 1920×1080 + AAC 48 kHz stereo → file nén **có tiếng**
+- [ ] Instagram chọn được file MP4 khi tạo bài (chưa báo)
 
 ### M13.1 — Video: nền tảng — xong phần code 2026-10-16
 Đặc tả: [video-spec](../product/video-spec.md).

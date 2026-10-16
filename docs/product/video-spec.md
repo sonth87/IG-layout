@@ -7,7 +7,8 @@
 ## Đã xác nhận trên iPhone
 
 - Phát video thật trên canvas 60 fps; xuất MP4 H.264 1080 × 1350 nhanh hơn thời gian thực (1,7 ×); **lưu vào Ảnh được**.
-- Chưa kiểm: mã hoá **âm thanh** (AAC) trên iPhone, Instagram chọn được file → trang thử bước 4 (thêm 2026-10-16).
+- **Mã hoá âm thanh AAC trên iPhone: được** (trang thử bước 4: video iPhone H.264 1920×1080 + AAC 48 kHz stereo → nén lại, file ra có tiếng).
+- Chưa kiểm: Instagram chọn được file MP4 khi tạo bài.
 
 ## Thư viện
 
