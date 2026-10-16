@@ -118,13 +118,52 @@ files = await exportedFiles();
 check(!/codec_type=audio/.test(files[0].streams) && /codec_type=video/.test(files[0].streams), "no sound track when switched off");
 await page.getByRole("button", { name: "Back to editor" }).click();
 
+console.log("M13.2 trim: strip, waveform, handles, play the part, speed");
+await page.evaluate(() => {
+  const s = window.__igEditor.getState();
+  s.select(s.doc.elements.find((e) => e.type === "image").id);
+});
+await page.waitForTimeout(200);
+await page.getByRole("button", { name: "Trim" }).click();
+const trim = page.getByRole("dialog", { name: "Trim" });
+await page.waitForFunction(() => document.querySelectorAll('[role="dialog"] [role="group"] img').length >= 8, null, { timeout: 30000 });
+check(true, "strip of frames shown");
+check(await trim.getByRole("img", { name: "Sound" }).isVisible().catch(() => false) || (await page.locator('canvas[aria-label="Sound"]').isVisible()), "waveform shown");
+const sb = await trim.getByRole("group").boundingBox();
+// Drag the start handle from the left edge to 25%.
+await page.mouse.move(sb.x + 4, sb.y + sb.height / 2);
+await page.mouse.down();
+await page.mouse.move(sb.x + sb.width * 0.25, sb.y + sb.height / 2, { steps: 8 });
+await page.mouse.up();
+for (let i = 0; i < 5; i++) await trim.getByRole("button", { name: "End 0.1 s earlier" }).click();
+await trim.getByRole("button", { name: "Play the part" }).click();
+await page.waitForTimeout(1500);
+const preview = await page.evaluate(() => document.querySelector('[role="dialog"] video').currentTime);
+await shot(page, "4-trim");
+await trim.getByRole("button", { name: "Pause" }).click();
+await trim.getByRole("radio", { name: "2×" }).click();
+check(await trim.getByText("Sound is off at speeds other than 1×.").isVisible(), "speed ≠ 1× says the sound is off");
+await trim.getByRole("button", { name: "Apply" }).click();
+st = await S();
+const m = st.el.media;
+check(Math.abs(m.start - 1) < 0.15 && Math.abs(m.end - 3.5) < 0.15 && m.speed === 2, `part ${m.start.toFixed(2)}–${m.end.toFixed(2)} s at 2× saved`);
+check(preview >= m.start - 0.1 && preview <= m.end + 0.1, `"play the part" stays inside it (${preview.toFixed(2)} s)`);
+await page.getByRole("button", { name: "Done" }).click();
+await page.getByRole("button", { name: "Export" }).click();
+await page.getByRole("checkbox", { name: "Export videos with sound" }).waitFor({ state: "attached" }).catch(() => {});
+files = await exportedFiles();
+const dur2 = Number(/duration=([\d.]+)/.exec(files[0].streams)?.[1]);
+check(Math.abs(dur2 - (m.end - m.start) / 2) < 0.2, `exported length = part / speed (${dur2} s)`);
+check(!/codec_type=audio/.test(files[0].streams), "no sound at 2×");
+await page.getByRole("button", { name: "Back to editor" }).click();
+
 console.log("Saved and reopened");
 await page.waitForTimeout(1200);
 await page.reload();
 await page.locator("article button").first().click();
 await page.waitForTimeout(1500);
 st = await S();
-check(st.asset?.video?.hasAudio && st.asset.video.poster && st.el.media?.volume === 0.6, "video, poster and sound settings survive a reload");
+check(st.asset?.video?.hasAudio && st.asset.video.poster && st.el.media?.volume === 0.6 && st.el.media.speed === 2, "video, poster, sound and trim settings survive a reload");
 check(await page.getByRole("button", { name: "Play" }).isVisible(), "playback bar after reopening");
 
 console.log(`console errors: ${JSON.stringify(errors)}`);

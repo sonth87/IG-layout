@@ -22,6 +22,7 @@ import { AdjustTool, FilterTool } from "./tools/ColorTools";
 import { CropTool } from "./tools/CropTool";
 import { DrawTool } from "./tools/DrawTool";
 import { SoundTool } from "./tools/SoundTool";
+import { TrimTool } from "./tools/TrimTool";
 import { PlaybackBar } from "./PlaybackBar";
 import { resetPlayback } from "@/lib/video/playback";
 import { ElementsSheet } from "./tools/ElementsSheet";
@@ -62,7 +63,8 @@ type Tool =
   | "more"
   | "layers"
   | "draw"
-  | "sound";
+  | "sound"
+  | "trim";
 /** Tools that edit a draft (✕ / ✓). */
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound"];
 
@@ -340,6 +342,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       tools = (
         <>
           <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />
+          <ToolButton label={t("trim.title")} icon="scissors" onClick={() => openTool("trim")} />
           <ToolButton label={t("video.sound")} icon="volume" onClick={() => openTool("sound")} />
           {selected.locked ? (
             <ToolButton label={t("editor.unlock")} icon="unlock" onClick={() => store.toggleLock(selected.id)} />
@@ -612,6 +615,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       {tool === "more" && <ActionSheet title={t("editor.more")} actions={moreActions()} onAction={runMore} onClose={close} />}
       {tool === "layers" && <LayersSheet onClose={close} />}
       {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
+      {tool === "trim" && selected && <TrimTool elementId={selected.id} onClose={close} />}
       {tool === "elements" && <ElementsSheet onClose={close} />}
       {editingText && <TextEditDialog elementId={editingText} onClose={() => store.setEditingText(null)} />}
 

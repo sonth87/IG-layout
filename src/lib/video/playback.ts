@@ -39,9 +39,19 @@ function hostEl() {
   return host;
 }
 
-const length = (m: MediaSettings) => Math.max(0.05, m.end - m.start);
-/** Where a video should be at project time `t` (loops within its part). */
-const localTime = (m: MediaSettings, t: number) => m.start + (t % length(m));
+export const mediaSpeed = (m: MediaSettings) => m.speed ?? 1;
+/** Seconds the video takes on the timeline: its part, at its speed. */
+export const timelineLength = (m: MediaSettings) => Math.max(0.05, (m.end - m.start) / mediaSpeed(m));
+/** Sound plays only at normal speed (M13.2). */
+export const isAudible = (m: MediaSettings) => !m.muted && m.volume > 0 && mediaSpeed(m) === 1;
+/** Where in the source a video is at project time `t`: loops its part, or holds the last frame. */
+export function sourceTime(m: MediaSettings, t: number) {
+  const len = timelineLength(m);
+  const local = m.loop === false ? Math.min(t, len - 1 / 60) : t % len;
+  return m.start + local * mediaSpeed(m);
+}
+const length = timelineLength;
+const localTime = sourceTime;
 
 function updateDuration() {
   let d = 0;
@@ -52,7 +62,8 @@ function updateDuration() {
 function applySound(e: Entry) {
   const { playing } = usePlayback.getState();
   // Sound only while playing; muted otherwise so iOS lets us seek / preview freely.
-  e.video.muted = !playing || e.media.muted;
+  e.video.muted = !playing || !isAudible(e.media);
+  e.video.playbackRate = mediaSpeed(e.media);
   e.video.volume = Math.max(0, Math.min(1, e.media.volume));
 }
 
@@ -118,8 +129,15 @@ function tick() {
   for (const e of entries.values()) {
     const target = localTime(e.media, t);
     const drift = Math.abs(e.video.currentTime - target);
+    const holding = e.media.loop === false && t >= timelineLength(e.media) - 1 / 30;
+    if (holding) {
+      // Not looping: stay on the last frame.
+      if (!e.video.paused) e.video.pause();
+      if (drift > 0.05) e.video.currentTime = target;
+      continue;
+    }
     // Each video loops on its own part; resync when it drifts (or wrapped).
-    if (e.video.currentTime >= e.media.end - 0.02 || drift > 0.25) e.video.currentTime = target;
+    if (e.video.currentTime >= e.media.end - 0.02 || drift > 0.25 * mediaSpeed(e.media)) e.video.currentTime = target;
     if (e.video.paused) void e.video.play().catch(() => {});
   }
   usePlayback.setState({ time: t });

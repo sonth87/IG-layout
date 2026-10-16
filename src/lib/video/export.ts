@@ -5,7 +5,7 @@ import { slideRect } from "@/lib/project/layout";
 import type { ImageAsset, ImageElement, MediaSettings, ProjectDoc, Rect } from "@/lib/project/types";
 import { frameOverrides } from "./frames";
 import { ensureAac } from "./import";
-import { defaultMedia } from "./playback";
+import { defaultMedia, isAudible, sourceTime, timelineLength } from "./playback";
 
 // Exporting a slide that contains video (M13.1): an MP4 (H.264 + AAC), the size of the
 // slide, as long as the longest video part on it (others loop). Frames are rendered
@@ -36,11 +36,11 @@ export function slideVideos(doc: ProjectDoc, index: number, assets: Record<strin
   });
 }
 
-const partLength = (m: MediaSettings) => Math.max(0.05, m.end - m.start);
+const partLength = timelineLength;
 
 /** Mixes the sound of the slide's videos over `duration` seconds (null if there is none). */
 async function mixAudio(mb: typeof import("mediabunny"), videos: SlideVideo[], duration: number) {
-  const audible = videos.filter((v) => v.asset.video?.hasAudio && !v.media.muted && v.media.volume > 0);
+  const audible = videos.filter((v) => v.asset.video?.hasAudio && isAudible(v.media));
   if (audible.length === 0) return null;
   const ctx = new OfflineAudioContext(2, Math.ceil(duration * AUDIO_RATE), AUDIO_RATE);
   for (const v of audible) {
@@ -55,8 +55,8 @@ async function mixAudio(mb: typeof import("mediabunny"), videos: SlideVideo[], d
     for await (const { buffer, timestamp } of new mb.AudioBufferSink(track).buffers(v.media.start, v.media.end)) {
       chunks.push({ buffer, at: timestamp - v.media.start });
     }
-    // Loop the part until the slide ends, like the picture.
-    for (let offset = 0; offset < duration; offset += len) {
+    // Loop the part until the slide ends, like the picture (once when not looping).
+    for (let offset = 0; offset < (v.media.loop === false ? Math.min(len, duration) : duration); offset += len) {
       for (const { buffer, at } of chunks) {
         const when = offset + at;
         if (when >= duration || at >= len) continue;
@@ -116,8 +116,7 @@ export async function exportVideoSlide(opts: {
     videos.map(async (v) => {
       const input = new mb.Input({ source: new mb.BlobSource(v.asset.blob), formats: mb.ALL_FORMATS });
       const track = (await input.getPrimaryVideoTrack())!;
-      const len = partLength(v.media);
-      const times = Array.from({ length: frames }, (_, i) => v.media.start + ((i / VIDEO_FPS) % len));
+      const times = Array.from({ length: frames }, (_, i) => sourceTime(v.media, i / VIDEO_FPS));
       return { id: v.el.id, it: new mb.CanvasSink(track, { poolSize: 2 }).canvasesAtTimestamps(times)[Symbol.asyncIterator]() };
     }),
   );

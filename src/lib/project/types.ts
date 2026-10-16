@@ -52,6 +52,10 @@ export interface MediaSettings {
   volume: number;
   start: number;
   end: number;
+  /** Playback speed (M13.2): 0.5 … 2. Sound is off when not 1. Default 1. */
+  speed?: number;
+  /** Repeat the part when the slide lasts longer (default), or hold the last frame. */
+  loop?: boolean;
 }
 
 export interface Rect {

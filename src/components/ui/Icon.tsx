@@ -204,6 +204,13 @@ const PATHS = {
       <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />
     </>
   ),
+  scissors: (
+    <>
+      <circle cx="6" cy="6" r="3" />
+      <circle cx="6" cy="18" r="3" />
+      <path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12" />
+    </>
+  ),
   grip: (
     <>
       <circle cx="9" cy="6" r="1" />
