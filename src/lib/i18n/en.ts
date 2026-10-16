@@ -158,6 +158,8 @@ export const en = {
   "filter.group.mono": "Mono",
   "filter.group.vintage": "Vintage",
   "filter.group.modern": "Modern",
+  "filter.group.nature": "Nature",
+  "filter.group.food": "Food",
   "filter.group.future": "Future",
   "filter.applyAll": "Apply to all photos ({count})",
   "filter.filterOnly": "filter only",

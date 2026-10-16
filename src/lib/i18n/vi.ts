@@ -157,6 +157,8 @@ export const vi: Record<MessageKey, string> = {
   "filter.group.mono": "Đơn sắc",
   "filter.group.vintage": "Vintage",
   "filter.group.modern": "Hiện đại",
+  "filter.group.nature": "Thiên nhiên",
+  "filter.group.food": "Ẩm thực",
   "filter.group.future": "Tương lai",
   "filter.applyAll": "Áp dụng cho tất cả ảnh ({count})",
   "filter.filterOnly": "chỉ filter",
