@@ -126,15 +126,23 @@ export function motionClock() {
  * Puts every animated element of `doc` in its state at `t` (seconds). `slideDuration(i)`
  * gives each slide's length (videos make slides longer).
  */
-export function applyMotion(layer: Konva.Layer, doc: ProjectDoc, t: number, slideDuration: (index: number) => number, slide: Pick<Rect, "width" | "height">) {
-  current = { t, progress: new Map() };
+export function applyMotion(
+  layer: Konva.Layer,
+  doc: ProjectDoc,
+  /** Seconds — the same for every slide, or per slide (the single-video export plays slides one after another). */
+  time: number | ((index: number) => number),
+  slideDuration: (index: number) => number,
+  slide: Pick<Rect, "width" | "height">,
+) {
+  const timeOf = typeof time === "number" ? () => time : time;
+  current = { t: timeOf(0), progress: new Map() };
   for (const el of doc.elements) {
     if (el.hidden || !hasMotion(el)) continue;
     const index = slideOfElement(doc, el);
     const d = slideDuration(index);
     const node = layer.findOne(`#${el.id}`);
     if (!node) continue;
-    const s = motionAt(el, Math.min(t, d), d, slide);
+    const s = motionAt(el, Math.min(timeOf(index), d), d, slide);
     current.progress.set(el.id, s.progress);
     node.opacity(el.opacity * s.opacity);
     node.position({ x: el.x + el.width / 2 + s.dx, y: el.y + el.height / 2 + s.dy });

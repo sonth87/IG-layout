@@ -24,8 +24,9 @@ import { DrawTool } from "./tools/DrawTool";
 import { SoundTool } from "./tools/SoundTool";
 import { TrimTool } from "./tools/TrimTool";
 import { AnimationTool } from "./tools/AnimationTool";
+import { MusicTool } from "./tools/MusicTool";
 import { PlaybackBar } from "./PlaybackBar";
-import { pause as pausePlayback, resetPlayback, seek, usePlayback } from "@/lib/video/playback";
+import { attachMusic, detachMusic, pause as pausePlayback, resetPlayback, seek, usePlayback } from "@/lib/video/playback";
 import { ElementsSheet } from "./tools/ElementsSheet";
 import { FillTool, MaskTool, StyleTool } from "./tools/ElementTools";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
@@ -66,7 +67,8 @@ type Tool =
   | "draw"
   | "sound"
   | "trim"
-  | "animate";
+  | "animate"
+  | "music";
 /** Tools that edit a draft (✕ / ✓). */
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate"];
 
@@ -199,6 +201,14 @@ export function Editor({ onClose }: { onClose: () => void }) {
     area.scrollTo({ left: px - area.clientWidth / 2, top: py - area.clientHeight / 2, behavior: "smooth" });
   }
 
+  // Background music plays with the project (M13.4).
+  const musicAsset = doc.music ? assets[doc.music.assetId] : undefined;
+  useEffect(() => {
+    if (doc.music && musicAsset?.audio) attachMusic(musicAsset.url, doc.music, musicAsset.audio.duration);
+    else detachMusic();
+  }, [doc.music, musicAsset]);
+  useEffect(() => detachMusic, []);
+
   // Editing an element: stop playing and go back to the start, where elements sit at
   // their real positions (animations are only shown while playing, M13.3).
   useEffect(() => {
@@ -272,7 +282,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     </section>
   );
 
-  type MoreKey = "background" | "slides" | "layers" | "draw" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg" | "crop" | "animate";
+  type MoreKey = "background" | "slides" | "layers" | "draw" | "music" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg" | "crop" | "animate";
 
   /** Secondary actions for the selection ("⋯ More"), described as data. */
   function moreActions(): Action<MoreKey>[] {
@@ -280,6 +290,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       return [
         { key: "background", label: t("editor.background"), icon: "background" },
         { key: "slides", label: isGrid ? t("editor.grid") : doc.type === "story" ? t("editor.frames") : t("editor.slides"), icon: "slides" },
+        { key: "music", label: t("music.title"), icon: "music" },
         { key: "draw", label: t("editor.draw"), icon: "pencil" },
         { key: "layers", label: t("layers.title"), icon: "layers" },
       ];
@@ -309,6 +320,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (key === "background") return openTool("background");
     if (key === "slides") return openTool("slides");
     if (key === "layers") return setTool("layers");
+    if (key === "music") return setTool("music");
     if (key === "draw") {
       store.startDrawing();
       return setTool("draw");
@@ -338,6 +350,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "fill" && selected) bottom = <FillTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "draw") bottom = <DrawTool onClose={close} />;
+  else if (tool === "music") bottom = <MusicTool onClose={close} />;
   else if (tool === "sound" && selected) bottom = <SoundTool elementId={selected.id} onClose={close} />;
   else if (tool === "animate" && selected) bottom = <AnimationTool elementId={selected.id} onClose={close} />;
   else if (tool === "slides") bottom = <SlidesTool onClose={close} showSafeZone={showSafeZone} onSafeZone={setShowSafeZone} />;

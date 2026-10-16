@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import type { MediaSettings } from "@/lib/project/types";
+import type { MediaSettings, Music } from "@/lib/project/types";
+import { musicGain } from "./music";
 
 // Video playback in the editor (M13.1). One hidden <video> per video element (iOS only
 // plays videos that are in the page, muted or after a tap, inline). A single clock
@@ -25,6 +26,53 @@ let redraw: () => void = () => {};
 let frameHook: (t: number, active: boolean) => void = () => {};
 /** Length of animations when the project has no video (M13.3). */
 let extraDuration = 0;
+
+// ── Background music (M13.4) ──────────────────────────────────────
+let music: { audio: HTMLAudioElement; settings: Music; duration: number } | null = null;
+
+export function attachMusic(url: string, settings: Music, trackDuration: number) {
+  if (!music) {
+    const audio = document.createElement("audio");
+    audio.preload = "auto";
+    hostEl().appendChild(audio);
+    music = { audio, settings, duration: trackDuration };
+  }
+  music.settings = settings;
+  music.duration = trackDuration;
+  if (music.audio.dataset.src !== url) {
+    music.audio.dataset.src = url;
+    music.audio.src = url;
+    music.audio.load();
+  }
+}
+
+export function detachMusic() {
+  if (!music) return;
+  music.audio.pause();
+  music.audio.removeAttribute("src");
+  music.audio.load();
+  music.audio.remove();
+  music = null;
+}
+
+/** Track position at project time t (loops when the track is shorter). */
+function musicTime(t: number) {
+  if (!music) return 0;
+  const len = Math.max(0.1, music.duration - music.settings.start);
+  return music.settings.start + (t % len);
+}
+
+function syncMusic(t: number, playing: boolean) {
+  if (!music) return;
+  const a = music.audio;
+  a.volume = Math.max(0, Math.min(1, musicGain(music.settings, t, usePlayback.getState().duration)));
+  if (!playing) {
+    a.pause();
+    return;
+  }
+  if (Math.abs(a.currentTime - musicTime(t)) > 0.3) a.currentTime = musicTime(t);
+  if (a.paused) void a.play().catch(() => {});
+}
 
 export function setFrameHook(fn: (t: number, active: boolean) => void) {
   frameHook = fn;
@@ -154,6 +202,7 @@ function tick() {
     if (e.video.paused) void e.video.play().catch(() => {});
   }
   usePlayback.setState({ time: t });
+  syncMusic(t, true);
   frameHook(t, true);
   redraw();
   frame = requestAnimationFrame(tick);
@@ -169,6 +218,10 @@ export function play() {
     // Called from the tap: iOS allows sound.
     void e.video.play().catch(() => {});
   }
+  if (music) {
+    music.audio.currentTime = musicTime(usePlayback.getState().time);
+    syncMusic(usePlayback.getState().time, true);
+  }
   frame = requestAnimationFrame(tick);
 }
 
@@ -179,6 +232,7 @@ export function pause() {
     e.video.pause();
     applySound(e);
   }
+  syncMusic(usePlayback.getState().time, false);
   // Paused at the start: back to editing positions; elsewhere: keep the frame shown.
   frameHook(usePlayback.getState().time, usePlayback.getState().time > 0);
   redraw();
@@ -203,6 +257,7 @@ export function seek(t: number) {
 export function resetPlayback() {
   usePlayback.setState({ time: 0 });
   pause();
+  detachMusic();
   for (const id of [...entries.keys()]) detachVideo(id);
   usePlayback.setState({ time: 0, duration: 0 });
 }

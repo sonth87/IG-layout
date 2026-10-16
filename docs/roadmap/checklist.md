@@ -260,5 +260,25 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Lưu / mở lại (video, ảnh bìa, thiết lập tiếng)
 - [x] Kiểm tra tự động `e2e/m13.mjs` (ffprobe: H.264 1080×1350, AAC, độ dài; tắt tiếng → không có track âm thanh)
 - [ ] Chủ dự án thử trên iPhone với video thật (nhập, phát có tiếng, xuất, lưu vào Ảnh, đăng Instagram)
-- [ ] → M13.2: màn cắt đoạn (dải hình + sóng âm, phát thử trong đoạn), tốc độ, ảnh bìa
+- [x] → M13.2 (dưới)
+
+### M13.2 — Cắt đoạn và tốc độ — xong phần code 2026-10-16
+- [x] Màn **Cắt đoạn**: video xem trước, **dải khung hình** + **dạng sóng âm thanh**, 2 tay nắm (kéo → thấy đúng khung ở điểm đó), phần ngoài đoạn tối đi, vạch đang phát, nút ±0,1 s cho đầu / cuối, **Phát đoạn đã chọn** (có tiếng, lặp trong đoạn)
+- [x] **Tốc độ** 0,5× / 1× / 1,5× / 2× (khác 1× thì tắt tiếng, có ghi chú); **Lặp lại** khi slide dài hơn, hoặc dừng ở khung cuối
+- [x] Phát trong editor và xuất theo đoạn / tốc độ / lặp (độ dài file = đoạn ÷ tốc độ)
+- [x] ~~Ảnh bìa~~ bỏ (Instagram tự cho chọn)
+
+### M13.3 — Hiệu ứng và chuyển động — xong phần code 2026-10-16
+- [x] **Bộ lọc + chỉnh màu cho video** (25 filter, 13 thông số; xử lý từng khung bằng WebGL, xem trước ≤ 1080 px, xuất đủ độ phân giải)
+- [x] **Chuyển động** cho mọi phần tử (chữ, sticker, emoji, hình, ảnh, video): **Vào** (hiện dần, trượt 4 hướng, phóng, nảy, đánh máy cho chữ) + thời lượng + chờ; **Ra** (hiện dần, trượt, phóng) + thời lượng; **Liên tục** (nhịp đập, lơ lửng, nhấp nháy, xoay tròn, rung); **Trong khung** cho ảnh / video (Ken Burns: phóng to / thu nhỏ dần, lia trái / phải); **Độ dài slide** có chuyển động (mặc định 5 s); **Xem thử**
+- [x] Chỉ hiện chuyển động khi phát / tua; dừng ở 0 s hoặc bắt đầu sửa → phần tử về đúng vị trí thật
+- [x] Slide có chuyển động (không cần video) được **xuất thành MP4**
+- [x] Kiểm tra `e2e/m13b.mjs`
+
+### M13.4 — Nhạc và xuất nâng cao — xong phần code 2026-10-16
+- [x] **Nhạc nền** (⋯ → Nhạc): chọn file trong máy (chuyển về AAC trên máy, ≤ 5 phút), bắt đầu từ, nghe thử 5 s, âm lượng, nhỏ dần đầu / cuối, đổi / bỏ; phát cùng project (lặp nếu bài ngắn hơn); trộn vào mọi video xuất
+- [x] **Một video 9:16** (Reels / Story / TikTok) cho Post / Story: lần lượt từng slide (video: dài bằng video; chuyển động: độ dài slide; ảnh tĩnh: 2,5 s), **lướt ngang 0,6 s** sang slide sau (dải canvas di chuyển → carousel liền mạch vẫn liền), có tiếng video + nhạc
+- [x] ~~Tự chia story 15 s~~ bỏ (Instagram nhận story 60 s)
+- [x] Kiểm tra `e2e/m13c.mjs`
+- [ ] Chủ dự án thử toàn bộ video trên iPhone (cắt đoạn, tốc độ, filter, chuyển động, nhạc, video 9:16)
 

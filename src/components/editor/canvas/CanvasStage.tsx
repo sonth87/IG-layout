@@ -210,7 +210,8 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       setFrameHook(() => {});
     };
   }, [contentLayerRef]);
-  const animated = !!doc?.elements.some(hasMotion);
+  // Animations or music make the project playable even without video (M13.3, M13.4).
+  const animated = !!doc?.elements.some(hasMotion) || !!doc?.music;
   const animationLength = doc ? motionDuration(doc) : 0;
   useEffect(() => setExtraDuration(animated ? animationLength : 0), [animated, animationLength]);
 

@@ -1,6 +1,6 @@
 # Đặc tả video (M13) — 2026-10-16
 
-> Trạng thái: **đã chốt hướng**, làm theo giai đoạn. Nguồn: kết quả [video lab](../discussions/2026-10-16-video-lab.md) trên iPhone + yêu cầu của chủ dự án.
+> Trạng thái: **M13.1–M13.4 xong phần code (2026-10-16)**, chờ thử trên iPhone. Chi tiết đã làm: [checklist](../roadmap/checklist.md). Nguồn: kết quả [video lab](../discussions/2026-10-16-video-lab.md) trên iPhone + yêu cầu của chủ dự án.
 > Yêu cầu gốc: "cần giữ tiếng, có tuỳ chọn tắt tiếng; nên nén video; nhiều tuỳ chọn tinh chỉnh: chọn từ đoạn nào đến đoạn nào (có khung chọn kèm hình / âm thanh để phát thử trong khoảng đó), zoom, di chuyển vị trí hiển thị, hiệu ứng, bộ lọc, sticker, text, animation… thiếu thì bổ sung, chưa đủ thì mở rộng".
 > Ký hiệu: **[Y]** chủ dự án yêu cầu · **[S]** có trong SCRL · **[+]** tôi đề xuất thêm.
 
@@ -41,7 +41,7 @@
 ### M13.4 — Âm nhạc và xuất nâng cao
 - **Nhạc nền** [+] từ file trong máy (MP3 / M4A): cắt đoạn, âm lượng, nhỏ dần đầu / cuối; trộn với tiếng video.
 - **Xuất cả carousel thành một video** [S] (dải cuộn ngang — cho Reels / Story / TikTok).
-- **Story có video** [+]: tự chia video dài thành các story 15 s.
+- ~~Story: tự chia video dài thành story 15 s~~ — bỏ: Instagram nhận story video tới 60 s, app đã giới hạn 60 s (2026-10-16).
 
 ## Giới hạn và rủi ro
 

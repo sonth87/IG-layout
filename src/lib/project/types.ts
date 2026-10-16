@@ -29,6 +29,8 @@ export interface ImageAsset {
   name: string;
   /** Video (M13): `blob` is an MP4 (compressed on import); `poster` is its first frame. */
   video?: VideoInfo;
+  /** Music (M13.4): `blob` is an AAC audio file (M4A); width / height are 0. */
+  audio?: { duration: number };
 }
 
 /** URL to show an asset as a still picture (videos: their first frame). */
@@ -218,7 +220,20 @@ export function isImage(el: CanvasElement | undefined): el is ImageElement {
   return el?.type === "image";
 }
 
+/** Background music of the project (M13.4). Times in seconds of the track. */
+export interface Music {
+  assetId: string;
+  /** Where in the track the project starts. */
+  start: number;
+  /** 0..1 */
+  volume: number;
+  fadeIn: boolean;
+  fadeOut: boolean;
+}
+
 export interface ProjectDoc {
+  /** Background music (M13.4). */
+  music?: Music;
   /** Seconds a slide with animation but no video lasts when exported as video (M13.3, default 5). */
   motionDuration?: number;
   type: ProjectType;

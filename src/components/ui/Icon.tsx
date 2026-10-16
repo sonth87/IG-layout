@@ -211,6 +211,13 @@ const PATHS = {
       <path d="M4 7h4M4 17h4" />
     </>
   ),
+  music: (
+    <>
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
+    </>
+  ),
   scissors: (
     <>
       <circle cx="6" cy="6" r="3" />

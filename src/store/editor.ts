@@ -14,6 +14,7 @@ import {
   type CanvasElement,
   type ImageAsset,
   isImage,
+  type Music,
   type ProjectDoc,
   type ProjectType,
   newId,
@@ -61,6 +62,8 @@ interface EditorState {
   /** Same picture, new pixels (background removed, M12): keeps the framing, scales the crop. */
   swapAsset: (id: string, asset: ImageAsset) => void;
   addElement: (el: CanvasElement) => void;
+  /** Background music (M13.4): set (with its new asset) or remove. One undo step. */
+  setMusic: (music: Music | null, asset?: ImageAsset) => void;
   /** Freehand drawing in progress (M11): strokes in canvas pixels, not in the doc yet. */
   drawing: { color: string; size: number; strokes: number[][] } | null;
   startDrawing: () => void;
@@ -162,7 +165,7 @@ export const useEditor = create<EditorState>()((set, get) => {
     if (!projectId || assets.length === 0) return;
     set((s) => ({ assets: { ...s.assets, ...Object.fromEntries(assets.map((a) => [a.id, a])) } }));
     void saveAssets(
-      assets.map(({ id, blob, width, height, name, video }) => ({
+      assets.map(({ id, blob, width, height, name, video, audio }) => ({
         id,
         projectId,
         blob,
@@ -170,6 +173,7 @@ export const useEditor = create<EditorState>()((set, get) => {
         height,
         name,
         ...(video && { video: { duration: video.duration, hasAudio: video.hasAudio, poster: video.poster } }),
+        ...(audio && { audio }),
       })),
     );
   }
@@ -307,6 +311,16 @@ export const useEditor = create<EditorState>()((set, get) => {
         const k = old ? asset.width / old.width : 1;
         const crop = { x: el.crop.x * k, y: el.crop.y * k, width: el.crop.width * k, height: el.crop.height * k };
         return updateEl(d, id, { assetId: asset.id, crop });
+      });
+    },
+
+    setMusic: (music, asset) => {
+      if (asset) storeAssets([asset]);
+      commit((d) => {
+        const next = { ...d };
+        if (music) next.music = music;
+        else delete next.music;
+        return next;
       });
     },
 
