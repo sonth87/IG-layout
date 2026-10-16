@@ -65,6 +65,12 @@ export function newSticker(ratio: AspectRatio, slide: Rect, key: string): IconEl
   return { id: newId(), type: "icon", ...centered(ratio, slide, width, height), rotation: 0, opacity: 1, icon: key, color: st.color };
 }
 
+/** An emoji sticker (Fluent Emoji, MIT): the SVG body is stored in the element. */
+export function newEmoji(ratio: AspectRatio, slide: Rect, name: string, body: string): IconElement {
+  const size = SLIDE_SIZE[ratio].width * 0.24;
+  return { id: newId(), type: "icon", ...centered(ratio, slide, size, size), rotation: 0, opacity: 1, icon: `emoji:${name}`, color: "#000000", svg: body };
+}
+
 /** A generated overlay (M11) covering the slide, blended with what is below. */
 export function newOverlay(slide: Rect, asset: ImageAsset, blend: BlendMode): ImageElement {
   return { ...imageElement(asset, { ...slide }), blend };

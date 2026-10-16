@@ -160,12 +160,13 @@ export function FillTool({ elementId, onClose }: ToolProps) {
   const updateDraft = useEditor((s) => s.updateDraft);
   const actions = useSheetActions(onClose);
   if (!found || (found.type !== "shape" && found.type !== "icon" && found.type !== "drawing")) return null;
+  const fixedColors = found.type === "icon" && !!found.svg; // emoji: only opacity
   const color = found.type === "shape" ? found.fill : found.color;
   const patch = (p: Partial<CanvasElement>) => updateDraft((d) => updateEl(d, elementId, p));
 
   return (
     <ToolSheet title={t("tool.color")} {...actions}>
-      <Swatches value={color} onChange={(c) => patch(found.type === "shape" ? { fill: c } : { color: c })} />
+      {!fixedColors && <Swatches value={color} onChange={(c) => patch(found.type === "shape" ? { fill: c } : { color: c })} />}
       <Slider
         label={t("tool.opacity")}
         value={Math.round(found.opacity * 100)}

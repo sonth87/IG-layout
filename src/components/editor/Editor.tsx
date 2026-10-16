@@ -353,7 +353,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
     else
       tools = (
         <>
-          <ToolButton label={t("tool.color")} icon="palette" onClick={() => openTool("fill")} />
+          {/* Emoji keep their own colours: opacity only (still in the Color tool). */}
+          <ToolButton label={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} icon="palette" onClick={() => openTool("fill")} />
           {done}
         </>
       );

@@ -94,6 +94,21 @@ st = await S();
 check(last(st, "icon").color !== tape.color, "sticker colour can be changed");
 await page.getByRole("button", { name: "Done" }).click();
 
+console.log("Emoji stickers (Fluent Emoji, MIT)");
+await page.getByRole("button", { name: "Elements" }).click();
+await page.getByRole("button", { name: "Stickers", exact: true }).click();
+await page.getByRole("button", { name: "Food & Drink" }).click();
+await page.getByRole("button", { name: "pizza", exact: true }).click();
+st = await S();
+const emoji = last(st, "icon");
+check(emoji.icon === "emoji:pizza" && emoji.svg?.includes("<path"), "emoji sticker added with its SVG stored in the project");
+await page.getByRole("button", { name: "Done" }).click();
+await page.getByRole("button", { name: "Elements" }).click();
+await page.getByRole("searchbox").fill("cat face");
+await page.waitForTimeout(600);
+check((await page.getByRole("button", { name: "cat face", exact: true }).count()) === 1, "search finds emoji across categories");
+await page.getByLabel("Close").click();
+
 console.log("S13 overlays (blend)");
 const before = await page.evaluate(() => {
   const s = window.__igEditor.getState();

@@ -137,9 +137,11 @@ export interface ShapeElement extends ElementBase {
 
 export interface IconElement extends ElementBase {
   type: "icon";
-  /** Key in lib/elements/icons.ts. */
+  /** Key in lib/elements/icons.ts (icons, stickers), or "emoji:<name>" (M13 batch). */
   icon: string;
   color: string;
+  /** Emoji stickers: the SVG body (32 × 32 viewBox), kept in the project so it never needs fetching again. */
+  svg?: string;
 }
 
 /** Freehand drawing (M11, S17). Points are relative to the box (0..1), so resizing scales it. */
