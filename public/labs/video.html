@@ -42,7 +42,7 @@
     </div>
     <p></p>
     <canvas id="stage" width="1080" height="1350"></canvas>
-    <p class="row"><button id="play" disabled>Phát 5 giây và đo</button></p>
+    <p class="row"><button id="play">Phát 5 giây và đo</button></p>
     <pre id="playOut">—</pre>
   </section>
 
@@ -92,18 +92,54 @@ async function caps() {
 }
 
 // ── 2. Playback on canvas ────────────────────────────────────────
+/** Resolves on `ok` event, rejects on `error` or after `ms`. */
+function waitFor(el, ok, ms) {
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error(`Hết thời gian chờ "${ok}" (${ms / 1000} s)`)), ms);
+    el.addEventListener(ok, () => { clearTimeout(t); resolve(); }, { once: true });
+    el.addEventListener("error", () => { clearTimeout(t); reject(new Error("Trình duyệt không đọc được video này" + (el.error ? ` (mã ${el.error.code})` : ""))); }, { once: true });
+  });
+}
+
 $("file").onchange = async (e) => {
   const f = e.target.files[0];
   if (!f) return;
-  video = document.createElement("video");
-  video.src = URL.createObjectURL(f);
-  video.muted = true;
-  video.playsInline = true;
-  video.loop = true;
-  await new Promise((ok, fail) => { video.onloadeddata = ok; video.onerror = () => fail(new Error("Không đọc được video")); });
-  report.video = { name: f.name, type: f.type, sizeMB: +(f.size / 1e6).toFixed(1), w: video.videoWidth, h: video.videoHeight, sec: +video.duration.toFixed(1) };
-  $("playOut").textContent = JSON.stringify(report.video, null, 2);
-  $("play").disabled = false;
+  $("play").disabled = true;
+  $("playOut").textContent = `Đang mở video… (${f.type || "?"}, ${(f.size / 1e6).toFixed(1)} MB)`;
+  try {
+    video?.remove();
+    // iOS Safari only loads a video that is in the page, muted, inline, with preload set.
+    video = document.createElement("video");
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute("playsinline", "");
+    video.setAttribute("muted", "");
+    video.preload = "auto";
+    video.loop = true;
+    video.style.cssText = "position:fixed;left:0;top:0;width:2px;height:2px;opacity:0.01;pointer-events:none";
+    document.body.appendChild(video);
+    video.src = URL.createObjectURL(f);
+    video.load();
+    await waitFor(video, "loadedmetadata", 15000);
+    // Get a decoded frame: play a moment, then pause (iOS has no frame before playing).
+    try {
+      await video.play();
+    } catch (err) {
+      report.playError = String(err);
+    }
+    await new Promise((ok) => ("requestVideoFrameCallback" in video ? video.requestVideoFrameCallback(() => ok()) : setTimeout(ok, 400)));
+    video.pause();
+    drawFrame(0);
+    report.video = { name: f.name, type: f.type, sizeMB: +(f.size / 1e6).toFixed(1), w: video.videoWidth, h: video.videoHeight, sec: +video.duration.toFixed(1) };
+    $("playOut").textContent = JSON.stringify(report.video, null, 2);
+    $("play").disabled = false;
+  } catch (err) {
+    report.videoError = String(err);
+    $("playOut").textContent = "Lỗi: " + err.message + "\nVẫn có thể làm bước 3 (dùng video tự tạo).";
+    video?.remove();
+    video = null;
+  }
 };
 
 /** One frame of the "project": the video (or a synthetic animation) + a photo-like card + text. */
@@ -134,7 +170,7 @@ function drawFrame(t) {
 
 $("play").onclick = async () => {
   $("play").disabled = true;
-  await video.play();
+  if (video) await video.play().catch(() => {});
   const frames = [];
   const t0 = performance.now();
   await new Promise((done) => {
@@ -146,7 +182,7 @@ $("play").onclick = async () => {
     };
     requestAnimationFrame(step);
   });
-  video.pause();
+  video?.pause();
   const gaps = frames.slice(1).map((f, i) => f - frames[i]).sort((a, b) => a - b);
   report.playback = { fps: +(frames.length / 5).toFixed(1), p95FrameMs: +gaps[Math.floor(gaps.length * 0.95)].toFixed(1), maxFrameMs: +gaps.at(-1).toFixed(1) };
   $("playOut").textContent = JSON.stringify({ ...report.video, ...report.playback }, null, 2);
@@ -214,6 +250,7 @@ $("copy").onclick = async () => {
 };
 
 caps();
+drawFrame(0); // synthetic preview until a video is chosen
 </script>
 </body>
 </html>
