@@ -24,7 +24,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `m11.mjs` | 78 font (nhóm, độ đậm, font tải đúng), 25 filter, sticker (thêm, đổi màu), lớp phủ (hoà trộn làm sáng ảnh, đổi chế độ), vẽ tay (chạm thật, bỏ nét, ✓), khung triển lãm, lưu & mở lại, xuất |
 | `drag-perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian khung hình khi kéo / chụm trên điện thoại giả lập, CPU chậm 4× |
 | `perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian nhập 20 ảnh 4000 px, thời gian vẽ lại, bộ nhớ canvas |
-| `offline.mjs` | Vào trang 1 lần → tắt mạng → vẫn chạy |
+| `offline.mjs` | Vào trang 1 lần → tắt mạng → vẫn chạy, kể cả mở trình chỉnh sửa lần đầu (tải muộn, M11) |
 
 - Cần Chromium: `CHROME_PATH=...` hoặc `npx playwright install chromium-headless-shell`.
 - `m2.mjs` dùng `sips` (macOS) để đọc kích thước ảnh xuất.
