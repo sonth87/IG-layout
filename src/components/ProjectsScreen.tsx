@@ -13,7 +13,9 @@ import {
   renameProject,
   storageEstimate,
 } from "@/lib/storage/projects";
+import type { Template } from "@/lib/templates/types";
 import { useEditor } from "@/store/editor";
+import { TemplateLibrary } from "./home/TemplateLibrary";
 import { useSettings, useT } from "@/store/settings";
 
 const TYPE_BADGE: Record<ProjectType, string> = {
@@ -67,7 +69,17 @@ function InstallBanner() {
   );
 }
 
-export function ProjectsScreen({ onNew, onSettings, onHelp }: { onNew: () => void; onSettings: () => void; onHelp: () => void }) {
+export type HomeTab = "templates" | "projects";
+
+export function ProjectsScreen(props: {
+  tab: HomeTab;
+  onTab: (tab: HomeTab) => void;
+  onNew: () => void;
+  onUseTemplate: (tpl: Template) => void;
+  onSettings: () => void;
+  onHelp: () => void;
+}) {
+  const { tab, onTab, onNew, onSettings, onHelp } = props;
   const t = useT();
   const locale = useSettings((s) => s.locale);
   const openProject = useEditor((s) => s.openProject);
@@ -174,6 +186,26 @@ export function ProjectsScreen({ onNew, onSettings, onHelp }: { onNew: () => voi
 
       <InstallBanner />
 
+      {/* Home tabs (M10): template library, like SCRL, and the user's projects. */}
+      <div role="tablist" aria-label={t("home.tabs")} className="mx-5 mt-3 flex shrink-0 rounded-full bg-surface-2 p-1">
+        {(["templates", "projects"] as const).map((tb) => (
+          <button
+            key={tb}
+            type="button"
+            role="tab"
+            aria-selected={tab === tb}
+            onClick={() => onTab(tb)}
+            className={`h-9 flex-1 rounded-full text-sm font-semibold ${tab === tb ? "bg-surface shadow-sm" : "text-muted"}`}
+          >
+            {t(`home.tab.${tb}`)}
+          </button>
+        ))}
+      </div>
+
+      {tab === "templates" ? (
+        <TemplateLibrary onUse={props.onUseTemplate} />
+      ) : (
+      <>
       <div className="mx-5 mt-3.5 flex flex-col gap-1.5">
         <div className="flex justify-between text-[13px] text-muted">
           <span>{t("projects.storage")}</span>
@@ -250,6 +282,8 @@ export function ProjectsScreen({ onNew, onSettings, onHelp }: { onNew: () => voi
           </article>
         ))}
       </div>
+      </>
+      )}
 
       <div className="border-t border-border px-5 pt-4 pb-[max(1.75rem,env(safe-area-inset-bottom))]">
         <button

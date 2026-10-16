@@ -1,4 +1,4 @@
-import type { Border, FrameStyle, MaskShape, ProjectType, ShapeKind } from "@/lib/project/types";
+import type { AspectRatio, Border, FontKey, FrameStyle, MaskShape, ProjectType, ShapeKind } from "@/lib/project/types";
 
 // Layout templates are data (D-31): coordinates are relative to one slide
 // (0..1), so the same template works for every ratio. `slide` + `x` > 1 lets a
@@ -37,6 +37,32 @@ export interface TemplateShape {
   fill: string;
 }
 
+/** Text placed by a template (designed templates, M10). Sizes relative to slide width. */
+export interface TemplateText {
+  slide: number;
+  x: number;
+  y: number;
+  w: number;
+  text: { en: string; vi: string };
+  font: FontKey;
+  /** Font size relative to slide width. */
+  size: number;
+  color: string;
+  align?: "left" | "center" | "right";
+  bold?: boolean;
+  /** Relative to the font size. */
+  letterSpacing?: number;
+  lineHeight?: number;
+  rotation?: number;
+  /** Box behind the text. Padding relative to the font size. */
+  background?: { color: string; padding: number };
+}
+
+/** Where a designed template appears in the home library (M10). */
+export type TemplateCategory = "carousel" | "seamless" | "collage" | "story" | "grid" | "minimal";
+
+export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["carousel", "seamless", "collage", "story", "minimal", "grid"];
+
 export type TemplateBackground =
   | { kind: "color"; color: string }
   | { kind: "gradient"; from: string; to: string; angle: number }
@@ -59,7 +85,10 @@ export interface Template {
   types?: ProjectType[];
   background?: TemplateBackground;
   shapes?: TemplateShape[];
+  texts?: TemplateText[];
   slots: TemplateSlot[];
+  /** Designed templates (home library): category and the format a new project starts with. */
+  design?: { category: TemplateCategory; type: ProjectType; ratio: AspectRatio };
 }
 
 export interface TemplateOptions {

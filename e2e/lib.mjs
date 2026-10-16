@@ -26,8 +26,20 @@ export function chromePath() {
 
 export const URL_ARG = process.argv[2] ?? "http://localhost:4321/";
 
-/** Marks the first-run tips as seen (they would cover part of the canvas). */
+/** Marks the onboarding (first launch, M10) as seen. */
+export async function skipOnboarding(context) {
+  await context.addInitScript(() => {
+    try {
+      localStorage.setItem("ig-layout:onboarded", "1");
+    } catch {
+      // ignore
+    }
+  });
+}
+
+/** Marks the onboarding and the first-run editor tips as seen (they would cover part of the canvas). */
 export async function skipTips(context) {
+  await skipOnboarding(context);
   await context.addInitScript(() => {
     try {
       localStorage.setItem("ig-layout:tips-seen", "1");

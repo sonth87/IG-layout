@@ -192,4 +192,19 @@ Nguồn: [tham khảo Grids](../discussions/2026-10-15-tham-khao-grids.md). Quy�
 - [x] S5 Thu nhỏ dưới 100% tới khi thấy cả dải (chụm, hoặc nút − trên máy tính); canvas hẹp thì căn giữa
 - [x] S8 Bảng lớp: kéo ⠿ để đổi thứ tự, mắt để ẩn / hiện (lớp ẩn không vẽ, không xuất, không hít), khoá
 - [ ] Chủ dự án quay video SCRL (danh sách ở mục 7 bản phân tích) để chỉnh cho đúng
-- [ ] → M10: onboarding, trang chủ + thư viện template, luồng template / trang trắng
+- [x] → chuyển sang M10
+
+### M10 — Trang chủ, template, onboarding (theo SCRL) — xong phần code 2026-10-16
+Quyết định: D-72..D-74.
+- [x] S1 Onboarding lần đầu: 3 bước (canvas liền dải, bắt đầu từ template, miễn phí / riêng tư / offline), Bỏ qua, cuối: "Xem template" / "Bắt đầu từ trang trắng". Không paywall
+- [x] Trang chủ: 2 tab **Template** / **Dự án của tôi**; tiêu đề "IG Layout"; nút "Tạo project" (trang trắng) giữ nguyên
+- [x] Thư viện template: nhóm (Tất cả, Carousel, Liền mạch, Collage, Story, Tối giản, Lưới profile); carousel chiếm cả chiều ngang, ảnh đơn / story 2 cột; ô ảnh trống tô màu nhạt
+- [x] Chi tiết template: xem trước lớn, loại · tỉ lệ · số ảnh · số slide, "Dùng template"
+- [x] S2 Dùng template → project mới (tên = tên template), ô ảnh trống, chữ theo ngôn ngữ đang dùng; không tính là bước hoàn tác
+- [x] "Thêm ảnh" điền ô trống trước theo thứ tự của template; ảnh dư đặt nổi như cũ. Template nền ảnh (panorama) có ô nền trống đã khoá
+- [x] Template có **chữ** (font, cỡ, màu, căn lề, giãn chữ, nền chữ, xoay) — `TemplateText`
+- [x] Bộ 20 template tự thiết kế (`lib/templates/designs.ts`): 5 carousel, 4 liền mạch, 3 collage, 4 story, 3 tối giản, 1 lưới profile
+- [x] Kiểm tra tự động `e2e/m10.mjs`
+- [ ] Chủ dự án duyệt từng template (đẹp chưa, thêm / bỏ mẫu nào)
+- [ ] Chỉnh theo video SCRL khi có (bố cục trang chủ, cách mở template)
+

@@ -27,7 +27,8 @@ src/
   app/                  layout, page, manifest (PWA), globals.css (biến theme)
   components/
     App.tsx             điều hướng giữa các màn: Projects, New, Settings, Editor
-    ProjectsScreen.tsx  "Project của tôi": danh sách, dung lượng, banner cài app
+    ProjectsScreen.tsx  trang chủ: tab Template / Dự án của tôi (danh sách, dung lượng, banner cài app)
+    home/               TemplateLibrary (thư viện template, chi tiết, Dùng template), Onboarding (lần đầu)
     NewProject.tsx      chọn tỉ lệ, số slide, chọn ảnh
     SettingsScreen.tsx  theme, ngôn ngữ, dung lượng, xóa tất cả
     editor/
@@ -54,7 +55,7 @@ src/
     project/layout.ts     vị trí slide / ô (Post, Story: 1 hàng; Grid: 3 × N + khe), thứ tự xuất, vùng an toàn Story
     project/slides.ts     thêm / xóa / đổi chỗ slide; Grid: thêm / bớt hàng, bật / tắt bù khe
     project/migrate.ts    nâng cấp dữ liệu project cũ
-    templates/          types, library (danh sách template), apply (template → phần tử)
+    templates/          types, library (layout cho LayoutPicker), designs (template thiết kế sẵn có chữ, cho trang chủ), apply (template → phần tử)
     color/              params (thông số màu), filters (danh sách filter), processor (WebGL + cache)
     text/fonts.ts       font chữ cho canvas + chờ font tải
     elements/           create (tạo chữ / hình / icon / khung), resize (co giãn cỡ chữ, viền theo tỉ lệ), shapes (vẽ hình), icons (Lucide)

@@ -1,7 +1,7 @@
 // M8 — UX fixes from docs/discussions/2026-10-14-danh-gia-ux.md, checked on a touch phone.
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, more, OUT as out, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, more, OUT as out, skipOnboarding, URL_ARG } from "./lib.mjs";
 
 const url = URL_ARG;
 const shot = (p, n) => p.screenshot({ path: path.join(out, `m8-${n}.png`) });
@@ -13,6 +13,7 @@ const check = (cond, msg) => {
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true });
+await skipOnboarding(context);
 const page = await context.newPage();
 const errors = [];
 page.on("console", (m) => m.type() === "error" && errors.push(m.text()));

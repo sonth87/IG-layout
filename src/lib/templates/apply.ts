@@ -23,6 +23,7 @@ export function applyTemplate(
   tpl: Template,
   photos: (ImageAsset | undefined)[],
   opts: TemplateOptions,
+  locale: "en" | "vi" = "en",
 ): ProjectDoc {
   const { width: W, height: H } = SLIDE_SIZE[doc.ratio];
   const slideCount = templateSlides(tpl, photos.length, doc.slideCount, doc.type);
@@ -34,8 +35,12 @@ export function applyTemplate(
   const bg = tpl.background;
   if (bg?.kind === "color" || bg?.kind === "gradient") background = bg;
   else if (tpl.gridded) background = { kind: "color", color: opts.color };
-  if (bg?.kind === "photo" && photos[bg.photo]) {
-    elements.push({ ...imageElement(photos[bg.photo]!, { x: 0, y: 0, width: full.width, height: full.height }), locked: true });
+  if (bg?.kind === "photo") {
+    const asset = photos[bg.photo];
+    const frame = { x: 0, y: 0, width: full.width, height: full.height };
+    // No photo yet (template from the home library): an empty locked cell to fill later.
+    const el = asset ? imageElement(asset, frame) : { ...imageElement({ id: "", width: frame.width, height: frame.height }, frame), assetId: null };
+    elements.push({ ...el, locked: true });
   }
 
   for (const sh of tpl.shapes ?? []) {
@@ -100,6 +105,39 @@ export function applyTemplate(
       if (asset) el.crop = coverCrop(asset, innerFrame(el));
     }
     elements.push(el);
+  }
+
+  // Texts on top of the photos (designed templates).
+  for (const tx of tpl.texts ?? []) {
+    if (tx.slide >= slideCount) continue;
+    const r = slideRect(sized, tx.slide);
+    const fontSize = Math.round(tx.size * W);
+    const lineHeight = tx.lineHeight ?? 1.15;
+    const text = tx.text[locale];
+    elements.push({
+      id: newId(),
+      type: "text",
+      x: r.x + tx.x * W,
+      y: r.y + tx.y * H,
+      width: tx.w * W,
+      // Real height is measured when drawn (setDerived); this is a close first guess.
+      height: fontSize * lineHeight * text.split("\n").length,
+      rotation: tx.rotation ?? 0,
+      opacity: 1,
+      text,
+      font: tx.font,
+      bold: tx.bold ?? false,
+      fontSize,
+      color: tx.color,
+      align: tx.align ?? "center",
+      letterSpacing: Math.round((tx.letterSpacing ?? 0) * fontSize),
+      lineHeight,
+      stroke: null,
+      shadow: false,
+      background: tx.background
+        ? { color: tx.background.color, padding: Math.round(tx.background.padding * fontSize), radius: Math.round(fontSize * 0.2) }
+        : null,
+    });
   }
 
   return { ...doc, slideCount, background, elements: elements.map((e) => ({ ...e, fromLayout: true })) };

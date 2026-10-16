@@ -5,6 +5,11 @@ import { canvasSize, slideRect } from "@/lib/project/layout";
 import type { AspectRatio, ImageAsset, ImageElement, ProjectDoc, ProjectType } from "@/lib/project/types";
 import { applyTemplate } from "@/lib/templates/apply";
 import type { Template, TemplateOptions } from "@/lib/templates/types";
+import { TEXT_FONTS, fontWeight } from "@/lib/text/fonts";
+import { useSettings } from "@/store/settings";
+
+/** Soft placeholder tones for empty photo cells (template library, before photos are added). */
+const PLACEHOLDERS = ["#cfc6b8", "#b9c4c9", "#d6c2bd", "#c3cbb8", "#cdbfd2", "#bcc9c0"];
 
 function cssBackground(doc: ProjectDoc) {
   const bg = doc.background;
@@ -30,8 +35,11 @@ export function TemplatePreview(props: {
   grid?: ProjectDoc["grid"];
   options: TemplateOptions;
   width: number;
+  /** Hide the dashed slide boundaries (home library cards). */
+  plain?: boolean;
 }) {
-  const { template, photos, ratio, slides, options, width, type = "post", grid } = props;
+  const { template, photos, ratio, slides, options, width, type = "post", grid, plain } = props;
+  const locale = useSettings((s) => s.locale);
   const doc = useMemo(
     () =>
       applyTemplate(
@@ -39,12 +47,14 @@ export function TemplatePreview(props: {
         template,
         photos,
         options,
+        locale,
       ),
-    [template, photos, ratio, slides, options, type, grid],
+    [template, photos, ratio, slides, options, type, grid, locale],
   );
   const size = canvasSize(doc);
   const k = width / size.width;
   const byId = new Map(photos.map((p) => [p.id, p]));
+  let cell = 0;
 
   return (
     <div
@@ -61,7 +71,33 @@ export function TemplatePreview(props: {
               style={{ left: el.x * k, top: el.y * k, width: el.width * k, height: el.height * k, background: el.fill }}
             />
           );
+        if (el.type === "text")
+          return (
+            <div
+              key={el.id}
+              className="absolute whitespace-pre-wrap"
+              style={{
+                left: el.x * k,
+                top: el.y * k,
+                width: el.width * k,
+                transform: el.rotation ? `rotate(${el.rotation}deg)` : undefined,
+                fontFamily: TEXT_FONTS[el.font].family,
+                fontWeight: fontWeight(el.bold),
+                fontSize: el.fontSize * k,
+                lineHeight: el.lineHeight,
+                letterSpacing: el.letterSpacing * k,
+                color: el.color,
+                textAlign: el.align,
+                background: el.background?.color,
+                padding: el.background ? el.background.padding * k : undefined,
+                borderRadius: el.background ? el.background.radius * k : undefined,
+              }}
+            >
+              {el.text}
+            </div>
+          );
         if (el.type !== "image") return null;
+        const tone = PLACEHOLDERS[cell++ % PLACEHOLDERS.length];
         const asset = el.assetId ? byId.get(el.assetId) : undefined;
         const framed = el.frame === "polaroid" || el.frame === "white";
         return (
@@ -82,12 +118,12 @@ export function TemplatePreview(props: {
                   : undefined,
               borderBottomWidth: el.frame === "polaroid" ? Math.max(3, el.width * k * 0.18) : undefined,
               boxShadow: el.shadow ? "0 2px 4px rgba(0,0,0,0.3)" : undefined,
-              background: asset ? `center / cover no-repeat url(${asset.url})` : "#d9d5cd",
+              background: asset ? `center / cover no-repeat url(${asset.url})` : tone,
             }}
           />
         );
       })}
-      {Array.from({ length: doc.slideCount }, (_, i) => slideRect(doc, i)).map((r, i) => (
+      {!plain && Array.from({ length: doc.slideCount }, (_, i) => slideRect(doc, i)).map((r, i) => (
         <div
           key={i}
           className="absolute border border-dashed border-white/70"

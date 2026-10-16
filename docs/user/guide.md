@@ -12,7 +12,9 @@ Nên cài app: trình duyệt giữ dữ liệu lâu dài hơn (Safari có thể
 
 ## 1. Tạo project
 
-Bấm **Tạo project** rồi chọn:
+**Từ template:** trang chủ → tab **Template** → chọn nhóm → chạm một mẫu → **Dùng template**. Bấm **Thêm ảnh**: ảnh được điền lần lượt vào các ô trống. Chạm đúp vào chữ để sửa.
+
+**Từ trang trắng:** bấm **Tạo project** rồi chọn:
 
 | Loại | Dùng khi | Tuỳ chọn |
 |---|---|---|

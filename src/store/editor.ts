@@ -7,8 +7,8 @@ import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { placeImages } from "@/lib/project/placement";
 import { canvasSize, GRID_COLS } from "@/lib/project/layout";
 import { deleteSlide, insertSlide, moveSlide, setGridGap, setGridRows } from "@/lib/project/slides";
-import { applyTemplate } from "@/lib/templates/apply";
-import type { Template, TemplateOptions } from "@/lib/templates/types";
+import { applyTemplate, templateSlides } from "@/lib/templates/apply";
+import { DEFAULT_OPTIONS, type Template, type TemplateOptions } from "@/lib/templates/types";
 import {
   type AspectRatio,
   type CanvasElement,
@@ -18,6 +18,7 @@ import {
   type ProjectType,
   newId,
 } from "@/lib/project/types";
+import { useSettings } from "./settings";
 import { createProjectRecord, loadProject, requestPersistence, saveAssets } from "@/lib/storage/projects";
 
 // History follows the "confirm then record" model (D-12, D-17): only `commit`
@@ -51,6 +52,8 @@ interface EditorState {
 
   createProject: (opts: { type: ProjectType; ratio: AspectRatio; slideCount: number; name: string; gapCompensation?: boolean }) => Promise<void>;
   openProject: (id: string) => Promise<boolean>;
+  /** New project laid out by a designed template, photo cells empty (M10). Not an undo step. */
+  createFromTemplate: (tpl: Template, name: string) => Promise<void>;
   closeProject: () => void;
 
   addImages: (assets: ImageAsset[], firstSlide?: number) => void;
@@ -164,6 +167,18 @@ export const useEditor = create<EditorState>()((set, get) => {
       void requestPersistence();
     },
 
+    createFromTemplate: async (tpl, name) => {
+      const d = tpl.design;
+      if (!d) return;
+      const rows = 3;
+      const base = d.type === "grid" ? rows * GRID_COLS : d.type === "story" ? 1 : 3;
+      const slideCount = templateSlides(tpl, 0, base, d.type);
+      await get().createProject({ type: d.type, ratio: d.ratio, slideCount, name });
+      const doc = get().doc;
+      if (!doc) return;
+      set({ doc: applyTemplate(doc, tpl, [], DEFAULT_OPTIONS, useSettings.getState().locale) });
+    },
+
     openProject: async (id) => {
       const loaded = await loadProject(id);
       if (!loaded) return false;
@@ -191,8 +206,21 @@ export const useEditor = create<EditorState>()((set, get) => {
       const doc = get().doc;
       if (!doc || assets.length === 0) return;
       storeAssets(assets);
-      const added = placeImages(doc, assets, doc.elements.length === 0 ? 0 : firstSlide);
-      commit((d) => ({ ...d, elements: [...d.elements, ...added] }));
+      // Empty template cells first, in template order (M10); the rest float as before.
+      const empty = doc.elements.filter((el) => isImage(el) && !el.assetId).map((el) => el.id);
+      const fill = new Map(empty.slice(0, assets.length).map((id, i) => [id, assets[i]]));
+      const rest = assets.slice(fill.size);
+      const added = rest.length ? placeImages(doc, rest, doc.elements.length === 0 ? 0 : firstSlide) : [];
+      commit((d) => ({
+        ...d,
+        elements: [
+          ...d.elements.map((el) => {
+            const asset = fill.get(el.id);
+            return asset && isImage(el) ? { ...el, assetId: asset.id, crop: coverCrop(asset, innerFrame(el)), straighten: 0 } : el;
+          }),
+          ...added,
+        ],
+      }));
       set({ selectedId: added[added.length - 1]?.id ?? null });
     },
 
@@ -251,7 +279,7 @@ export const useEditor = create<EditorState>()((set, get) => {
     applyLayout: (tpl, photos, opts) => {
       storeAssets(photos);
       commit((d) => {
-        const next = applyTemplate(d, tpl, photos, opts);
+        const next = applyTemplate(d, tpl, photos, opts, useSettings.getState().locale);
         // Keep what the user added (text, shapes, icons) on top of the new layout (UX-02),
         // moved back inside the canvas if the layout has fewer slides.
         const size = canvasSize(next);
