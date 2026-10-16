@@ -70,14 +70,32 @@ function elementLabel(el: CanvasElement, index: number, t: ReturnType<typeof use
 const KIND_ICON: Record<CanvasElement["type"], IconName> = { image: "image", text: "text", shape: "shapes", icon: "heart" };
 
 /** Layers list (UX-10): select anything, even when it is covered; lock / unlock. Top of the list = front. */
+const LAYER_ROW = 48;
+
+/**
+ * Layers panel (UX-10, S8): front-most on top. Tap a row to select, drag the handle to
+ * reorder, eye to hide / show, padlock to lock.
+ */
 export function LayersSheet({ onClose }: { onClose: () => void }) {
   const t = useT();
   const doc = useViewDoc();
   const selectedId = useEditor((s) => s.selectedId);
-  const { select, toggleLock, moveLayerTo } = useEditor.getState();
+  const { select, toggleLock, toggleHidden, moveLayerToIndex } = useEditor.getState();
+  const [drag, setDrag] = useState<{ id: string; row: number; startY: number; dy: number } | null>(null);
   if (!doc) return null;
   let photo = 0;
   const rows = doc.elements.map((el) => ({ el, label: elementLabel(el, el.type === "image" ? ++photo : 0, t) })).reverse();
+  const last = rows.length - 1;
+  const target = drag ? Math.max(0, Math.min(last, drag.row + Math.round(drag.dy / LAYER_ROW))) : -1;
+
+  /** Where a row is drawn while another one is being dragged. */
+  function shift(row: number) {
+    if (!drag) return 0;
+    if (row === drag.row) return drag.dy;
+    if (drag.row < row && row <= target) return -LAYER_ROW;
+    if (target <= row && row < drag.row) return LAYER_ROW;
+    return 0;
+  }
 
   return (
     <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40" onClick={onClose}>
@@ -94,24 +112,56 @@ export function LayersSheet({ onClose }: { onClose: () => void }) {
         </div>
         <p className="px-5 pb-2 text-xs text-muted">{t("layers.hint")}</p>
         <ul className="flex flex-col overflow-y-auto px-3">
-          {rows.map(({ el, label }, i) => (
-            <li key={el.id} className={`flex items-center gap-1 rounded-xl ${el.id === selectedId ? "bg-accent-soft" : ""}`}>
+          {rows.map(({ el, label }, row) => (
+            <li
+              key={el.id}
+              style={{
+                height: LAYER_ROW,
+                transform: `translateY(${shift(row)}px)`,
+                transition: drag && drag.id !== el.id ? "transform 150ms ease" : undefined,
+                zIndex: drag?.id === el.id ? 1 : undefined,
+              }}
+              className={`relative flex shrink-0 items-center gap-0.5 rounded-xl ${el.id === selectedId ? "bg-accent-soft" : drag?.id === el.id ? "bg-surface-2 shadow-md" : ""}`}
+            >
+              <span
+                role="button"
+                aria-label={t("layers.reorder", { name: label })}
+                className="flex h-11 w-9 shrink-0 cursor-grab items-center justify-center text-muted"
+                style={{ touchAction: "none" }}
+                onPointerDown={(e) => {
+                  e.currentTarget.setPointerCapture(e.pointerId);
+                  setDrag({ id: el.id, row, startY: e.clientY, dy: 0 });
+                }}
+                onPointerMove={(e) => drag?.id === el.id && setDrag({ ...drag, dy: e.clientY - drag.startY })}
+                onPointerUp={() => {
+                  if (drag && target !== drag.row) moveLayerToIndex(el.id, last - target);
+                  setDrag(null);
+                }}
+                onPointerCancel={() => setDrag(null)}
+              >
+                <Icon name="grip" size={18} />
+              </span>
               <button
                 type="button"
+                disabled={el.hidden}
                 onClick={() => {
                   select(el.id);
                   onClose();
                 }}
-                className="flex h-12 min-w-0 flex-1 items-center gap-3 px-2 text-left text-sm"
+                className={`flex h-12 min-w-0 flex-1 items-center gap-3 px-1 text-left text-sm ${el.hidden ? "text-disabled" : ""}`}
               >
                 <Icon name={KIND_ICON[el.type]} size={18} />
                 <span className="truncate">{label}</span>
               </button>
-              {i > 0 && (
-                <button type="button" aria-label={t("layers.toFront")} onClick={() => moveLayerTo(el.id, "front")} className="flex h-10 w-10 items-center justify-center text-muted">
-                  <Icon name="layerUp" size={18} />
-                </button>
-              )}
+              <button
+                type="button"
+                aria-label={el.hidden ? t("layers.show") : t("layers.hide")}
+                aria-pressed={!!el.hidden}
+                onClick={() => toggleHidden(el.id)}
+                className={`flex h-10 w-10 items-center justify-center ${el.hidden ? "text-accent-text" : "text-muted"}`}
+              >
+                <Icon name={el.hidden ? "eyeOff" : "eye"} size={18} />
+              </button>
               <button
                 type="button"
                 aria-label={el.locked ? t("editor.unlock") : t("editor.lock")}

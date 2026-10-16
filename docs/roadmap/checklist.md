@@ -187,7 +187,9 @@ Nguồn: [tham khảo Grids](../discussions/2026-10-15-tham-khao-grids.md). Quy�
 - [x] F-04 Màn chọn layout không còn mẫu trùng
 - [x] Góp ý lần 2 (2026-10-15): chặn kéo xuống để tải lại (`overscroll-behavior`); kéo phần tử đã chọn không còn cuộn cả nền (chặn cuộn ngay từ lúc chạm, cả khi hai ngón); thumbnail slide chỉ vẽ lại slide thay đổi, từng slide lúc rảnh, tự lưu chờ nhấc tay — không còn khựng sau khi thả
 - [x] Kiểm tra tự động `e2e/m9.mjs`
-- [ ] Chủ dự án gửi ảnh / video Grids (màn chọn mẫu, editor carousel, thanh công cụ)
-- [ ] Làm lại màn chọn layout theo Grids (xem trước lớn, kéo thả đổi thứ tự ảnh)
-- [ ] Luồng tạo theo Grids: chọn mẫu trước, thêm ảnh sau
-- [ ] Bộ template đẹp sẵn (chữ, nền, trang trí)
+- [x] Đổi hướng: làm theo SCRL (D-71), [phân tích bản 2](../discussions/2026-10-16-phan-tich-scrl-grids.md)
+- [x] S7 Menu nổi trên phần tử đang chọn: nhân bản, xoá, khoá / mở khoá, ⋯ (ẩn khi đang kéo / chụm; căn giữa phần đang thấy). Thanh dưới khi chọn: công cụ + Xong (cùng chiều cao với thanh khi không chọn)
+- [x] S5 Thu nhỏ dưới 100% tới khi thấy cả dải (chụm, hoặc nút − trên máy tính); canvas hẹp thì căn giữa
+- [x] S8 Bảng lớp: kéo ⠿ để đổi thứ tự, mắt để ẩn / hiện (lớp ẩn không vẽ, không xuất, không hít), khoá
+- [ ] Chủ dự án quay video SCRL (danh sách ở mục 7 bản phân tích) để chỉnh cho đúng
+- [ ] → M10: onboarding, trang chủ + thư viện template, luồng template / trang trắng

@@ -33,7 +33,8 @@ src/
     editor/
       Editor.tsx        khung editor: header (trạng thái lưu, nhân bản / xoá / xong), vùng canvas (zoom, cuộn tới phần tử), thanh công cụ ≤ 5 nút + Thêm
       EditorSheets.tsx  ActionSheet (menu Thêm), LayersSheet (bảng lớp, khoá), CoachTips (mẹo lần đầu)
-      SlideNavigator.tsx dải thumbnail slide (Post / Story)
+      SlideNavigator.tsx dải thumbnail slide (Post / Story), chỉ vẽ lại slide thay đổi, lúc rảnh
+      FloatingMenu.tsx  menu nổi trên phần tử đang chọn (đặt vị trí bằng tay, không render lại khi cuộn)
       ExportSheet.tsx   xem trước & tải về
       useImportPhotos.ts
       canvas/           CanvasStage chỉ to bằng vùng nhìn (dính cố định, cuộn = dịch nội dung, mật độ ≤ 2×; lấy ảnh 1 vùng thì dùng `layerRegion` trong export/slices), interaction.ts (quy tắc chọn / kéo cảm ứng vs chuột, phần tử khoá), CanvasStage (3 layer, pinch, hít, giới hạn pixel), ImageNode, TextNode, ShapeIconNodes, BackgroundNode, useNodeHandlers, useProcessedImage (bản xem trước + màu)

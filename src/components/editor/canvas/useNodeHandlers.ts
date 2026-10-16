@@ -34,6 +34,7 @@ export function useNodeHandlers(
     offsetY: h / 2,
     rotation: el.rotation,
     opacity: el.opacity,
+    visible: !el.hidden,
     draggable,
     preventDefault,
     onMouseDown: onMouseSelect,

@@ -60,6 +60,8 @@ interface ElementBase {
   opacity: number;
   /** Locked: not draggable / resizable (e.g. a background photo). Still selectable for its tools. */
   locked?: boolean;
+  /** Hidden: not drawn on the canvas nor exported (layers panel, S8). */
+  hidden?: boolean;
   /** Created by a layout; replaced when another layout is applied (user-added items are kept). */
   fromLayout?: boolean;
 }
