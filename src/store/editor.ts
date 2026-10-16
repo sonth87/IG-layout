@@ -150,7 +150,10 @@ export const useEditor = create<EditorState>()((set, get) => {
   }
 
   function revokeAll() {
-    Object.values(get().assets).forEach((a) => URL.revokeObjectURL(a.url));
+    Object.values(get().assets).forEach((a) => {
+      URL.revokeObjectURL(a.url);
+      if (a.video) URL.revokeObjectURL(a.video.posterUrl);
+    });
   }
 
   function storeAssets(all: ImageAsset[]) {
@@ -158,7 +161,17 @@ export const useEditor = create<EditorState>()((set, get) => {
     const assets = all.filter((a) => !get().assets[a.id]);
     if (!projectId || assets.length === 0) return;
     set((s) => ({ assets: { ...s.assets, ...Object.fromEntries(assets.map((a) => [a.id, a])) } }));
-    void saveAssets(assets.map(({ id, blob, width, height, name }) => ({ id, projectId, blob, width, height, name })));
+    void saveAssets(
+      assets.map(({ id, blob, width, height, name, video }) => ({
+        id,
+        projectId,
+        blob,
+        width,
+        height,
+        name,
+        ...(video && { video: { duration: video.duration, hasAudio: video.hasAudio, poster: video.poster } }),
+      })),
+    );
   }
 
   return {
@@ -197,7 +210,12 @@ export const useEditor = create<EditorState>()((set, get) => {
       const loaded = await loadProject(id);
       if (!loaded) return false;
       revokeAll();
-      const assets = Object.fromEntries(loaded.assets.map((a) => [a.id, { ...a, url: URL.createObjectURL(a.blob) }]));
+      const assets = Object.fromEntries(
+        loaded.assets.map((a) => [
+          a.id,
+          { ...a, url: URL.createObjectURL(a.blob), video: a.video && { ...a.video, posterUrl: URL.createObjectURL(a.video.poster) } },
+        ]),
+      );
       const size = (assetId: string) => assets[assetId];
       set({
         ...EMPTY,

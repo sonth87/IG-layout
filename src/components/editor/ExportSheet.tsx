@@ -9,7 +9,8 @@ import { fontWeight, loadFont } from "@/lib/text/fonts";
 import { SLIDE_SIZE } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useT } from "@/store/settings";
-import { CarouselPreview, type PreviewTab, previewTabs, ProfilePreview, StoryPreview } from "@/components/export/InstagramPreview";
+import { CarouselPreview, type PreviewTab, previewTabs, ProfilePreview, StoryPreview, videoUrls } from "@/components/export/InstagramPreview";
+import { pause as pausePlayback } from "@/lib/video/playback";
 
 
 interface Props {
@@ -24,6 +25,12 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
   const [files, setFiles] = useState<File[] | null>(null);
   const [previews, setPreviews] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const assets = useEditor((s) => s.assets);
+  // Video (M13): export with sound unless switched off; progress per slide.
+  const hasVideo = doc.elements.some((el) => el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video);
+  const hasSound = doc.elements.some((el) => el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video?.hasAudio);
+  const [withAudio, setWithAudio] = useState(true);
+  const [progress, setProgress] = useState<{ n: number; total: number; p: number } | null>(null);
   const size = SLIDE_SIZE[doc.ratio];
   const tabs = previewTabs(doc.type);
   const [tab, setTab] = useState<PreviewTab>(tabs[0]);
@@ -34,6 +41,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
     const layer = contentLayerRef.current;
     if (!layer) return;
     const { setExporting } = useEditor.getState();
+    pausePlayback();
     // Re-render photos at full resolution, wait for the canvas to redraw, then cut slides.
     setExporting(true);
     const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r(null)));
@@ -44,21 +52,41 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
       .then(nextFrame)
       .then(() => {
         layer.draw();
-        return exportSlides(layer, doc, viewScale, fileBase(useEditor.getState().projectName, doc.type));
+        const base = fileBase(useEditor.getState().projectName, doc.type);
+        if (!hasVideo) return exportSlides(layer, doc, viewScale, base);
+        return import("@/lib/video/export").then(({ exportVideoSlide, slideVideos }) => {
+          const assets = useEditor.getState().assets;
+          return exportSlides(
+            layer,
+            doc,
+            viewScale,
+            base,
+            {
+              isVideoSlide: (i) => slideVideos(doc, i, assets).length > 0,
+              render: (index, onProgress) => exportVideoSlide({ layer, doc, index, viewScale, assets, withAudio, onProgress }),
+            },
+            (n, total, p) => !cancelled && setProgress({ n, total, p }),
+          );
+        });
       })
       .finally(() => setExporting(false))
       .then((result) => {
         if (cancelled) return;
         urls = result.map((f) => URL.createObjectURL(f));
+        result.forEach((f, i) => f.type.startsWith("video/") && videoUrls.add(urls[i]));
+        setProgress(null);
         setFiles(result);
         setPreviews(urls);
       })
       .catch((err) => !cancelled && setError(err instanceof Error ? err.message : String(err)));
     return () => {
       cancelled = true;
-      urls.forEach((u) => URL.revokeObjectURL(u));
+      urls.forEach((u) => {
+        URL.revokeObjectURL(u);
+        videoUrls.delete(u);
+      });
     };
-  }, [contentLayerRef, doc, viewScale]);
+  }, [contentLayerRef, doc, viewScale, hasVideo, withAudio]);
 
   async function run(action: () => Promise<unknown>) {
     try {
@@ -84,7 +112,32 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
         </header>
 
         <div className="flex-1 overflow-y-auto px-5">
-          {!files && !error && <p className="py-10 text-center text-muted">{t("export.rendering", { count: doc.slideCount })}</p>}
+          {hasSound && (
+            <label className="mb-3 flex items-center justify-between rounded-xl bg-surface px-3.5 py-2.5 text-sm">
+              <span>{t("export.withSound")}</span>
+              <input
+                type="checkbox"
+                checked={withAudio}
+                disabled={!files && !error}
+                onChange={(e) => {
+                  setFiles(null);
+                  setPreviews([]);
+                  setWithAudio(e.target.checked);
+                }}
+                className="h-[22px] w-[22px] accent-accent"
+              />
+            </label>
+          )}
+          {!files && !error && (
+            <div className="py-10 text-center text-muted" role="status">
+              <p>{progress && progress.p > 0 ? t("export.videoProgress", { index: progress.n + 1, total: progress.total, pct: Math.round(progress.p * 100) }) : t("export.rendering", { count: doc.slideCount })}</p>
+              {progress && progress.p > 0 && (
+                <div className="mx-auto mt-3 h-2 w-56 overflow-hidden rounded-full bg-surface-2">
+                  <div className="h-2 rounded-full bg-accent" style={{ width: `${Math.round(progress.p * 100)}%` }} />
+                </div>
+              )}
+            </div>
+          )}
           {previews.length > 0 && (
             <>
               {tabs.length > 1 && (
@@ -112,8 +165,12 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
               <div className="flex gap-2 overflow-x-auto pb-3">
                 {previews.map((url, i) => (
                   <figure key={url} className="w-20 shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element -- local blob preview */}
-                    <img src={url} alt={t("export.slide", { index: i + 1 })} className="w-full rounded-md border border-border" />
+                    {videoUrls.has(url) ? (
+                      <video src={url} aria-label={t("export.slide", { index: i + 1 })} className="w-full rounded-md border border-border" muted playsInline />
+                    ) : (
+                      // eslint-disable-next-line @next/next/no-img-element -- local blob preview
+                      <img src={url} alt={t("export.slide", { index: i + 1 })} className="w-full rounded-md border border-border" />
+                    )}
                     <figcaption className="mt-1 truncate text-[11px] text-muted">{files?.[i].name}</figcaption>
                   </figure>
                 ))}

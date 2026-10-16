@@ -31,8 +31,14 @@ export function layerRegion(layer: Konva.Layer, r: Rect, viewScale: number) {
   return { x: o.x + r.x * viewScale, y: o.y + r.y * viewScale, width: r.width * viewScale, height: r.height * viewScale };
 }
 
-export function fileName(base: string, index: number) {
-  return `${base}_${String(index + 1).padStart(2, "0")}.jpg`;
+export function fileName(base: string, index: number, ext: "jpg" | "mp4" = "jpg") {
+  return `${base}_${String(index + 1).padStart(2, "0")}.${ext}`;
+}
+
+/** Slides with video (M13): which ones, and how to render them (loaded only when needed). */
+export interface VideoExport {
+  isVideoSlide: (index: number) => boolean;
+  render: (index: number, onProgress: (p: number) => void) => Promise<Blob>;
 }
 
 /**
@@ -44,10 +50,20 @@ export async function exportSlides(
   doc: ProjectDoc,
   viewScale: number,
   baseName: string,
+  video?: VideoExport,
+  /** Slide n (0-based, posting order) of total, 0..1 within the slide (videos). */
+  onProgress?: (n: number, total: number, p: number) => void,
 ): Promise<File[]> {
   const files: File[] = [];
+  const order = exportOrder(doc);
   // File n = n-th image to post (Grid: bottom-right tile first).
-  for (const [n, i] of exportOrder(doc).entries()) {
+  for (const [n, i] of order.entries()) {
+    onProgress?.(n, order.length, 0);
+    if (video?.isVideoSlide(i)) {
+      const blob = await video.render(i, (p) => onProgress?.(n, order.length, p));
+      files.push(new File([blob], fileName(baseName, n, "mp4"), { type: "video/mp4" }));
+      continue;
+    }
     const r = slideRect(doc, i);
     const rendered = layer.toCanvas({ ...layerRegion(layer, r, viewScale), pixelRatio: 1 / viewScale });
     // Float rounding can make Konva's canvas a pixel off: redraw at the exact size.

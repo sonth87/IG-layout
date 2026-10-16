@@ -8,6 +8,7 @@ import { templateSlides } from "@/lib/templates/apply";
 import { suggestTemplates, templatesFor } from "@/lib/templates/library";
 import { DEFAULT_OPTIONS, TEMPLATE_GROUPS, type Template, type TemplateGroup, type TemplateOptions } from "@/lib/templates/types";
 import { useSettings, useT } from "@/store/settings";
+import { stillUrl } from "@/lib/project/types";
 import { TemplatePreview } from "./TemplatePreview";
 
 interface Props {
@@ -87,7 +88,7 @@ export function LayoutPicker({ photos: initial, ratio, slides, type, grid, onApp
                 className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-[10px] ${picked === i ? "ring-2 ring-accent ring-offset-2 ring-offset-bg" : ""}`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element -- local blob thumbnail */}
-                <img src={p.url} alt="" className="h-full w-full object-cover" />
+                <img src={stillUrl(p)} alt="" className="h-full w-full object-cover" />
                 <span className="absolute top-1 left-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-bg/90 text-[11px] font-bold">
                   {i + 1}
                 </span>

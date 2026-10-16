@@ -1,7 +1,7 @@
 "use client";
 
 import type Konva from "konva";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Shape } from "react-konva";
 import { drawShape } from "@/lib/elements/shapes";
 import { frameInset, straightenScale } from "@/lib/project/geometry";
@@ -10,6 +10,8 @@ import { frameColor, type ImageElement, type Rect } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useElementInteraction } from "./interaction";
 import { useHtmlImage } from "./useHtmlImage";
+import { frameOverrides } from "@/lib/video/frames";
+import { attachVideo, defaultMedia, detachVideo } from "@/lib/video/playback";
 import { useProcessedImage } from "./useProcessedImage";
 
 interface Props {
@@ -30,7 +32,25 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
   const asset = useEditor((s) => (el.assetId ? s.assets[el.assetId] : undefined));
   const { draggable, preventDefault, onSelect, onMouseSelect } = useElementInteraction(el);
   const updateElement = useEditor((s) => s.updateElement);
-  const original = useHtmlImage(asset?.url);
+  const isVideo = !!asset?.video;
+  // Videos (M13): the poster stands in until the player has a frame.
+  const original = useHtmlImage(isVideo ? asset?.video?.posterUrl : asset?.url);
+  const player = useRef<HTMLVideoElement | null>(null);
+  const media = el.media ?? (asset?.video ? defaultMedia(asset.video.duration) : undefined);
+  const mediaKey = media ? `${media.start}|${media.end}|${media.muted}|${media.volume}` : "";
+  useEffect(() => {
+    if (!isVideo || !asset || !media) return;
+    player.current = attachVideo(el.id, asset.url, media);
+    // media is described by mediaKey.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVideo, asset, el.id, mediaKey]);
+  useEffect(() => {
+    const id = el.id;
+    return () => {
+      if (player.current) detachVideo(id);
+      player.current = null;
+    };
+  }, [el.id]);
   const compareThis = useEditor((s) => s.compare && s.selectedId === el.id);
   const exporting = useEditor((s) => s.exporting);
   const image = useProcessedImage(original, el, { original: compareThis, full: exporting });
@@ -85,16 +105,21 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
     c.translate(inner.x, inner.y);
     traceMask(c, mask, iw, ih, el.cornerRadius);
     c.clip();
-    if (image && original) {
+    // Video: the exporter's decoded frame, else the live player, else the poster.
+    const override = frameOverrides.get(el.id);
+    const live = player.current && player.current.readyState >= 2 ? player.current : null;
+    const source: CanvasImageSource | null = isVideo ? (override ?? live ?? original) : image;
+    if (source && original) {
       const crop = liveCrop.current ?? el.crop;
       // The processed copy may be smaller than the original: crop is in original pixels.
-      const k = image.width / original.width;
+      // Crop is in source pixels; the processed photo copy may be smaller (videos: same size).
+      const k = isVideo ? (source === original ? original.width / (asset?.width || original.width) : 1) : image!.width / original.width;
       const s = straightenScale(iw, ih, el.straighten);
       c.save();
       c.translate(iw / 2, ih / 2);
       c.rotate((el.straighten * Math.PI) / 180);
       c.scale(s * (el.flipX ? -1 : 1), s * (el.flipY ? -1 : 1));
-      c.drawImage(image, crop.x * k, crop.y * k, crop.width * k, crop.height * k, -iw / 2, -ih / 2, iw, ih);
+      c.drawImage(source, crop.x * k, crop.y * k, crop.width * k, crop.height * k, -iw / 2, -ih / 2, iw, ih);
       c.restore();
       const vignette = compareThis ? 0 : (el.adjust?.vignette ?? 0) / 100;
       if (vignette > 0) {

@@ -61,6 +61,7 @@ src/
     elements/           create (tạo chữ / hình / icon / sticker / lớp phủ / khung), stickers (SVG tự vẽ), overlays (lớp phủ sinh bằng code), resize (co giãn cỡ chữ, viền theo tỉ lệ), shapes (vẽ hình), icons (Lucide)
   app/fonts.ts          khai báo 6 font (next/font), dùng chung cho giao diện và canvas
     image/import.ts     đọc ảnh, xoay theo EXIF, thu nhỏ (D-29)
+    video/              import (nén bằng Mediabunny), playback (đồng hồ chung + <video> ẩn mỗi phần tử), export (slide có video → MP4), frames (khung giải mã khi xuất)
     image/removeBg*.ts  xoá nền: worker (Transformers.js + ormbg) và phía giao diện; runtime ONNX copy vào public/ort bởi scripts/copy-ort.mjs (chạy trong `pnpm dev` / `pnpm build`)
     export/slices.ts    cắt canvas theo ranh giới slide → JPEG
     export/deliver.ts   share sheet / ZIP / tải từng ảnh

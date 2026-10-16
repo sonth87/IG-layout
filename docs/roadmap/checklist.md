@@ -249,3 +249,15 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Trang thử bước 4: nén video đã chọn về 1080p, giữ tiếng (Mediabunny) — máy tính: 10 s trong 1,4 s, H.264 + AAC
 - [ ] Chủ dự án chạy bước 4 trên iPhone: có tiếng không, Instagram chọn được file không
 
+### M13.1 — Video: nền tảng — xong phần code 2026-10-16
+Đặc tả: [video-spec](../product/video-spec.md).
+- [x] Nhập video (MP4, MOV / HEVC): **nén trên máy** về ≤ 1080p, 30 fps, ≤ 60 s, H.264 4 Mbps + AAC (giữ tiếng; AAC dự phòng nếu trình duyệt không có); thanh tiến độ; ảnh bìa = khung đầu
+- [x] Video là "ảnh có phát": kéo, co giãn, xoay, mask, khung, viền, bóng, độ mờ, ô template, vắt qua nhiều slide, cắt khung (trên ảnh bìa)
+- [x] **Thanh phát**: Phát / Dừng, thời gian, tua; mọi video chạy cùng một đồng hồ, tự lặp theo đoạn
+- [x] **Âm thanh** từng video: bật / tắt, âm lượng (1 bước hoàn tác)
+- [x] **Xuất**: slide có video → MP4 H.264 + AAC 1080 × (1350…), 30 fps, dài bằng đoạn video dài nhất (video khác lặp); khung lấy từ giải mã chính xác; tiếng trộn theo âm lượng; tuỳ chọn **"Xuất video có tiếng"**; xem trước Instagram phát video; tên `…_01.mp4`
+- [x] Lưu / mở lại (video, ảnh bìa, thiết lập tiếng)
+- [x] Kiểm tra tự động `e2e/m13.mjs` (ffprobe: H.264 1080×1350, AAC, độ dài; tắt tiếng → không có track âm thanh)
+- [ ] Chủ dự án thử trên iPhone với video thật (nhập, phát có tiếng, xuất, lưu vào Ảnh, đăng Instagram)
+- [ ] → M13.2: màn cắt đoạn (dải hình + sóng âm, phát thử trong đoạn), tốc độ, ảnh bìa
+
