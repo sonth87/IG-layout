@@ -1,6 +1,7 @@
 # Phân tích SCRL + Grids để làm theo (2026-10-16)
 
 > Trạng thái: **bản phân tích lần 1, chờ chủ dự án bổ sung ảnh / video và duyệt.**
+> ⚠️ **Đã được đánh giá độc lập:** [2026-10-16-danh-gia-phan-tich-scrl.md](2026-10-16-danh-gia-phan-tich-scrl.md). Có lỗi: bảng Grids trộn hai app khác nhau; giới hạn carousel Instagram nay là 20; mức tin cậy chấm quá cao; mục 4 là đề xuất, chưa phải hành vi đã quan sát. Cần bản 2.
 > Yêu cầu của chủ dự án: kết hợp **SCRL** và **Grids**; luồng, thao tác cơ bản, tính năng, phong cách, hiệu ứng, cách sử dụng, layout, grid đều làm theo hai app này. Bỏ đăng nhập và trả phí (D-66).
 
 ## 0. Phạm vi và giới hạn
@@ -12,7 +13,7 @@
 - Hình ảnh template, sticker, overlay, texture, font trả phí của họ. Mình tự làm hoặc dùng nguồn có giấy phép (D-33).
 - Giao diện y hệt từng pixel (màu, bố cục, icon). **Phong cách** sẽ theo cùng tinh thần (tối giản, canvas là trung tâm, thao tác bằng menu nổi), nhưng màu, chữ, icon là của app mình.
 
-**Độ tin cậy của thông tin.** Tôi không cài được app iOS / Android. Bản này dựa trên trang App Store / Google Play, trang phân tích UI, các bài hướng dẫn (nguồn ở mục 9). Mỗi mục có ghi mức:
+**Độ tin cậy của thông tin.** Tôi không cài được app iOS / Android. Bản này dựa trên trang App Store / Google Play, trang phân tích UI, các bài hướng dẫn (nguồn ở mục 10). Mỗi mục có ghi mức:
 - **A** — nhiều nguồn mô tả rõ.
 - **B** — chỉ một nguồn hoặc mô tả chung chung.
 - **C** — suy luận, cần xác nhận bằng ảnh / video (mục 7).
