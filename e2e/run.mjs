@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..", "out");
-const SUITES = ["m1.mjs", "m2.mjs", "m3.mjs", "m4.mjs", "m5.mjs", "m6.mjs", "m7.mjs", "m8.mjs", "m9.mjs", "m10.mjs", "offline.mjs"];
+const SUITES = ["m1.mjs", "m2.mjs", "m3.mjs", "m4.mjs", "m5.mjs", "m6.mjs", "m7.mjs", "m8.mjs", "m9.mjs", "m10.mjs", "m11.mjs", "offline.mjs"];
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".jpg": "image/jpeg", ".webmanifest": "application/manifest+json", ".json": "application/json", ".woff2": "font/woff2", ".txt": "text/plain", ".svg": "image/svg+xml" };
 
 let url = process.argv[2];

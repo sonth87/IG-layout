@@ -19,18 +19,19 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
   const setEditingText = useEditor((s) => s.setEditingText);
   const textRef = useRef<Konva.Text>(null);
   const family = TEXT_FONTS[el.font].family;
-  const fontKey = `${el.font}:${el.bold}`;
+  const weight = fontWeight(el);
+  const fontKey = `${el.font}:${weight}`;
   const [loadedKey, setLoadedKey] = useState<string | null>(null);
   const props = useNodeHandlers(el, hooks, (scale) => scaleExtras(el, scale));
 
   // Draw with a fallback until the web font is loaded, then switch (re-measures).
   useEffect(() => {
     let alive = true;
-    void loadFont(el.font, el.bold).then(() => alive && setLoadedKey(fontKey));
+    void loadFont(el.font, weight).then(() => alive && setLoadedKey(fontKey));
     return () => {
       alive = false;
     };
-  }, [el.font, el.bold, fontKey]);
+  }, [el.font, weight, fontKey]);
 
   // Height follows the text.
   useEffect(() => {
@@ -52,7 +53,7 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
         width={el.width}
         padding={pad}
         fontFamily={loadedKey === fontKey ? family : "sans-serif"}
-        fontStyle={String(fontWeight(el.bold))}
+        fontStyle={String(weight)}
         fontSize={el.fontSize}
         lineHeight={el.lineHeight}
         letterSpacing={el.letterSpacing}

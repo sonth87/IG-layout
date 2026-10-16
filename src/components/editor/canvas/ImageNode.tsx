@@ -6,7 +6,7 @@ import { Shape } from "react-konva";
 import { drawShape } from "@/lib/elements/shapes";
 import { frameInset, straightenScale } from "@/lib/project/geometry";
 import { traceMask } from "@/lib/project/masks";
-import type { ImageElement, Rect } from "@/lib/project/types";
+import { frameColor, type ImageElement, type Rect } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useElementInteraction } from "./interaction";
 import { useHtmlImage } from "./useHtmlImage";
@@ -45,6 +45,14 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
 
   function draw(ctx: Konva.Context, shape: Konva.Shape) {
     const c = ctx._context;
+    // Blend with what is below (overlays). Wraps the whole drawing.
+    c.save();
+    if (el.blend && el.blend !== "normal") c.globalCompositeOperation = el.blend;
+    drawPhoto(c, shape, ctx);
+    c.restore();
+  }
+
+  function drawPhoto(c: CanvasRenderingContext2D, shape: Konva.Shape, ctx: Konva.Context) {
     const framed = el.frame !== "none";
     // Framed photos are rectangular (the frame replaces the mask).
     const mask = framed ? "none" : el.mask;
@@ -64,7 +72,7 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
     if (framed) {
       if (el.frame === "film") drawShape(c, "film", w, h, "#161616");
       else {
-        c.fillStyle = "#ffffff";
+        c.fillStyle = frameColor(el.frame);
         c.fillRect(0, 0, w, h);
       }
     }
@@ -119,6 +127,17 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       }
     }
     c.restore();
+
+    if (el.frame === "gallery") {
+      // Thin line around the photo, like a mount in a gallery frame.
+      const inner = frameInset("gallery", w, h);
+      const lw = Math.max(1, Math.min(w, h) * 0.004);
+      c.save();
+      c.strokeStyle = "rgba(0,0,0,0.28)";
+      c.lineWidth = lw;
+      c.strokeRect(inner.x - lw * 3, inner.y - lw * 3, inner.width + lw * 6, inner.height + lw * 6);
+      c.restore();
+    }
 
     if (el.border && el.border.width > 0) {
       c.save();

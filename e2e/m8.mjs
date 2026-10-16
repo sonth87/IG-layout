@@ -148,7 +148,7 @@ await page.getByRole("dialog").getByRole("button", { name: "Cancel" }).click();
 console.log("UX-07 pinch an element that is not selected");
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.getByRole("button", { name: "Elements" }).click();
-await page.getByRole("button", { name: "Heart" }).click();
+await page.getByRole("button", { name: "Heart", exact: true }).click();
 st = await S();
 const heart = st.doc.elements.at(-1);
 await page.evaluate(() => window.__igEditor.getState().select(null));

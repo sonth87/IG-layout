@@ -59,6 +59,17 @@ interface EditorState {
   addImages: (assets: ImageAsset[], firstSlide?: number) => void;
   replaceImage: (id: string, asset: ImageAsset) => void;
   addElement: (el: CanvasElement) => void;
+  /** Freehand drawing in progress (M11): strokes in canvas pixels, not in the doc yet. */
+  drawing: { color: string; size: number; strokes: number[][] } | null;
+  startDrawing: () => void;
+  setDrawing: (patch: Partial<{ color: string; size: number }>) => void;
+  addStroke: (points: number[]) => void;
+  undoStroke: () => void;
+  /** Turns the strokes into one drawing element (one undo step). */
+  finishDrawing: () => void;
+  cancelDrawing: () => void;
+  /** Adds an element that uses a new asset (generated overlay, M11). */
+  addAssetElement: (asset: ImageAsset, el: CanvasElement) => void;
   /** Values derived from rendering (e.g. text height): no history step. */
   setDerived: (id: string, patch: Partial<CanvasElement>) => void;
   updateElement: (id: string, patch: Partial<CanvasElement>) => void;
@@ -111,6 +122,7 @@ const EMPTY = {
   exporting: false,
   currentSlide: 0,
   canvas: null,
+  drawing: null,
 } satisfies Partial<EditorState>;
 
 /** The doc to display: the tool draft while a tool is open, else the committed doc. */
@@ -231,6 +243,45 @@ export const useEditor = create<EditorState>()((set, get) => {
         if (!isImage(el)) return d;
         return updateEl(d, id, { assetId: asset.id, crop: coverCrop(asset, innerFrame(el)), straighten: 0 });
       });
+    },
+
+    startDrawing: () => set({ drawing: { color: "#1d1c1a", size: 12, strokes: [] }, selectedId: null }),
+    setDrawing: (patch) => set((s) => (s.drawing ? { drawing: { ...s.drawing, ...patch } } : {})),
+    addStroke: (points) => set((s) => (s.drawing ? { drawing: { ...s.drawing, strokes: [...s.drawing.strokes, points] } } : {})),
+    undoStroke: () => set((s) => (s.drawing ? { drawing: { ...s.drawing, strokes: s.drawing.strokes.slice(0, -1) } } : {})),
+    cancelDrawing: () => set({ drawing: null }),
+    finishDrawing: () => {
+      const dr = get().drawing;
+      set({ drawing: null });
+      if (!dr || dr.strokes.length === 0) return;
+      const pad = dr.size / 2;
+      const xs = dr.strokes.flatMap((st) => st.filter((_, i) => i % 2 === 0));
+      const ys = dr.strokes.flatMap((st) => st.filter((_, i) => i % 2 === 1));
+      const x = Math.min(...xs) - pad;
+      const y = Math.min(...ys) - pad;
+      const width = Math.max(1, Math.max(...xs) + pad - x);
+      const height = Math.max(1, Math.max(...ys) + pad - y);
+      const el: CanvasElement = {
+        id: newId(),
+        type: "drawing",
+        x,
+        y,
+        width,
+        height,
+        rotation: 0,
+        opacity: 1,
+        color: dr.color,
+        strokeWidth: dr.size,
+        strokes: dr.strokes.map((st) => st.map((v, i) => (i % 2 === 0 ? (v - x) / width : (v - y) / height))),
+      };
+      commit((d) => ({ ...d, elements: [...d.elements, el] }));
+      set({ selectedId: el.id });
+    },
+
+    addAssetElement: (asset, el) => {
+      storeAssets([asset]);
+      commit((d) => ({ ...d, elements: [...d.elements, el] }));
+      set({ selectedId: el.id });
     },
 
     addElement: (el) => {

@@ -51,9 +51,13 @@ export function frameInset(frame: FrameStyle, width: number, height: number): Re
   const m = Math.min(width, height);
   switch (frame) {
     case "polaroid":
+    case "polaroidBlack":
       return { x: m * 0.06, y: m * 0.06, width: width - m * 0.12, height: height - m * 0.06 - m * 0.22 };
     case "white":
+    case "black":
       return { x: m * 0.04, y: m * 0.04, width: width - m * 0.08, height: height - m * 0.08 };
+    case "gallery":
+      return { x: m * 0.11, y: m * 0.11, width: width - m * 0.22, height: height - m * 0.22 };
     case "film":
       return { x: m * 0.05, y: m * 0.14, width: width - m * 0.1, height: height - m * 0.28 };
     default:

@@ -65,3 +65,15 @@ export function defaultShapeSize(kind: ShapeKind, slideWidth: number) {
   if (kind === "film") return { width: slideWidth, height: slideWidth * 0.45 };
   return { width: slideWidth * 0.3, height: slideWidth * 0.3 };
 }
+
+/** Smooth freehand stroke through points (flat x, y list) with round caps. */
+export function strokePath(c: CanvasRenderingContext2D, pts: number[]) {
+  c.beginPath();
+  c.moveTo(pts[0], pts[1]);
+  if (pts.length === 2) c.lineTo(pts[0] + 0.01, pts[1]); // a dot
+  for (let i = 2; i < pts.length - 2; i += 2) {
+    // Quadratic curves through midpoints: smooth without overshoot.
+    c.quadraticCurveTo(pts[i], pts[i + 1], (pts[i] + pts[i + 2]) / 2, (pts[i + 1] + pts[i + 3]) / 2);
+  }
+  if (pts.length > 2) c.lineTo(pts[pts.length - 2], pts[pts.length - 1]);
+}

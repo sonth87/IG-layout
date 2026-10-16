@@ -66,7 +66,12 @@ interface ElementBase {
   fromLayout?: boolean;
 }
 
-export const FRAME_STYLES = ["none", "polaroid", "white", "film"] as const;
+export const FRAME_STYLES = ["none", "polaroid", "white", "film", "black", "polaroidBlack", "gallery"] as const;
+
+/** Frame colour (film draws its own strip). */
+export function frameColor(frame: FrameStyle) {
+  return frame === "black" || frame === "polaroidBlack" ? "#141414" : "#ffffff";
+}
 export type FrameStyle = (typeof FRAME_STYLES)[number];
 
 export interface ImageElement extends ElementBase {
@@ -91,9 +96,14 @@ export interface ImageElement extends ElementBase {
   filter: FilterRef | null;
   /** Decorative frame around the photo (M5); the photo fills the inner area. */
   frame: FrameStyle;
+  /** How it mixes with what is below (M11 overlays: light leaks "screen", paper "multiply"). */
+  blend?: BlendMode;
 }
 
-export const FONT_KEYS = ["beVietnam", "playfair", "lora", "montserrat", "dancing", "spaceGrotesk"] as const;
+export const BLEND_MODES = ["normal", "screen", "multiply", "overlay", "soft-light"] as const;
+export type BlendMode = (typeof BLEND_MODES)[number];
+
+export const FONT_KEYS = ["beVietnam", "playfair", "lora", "montserrat", "dancing", "spaceGrotesk", "inter", "manrope", "jakarta", "lexend", "nunito", "quicksand", "raleway", "workSans", "josefin", "openSans", "roboto", "mulish", "archivo", "bricolage", "hanken", "comfortaa", "kanit", "prompt", "geologica", "fraunces", "ebGaramond", "cormorant", "bodoni", "newsreader", "literata", "crimson", "bitter", "merriweather", "vollkorn", "alegreya", "sourceSerif", "robotoSlab", "brygada", "yeseva", "taviraj", "oswald", "anton", "bungee", "unbounded", "bigShoulders", "anybody", "leagueSpartan", "smooch", "yanone", "tektur", "museo", "grenze", "dela", "paytone", "chonburi", "amatic", "pacifico", "greatVibes", "lobster", "charm", "allura", "pinyon", "playball", "corinthia", "moonDance", "patrickHand", "itim", "mali", "shantell", "playpen", "merienda", "gluten", "sriracha", "jetbrains", "spaceMono", "robotoMono", "recursive"] as const;
 export type FontKey = (typeof FONT_KEYS)[number];
 
 export interface TextElement extends ElementBase {
@@ -101,6 +111,8 @@ export interface TextElement extends ElementBase {
   text: string;
   font: FontKey;
   bold: boolean;
+  /** 100–900; overrides `bold` when set (M11, variable fonts). */
+  weight?: number;
   /** Export pixels. `width` wraps the text; `height` follows the text (derived). */
   fontSize: number;
   color: string;
@@ -130,7 +142,17 @@ export interface IconElement extends ElementBase {
   color: string;
 }
 
-export type CanvasElement = ImageElement | TextElement | ShapeElement | IconElement;
+/** Freehand drawing (M11, S17). Points are relative to the box (0..1), so resizing scales it. */
+export interface DrawingElement extends ElementBase {
+  type: "drawing";
+  /** One flat [x0, y0, x1, y1, …] list per stroke. */
+  strokes: number[][];
+  color: string;
+  /** Export pixels at the current size. */
+  strokeWidth: number;
+}
+
+export type CanvasElement = ImageElement | TextElement | ShapeElement | IconElement | DrawingElement;
 
 export function isImage(el: CanvasElement | undefined): el is ImageElement {
   return el?.type === "image";

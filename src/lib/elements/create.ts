@@ -1,6 +1,8 @@
 import { imageElement } from "@/lib/project/placement";
 import {
+  type BlendMode,
   type FrameStyle,
+  type ImageAsset,
   type IconElement,
   type ImageElement,
   newId,
@@ -12,6 +14,7 @@ import {
   type Rect,
 } from "@/lib/project/types";
 import { defaultShapeSize } from "./shapes";
+import { STICKERS } from "./stickers";
 
 // New elements, centered on a slide (M5).
 
@@ -54,14 +57,27 @@ export function newIcon(ratio: AspectRatio, slide: Rect, icon: string, color: st
   return { id: newId(), type: "icon", ...centered(ratio, slide, size, size), rotation: 0, opacity: 1, icon, color };
 }
 
+/** A sticker (M11): an icon element whose key is in the sticker set, at its own aspect. */
+export function newSticker(ratio: AspectRatio, slide: Rect, key: string): IconElement {
+  const st = STICKERS[key];
+  const width = SLIDE_SIZE[ratio].width * (st.w > st.h * 1.6 ? 0.42 : 0.26);
+  const height = (width * st.h) / st.w;
+  return { id: newId(), type: "icon", ...centered(ratio, slide, width, height), rotation: 0, opacity: 1, icon: key, color: st.color };
+}
+
+/** A generated overlay (M11) covering the slide, blended with what is below. */
+export function newOverlay(slide: Rect, asset: ImageAsset, blend: BlendMode): ImageElement {
+  return { ...imageElement(asset, { ...slide }), blend };
+}
+
 /** An empty photo frame (tap "Add photo" to fill it). */
 export function newFramedPhoto(ratio: AspectRatio, slide: Rect, frame: FrameStyle): ImageElement {
   const s = SLIDE_SIZE[ratio];
   const w = s.width * 0.6;
-  const h = frame === "polaroid" ? w * 1.2 : frame === "film" ? w * 0.8 : w;
+  const h = frame === "polaroid" || frame === "polaroidBlack" ? w * 1.2 : frame === "film" ? w * 0.8 : w;
   const el = { ...imageElement({ id: "", width: w, height: h }, centered(ratio, slide, w, h)), assetId: null };
   el.frame = frame;
-  el.rotation = frame === "polaroid" ? -4 : 0;
+  el.rotation = frame === "polaroid" || frame === "polaroidBlack" ? -4 : 0;
   el.shadow = frame !== "film";
   return el;
 }

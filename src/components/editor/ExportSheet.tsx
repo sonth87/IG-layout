@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { canShareFiles, downloadEach, downloadZip, shareFiles } from "@/lib/export/deliver";
 import { exportSlides, fileBase } from "@/lib/export/slices";
-import { loadFont } from "@/lib/text/fonts";
+import { fontWeight, loadFont } from "@/lib/text/fonts";
 import { SLIDE_SIZE } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useT } from "@/store/settings";
@@ -38,7 +38,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
     setExporting(true);
     const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r(null)));
     // Text must be drawn with its web font: wait for every font in use.
-    const fonts = doc.elements.flatMap((el) => (el.type === "text" ? [loadFont(el.font, el.bold)] : []));
+    const fonts = doc.elements.flatMap((el) => (el.type === "text" ? [loadFont(el.font, fontWeight(el))] : []));
     Promise.all(fonts)
       .then(nextFrame)
       .then(nextFrame)

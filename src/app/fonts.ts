@@ -1,42 +1,39 @@
 import { Be_Vietnam_Pro, Dancing_Script, Lora, Montserrat, Playfair_Display, Space_Grotesk } from "next/font/google";
 
-// All fonts include Vietnamese glyphs (D-32, D-41). Self-hosted by next/font at build time.
-// Be Vietnam Pro + Space Grotesk are also the UI fonts.
+// Fonts loaded with the app: the UI fonts (Be Vietnam Pro, Space Grotesk) and the text
+// fonts used by the home template library. All 70+ text fonts: lib/text/webfonts.ts,
+// loaded with the editor (M11). Every font has Vietnamese glyphs (D-32).
 
 export const beVietnam = Be_Vietnam_Pro({
   variable: "--font-body",
   subsets: ["latin", "latin-ext", "vietnamese"],
-  weight: ["400", "500", "600", "700"],
+  // Also the UI font (preloaded): only the useful weights.
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+export const playfair = Playfair_Display({
+  subsets: ["latin", "vietnamese"],
+  preload: false,
+});
+
+export const lora = Lora({
+  subsets: ["latin", "vietnamese"],
+  preload: false,
+});
+
+export const montserrat = Montserrat({
+  subsets: ["latin", "vietnamese"],
+  preload: false,
+});
+
+export const dancing = Dancing_Script({
+  subsets: ["latin", "vietnamese"],
+  preload: false,
 });
 
 export const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin", "latin-ext", "vietnamese"],
-  weight: ["500", "700"],
 });
 
-export const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin", "latin-ext", "vietnamese"],
-  weight: ["400", "700"],
-});
-
-export const lora = Lora({
-  variable: "--font-lora",
-  subsets: ["latin", "latin-ext", "vietnamese"],
-  weight: ["400", "700"],
-});
-
-export const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin", "latin-ext", "vietnamese"],
-  weight: ["400", "700"],
-});
-
-export const dancing = Dancing_Script({
-  variable: "--font-dancing",
-  subsets: ["latin", "latin-ext", "vietnamese"],
-  weight: ["400", "700"],
-});
-
-export const fontVariables = [beVietnam, spaceGrotesk, playfair, lora, montserrat, dancing].map((f) => f.variable).join(" ");
+export const fontVariables = [beVietnam, spaceGrotesk].map((f) => f.variable).join(" ");
