@@ -54,8 +54,12 @@ export function iconSvg(icon: string, color: string, size: number) {
     .replace(/stroke="currentColor"/, `stroke="${color}"`);
 }
 
-/** Icon or sticker (M11) as an image URL; `size` = width in px. */
-export function iconDataUrl(icon: string, color: string, size: number) {
-  const svg = isSticker(icon) ? stickerSvg(icon, color, size) : iconSvg(icon, color, size);
+/** Icon, sticker (M11) or emoji (`body` = its SVG body) as an image URL; `size` = width in px. */
+export function iconDataUrl(icon: string, color: string, size: number, body?: string) {
+  const svg = body
+    ? `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 32 32">${body}</svg>`
+    : isSticker(icon)
+      ? stickerSvg(icon, color, size)
+      : iconSvg(icon, color, size);
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }

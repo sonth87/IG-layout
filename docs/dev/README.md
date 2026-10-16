@@ -73,7 +73,9 @@ src/
   store/editor.ts       Zustand: project đang mở, ảnh, lịch sử undo / redo
   store/autosave.ts     tự lưu sau mỗi bước (debounce) + ảnh thu nhỏ slide 1
   store/settings.ts     theme, ngôn ngữ (localStorage) + useT()
-public/sw.js           service worker (offline); đổi tên CACHE khi đổi chiến lược cache
+public/sw.js           service worker (offline; chỉ "/" làm bản offline)
+public/labs/video.html trang thử nghiệm video M13 (độc lập, không thuộc app)
+scripts/              copy-ort.mjs (runtime ONNX), build-emoji.mjs (sticker emoji) — chạy trong pnpm dev / build; đổi tên CACHE khi đổi chiến lược cache
 ```
 
 ## Deploy

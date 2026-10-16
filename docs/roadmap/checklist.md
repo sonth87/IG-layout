@@ -233,3 +233,16 @@ Quyết định: D-79. Tìm hiểu thêm: [SVG Repo](../discussions/2026-10-16-s
 - [ ] Chủ dự án thử trên điện thoại với ảnh thật (người, đồ vật, thú cưng): chất lượng, thời gian
 - [ ] Nếu chậm trên điện thoại: thêm WebGPU (fp16, 88 MB) hoặc MODNet nhẹ cho ảnh chân dung
 
+### Sticker emoji (Fluent Emoji) — 2026-10-16
+- [x] ~1600 emoji **Fluent Emoji Flat** (© Microsoft, **MIT**, qua `@iconify-json/fluent-emoji-flat`), bỏ biến thể màu da; 9 nhóm; tải theo nhóm (`public/emoji/*.json`, tạo lúc build bởi `scripts/build-emoji.mjs`); tìm theo tên (tiếng Anh)
+- [x] SVG của emoji lưu trong phần tử → mở lại / offline không cần tải; emoji giữ màu gốc (chỉ chỉnh độ mờ)
+- [x] Credits; kiểm tra trong `e2e/m11.mjs`
+
+### M13 — Video: thử nghiệm (đang chờ kết quả máy thật)
+Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
+- [x] Trang thử `/labs/video.html`: khả năng trình duyệt, phát video trên canvas, xuất MP4 H.264 1080×1350 3 s, lưu / chia sẻ, sao chép kết quả
+- [x] Máy tính: xuất 3 s trong 1,9 s, MP4 hợp lệ (ffprobe)
+- [x] Service worker: trang khác `/` không ghi đè bản offline của app
+- [ ] **Chủ dự án chạy trang thử trên iPhone (+ Android nếu có), gửi kết quả**
+- [ ] Quyết định làm / làm giới hạn / không làm video theo tiêu chí trong tài liệu
+

@@ -30,7 +30,7 @@ export function ShapeNode({ element: el, hooks }: { element: ShapeElement; hooks
 export function IconNode({ element: el, hooks }: { element: IconElement; hooks: DragHooks }) {
   const props = useNodeHandlers(el, hooks);
   const size = Math.max(128, Math.ceil(Math.max(el.width, el.height) / 128) * 128);
-  const image = useHtmlImage(iconDataUrl(el.icon, el.color, size));
+  const image = useHtmlImage(iconDataUrl(el.icon, el.color, size, el.svg));
   return <KImage {...props} image={image ?? undefined} width={el.width} height={el.height} />;
 }
 

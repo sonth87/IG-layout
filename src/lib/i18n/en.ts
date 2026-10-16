@@ -238,6 +238,7 @@ export const en = {
   "elements.all": "All",
   "elements.stickers": "Stickers",
   "elements.overlays": "Overlays",
+  "elements.emoji": "Emoji (Fluent)",
   "elements.shapes": "Shapes",
   "elements.icons": "Icons",
   "elements.frames": "Photo frames",
@@ -272,7 +273,7 @@ export const en = {
   "credits.fonts": "Fonts",
   "credits.fontsBody": "78 Google Fonts (Be Vietnam Pro, Inter, Playfair Display, Fraunces, Dancing Script…) — SIL Open Font License 1.1 or Apache License 2.0.",
   "credits.icons": "Icons",
-  "credits.iconsBody": "Lucide — ISC License. Stickers, overlays and templates are made for this app.",
+  "credits.iconsBody": "Lucide — ISC License. Emoji stickers: Fluent Emoji © Microsoft — MIT License. Other stickers, overlays and templates are made for this app.",
   "credits.libraries": "Libraries",
   "credits.librariesBody": "Next.js, React, Konva, Zustand, idb, fflate, ONNX Runtime Web — MIT License. Transformers.js and the ormbg background-removal model — Apache License 2.0.",
 

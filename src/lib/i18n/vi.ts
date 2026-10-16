@@ -237,6 +237,7 @@ export const vi: Record<MessageKey, string> = {
   "elements.all": "Tất cả",
   "elements.stickers": "Sticker",
   "elements.overlays": "Lớp phủ",
+  "elements.emoji": "Emoji (Fluent)",
   "elements.shapes": "Hình khối",
   "elements.icons": "Icon",
   "elements.frames": "Khung ảnh",
@@ -271,7 +272,7 @@ export const vi: Record<MessageKey, string> = {
   "credits.fonts": "Font chữ",
   "credits.fontsBody": "78 font Google Fonts (Be Vietnam Pro, Inter, Playfair Display, Fraunces, Dancing Script…) — SIL Open Font License 1.1 hoặc Apache License 2.0.",
   "credits.icons": "Icon",
-  "credits.iconsBody": "Lucide — ISC License. Sticker, lớp phủ và template do app tự làm.",
+  "credits.iconsBody": "Lucide — ISC License. Sticker emoji: Fluent Emoji © Microsoft — giấy phép MIT. Sticker khác, lớp phủ và template do app tự làm.",
   "credits.libraries": "Thư viện",
   "credits.librariesBody": "Next.js, React, Konva, Zustand, idb, fflate, ONNX Runtime Web — giấy phép MIT. Transformers.js và mô hình xoá nền ormbg — Apache License 2.0.",
 

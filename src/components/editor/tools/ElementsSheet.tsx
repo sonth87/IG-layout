@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { newFramedPhoto, newIcon, newOverlay, newShape, newSticker } from "@/lib/elements/create";
+import { newEmoji, newFramedPhoto, newIcon, newOverlay, newShape, newSticker } from "@/lib/elements/create";
+import { EmojiStickers } from "./EmojiStickers";
 import { OVERLAY_KINDS, OVERLAYS, overlayBlob, drawOverlay, type OverlayKind } from "@/lib/elements/overlays";
 import { STICKER_KEYS, STICKERS } from "@/lib/elements/stickers";
 import { newId, SLIDE_SIZE } from "@/lib/project/types";
@@ -152,6 +153,12 @@ export function ElementsSheet({ onClose }: { onClose: () => void }) {
                   </button>
                 ))}
               </div>
+            </section>
+          )}
+          {show("stickers") && (
+            <section>
+              <h3 className="pb-2 text-[13px] font-bold">{t("elements.emoji")}</h3>
+              <EmojiStickers query={query} onPick={(name, body) => add(newEmoji(doc.ratio, slide, name, body))} />
             </section>
           )}
           {show("overlays") && overlays.length > 0 && (

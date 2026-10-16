@@ -64,6 +64,7 @@ export function ActionSheet<K extends string>({
 function elementLabel(el: CanvasElement, index: number, t: ReturnType<typeof useT>) {
   if (el.type === "text") return `“${el.text.slice(0, 24)}${el.text.length > 24 ? "…" : ""}”`;
   if (el.type === "shape") return t(`shape.${el.shape}`);
+  if (el.type === "icon" && el.svg) return el.icon.replace(/^emoji:/, "").replace(/-/g, " ");
   if (el.type === "icon") return isSticker(el.icon) ? STICKERS[el.icon].name[useSettings.getState().locale] : t(`icon.${el.icon}` as "icon.heart");
   if (el.type === "drawing") return t("editor.kind.drawing");
   return `${t("editor.kind.image")} ${index}`;
