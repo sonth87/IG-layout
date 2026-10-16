@@ -120,6 +120,23 @@ const back = await node(text.id);
 check(back.text === "Đà Lạt" && Math.abs(back.y - base.y) < 0.5 && back.opacity === base.opacity, "back at 0 s: full text, real position");
 await shot(page, "2-editor");
 
+console.log("Loop animation (spin)");
+await page.evaluate((id) => window.__igEditor.getState().select(id), text.id);
+await page.waitForTimeout(200);
+await page.getByRole("button", { name: "Animate" }).click();
+await page.getByRole("tab", { name: "Loop" }).click();
+await page.getByRole("radio", { name: "Spin" }).click();
+await page.getByRole("button", { name: "Apply", exact: true }).click();
+await page.getByRole("button", { name: "Done" }).click();
+await page.getByRole("button", { name: "Play" }).click();
+await page.waitForTimeout(900);
+const spun = await page.evaluate((id) => window.__igEditor.getState().canvas.layer.findOne("#" + id).rotation(), text.id);
+await page.getByRole("button", { name: "Pause" }).click();
+await page.getByRole("slider", { name: "Timeline" }).fill("0");
+await page.waitForTimeout(200);
+const still = await page.evaluate((id) => window.__igEditor.getState().canvas.layer.findOne("#" + id).rotation(), text.id);
+check(spun > 20 && still === 0, `spin turns while playing (${spun.toFixed(0)}°), back to 0° when stopped`);
+
 console.log("Export: both slides become MP4");
 await page.getByRole("button", { name: "Export" }).click();
 const files = await exported();

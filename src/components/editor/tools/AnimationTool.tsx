@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { motionDuration } from "@/lib/motion/motion";
-import { ANIM_IN, ANIM_OUT, KEN_BURNS, type Motion } from "@/lib/project/types";
+import { ANIM_IN, ANIM_LOOP, ANIM_OUT, KEN_BURNS, type Motion } from "@/lib/project/types";
 import { pause, play, seek } from "@/lib/video/playback";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { Slider, ToolSheet } from "./controls";
 
-type Tab = "in" | "out" | "kenBurns";
+type Tab = "in" | "out" | "loop" | "kenBurns";
 
 /**
  * Animation of the selected element (M13.3): entrance, exit (and Ken Burns for photos /
@@ -37,11 +37,21 @@ export function AnimationTool({ elementId, onClose }: { elementId: string; onClo
     fn();
     onClose();
   };
-  const tabs: Tab[] = isPicture ? ["in", "out", "kenBurns"] : ["in", "out"];
+  const tabs: Tab[] = isPicture ? ["in", "out", "loop", "kenBurns"] : ["in", "out", "loop"];
   const chip = (on: boolean) => `h-9 shrink-0 rounded-full px-3.5 text-[13px] ${on ? "bg-text font-bold text-bg" : "border border-border"}`;
-  const options: readonly string[] = tab === "in" ? ANIM_IN.filter((a) => a !== "typewriter" || el.type === "text") : tab === "out" ? ANIM_OUT : KEN_BURNS;
-  const value = tab === "in" ? m.in : tab === "out" ? m.out : m.kenBurns;
-  const pick = (v: string | undefined) => set(tab === "in" ? { in: v as Motion["in"] } : tab === "out" ? { out: v as Motion["out"] } : { kenBurns: v as Motion["kenBurns"] });
+  const options: readonly string[] =
+    tab === "in" ? ANIM_IN.filter((a) => a !== "typewriter" || el.type === "text") : tab === "out" ? ANIM_OUT : tab === "loop" ? ANIM_LOOP : KEN_BURNS;
+  const value = tab === "in" ? m.in : tab === "out" ? m.out : tab === "loop" ? m.loop : m.kenBurns;
+  const pick = (v: string | undefined) =>
+    set(
+      tab === "in"
+        ? { in: v as Motion["in"] }
+        : tab === "out"
+          ? { out: v as Motion["out"] }
+          : tab === "loop"
+            ? { loop: v as Motion["loop"] }
+            : { kenBurns: v as Motion["kenBurns"] },
+    );
 
   return (
     <ToolSheet title={t("anim.title")} onApply={finish(applyDraft)} onCancel={finish(cancelDraft)}>

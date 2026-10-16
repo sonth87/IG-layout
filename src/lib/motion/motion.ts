@@ -15,7 +15,7 @@ const TRAVEL = 0.18;
 
 export function hasMotion(el: CanvasElement) {
   const m = el.motion;
-  return !!m && !!(m.in || m.out || m.kenBurns);
+  return !!m && !!(m.in || m.out || m.kenBurns || m.loop);
 }
 
 const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
@@ -37,12 +37,19 @@ export interface MotionState {
   chars: number;
   /** 0..1 progress over the whole slide (Ken Burns). */
   progress: number;
+  /** Extra rotation in degrees (spin, shake). */
+  rotation: number;
+}
+
+/** Smooth pseudo-random wobble in -1..1 (deterministic: the same frame always looks the same). */
+function wobble(t: number, seed: number) {
+  return Math.sin(t * 13.1 + seed) * 0.5 + Math.sin(t * 29.7 + seed * 2.3) * 0.3 + Math.sin(t * 47.3 + seed * 4.1) * 0.2;
 }
 
 /** State of `el` at `t` seconds into a slide lasting `slideDuration`. */
 export function motionAt(el: CanvasElement, t: number, slideDuration: number, slide: Pick<Rect, "width" | "height">): MotionState {
   const m: Motion = el.motion ?? {};
-  const s: MotionState = { opacity: 1, dx: 0, dy: 0, scale: 1, chars: 1, progress: clamp01(t / Math.max(0.1, slideDuration)) };
+  const s: MotionState = { opacity: 1, dx: 0, dy: 0, scale: 1, chars: 1, progress: clamp01(t / Math.max(0.1, slideDuration)), rotation: 0 };
   const move = (dir: string, amount: number) => {
     if (dir === "slideUp") s.dy += slide.height * TRAVEL * amount;
     if (dir === "slideDown") s.dy -= slide.height * TRAVEL * amount;
@@ -59,6 +66,15 @@ export function motionAt(el: CanvasElement, t: number, slideDuration: number, sl
     else if (m.in === "pop") s.scale *= Math.max(0, p);
     else if (m.in !== "fade") move(m.in, rest);
     s.opacity *= m.in === "typewriter" ? (raw > 0 ? 1 : 0) : clamp01(easeOut(raw) * 1.15);
+  }
+  if (m.loop === "pulse") s.scale *= 1 + 0.06 * Math.sin((2 * Math.PI * t) / 1.2);
+  if (m.loop === "float") s.dy += Math.sin((2 * Math.PI * t) / 2.4) * slide.height * 0.015;
+  if (m.loop === "flicker") s.opacity *= 0.72 + 0.28 * (0.5 + 0.5 * wobble(t, 1));
+  if (m.loop === "spin") s.rotation += (360 * t) / 4;
+  if (m.loop === "shake") {
+    s.dx += wobble(t * 1.7, 2) * slide.width * 0.006;
+    s.dy += wobble(t * 1.7, 5) * slide.width * 0.006;
+    s.rotation += wobble(t * 1.7, 9) * 1.2;
   }
   if (m.out) {
     const d = m.outDuration ?? DEFAULT_OUT;
@@ -123,6 +139,7 @@ export function applyMotion(layer: Konva.Layer, doc: ProjectDoc, t: number, slid
     node.opacity(el.opacity * s.opacity);
     node.position({ x: el.x + el.width / 2 + s.dx, y: el.y + el.height / 2 + s.dy });
     node.scale({ x: s.scale, y: s.scale });
+    node.rotation(el.rotation + s.rotation);
     if (el.type === "text") {
       const text = (node as Konva.Group).findOne<Konva.Text>("Text");
       text?.text(el.text.slice(0, Math.round(el.text.length * s.chars)));
@@ -141,6 +158,7 @@ export function clearMotion(layer: Konva.Layer, doc: ProjectDoc) {
     node.opacity(el.opacity);
     node.position({ x: el.x + el.width / 2, y: el.y + el.height / 2 });
     node.scale({ x: 1, y: 1 });
+    node.rotation(el.rotation);
     if (el.type === "text") (node as Konva.Group).findOne<Konva.Text>("Text")?.text(el.text);
   }
   touched.clear();

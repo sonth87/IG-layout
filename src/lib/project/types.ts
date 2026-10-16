@@ -102,6 +102,9 @@ export type AnimIn = (typeof ANIM_IN)[number];
 export const ANIM_OUT = ["fade", "slideUp", "slideDown", "slideLeft", "slideRight", "zoom"] as const;
 export type AnimOut = (typeof ANIM_OUT)[number];
 export const KEN_BURNS = ["zoomIn", "zoomOut", "panLeft", "panRight"] as const;
+/** Continuous motion for the whole slide (M13.3 "hiệu ứng động"). */
+export const ANIM_LOOP = ["pulse", "float", "flicker", "spin", "shake"] as const;
+export type AnimLoop = (typeof ANIM_LOOP)[number];
 export type KenBurns = (typeof KEN_BURNS)[number];
 
 export interface Motion {
@@ -115,6 +118,8 @@ export interface Motion {
   outDuration?: number;
   /** Photos / videos: slow zoom or pan of the picture inside its frame, over the whole slide. */
   kenBurns?: KenBurns;
+  /** Keeps moving while the slide plays (pulse, float, flicker, spin, shake). */
+  loop?: AnimLoop;
 }
 
 export const FRAME_STYLES = ["none", "polaroid", "white", "film", "black", "polaroidBlack", "gallery"] as const;
