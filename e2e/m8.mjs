@@ -1,7 +1,7 @@
 // M8 — UX fixes from docs/discussions/2026-10-14-danh-gia-ux.md, checked on a touch phone.
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, OUT as out, skipOnboarding, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, OUT as out, skipOnboarding, URL_ARG, newProject } from "./lib.mjs";
 
 const url = URL_ARG;
 const shot = (p, n) => p.screenshot({ path: path.join(out, `m8-${n}.png`) });
@@ -50,7 +50,7 @@ async function toPage(x, y) {
 const scrollLeft = () => page.evaluate(() => document.querySelector(".bg-canvas").scrollLeft);
 
 await page.goto(url);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.locator('input[type="file"]').setInputFiles(["panorama.jpg", "portrait.jpg", "p3.jpg", "p4.jpg"].map((f) => path.join(dir, f)));
 await page.getByRole("button", { name: /Panorama \+ 3 floating/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();
@@ -260,7 +260,7 @@ await page.getByLabel("Back to editor").click();
 
 console.log("UX-14 story layouts exclude seamless");
 await page.getByLabel("Back").click();
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.getByRole("radio", { name: /Story/ }).click();
 await page.locator('input[type="file"]').setInputFiles(["portrait.jpg", "p3.jpg"].map((f) => path.join(dir, f)));
 await page.getByText("Choose a layout").waitFor();

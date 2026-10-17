@@ -1,6 +1,6 @@
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG, pickInFillFrame } from "./lib.mjs";
+import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG, pickInFillFrame, newProject } from "./lib.mjs";
 
 const url = URL_ARG;
 const shot = (p, n) => p.screenshot({ path: path.join(out, `m5-${n}.png`) });
@@ -29,7 +29,7 @@ const last = (st, type) => st.doc.elements.filter((e) => e.type === type).at(-1)
 const apply = () => page.getByRole("button", { name: "Apply", exact: true }).click();
 
 await page.goto(url);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.getByLabel("Fewer slides").click();
 await page.getByLabel("Fewer slides").click();
 await page.getByLabel("Fewer slides").click();
@@ -141,6 +141,7 @@ await page.getByLabel("Back to editor").click();
 console.log("9. Saved and reopened");
 await page.waitForTimeout(1200);
 await page.reload();
+await page.getByRole("tab", { name: "Projects" }).click();
 await page.locator("article").first().getByRole("button").first().click();
 await page.getByText("4:5 · 2 slides").waitFor();
 st = await S();
@@ -149,7 +150,7 @@ check(types.includes("text") && types.includes("icon") && types.includes("shape"
 
 console.log("10. Credits in Settings");
 await page.getByLabel("Back").click();
-await page.getByLabel("Settings and language").click();
+await page.getByRole("tab", { name: "Settings" }).click();
 check(await page.getByText("Lucide — ISC License.").isVisible(), "credits listed");
 
 console.log("console errors:", errors);

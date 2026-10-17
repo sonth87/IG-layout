@@ -2,7 +2,7 @@ import type Konva from "konva";
 import { layerRegion } from "@/lib/export/slices";
 import { applyMotion, clearMotion, hasMotion, motionDuration } from "@/lib/motion/motion";
 import { slideOfElement, slideRect } from "@/lib/project/layout";
-import { type ImageAsset, type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
+import { type ImageAsset, type ProjectDoc, slideSize } from "@/lib/project/types";
 import { addMusic, VIDEO_FPS } from "./export";
 import { frameOverrides } from "./frames";
 import { ensureAac } from "./import";
@@ -70,7 +70,7 @@ export async function exportReel(opts: {
   const mb = await import("mediabunny");
   const plan = reelPlan(doc, assets);
   const frames = Math.max(1, Math.round(plan.total * VIDEO_FPS));
-  const slide = SLIDE_SIZE[doc.ratio];
+  const slide = slideSize(doc.ratio);
   const scale = REEL_WIDTH / slide.width;
   const drawH = slide.height * scale;
   const top = (REEL_HEIGHT - drawH) / 2;

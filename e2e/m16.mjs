@@ -4,7 +4,7 @@
 import { chromium } from "playwright-core";
 import { copyFileSync } from "node:fs";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, OUT, pickInFillFrame, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, OUT, pickInFillFrame, skipTips, URL_ARG, newProject } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -47,7 +47,7 @@ const wait = async (cond) => {
 };
 
 await page.goto(URL_ARG);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.locator('input[type="file"]').setInputFiles(path.join(dir, "p3.jpg"));
 await page.getByRole("button", { name: "Skip" }).click();
 await page.waitForTimeout(800);

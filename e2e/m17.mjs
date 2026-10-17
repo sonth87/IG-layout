@@ -2,7 +2,7 @@
 // Position (arrange, align, fill, advanced numbers), block Layout and Adjust.
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, OUT, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, OUT, skipTips, URL_ARG, newProject } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -36,7 +36,7 @@ const apply = () => page.getByLabel("Apply").click();
 const cancel = () => page.getByRole("button", { name: "Cancel" }).click();
 
 await page.goto(URL_ARG);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.locator('input[type="file"]').setInputFiles(["p3.jpg", "p4.jpg", "portrait.jpg", "panorama.jpg"].map((f) => path.join(dir, f)));
 await page.getByText("Choose a layout").waitFor();
 await page.getByRole("button", { name: "Grid", exact: true }).click();

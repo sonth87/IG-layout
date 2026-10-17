@@ -1,4 +1,4 @@
-import { type ProjectDoc, type Rect, SLIDE_SIZE } from "./types";
+import { type ProjectDoc, type Rect, slideSize } from "./types";
 
 // Where each slide sits on the canvas (M6). Post / Story: one row of slides.
 // Grid: 3 columns × rows tiles, optionally separated by the profile gap.
@@ -20,7 +20,7 @@ export function gridShape(doc: LayoutDoc) {
 }
 
 export function slideRect(doc: LayoutDoc, index: number): Rect {
-  const { width, height } = SLIDE_SIZE[doc.ratio];
+  const { width, height } = slideSize(doc.ratio);
   const { cols, gap } = gridShape(doc);
   const c = index % cols;
   const r = Math.floor(index / cols);
@@ -28,14 +28,14 @@ export function slideRect(doc: LayoutDoc, index: number): Rect {
 }
 
 export function canvasSize(doc: LayoutDoc) {
-  const slide = SLIDE_SIZE[doc.ratio];
+  const slide = slideSize(doc.ratio);
   const { cols, rows, gap } = gridShape(doc);
   return { width: cols * slide.width + (cols - 1) * gap, height: rows * slide.height + (rows - 1) * gap, slide };
 }
 
 /** Slide whose area contains (or is nearest to) a canvas point. */
 export function slideAt(doc: LayoutDoc, x: number, y: number) {
-  const slide = SLIDE_SIZE[doc.ratio];
+  const slide = slideSize(doc.ratio);
   const { cols, rows, gap } = gridShape(doc);
   const c = Math.max(0, Math.min(cols - 1, Math.floor((x + gap / 2) / (slide.width + gap))));
   const r = Math.max(0, Math.min(rows - 1, Math.floor((y + gap / 2) / (slide.height + gap))));

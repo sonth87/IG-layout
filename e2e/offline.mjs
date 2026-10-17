@@ -1,6 +1,6 @@
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { skipTips, chromePath, FIXTURES, URL_ARG } from "./lib.mjs";
+import { skipTips, chromePath, FIXTURES, URL_ARG, newProject } from "./lib.mjs";
 const url = URL_ARG;
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
@@ -9,6 +9,7 @@ const page = await context.newPage();
 const errors = [];
 page.on("pageerror", (e) => errors.push(String(e)));
 await page.goto(url);
+await page.getByRole("tab", { name: "Projects" }).click();
 await page.getByText("No projects yet").waitFor();
 await page.evaluate(() => navigator.serviceWorker.ready);
 // The editor is loaded in the background (idle) after the home screen: give it time.
@@ -20,8 +21,9 @@ const cached = await page.evaluate(async () => {
 console.log("cached entries:", cached.length, cached.filter((p) => p.includes("_next")).length, "from /_next");
 await context.setOffline(true);
 await page.reload();
+await page.getByRole("tab", { name: "Projects" }).click();
 await page.getByText("No projects yet").waitFor({ timeout: 5000 });
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.getByText("Choose photos").waitFor({ timeout: 5000 });
 // The editor (loaded lazily, M11) must open offline too, without ever having been opened.
 await page.locator('input[type="file"]').setInputFiles([path.join(FIXTURES, "p3.jpg")]);

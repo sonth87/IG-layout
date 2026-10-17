@@ -237,6 +237,27 @@ export const DESIGNS: Template[] = [
     ],
   }),
 
+  // ── Special occasions (M18) ─────────────────────────────────────────────
+  design("birthday-story", "occasion", t("Birthday", "Sinh nhật"), {
+    format: "story",
+    slides: 1,
+    background: { kind: "gradient", from: "#ffd6e0", to: "#fff1d6", angle: 180 },
+    slots: [photo(0, 0, 0.16, 0.24, 0.68, 0.4, { frame: "polaroid", shadow: true, rotation: 3 })],
+    texts: [
+      text(0, 0.08, 0.14, 0.84, t("Happy birthday!", "Chúc mừng sinh nhật!"), { font: "dancing", size: 0.1, color: "#b03a5b" }),
+      text(0, 0.1, 0.72, 0.8, t("another trip around the sun", "thêm một vòng quanh mặt trời"), { font: "beVietnam", size: 0.04, color: "#6b4a55" }),
+    ],
+  }),
+  design("anniversary", "occasion", t("Anniversary", "Kỷ niệm"), {
+    slides: 2,
+    background: { kind: "color", color: "#f6efe6" },
+    slots: [photo(0, 0, 0.08, 0.08, 0.84, 0.62), photo(1, 1, 0.08, 0.08, 0.4, 0.4), photo(2, 1, 0.52, 0.08, 0.4, 0.4), photo(3, 1, 0.08, 0.52, 0.84, 0.4)],
+    texts: [
+      text(0, 0.08, 0.76, 0.84, t("One year of us", "Một năm bên nhau"), { font: "playfair", size: 0.075, color: INK, align: "left", bold: true }),
+      text(0, 0.08, 0.86, 0.84, t("thank you for every day", "cảm ơn vì từng ngày"), { font: "lora", size: 0.038, color: "#5d564d", align: "left" }),
+    ],
+  }),
+
   // ── Minimal ─────────────────────────────────────────────────────────────
   design("gallery-border", "minimal", t("Gallery border", "Viền triển lãm"), {
     slides: 1,

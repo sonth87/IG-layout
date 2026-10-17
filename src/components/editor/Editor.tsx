@@ -83,7 +83,8 @@ type Tool =
   | "newSlide"
   | "position"
   | "blockLayout"
-  | "blockAdjust";
+  | "blockAdjust"
+  | "projectMenu";
 /** Tools that edit a draft (✕ / ✓). */
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust"];
 
@@ -157,6 +158,10 @@ function PillButton(props: { label: string; icon: IconName; onClick: () => void 
     </button>
   );
 }
+
+/** Frosted floating group / round button (editor-v2/01 §2–3). */
+const GLASS = "rounded-full border border-border bg-surface/80 shadow-sm backdrop-blur-xl";
+const GLASS_ROUND = `flex h-11 w-11 shrink-0 items-center justify-center ${GLASS}`;
 
 /** Round floating button beside the pill (Layers, ✕). */
 const ROUND = "flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border bg-surface shadow-lg";
@@ -385,15 +390,18 @@ export function Editor({ onClose }: { onClose: () => void }) {
   type MoreKey = "background" | "slides" | "layers" | "draw" | "music" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg" | "crop" | "animate";
 
   /** Secondary actions for the selection ("⋯ More"), described as data. */
-  function moreActions(): Action<MoreKey>[] {
-    if (!selected) {
-      return [
+  /** The project menu (the ⋯ at the top): background, slides, music, drawing. */
+  function projectActions(): Action<MoreKey>[] {
+    return [
         { key: "background", label: t("editor.background"), icon: "background" },
         { key: "slides", label: isGrid ? t("editor.grid") : doc.type === "story" ? t("editor.frames") : t("editor.slides"), icon: "slides" },
         { key: "music", label: t("music.title"), icon: "music" },
         { key: "draw", label: t("editor.draw"), icon: "pencil" },
       ];
-    }
+  }
+
+  function moreActions(): Action<MoreKey>[] {
+    if (!selected) return projectActions();
     const list: Action<MoreKey>[] = [];
     if (selected.type === "image") {
       if (selected.assetId) list.push({ key: "replace", label: t("editor.replace"), icon: "replace" });
@@ -549,7 +557,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <PillButton label={t("editor.text")} icon="text" onClick={addText} />
           <PillButton label={t("editor.elements")} icon="shapes" onClick={() => setTool("elements")} />
           <PillButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
-          <PillButton label={t("editor.more")} icon="more" onClick={() => setTool("more")} />
         </div>
         {/* Layers stand apart from the tools, as a round button on the right (D-92). */}
         <button type="button" aria-label={t("layers.title")} onClick={() => setTool("layers")} className={ROUND}>
@@ -561,48 +568,43 @@ export function Editor({ onClose }: { onClose: () => void }) {
   return (
     // data-fonts uses the text-font module so its @font-face CSS ships with the editor (M11).
     <main data-fonts={WEB_FONTS} className="flex h-dvh flex-col">
-      <header className="flex items-center gap-0.5 px-2 pt-2.5 pb-1.5">
-        <button type="button" aria-label={t("common.back")} onClick={onBack} className="flex h-11 w-11 items-center justify-center">
+      {/* Floating round buttons over the canvas colour (editor-v2/05 §1): ‹ · title, ↶ ↷ ⋯, export. */}
+      <header className="flex items-center gap-2 bg-(--canvas) px-3 pt-2.5 pb-1.5">
+        <button type="button" aria-label={t("common.back")} onClick={onBack} className={GLASS_ROUND}>
           <Icon name="back" />
         </button>
-        <div className="flex min-w-0 flex-1 flex-col leading-tight">
-          <span className="truncate text-[15px] font-semibold">
+        <div className="flex min-w-0 flex-1 flex-col px-1 leading-tight">
+          <span className="truncate text-[14px] font-semibold">
             {doc.type === "grid"
               ? t("editor.titleGrid", { rows: doc.grid?.rows ?? 1 })
               : doc.type === "story"
                 ? t("editor.titleStory", { count: doc.slideCount })
-                : t("editor.title", { ratio: doc.ratio, count: doc.slideCount })}
+                : t("editor.title", { ratio: doc.ratio.replace("1080x", "1080×"), count: doc.slideCount })}
           </span>
           <SaveIndicator />
         </div>
+        <div className={`flex h-11 items-center px-1 ${GLASS}`}>
+          <button type="button" aria-label={t("editor.undo")} disabled={!canUndo || sheetOpen} onClick={store.undo} className="flex h-10 w-10 items-center justify-center disabled:text-disabled">
+            <Icon name="undo" />
+          </button>
+          <button type="button" aria-label={t("editor.redo")} disabled={!canRedo || sheetOpen} onClick={store.redo} className="flex h-10 w-10 items-center justify-center disabled:text-disabled">
+            <Icon name="redo" />
+          </button>
+          <button type="button" aria-label={t("editor.projectMenu")} disabled={sheetOpen} onClick={() => setTool("projectMenu")} className="flex h-10 w-10 items-center justify-center disabled:text-disabled">
+            <Icon name="more" />
+          </button>
+        </div>
         <button
           type="button"
-          aria-label={t("editor.undo")}
-          disabled={!canUndo || sheetOpen}
-          onClick={store.undo}
-          className="flex h-11 w-11 items-center justify-center disabled:text-disabled"
-        >
-          <Icon name="undo" />
-        </button>
-        <button
-          type="button"
-          aria-label={t("editor.redo")}
-          disabled={!canRedo || sheetOpen}
-          onClick={store.redo}
-          className="flex h-11 w-11 items-center justify-center disabled:text-disabled"
-        >
-          <Icon name="redo" />
-        </button>
-        <button
-          type="button"
+          aria-label={t("editor.export")}
           disabled={doc.elements.length === 0 || sheetOpen}
           onClick={() => {
             store.select(null);
             setExportOpen(true);
           }}
-          className="ml-1 h-[38px] rounded-xl bg-accent px-3.5 text-sm font-bold text-on-accent disabled:opacity-50"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent shadow-lg disabled:opacity-50"
         >
-          {t("editor.export")}
+          <Icon name="share" />
         </button>
       </header>
 
@@ -800,6 +802,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         />
       )}
       {tool === "more" && <ActionSheet title={t("editor.more")} actions={moreActions()} onAction={runMore} onClose={close} />}
+      {tool === "projectMenu" && <ActionSheet title={t("editor.projectMenu")} actions={projectActions()} onAction={runMore} onClose={close} />}
       {tool === "layers" && <LayersSheet onClose={close} />}
       {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
       {tool === "trim" && selected && <TrimTool elementId={selected.id} onClose={close} />}

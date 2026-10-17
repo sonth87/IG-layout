@@ -12,7 +12,7 @@ import {
   MAX_SLIDES,
   POST_RATIOS,
   type ProjectType,
-  SLIDE_SIZE,
+  slideSize,
 } from "@/lib/project/types";
 import { templateSlides } from "@/lib/templates/apply";
 import { useEditor } from "@/store/editor";
@@ -85,10 +85,10 @@ function Stepper(props: {
 }
 
 /** New project (wireframe 2): Post / Story / Grid, then photos, then a layout. */
-export function NewProject({ onClose }: { onClose: () => void }) {
+export function NewProject({ onClose, initialType = "post" }: { onClose: () => void; initialType?: ProjectType }) {
   const t = useT();
   const locale = useSettings((s) => s.locale);
-  const [type, setType] = useState<ProjectType>("post");
+  const [type, setType] = useState<ProjectType>(initialType);
   const [postRatio, setPostRatio] = useState<AspectRatio>("4:5");
   const [slides, setSlides] = useState(5);
   const [frames, setFrames] = useState(3);
@@ -103,7 +103,7 @@ export function NewProject({ onClose }: { onClose: () => void }) {
 
   const ratio: AspectRatio = type === "story" ? "9:16" : type === "grid" ? "3:4" : postRatio;
   const count = type === "story" ? frames : type === "grid" ? rows * GRID_COLS : slides;
-  const size = SLIDE_SIZE[ratio];
+  const size = slideSize(ratio);
   const name = () => t(`new.defaultName.${type}`, { date: formatShortDate(Date.now(), locale) });
   const create = (slideCount: number) => createProject({ type, ratio, slideCount, name: name(), gapCompensation: gap });
 

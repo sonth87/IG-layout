@@ -1,19 +1,27 @@
 // Project data model. All coordinates are in export pixels: one slide is
-// SLIDE_SIZE[ratio] wide/high, and the canvas is slideCount slides side by side.
+// slideSize(ratio) wide/high, and the canvas is slideCount slides side by side.
 // Full design: docs/architecture/editor-model.md.
 
 import type { Adjustments, FilterRef } from "@/lib/color/params";
 
 export type ProjectType = "post" | "story" | "grid";
 
-export type AspectRatio = "1:1" | "4:5" | "3:4" | "9:16";
+/**
+ * Slide shape: "w:h" (any ratio, 1080 px wide) or "1080x<height>" for a custom height
+ * (M18, editor-v2/04). The four original ratios keep their names.
+ */
+export type AspectRatio = `${number}:${number}` | `1080x${number}`;
 
-export const SLIDE_SIZE: Record<AspectRatio, { width: number; height: number }> = {
-  "1:1": { width: 1080, height: 1080 },
-  "4:5": { width: 1080, height: 1350 },
-  "3:4": { width: 1080, height: 1440 },
-  "9:16": { width: 1080, height: 1920 },
-};
+/** Size of one slide in export pixels: always 1080 wide. */
+export function slideSize(ratio: AspectRatio): { width: number; height: number } {
+  const custom = /^1080x(\d+)$/.exec(ratio);
+  if (custom) return { width: 1080, height: Number(custom[1]) };
+  const [w, h] = ratio.split(":").map(Number);
+  return { width: 1080, height: w > 0 && h > 0 ? Math.round((1080 * h) / w) : 1350 };
+}
+
+/** Custom heights Instagram accepts: 1.91:1 (565) to 9:16 (1920). */
+export const CUSTOM_HEIGHT = { min: 565, max: 1920 };
 
 export const POST_RATIOS: AspectRatio[] = ["1:1", "4:5", "3:4"];
 

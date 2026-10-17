@@ -340,3 +340,17 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Bottom sheet kéo được** (Lớp, Thành phần, Slide mới): mở ở 50 %, kéo tay cầm lên tới 95 %; thả dưới 20 % → đóng, 20 – 50 % → bật về 50 %, trên 50 % → bám 50 / 95 % theo vị trí và tốc độ vuốt; sheet nằm dưới canvas nên **đẩy canvas lên**, canvas tự thu cho vừa phần còn lại (cả với sheet công cụ như Kiểu, Chỉnh); trên iPad sheet rộng tối đa 672 px giữa nền canvas
 - [x] Kiểm tra `e2e/m17.mjs` (tiêu chí 08 §7 + thanh công cụ + bottom sheet); m8 / m9 đổi theo quy tắc mới "sheet đẩy canvas lên" (thay F-03 / UX-08); sửa test m13b chọn nhầm ảnh theo id ngẫu nhiên
 - [ ] Chủ dự án thử trên iPhone / iPad: thanh công cụ, Vị trí, Bố cục / Điều chỉnh khối, Kiểu (bo từng góc, bóng), bảng màu, kéo bottom sheet
+
+### M18 — Giao diện, trang chủ, tạo dự án — xong phần code 2026-10-17
+Đặc tả: [01](../product/editor-v2/01-giao-dien.md), [03](../product/editor-v2/03-trang-chu-va-template.md), [04](../product/editor-v2/04-tao-du-an.md); cách cài: [dev/editor-v2](../dev/editor-v2.md) mục 0e (D-98).
+- [x] **Thanh điều hướng nổi** 3 tab Trang chủ / Dự án / Cài đặt + nút tròn **+** tách riêng; thoát editor → về tab Dự án
+- [x] **Sheet "Dự án mới"**: thẻ 4:5 · 3:4 · 9:16 · 1:1 · 1.91:1 · Khác vẽ đúng hình, chung đường đáy, trượt ngang → chạm là vào editor với **một slide trắng**; **Lưới profile** và **Từ ảnh** mở màn tạo từng bước (loại, số slide, chọn ảnh, layout) như trước
+- [x] **Khác**: 2:3, 3:2, 3:4, 4:3, 5:4, 5:6, 16:9 (ghi chú "Instagram sẽ cắt về 4:5" khi dọc hơn 4:5) + **Tuỳ chỉnh** (chiều cao 565 – 1920 px, báo lỗi ngoài khoảng, Huỷ quay lại)
+- [x] Tỉ lệ slide tổng quát: `"w:h"` hoặc `"1080x<cao>"` (`slideSize()`), dự án cũ giữ nguyên
+- [x] **Trang chủ**: thanh trên nổi kính mờ (♡ · Dành cho bạn / Khám phá · 🔍); **3 banner** vuốt ngang, chấm chỉ trang, tự chuyển 6 s, "Khám phá ngay" mở nhóm; thẻ **Tiếp tục** (dự án gần nhất) + **Tạo mới**; **các nhóm** có mô tả, trượt ngang, › mở lưới cả nhóm; **Khám phá thêm** lưới so le 2 cột; nhóm có template đã thích lên trước
+- [x] **Thẻ template**: ảnh bìa (slide đầu) có **ảnh mẫu tự vẽ** (SVG, không tải mạng), ♡ thích không mở template, nhãn số ảnh / số slide, chấm cho carousel
+- [x] **Màn chi tiết template** trượt từ phải: vuốt xem từng slide có chấm, nhãn tỉ lệ / số ảnh / số slide, Template tương tự, thanh đáy "Dùng template" + ♡
+- [x] Tab **Khám phá** (chip lọc nhóm + lưới so le), **Đã thích**, **Tìm kiếm** (tên, nhóm, mô tả — Anh / Việt); thêm nhóm **Dịp đặc biệt** (Sinh nhật, Kỷ niệm)
+- [x] **Editor**: nút nổi kính mờ ‹ · (↶ ↷ ⋯) · Xuất (nút tròn); ⋯ là menu dự án (Nền, Slide, Nhạc, Vẽ); thanh công cụ dưới chỉ còn Ảnh · Chữ · Thành phần · Bố cục + Lớp
+- [x] Kiểm tra tự động `e2e/m18.mjs`; các bộ cũ đổi sang luồng mới (`newProject()` = + → Từ ảnh, tab Dự án sau khi tải lại)
+- [ ] Chủ dự án thử trên iPhone / iPad: trang chủ mới, tạo dự án theo tỉ lệ / tuỳ chỉnh, màn chi tiết template, editor mới

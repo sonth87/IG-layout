@@ -59,9 +59,9 @@ export interface TemplateText {
 }
 
 /** Where a designed template appears in the home library (M10). */
-export type TemplateCategory = "carousel" | "seamless" | "collage" | "story" | "grid" | "minimal";
+export type TemplateCategory = "carousel" | "seamless" | "collage" | "story" | "grid" | "minimal" | "occasion";
 
-export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["carousel", "seamless", "collage", "story", "minimal", "grid"];
+export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["carousel", "seamless", "collage", "story", "occasion", "minimal", "grid"];
 
 export type TemplateBackground =
   | { kind: "color"; color: string }

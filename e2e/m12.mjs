@@ -2,7 +2,7 @@
 // run (cached by the browser profile afterwards only within this run). Slow: 1–3 min.
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, more, OUT as out, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, more, OUT as out, skipTips, URL_ARG, newProject } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -22,7 +22,7 @@ page.on("request", (r) => requests.push(r.url()));
 context.on("request", (r) => requests.push(r.url())); // includes worker requests
 
 await page.goto(URL_ARG);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 for (let i = 0; i < 4; i++) await page.getByLabel("Fewer slides").click();
 await page.locator('input[type="file"]').setInputFiles([path.join(dir, "portrait.jpg")]);
 await page.getByRole("button", { name: "Skip" }).click();

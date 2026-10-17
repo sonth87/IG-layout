@@ -8,7 +8,7 @@ import {
   newId,
   type ShapeElement,
   type ShapeKind,
-  SLIDE_SIZE,
+  slideSize,
   type AspectRatio,
   type TextElement,
   type Rect,
@@ -24,7 +24,7 @@ function centered(_ratio: AspectRatio, slide: Rect, width: number, height: numbe
 }
 
 export function newText(ratio: AspectRatio, slide: Rect, text: string): TextElement {
-  const s = SLIDE_SIZE[ratio];
+  const s = slideSize(ratio);
   const fontSize = Math.round(s.width * 0.09);
   return {
     id: newId(),
@@ -48,26 +48,26 @@ export function newText(ratio: AspectRatio, slide: Rect, text: string): TextElem
 }
 
 export function newShape(ratio: AspectRatio, slide: Rect, shape: ShapeKind, fill: string): ShapeElement {
-  const size = defaultShapeSize(shape, SLIDE_SIZE[ratio].width);
+  const size = defaultShapeSize(shape, slideSize(ratio).width);
   return { id: newId(), type: "shape", ...centered(ratio, slide, size.width, size.height), rotation: 0, opacity: 1, shape, fill };
 }
 
 export function newIcon(ratio: AspectRatio, slide: Rect, icon: string, color: string): IconElement {
-  const size = SLIDE_SIZE[ratio].width * 0.22;
+  const size = slideSize(ratio).width * 0.22;
   return { id: newId(), type: "icon", ...centered(ratio, slide, size, size), rotation: 0, opacity: 1, icon, color };
 }
 
 /** A sticker (M11): an icon element whose key is in the sticker set, at its own aspect. */
 export function newSticker(ratio: AspectRatio, slide: Rect, key: string): IconElement {
   const st = STICKERS[key];
-  const width = SLIDE_SIZE[ratio].width * (st.w > st.h * 1.6 ? 0.42 : 0.26);
+  const width = slideSize(ratio).width * (st.w > st.h * 1.6 ? 0.42 : 0.26);
   const height = (width * st.h) / st.w;
   return { id: newId(), type: "icon", ...centered(ratio, slide, width, height), rotation: 0, opacity: 1, icon: key, color: st.color };
 }
 
 /** An emoji sticker (Fluent Emoji, MIT): the SVG body is stored in the element. */
 export function newEmoji(ratio: AspectRatio, slide: Rect, name: string, body: string): IconElement {
-  const size = SLIDE_SIZE[ratio].width * 0.24;
+  const size = slideSize(ratio).width * 0.24;
   return { id: newId(), type: "icon", ...centered(ratio, slide, size, size), rotation: 0, opacity: 1, icon: `emoji:${name}`, color: "#000000", svg: body };
 }
 
@@ -78,7 +78,7 @@ export function newOverlay(slide: Rect, asset: ImageAsset, blend: BlendMode): Im
 
 /** An empty photo frame (tap "Add photo" to fill it). */
 export function newFramedPhoto(ratio: AspectRatio, slide: Rect, frame: FrameStyle): ImageElement {
-  const s = SLIDE_SIZE[ratio];
+  const s = slideSize(ratio);
   const w = s.width * 0.6;
   const h = frame === "polaroid" || frame === "polaroidBlack" ? w * 1.2 : frame === "film" ? w * 0.8 : w;
   const el = { ...imageElement({ id: "", width: w, height: h }, centered(ratio, slide, w, h)), assetId: null };

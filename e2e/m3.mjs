@@ -1,5 +1,5 @@
 import { chromium } from "playwright-core";
-import { more, pickInFillFrame, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { more, pickInFillFrame, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG, newProject } from "./lib.mjs";
 import path from "node:path";
 
 const url = URL_ARG;
@@ -34,7 +34,7 @@ async function tapEl(el, dx = 0, dy = 0) {
 }
 
 await page.goto(url);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.locator('input[type="file"]').setInputFiles(["panorama.jpg", "portrait.jpg", "p3.jpg", "p4.jpg"].map((f) => path.join(dir, f)));
 
 console.log("1. Layout picker after choosing photos");
@@ -130,7 +130,7 @@ check(cells(st).length === 4 && st.past === pastNow - 2, "back to 2 × 2");
 
 console.log("7. Skip in picker keeps old behavior");
 await page.getByLabel("Back").click();
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.locator('input[type="file"]').setInputFiles(path.join(dir, "panorama.jpg"));
 await page.getByRole("button", { name: "Skip" }).click();
 await page.getByText("4:5 · 5 slides").waitFor();

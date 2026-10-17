@@ -1,6 +1,6 @@
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG, newProject as openNewProject } from "./lib.mjs";
 
 const url = URL_ARG;
 const shot = (p, n) => p.screenshot({ path: path.join(out, `m7-${n}.png`) });
@@ -26,7 +26,7 @@ const S = async () => {
   });
 };
 async function newProject(type, files, setup = async () => {}) {
-  await page.getByRole("button", { name: "New project" }).click();
+  await openNewProject(page);
   if (type !== "Post") await page.getByRole("radio", { name: new RegExp(type) }).click();
   await setup();
   await page.locator('input[type="file"]').setInputFiles(files.map((f) => path.join(dir, f)));
@@ -92,7 +92,7 @@ await page.getByLabel("Back to editor").click();
 await page.getByLabel("Back").click();
 
 console.log("4. Grid export: profile assembles the picture");
-await page.getByRole("button", { name: "New project" }).click();
+await openNewProject(page);
 await page.getByRole("radio", { name: /Grid/ }).click();
 await page.getByLabel("Fewer rows").click();
 await page.locator('input[type="file"]').setInputFiles(path.join(dir, "panorama.jpg"));
@@ -126,9 +126,8 @@ await page.getByLabel("How to use").click();
 check(await page.getByText("Posting a grid").isVisible(), "help sections");
 await shot(page, "5-help");
 await page.getByLabel("Back").click();
-await page.getByLabel("Settings and language").click();
+await page.getByRole("tab", { name: "Settings" }).click();
 await page.getByRole("radio", { name: "Tiếng Việt" }).click();
-await page.getByLabel("Quay lại").click();
 await page.getByLabel("Hướng dẫn").click();
 check(await page.getByText("Đăng lưới").isVisible(), "help in Vietnamese");
 

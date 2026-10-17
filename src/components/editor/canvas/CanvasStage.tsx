@@ -8,7 +8,7 @@ import { snap, snapTargets } from "@/lib/project/snap";
 import { canvasSize, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
 import { scaleExtras } from "@/lib/elements/resize";
 import { strokePath } from "@/lib/elements/shapes";
-import { type CanvasElement, type ImageAsset, type ImageElement, pansInside, type Rect as Box, SLIDE_SIZE } from "@/lib/project/types";
+import { type CanvasElement, type ImageAsset, type ImageElement, pansInside, type Rect as Box, slideSize } from "@/lib/project/types";
 import { liveCrops } from "@/lib/project/liveCrop";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { panCrop, wholePicture } from "@/lib/project/blocks";
@@ -352,7 +352,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       if (!layer || !d) return;
       if (!active) return clearMotion(layer, d);
       const length = (el: CanvasElement, a: ImageAsset) => timelineLength((el.type === "image" && el.media) || defaultMedia(a.video!.duration));
-      applyMotion(layer, d, t, makeSlideDuration(d, st.assets, length), SLIDE_SIZE[d.ratio]);
+      applyMotion(layer, d, t, makeSlideDuration(d, st.assets, length), slideSize(d.ratio));
     });
     return () => {
       setRedraw(() => {});

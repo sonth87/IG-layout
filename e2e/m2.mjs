@@ -1,5 +1,5 @@
 import { chromium } from "playwright-core";
-import { more, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { more, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG, newProject } from "./lib.mjs";
 import { execSync } from "node:child_process";
 import path from "node:path";
 
@@ -40,7 +40,7 @@ async function tapElement(el) {
 }
 
 await page.goto(url);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.getByLabel("Fewer slides").click();
 await page.getByLabel("Fewer slides").click();
 await page.locator('input[type="file"]').setInputFiles(path.join(dir, "panorama.jpg"));
@@ -168,6 +168,7 @@ console.log("11b. Everything was saved (reload)");
 const memDoc = JSON.stringify(st.doc);
 await page.waitForTimeout(1500);
 await page.reload();
+await page.getByRole("tab", { name: "Projects" }).click();
 await page.locator("article").first().getByRole("button").first().click();
 await page.getByText("4:5 · 3 slides").waitFor();
 await page.waitForTimeout(300);

@@ -119,7 +119,7 @@ export function TemplatePreview(props: {
                   : undefined,
               borderBottomWidth: polaroid ? Math.max(3, el.width * k * 0.18) : undefined,
               boxShadow: el.shadow ? "0 2px 4px rgba(0,0,0,0.3)" : undefined,
-              background: asset ? `center / cover no-repeat url(${stillUrl(asset)})` : tone,
+              background: asset ? `center / cover no-repeat url("${stillUrl(asset)}")` : tone,
             }}
           />
         );
