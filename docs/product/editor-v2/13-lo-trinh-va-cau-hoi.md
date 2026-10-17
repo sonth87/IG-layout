@@ -37,7 +37,7 @@ Thứ tự được chọn sao cho mỗi mốc là nền cho mốc sau, và nh�
 
 **M23 — Liquid glass** (D-109). Thanh công cụ, menu nổi, sheet dùng kính kiểu thấu kính Apple (mép kính khúc xạ, có tán sắc, lòng kính phẳng) từ thư viện của chủ dự án. Cài đặt có lựa chọn **Tint / Trong suốt** (và tắt), máy yếu dùng kiểu nhẹ.
 - **Lưu ý kỹ thuật:** hiệu ứng thấu kính dùng SVG filter trong `backdrop-filter`, hiện **chỉ Chromium chạy được**. Safari (và mọi trình duyệt trên iPhone / iPad, vì đều dùng nhân Safari) sẽ lùi về kính mờ thường.
-- Cần thử cách khác cho Safari khi tới: ví dụ vẽ phần nền phía sau vào canvas rồi khúc xạ bằng WebGL.
+- **Chốt (2026-10-17):** **không** tự khúc xạ bằng WebGL (sợ nặng). Dựa hoàn toàn vào thư viện của chủ dự án: Chromium có thấu kính, Safari lùi về kính mờ. Người dùng **tự tắt được** trong Cài đặt để nhẹ máy.
 
 **M22 — Xoá vật thể.** Tô lên vật thể để máy tự xoá và vẽ lại nền phía sau, chạy trên máy (mô hình ~200 MB, tải lần đầu khi dùng, như xoá nền). Làm sau cùng (Q-E8). Tài liệu: [09](09-anh-va-video.md) mục 3.
 
