@@ -97,8 +97,12 @@ export type Background =
       radial?: boolean;
     }
   | { kind: "blur"; assetId: string }
-  /** A drawn texture tile (lib/elements/textures), repeated (M19). */
-  | { kind: "texture"; texture: string };
+  /**
+   * A drawn texture tile (lib/elements/textures), repeated (M19). From a pack (M20):
+   * `texture` is the catalog id and `assetId` the project's copy of the picture —
+   * repeated when `tile`, else covering the canvas.
+   */
+  | { kind: "texture"; texture: string; assetId?: string; tile?: boolean };
 
 interface ElementBase {
   id: string;

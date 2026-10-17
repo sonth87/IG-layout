@@ -84,6 +84,8 @@ interface EditorState {
   cancelDrawing: () => void;
   /** Adds an element that uses a new asset (generated overlay, M11). */
   addAssetElement: (asset: ImageAsset, el: CanvasElement) => void;
+  /** Keeps a picture in the project without an element (a pack background, M20). */
+  addAsset: (asset: ImageAsset) => void;
   /** Values derived from rendering (e.g. text height): no history step. */
   setDerived: (id: string, patch: Partial<CanvasElement>) => void;
   updateElement: (id: string, patch: Partial<CanvasElement>) => void;
@@ -355,6 +357,8 @@ export const useEditor = create<EditorState>()((set, get) => {
         return next;
       });
     },
+
+    addAsset: (asset) => storeAssets([asset]),
 
     addAssetElement: (asset, el) => {
       storeAssets([asset]);

@@ -68,6 +68,20 @@ st = await S();
 const ov = st.doc.elements.at(-1);
 check(ov.type === "image" && ov.blend === "screen" && Math.abs(ov.width - 1080) < 1, "overlay covers the slide with its blend");
 
+console.log("Pack texture as the background");
+await page.evaluate(() => window.__igEditor.getState().select(null));
+await page.getByRole("button", { name: "Project menu" }).click();
+await page.getByRole("menu", { name: "Project menu" }).getByRole("menuitem", { name: "Background", exact: true }).click();
+const bgSheet = page.getByRole("region", { name: "Background" });
+await bgSheet.getByRole("tab", { name: "Texture" }).click();
+await bgSheet.getByRole("region", { name: "Test textures" }).getByRole("button", { name: "Test paper" }).click();
+await page.waitForTimeout(800);
+await page.getByLabel("Apply").click();
+st = await S();
+check(st.doc.background.kind === "texture" && st.doc.background.texture === "test-textures/paper" && !!st.doc.background.assetId && st.doc.background.tile, "pack texture saved with the project's copy");
+const drawn = await page.evaluate(() => !!window.__igEditor.getState().canvas.layer.findOne((n) => typeof n.fillPatternImage === "function" && n.fillPatternImage()?.width === 256));
+check(drawn, "the canvas repeats it");
+
 console.log("console errors:", errors);
 console.log(failures === 0 && errors.length === 0 ? "ALL PASSED" : `${failures} FAILED, ${errors.length} console errors`);
 if (failures || errors.length) process.exitCode = 1;

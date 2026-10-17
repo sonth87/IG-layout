@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { catalogAsset, loadCatalog, loadPack, packsOf, packUrl, useCatalog } from "@/lib/catalog/load";
 import { TEXTURE_KEYS, TEXTURES, textureTile } from "@/lib/elements/textures";
 import { Icon } from "@/components/ui/Icon";
 import { type Background, isImage } from "@/lib/project/types";
@@ -153,7 +154,6 @@ export function BackgroundTool({ onClose }: { onClose: () => void }) {
   const applyDraft = useEditor((s) => s.applyDraft);
   const cancelDraft = useEditor((s) => s.cancelDraft);
   const [tab, setTab] = useState<Background["kind"]>(doc?.background.kind ?? "color");
-  const locale = useSettings((s) => s.locale);
   if (!doc) return null;
   const bg = doc.background;
   const set = (background: Background) => updateDraft((d) => ({ ...d, background }));
@@ -218,19 +218,7 @@ export function BackgroundTool({ onClose }: { onClose: () => void }) {
           </>
         )}
 
-        {tab === "texture" && (
-          <div className="grid grid-cols-4 gap-2 py-1 sm:grid-cols-6">
-            {TEXTURE_KEYS.map((k) => {
-              const active = bg.kind === "texture" && bg.texture === k;
-              return (
-                <button key={k} type="button" aria-label={TEXTURES[k].name[locale]} aria-pressed={active} onClick={() => set({ kind: "texture", texture: k })} className={`flex flex-col items-center gap-1 text-[11px] ${active ? "font-bold" : ""}`}>
-                  <span className={`block aspect-square w-full overflow-hidden rounded-xl border ${active ? "border-2 border-accent" : "border-border"}`} style={{ backgroundImage: `url(${textureTile(k)?.toDataURL("image/jpeg", 0.7)})`, backgroundSize: "64px" }} />
-                  <span className="w-full truncate text-center">{TEXTURES[k].name[locale]}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
+        {tab === "texture" && <TextureTab bg={bg} set={set} />}
 
         {tab === "blur" && (
           <div className="flex gap-2 overflow-x-auto py-2">
@@ -380,5 +368,50 @@ export function SlidesTool(props: { onClose: () => void; showSafeZone: boolean; 
         </label>
       )}
     </>,
+  );
+}
+
+/** Textures: the app's own drawn tiles, then the packs (M20) — downloaded into the project when picked. */
+function TextureTab({ bg, set }: { bg: Background; set: (b: Background) => void }) {
+  const t = useT();
+  const locale = useSettings((s) => s.locale);
+  const catalog = useCatalog((s) => s.catalog);
+  const items = useCatalog((s) => s.items);
+  const addAsset = useEditor((s) => s.addAsset);
+  const [busy, setBusy] = useState<string | null>(null);
+  useEffect(() => {
+    void loadCatalog().then((c) => packsOf(c, "texture").forEach((p) => void loadPack(p)));
+  }, []);
+  const tile = (key: string, label: string, active: boolean, image: string, size: string, onPick: () => void) => (
+    <button key={key} type="button" aria-label={label} aria-pressed={active} onClick={onPick} className={`flex flex-col items-center gap-1 text-[11px] ${active ? "font-bold" : ""}`}>
+      <span className={`block aspect-square w-full overflow-hidden rounded-xl border ${active ? "border-2 border-accent" : "border-border"} ${busy === key ? "animate-pulse" : ""}`} style={{ backgroundImage: `url(${image})`, backgroundSize: size }} />
+      <span className="w-full truncate text-center">{label}</span>
+    </button>
+  );
+  return (
+    <div className="py-1">
+      <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
+        {TEXTURE_KEYS.map((k) => tile(k, TEXTURES[k].name[locale], bg.kind === "texture" && bg.texture === k, textureTile(k)?.toDataURL("image/jpeg", 0.7) ?? "", "64px", () => set({ kind: "texture", texture: k })))}
+      </div>
+      {packsOf(catalog, "texture").map((p) => (
+        <section key={p.id} aria-label={p.name[locale]} className="pt-3">
+          <h3 className="pb-2 text-[13px] font-bold">{p.name[locale]}</h3>
+          <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
+            {(items[p.id] ?? p.preview).map((it) =>
+              tile(it.id, it.name[locale], bg.kind === "texture" && bg.texture === it.id, packUrl(it.thumb), "cover", () => {
+                setBusy(it.id);
+                void catalogAsset(it)
+                  .then((asset) => {
+                    addAsset(asset);
+                    set({ kind: "texture", texture: it.id, assetId: asset.id, tile: !!it.tile });
+                  })
+                  .catch(() => window.alert(t("lib.offline")))
+                  .finally(() => setBusy(null));
+              }),
+            )}
+          </div>
+        </section>
+      ))}
+    </div>
   );
 }

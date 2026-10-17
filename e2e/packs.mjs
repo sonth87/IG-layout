@@ -29,12 +29,18 @@ export async function fakePacks() {
   files["overlay/test-overlays/leak.webp"] = leak;
   files["overlay/test-overlays/leak.thumb.webp"] = await sharp(leak).resize(192, 192, { fit: "inside" }).webp().toBuffer();
   const overlay = { id: "test-overlays/leak", name: { en: "Test leak", vi: "Vệt thử" }, search: "test leak vệt thử", collections: ["film"], file: "overlay/test-overlays/leak.webp", thumb: "overlay/test-overlays/leak.thumb.webp", width: lm.width, height: lm.height, credit: 0, blend: "screen" };
+  const paper = await sharp(path.join(FIXTURES, "p4.jpg")).resize(256, 256).webp().toBuffer();
+  files["texture/test-textures/paper.webp"] = paper;
+  files["texture/test-textures/paper.thumb.webp"] = await sharp(paper).resize(192, 192).webp().toBuffer();
+  const texture = { id: "test-textures/paper", name: { en: "Test paper", vi: "Giấy thử" }, search: "test paper giấy thử", collections: ["journal"], file: "texture/test-textures/paper.webp", thumb: "texture/test-textures/paper.thumb.webp", width: 256, height: 256, credit: 0, tile: true };
+  files["texture/test-textures.json"] = JSON.stringify([texture]);
   files["sticker/test-stickers.json"] = JSON.stringify(items);
   files["overlay/test-overlays.json"] = JSON.stringify([overlay]);
   files["catalog.json"] = JSON.stringify({
     version: 1,
     packs: [
       { id: "test-stickers", kind: "sticker", name: { en: "Test stickers", vi: "Sticker thử" }, collections: ["vintage"], order: 1, count: 3, file: "sticker/test-stickers.json", preview: items.slice(0, 2) },
+      { id: "test-textures", kind: "texture", name: { en: "Test textures", vi: "Chất liệu thử" }, collections: ["journal"], order: 1, count: 1, file: "texture/test-textures.json", preview: [texture] },
       { id: "test-overlays", kind: "overlay", name: { en: "Test overlays", vi: "Lớp phủ thử" }, collections: ["film"], order: 1, count: 1, file: "overlay/test-overlays.json", preview: [overlay] },
     ],
     fonts: [],
