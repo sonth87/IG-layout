@@ -1,0 +1,982 @@
+{
+  "id": "brush-grunge",
+  "kind": "font",
+  "name": {
+    "en": "Brush & Grunge",
+    "vi": "Cọ vẽ & Bụi bặm"
+  },
+  "collections": [
+    "handDrawn",
+    "vintage"
+  ],
+  "order": 80,
+  "items": [
+    {
+      "id": "comforter",
+      "family": "Comforter",
+      "label": "Comforter",
+      "styles": [
+        "brush",
+        "handwriting"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese",
+        "cyrillic"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/comforter/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/comforter/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/comforter/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Comforter",
+        "author": "Robert Leuschke",
+        "title": "Comforter",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "comforter-brush",
+      "family": "Comforter Brush",
+      "label": "Comforter Brush",
+      "styles": [
+        "brush",
+        "handwriting"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese",
+        "cyrillic"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/comforter-brush/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/comforter-brush/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/comforter-brush/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Comforter+Brush",
+        "author": "Robert Leuschke",
+        "title": "Comforter Brush",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "fuggles",
+      "family": "Fuggles",
+      "label": "Fuggles",
+      "styles": [
+        "brush",
+        "calligraphy"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/fuggles/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/fuggles/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/fuggles/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Fuggles",
+        "author": "Robert Leuschke",
+        "title": "Fuggles",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "kolker-brush",
+      "family": "Kolker Brush",
+      "label": "Kolker Brush",
+      "styles": [
+        "brush",
+        "calligraphy"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/kolker-brush/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/kolker-brush/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/kolker-brush/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn",
+        "tet"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Kolker+Brush",
+        "author": "Robert Leuschke",
+        "title": "Kolker Brush",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "lavishly-yours",
+      "family": "Lavishly Yours",
+      "label": "Lavishly Yours",
+      "styles": [
+        "brush",
+        "calligraphy"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/lavishly-yours/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/lavishly-yours/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/lavishly-yours/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "vintage",
+        "tet"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Lavishly+Yours",
+        "author": "Robert Leuschke",
+        "title": "Lavishly Yours",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "my-soul",
+      "family": "My Soul",
+      "label": "My Soul",
+      "styles": [
+        "brush",
+        "calligraphy"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/my-soul/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/my-soul/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/my-soul/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn",
+        "tet"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/My+Soul",
+        "author": "Robert Leuschke",
+        "title": "My Soul",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "protest-guerrilla",
+      "family": "Protest Guerrilla",
+      "label": "Protest Guerrilla",
+      "styles": [
+        "brush",
+        "stencil",
+        "display"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/protest-guerrilla/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/protest-guerrilla/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/protest-guerrilla/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "retro"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Protest+Guerrilla",
+        "author": "Octavio Pardo",
+        "title": "Protest Guerrilla",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "protest-revolution",
+      "family": "Protest Revolution",
+      "label": "Protest Revolution",
+      "styles": [
+        "brush",
+        "display"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/protest-revolution/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/protest-revolution/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/protest-revolution/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Protest+Revolution",
+        "author": "Octavio Pardo",
+        "title": "Protest Revolution",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "protest-riot",
+      "family": "Protest Riot",
+      "label": "Protest Riot",
+      "styles": [
+        "brush",
+        "display"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/protest-riot/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/protest-riot/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/protest-riot/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Protest+Riot",
+        "author": "Octavio Pardo",
+        "title": "Protest Riot",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "protest-strike",
+      "family": "Protest Strike",
+      "label": "Protest Strike",
+      "styles": [
+        "brush",
+        "display"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/protest-strike/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/protest-strike/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/protest-strike/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "retro"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Protest+Strike",
+        "author": "Octavio Pardo",
+        "title": "Protest Strike",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "road-rage",
+      "family": "Road Rage",
+      "label": "Road Rage",
+      "styles": [
+        "brush",
+        "display"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/road-rage/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/road-rage/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/road-rage/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn",
+        "retro"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Road+Rage",
+        "author": "Robert Leuschke",
+        "title": "Road Rage",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "sedgwick-ave",
+      "family": "Sedgwick Ave",
+      "label": "Sedgwick Ave",
+      "styles": [
+        "brush",
+        "handwriting"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/sedgwick-ave/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/sedgwick-ave/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/sedgwick-ave/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Sedgwick+Ave",
+        "author": "Pedro Vergani, Kevin Burke",
+        "title": "Sedgwick Ave",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "sedgwick-ave-display",
+      "family": "Sedgwick Ave Display",
+      "label": "Sedgwick Ave Display",
+      "styles": [
+        "brush",
+        "display"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/sedgwick-ave-display/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/sedgwick-ave-display/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/sedgwick-ave-display/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Sedgwick+Ave+Display",
+        "author": "Pedro Vergani, Kevin Burke",
+        "title": "Sedgwick Ave Display",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "smooch",
+      "family": "Smooch",
+      "label": "Smooch",
+      "styles": [
+        "brush",
+        "script"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/smooch/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/smooch/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/smooch/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Smooch",
+        "author": "Robert Leuschke",
+        "title": "Smooch",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "splash",
+      "family": "Splash",
+      "label": "Splash",
+      "styles": [
+        "brush",
+        "handwriting"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/splash/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/splash/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/splash/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Splash",
+        "author": "Robert Leuschke",
+        "title": "Splash",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "water-brush",
+      "family": "Water Brush",
+      "label": "Water Brush",
+      "styles": [
+        "brush",
+        "calligraphy"
+      ],
+      "languages": [
+        "latin",
+        "vietnamese"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "vietnamese",
+          "file": "font/brush-grunge/water-brush/vietnamese-400.woff2",
+          "unicodeRange": "U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB"
+        },
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/water-brush/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/water-brush/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn",
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Water+Brush",
+        "author": "Robert Leuschke",
+        "title": "Water Brush",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "rubik-dirt",
+      "family": "Rubik Dirt",
+      "label": "Rubik Dirt",
+      "styles": [
+        "brush",
+        "display"
+      ],
+      "languages": [
+        "latin",
+        "cyrillic"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/rubik-dirt/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/rubik-dirt/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "vintage"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Rubik+Dirt",
+        "author": "NaN, Luke Prowse",
+        "title": "Rubik Dirt",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "rubik-glitch",
+      "family": "Rubik Glitch",
+      "label": "Rubik Glitch",
+      "styles": [
+        "display",
+        "retro"
+      ],
+      "languages": [
+        "latin",
+        "cyrillic"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/rubik-glitch/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/rubik-glitch/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "retro"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Rubik+Glitch",
+        "author": "NaN, Luke Prowse",
+        "title": "Rubik Glitch",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "rubik-spray-paint",
+      "family": "Rubik Spray Paint",
+      "label": "Rubik Spray Paint",
+      "styles": [
+        "brush",
+        "display"
+      ],
+      "languages": [
+        "latin",
+        "cyrillic"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/rubik-spray-paint/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/rubik-spray-paint/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Rubik+Spray+Paint",
+        "author": "NaN, Luke Prowse",
+        "title": "Rubik Spray Paint",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "rubik-wet-paint",
+      "family": "Rubik Wet Paint",
+      "label": "Rubik Wet Paint",
+      "styles": [
+        "brush",
+        "display"
+      ],
+      "languages": [
+        "latin",
+        "cyrillic"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/rubik-wet-paint/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/rubik-wet-paint/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "handDrawn"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Rubik+Wet+Paint",
+        "author": "NaN, Luke Prowse",
+        "title": "Rubik Wet Paint",
+        "license": "OFL-1.1",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "special-elite",
+      "family": "Special Elite",
+      "label": "Special Elite",
+      "styles": [
+        "serif",
+        "retro"
+      ],
+      "languages": [
+        "latin"
+      ],
+      "weights": [
+        400
+      ],
+      "files": [
+        {
+          "weight": 400,
+          "subset": "latin-ext",
+          "file": "font/brush-grunge/special-elite/latin-ext-400.woff2",
+          "unicodeRange": "U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF"
+        },
+        {
+          "weight": 400,
+          "subset": "latin",
+          "file": "font/brush-grunge/special-elite/latin-400.woff2",
+          "unicodeRange": "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD"
+        }
+      ],
+      "collections": [
+        "vintage",
+        "journal",
+        "film"
+      ],
+      "source": {
+        "provider": "Google Fonts",
+        "url": "https://fonts.google.com/specimen/Special+Elite",
+        "author": "Astigmatic",
+        "title": "Special Elite",
+        "license": "Apache-2.0",
+        "retrieved": "2026-10-18"
+      }
+    }
+  ]
+}
