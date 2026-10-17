@@ -24,7 +24,7 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Thanh công cụ khối** (tạm, đủ cho M14): **Bố cục** (mở bộ chọn kiểu chia) · **Xong**; Xoá / Nhân bản / Khoá ở thanh nổi; ⋯ có các mục lớp. Thanh đầy đủ theo product/07 mục 5 làm ở M17.
 
-**Kiểm thử:** `e2e/m14.mjs` (dữ liệu khối, quy tắc chạm 2/3/5/6, kéo không chọn không đụng phần tử, dời khối kèm ô + một lần hoàn tác, thanh cạnh, nút xoay, khung toàn ảnh + phóng bằng góc, thước đo, nhân bản / xoá khối, chuyển đổi dự án cũ từ IndexedDB). m3, m8, m10 được sửa theo quy tắc mới (chạm lần đầu chọn khối; chụm khi không chọn = zoom canvas; khoá vẫn chọn được). `SUITES=m14.mjs node e2e/run.mjs` để chạy riêng.
+**Kiểm thử:** `e2e/m14.mjs` (dữ liệu khối, quy tắc chạm 2/3/5/6, kéo không chọn không đụng phần tử, dời khối kèm ô + một lần hoàn tác, thanh cạnh, nút xoay, khung toàn ảnh + phóng bằng góc, thước đo, nhân bản / xoá khối, chuyển đổi dự án cũ từ IndexedDB). m3, m8 được sửa theo quy tắc mới (chạm lần đầu chọn khối; chụm khi không chọn = zoom canvas; khoá vẫn chọn được). `SUITES=m14.mjs node e2e/run.mjs` để chạy riêng.
 
 ## 1. Hiện trạng cần thay đổi
 

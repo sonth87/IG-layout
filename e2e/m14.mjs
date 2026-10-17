@@ -237,7 +237,7 @@ await page.evaluate(
         const states = tx.objectStore("states");
         const get = states.get(id);
         get.onsuccess = () => {
-          const old = (doc) => ({ ...doc, elements: doc.elements.filter((e) => e.type !== "layout").map(({ parentId, ...e }) => e) });
+          const old = (doc) => ({ ...doc, elements: doc.elements.filter((e) => e.type !== "layout").map((e) => { const c = { ...e }; delete c.parentId; return c; }) });
           states.put({ ...get.result, doc: old(get.result.doc), past: [], future: [] });
         };
         tx.oncomplete = () => resolve(null);
