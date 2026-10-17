@@ -26,6 +26,22 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Kiểm thử:** `e2e/m14.mjs` (dữ liệu khối, quy tắc chạm 2/3/5/6, kéo không chọn không đụng phần tử, dời khối kèm ô + một lần hoàn tác, thanh cạnh, nút xoay, khung toàn ảnh + phóng bằng góc, thước đo, nhân bản / xoá khối, chuyển đổi dự án cũ từ IndexedDB). m3, m8 được sửa theo quy tắc mới (chạm lần đầu chọn khối; chụm khi không chọn = zoom canvas; khoá vẫn chọn được). `SUITES=m14.mjs node e2e/run.mjs` để chạy riêng.
 
+## 0b. Đã cài ở M15 (2026-10-17, D-93)
+
+**Zoom** (`Editor.tsx`): `zoom` vẫn tính theo `baseScale` (một slide vừa chiều cao vùng làm việc, trừ chỗ cho hàng nút dưới slide). `minZoom` = một slide rộng 25 % chiều ngang vùng làm việc; `fitZoom` = cả dải + nút + vừa chiều ngang (lề 16 px), kẹp trong `[minZoom, 1]`. Trạng thái: `userZoom` (null = đi theo `fitZoom`) và `easing` (giá trị tạm khi đang chuyển 250 ms, `easeZoom`, chạy bằng `requestAnimationFrame` trong các hàm xử lý sự kiện — không đặt state trong effect). Chụm dưới `minZoom`: `minZoom · (z / minZoom)^0.3`, thả tay → `easeZoom(minZoom)`. Chạm đúp vào chỗ không có phần tử (`onFit` của `CanvasStage`, đo bằng `timeStamp` của sự kiện) và nút "Vừa màn hình" → `fitAll()`.
+
+**Nút trên canvas** (`SlideControls.tsx`): nằm trong nội dung cuộn (cuộn cùng canvas), toạ độ = `origin + slideRect · viewScale`. Bỏ `SlideNavigator` (dải thumbnail) và nhãn "1 / 5" phía trên slide. Menu ⋯ là popup tuyệt đối phía trên nút, có lớp nền trong suốt để chạm ra ngoài là đóng.
+
+**Kéo đổi chỗ**: nút ‖ có `touch-action: none` + `setPointerCapture`; cảm ứng phải giữ 200 ms (lệch > 10 px trước đó thì huỷ), chuột kéo ngay. Khi bắt đầu: `beginDraft()`; mỗi lần di chuyển: `updateDraft(() => moveSlideTo(base, from, to))` rồi cộng thêm phần lệch của ngón tay cho các phần tử của slide đang kéo (tập id lấy theo `slideOfUnit` trên bản gốc) → các slide khác nhường chỗ ngay; thả tay: bản nháp = đúng `moveSlideTo` → `applyDraft()` (một bước hoàn tác), không đổi chỗ thì `cancelDraft()`. Viền màu nhấn bao slide đang kéo đi theo ngón tay.
+
+**Thao tác slide** (`lib/project/slides.ts`): `slideOfUnit` (ô theo slide của khối), `insertSlideAt`, `moveSlideTo(from, to)`, `duplicateSlide` (sao chép theo đơn vị lớp: khối + ô, id mới, đặt ngay trên bản gốc). `relocate` dùng `slideOfUnit` nên khối và ô luôn đi cùng nhau.
+
+**Slide mới** (`lib/templates/slideLayouts.ts`, `NewSlideSheet.tsx`): dữ liệu `SLIDE_LAYOUTS` (12) và `SLIDE_GRIDS` (36, sinh từ mô tả hàng / cột), toạ độ 0..1 theo slide; lưới có đường trắng `GRID_LINE` giữa các ô (mép slide không có). `addLayoutSlide(doc, at, layout)` (`templates/apply.ts`) chèn slide rồi thêm một `LayoutElement` phủ slide + các ảnh con trống (`slot: true`). Ô có thể có góc xoay riêng (`LayoutCell.rotation`, cộng với góc của khối — dùng cho polaroid nghiêng).
+
+**Chụm hai ngón** giờ nghe bằng listener gốc (`touchmove/touchend`) trên **cả vùng cuộn**, không qua sự kiện Konva: ngón đặt lên tay nắm khung chọn (Konva chặn lan truyền) hoặc lên nút dưới slide vẫn bắt đầu chụm được; khi bắt đầu chụm, thao tác tay nắm đang dở bị dừng (`stopTransform`).
+
+**Kiểm thử:** `e2e/m15.mjs` theo 8 tiêu chí của product/05.
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:

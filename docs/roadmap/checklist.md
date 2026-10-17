@@ -300,3 +300,16 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Sửa (2026-10-17, D-92): nút **Lớp** tách ra thành nút tròn riêng bên phải thanh công cụ đáy
 - [x] Sửa (2026-10-17): thanh công cụ đáy gọn lại thành **viên thuốc nổi** — không chọn gì: chỉ icon (Ảnh · Chữ · Thành phần · Bố cục · ⋯) + nút tròn Lớp; có chọn: icon + nhãn nhỏ, trượt ngang, nút tròn ✕ bỏ chọn bên phải (thay nút Xong)
 - [ ] Chủ dự án thử trên iPhone: chọn khối / ảnh trong ô, kéo khối, chụm khi không chọn gì, nút xoay, thước đo
+
+### M15 — Canvas và slide — xong phần code 2026-10-17
+Đặc tả: [05](../product/editor-v2/05-canvas-va-slide.md); cách cài: [dev/editor-v2](../dev/editor-v2.md) mục 0b (D-93).
+- [x] **Zoom "thấy hết slide"** khi mở dự án (mỗi slide không nhỏ hơn ¼ chiều ngang màn hình — nhiều slide hơn thì vuốt ngang); thêm / xoá / nhân bản slide → tự thu / phóng mượt 250 ms
+- [x] Chụm thu nhỏ quá mức nhỏ nhất: còn co thêm chút (có lực cản), thả tay **bật về** mức nhỏ nhất; chạm đúp vào chỗ trống → về "thấy hết"; nút % / Vừa màn hình cũng về "thấy hết"
+- [x] **‖ ⋯ dưới mỗi slide** (một slide: chỉ ⋯), **+ sau slide cuối**; bỏ dải thumbnail dưới canvas
+- [x] **Menu ⋯ của slide**: Thêm bên trái · Thêm bên phải · Nhân bản (kèm bản sao mọi phần tử, khối kèm ô) · Xoá slide (hỏi lại nếu slide có nội dung; ẩn khi chỉ còn 1 slide)
+- [x] **Kéo ‖ đổi chỗ slide**: giữ 200 ms (chuột: kéo luôn), ‖ to lên và chỉ đi ngang, khung slide đi theo ngón tay, các slide khác nhường chỗ ngay trong lúc kéo, các nút khác ẩn; thả → phần tử đi theo slide; một bước hoàn tác
+- [x] **Sheet "Slide mới"**: Trắng · 12 Bố cục · 36 Lưới; chọn → slide mới ở cuối chứa khối bố cục với các ô trống
+- [x] Phần tử thuộc slide theo tâm của nó; ô của khối đi theo slide của khối
+- [x] Sửa kèm: chụm hai ngón không bị chặn khi một ngón đặt lên tay nắm khung chọn hoặc lên các nút dưới slide
+- [x] Kiểm tra tự động `e2e/m15.mjs` (8 tiêu chí nghiệm thu); m7, m8, m9, m10 cập nhật
+- [ ] Chủ dự án thử trên iPhone: zoom "thấy hết", bật lại khi thu nhỏ quá, menu slide, giữ ‖ kéo đổi chỗ, Slide mới

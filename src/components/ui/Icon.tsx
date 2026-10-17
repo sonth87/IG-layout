@@ -1,6 +1,19 @@
 const PATHS = {
   back: <path d="M15 18l-6-6 6-6" />,
   close: <path d="M18 6L6 18M6 6l12 12" />,
+  insertLeft: (
+    <>
+      <rect x="11" y="5" width="9" height="14" rx="2" />
+      <path d="M6 9v6M3 12h6" />
+    </>
+  ),
+  insertRight: (
+    <>
+      <rect x="4" y="5" width="9" height="14" rx="2" />
+      <path d="M18 9v6M15 12h6" />
+    </>
+  ),
+  handle: <path d="M10 6v12M14 6v12" />,
   undo: (
     <>
       <path d="M9 14L4 9l5-5" />

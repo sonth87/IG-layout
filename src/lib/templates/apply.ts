@@ -2,7 +2,10 @@ import { imageElement } from "@/lib/project/placement";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { canvasSize, slideRect } from "@/lib/project/layout";
 import { type CanvasElement, MAX_SLIDES, type ImageAsset, newId, type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
-import { groupSlots } from "@/lib/project/blocks";
+import { groupSlots, syncLayout } from "@/lib/project/blocks";
+import { insertSlideAt } from "@/lib/project/slides";
+import type { LayoutElement } from "@/lib/project/types";
+import { type SlideLayout, slideCells } from "./slideLayouts";
 import type { Template, TemplateOptions, TemplateSlot } from "./types";
 
 const EPS = 0.001;
@@ -143,4 +146,26 @@ export function applyTemplate(
 
   // Grid cells become one layout block per slide (M14).
   return groupSlots({ ...doc, slideCount, background, elements: elements.map((e) => ({ ...e, fromLayout: true })) });
+}
+
+/**
+ * Inserts a new slide at `at` holding a layout block of `layout` with empty cells
+ * ("New slide" sheet, editor-v2/05 §5). Without a layout: a blank slide.
+ */
+export function addLayoutSlide(doc: ProjectDoc, at: number, layout: SlideLayout | null): ProjectDoc {
+  const next = insertSlideAt(doc, at);
+  if (next === doc || !layout) return next;
+  const r = slideRect(next, at);
+  const block: LayoutElement = { id: newId(), type: "layout", x: r.x, y: r.y, width: r.width, height: r.height, rotation: 0, opacity: 1, cells: [] };
+  const cells: CanvasElement[] = slideCells(layout, r.width / r.height).map((c) => {
+    const frame = { x: r.x + c.x * r.width, y: r.y + c.y * r.height, width: c.w * r.width, height: c.h * r.height };
+    const el = { ...imageElement({ id: "", width: frame.width, height: frame.height }, frame), assetId: null, parentId: block.id, slot: true };
+    if (c.style.frame) el.frame = c.style.frame;
+    if (c.style.shadow) el.shadow = true;
+    if (c.style.border) el.border = { width: c.style.border * r.width, color: "#ffffff" };
+    block.cells.push({ id: el.id, x: c.x, y: c.y, w: c.w, h: c.h, ...(c.style.rotation ? { rotation: c.style.rotation } : {}) });
+    return el;
+  });
+  const withBlock = { ...next, elements: [...next.elements, block, ...cells] };
+  return syncLayout(withBlock, block.id, () => undefined);
 }

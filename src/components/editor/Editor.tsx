@@ -17,7 +17,8 @@ import { type Action, ActionSheet, CoachTips, LayersSheet } from "./EditorSheets
 import { ExportSheet } from "./ExportSheet";
 import { RemoveBgDialog } from "./RemoveBgDialog";
 import { FloatingMenu } from "./FloatingMenu";
-import { SlideNavigator } from "./SlideNavigator";
+import { NewSlideSheet } from "./NewSlideSheet";
+import { SlideControls } from "./SlideControls";
 import { AdjustTool, FilterTool } from "./tools/ColorTools";
 import { CropTool } from "./tools/CropTool";
 import { DrawTool } from "./tools/DrawTool";
@@ -35,13 +36,20 @@ import { useImportPhotos } from "./useImportPhotos";
 import { useShortcuts } from "./useShortcuts";
 
 const STAGE_PADDING = 24;
-const LABEL_SPACE = 20;
+const LABEL_SPACE = 4;
+/** Room under the slides for their ‖ ⋯ buttons, and after the last one for + (editor-v2/05 §1). */
+const CONTROLS_SPACE = 56;
+const PLUS_SPACE = 58;
+/** Side margin when every slide is in view (about 5 % of the screen, like the reference). */
+const FIT_MARGIN = 16;
+/** Smallest zoom: one slide about a quarter of the screen wide (editor-v2/05 §2.3). */
+const MIN_SLIDE_FRACTION = 0.25;
 /**
  * Room kept for the tallest bottom bar (slide strip + selection toolbar). The canvas is
  * sized against the screen minus this, not against whatever bar is showing, so it
  * never changes size when you select something or open a tool (F-03).
  */
-const DOCK_RESERVE = 210;
+const DOCK_RESERVE = 100;
 const REPLACE_INPUT_ID = "replace-photo-input";
 
 /** Opens the photo picker for "Replace" / "Add photo". */
@@ -68,7 +76,8 @@ type Tool =
   | "sound"
   | "trim"
   | "animate"
-  | "music";
+  | "music"
+  | "newSlide";
 /** Tools that edit a draft (✕ / ✓). */
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate"];
 
@@ -87,7 +96,7 @@ function useBaseScale(area: React.RefObject<HTMLDivElement | null>, slide: { wid
       const height = window.innerHeight - el.getBoundingClientRect().top - (gridWidth ? 90 : DOCK_RESERVE);
       const scale = gridWidth
         ? (el.clientWidth - STAGE_PADDING * 2) / gridWidth
-        : Math.min((height - STAGE_PADDING * 2 - LABEL_SPACE) / slide.height, (el.clientWidth * 0.86) / slide.width);
+        : Math.min((height - STAGE_PADDING * 2 - LABEL_SPACE - CONTROLS_SPACE) / slide.height, (el.clientWidth * 0.86) / slide.width);
       setBase((b) => (b.scale === scale && b.height === height ? b : { scale: Math.max(0.05, scale), height }));
     };
     update();
@@ -180,25 +189,38 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const [removeBgFor, setRemoveBgFor] = useState<string | null>(null);
   const [tool, setTool] = useState<Tool | null>(null);
   const [showSafeZone, setShowSafeZone] = useState(true);
-  const [zoom, setZoom] = useState(1);
+  /** Zoom chosen by the user; null = follow "see every slide" (editor-v2/05 §2). */
+  const [userZoom, setUserZoom] = useState<number | null>(null);
+  /** Zoom shown while easing to a new "see every slide" level. */
+  const [easing, setEasing] = useState<number | null>(null);
   const pinchZoomStart = useRef(1);
   useShortcuts(tool === null && !editingText && !exportOpen);
 
   const size = canvasSize(doc);
   const { slide } = size;
   const isGrid = doc.type === "grid";
-  const sheetOpen = tool !== null && tool !== "more" && tool !== "layers" && tool !== "elements" && tool !== "layout";
+  const sheetOpen = tool !== null && tool !== "more" && tool !== "layers" && tool !== "elements" && tool !== "layout" && tool !== "newSlide";
   const base = useBaseScale(areaRef, slide, isGrid ? size.width : null);
   const baseScale = base.scale;
-  const viewScale = baseScale * zoom;
   const areaSize = useAreaSize(areaRef);
-  /** Zoom out down to the whole strip fitting the screen (S5, like SCRL's overview). */
-  const minZoom = baseScale > 0 && areaSize.width > 0 ? Math.min(1, (areaSize.width - STAGE_PADDING * 2) / (size.width * baseScale)) : 1;
+  const ready = baseScale > 0 && areaSize.width > 0;
+  /** Grid: the whole strip fitting the screen; Post / Story: a slide a quarter of the screen. */
+  const minZoom = !ready
+    ? 1
+    : isGrid
+      ? Math.min(1, (areaSize.width - STAGE_PADDING * 2) / (size.width * baseScale))
+      : Math.min(1, (areaSize.width * MIN_SLIDE_FRACTION) / (slide.width * baseScale));
+  /** Every slide in view (plus the + after them), never below the smallest zoom. */
+  const fitFor = (width: number) =>
+    !ready || isGrid ? 1 : Math.max(minZoom, Math.min(1, (areaSize.width - FIT_MARGIN * 2 - PLUS_SPACE) / (width * baseScale)));
+  const fitZoom = fitFor(size.width);
+  const zoom = userZoom ?? easing ?? fitZoom;
+  const viewScale = baseScale * zoom;
   /** Canvas origin inside the scroll content: vertically centred when it fits. */
   const originFor = (s: number) => ({
     // Zoomed out narrower than the screen: centred (S5).
-    x: Math.max(STAGE_PADDING, Math.round((areaSize.width - size.width * s) / 2)),
-    y: Math.max(STAGE_PADDING + LABEL_SPACE, Math.round((base.height - size.height * s + LABEL_SPACE) / 2)),
+    x: Math.max(isGrid ? STAGE_PADDING : FIT_MARGIN, Math.round((areaSize.width - size.width * s - (isGrid ? 0 : PLUS_SPACE)) / 2)),
+    y: Math.max(STAGE_PADDING + LABEL_SPACE, Math.round((base.height - size.height * s - (isGrid ? 0 : CONTROLS_SPACE) + LABEL_SPACE) / 2)),
   });
   const origin = originFor(viewScale);
   const selected = doc.elements.find((el) => el.id === selectedId);
@@ -246,12 +268,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (selected) requestAnimationFrame(() => reveal(selected.x + selected.width / 2, selected.y + selected.height / 2));
   }
 
-  function goToSlide(index: number) {
-    const r = slideRect(doc, Math.min(index, doc.slideCount - 1));
-    store.setCurrentSlide(index);
-    requestAnimationFrame(() => reveal(r.x + r.width / 2, r.y + r.height / 2, true));
-  }
-
   /** Current slide = the one under the middle of the visible area. */
   function onScroll() {
     const area = areaRef.current;
@@ -262,14 +278,17 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (index !== useEditor.getState().currentSlide) store.setCurrentSlide(index);
   }
 
-  /** Zoom around the middle of the visible area. */
-  function zoomTo(next: number) {
+  /** Zoom around the middle of the visible area. `elastic`: may go a little below the smallest zoom (pinch). */
+  function zoomTo(next: number, elastic = false) {
     const area = areaRef.current;
-    const z = Math.max(minZoom, Math.min(MAX_ZOOM, next));
+    let z = Math.min(MAX_ZOOM, next);
+    // Below the smallest zoom the canvas resists, and springs back on release (editor-v2/05 §2.3).
+    if (z < minZoom) z = elastic ? minZoom * (z / minZoom) ** 0.3 : minZoom;
     if (!area || z === zoom) return;
     const cx = (area.scrollLeft + area.clientWidth / 2 - origin.x) / viewScale;
     const cy = (area.scrollTop + area.clientHeight / 2 - origin.y) / viewScale;
-    setZoom(z);
+    setEasing(null);
+    setUserZoom(z);
     requestAnimationFrame(() => {
       const s = baseScale * z;
       const o = originFor(s);
@@ -278,6 +297,41 @@ export function Editor({ onClose }: { onClose: () => void }) {
         top: o.y + cy * s - area.clientHeight / 2,
       });
     });
+  }
+
+  /** Eases the zoom to `to` in 250 ms; `follow`: then keep "see every slide". */
+  const easeRun = useRef(0);
+  function easeZoom(to: number, follow: boolean) {
+    const from = zoom;
+    const run = ++easeRun.current;
+    const t0 = performance.now();
+    setUserZoom(null);
+    const step = (now: number) => {
+      if (run !== easeRun.current) return;
+      const k = Math.min(1, (now - t0) / 250);
+      const e = 1 - (1 - k) ** 3;
+      if (k < 1) {
+        setEasing(from + (to - from) * e);
+        requestAnimationFrame(step);
+      } else {
+        setEasing(null);
+        if (!follow) setUserZoom(to);
+      }
+    };
+    requestAnimationFrame(step);
+  }
+
+  /** Back to "see every slide". */
+  function fitAll() {
+    easeZoom(fitZoom, true);
+    requestAnimationFrame(() => areaRef.current?.scrollTo({ left: 0, top: 0, behavior: "smooth" }));
+  }
+
+  /** Slides added / removed: ease to the new "see every slide" level (editor-v2/05 §2.2). */
+  function onSlidesChanged(count: number) {
+    if (userZoom !== null) return;
+    const w = slide.width * count;
+    easeZoom(fitFor(w), true);
   }
 
   async function onBack() {
@@ -520,8 +574,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
             <div
               className="relative"
               style={{
-                width: Math.max(areaSize.width, origin.x + STAGE_PADDING + size.width * viewScale),
-                height: Math.max(areaSize.height, origin.y + STAGE_PADDING + size.height * viewScale),
+                width: Math.max(areaSize.width, origin.x + size.width * viewScale + (isGrid ? STAGE_PADDING : PLUS_SPACE + FIT_MARGIN)),
+                height: Math.max(areaSize.height, origin.y + STAGE_PADDING + size.height * viewScale + (isGrid ? 0 : CONTROLS_SPACE)),
               }}
             >
               <div className="sticky top-0 left-0 z-[1]" style={{ width: areaSize.width, height: areaSize.height }}>
@@ -534,8 +588,10 @@ export function Editor({ onClose }: { onClose: () => void }) {
                   showSafeZone={showSafeZone}
                   onPinchZoom={(k, phase) => {
                     if (phase === "start") pinchZoomStart.current = zoom;
-                    else if (phase === "move") zoomTo(pinchZoomStart.current * k);
+                    else if (phase === "move") zoomTo(pinchZoomStart.current * k, true);
+                    else if (zoom < minZoom) easeZoom(minZoom, minZoom >= fitZoom);
                   }}
+                  onFit={fitAll}
                 />
                 {!sheetOpen && <FloatingMenu scrollRef={areaRef} onMore={() => setTool("more")} />}
               </div>
@@ -545,16 +601,15 @@ export function Editor({ onClose }: { onClose: () => void }) {
                 className="pointer-events-none absolute"
                 style={{ left: origin.x, top: origin.y, width: size.width * viewScale, height: size.height * viewScale }}
               />
-              {!isGrid &&
-                Array.from({ length: doc.slideCount }, (_, i) => (
-                  <span
-                    key={i}
-                    className={`pointer-events-none absolute text-xs ${i === currentSlide ? "font-bold text-accent-text" : "text-muted"}`}
-                    style={{ left: origin.x + slideRect(doc, i).x * viewScale, top: origin.y - LABEL_SPACE - 2 }}
-                  >
-                    {t("editor.slideOf", { index: i + 1, count: doc.slideCount })}
-                  </span>
-                ))}
+              {!isGrid && !sheetOpen && (
+                <SlideControls
+                  doc={doc}
+                  origin={origin}
+                  viewScale={viewScale}
+                  onAddSlide={() => setTool("newSlide")}
+                  onSlidesChanged={onSlidesChanged}
+                />
+              )}
             </div>
           )}
           {doc.elements.length === 0 && (
@@ -566,11 +621,11 @@ export function Editor({ onClose }: { onClose: () => void }) {
 
         {/* Zoom (UX-06). Touch: pinch, with a pill to get back to fit; mouse: buttons. */}
         {isTouchUI ? (
-          Math.abs(zoom - 1) > 0.01 && (
+          Math.abs(zoom - fitZoom) > 0.01 && (
             <button
               type="button"
               aria-label={t("zoom.fit")}
-              onClick={() => zoomTo(1)}
+              onClick={fitAll}
               className="absolute right-2 bottom-2 z-10 h-9 rounded-full border border-border bg-surface/90 px-3 text-xs font-semibold tabular-nums shadow-sm"
             >
               {Math.round(zoom * 100)}%
@@ -587,8 +642,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
             >
               <Icon name="minus" size={18} />
             </button>
-            {Math.abs(zoom - 1) > 0.01 && (
-              <button type="button" aria-label={t("zoom.fit")} onClick={() => zoomTo(1)} className="h-9 px-1 text-xs font-semibold tabular-nums">
+            {Math.abs(zoom - fitZoom) > 0.01 && (
+              <button type="button" aria-label={t("zoom.fit")} onClick={fitAll} className="h-9 px-1 text-xs font-semibold tabular-nums">
                 {Math.round(zoom * 100)}%
               </button>
             )}
@@ -608,7 +663,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
       </div>
 
       {!sheetOpen && <PlaybackBar />}
-      {!isGrid && !sheetOpen && <SlideNavigator onPick={goToSlide} />}
 
       {videoProgress && (
         <div role="status" className="flex items-center gap-3 bg-surface px-4 py-2 text-sm">
@@ -675,6 +729,17 @@ export function Editor({ onClose }: { onClose: () => void }) {
           onApply={(tpl, photos, options) => {
             store.applyLayout(tpl, photos, options);
             close();
+          }}
+        />
+      )}
+      {tool === "newSlide" && (
+        <NewSlideSheet
+          aspect={slide.width / slide.height}
+          onClose={close}
+          onPick={(layoutId) => {
+            close();
+            store.addSlide(doc.slideCount, layoutId);
+            onSlidesChanged(useEditor.getState().doc!.slideCount);
           }}
         />
       )}

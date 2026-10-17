@@ -233,6 +233,8 @@ export interface LayoutCell {
   y: number;
   w: number;
   h: number;
+  /** Extra turn of the cell, on top of the block's. */
+  rotation?: number;
 }
 
 export type CanvasElement = ImageElement | TextElement | ShapeElement | IconElement | DrawingElement | LayoutElement;
