@@ -117,7 +117,7 @@ await shot(page, "2-toolbar");
 console.log("UX-09 grid cells: outline only");
 await page.getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: "Project menu" }).click(); // the project's Layout (M19: in the ⋯ menu)
-await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: "Layout", exact: true }).click();
+await page.getByRole("menu", { name: "Project menu" }).getByRole("menuitem", { name: "Layout", exact: true }).click();
 await page.getByRole("button", { name: "Grid", exact: true }).click();
 await page.getByRole("button", { name: /^2 × 2 4 photos/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();
@@ -144,14 +144,14 @@ await page.getByRole("textbox", { name: "Edit text" }).fill("Giữ lại");
 await page.getByRole("button", { name: "Done typing" }).click();
 await page.getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: "Project menu" }).click(); // the project's Layout (M19: in the ⋯ menu)
-await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: "Layout", exact: true }).click();
+await page.getByRole("menu", { name: "Project menu" }).getByRole("menuitem", { name: "Layout", exact: true }).click();
 await page.getByRole("button", { name: "Grid", exact: true }).click();
 await page.getByRole("button", { name: /^1 big \+ 3/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();
 st = await S();
 check(st.doc.elements.some((e) => e.type === "text" && e.text === "Giữ lại"), "text survived the layout change");
 const text = st.doc.elements.find((e) => e.type === "text");
-check(!!text.background, "UX-12 new text has a readable background box");
+check(!text.background && text.color === "#111111", "new text is plain black, no box (owner, 2026-10-17)");
 
 console.log("UX-12 double-tap text to edit");
 p = await toPage(text.x + text.width / 2, text.y + text.height / 2);

@@ -26,7 +26,7 @@ const S = async () => {
 const menu = async (item) => {
   await page.evaluate(() => window.__igEditor.getState().select(null));
   await page.getByRole("button", { name: "Project menu" }).click();
-  await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: item, exact: true }).click();
+  await page.getByRole("menu", { name: "Project menu" }).getByRole("menuitem", { name: item, exact: true }).click();
 };
 
 await page.goto(URL_ARG);
@@ -35,16 +35,19 @@ await page.locator('input[type="file"]').setInputFiles(["p3.jpg", "p4.jpg"].map(
 await page.getByRole("button", { name: "Skip" }).click();
 await page.waitForTimeout(800);
 
-console.log("Project menu (§2)");
+console.log("Project menu (§2): a popover");
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.getByRole("button", { name: "Project menu" }).click();
-const pm = page.getByRole("region", { name: "Project menu" });
-for (const n of ["Background", "Ratio", "Snap: on", "Preview"]) check(await pm.getByRole("button", { name: n, exact: true }).isVisible(), `menu: ${n}`);
-await pm.getByRole("button", { name: "Snap: on" }).click();
-check((await page.evaluate(() => JSON.parse(localStorage.getItem("ig-layout:settings")).snap)) === false, "Snap → off (remembered on this device)");
-await page.getByRole("button", { name: "Project menu" }).click();
-check(await pm.getByRole("button", { name: "Snap: off" }).isVisible(), "menu now says “Snap: off”");
-await pm.getByRole("button", { name: "Snap: off" }).click();
+const pm = page.getByRole("menu", { name: "Project menu" });
+for (const n of ["Background", "Ratio", "Snap", "Preview"]) check(await pm.getByRole("menuitem", { name: n, exact: true }).isVisible(), `menu: ${n}`);
+const box = await pm.boundingBox();
+check(box.y < 120 && box.x + box.width > 300, "a popover under the ⋯ button (top right), not a sheet");
+await pm.getByRole("menuitem", { name: "Snap" }).click();
+check((await pm.getByRole("menuitemradio", { name: "On" }).getAttribute("aria-checked")) === "true", "Snap › opens in place: On ✓");
+await pm.getByRole("menuitemradio", { name: "Off" }).click();
+check((await page.evaluate(() => JSON.parse(localStorage.getItem("ig-layout:settings")).snap)) === false, "Off (remembered on this device)");
+await pm.getByRole("menuitemradio", { name: "On" }).click();
+await page.mouse.click(20, 400);
 
 console.log("Ratio (§2)");
 let st = await S();

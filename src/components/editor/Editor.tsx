@@ -20,6 +20,7 @@ import { FloatingMenu } from "./FloatingMenu";
 import { NewSlideSheet } from "./NewSlideSheet";
 import { PositionTool } from "./tools/PositionTool";
 import { PreviewScreen } from "./PreviewScreen";
+import { ProjectMenu } from "./ProjectMenu";
 import { PhotoEditScreen } from "./tools/PhotoEditScreen";
 import { MaskScreen } from "./tools/MaskScreen";
 import { BlockAdjustTool, BlockLayoutTool } from "./tools/BlockTools";
@@ -33,6 +34,7 @@ import { TrimTool } from "./tools/TrimTool";
 import { AnimationTool } from "./tools/AnimationTool";
 import { MusicTool } from "./tools/MusicTool";
 import { PlaybackBar } from "./PlaybackBar";
+import { hasMotion } from "@/lib/motion/motion";
 import { attachMusic, detachMusic, pause as pausePlayback, resetPlayback, seek, usePlayback } from "@/lib/video/playback";
 import { type LibraryKind, LibrarySheet, NewLayerSheet } from "./library/LibrarySheet";
 import { saveLibrary } from "@/lib/storage/library";
@@ -219,6 +221,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   /** Zoom shown while easing to a new "see every slide" level. */
   const [easing, setEasing] = useState<number | null>(null);
   const pinchZoomStart = useRef(1);
+  const playing = usePlayback((s) => s.playing);
   const snapOn = useSettings((s) => s.snap);
   /** Which library the "library" sheet shows (editor-v2/11). */
   const [library, setLibrary] = useState<LibraryKind>("sticker");
@@ -803,7 +806,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
         {!sheetOpen && <CoachTips />}
       </div>
 
-      {!sheetOpen && <PlaybackBar />}
+      {/* Play bar: only for a selected video / animated element, or while playing (owner, 2026-10-17). */}
+      {!sheetOpen && (playing || selectedIsVideo || (!!selected && hasMotion(selected)) || (!selected && !!doc.music)) && <PlaybackBar />}
 
       {videoProgress && (
         <div role="status" className="flex items-center gap-3 bg-surface px-4 py-2 text-sm">
@@ -944,7 +948,14 @@ export function Editor({ onClose }: { onClose: () => void }) {
         />
       )}
       {tool === "more" && <ActionSheet title={t("editor.more")} actions={moreActions()} onAction={runMore} onClose={close} />}
-      {tool === "projectMenu" && <ActionSheet title={t("editor.projectMenu")} actions={projectActions()} onAction={runMore} onClose={close} />}
+      {tool === "projectMenu" && (
+        <ProjectMenu
+          canRatio={!isGrid}
+          slidesLabel={isGrid ? t("editor.grid") : doc.type === "story" ? t("editor.frames") : t("editor.slides")}
+          onClose={close}
+          onPick={(key) => runMore(key)}
+        />
+      )}
       {tool === "layers" && <LayersSheet onClose={close} />}
       {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
       {tool === "trim" && selected && <TrimTool elementId={selected.id} onClose={close} />}

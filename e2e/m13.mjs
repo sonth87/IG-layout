@@ -70,7 +70,12 @@ check(st.asset?.type === "video/mp4" && st.asset.video, `video imported in ${Mat
 check(st.asset?.video?.hasAudio === true && st.asset.video.poster, "sound kept, poster made");
 await shot(page, "1-editor");
 
+await page.evaluate(() => window.__igEditor.getState().select(null));
+await page.waitForTimeout(200);
+check(!(await page.getByRole("button", { name: "Play" }).isVisible()), "nothing selected: no play bar (owner, 2026-10-17)");
 console.log("Play / pause");
+await page.evaluate((id) => window.__igEditor.getState().select(id), (await S()).el.id); // the play bar shows for the selected video / animation
+await page.waitForTimeout(200);
 await page.getByRole("button", { name: "Play" }).click();
 await page.waitForTimeout(1200);
 const playing = await page.evaluate(() => {
@@ -165,7 +170,9 @@ await page.locator("article button").first().click();
 await page.waitForTimeout(1500);
 st = await S();
 check(st.asset?.video?.hasAudio && st.asset.video.poster && st.el.media?.volume === 0.6 && st.el.media.speed === 2, "video, poster, sound and trim settings survive a reload");
-check(await page.getByRole("button", { name: "Play" }).isVisible(), "playback bar after reopening");
+await page.evaluate((id) => window.__igEditor.getState().select(id), st.el.id); // the play bar shows for the selected video / animation
+await page.waitForTimeout(200);
+check(await page.getByRole("button", { name: "Play" }).isVisible(), "playback bar after reopening (video selected)");
 
 console.log(`console errors: ${JSON.stringify(errors)}`);
 await browser.close();

@@ -73,11 +73,28 @@ function Heart({ id, className = "" }: { id: string; className?: string }) {
 function TemplateCard({ tpl, width, onOpen }: { tpl: Template; width: number; onOpen: (tpl: Template) => void }) {
   const locale = useSettings((s) => s.locale);
   const slides = slidesOf(tpl);
+  const swipe = slides > 1 && tpl.design!.type !== "grid";
+  const [at, setAt] = useState(0);
   return (
     <div className="relative shrink-0 overflow-hidden rounded-xl bg-surface-2" style={{ width }}>
-      <button type="button" aria-label={tpl.name[locale]} onClick={() => onOpen(tpl)} className="block">
-        <Preview tpl={tpl} width={width} />
-      </button>
+      {swipe ? (
+        // A carousel template: swipe on the card to see its other slides (owner, 2026-10-17).
+        <div
+          className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto"
+          style={{ touchAction: "pan-x pan-y" }}
+          onScroll={(e) => setAt(Math.round(e.currentTarget.scrollLeft / width))}
+        >
+          {Array.from({ length: slides }, (_, i) => (
+            <button key={i} type="button" aria-label={i === 0 ? tpl.name[locale] : `${tpl.name[locale]} ${i + 1}`} onClick={() => onOpen(tpl)} className="block shrink-0 snap-center">
+              <Preview tpl={tpl} width={width} slide={i} />
+            </button>
+          ))}
+        </div>
+      ) : (
+        <button type="button" aria-label={tpl.name[locale]} onClick={() => onOpen(tpl)} className="block">
+          <Preview tpl={tpl} width={width} />
+        </button>
+      )}
       <Heart id={tpl.id} className="absolute top-2 right-2" />
       <span className="pointer-events-none absolute bottom-2 left-2 flex gap-1 text-[11px] font-semibold text-white">
         <span className="flex items-center gap-1 rounded-full bg-black/45 px-2 py-0.5 backdrop-blur-md">
@@ -89,10 +106,10 @@ function TemplateCard({ tpl, width, onOpen }: { tpl: Template; width: number; on
           {slides}
         </span>
       </span>
-      {slides > 1 && tpl.design!.type !== "grid" && (
+      {swipe && (
         <span className="pointer-events-none absolute right-2 bottom-3 flex gap-0.5">
-          {[0, 1, 2].map((i) => (
-            <span key={i} className="h-1 w-1 rounded-full bg-white/80" />
+          {Array.from({ length: slides }, (_, i) => (
+            <span key={i} className={`h-1 rounded-full ${i === at ? "w-2.5 bg-white" : "w-1 bg-white/60"}`} />
           ))}
         </span>
       )}

@@ -126,7 +126,7 @@ check(st.doc.elements.find((e) => e.id === framed.id).frame === "white", "frame 
 console.log("7. Film strip layout");
 await page.getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: "Project menu" }).click(); // the project's Layout (M19: in the ⋯ menu)
-await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: "Layout", exact: true }).click();
+await page.getByRole("menu", { name: "Project menu" }).getByRole("menuitem", { name: "Layout", exact: true }).click();
 await page.getByRole("button", { name: "Seamless", exact: true }).click();
 await page.getByRole("button", { name: /^Film strip/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();

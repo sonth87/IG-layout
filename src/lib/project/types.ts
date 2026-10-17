@@ -298,8 +298,13 @@ export function isImage(el: CanvasElement | undefined): el is ImageElement {
  * Drag / pinch move the picture inside its frame instead of the frame (template cells,
  * and locked photos such as a background: the frame stays, the view inside can change).
  */
+/**
+ * A drag / pinch on this photo moves the picture inside its frame: photos in grid cells.
+ * Locked means locked (owner, 2026-10-17, replaces D-85): nothing moves, only the "+" of
+ * an empty frame still adds a photo.
+ */
 export function pansInside(el: CanvasElement | undefined): boolean {
-  return isImage(el) && !!el.assetId && (el.slot || !!el.locked);
+  return isImage(el) && !!el.assetId && el.slot && !el.locked;
 }
 
 /** Background music of the project (M13.4). Times in seconds of the track. */

@@ -109,6 +109,8 @@ await page.getByRole("button", { name: "Done" }).click();
 
 console.log("Playing shows the animation; stopped = real positions");
 const base = await node(text.id);
+await page.evaluate((id) => window.__igEditor.getState().select(id), text.id); // the play bar shows for the selected video / animation
+await page.waitForTimeout(200);
 await page.getByRole("button", { name: "Play" }).click();
 await page.waitForTimeout(700);
 const mid = await node(text.id);
@@ -127,7 +129,8 @@ await page.getByRole("button", { name: "Animate" }).click();
 await page.getByRole("tab", { name: "Loop" }).click();
 await page.getByRole("radio", { name: "Spin" }).click();
 await page.getByRole("button", { name: "Apply", exact: true }).click();
-await page.getByRole("button", { name: "Done" }).click();
+await page.evaluate((id) => window.__igEditor.getState().select(id), text.id); // the play bar shows for the selected video / animation
+await page.waitForTimeout(200);
 await page.getByRole("button", { name: "Play" }).click();
 await page.waitForTimeout(900);
 const spun = await page.evaluate((id) => window.__igEditor.getState().canvas.layer.findOne("#" + id).rotation(), text.id);

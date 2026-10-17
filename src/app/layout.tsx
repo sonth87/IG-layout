@@ -4,7 +4,7 @@ import "./globals.css";
 
 // Applies the saved theme before first paint (no flash). Key: SETTINGS_KEY in store/settings.ts.
 // Also blocks Safari's page pinch-zoom gesture, which ignores user-scalable=no (D-67).
-const themeScript = `try{var s=JSON.parse(localStorage.getItem("ig-layout:settings")||"{}");if(s.theme==="light"||s.theme==="dark")document.documentElement.dataset.theme=s.theme;if(s.locale==="vi")document.documentElement.lang="vi"}catch(e){}document.addEventListener("gesturestart",function(e){e.preventDefault()});`;
+const themeScript = `try{var s=JSON.parse(localStorage.getItem("ig-layout:settings")||"{}");if(s.theme==="light"||s.theme==="dark"){document.documentElement.dataset.theme=s.theme;document.documentElement.style.colorScheme=s.theme;document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.content=s.theme==="dark"?"#111214":"#f6f5f2"})})}if(s.locale==="vi")document.documentElement.lang="vi"}catch(e){}document.addEventListener("gesturestart",function(e){e.preventDefault()});`;
 
 export const metadata: Metadata = {
   title: "IG Layout",

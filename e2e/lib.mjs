@@ -58,7 +58,7 @@ export async function more(page, label) {
     await page.getByRole("region", { name: "More" }).getByRole("button", { name: label, exact: true }).click();
   } else {
     await page.getByRole("button", { name: "Project menu" }).click();
-    await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: label, exact: true }).click();
+    await page.getByRole("menu", { name: "Project menu" }).getByRole("menuitem", { name: label, exact: true }).click();
   }
 }
 

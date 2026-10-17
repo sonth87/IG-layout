@@ -28,8 +28,8 @@ import { TextNode } from "./TextNode";
 const SNAP_SCREEN_PX = 8;
 /** Two-finger twist ignored below this, so a pinch doesn't tilt the photo (F-02). */
 const ROTATE_DEAD_ZONE = 8;
-/** Rotation sticks to 0 / 90 / 180 / 270° within this many degrees (F-02). */
-const ROTATE_SNAP = 6;
+/** Rotation sticks to 0 / 90 / 180 / 270° within this many degrees (F-02; 6 → 3, owner 2026-10-17). */
+const ROTATE_SNAP = 3;
 
 /** Rotation with snapping to right angles; `snapped` = it stuck to one. */
 export function snapRotation(deg: number): { rotation: number; snapped: boolean } {
@@ -61,6 +61,8 @@ function SelectionTransformer(props: {
   viewScale: number;
   onRotate: (deg: number | null) => void;
   onRuler: (matches: { w: number | null; h: number | null }) => void;
+  /** Guides of a resize that stuck to an edge (canvas px), or none. */
+  onGuides: (xs: number[], ys: number[]) => void;
   onWholeZoom: (k: number, phase: "move" | "end") => void;
   onBlockTransform: (phase: "start" | "move" | "end") => void;
 }) {
@@ -81,6 +83,68 @@ function SelectionTransformer(props: {
     tr.nodes(node ? [node] : []);
     tr.getLayer()?.batchDraw();
   }, [el, whole, elements]);
+
+  /**
+   * Resizing: the moving edges stick to slide edges / centres and other elements' edges
+   * (like moving does), with the pink guides (owner, 2026-10-17).
+   */
+  function edgeSnap(box: { x: number; y: number; width: number; height: number; rotation: number }, anchor: string, corner: boolean) {
+    const stage = trRef.current?.getStage();
+    const doc = useEditor.getState().draft ?? useEditor.getState().doc;
+    if (!stage || !doc || !el) return box;
+    const o = stage.position();
+    const t = snapTargets(doc, el.id);
+    const ax = (x: number) => o.x + x * viewScale;
+    const ay = (y: number) => o.y + y * viewScale;
+    const near = (v: number, list: number[], to: (n: number) => number) => {
+      let best: number | null = null;
+      for (const n of list) if (Math.abs(to(n) - v) < SIZE_SNAP && (best === null || Math.abs(to(n) - v) < Math.abs(to(best) - v))) best = n;
+      return best;
+    };
+    const next = { ...box };
+    const gx: number[] = [];
+    const gy: number[] = [];
+    if (anchor.includes("left")) {
+      const n = near(box.x, t.xs, ax);
+      if (n !== null) {
+        next.x = ax(n);
+        next.width = box.x + box.width - next.x;
+        gx.push(n);
+      }
+    } else if (anchor.includes("right")) {
+      const n = near(box.x + box.width, t.xs, ax);
+      if (n !== null) {
+        next.width = ax(n) - box.x;
+        gx.push(n);
+      }
+    }
+    if (!(corner && gx.length)) {
+      if (anchor.includes("top")) {
+        const n = near(box.y, t.ys, ay);
+        if (n !== null) {
+          next.y = ay(n);
+          next.height = box.y + box.height - next.y;
+          gy.push(n);
+        }
+      } else if (anchor.includes("bottom")) {
+        const n = near(box.y + box.height, t.ys, ay);
+        if (n !== null) {
+          next.height = ay(n) - box.y;
+          gy.push(n);
+        }
+      }
+    }
+    // Corners keep the shape: the other side follows.
+    if (corner && gx.length) {
+      next.height = (box.height * next.width) / box.width;
+      if (anchor.includes("top")) next.y = box.y + box.height - next.height;
+    } else if (corner && gy.length) {
+      next.width = (box.width * next.height) / box.height;
+      if (anchor.includes("left")) next.x = box.x + box.width - next.width;
+    }
+    props.onGuides(gx, gy);
+    return next.width < 5 || next.height < 5 ? box : next;
+  }
 
   /** Sizes of every other element (screen px), for the equal-size ruler. */
   const others = () =>
@@ -107,13 +171,54 @@ function SelectionTransformer(props: {
         whole
           ? ["top-left", "top-right", "bottom-left", "bottom-right"]
           : isText
-            ? ["top-left", "top-right", "bottom-left", "bottom-right", "middle-left", "middle-right"]
+            ? ["top-left", "top-right", "bottom-left", "bottom-right", "top-center", "bottom-center", "middle-left", "middle-right"]
             : ["top-left", "top-right", "bottom-left", "bottom-right", "top-center", "bottom-center", "middle-left", "middle-right"]
       }
       anchorStyleFunc={(anchor) => {
         // Side handles are short bars along the edge.
         const n = anchor.name();
         const s = isTouchUI ? 22 : 14;
+        if (n.includes("rotater")) {
+          // The turn handle is a round button with a ⟳ (editor-v2/07 §3).
+          const d = s * 1.35;
+          anchor.size({ width: d, height: d });
+          anchor.offset({ x: d / 2, y: d / 2 });
+          anchor.sceneFunc((ctx, shape) => {
+            const r = d / 2;
+            ctx.beginPath();
+            ctx.arc(r, r, r, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "#f2b84b";
+            ctx.stroke();
+            // Circular arrow.
+            ctx.beginPath();
+            ctx.arc(r, r, r * 0.45, -Math.PI * 0.15, Math.PI * 1.45);
+            ctx.lineWidth = Math.max(1.6, d * 0.07);
+            ctx.lineCap = "round";
+            ctx.strokeStyle = "#1a1b1e";
+            ctx.stroke();
+            const a = -Math.PI * 0.15;
+            const tx = r + Math.cos(a) * r * 0.45;
+            const ty = r + Math.sin(a) * r * 0.45;
+            ctx.beginPath();
+            ctx.moveTo(tx - d * 0.13, ty - d * 0.02);
+            ctx.lineTo(tx + d * 0.01, ty + d * 0.01);
+            ctx.lineTo(tx + d * 0.04, ty - d * 0.14);
+            ctx.stroke();
+            void shape;
+          });
+          // Grabbed anywhere on the round button (a bit larger on touch).
+          anchor.hitFunc((ctx, shape) => {
+            ctx.beginPath();
+            ctx.arc(d / 2, d / 2, d * 0.75, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fillStrokeShape(shape);
+          });
+          return;
+        }
         if (n.includes("top-center") || n.includes("bottom-center")) {
           anchor.width(s * 1.3);
           anchor.height(s * 0.42);
@@ -139,7 +244,7 @@ function SelectionTransformer(props: {
         if (corner || anchor.includes("middle")) w = sizes.find((o) => Math.abs(o.w - box.width) < SIZE_SNAP)?.w ?? null;
         if (!w && (corner || anchor.includes("center"))) h = sizes.find((o) => Math.abs(o.h - box.height) < SIZE_SNAP)?.h ?? null;
         props.onRuler({ w: w && w / viewScale, h: h && h / viewScale });
-        if (!w && !h) return box;
+        if (!w && !h) return edgeSnap(box, anchor, corner);
         const next = { ...box };
         if (w) {
           next.width = w;
@@ -161,6 +266,7 @@ function SelectionTransformer(props: {
       onTransformEnd={(e) => {
         props.onRotate(null);
         props.onRuler({ w: null, h: null });
+        props.onGuides([], []);
         if (whole) props.onWholeZoom(e.target.scaleX(), "end");
         if (el?.type === "layout") props.onBlockTransform("end");
       }}
@@ -834,30 +940,20 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
         {[...new Set(rects.flatMap((r) => [r.x, r.x + r.width]))]
           .filter((x) => x > 0.5 && x < width - 0.5)
           .map((x) => (
-            <Line
-              key={`vx${x}`}
-              points={[x, 0, x, height]}
-              stroke="#ffffff"
-              strokeWidth={2 / viewScale}
-              dash={[10 / viewScale, 8 / viewScale]}
-              shadowColor="#000000"
-              shadowBlur={2 / viewScale}
-              shadowOpacity={0.6}
-            />
+            // Slide boundary: dark and white dashes in turn, visible on any background (owner, 2026-10-17).
+            <Group key={`vx${x}`}>
+              <Line points={[x, 0, x, height]} stroke="rgba(0,0,0,0.45)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} />
+              <Line points={[x, 0, x, height]} stroke="rgba(255,255,255,0.9)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} dashOffset={7 / viewScale} />
+            </Group>
           ))}
         {[...new Set(rects.flatMap((r) => [r.y, r.y + r.height]))]
           .filter((y) => y > 0.5 && y < height - 0.5)
           .map((y) => (
-            <Line
-              key={`hy${y}`}
-              points={[0, y, width, y]}
-              stroke="#ffffff"
-              strokeWidth={2 / viewScale}
-              dash={[10 / viewScale, 8 / viewScale]}
-              shadowColor="#000000"
-              shadowBlur={2 / viewScale}
-              shadowOpacity={0.6}
-            />
+            // Slide boundary: dark and white dashes in turn, visible on any background (owner, 2026-10-17).
+            <Group key={`hy${y}`}>
+              <Line points={[0, y, width, y]} stroke="rgba(0,0,0,0.45)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} />
+              <Line points={[0, y, width, y]} stroke="rgba(255,255,255,0.9)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} dashOffset={7 / viewScale} />
+            </Group>
           ))}
         {doc.type === "story" &&
           showSafeZone &&
@@ -937,6 +1033,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
           viewScale={viewScale}
           onRotate={showAngle}
           onRuler={showRuler}
+          onGuides={showGuides}
           onWholeZoom={onWholeZoom}
           onBlockTransform={onBlockTransform}
         />

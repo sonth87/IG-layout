@@ -36,7 +36,7 @@ Theo chủ dự án, khi đang chọn C thì **việc di chuyển hiển thị C
 
 Vùng chạm của dấu + lớn hơn hình vẽ của nó: hình tròn hiển thị khoảng 28 px nhưng vùng nhận chạm là hình tròn đường kính 44 px quanh tâm [ĐX], để dễ bấm trúng mà không lấn hết ô. Khi canvas đang thu nhỏ đến mức ô nhỏ hơn vùng chạm, vùng chạm co lại bằng ô.
 
-**Quy tắc 7 — phần tử bị khoá.** Phần tử bị khoá vẫn chọn được (để mở khoá, đổi kiểu, thay ảnh…), nhưng không kéo, co giãn hay xoay được. Với ảnh bị khoá trong khung, ảnh bên trong vẫn dời và phóng được (D-85).
+**Quy tắc 7 — phần tử bị khoá.** Phần tử bị khoá vẫn chọn được (để mở khoá, đổi kiểu, thay ảnh…), nhưng không kéo, co giãn hay xoay được. Phần tử khoá không có tay nắm và không dời / phóng được ảnh bên trong; chỉ dấu + của ô trống vẫn thêm được ảnh (D-101, thay D-85).
 
 ## 3. Bảng tình huống
 
@@ -78,5 +78,5 @@ Mục **Chọn nhiều** có trong menu ⋯ của thanh nổi và trong menu ⋯
 4. Kéo khi đang chọn ảnh trong ô → ảnh dời trong ô, khối và ô không di chuyển.
 5. Chụm thu nhỏ ảnh trong ô → dừng ở mức ảnh vừa phủ kín ô.
 6. Chạm vùng trống → bỏ chọn; chụm tiếp → canvas phóng.
-7. Phần tử khoá: chọn được, kéo không động; ảnh khoá trong khung vẫn dời được ảnh bên trong.
+7. Phần tử khoá: chọn được, kéo không động; ảnh bên trong cũng đứng yên (D-101).
 8. Không còn tình huống "định phóng canvas nhưng lại phóng ảnh" trong bất kỳ trạng thái nào.

@@ -17,15 +17,24 @@ export function PreviewScreen({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     if (!doc || !canvas) return;
-    // Rendered once the screen is up (a full redraw of the canvas layer per slide).
-    const id = requestAnimationFrame(() => {
-      const out = Array.from({ length: doc.slideCount }, (_, i) => {
-        const r = slideRect(doc, i);
-        return canvas.layer.toDataURL({ ...layerRegion(canvas.layer, r, canvas.viewScale), pixelRatio: 720 / (r.width * canvas.viewScale), mimeType: "image/jpeg", quality: 0.85 });
+    // Drawn as exported (no "+" on empty frames, photos at full quality), then captured.
+    const { setExporting } = useEditor.getState();
+    setExporting(true);
+    let id = requestAnimationFrame(() => {
+      id = requestAnimationFrame(() => {
+        canvas.layer.draw();
+        const out = Array.from({ length: doc.slideCount }, (_, i) => {
+          const r = slideRect(doc, i);
+          return canvas.layer.toDataURL({ ...layerRegion(canvas.layer, r, canvas.viewScale), pixelRatio: 720 / (r.width * canvas.viewScale), mimeType: "image/jpeg", quality: 0.85 });
+        });
+        setExporting(false);
+        setUrls(out);
       });
-      setUrls(out);
     });
-    return () => cancelAnimationFrame(id);
+    return () => {
+      cancelAnimationFrame(id);
+      setExporting(false);
+    };
   }, [doc, canvas]);
 
   if (!doc) return null;

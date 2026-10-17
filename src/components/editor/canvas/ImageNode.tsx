@@ -201,8 +201,8 @@ export function ImageNode({ element: el }: Props) {
     } else {
       c.fillStyle = "#d9d5cd";
       c.fillRect(0, 0, iw, ih);
-      if (!el.assetId) {
-        // "+" placeholder for an empty cell / frame.
+      if (!el.assetId && !exporting) {
+        // "+" placeholder for an empty cell / frame (an editing aid: never in previews / exports).
         const r = Math.min(iw, ih) * 0.12;
         c.fillStyle = "rgba(255,255,255,0.85)";
         c.beginPath();

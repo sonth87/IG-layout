@@ -17,6 +17,8 @@ export function DragSheet(props: { title: string; onClose: () => void; children:
   const [frac, setFrac] = useState(MID);
   const [dragging, setDragging] = useState(false);
   const drag = useRef<{ y: number; frac: number; t: number; lastY: number; lastT: number } | null>(null);
+  /** The sheet itself: while dragging it is resized directly, over the canvas (no re-render). */
+  const sheetRef = useRef<HTMLElement>(null);
   const screen = () => window.innerHeight;
 
   function onDown(e: React.PointerEvent) {
@@ -27,7 +29,8 @@ export function DragSheet(props: { title: string; onClose: () => void; children:
   function onMove(e: React.PointerEvent) {
     const d = drag.current;
     if (!d) return;
-    setFrac(Math.max(0.05, Math.min(FULL, d.frac + (d.y - e.clientY) / screen())));
+    const f = Math.max(0.05, Math.min(FULL, d.frac + (d.y - e.clientY) / screen()));
+    if (sheetRef.current) sheetRef.current.style.height = `min(${f * 100}dvh, calc(100dvh - 64px))`;
     d.lastY = e.clientY;
     d.lastT = e.timeStamp;
   }
@@ -40,10 +43,18 @@ export function DragSheet(props: { title: string; onClose: () => void; children:
     // Upward speed in screen fractions per second (positive = up).
     const v = ((d.lastY - e.clientY) / screen() / Math.max(1, e.timeStamp - d.lastT)) * 1000;
     if (now < 0.2) return props.onClose();
-    if (now < MID) return setFrac(MID);
-    if (v > 0.8) return setFrac(FULL);
-    if (v < -0.8) return setFrac(MID);
-    setFrac(now - MID < FULL - now ? MID : FULL);
+    const target = now < MID ? MID : v > 0.8 ? FULL : v < -0.8 ? MID : now - MID < FULL - now ? MID : FULL;
+    // The sheet settles at once; the strip (and the canvas) follows with its transition.
+    const el = sheetRef.current;
+    if (el) {
+      el.style.transition = "height 260ms cubic-bezier(.2,.9,.3,1.15)";
+      el.style.height = `min(${target * 100}dvh, calc(100dvh - 64px))`;
+      window.setTimeout(() => {
+        el.style.transition = "";
+        el.style.height = "";
+      }, 300);
+    }
+    setFrac(target);
   }
 
   return (
@@ -58,8 +69,11 @@ export function DragSheet(props: { title: string; onClose: () => void; children:
       }}
     >
     <section
+      ref={sheetRef}
       aria-label={props.title}
-      className="flex h-full w-full max-w-2xl flex-col rounded-t-[22px] border-t border-border bg-surface shadow-[0_-8px_24px_rgba(0,0,0,0.12)]"
+      // Pinned to the bottom of its strip: dragged taller, it rises over the canvas; the
+      // strip (and the canvas above it) only changes once the finger lifts.
+      className="absolute inset-x-0 bottom-0 mx-auto flex h-full w-full max-w-2xl flex-col rounded-t-[22px] border-t border-border bg-surface shadow-[0_-8px_24px_rgba(0,0,0,0.12)]"
     >
       <div
         role="separator"
