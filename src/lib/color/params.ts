@@ -15,6 +15,8 @@ export const ADJUST_KEYS = [
   "vignette",
   "grain",
   "fade",
+  "blur",
+  "sharpen",
 ] as const;
 
 export type AdjustKey = (typeof ADJUST_KEYS)[number];
@@ -27,6 +29,8 @@ export const ADJUST_MIN: Record<AdjustKey, number> = {
   vignette: 0,
   grain: 0,
   fade: 0,
+  blur: 0,
+  sharpen: 0,
 };
 
 export interface FilterRef {
@@ -59,6 +63,9 @@ export interface ShaderParams {
   hue: number; // turns (-0.5..0.5)
   grain: number;
   fade: number;
+  /** 0..1 (M19). */
+  blur: number;
+  sharpen: number;
   mono: number;
   monoTint: [number, number, number];
   splitShadows: [number, number, number];
@@ -87,6 +94,8 @@ export function shaderParams(adjust: Adjustments, preset: FilterPreset | undefin
     hue: v("hue") / 200,
     grain: v("grain") / 100,
     fade: v("fade") / 100,
+    blur: v("blur") / 100,
+    sharpen: v("sharpen") / 100,
     mono: (preset?.mono ?? 0) * k,
     monoTint: preset?.monoTint ?? [1, 1, 1],
     splitShadows: preset?.split?.shadows ?? [0.5, 0.5, 0.5],

@@ -74,6 +74,8 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Gõ chữ** (`InlineText.tsx`): khi `editingTextId` có giá trị, một `<textarea>` đặt chồng lên chữ (toạ độ = gốc canvas − cuộn + `el · viewScale`, cùng phông / cỡ / màu / nền / góc xoay; `TextNode` để `opacity 0`). Phiên gõ = một bản nháp: `setEditingText(id)` mở nháp (`draft ?? doc`), gõ và định dạng ghi vào nháp (`updateDraft`, `patchDraft`), `setEditingText(null)` ghi một bước (`applyDraft`) hoặc xoá hộp chữ nếu rỗng. Chạm canvas khi đang gõ chỉ kết thúc gõ (`onTap`). Thanh gõ và hai sheet `TextFormatPanel` / `TextAlignPanel` (`tools/TextFormat.tsx`) nằm ở chỗ thanh công cụ; chế độ (gõ / định dạng / căn) là state của `Editor` (`textMode`), mặc định "gõ" mỗi khi phiên mới bắt đầu. `TextElement` thêm `italic`, `underline`, `strike`, `align: "justify"` (Konva `fontStyle` + `textDecoration`).
 
+**Chỉnh ảnh** (`tools/PhotoEditScreen.tsx`): công cụ nháp toàn màn hình thay `AdjustTool` / `FilterTool`; lịch sử riêng (`history.looks`, các thay đổi liên tiếp cùng một công cụ gộp một mục); xem trước bằng `processImage` trên ảnh gốc ≤ 1400 px. `blur` / `sharpen` thêm vào `ADJUST_KEYS` và shader (5 × 5 mẫu / unsharp 4 điểm). **Công cụ nền** (`tools/MaskScreen.tsx`): Cắt rời và Tẩy vẽ trên canvas cỡ ảnh gốc, kết quả là PNG cùng kích thước (`swapAsset` → crop giữ nguyên, ghi `originalAssetId` lần đầu); `restoreOriginal` quay về ảnh gốc. `migrateImage` giữ `corners`, `shadowStyle`, `originalAssetId`.
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:

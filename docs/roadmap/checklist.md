@@ -363,3 +363,9 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Kết thúc gõ bằng ✕ hoặc chạm ra ngoài; chữ vẫn được chọn; **cả lần gõ + định dạng là một bước hoàn tác**; xoá hết chữ thì hộp chữ biến mất
 - [x] Thanh công cụ chữ: Sửa · Định dạng · Căn lề · Vị trí · **Độ mờ** · Chuyển động · Khoá · Nhân bản · Xoá
 - [x] Kiểm tra `e2e/m19.mjs`; m5, m8, m11 chuyển sang sheet Định dạng
+- [x] **Màn Chỉnh ảnh toàn màn hình** (nền đen): ✕ huỷ, ↶ ↷ riêng, giữ để so sánh, ✓ = một bước; hàng công cụ trượt ngang Bộ lọc · Phơi sáng · Độ sáng · Tương phản · Vùng sáng · Vùng tối · Nhiệt độ · Sắc thái · Độ rực · Bão hoà · **Làm mờ** · **Làm nét** (mới, trong shader) · Hạt · Sắc độ · Tối viền · Bạc màu · Đặt lại; **chấm đỏ** trên công cụ đã chỉnh; Bộ lọc có tab **Tất cả** + 6 nhóm, cường độ, áp cho mọi ảnh
+- [x] **Cắt**: thêm tỉ lệ 2:3, 4:3, 9:16 (có hình chữ nhật đúng tỉ lệ trên nút), xoay ±45°
+- [x] **Công cụ nền**: sheet Xoá nền / **Khôi phục nền** · **Cắt rời** (vẽ một vòng, nét đứt vàng, chấm đầu / cuối, tự khép, phần ngoài phủ đỏ, ✓ → PNG giữ phần trong) · **Tẩy** (tẩy / khôi phục, cỡ cọ, ↶ ↷); ảnh gốc được giữ (`originalAssetId`)
+- [x] **Làm trống** ở thanh công cụ ảnh → ô trống cùng chỗ
+- [x] Sửa: mở lại dự án không còn làm mất bo từng góc / bóng tuỳ chỉnh (M17)
+- [x] Kiểm tra `e2e/m19b.mjs`

@@ -48,6 +48,10 @@ function migrateImage(el: Partial<ImageElement>, assetSize: AssetSize): ImageEle
     ...(el.motion !== undefined && { motion: el.motion }),
     ...(el.parentId !== undefined && { parentId: el.parentId }),
     ...(el.fromLayout !== undefined && { fromLayout: el.fromLayout }),
+    // M17 / M19 style fields: kept as they are.
+    ...(el.corners !== undefined && { corners: el.corners }),
+    ...(el.shadowStyle !== undefined && { shadowStyle: el.shadowStyle }),
+    ...(el.originalAssetId !== undefined && { originalAssetId: el.originalAssetId }),
   };
 }
 

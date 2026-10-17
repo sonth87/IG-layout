@@ -19,11 +19,12 @@ import { RemoveBgDialog } from "./RemoveBgDialog";
 import { FloatingMenu } from "./FloatingMenu";
 import { NewSlideSheet } from "./NewSlideSheet";
 import { PositionTool } from "./tools/PositionTool";
+import { PhotoEditScreen } from "./tools/PhotoEditScreen";
+import { MaskScreen } from "./tools/MaskScreen";
 import { BlockAdjustTool, BlockLayoutTool } from "./tools/BlockTools";
 import { FillFrameSheet } from "./FillFrameSheet";
 import { fillTargets, MAX_FREE_PHOTOS } from "@/lib/project/fill";
 import { SlideControls } from "./SlideControls";
-import { AdjustTool, FilterTool } from "./tools/ColorTools";
 import { CropTool } from "./tools/CropTool";
 import { DrawTool } from "./tools/DrawTool";
 import { SoundTool } from "./tools/SoundTool";
@@ -88,7 +89,10 @@ type Tool =
   | "blockLayout"
   | "blockAdjust"
   | "projectMenu"
-  | "opacity";
+  | "opacity"
+  | "bgTools"
+  | "cutout"
+  | "erase";
 /** Tools that edit a draft (✕ / ✓). */
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity"];
 
@@ -503,8 +507,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
     bottom = <BlockLayoutTool elementId={selected.id} onClose={close} onOutside={(n) => showNotice(t("block.outside", { count: n }))} />;
   else if (tool === "blockAdjust" && selected) bottom = <BlockAdjustTool elementId={selected.id} onClose={close} />;
   else if (tool === "style" && selected) bottom = <StyleTool elementId={selected.id} onClose={close} />;
-  else if (tool === "adjust" && selected) bottom = <AdjustTool elementId={selected.id} onClose={close} />;
-  else if (tool === "filters" && selected) bottom = <FilterTool elementId={selected.id} onClose={close} />;
   else if (tool === "text" && selected) bottom = <TextTool elementId={selected.id} onClose={close} />;
   else if (tool === "fill" && selected) bottom = <FillTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
@@ -553,7 +555,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <ToolButton key={t("editor.style")} label={t("editor.style")} icon="style" onClick={() => openTool("style")} />,
         <ToolButton key={t("editor.adjust")} label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />,
         <ToolButton key={t("editor.filters")} label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />,
-        <ToolButton key={t("removeBg.title")} label={t("removeBg.title")} icon="sparkles" onClick={() => setRemoveBgFor(id)} />,
+        <ToolButton key="bgTools" label={t("bg.title")} icon="sparkles" onClick={() => setTool("bgTools")} />,
         <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
         selected.slot && <ToolButton key={t("editor.swap")} label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(id)} />,
         selected.frame === "none" && !inBlock && <ToolButton key={t("editor.mask")} label={t("editor.mask")} icon="mask" onClick={() => openTool("mask")} />,
@@ -844,6 +846,30 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <div role="status" className="pointer-events-none fixed inset-x-0 bottom-28 z-30 flex justify-center px-4">
           <span className="rounded-full bg-text px-4 py-2 text-sm text-bg shadow-lg">{notice}</span>
         </div>
+      )}
+      {tool === "bgTools" && selected?.type === "image" && (
+        // Background tools (editor-v2/09 §9).
+        <ActionSheet
+          title={t("bg.title")}
+          actions={[
+            selected.originalAssetId
+              ? { key: "restore" as const, label: t("bg.restore"), icon: "reset" as const }
+              : { key: "remove" as const, label: t("bg.remove"), icon: "sparkles" as const },
+            { key: "cutout" as const, label: t("bg.cutout"), icon: "lasso" as const },
+            { key: "erase" as const, label: t("bg.erase"), icon: "eraser" as const },
+          ]}
+          onAction={(key) => {
+            if (key === "remove") setRemoveBgFor(selected.id);
+            else if (key === "restore") store.restoreOriginal(selected.id);
+            else setTool(key);
+          }}
+          onClose={close}
+        />
+      )}
+      {(tool === "cutout" || tool === "erase") && selected && <MaskScreen elementId={selected.id} mode={tool === "cutout" ? "cutout" : "erase"} onClose={close} />}
+      {(tool === "adjust" || tool === "filters") && selected && (
+        // Full-screen "Adjust" (editor-v2/09 §8): filters and every adjustment.
+        <PhotoEditScreen elementId={selected.id} start={tool === "filters" ? "filters" : "exposure"} onClose={close} />
       )}
       {tool === "newSlide" && (
         <NewSlideSheet
