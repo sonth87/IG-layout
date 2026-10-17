@@ -10,7 +10,7 @@ import { type ImageAsset, isImage } from "@/lib/project/types";
 import { flushSave, useSaveStatus } from "@/store/autosave";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { WEB_FONTS } from "@/lib/text/webfonts";
-import { useT } from "@/store/settings";
+import { useSettings, useT } from "@/store/settings";
 import CanvasStage from "./canvas/CanvasStage";
 import { isTouchUI } from "./canvas/interaction";
 import { type Action, ActionSheet, CoachTips, LayersSheet } from "./EditorSheets";
@@ -19,6 +19,7 @@ import { RemoveBgDialog } from "./RemoveBgDialog";
 import { FloatingMenu } from "./FloatingMenu";
 import { NewSlideSheet } from "./NewSlideSheet";
 import { PositionTool } from "./tools/PositionTool";
+import { PreviewScreen } from "./PreviewScreen";
 import { PhotoEditScreen } from "./tools/PhotoEditScreen";
 import { MaskScreen } from "./tools/MaskScreen";
 import { BlockAdjustTool, BlockLayoutTool } from "./tools/BlockTools";
@@ -95,7 +96,9 @@ type Tool =
   | "cutout"
   | "erase"
   | "library"
-  | "newLayer";
+  | "newLayer"
+  | "ratio"
+  | "preview";
 /** Tools that edit a draft (✕ / ✓). */
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity"];
 
@@ -216,6 +219,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   /** Zoom shown while easing to a new "see every slide" level. */
   const [easing, setEasing] = useState<number | null>(null);
   const pinchZoomStart = useRef(1);
+  const snapOn = useSettings((s) => s.snap);
   /** Which library the "library" sheet shows (editor-v2/11). */
   const [library, setLibrary] = useState<LibraryKind>("sticker");
   const openLibrary = (kind: LibraryKind) => {
@@ -418,13 +422,16 @@ export function Editor({ onClose }: { onClose: () => void }) {
     </section>
   );
 
-  type MoreKey = "background" | "slides" | "layers" | "draw" | "layout" | "music" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg" | "crop" | "animate";
+  type MoreKey = "background" | "slides" | "layers" | "draw" | "layout" | "ratio" | "snap" | "preview" | "music" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg" | "crop" | "animate";
 
   /** Secondary actions for the selection ("⋯ More"), described as data. */
   /** The project menu (the ⋯ at the top): background, slides, music, drawing. */
   function projectActions(): Action<MoreKey>[] {
     return [
         { key: "background", label: t("editor.background"), icon: "background" },
+        ...(isGrid ? [] : [{ key: "ratio" as const, label: t("pm.ratio"), icon: "crop" as const }]),
+        { key: "snap", label: snapOn ? t("pm.snapOn") : t("pm.snapOff"), icon: "move" },
+        { key: "preview", label: t("pm.preview"), icon: "play" },
         { key: "slides", label: isGrid ? t("editor.grid") : doc.type === "story" ? t("editor.frames") : t("editor.slides"), icon: "slides" },
         { key: "music", label: t("music.title"), icon: "music" },
         { key: "draw", label: t("editor.draw"), icon: "pencil" },
@@ -460,6 +467,9 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (key === "slides") return openTool("slides");
     if (key === "layers") return setTool("layers");
     if (key === "layout") return setTool("layout");
+    if (key === "ratio") return setTool("ratio");
+    if (key === "snap") return useSettings.getState().setSnap(!snapOn);
+    if (key === "preview") return setTool("preview");
     if (key === "music") return setTool("music");
     if (key === "draw") {
       store.startDrawing();
@@ -939,6 +949,16 @@ export function Editor({ onClose }: { onClose: () => void }) {
       {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
       {tool === "trim" && selected && <TrimTool elementId={selected.id} onClose={close} />}
       {tool === "library" && <LibrarySheet kind={library} onClose={close} />}
+      {tool === "preview" && <PreviewScreen onClose={close} />}
+      {tool === "ratio" && (
+        // Another slide shape for the whole project (editor-v2/12 §2).
+        <ActionSheet
+          title={t("pm.ratioTitle")}
+          actions={(["4:5", "3:4", "1:1", "9:16", "1.91:1", "2:3", "4:3", "16:9"] as const).map((r) => ({ key: r, label: r, icon: "crop" as const }))}
+          onAction={(r) => store.setRatio(r)}
+          onClose={close}
+        />
+      )}
       {tool === "newLayer" && (
         <NewLayerSheet
           onClose={close}

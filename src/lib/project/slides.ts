@@ -1,6 +1,6 @@
-import { isLayout, outermost, units } from "./blocks";
+import { isLayout, outermost, syncLayout, units } from "./blocks";
 import { GRID_COLS, GRID_GAP, MAX_GRID_ROWS, slideOfElement, slideRect } from "./layout";
-import { type CanvasElement, MAX_SLIDES, newId, type ProjectDoc } from "./types";
+import { type CanvasElement, MAX_SLIDES, newId, type ProjectDoc, slideSize } from "./types";
 
 // Slide operations. An element belongs to the slide containing its center;
 // elements move along with their slide (docs/architecture/editor-model.md, mục 5).
@@ -96,3 +96,25 @@ export function setGridGap(doc: ProjectDoc, on: boolean): ProjectDoc {
 }
 
 export { GRID_GAP };
+
+/**
+ * Another slide shape for the whole project (project ⋯ → Ratio, editor-v2/12 §2): every
+ * element keeps its place relative to its slide (centre height scaled); layout blocks
+ * also take the new height, their cells following.
+ */
+export function changeRatio(doc: ProjectDoc, ratio: ProjectDoc["ratio"], assetSize: (id: string) => { width: number; height: number } | undefined): ProjectDoc {
+  if (doc.type === "grid" || ratio === doc.ratio) return doc;
+  const next: ProjectDoc = { ...doc, ratio };
+  const k = slideSize(ratio).height / slideSize(doc.ratio).height;
+  let out: ProjectDoc = {
+    ...next,
+    elements: doc.elements.map((el) => {
+      if (el.parentId) return el; // placed by their block below
+      if (isLayout(el)) return { ...el, y: el.y * k, height: el.height * k };
+      const cy = (el.y + el.height / 2) * k;
+      return { ...el, y: cy - el.height / 2 };
+    }),
+  };
+  for (const el of out.elements) if (isLayout(el)) out = syncLayout(out, el.id, assetSize);
+  return out;
+}

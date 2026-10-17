@@ -51,6 +51,7 @@ export async function saveState(state: ProjectState, patch: Partial<ProjectMeta>
       ...meta,
       ...patch,
       slideCount: state.doc.slideCount,
+      ratio: state.doc.ratio,
       updatedAt: Date.now(),
       size,
     }),

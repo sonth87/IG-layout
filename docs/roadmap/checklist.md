@@ -355,7 +355,7 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Kiểm tra tự động `e2e/m18.mjs`; các bộ cũ đổi sang luồng mới (`newProject()` = + → Từ ảnh, tab Dự án sau khi tải lại)
 - [ ] Chủ dự án thử trên iPhone / iPad: trang chủ mới, tạo dự án theo tỉ lệ / tuỳ chỉnh, màn chi tiết template, editor mới
 
-### M19 — Chữ, chỉnh ảnh, thư viện, xuất — đang làm
+### M19 — Chữ, chỉnh ảnh, thư viện, xuất — xong phần code 2026-10-17
 Đặc tả: [10](../product/editor-v2/10-chu.md), [09](../product/editor-v2/09-anh-va-video.md) mục 6–10, [11](../product/editor-v2/11-thu-vien.md), [12](../product/editor-v2/12-sheet-menu-xuat-lop.md) mục 2–5; cách cài: [dev/editor-v2](../dev/editor-v2.md) mục 0f.
 - [x] **Chữ gõ trực tiếp trên canvas**: nút Chữ đặt "Thêm chữ" ở góc trên trái slide đang xem, bàn phím mở ngay, chữ mẫu được chọn sẵn để gõ đè; hộp gõ nằm đúng chỗ, đúng phông / cỡ / màu / góc xoay của chữ
 - [x] **Thanh gõ**: A| Sửa · Aa Định dạng · ≡ Căn lề · ✕; Aa / ≡ cất bàn phím và mở sheet ở chỗ bàn phím
@@ -378,3 +378,9 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Brand Kit** lưu trên máy, dùng cho mọi dự án: logo, tài sản, màu thương hiệu (hiện đầu bảng màu chung); **Lưu sticker** (ảnh đang chọn → "Của tôi")
 - [ ] Còn lại của thư viện: khung có lớp trang trí đè lên ảnh (băng dính, giấy xé, máy ảnh, kỹ thuật số), nhóm Mực / tem dấu, Phông thương hiệu
 - [x] Kiểm tra `e2e/m19c.mjs`
+- [x] **Menu ⋯ của dự án**: Nền · **Tỉ lệ** (đổi tỉ lệ cả dự án, phần tử giữ chỗ theo slide) · **Hít: bật / tắt** (tắt đường gióng, thước đo, hít góc; nhớ trên máy) · **Xem trước** · Slide · Nhạc · Vẽ · Bố cục
+- [x] **Nền**: Màu · **Chuyển màu tuỳ chỉnh** (thanh có điểm dừng kéo được, chạm thanh để thêm, vị trí %, bỏ điểm, màu theo bảng chung, thẳng / **toả tròn**, góc, lưu chuyển màu; Đã lưu + Mặc định) · **Chất liệu** (20 chất liệu vẽ bằng code: giấy trắng / ngà / hồng / xanh, kraft, bìa cứng, vải lanh, canvas, đá cẩm thạch, gỗ, bê tông, đá mài, giấy ô ly / chấm / kẻ dòng, màu nước, giấy đen, nền tối có vân, cát) · Ảnh mờ
+- [x] **Xem trước** toàn màn hình (vuốt ngang qua các slide như bài đăng)
+- [x] **Xuất**: chọn độ phân giải **1× (1080 px) / 2× (2160 px)**
+- [x] Kiểm tra `e2e/m19d.mjs`
+- [ ] Chủ dự án thử trên iPhone / iPad: gõ chữ trên canvas, màn Chỉnh ảnh, Cắt rời / Tẩy, các thư viện, Brand Kit, Nền chuyển màu / chất liệu, Xem trước, xuất 2×

@@ -9,7 +9,7 @@ import { fillCells, fillTargets, freePhotos } from "@/lib/project/fill";
 import { patchElement } from "@/lib/project/position";
 import { relayout } from "@/lib/templates/blockLayout";
 import { canvasSize, GRID_COLS } from "@/lib/project/layout";
-import { deleteSlide, duplicateSlide, insertSlide, moveSlide, moveSlideTo, setGridGap, setGridRows } from "@/lib/project/slides";
+import { changeRatio, deleteSlide, duplicateSlide, insertSlide, moveSlide, moveSlideTo, setGridGap, setGridRows } from "@/lib/project/slides";
 import { addLayoutBlock, addLayoutSlide, applyTemplate, templateSlides } from "@/lib/templates/apply";
 import { slideLayoutById } from "@/lib/templates/slideLayouts";
 import { DEFAULT_OPTIONS, type Template, type TemplateOptions } from "@/lib/templates/types";
@@ -113,6 +113,8 @@ interface EditorState {
   /** New slide at `at` (blank, or a layout block with empty cells — editor-v2/05 §5). */
   addSlide: (at: number, layoutId: string | null) => void;
   duplicateSlide: (index: number) => void;
+  /** Another slide shape for the whole project (one step). */
+  setRatio: (ratio: AspectRatio) => void;
   /** A layout block with empty cells on the slide in view ("+ → Grid", M19); it is selected. */
   addLayoutBlock: (layoutId: string) => void;
   /** Drag reorder (editor-v2/05 §4): one undo step. */
@@ -491,6 +493,7 @@ export const useEditor = create<EditorState>()((set, get) => {
       commit((d) => addLayoutSlide(d, at, layout));
       set({ selectedId: null });
     },
+    setRatio: (ratio) => commit((d) => changeRatio(d, ratio, (a) => get().assets[a])),
     addLayoutBlock: (layoutId) => {
       const layout = slideLayoutById(layoutId);
       const doc = get().doc;

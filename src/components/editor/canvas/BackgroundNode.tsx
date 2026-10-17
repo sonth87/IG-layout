@@ -5,6 +5,7 @@ import type { Background } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { stillUrl } from "@/lib/project/types";
 import { useBlurredImage } from "./useHtmlImage";
+import { TEXTURES, textureTile } from "@/lib/elements/textures";
 
 interface Props {
   background: Background;
@@ -40,15 +41,30 @@ export function BackgroundNode({ background, width, height }: Props) {
   };
 
   if (background.kind === "gradient") {
+    const stops = (background.stops ?? [
+      { color: background.from, at: 0 },
+      { color: background.to, at: 1 },
+    ])
+      .slice()
+      .sort((a, b) => a.at - b.at)
+      .flatMap((s) => [s.at, s.color]);
+    if (background.radial)
+      return (
+        <Rect
+          {...common}
+          fillRadialGradientStartPoint={{ x: width / 2, y: height / 2 }}
+          fillRadialGradientEndPoint={{ x: width / 2, y: height / 2 }}
+          fillRadialGradientStartRadius={0}
+          fillRadialGradientEndRadius={Math.hypot(width, height) / 2}
+          fillRadialGradientColorStops={stops}
+        />
+      );
     const { start, end } = gradientPoints(background.angle, width, height);
-    return (
-      <Rect
-        {...common}
-        fillLinearGradientStartPoint={start}
-        fillLinearGradientEndPoint={end}
-        fillLinearGradientColorStops={[0, background.from, 1, background.to]}
-      />
-    );
+    return <Rect {...common} fillLinearGradientStartPoint={start} fillLinearGradientEndPoint={end} fillLinearGradientColorStops={stops} />;
+  }
+  if (background.kind === "texture") {
+    const tile = textureTile(background.texture);
+    return tile ? <Rect {...common} fillPatternImage={tile as unknown as HTMLImageElement} fillPatternRepeat="repeat" /> : <Rect {...common} fill={TEXTURES[background.texture]?.base ?? "#f5f3ee"} />;
   }
   if (background.kind === "blur") {
     return blurred ? <KImage {...common} image={blurred} /> : <Rect {...common} fill="#9a9a9a" />;

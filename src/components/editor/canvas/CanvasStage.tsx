@@ -15,6 +15,7 @@ import { panCrop, wholePicture } from "@/lib/project/blocks";
 import { endFollow, type Follow, follow, startFollow } from "./followers";
 import { LayoutNode } from "./LayoutNode";
 import { elementOf, tapResult } from "./selection";
+import { useSettings } from "@/store/settings";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { BackgroundNode } from "./BackgroundNode";
 import { ImageNode } from "./ImageNode";
@@ -33,6 +34,7 @@ const ROTATE_SNAP = 6;
 /** Rotation with snapping to right angles; `snapped` = it stuck to one. */
 export function snapRotation(deg: number): { rotation: number; snapped: boolean } {
   const r = ((((deg + 180) % 360) + 360) % 360) - 180; // -180..180
+  if (!useSettings.getState().snap) return { rotation: r, snapped: false };
   const nearest = Math.round(r / 90) * 90;
   return Math.abs(r - nearest) <= ROTATE_SNAP ? { rotation: nearest === -180 ? 180 : nearest, snapped: true } : { rotation: r, snapped: false };
 }
@@ -69,6 +71,7 @@ function SelectionTransformer(props: {
   // A cell of a layout block follows its block: no handles of its own (M14 / M16).
   const fixed = !!el && (el.locked || !!el.parentId) && !whole;
   const isText = el?.type === "text";
+  const snapOn = useSettings((s) => s.snap);
 
   useEffect(() => {
     const tr = trRef.current;
@@ -98,7 +101,7 @@ function SelectionTransformer(props: {
       // Turn handle below the element (editor-v2/07 §3).
       rotateAnchorAngle={180}
       rotateAnchorOffset={isTouchUI ? 40 : 30}
-      rotationSnaps={[0, 90, 180, 270]}
+      rotationSnaps={snapOn ? [0, 90, 180, 270] : []}
       rotationSnapTolerance={ROTATE_SNAP}
       enabledAnchors={
         whole
@@ -126,7 +129,7 @@ function SelectionTransformer(props: {
         }
       }}
       boundBoxFunc={(oldBox, box) => {
-        if (whole || Math.abs(box.rotation) > 0.01) return box;
+        if (whole || Math.abs(box.rotation) > 0.01 || !snapOn) return box;
         // Equal sizes (editor-v2/07 §4): stick to another element's width / height.
         const anchor = trRef.current?.getActiveAnchor() ?? "";
         const sizes = others();
@@ -399,6 +402,8 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       height: el.height,
       rotation: node.rotation(),
     });
+    // Snap off (project ⋯ → Snap): no guides, nothing sticks.
+    if (!useSettings.getState().snap) return;
     const result = snap(bounds, targets.current, SNAP_SCREEN_PX / viewScale);
     node.position({ x: node.x() + result.dx, y: node.y() + result.dy });
     showGuides(result.guidesX, result.guidesY);

@@ -86,8 +86,19 @@ export interface Border {
 
 export type Background =
   | { kind: "color"; color: string }
-  | { kind: "gradient"; from: string; to: string; angle: number }
-  | { kind: "blur"; assetId: string };
+  | {
+      kind: "gradient";
+      from: string;
+      to: string;
+      angle: number;
+      /** Custom gradient (M19): colour stops (0..1), from / to then mirror the ends. */
+      stops?: { color: string; at: number }[];
+      /** Radiating from the middle instead of along `angle`. */
+      radial?: boolean;
+    }
+  | { kind: "blur"; assetId: string }
+  /** A drawn texture tile (lib/elements/textures), repeated (M19). */
+  | { kind: "texture"; texture: string };
 
 interface ElementBase {
   id: string;
