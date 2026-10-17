@@ -1,0 +1,1196 @@
+{
+  "id": "gen-film",
+  "kind": "frame",
+  "name": {
+    "en": "Film strips",
+    "vi": "Dải phim"
+  },
+  "collections": [
+    "film",
+    "vintage",
+    "retro"
+  ],
+  "order": 12,
+  "items": [
+    {
+      "id": "film-1",
+      "name": {
+        "en": "3-frame brown film, vertical",
+        "vi": "Phim nâu 3 khung dọc"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "brown"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "nâu"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #1",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-1",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 451,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1541,
+          "y": 0.0267,
+          "w": 0.6929,
+          "h": 0.2982
+        },
+        {
+          "x": 0.1545,
+          "y": 0.3508,
+          "w": 0.6928,
+          "h": 0.298
+        },
+        {
+          "x": 0.1528,
+          "y": 0.6754,
+          "w": 0.695,
+          "h": 0.2982
+        }
+      ]
+    },
+    {
+      "id": "film-2",
+      "name": {
+        "en": "3-frame negative film, vertical",
+        "vi": "Phim âm bản 3 khung dọc"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "negative"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "âm bản"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #2",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-2",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 421,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1658,
+          "y": 0.0227,
+          "w": 0.6696,
+          "h": 0.3031
+        },
+        {
+          "x": 0.1643,
+          "y": 0.3486,
+          "w": 0.6694,
+          "h": 0.3022
+        },
+        {
+          "x": 0.1634,
+          "y": 0.6741,
+          "w": 0.6709,
+          "h": 0.3029
+        }
+      ]
+    },
+    {
+      "id": "film-3",
+      "name": {
+        "en": "3-frame brown film, vertical 2",
+        "vi": "Phim nâu 3 khung dọc 2"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "brown"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "nâu"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #3",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-3",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 425,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1622,
+          "y": 0.0195,
+          "w": 0.6753,
+          "h": 0.3083
+        },
+        {
+          "x": 0.1644,
+          "y": 0.3458,
+          "w": 0.6743,
+          "h": 0.3076
+        },
+        {
+          "x": 0.1647,
+          "y": 0.6729,
+          "w": 0.6739,
+          "h": 0.3076
+        }
+      ]
+    },
+    {
+      "id": "film-4",
+      "name": {
+        "en": "4-frame negative film, vertical",
+        "vi": "Phim âm bản 4 khung dọc"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "negative"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "âm bản"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #4",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-4",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 312,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1519,
+          "y": 0.0148,
+          "w": 0.6952,
+          "h": 0.2322
+        },
+        {
+          "x": 0.1523,
+          "y": 0.2612,
+          "w": 0.6958,
+          "h": 0.2321
+        },
+        {
+          "x": 0.1527,
+          "y": 0.5074,
+          "w": 0.6935,
+          "h": 0.2317
+        },
+        {
+          "x": 0.1518,
+          "y": 0.7538,
+          "w": 0.6961,
+          "h": 0.2318
+        }
+      ]
+    },
+    {
+      "id": "film-5",
+      "name": {
+        "en": "3-frame negative film",
+        "vi": "Phim âm bản 3 khung"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "negative"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "âm bản"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #5",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-5",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1400,
+      "height": 402,
+      "windows": [
+        {
+          "x": 0.0236,
+          "y": 0.1507,
+          "w": 0.3019,
+          "h": 0.7022
+        },
+        {
+          "x": 0.3488,
+          "y": 0.1488,
+          "w": 0.302,
+          "h": 0.6994
+        },
+        {
+          "x": 0.6743,
+          "y": 0.1503,
+          "w": 0.301,
+          "h": 0.701
+        }
+      ]
+    },
+    {
+      "id": "film-6",
+      "name": {
+        "en": "3-frame black film, vertical",
+        "vi": "Phim đen 3 khung dọc"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "black"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #6",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-6",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 455,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1453,
+          "y": 0.0202,
+          "w": 0.7082,
+          "h": 0.3069
+        },
+        {
+          "x": 0.146,
+          "y": 0.3473,
+          "w": 0.7066,
+          "h": 0.3067
+        },
+        {
+          "x": 0.146,
+          "y": 0.6736,
+          "w": 0.708,
+          "h": 0.3066
+        }
+      ]
+    },
+    {
+      "id": "film-7",
+      "name": {
+        "en": "1-frame brown film, vertical",
+        "vi": "Phim nâu 1 khung dọc"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "brown"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "nâu"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #7",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-7",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 680,
+      "height": 604,
+      "windows": [
+        {
+          "x": 0.1189,
+          "y": 0.0693,
+          "w": 0.7642,
+          "h": 0.8614
+        }
+      ]
+    },
+    {
+      "id": "film-8",
+      "name": {
+        "en": "1-frame brown film",
+        "vi": "Phim nâu 1 khung"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "brown",
+          "light leak"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "nâu",
+          "vệt sáng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #8",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-8",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 604,
+      "height": 508,
+      "windows": [
+        {
+          "x": 0.0688,
+          "y": 0.159,
+          "w": 0.8597,
+          "h": 0.6809
+        }
+      ]
+    },
+    {
+      "id": "film-9",
+      "name": {
+        "en": "1-frame negative film",
+        "vi": "Phim âm bản 1 khung"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "negative"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "âm bản"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #9",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-9",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 608,
+      "height": 512,
+      "windows": [
+        {
+          "x": 0.0712,
+          "y": 0.1625,
+          "w": 0.8539,
+          "h": 0.6777
+        }
+      ]
+    },
+    {
+      "id": "film-10",
+      "name": {
+        "en": "3-frame brown film",
+        "vi": "Phim nâu 3 khung"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "brown"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "nâu"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #10",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-10",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1400,
+      "height": 443,
+      "windows": [
+        {
+          "x": 0.0249,
+          "y": 0.1451,
+          "w": 0.3002,
+          "h": 0.7131
+        },
+        {
+          "x": 0.3504,
+          "y": 0.1439,
+          "w": 0.2993,
+          "h": 0.7134
+        },
+        {
+          "x": 0.6753,
+          "y": 0.1443,
+          "w": 0.2995,
+          "h": 0.711
+        }
+      ]
+    },
+    {
+      "id": "film-11",
+      "name": {
+        "en": "3-frame negative film 2",
+        "vi": "Phim âm bản 3 khung 2"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "negative"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "âm bản"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #11",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-11",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1400,
+      "height": 455,
+      "windows": [
+        {
+          "x": 0.0235,
+          "y": 0.1499,
+          "w": 0.3015,
+          "h": 0.698
+        },
+        {
+          "x": 0.3487,
+          "y": 0.1508,
+          "w": 0.3022,
+          "h": 0.6979
+        },
+        {
+          "x": 0.6742,
+          "y": 0.1513,
+          "w": 0.3018,
+          "h": 0.6999
+        }
+      ]
+    },
+    {
+      "id": "film-12",
+      "name": {
+        "en": "2-frame black film, vertical",
+        "vi": "Phim đen 2 khung dọc"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "black",
+          "light leak"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "đen",
+          "vệt sáng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #12",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-12",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 541,
+      "height": 1178,
+      "windows": [
+        {
+          "x": 0.1394,
+          "y": 0.0394,
+          "w": 0.7218,
+          "h": 0.4409
+        },
+        {
+          "x": 0.1376,
+          "y": 0.5187,
+          "w": 0.7227,
+          "h": 0.4408
+        }
+      ]
+    },
+    {
+      "id": "film-13",
+      "name": {
+        "en": "3-frame black film, vertical 2",
+        "vi": "Phim đen 3 khung dọc 2"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "black",
+          "light leak"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "đen",
+          "vệt sáng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #13",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-13",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 409,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1488,
+          "y": 0.0193,
+          "w": 0.7041,
+          "h": 0.3084
+        },
+        {
+          "x": 0.1498,
+          "y": 0.3462,
+          "w": 0.7017,
+          "h": 0.3076
+        },
+        {
+          "x": 0.1473,
+          "y": 0.6731,
+          "w": 0.7041,
+          "h": 0.3076
+        }
+      ]
+    },
+    {
+      "id": "film-14",
+      "name": {
+        "en": "3-frame brown film 2",
+        "vi": "Phim nâu 3 khung 2"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "brown"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "nâu"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #14",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-14",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1400,
+      "height": 445,
+      "windows": [
+        {
+          "x": 0.0215,
+          "y": 0.14,
+          "w": 0.3042,
+          "h": 0.7219
+        },
+        {
+          "x": 0.3478,
+          "y": 0.1401,
+          "w": 0.3051,
+          "h": 0.7216
+        },
+        {
+          "x": 0.6737,
+          "y": 0.1399,
+          "w": 0.3051,
+          "h": 0.7229
+        }
+      ]
+    },
+    {
+      "id": "film-15",
+      "name": {
+        "en": "2-frame negative film",
+        "vi": "Phim âm bản 2 khung"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "negative"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "âm bản"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #15",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-15",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1154,
+      "height": 498,
+      "windows": [
+        {
+          "x": 0.0325,
+          "y": 0.1538,
+          "w": 0.4506,
+          "h": 0.695
+        },
+        {
+          "x": 0.5164,
+          "y": 0.1525,
+          "w": 0.4514,
+          "h": 0.6952
+        }
+      ]
+    },
+    {
+      "id": "film-16",
+      "name": {
+        "en": "3-frame black film, vertical 3",
+        "vi": "Phim đen 3 khung dọc 3"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "black"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #16",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-16",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 553,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1131,
+          "y": 0.022,
+          "w": 0.7711,
+          "h": 0.3047
+        },
+        {
+          "x": 0.1133,
+          "y": 0.3482,
+          "w": 0.7708,
+          "h": 0.3037
+        },
+        {
+          "x": 0.1132,
+          "y": 0.6736,
+          "w": 0.7709,
+          "h": 0.3048
+        }
+      ]
+    },
+    {
+      "id": "film-17",
+      "name": {
+        "en": "3-frame grey film, vertical",
+        "vi": "Phim xám 3 khung dọc"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "grey",
+          "light leak"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "xám",
+          "vệt sáng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #17",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-17",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 445,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1359,
+          "y": 0.0198,
+          "w": 0.7268,
+          "h": 0.3072
+        },
+        {
+          "x": 0.1361,
+          "y": 0.3467,
+          "w": 0.7256,
+          "h": 0.3063
+        },
+        {
+          "x": 0.1355,
+          "y": 0.6732,
+          "w": 0.726,
+          "h": 0.3063
+        }
+      ]
+    },
+    {
+      "id": "film-18",
+      "name": {
+        "en": "2-frame negative film 2",
+        "vi": "Phim âm bản 2 khung 2"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "negative"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "âm bản"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #18",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-18",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1143,
+      "height": 559,
+      "windows": [
+        {
+          "x": 0.0294,
+          "y": 0.1495,
+          "w": 0.4545,
+          "h": 0.7002
+        },
+        {
+          "x": 0.5151,
+          "y": 0.1501,
+          "w": 0.4543,
+          "h": 0.6992
+        }
+      ]
+    },
+    {
+      "id": "film-19",
+      "name": {
+        "en": "1-frame brown film, vertical 2",
+        "vi": "Phim nâu 1 khung dọc 2"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "brown"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "nâu"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #19",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-19",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 520,
+      "height": 606,
+      "windows": [
+        {
+          "x": 0.1659,
+          "y": 0.0716,
+          "w": 0.666,
+          "h": 0.8564
+        }
+      ]
+    },
+    {
+      "id": "film-20",
+      "name": {
+        "en": "3-frame black film, vertical 4",
+        "vi": "Phim đen 3 khung dọc 4"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "black"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #20",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-20",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 450,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.145,
+          "y": 0.0206,
+          "w": 0.7132,
+          "h": 0.3056
+        },
+        {
+          "x": 0.1427,
+          "y": 0.3469,
+          "w": 0.7151,
+          "h": 0.3057
+        },
+        {
+          "x": 0.1439,
+          "y": 0.6737,
+          "w": 0.7123,
+          "h": 0.3054
+        }
+      ]
+    },
+    {
+      "id": "film-21",
+      "name": {
+        "en": "3-frame grey film",
+        "vi": "Phim xám 3 khung"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "grey"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "xám"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #21",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-21",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1400,
+      "height": 414,
+      "windows": [
+        {
+          "x": 0.0214,
+          "y": 0.1566,
+          "w": 0.3045,
+          "h": 0.6864
+        },
+        {
+          "x": 0.3479,
+          "y": 0.1559,
+          "w": 0.3046,
+          "h": 0.6873
+        },
+        {
+          "x": 0.6737,
+          "y": 0.1582,
+          "w": 0.3044,
+          "h": 0.6875
+        }
+      ]
+    },
+    {
+      "id": "film-22",
+      "name": {
+        "en": "3-frame grey film, vertical 2",
+        "vi": "Phim xám 3 khung dọc 2"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "grey"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "xám"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #22",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-22",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 414,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1569,
+          "y": 0.0199,
+          "w": 0.6899,
+          "h": 0.3066
+        },
+        {
+          "x": 0.1564,
+          "y": 0.3472,
+          "w": 0.689,
+          "h": 0.3057
+        },
+        {
+          "x": 0.1561,
+          "y": 0.6731,
+          "w": 0.6907,
+          "h": 0.3059
+        }
+      ]
+    },
+    {
+      "id": "film-23",
+      "name": {
+        "en": "1-frame black film, vertical",
+        "vi": "Phim đen 1 khung dọc"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "black"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #23",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-23",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 546,
+      "height": 592,
+      "windows": [
+        {
+          "x": 0.1416,
+          "y": 0.0608,
+          "w": 0.7153,
+          "h": 0.8779
+        }
+      ]
+    },
+    {
+      "id": "film-24",
+      "name": {
+        "en": "2-frame black film",
+        "vi": "Phim đen 2 khung"
+      },
+      "tags": {
+        "en": [
+          "film",
+          "strip",
+          "35mm",
+          "negative",
+          "black",
+          "light leak"
+        ],
+        "vi": [
+          "phim",
+          "cuộn phim",
+          "dải phim",
+          "đen",
+          "vệt sáng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "film #24",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#film-24",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1138,
+      "height": 507,
+      "windows": [
+        {
+          "x": 0.0292,
+          "y": 0.157,
+          "w": 0.4564,
+          "h": 0.6845
+        },
+        {
+          "x": 0.5138,
+          "y": 0.1577,
+          "w": 0.4568,
+          "h": 0.685
+        }
+      ]
+    }
+  ]
+}

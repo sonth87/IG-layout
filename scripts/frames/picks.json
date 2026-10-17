@@ -1,0 +1,193 @@
+{
+  "packs": [
+    {
+      "id": "gen-torn-photos",
+      "kind": "tornPhoto",
+      "prefix": "torn-photo",
+      "order": 10,
+      "name": {
+        "en": "Torn photos",
+        "vi": "Ảnh xé"
+      },
+      "collections": [
+        "tornPaper",
+        "journal",
+        "handDrawn"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ]
+    },
+    {
+      "id": "gen-torn-paper",
+      "kind": "tornPaper",
+      "prefix": "torn-paper",
+      "order": 11,
+      "name": {
+        "en": "Torn paper",
+        "vi": "Giấy xé"
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ]
+    },
+    {
+      "id": "gen-film",
+      "kind": "film",
+      "prefix": "film",
+      "order": 12,
+      "name": {
+        "en": "Film strips",
+        "vi": "Dải phim"
+      },
+      "collections": [
+        "film",
+        "vintage",
+        "retro"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "id": "gen-instant",
+      "kind": "polaroid",
+      "prefix": "instant",
+      "order": 13,
+      "name": {
+        "en": "Instant photos",
+        "vi": "Ảnh lấy liền"
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "film"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ]
+    }
+  ]
+}

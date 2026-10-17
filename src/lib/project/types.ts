@@ -180,6 +180,8 @@ export interface ImageElement extends ElementBase {
   flipX: boolean;
   flipY: boolean;
   mask: MaskShape;
+  /** Outline instead of `mask` (M20: a pack frame's torn window): polygon [x0, y0, x1, y1…] in 0–1 of the frame. */
+  maskPoints?: number[];
   /** For the "rounded" mask, in export pixels. */
   cornerRadius: number;
   border: Border | null;

@@ -41,9 +41,10 @@ export interface FrameWindow {
   y: number;
   w: number;
   h: number;
-  /** rect (default), ellipse, or an SVG path in the same 0–1 space. */
+  /** rect (default) or ellipse. */
   shape?: "rect" | "ellipse";
-  path?: string;
+  /** Exact outline (a torn edge…): polygon [x0, y0, x1, y1…] in 0–1 of the window box. */
+  points?: number[];
   /** Turn of the window, degrees (a tilted polaroid in a stack). */
   rotation?: number;
 }

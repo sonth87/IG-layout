@@ -75,7 +75,7 @@ Các trường (kiểu TypeScript ở `src/lib/catalog/types.ts`):
     - Nên có `author`, `title`.
     - Giấy phép `custom` phải có `licenseUrl`.
   - `width`, `height` — kích thước file đã xử lý (script xử lý tự điền).
-  - Riêng `frame`: `windows` — các cửa sổ ảnh, toạ độ 0–1 theo kích thước ảnh khung: `{x, y, w, h, shape?: "rect"|"ellipse", path?, rotation?}`.
+  - Riêng `frame`: `windows` — các cửa sổ ảnh, toạ độ 0–1 theo kích thước ảnh khung: `{x, y, w, h, shape?: "rect"|"ellipse", points?, rotation?}` — `points`: đường viền chính xác (ví dụ mép xé) dạng đa giác `[x0, y0, x1, y1…]`, toạ độ 0–1 theo hộp của cửa sổ.
   - Riêng `texture`: `tile: true` nếu lát lặp được (mép khớp nhau).
   - Riêng `overlay`: `blend` — `screen` / `multiply` / `overlay` / `soft-light` / `normal`.
   - Tuỳ chọn `process: { removeBg?: false, trim?: false }` — bảo script xử lý không tách nền / không cắt sát mục này.

@@ -298,4 +298,5 @@ Phạm vi: docs/discussions/<ngày>-m21-nghien-cuu.md, assets/research/m21/**, b
 
 ### Ghi chú nhận việc
 
-(trống)
+- **2026-10-18 — đổi nhỏ định dạng `windows`** (Claude): trường `path` (chuỗi SVG) được thay bằng `points` — đa giác `[x0, y0, x1, y1…]` toạ độ 0–1 theo hộp của cửa sổ (xem asset-catalog §3). Khung chữ nhật / bầu dục không cần trường này.
+- **Khung tự sinh** của Claude nằm ở các gói `assets/frame/gen-*` (đừng sửa tay — sinh lại bằng `scripts/frames/generate.mjs build`). `public/packs/catalog.json` là file sinh tự động: nếu bị xung đột khi merge thì chạy lại `build-catalog.mjs`.
