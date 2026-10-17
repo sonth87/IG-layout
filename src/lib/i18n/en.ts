@@ -56,7 +56,7 @@ export const en = {
   "editor.tools": "Tools",
   "editor.forward": "Forward",
   "editor.backward": "Backward",
-  "editor.addPhotos": "Add photos",
+  "editor.addPhotos": "Photos",
   "editor.importing": "Importing…",
   "editor.slides": "Slides",
   "editor.removeSlide": "Remove last slide",

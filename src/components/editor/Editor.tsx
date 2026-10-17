@@ -292,7 +292,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
         { key: "slides", label: isGrid ? t("editor.grid") : doc.type === "story" ? t("editor.frames") : t("editor.slides"), icon: "slides" },
         { key: "music", label: t("music.title"), icon: "music" },
         { key: "draw", label: t("editor.draw"), icon: "pencil" },
-        { key: "layers", label: t("layers.title"), icon: "layers" },
       ];
     }
     const list: Action<MoreKey>[] = [];
@@ -422,12 +421,23 @@ export function Editor({ onClose }: { onClose: () => void }) {
   } else
     bottom = sheet(
       t("editor.tools"),
-      <div className="flex">
-        <ToolButton label={busy ? t("editor.importing") : t("editor.addPhotos")} icon="image" onClick={() => addInput.current?.click()} />
-        <ToolButton label={t("editor.text")} icon="text" onClick={addText} />
-        <ToolButton label={t("editor.elements")} icon="shapes" onClick={() => setTool("elements")} />
-        <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
-        {more}
+      <div className="flex items-center">
+        <div className="flex min-w-0 flex-1">
+          <ToolButton label={busy ? t("editor.importing") : t("editor.addPhotos")} icon="image" onClick={() => addInput.current?.click()} />
+          <ToolButton label={t("editor.text")} icon="text" onClick={addText} />
+          <ToolButton label={t("editor.elements")} icon="shapes" onClick={() => setTool("elements")} />
+          <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
+          {more}
+        </div>
+        {/* Layers stand apart from the tools, as a round button on the right (editor-v2/07 §5). */}
+        <button
+          type="button"
+          aria-label={t("layers.title")}
+          onClick={() => setTool("layers")}
+          className="ml-1.5 mr-1 flex h-13 w-13 shrink-0 items-center justify-center rounded-full border border-border bg-surface-2"
+        >
+          <Icon name="layers" />
+        </button>
       </div>,
     );
 

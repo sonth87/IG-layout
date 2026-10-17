@@ -297,4 +297,5 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Thước đo kích thước bằng nhau**: khi co giãn tới đúng rộng / cao của phần tử khác (mọi slide) → hít đúng kích thước và hiện thước xanh trên cả hai
 - [x] Thanh nổi ẩn trong lúc kéo bằng một ngón; thanh công cụ của khối: Bố cục · Xong
 - [x] Kiểm tra tự động `e2e/m14.mjs`; m3, m8 cập nhật theo quy tắc mới
+- [x] Sửa (2026-10-17, D-92): nút **Lớp** tách ra thành nút tròn riêng bên phải thanh công cụ đáy
 - [ ] Chủ dự án thử trên iPhone: chọn khối / ảnh trong ô, kéo khối, chụm khi không chọn gì, nút xoay, thước đo
