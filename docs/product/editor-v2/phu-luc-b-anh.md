@@ -78,4 +78,4 @@
 | 4029 → 4031 | Màn "Film" đủ: dải phim ngang / dọc, khung 35 mm, cuộn phim, viền âm bản, phim lấy liền đen / trắng, điện thoại, vệt sáng, contact sheet |
 | 4032 → 4034 | Màn "Paper" đủ: viền răng cưa tem, giấy xé nhiều hình, sổ tay, phong bì, bìa sổ màu, khung chỉ khâu màu, hình cắt giấy màu (hoa, sao, tim, vuông) trên nền pastel, vòng giấy xé |
 | 4035 | Màn "Digital": thông báo / tin nhắn, trình duyệt, ghi chú, lịch xanh, máy nghe nhạc, thư mục xanh có ảnh, khung ngắm camera điện thoại |
-
+| 4036 | Template story 9:16 ghép từ 4 khung giấy xé (lưới 2 × 2 lệch): đường xé dọc trên ~50 %, ngang ~50 %, dọc dưới ~43 %, hơi nghiêng; mỗi mảnh tông xám khác nhau; mép xé trắng có xơ giấy của mảnh trên đè lên mảnh cạnh; mỗi mảnh một dấu + |

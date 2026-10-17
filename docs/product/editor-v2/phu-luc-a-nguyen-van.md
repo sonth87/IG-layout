@@ -66,3 +66,5 @@ Chép nguyên văn để không ý nào bị mất khi diễn giải. Tên ứng
 > - IMG_4026 --> IMG_4035 là danh sách các frames theo từng nhóm, tôi có chụp thêm chi tiết bên trong các nhóm để thấy nó có những thành phần gì. mỗi frame là 1 nơi chứa ảnh/video/file. khi thêm frame vào canvas thì chính là 1 nơi hiển thị ảnh, khi trống thì cũng có dấu "+" khi thêm ảnh thì ảnh sẽ hiển thị theo đúng hình dáng của frame đó. các thành phần frame ở trên ảnh (ví dụ frame có text, hay có hình băng keo dán, thì ảnh không hiện bên trên những cái đấy, mà nằm dưới, tức là frame này là khung tranh, tranh chỉ nằm bên dưới cái khung thôi)
 > - IMG_4023 --> IMG_4025 là 1 số template được cấu thành từ các phần của frame. tức là 1 nhóm các frame được kết hợp với nhau thành 1 template.
 
+**2026-10-17 (lần 5):**
+> IMG_4036 là ảnh ví dụ về khung, trong ảnh là 1 template được kết hợp bởi 4 khung theo hình xé giấy

@@ -84,6 +84,10 @@ Chủ dự án chỉ ra: **một số template được cấu thành từ các k
 - **IMG_4024** — bốn mảnh giấy xé ghép thành lưới 2 × 2, các mép xé lộ rõ, mỗi mảnh một ô ảnh.
 - **IMG_4025** — bốn dải giấy xé xếp chồng theo chiều dọc, mép xé ngang, mỗi dải một ô ảnh.
 
+**Ví dụ rõ nhất — IMG_4036** [CDA]: một template story 9:16 được **kết hợp từ 4 khung giấy xé**. Slide chia thành bốn mảnh xếp kiểu lưới 2 × 2 nhưng **không thẳng hàng**: đường xé dọc ở hàng trên nằm lệch về giữa (khoảng 50 % chiều ngang) và hơi nghiêng; đường xé ngang nằm khoảng giữa chiều cao (khoảng 50 %) và hơi chéo; đường xé dọc ở hàng dưới nằm lệch trái hơn (khoảng 43 %). Mỗi mảnh có **tông xám hơi khác nhau** (mảnh trên trái đậm nhất, mảnh dưới phải nhạt nhất) để thấy rõ đó là bốn tờ giấy riêng. Ở chỗ hai mảnh giáp nhau, **mép giấy xé màu trắng có xơ giấy** của mảnh nằm trên **đè lên** mảnh bên cạnh — tức là các khung **chồng mép lên nhau** một chút chứ không chỉ đặt sát nhau. Giữa mỗi mảnh có một **dấu + tròn** (ô trống). Khi điền ảnh, mỗi ảnh lộ ra theo đúng hình mảnh giấy của nó, còn mép xé trắng của khung nằm trên vẫn phủ lên phần ảnh của khung nằm dưới — nên ghép xong trông như bốn tấm ảnh in trên giấy được xé và dán chồng lên nhau.
+
+Điều này kéo theo hai yêu cầu: (1) **thứ tự lớp giữa các khung quan trọng** — khung nào nằm trên thì mép trang trí của nó che lên ảnh của khung bên dưới; (2) mỗi khung vẫn là một phần tử riêng, chọn / dời / thay ảnh riêng được (chạm lần đầu chọn khung, chạm lần nữa chọn ảnh trong khung) [ĐX về việc có gom bốn khung thành một nhóm hay không — xem câu hỏi Q-E9].
+
 Nghĩa là template không chỉ là khối bố cục kẻ ô thẳng: nó có thể là **nhiều khung đặt cạnh / chồng lên nhau**, mỗi khung là một phần tử riêng có cửa sổ ảnh và trang trí riêng. Thứ tự điền ảnh ([09](09-anh-va-video.md) mục 1.3) áp dụng cho mọi cửa sổ trống của mọi khung trong dự án.
 
 ## 6. Lưới

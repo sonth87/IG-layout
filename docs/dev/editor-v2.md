@@ -66,7 +66,7 @@ interface FrameDef {
 }
 ```
 
-Vẽ theo thứ tự: `under` → từng ô (clip theo `path` hoặc `rect`, vẽ ảnh) → `overlay`. Vì `overlay` vẽ sau cùng, băng dính / chữ in / viền luôn nằm trên ảnh. Template ghép từ khung (IMG_4023 → 4025) chỉ là nhiều `FrameElement` trong một template. `fillTargets` (mục 6) duyệt cả ô của `LayoutElement` lẫn `FrameElement`.
+Vẽ theo thứ tự: `under` → từng ô (clip theo `path` hoặc `rect`, vẽ ảnh) → `overlay`. Vì `overlay` vẽ sau cùng, băng dính / chữ in / viền luôn nằm trên ảnh. Template ghép từ khung (IMG_4023 → 4025, rõ nhất IMG_4036: 4 mảnh giấy xé chồng mép) là nhiều `FrameElement` trong một template. Vì mép trang trí của khung trên phải che ảnh của khung dưới, mỗi khung vẽ trọn `under → ảnh → overlay` trong lớp của nó, và thứ tự lớp giữa các khung giữ đúng như template; `overlay` của mảnh giấy xé tràn ra ngoài cửa sổ một chút (mép xé) để phủ lên mảnh bên cạnh. `fillTargets` (mục 6) duyệt cả ô của `LayoutElement` lẫn `FrameElement`.
 
 ### 2.2 Đường dẫn chọn
 
