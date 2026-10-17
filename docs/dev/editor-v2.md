@@ -62,6 +62,8 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Khối có kiểu chia** (`LayoutElement.layout / gap / padding / radius / fill`): khối tạo từ sheet Slide mới hoặc đổi Bố cục nhớ id kiểu chia → `respaced()` tính lại ô theo khe / lề (`slideCells(def, aspect, gap, padding)`). Khối cũ (gom từ ô lưới cũ) chưa có id → sheet Điều chỉnh chỉ cho Bo góc và Màu nền, ghi chú "chọn kiểu bố cục trước". `radius` áp lên mọi ô trong `syncLayout` (mask `rounded`); `fill` do `LayoutNode` vẽ. `relayout()` (`lib/templates/blockLayout.ts`) dùng lại phần tử ảnh cũ theo thứ tự ô (ảnh trước, ô trống sau), ảnh thừa bỏ `parentId` và đặt bên phải khối; luôn tính từ `doc` gốc (không phải bản nháp) nên thử nhiều kiểu không mất ảnh.
 
+**Kiểu** (`tools/ElementTools.tsx → StyleTool`): `ImageElement.corners?: [tl, tr, br, bl]` thay `cornerRadius` khi bật "Bo từng góc" (`traceMask` nhận một hoặc bốn bán kính); `shadowStyle?: { opacity, angle, distance, blur, color }` (px xuất) — không có thì dùng bóng mặc định cũ (`defaultShadow`). **Bảng màu** (`controls.tsx → Swatches`, dùng chung mọi nơi): `<input type=color>` + ô HEX, 12 màu dùng gần đây lưu `localStorage["ig-layout:colors"]`, 40 màu mặc định xếp 2 hàng trượt ngang.
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:

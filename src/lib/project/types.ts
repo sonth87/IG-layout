@@ -134,6 +134,17 @@ export function frameColor(frame: FrameStyle) {
 }
 export type FrameStyle = (typeof FRAME_STYLES)[number];
 
+export interface ShadowStyle {
+  /** 0..1 */
+  opacity: number;
+  /** Direction the shadow falls, degrees (90 = straight down). */
+  angle: number;
+  /** Export px. */
+  distance: number;
+  blur: number;
+  color: string;
+}
+
 export interface ImageElement extends ElementBase {
   type: "image";
   /** null = empty template slot. */
@@ -149,6 +160,10 @@ export interface ImageElement extends ElementBase {
   cornerRadius: number;
   border: Border | null;
   shadow: boolean;
+  /** Radius of each corner (top-left, top-right, bottom-right, bottom-left) instead of `cornerRadius` (M17). */
+  corners?: [number, number, number, number];
+  /** How the shadow looks once tuned in the Style sheet (M17); absent = the soft default. */
+  shadowStyle?: ShadowStyle;
   /** Template cell: dragging pans the photo inside instead of moving the frame. */
   slot: boolean;
   /** Manual colour adjustments (M4). */

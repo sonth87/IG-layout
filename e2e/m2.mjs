@@ -76,9 +76,14 @@ check(st.doc.elements[1].mask === "circle" && st.past.length === pastBefore + 1,
 
 console.log("4. Style: border + shadow + opacity");
 await page.getByRole("button", { name: "Style" }).click();
-await page.getByRole("slider").nth(0).fill("30");
-await page.getByRole("checkbox").check();
-await page.getByRole("slider").nth(1).fill("80");
+const style = page.getByRole("region", { name: "Style" });
+await style.getByRole("button", { name: /^Border/ }).click();
+await style.getByRole("slider", { name: "Width" }).fill("30");
+await style.getByRole("button", { name: "Style" }).click(); // back
+await style.getByRole("button", { name: /^Shadow/ }).click();
+await style.getByRole("checkbox").check();
+await style.getByRole("button", { name: "Style" }).click();
+await style.getByRole("slider", { name: "Opacity" }).fill("80");
 await page.getByLabel("Apply").click();
 st = await state();
 photo = st.doc.elements[1];

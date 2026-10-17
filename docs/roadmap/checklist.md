@@ -335,6 +335,7 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Sheet Vị trí**: tab Vị trí — Sắp lớp (4 nút, mờ khi vô tác dụng), Dịch ← → ↑ ↓ (1 px, giữ thì lặp nhanh dần), Căn trái / giữa / phải / trên / giữa dọc / dưới theo slide chứa phần tử, Lấp đầy Cao / Rộng / Rộng 2×, Lật ngang / dọc (khối: lật vị trí ô); tab Nâng cao — Rộng, Cao (khoá tỉ lệ), X, Y, Xoay; ✓ là một bước hoàn tác, ✕ trả lại
 - [x] **Bố cục của khối**: đổi sang kiểu chia khác (36 lưới + 12 bố cục), giữ vị trí / kích thước khối; ảnh giữ theo thứ tự ô, ảnh thừa thành ảnh tự do cạnh khối kèm thông báo, ô thừa để trống
 - [x] **Điều chỉnh của khối**: Khe, Lề (khối có kiểu chia), Bo góc ô, Màu nền khối
-- [ ] Sheet Kiểu (bo từng góc, bóng có góc / khoảng cách / độ nhoè, viền) + bảng màu dùng chung (tuỳ chỉnh, đã lưu, mặc định)
+- [x] **Sheet Kiểu** của ảnh: khung, độ mờ, bo góc + **Bo từng góc** (4 góc riêng), **Bóng ›** (bật / tắt, độ đậm, góc, khoảng cách, độ nhoè, màu), **Viền ›** (độ dày, màu), hoà trộn
+- [x] **Bảng màu dùng chung** ở mọi chỗ chọn màu: Tuỳ chỉnh (bánh xe màu + ô HEX), màu dùng gần đây (lưu trên máy), 40 màu mặc định (xám, rực, đậm, pastel, tông đất)
 - [ ] Bottom sheet kéo 50 – 95 % và đẩy canvas lên
 - [x] Kiểm tra `e2e/m17.mjs` (phần đã làm); sửa test m13b chọn nhầm ảnh theo id ngẫu nhiên
