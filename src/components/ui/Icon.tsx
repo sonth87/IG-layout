@@ -1,6 +1,14 @@
 const PATHS = {
   back: <path d="M15 18l-6-6 6-6" />,
   chevronRight: <path d="M9 6l6 6-6 6" />,
+  // Lucide "external-link".
+  link: (
+    <>
+      <path d="M15 3h6v6" />
+      <path d="M10 14 21 3" />
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+    </>
+  ),
   close: <path d="M18 6L6 18M6 6l12 12" />,
   insertLeft: (
     <>
