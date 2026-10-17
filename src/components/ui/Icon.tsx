@@ -15,6 +15,8 @@ const PATHS = {
     </>
   ),
   handle: <path d="M10 6v12M14 6v12" />,
+  lasso: <path d="M12 4c5 0 8 2.5 8 5.5S16.5 15 12 15s-8-2.5-8-5.5S7 4 12 4zM6 13c-1 2 0 4 2 5s2 2 1 3" />,
+  eraser: <path d="M7 20h11M5.5 14.5l7-7a2 2 0 012.8 0l2.2 2.2a2 2 0 010 2.8L12 18H8.5l-3-3a.7.7 0 010-.5z" />,
   alignJustify: <path d="M4 6h16M4 10h16M4 14h16M4 18h16" />,
   cursor: <path d="M9 4h2v16H9M7 4h6M7 20h6M15 8l4 4-4 4" />,
   home: <path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z" />,

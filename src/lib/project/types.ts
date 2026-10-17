@@ -172,6 +172,8 @@ export interface ImageElement extends ElementBase {
   corners?: [number, number, number, number];
   /** How the shadow looks once tuned in the Style sheet (M17); absent = the soft default. */
   shadowStyle?: ShadowStyle;
+  /** The photo before background removal / cut-out / eraser (M19): "Restore background" goes back to it. */
+  originalAssetId?: string;
   /** Template cell: dragging pans the photo inside instead of moving the frame. */
   slot: boolean;
   /** Manual colour adjustments (M4). */

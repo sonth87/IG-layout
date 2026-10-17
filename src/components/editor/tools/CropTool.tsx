@@ -9,8 +9,9 @@ import { useT } from "@/store/settings";
 import { useHtmlImage } from "../canvas/useHtmlImage";
 import { Slider } from "./controls";
 
-type RatioKey = "free" | "frame" | "original" | "1:1" | "4:5" | "3:4" | "16:9";
-const FIXED: Partial<Record<RatioKey, number>> = { "1:1": 1, "4:5": 4 / 5, "3:4": 3 / 4, "16:9": 16 / 9 };
+type RatioKey = "free" | "frame" | "original" | "1:1" | "2:3" | "3:4" | "4:3" | "4:5" | "9:16" | "16:9";
+/** Ratios of the Crop sheet (editor-v2/09 §6). */
+const FIXED: Partial<Record<RatioKey, number>> = { "1:1": 1, "2:3": 2 / 3, "3:4": 3 / 4, "4:3": 4 / 3, "4:5": 4 / 5, "9:16": 9 / 16, "16:9": 16 / 9 };
 const HANDLE_PX = 28;
 const MIN_CROP = 40;
 
@@ -216,7 +217,7 @@ export function CropTool({ elementId, onClose }: { elementId: string; onClose: (
     onClose();
   }
 
-  const ratios: RatioKey[] = ["free", "frame", "original", "1:1", "4:5", "3:4", "16:9"];
+  const ratios: RatioKey[] = ["free", "frame", "original", "1:1", "2:3", "3:4", "4:3", "4:5", "9:16", "16:9"];
   const pill = (active: boolean) =>
     `h-9 shrink-0 rounded-full px-3 text-[13px] ${active ? "bg-text font-bold text-bg" : "border border-border"}`;
   const toolButton = "flex h-14 flex-1 flex-col items-center justify-center gap-1 text-[11px]";
@@ -271,7 +272,15 @@ export function CropTool({ elementId, onClose }: { elementId: string; onClose: (
           <div className="flex gap-2 overflow-x-auto py-1.5">
             {ratios.map((r) => (
               <button key={r} type="button" aria-pressed={ratio === r} onClick={() => chooseRatio(r)} className={pill(ratio === r)}>
-                {r === "free" || r === "frame" || r === "original" ? t(`crop.${r}`) : r}
+                {r === "free" || r === "frame" || r === "original" ? (
+                  t(`crop.${r}`)
+                ) : (
+                  <span className="flex items-center gap-1.5">
+                    {/* A little rectangle in that shape. */}
+                    <span className="inline-block rounded-[2px] border-[1.5px] border-current" style={{ width: FIXED[r]! >= 1 ? 14 : 14 * FIXED[r]!, height: FIXED[r]! >= 1 ? 14 / FIXED[r]! : 14 }} />
+                    {r}
+                  </span>
+                )}
               </button>
             ))}
           </div>

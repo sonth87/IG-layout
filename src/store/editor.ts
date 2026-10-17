@@ -68,6 +68,8 @@ interface EditorState {
   replaceImage: (id: string, asset: ImageAsset) => void;
   /** Same picture, new pixels (background removed, M12): keeps the framing, scales the crop. */
   swapAsset: (id: string, asset: ImageAsset) => void;
+  /** Back to the photo as it was before its background was removed / cut / erased (M19). */
+  restoreOriginal: (id: string) => void;
   addElement: (el: CanvasElement) => void;
   /** Background music (M13.4): set (with its new asset) or remove. One undo step. */
   setMusic: (music: Music | null, asset?: ImageAsset) => void;
@@ -326,9 +328,19 @@ export const useEditor = create<EditorState>()((set, get) => {
         const old = get().assets[el.assetId];
         const k = old ? asset.width / old.width : 1;
         const crop = { x: el.crop.x * k, y: el.crop.y * k, width: el.crop.width * k, height: el.crop.height * k };
-        return updateEl(d, id, { assetId: asset.id, crop });
+        return updateEl(d, id, { assetId: asset.id, crop, originalAssetId: el.originalAssetId ?? el.assetId });
       });
     },
+    restoreOriginal: (id) =>
+      commit((d) => {
+        const el = d.elements.find((e) => e.id === id);
+        if (!isImage(el) || !el.originalAssetId) return d;
+        const old = el.assetId ? get().assets[el.assetId] : undefined;
+        const orig = get().assets[el.originalAssetId];
+        const k = old && orig ? orig.width / old.width : 1;
+        const crop = { x: el.crop.x * k, y: el.crop.y * k, width: el.crop.width * k, height: el.crop.height * k };
+        return updateEl(d, id, { assetId: el.originalAssetId, crop, originalAssetId: undefined });
+      }),
 
     setMusic: (music, asset) => {
       if (asset) storeAssets([asset]);

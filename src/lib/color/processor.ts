@@ -18,7 +18,7 @@ uniform sampler2D u_image;
 uniform vec2 u_size;
 uniform float u_exposure, u_brightness, u_contrast, u_highlights, u_shadows;
 uniform float u_saturation, u_vibrance, u_temperature, u_tint, u_hue;
-uniform float u_grain, u_fade, u_mono, u_split;
+uniform float u_grain, u_fade, u_mono, u_split, u_blur, u_sharpen;
 uniform vec3 u_monoTint, u_splitShadows, u_splitHighlights;
 
 float luma(vec3 c) { return dot(c, vec3(0.2126, 0.7152, 0.0722)); }
@@ -39,6 +39,21 @@ float rand(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.545
 void main() {
   vec4 src = texture2D(u_image, v_uv);
   vec3 c = src.rgb;
+
+  // Blur: 5 × 5 samples spread with the amount; sharpen: unsharp mask on the 4 neighbours (M19).
+  vec2 px = 1.0 / u_size;
+  if (u_blur > 0.0) {
+    float r = 1.0 + u_blur * min(u_size.x, u_size.y) * 0.006;
+    vec3 sum = vec3(0.0);
+    for (int i = -2; i <= 2; i++)
+      for (int j = -2; j <= 2; j++) sum += texture2D(u_image, v_uv + vec2(float(i), float(j)) * px * r).rgb;
+    c = mix(c, sum / 25.0, clamp(u_blur * 1.5, 0.0, 1.0));
+  }
+  if (u_sharpen > 0.0) {
+    vec3 n = texture2D(u_image, v_uv + vec2(px.x, 0.0)).rgb + texture2D(u_image, v_uv - vec2(px.x, 0.0)).rgb
+           + texture2D(u_image, v_uv + vec2(0.0, px.y)).rgb + texture2D(u_image, v_uv - vec2(0.0, px.y)).rgb;
+    c += (c - n * 0.25) * u_sharpen * 2.0;
+  }
 
   c *= pow(2.0, u_exposure);
   c += u_brightness * 0.2;
@@ -116,7 +131,7 @@ function init(): GL | null {
 
   const names = [
     "size", "exposure", "brightness", "contrast", "highlights", "shadows", "saturation", "vibrance",
-    "temperature", "tint", "hue", "grain", "fade", "mono", "split", "monoTint", "splitShadows", "splitHighlights",
+    "temperature", "tint", "hue", "grain", "fade", "mono", "split", "blur", "sharpen", "monoTint", "splitShadows", "splitHighlights",
   ];
   const uniforms = Object.fromEntries(names.map((n) => [n, gl.getUniformLocation(program, `u_${n}`)]));
   return { gl, canvas, uniforms, texture, maxSize: gl.getParameter(gl.MAX_TEXTURE_SIZE), uploaded: null };
@@ -173,7 +188,7 @@ function render(
     g.uploaded = { source: image, width, height };
   }
   gl.uniform2f(u.size, width, height);
-  for (const key of ["exposure", "brightness", "contrast", "highlights", "shadows", "saturation", "vibrance", "temperature", "tint", "hue", "grain", "fade", "mono", "split"] as const) {
+  for (const key of ["exposure", "brightness", "contrast", "highlights", "shadows", "saturation", "vibrance", "temperature", "tint", "hue", "grain", "fade", "mono", "split", "blur", "sharpen"] as const) {
     gl.uniform1f(u[key], p[key]);
   }
   gl.uniform3fv(u.monoTint, p.monoTint);
