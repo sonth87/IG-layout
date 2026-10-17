@@ -1,5 +1,6 @@
 "use client";
 
+import { DragSheet } from "../DragSheet";
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { newEmoji, newFramedPhoto, newIcon, newOverlay, newShape, newSticker } from "@/lib/elements/create";
@@ -98,18 +99,7 @@ export function ElementsSheet({ onClose }: { onClose: () => void }) {
   const tile = "flex h-[72px] flex-col items-center justify-center gap-1 rounded-xl bg-surface-2 text-[11px]";
 
   return (
-    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40 [&>section]:mx-auto [&>section]:w-full [&>section]:max-w-2xl" onClick={onClose}>
-      <section
-        aria-label={t("elements.title")}
-        onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[78dvh] flex-col rounded-t-[22px] bg-surface pb-[max(1rem,env(safe-area-inset-bottom))]"
-      >
-        <div className="flex items-center justify-between px-5 pt-3">
-          <h2 className="text-[17px] font-bold">{t("elements.title")}</h2>
-          <button type="button" aria-label={t("common.close")} onClick={onClose} className="flex h-11 w-11 items-center justify-center">
-            <Icon name="close" />
-          </button>
-        </div>
+    <DragSheet title={t("elements.title")} onClose={onClose}>
         <label className="mx-4 flex h-11 items-center gap-2.5 rounded-xl bg-surface-2 px-3 text-muted">
           <Icon name="search" size={18} />
           <span className="sr-only">{t("elements.search")}</span>
@@ -235,7 +225,6 @@ export function ElementsSheet({ onClose }: { onClose: () => void }) {
             </section>
           )}
         </div>
-      </section>
-    </div>
+    </DragSheet>
   );
 }

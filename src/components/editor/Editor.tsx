@@ -227,7 +227,17 @@ export function Editor({ onClose }: { onClose: () => void }) {
       : Math.min(1, Math.min(areaSize.width * MIN_SLIDE_FRACTION, MIN_SLIDE_PX) / (slide.width * baseScale));
   /** Every slide in view (plus the + after them), never below the smallest zoom. */
   const fitFor = (width: number) =>
-    !ready || isGrid ? 1 : Math.max(minZoom, Math.min(1, (areaSize.width - FIT_MARGIN * 2 - PLUS_SPACE) / (width * baseScale)));
+    !ready || isGrid
+      ? 1
+      : Math.max(
+          minZoom,
+          Math.min(
+            1,
+            (areaSize.width - FIT_MARGIN * 2 - PLUS_SPACE) / (width * baseScale),
+            // A sheet below may leave less height: the slides still fit above it (editor-v2/12 §1.2).
+            (areaSize.height - STAGE_PADDING * 2 - LABEL_SPACE - CONTROLS_SPACE) / (slide.height * baseScale),
+          ),
+        );
   const fitZoom = fitFor(size.width);
   const zoom = userZoom ?? easing ?? fitZoom;
   const viewScale = baseScale * zoom;
@@ -235,7 +245,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const originFor = (s: number) => ({
     // Zoomed out narrower than the screen: centred (S5).
     x: Math.max(isGrid ? STAGE_PADDING : FIT_MARGIN, Math.round((areaSize.width - size.width * s - (isGrid ? 0 : PLUS_SPACE)) / 2)),
-    y: Math.max(STAGE_PADDING + LABEL_SPACE, Math.round((base.height - size.height * s - (isGrid ? 0 : CONTROLS_SPACE) + LABEL_SPACE) / 2)),
+    // Centred in the space left above whatever bar or sheet is open.
+    y: Math.max(STAGE_PADDING + LABEL_SPACE, Math.round((areaSize.height - size.height * s - (isGrid ? 0 : CONTROLS_SPACE) + LABEL_SPACE) / 2)),
   });
   const origin = originFor(viewScale);
   const selected = doc.elements.find((el) => el.id === selectedId);
@@ -738,7 +749,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
         </div>
       )}
 
-      {bottom}
+      {/* A content sheet (layers, elements, new slide) takes the toolbar's place and pushes the canvas up. */}
+      {!(tool === "layers" || tool === "elements" || tool === "newSlide") && bottom}
 
       {tool === "layout" && (
         <LayoutPicker

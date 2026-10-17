@@ -64,6 +64,8 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Kiểu** (`tools/ElementTools.tsx → StyleTool`): `ImageElement.corners?: [tl, tr, br, bl]` thay `cornerRadius` khi bật "Bo từng góc" (`traceMask` nhận một hoặc bốn bán kính); `shadowStyle?: { opacity, angle, distance, blur, color }` (px xuất) — không có thì dùng bóng mặc định cũ (`defaultShadow`). **Bảng màu** (`controls.tsx → Swatches`, dùng chung mọi nơi): `<input type=color>` + ô HEX, 12 màu dùng gần đây lưu `localStorage["ig-layout:colors"]`, 40 màu mặc định xếp 2 hàng trượt ngang.
 
+**Bottom sheet** (`DragSheet.tsx`, thay mục 8): nằm trong luồng trang, dưới vùng canvas, thay chỗ thanh công cụ (không còn lớp phủ tối); chiều cao `frac · 100dvh` (≤ `100dvh − 64px`), kéo bằng tay cầm (pointer events), thả: < 0,2 đóng, < 0,5 → 0,5, còn lại theo vận tốc (> 0,8 màn hình / s) hoặc mốc gần nhất. Vùng canvas co lại theo → `fitFor` có thêm giới hạn theo **chiều cao** vùng canvas và gốc toạ độ căn giữa trong chiều cao hiện tại, nên mọi sheet (cả sheet công cụ) đều đẩy canvas lên và thu cho vừa. Quy tắc cũ F-03 / UX-08 "canvas không đổi khi mở công cụ" được thay bằng quy tắc này (product/12 §1.2).
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:

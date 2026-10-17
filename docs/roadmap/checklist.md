@@ -328,7 +328,7 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Sửa (2026-10-17): khi đang chọn một phần tử / khối thì **ẩn ‖ ⋯ dưới các slide** (nút + vẫn hiện, như IMG_3966)
 - [ ] Chủ dự án thử trên iPhone / iPad: chạm + → Lấp đầy khung → chọn nhiều ảnh; nút Ảnh thêm ảnh tự do
 
-### M17 — Thanh công cụ và các sheet — đang làm
+### M17 — Thanh công cụ và các sheet — xong phần code 2026-10-17
 Đặc tả: [07](../product/editor-v2/07-khung-chon-va-thanh-cong-cu.md) mục 5, [08](../product/editor-v2/08-cac-sheet-chinh-sua.md), [12](../product/editor-v2/12-sheet-menu-xuat-lop.md) mục 1; cách cài: [dev/editor-v2](../dev/editor-v2.md) mục 0d.
 - [x] Khi đang chọn: ẩn ‖ ⋯ dưới các slide, nút + vẫn hiện (chủ dự án, như IMG_3966)
 - [x] **Thanh công cụ theo loại** (trượt ngang, ✕ bỏ chọn): Khối — Bố cục · Điều chỉnh · Vị trí · Khoá · Nhân bản · Xoá; Ảnh — Thay · Vị trí · Cắt · Kiểu · Chỉnh · Bộ lọc · Xoá nền · Chuyển động · (Đổi chỗ) · (Mặt nạ) · Khoá · Nhân bản · Làm trống · Xoá; Video — Thay · Cắt đoạn · Âm thanh · Bộ lọc · Chỉnh · Chuyển động · Vị trí · Cắt · Kiểu …; Ô trống — Thêm ảnh · (Đổi chỗ) · Kiểu · Xoá; Chữ — Sửa · Kiểu chữ · Vị trí · Chuyển động · Khoá · Nhân bản · Xoá; Hình / sticker — Màu · Vị trí · Chuyển động · Khoá · Nhân bản · Xoá. Ảnh trong ô không có Vị trí / Khoá / Nhân bản riêng (đi theo khối)
@@ -337,5 +337,6 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Điều chỉnh của khối**: Khe, Lề (khối có kiểu chia), Bo góc ô, Màu nền khối
 - [x] **Sheet Kiểu** của ảnh: khung, độ mờ, bo góc + **Bo từng góc** (4 góc riêng), **Bóng ›** (bật / tắt, độ đậm, góc, khoảng cách, độ nhoè, màu), **Viền ›** (độ dày, màu), hoà trộn
 - [x] **Bảng màu dùng chung** ở mọi chỗ chọn màu: Tuỳ chỉnh (bánh xe màu + ô HEX), màu dùng gần đây (lưu trên máy), 40 màu mặc định (xám, rực, đậm, pastel, tông đất)
-- [ ] Bottom sheet kéo 50 – 95 % và đẩy canvas lên
-- [x] Kiểm tra `e2e/m17.mjs` (phần đã làm); sửa test m13b chọn nhầm ảnh theo id ngẫu nhiên
+- [x] **Bottom sheet kéo được** (Lớp, Thành phần, Slide mới): mở ở 50 %, kéo tay cầm lên tới 95 %; thả dưới 20 % → đóng, 20 – 50 % → bật về 50 %, trên 50 % → bám 50 / 95 % theo vị trí và tốc độ vuốt; sheet nằm dưới canvas nên **đẩy canvas lên**, canvas tự thu cho vừa phần còn lại (cả với sheet công cụ như Kiểu, Chỉnh); trên iPad sheet rộng tối đa 672 px giữa nền canvas
+- [x] Kiểm tra `e2e/m17.mjs` (tiêu chí 08 §7 + thanh công cụ + bottom sheet); m8 / m9 đổi theo quy tắc mới "sheet đẩy canvas lên" (thay F-03 / UX-08); sửa test m13b chọn nhầm ảnh theo id ngẫu nhiên
+- [ ] Chủ dự án thử trên iPhone / iPad: thanh công cụ, Vị trí, Bố cục / Điều chỉnh khối, Kiểu (bo từng góc, bóng), bảng màu, kéo bottom sheet
