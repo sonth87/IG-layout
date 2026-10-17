@@ -82,8 +82,6 @@ await shot(page, "6-editor-filled");
 console.log("Tap an empty '+' cell → photo picker → fills that cell");
 const empty = filled[3];
 await page.evaluate(() => window.__igEditor.getState().select(null));
-await page.getByRole("button", { name: `Go to slide ${Math.floor(empty.x / 1080) + 1}` }).click();
-await page.waitForTimeout(700);
 const fr = await page.locator("[data-stage-frame]").boundingBox();
 const kk = fr.width / (st.doc.slideCount * 1080);
 await page.evaluate(() => window.__igEditor.getState().select(null));

@@ -67,7 +67,12 @@ check(st.doc.elements[0].locked === true, "panorama background is locked");
 const area = await page.locator("[data-stage-frame]").boundingBox();
 await swipe(area.x + 300, area.y + area.height - 30, area.x + 40);
 st = await S();
-check((await scrollLeft()) > 100 && st.doc.elements[0].x === 0, `swipe scrolled the slides (${await scrollLeft()} px), background did not move`);
+// Every slide is in view now (editor-v2/05 §2): just a little left to scroll.
+const fits = await page.evaluate(() => {
+  const a = document.querySelector(".bg-canvas");
+  return a.scrollWidth <= a.clientWidth;
+});
+check((fits || (await scrollLeft()) > 0) && st.doc.elements[0].x === 0, `swipe scrolls the slides if they overflow (${await scrollLeft()} px), background did not move`);
 await page.evaluate(() => (document.querySelector(".bg-canvas").scrollLeft = 0));
 await page.waitForTimeout(300);
 
@@ -228,16 +233,16 @@ await page.getByRole("button", { name: "Fit" }).click();
 await page.waitForTimeout(300);
 check(Math.abs((await page.locator("[data-stage-frame]").boundingBox()).width - w0) < 1, "the % pill fits the canvas back");
 
-console.log("UX-04 slide thumbnails");
+console.log("UX-04 → editor-v2/05: + after the last slide, ‖ ⋯ under every slide");
+check((await page.getByRole("button", { name: /^Slide \d options/ }).count()) === 1, "one slide: only ⋯ under it");
+check((await page.getByRole("button", { name: /^Move slide/ }).count()) === 0, "one slide: no ‖");
 await page.getByRole("button", { name: "Add slide" }).click();
+await page.getByRole("region", { name: "New slide" }).getByRole("button", { name: "Blank" }).click();
 st = await S();
-check(st.doc.slideCount === 2, "+ adds a slide");
+check(st.doc.slideCount === 2, "+ → New slide → Blank adds a slide");
 await page.waitForTimeout(600);
-check((await page.getByRole("button", { name: /^Go to slide/ }).count()) === 2, "one thumbnail per slide");
-await page.getByRole("button", { name: "Go to slide 2" }).click();
-await page.waitForTimeout(600);
-check((await S()).doc && (await page.evaluate(() => window.__igEditor.getState().currentSlide)) === 1, "tapping a thumbnail goes to that slide");
-await shot(page, "4-navigator");
+check((await page.getByRole("button", { name: /^Move slide/ }).count()) === 2, "two slides: ‖ under each");
+await shot(page, "4-slides");
 
 console.log("UX-11 saved indicator");
 await page.waitForTimeout(1200);

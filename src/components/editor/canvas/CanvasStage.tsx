@@ -243,9 +243,11 @@ interface Props {
   showSafeZone?: boolean;
   /** Two-finger pinch on empty space: zoom the view (k = distance ratio since start). */
   onPinchZoom?: (k: number, phase: "start" | "move" | "end") => void;
+  /** Double tap where there is no element: back to "see every slide" (editor-v2/05 §2.4). */
+  onFit?: () => void;
 }
 
-export default function CanvasStage({ viewScale, viewport, scrollRef, origin, contentLayerRef, showSafeZone = true, onPinchZoom }: Props) {
+export default function CanvasStage({ viewScale, viewport, scrollRef, origin, contentLayerRef, showSafeZone = true, onPinchZoom, onFit }: Props) {
   const doc = useViewDoc();
   const selectedId = useEditor((s) => s.selectedId);
   const select = useEditor((s) => s.select);
@@ -263,6 +265,9 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   const shownGuides = useRef("");
   const targets = useRef<{ xs: number[]; ys: number[] } | null>(null);
   const pinch = useRef<Pinch | null>(null);
+  const lastEmptyTap = useRef(0);
+  /** Latest pinch handlers, for the native listeners below. */
+  const touchRef = useRef<{ move: (e: TouchEvent) => void; end: (e: TouchEvent) => void } | null>(null);
   const gesture = useRef<Gesture | null>(null);
   /** Cells following a layout block being transformed with the handles. */
   const blockFollow = useRef<Follow | null>(null);
@@ -297,13 +302,25 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     const onMove = (e: TouchEvent) => {
       if ((gesture || Konva.isDragging() || e.touches.length >= 2) && e.cancelable) e.preventDefault();
     };
+    // Pinch: listened to natively on the whole scrolling area, so neither a finger on a
+    // selection handle (which stops Konva's events) nor one on the slide buttons under
+    // the canvas keeps it from starting.
+    const area = scrollRef.current ?? box;
+    const pinchMove = (e: TouchEvent) => touchRef.current?.move(e);
+    const pinchEnd = (e: TouchEvent) => touchRef.current?.end(e);
     box.addEventListener("touchstart", onStart, { passive: false });
     box.addEventListener("touchmove", onMove, { passive: false });
+    area.addEventListener("touchmove", pinchMove, { passive: false });
+    area.addEventListener("touchend", pinchEnd);
+    area.addEventListener("touchcancel", pinchEnd);
     return () => {
       box.removeEventListener("touchstart", onStart);
       box.removeEventListener("touchmove", onMove);
+      area.removeEventListener("touchmove", pinchMove);
+      area.removeEventListener("touchend", pinchEnd);
+      area.removeEventListener("touchcancel", pinchEnd);
     };
-  }, [hasDoc]);
+  }, [hasDoc, scrollRef]);
 
   useLayoutEffect(() => {
     const stage = stageRef.current;
@@ -352,6 +369,13 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     if (layer) setCanvas({ layer, viewScale });
     return () => setCanvas(null);
   }, [contentLayerRef, viewScale, setCanvas]);
+
+  // The native pinch listeners call this render's handlers. They are function
+  // declarations further down (hoisted), only called after this render has finished.
+  useLayoutEffect(() => {
+    // eslint-disable-next-line react-hooks/immutability
+    touchRef.current = { move: onTouchMove, end: onTouchEnd };
+  });
 
   if (!doc) return null;
   const { width, height } = canvasSize(doc);
@@ -403,6 +427,9 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
    */
   function startPinch(stage: Konva.Stage, info: ReturnType<typeof touchInfo>) {
     cancelGesture();
+    // A finger may have landed on a handle of a small element: the pinch takes over.
+    const tr = stage.findOne<Konva.Transformer>("Transformer");
+    if (tr?.isTransforming()) tr.stopTransform();
     // M14 (editor-v2/06): fingers act on the selected element; nothing selected → the canvas.
     const sel = selected;
     if (!sel) {
@@ -518,7 +545,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     const g = gesture.current;
     if (!g || e.evt.pointerId !== g.pointerId) return;
     gesture.current = null;
-    if (!g.moved) return onTap(g.target);
+    if (!g.moved) return onTap(g.target, e.evt.timeStamp);
     if (g.mode === "move" || g.mode === "pan") e.target.getStage()?.fire("gestureend");
     if (g.mode === "move" && g.node && g.el) {
       const p = g.node.position();
@@ -533,7 +560,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   }
 
   /** A tap (editor-v2/06 rules 2, 3, 5, 6). */
-  function onTap(target: Konva.Node) {
+  function onTap(target: Konva.Node, time: number) {
     const st = useEditor.getState();
     const d = st.draft ?? st.doc;
     if (!d) return;
@@ -547,6 +574,10 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       const inner = innerFrame(hit);
       const r = Math.max((Math.min(inner.width, inner.height) * 0.12), 22 / viewScale);
       onPlus = !!p && Math.hypot(p.x - (hit.x + hit.width / 2), p.y - (hit.y + hit.height / 2)) <= r;
+    }
+    if (!hitId) {
+      if (time - lastEmptyTap.current < 320) onFit?.();
+      lastEmptyTap.current = time;
     }
     const res = tapResult(d, st.selectedId, hitId, onPlus);
     select(res.select);
@@ -673,12 +704,12 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     drawLive();
   }
 
-  function onTouchMove(e: Konva.KonvaEventObject<TouchEvent>) {
+  function onTouchMove(evt: TouchEvent) {
     if (drawing) return;
-    const stage = e.target.getStage();
-    const touches = e.evt.touches;
+    const stage = stageRef.current;
+    const touches = evt.touches;
     if (!stage || touches.length !== 2) return;
-    e.evt.preventDefault();
+    if (evt.cancelable) evt.preventDefault();
     const info = touchInfo(stage, touches);
     if (!pinch.current) return startPinch(stage, info);
     const p = pinch.current;
@@ -724,9 +755,9 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     badge.getLayer()?.batchDraw();
   }
 
-  function onTouchEnd(e: Konva.KonvaEventObject<TouchEvent>) {
+  function onTouchEnd(evt: TouchEvent) {
     const p = pinch.current;
-    if (!p || e.evt.touches.length >= 2) return;
+    if (!p || evt.touches.length >= 2) return;
     pinch.current = null;
     showAngle(null);
     if (p.kind === "zoom") return onPinchZoom?.(1, "end");
@@ -761,8 +792,6 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       height={viewport.height}
       scaleX={viewScale}
       scaleY={viewScale}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}

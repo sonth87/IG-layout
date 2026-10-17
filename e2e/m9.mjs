@@ -155,19 +155,22 @@ check(mb.y >= area2.y && mb.y + mb.height <= area2.y + area2.height && mb.x >= 0
 await page.getByRole("button", { name: "Done" }).click();
 check(!(await page.getByRole("toolbar", { name: "Quick actions" }).isVisible()), "menu goes away with the selection");
 
-console.log("S5 zoom out to see the whole strip");
+console.log("S5 → editor-v2/05 §2.3: below the smallest zoom the canvas springs back");
 const fw0 = (await frame()).width;
 const fb2 = await frame();
 const zy2 = Math.min(fb2.y + fb2.height + 14, 600);
 await touch("touchStart", [{ x: 100, y: zy2 }, { x: 290, y: zy2 }]);
-for (let i = 1; i <= 10; i++) await touch("touchMove", [{ x: 100 + i * 8, y: zy2 }, { x: 290 - i * 8, y: zy2 }]);
+let squeezed = 0;
+for (let i = 1; i <= 10; i++) {
+  await touch("touchMove", [{ x: 100 + i * 8, y: zy2 }, { x: 290 - i * 8, y: zy2 }]);
+  if (i === 10) squeezed = (await frame()).width;
+}
 await touch("touchEnd", []);
-await page.waitForTimeout(400);
+await page.waitForTimeout(500);
 const fz = await frame();
-check(fz.width < fw0 && fz.x >= 0 && fz.x + fz.width <= 390, `pinch out shows the whole strip on screen (${Math.round(fw0)} → ${Math.round(fz.width)} px wide)`);
+check(squeezed < fw0, `while pinching it gives a little (${Math.round(fw0)} → ${Math.round(squeezed)} px)`);
+check(Math.abs(fz.width - fw0) < 1, `on release it springs back to the smallest zoom (${Math.round(fz.width)} px)`);
 await page.screenshot({ path: "e2e/.out/m9-overview.png" });
-await page.getByRole("button", { name: "Fit" }).click();
-await page.waitForTimeout(300);
 
 console.log("S8 layers: drag to reorder, hide");
 await page.evaluate(() => {

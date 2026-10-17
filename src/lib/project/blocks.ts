@@ -38,7 +38,7 @@ export function cellFrames(block: Pick<LayoutElement, "x" | "y" | "width" | "hei
       const h = c.h * block.height;
       // Cell centre relative to the block centre, turned with the block.
       const o = rot((c.x + c.w / 2 - 0.5) * block.width, (c.y + c.h / 2 - 0.5) * block.height, block.rotation);
-      return [c.id, { x: cx + o.x - w / 2, y: cy + o.y - h / 2, width: w, height: h, rotation: block.rotation }];
+      return [c.id, { x: cx + o.x - w / 2, y: cy + o.y - h / 2, width: w, height: h, rotation: block.rotation + (c.rotation ?? 0) }];
     }),
   );
 }
@@ -112,7 +112,14 @@ export function groupSlots(doc: ProjectDoc): ProjectDoc {
       height: r.height,
       rotation: 0,
       opacity: 1,
-      cells: cells.map((c) => ({ id: c.id, x: (c.x - r.x) / r.width, y: (c.y - r.y) / r.height, w: c.width / r.width, h: c.height / r.height })),
+      cells: cells.map((c) => ({
+        id: c.id,
+        x: (c.x - r.x) / r.width,
+        y: (c.y - r.y) / r.height,
+        w: c.width / r.width,
+        h: c.height / r.height,
+        ...(c.rotation ? { rotation: c.rotation } : {}),
+      })),
       ...(cells.some((c) => c.fromLayout) && { fromLayout: true }),
       ...(cells.every((c) => c.locked) && { locked: true }),
     };

@@ -6,8 +6,9 @@ import { migrateDoc } from "@/lib/project/migrate";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { placeImages } from "@/lib/project/placement";
 import { canvasSize, GRID_COLS } from "@/lib/project/layout";
-import { deleteSlide, insertSlide, moveSlide, setGridGap, setGridRows } from "@/lib/project/slides";
-import { applyTemplate, templateSlides } from "@/lib/templates/apply";
+import { deleteSlide, duplicateSlide, insertSlide, moveSlide, moveSlideTo, setGridGap, setGridRows } from "@/lib/project/slides";
+import { addLayoutSlide, applyTemplate, templateSlides } from "@/lib/templates/apply";
+import { slideLayoutById } from "@/lib/templates/slideLayouts";
 import { DEFAULT_OPTIONS, type Template, type TemplateOptions } from "@/lib/templates/types";
 import {
   type AspectRatio,
@@ -98,6 +99,11 @@ interface EditorState {
   setGridGap: (on: boolean) => void;
   deleteSlide: (index: number) => void;
   moveSlide: (index: number, direction: -1 | 1) => void;
+  /** New slide at `at` (blank, or a layout block with empty cells — editor-v2/05 §5). */
+  addSlide: (at: number, layoutId: string | null) => void;
+  duplicateSlide: (index: number) => void;
+  /** Drag reorder (editor-v2/05 §4): one undo step. */
+  moveSlideTo: (from: number, to: number) => void;
 
   beginDraft: () => void;
   updateDraft: (update: (doc: ProjectDoc) => ProjectDoc) => void;
@@ -438,6 +444,16 @@ export const useEditor = create<EditorState>()((set, get) => {
       set({ selectedId: null });
     },
     moveSlide: (index, direction) => commit((d) => moveSlide(d, index, direction)),
+    addSlide: (at, layoutId) => {
+      const layout = layoutId ? (slideLayoutById(layoutId) ?? null) : null;
+      commit((d) => addLayoutSlide(d, at, layout));
+      set({ selectedId: null });
+    },
+    duplicateSlide: (index) => {
+      commit((d) => duplicateSlide(d, index));
+      set({ selectedId: null });
+    },
+    moveSlideTo: (from, to) => commit((d) => moveSlideTo(d, from, to)),
 
     beginDraft: () => set((s) => ({ draft: s.doc })),
     updateDraft: (update) => set((s) => (s.draft ? { draft: update(s.draft) } : {})),
