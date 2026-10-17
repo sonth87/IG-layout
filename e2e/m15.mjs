@@ -82,6 +82,11 @@ st = await S();
 check(st.doc.slideCount === 3, "Blank → slide 3");
 await page.waitForTimeout(500);
 check((await reorder.count()) === 3 && (await menus.count()) === 3, "three slides: ‖ and ⋯ under each");
+await store("select", block.id);
+await page.waitForTimeout(200);
+check((await reorder.count()) === 0 && (await menus.count()) === 0 && (await page.getByRole("button", { name: "Add slide" }).isVisible()), "something selected: ‖ ⋯ hidden, + stays");
+await store("select", null);
+await page.waitForTimeout(200);
 
 console.log("2. Every slide in view (§2.1, 2.2)");
 check(inView(await frame()), "3 slides fit the screen");

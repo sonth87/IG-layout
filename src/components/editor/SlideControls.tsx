@@ -36,6 +36,8 @@ export function SlideControls(props: {
   const { doc, origin, viewScale } = props;
   const t = useT();
   const [drag, setDrag] = useState<Drag | null>(null);
+  // With something selected, the slide buttons step aside (only + stays, like IMG_3966).
+  const selecting = useEditor((s) => s.selectedId !== null);
   const [menu, setMenu] = useState<number | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<number | null>(null);
   const hold = useRef<{ timer: number; pointerId: number; x: number; y: number; index: number } | null>(null);
@@ -147,7 +149,7 @@ export function SlideControls(props: {
         />
       )}
       {Array.from({ length: doc.slideCount }, (_, i) => {
-        if (drag && drag.from !== i) return null;
+        if ((drag && drag.from !== i) || (selecting && !drag)) return null;
         const p = below(i);
         const dragging = drag?.from === i;
         return (

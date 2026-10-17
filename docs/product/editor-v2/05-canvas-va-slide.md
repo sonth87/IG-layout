@@ -18,7 +18,7 @@ Màn editor có nền tối toàn màn (ở chế độ tối) hoặc xám rất
 
 **Góc dưới bên trái** là **thanh công cụ mặc định**: một viên thuốc chứa năm icon không có chữ — **Ảnh**, **Chữ**, **Sticker**, **Hình** và **+** (mở toàn bộ danh sách những thứ có thể thêm). **Góc dưới bên phải** là một nút tròn **Lớp** tách riêng [QS].
 
-Khi người dùng **chọn một phần tử**, thanh công cụ mặc định được **thay thế** bằng thanh công cụ của phần tử đó (xem [07](07-khung-chon-va-thanh-cong-cu.md)) và nút Lớp ẩn đi; các nút ‖ ⋯ dưới slide và nút + vẫn hiện. Khi một bottom sheet mở ra, toàn bộ canvas bị **đẩy lên** phía trên sheet (xem [12](12-sheet-menu-xuat-lop.md)).
+Khi người dùng **chọn một phần tử**, thanh công cụ mặc định được **thay thế** bằng thanh công cụ của phần tử đó (xem [07](07-khung-chon-va-thanh-cong-cu.md)) và nút Lớp ẩn đi; **các nút ‖ ⋯ dưới slide cũng ẩn**, chỉ nút + vẫn hiện (chủ dự án, 2026-10-17; đúng như IMG_3966). Khi một bottom sheet mở ra, toàn bộ canvas bị **đẩy lên** phía trên sheet (xem [12](12-sheet-menu-xuat-lop.md)).
 
 ## 2. Zoom canvas [CDA][QS]
 
