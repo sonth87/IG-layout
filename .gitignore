@@ -47,3 +47,7 @@ public/emoji/
 
 # Reference screenshots / videos of other apps (not ours: never committed)
 /refs/
+
+# M20 asset sources: originals are re-downloadable from each item's source.url
+/assets/**/src/
+/assets/**/review.html

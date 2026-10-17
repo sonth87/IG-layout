@@ -406,18 +406,25 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Cạnh quá ngắn trên màn hình (thu nhỏ slide, phần tử nhỏ) thì **ẩn tay nắm cạnh**, giữ tay nắm góc
 - [x] **Mỗi vùng cuộn chỉ một chiều**: dải công cụ chỉ cuộn ngang, sheet / panel chỉ cuộn dọc (sheet Nền không còn cuộn ngang; thanh công cụ chữ không còn cuộn dọc)
 
-### M20 — Mở rộng thư viện (D-104) — đang bàn phạm vi
-- [x] Chủ dự án trả lời Q-L1…Q-L9 và Q-E9 (đợt 1, 2026-10-17)
-- [x] Trả lời Q-L10…Q-L13 (D-106 … D-108)
-- [ ] **(1) Nền tảng:**
-  - [ ] danh mục tài sản + hồ sơ giấy phép (`assets/`, `public/packs/`), tải theo nhóm, lưu offline
-  - [ ] khung có lớp trang trí + nhiều cửa sổ
-  - [ ] nút Loại / Bộ, màn Bộ sưu tập
-  - [ ] màn chọn phông mới (chữ của phần tử / câu ngẫu nhiên, lọc ngôn ngữ / kiểu)
-  - [ ] màn Cảm ơn sinh tự động
-  - [ ] màn Giới thiệu (chờ nội dung của chủ dự án)
-- [ ] **(2) Đợt nội dung 1** (~300 mục)
-- [ ] **(3) Các đợt sau** (> 1.000 mục)
+### M20 — Mở rộng thư viện (D-104, D-106 … D-110) — đang làm
+Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](../architecture/asset-catalog.md) · Việc của Gemini: [gemini-tasks.md](../ai/gemini-tasks.md)
+- [x] Chủ dự án trả lời Q-L1…Q-L13, Q-E9 (2026-10-17)
+- [x] **C1** Định dạng danh mục (`src/lib/catalog/`), `scripts/assets/validate.mjs`, `build-catalog.mjs`, thư mục `assets/` + `public/packs/`
+- [ ] **C2** App đọc danh mục: tải gói khi cần, thêm sticker / khung / chất liệu / lớp phủ từ gói (lưu như ảnh của dự án), offline
+- [ ] **C3** Nút Loại / Bộ trong sheet thư viện; màn Bộ sưu tập; bộ theo mùa lên đầu; tìm kiếm EN / VI
+- [ ] **C4** Khung có lớp trang trí + nhiều cửa sổ
+- [ ] **C5** Màn chọn phông mới (chữ của phần tử / câu ngẫu nhiên, tên nhỏ ở dưới, lọc ngôn ngữ / kiểu), tải phông từ danh mục
+- [ ] **C6** Màn Cảm ơn (tự động) + màn Giới thiệu (chờ nội dung của chủ dự án)
+- [ ] **C7** Bộ sinh khung tự nhiên: giấy xé, phim, polaroid / khung tranh (D-107) + trang duyệt
+- [ ] **C8** Ghép từng đợt của Gemini, e2e, merge, deploy
+- [ ] **G6** Câu xem trước phông, chữ mẫu widget (Gemini)
+- [ ] **G1** Script xử lý ảnh + trang duyệt (Gemini)
+- [ ] **G5** ~150 phông (Gemini)
+- [ ] **G2** ~200 sticker (Gemini)
+- [ ] **G3** ~40 chất liệu + ~20 lớp phủ (Gemini)
+- [ ] **G4** ~40 khung + mép giấy xé thật (Gemini)
+- [ ] **G7** Nghiên cứu M21 (Gemini)
+- [ ] Đủ điều kiện xong ở [m20-plan.md](m20-plan.md) (≥ 1.000 mục…)
 
 ### M21 — Công cụ sáng tạo (D-105)
 - [ ] Bàn chi tiết: nhóm filter, danh sách hiệu ứng tĩnh, bút vẽ / viết tay
