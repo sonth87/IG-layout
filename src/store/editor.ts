@@ -20,6 +20,7 @@ import {
   newId,
 } from "@/lib/project/types";
 import { useSettings } from "./settings";
+import { blockIds, copyUnit, isLayout, moveUnit, syncLayout, units } from "@/lib/project/blocks";
 import { createProjectRecord, loadProject, requestPersistence, saveAssets } from "@/lib/storage/projects";
 
 // History follows the "confirm then record" model (D-12, D-17): only `commit`
@@ -144,6 +145,12 @@ export function updateEl(doc: ProjectDoc, id: string, patch: Partial<CanvasEleme
 
 export const useEditor = create<EditorState>()((set, get) => {
   /** Records the current doc as one history step and replaces it. */
+  /** After a change to `id`: if it is a layout block, its cells follow (M14). */
+  function synced(d: ProjectDoc, id: string) {
+    const el = d.elements.find((e) => e.id === id);
+    return isLayout(el) ? syncLayout(d, id, (a) => get().assets[a]) : d;
+  }
+
   function commit(update: (doc: ProjectDoc) => ProjectDoc) {
     const { doc, past } = get();
     if (!doc) return;
@@ -341,35 +348,43 @@ export const useEditor = create<EditorState>()((set, get) => {
         draft: s.draft ? updateEl(s.draft, id, patch) : null,
       })),
 
-    updateElement: (id, patch) => commit((d) => updateEl(d, id, patch)),
+    updateElement: (id, patch) => commit((d) => synced(updateEl(d, id, patch), id)),
 
     duplicateElement: (id) => {
-      const copyId = newId();
+      let copyId = newId();
       commit((d) => {
-        const i = d.elements.findIndex((el) => el.id === id);
-        if (i < 0) return d;
-        const copy = { ...d.elements[i], id: copyId, x: d.elements[i].x + 40, y: d.elements[i].y + 40 };
-        const elements = [...d.elements];
-        elements.splice(i + 1, 0, copy);
-        return { ...d, elements };
+        const el = d.elements.find((e) => e.id === id);
+        if (!el) return d;
+        // A photo in a cell is copied out as a free photo, above its block (M14).
+        if (el.parentId) {
+          const copy = { ...el, id: copyId, x: el.x + 40, y: el.y + 40, slot: false } as CanvasElement;
+          delete copy.parentId;
+          const list = units(d);
+          const at = list.findIndex((u) => u[0].id === el.parentId);
+          list.splice(at + 1, 0, [copy]);
+          return { ...d, elements: list.flat() };
+        }
+        const r = copyUnit(d, id, 40);
+        if (!r) return d;
+        copyId = r.copyId;
+        return r.doc;
       });
       set({ selectedId: copyId });
     },
 
     removeElement: (id) => {
-      commit((d) => ({ ...d, elements: d.elements.filter((el) => el.id !== id) }));
-      if (get().selectedId === id) set({ selectedId: null });
+      commit((d) => {
+        const el = d.elements.find((e) => e.id === id);
+        // A photo in a cell: the cell stays, empty (M14).
+        if (el?.parentId && isImage(el)) return updateEl(d, id, { assetId: null });
+        const gone = new Set(blockIds(d, id));
+        return { ...d, elements: d.elements.filter((e) => !gone.has(e.id)) };
+      });
+      const el = get().doc?.elements.find((e) => e.id === id);
+      if (get().selectedId === id && !el) set({ selectedId: null });
     },
 
-    moveLayer: (id, direction) =>
-      commit((d) => {
-        const i = d.elements.findIndex((el) => el.id === id);
-        const j = direction === "up" ? i + 1 : i - 1;
-        if (i < 0 || j < 0 || j >= d.elements.length) return d;
-        const elements = [...d.elements];
-        [elements[i], elements[j]] = [elements[j], elements[i]];
-        return { ...d, elements };
-      }),
+    moveLayer: (id, direction) => commit((d) => moveUnit(d, id, (from) => from + (direction === "up" ? 1 : -1))),
 
     startSwap: (id) => set({ swapFrom: id }),
 
@@ -381,7 +396,7 @@ export const useEditor = create<EditorState>()((set, get) => {
         // moved back inside the canvas if the layout has fewer slides.
         const size = canvasSize(next);
         const kept = d.elements
-          .filter((e) => e.type !== "image" && !e.fromLayout)
+          .filter((e) => e.type !== "image" && e.type !== "layout" && !e.fromLayout)
           .map((e) => ({
             ...e,
             x: Math.min(e.x, size.width - e.width / 2 - Math.min(e.width / 2, 40)),
@@ -392,13 +407,7 @@ export const useEditor = create<EditorState>()((set, get) => {
       set({ selectedId: null, swapFrom: null });
     },
 
-    moveLayerTo: (id, where) =>
-      commit((d) => {
-        const el = d.elements.find((e) => e.id === id);
-        if (!el) return d;
-        const rest = d.elements.filter((e) => e.id !== id);
-        return { ...d, elements: where === "front" ? [...rest, el] : [el, ...rest] };
-      }),
+    moveLayerTo: (id, where) => commit((d) => moveUnit(d, id, (_from, count) => (where === "front" ? count - 1 : 0))),
 
     toggleLock: (id) =>
       commit((d) => {
@@ -409,21 +418,12 @@ export const useEditor = create<EditorState>()((set, get) => {
     toggleHidden: (id) => {
       commit((d) => {
         const el = d.elements.find((e) => e.id === id);
-        return el ? updateEl(d, id, { hidden: !el.hidden }) : d;
+        return el ? synced(updateEl(d, id, { hidden: !el.hidden }), id) : d;
       });
       if (get().selectedId === id) set({ selectedId: null });
     },
 
-    moveLayerToIndex: (id, index) =>
-      commit((d) => {
-        const from = d.elements.findIndex((e) => e.id === id);
-        const to = Math.max(0, Math.min(d.elements.length - 1, index));
-        if (from < 0 || from === to) return d;
-        const elements = [...d.elements];
-        const [el] = elements.splice(from, 1);
-        elements.splice(to, 0, el);
-        return { ...d, elements };
-      }),
+    moveLayerToIndex: (id, index) => commit((d) => moveUnit(d, id, () => index)),
 
     setEditingText: (id) => set({ editingTextId: id }),
 

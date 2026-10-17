@@ -283,3 +283,18 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [ ] Chủ dự án thử toàn bộ video trên iPhone (cắt đoạn, tốc độ, filter, chuyển động, nhạc, video 9:16)
 - [x] Sửa (2026-10-17): chạm ô trống "+" mở ngay trình chọn ảnh và điền vào đúng ô đó (trước chỉ chọn ô, không phản hồi) — kiểm trong `e2e/m10.mjs`
 - [x] Sửa (2026-10-17, D-85): ảnh bị khoá (nền template, panorama) vẫn kéo / chụm để dời / phóng ảnh trong khung, khung không đổi; thanh công cụ luôn có Kiểu (Mở khoá chỉ ở menu nổi); chụm trên ô lưới đã chọn cũng phóng ảnh trong ô — kiểm trong `e2e/m10.mjs`
+
+### M14 — Khối bố cục và mô hình chọn — xong phần code 2026-10-17
+Đặc tả: [02](../product/editor-v2/02-khai-niem-va-du-lieu.md), [06](../product/editor-v2/06-chon-va-cu-chi.md), [07](../product/editor-v2/07-khung-chon-va-thanh-cong-cu.md) mục 1–4; cách cài: [dev/editor-v2](../dev/editor-v2.md) mục 0 (D-91).
+- [x] **Khối bố cục**: lưới / layout là một phần tử chứa các ô; dời, co giãn (cả kéo một chiều), xoay khối → mọi ô và ảnh trong ô đi theo, ngay trong lúc kéo; một bước hoàn tác
+- [x] Dự án cũ và template: ô lưới cũ được gom thành một khối mỗi slide khi mở (không đổi ảnh xuất)
+- [x] Bảng Lớp: một dòng cho mỗi khối; lên / xuống lớp, nhân bản, xoá đi cả cụm; xoá ảnh trong ô → ô trống
+- [x] **Chọn cha → con**: chạm lần đầu chọn khối, chạm lần nữa vào ảnh → chọn ảnh đó; đang trong khối chạm ô khác → chọn luôn ô đó; chạm phần tử khác → chọn phần tử đó; chạm chỗ không có gì → bỏ chọn; phần tử khoá vẫn chọn được
+- [x] Ô trống trong lưới / template: chạm **trúng dấu +** → mở ngay trình chọn ảnh cho ô đó; chạm chỗ khác của ô → chọn khối (Q-E1, D-90)
+- [x] **Cử chỉ theo lựa chọn**: không chọn gì → kéo / chụm là cuộn / zoom canvas (kể cả khi ngón đặt lên ảnh); có chọn → kéo / chụm ở bất kỳ đâu tác động lên phần tử đó (ảnh trong ô: dời / phóng ảnh bên trong; khoá: không làm gì)
+- [x] **Khung chọn mới**: 4 góc giữ tỉ lệ + 4 thanh giữa cạnh kéo một chiều (ảnh cắt lại, không méo), nút xoay **phía dưới** hít 0 / 90 / 180 / 270°
+- [x] Ảnh trong ô: khung chọn bao **toàn bộ ảnh** (phần ngoài ô hiện mờ), kéo góc → phóng ảnh trong ô
+- [x] **Thước đo kích thước bằng nhau**: khi co giãn tới đúng rộng / cao của phần tử khác (mọi slide) → hít đúng kích thước và hiện thước xanh trên cả hai
+- [x] Thanh nổi ẩn trong lúc kéo bằng một ngón; thanh công cụ của khối: Bố cục · Xong
+- [x] Kiểm tra tự động `e2e/m14.mjs`; m3, m8, m10 cập nhật theo quy tắc mới
+- [ ] Chủ dự án thử trên iPhone: chọn khối / ảnh trong ô, kéo khối, chụm khi không chọn gì, nút xoay, thước đo

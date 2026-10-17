@@ -1,10 +1,12 @@
 import { NO_ADJUST } from "@/lib/color/params";
+import { groupSlots } from "./blocks";
 import type { Background, CanvasElement, ImageElement, ProjectDoc } from "./types";
 
 // Upgrades docs saved by older versions to the current model:
 // - M1: image elements had no crop; background was a plain color string.
 // - M2–M5: image fields added over time (slot, adjust, filter, frame).
 // - M8: optional `locked` / `fromLayout` on every element; M9: optional `hidden`.
+// - M14: grid cells (`slot`) belong to a layout block (`parentId`).
 // Elements without a `type` are images (M1). Text / shape / icon (M5+) pass through.
 
 type LegacyDoc = Omit<ProjectDoc, "background" | "elements"> & {
@@ -44,6 +46,7 @@ function migrateImage(el: Partial<ImageElement>, assetSize: AssetSize): ImageEle
     ...(el.blend !== undefined && { blend: el.blend }),
     ...(el.media !== undefined && { media: el.media }),
     ...(el.motion !== undefined && { motion: el.motion }),
+    ...(el.parentId !== undefined && { parentId: el.parentId }),
     ...(el.fromLayout !== undefined && { fromLayout: el.fromLayout }),
   };
 }
@@ -54,5 +57,6 @@ export function migrateDoc(raw: ProjectDoc | LegacyDoc, assetSize: AssetSize): P
   const elements = raw.elements.map((el): CanvasElement =>
     !el.type || el.type === "image" ? migrateImage(el as Partial<ImageElement>, assetSize) : (el as CanvasElement),
   );
-  return { ...raw, background, elements };
+  // M14: grid cells grouped into layout blocks (editor-v2/02).
+  return groupSlots({ ...raw, background, elements } as ProjectDoc);
 }

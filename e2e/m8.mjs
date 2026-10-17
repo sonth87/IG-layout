@@ -88,7 +88,10 @@ st = await S();
 check(st.doc.elements[1].x < photo.x - 10, "once selected, dragging moves it");
 const bgPoint = await toPage(40, st.doc.elements[0].height - 40);
 await tap(bgPoint.x, bgPoint.y);
-check((await S()).selected === null, "tapping the locked background clears the selection");
+// editor-v2/06 rule 7: a locked element can still be selected (to unlock it…).
+check((await S()).selected === st.doc.elements[0].id, "tapping the locked background selects it");
+await swipe(bgPoint.x, bgPoint.y, bgPoint.x - 60);
+check((await S()).doc.elements[0].x === 0, "the locked background does not move");
 
 console.log("UX-03 compact toolbar, duplicate/delete always visible");
 p = await toPage(st.doc.elements[2].x + st.doc.elements[2].width / 2, st.doc.elements[2].y + st.doc.elements[2].height / 2);
@@ -113,14 +116,20 @@ await page.getByRole("button", { name: "Grid", exact: true }).click();
 await page.getByRole("button", { name: /^2 × 2 4 photos/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();
 st = await S();
-await page.evaluate((id) => window.__igEditor.getState().select(id), st.doc.elements[0].id);
-await page.waitForTimeout(200);
-const tr = await page.evaluate(() => {
-  const stage = window.__igEditor.getState().canvas.layer.getStage();
-  const t = stage.findOne("Transformer");
-  return { resize: t.resizeEnabled(), rotate: t.rotateEnabled(), nodes: t.nodes().length };
-});
-check(tr.nodes === 1 && !tr.resize && !tr.rotate, "cell selected without resize / rotate handles");
+const handles = async (id) => {
+  await page.evaluate((id) => window.__igEditor.getState().select(id), id);
+  await page.waitForTimeout(200);
+  return page.evaluate(() => {
+    const stage = window.__igEditor.getState().canvas.layer.getStage();
+    const t = stage.findOne("Transformer");
+    return { resize: t.resizeEnabled(), rotate: t.rotateEnabled(), nodes: t.nodes().map((n) => n.id()) };
+  });
+};
+const blk = st.doc.elements.find((e) => e.type === "layout");
+let tr = await handles(blk.id);
+check(tr.nodes[0] === blk.id && tr.resize && tr.rotate, "the layout block resizes and turns like any element");
+tr = await handles(st.doc.elements.find((e) => e.parentId === blk.id).id);
+check(tr.nodes[0] === "__whole-picture" && tr.resize && !tr.rotate, "a cell photo: box around the whole picture, corners zoom, no turning");
 
 console.log("UX-02 re-layout keeps text");
 await page.getByRole("button", { name: "Done" }).click();
@@ -145,7 +154,7 @@ await page.waitForTimeout(200);
 check((await S()).editing === text.id, "double-tap opened the text editor");
 await page.getByRole("dialog").getByRole("button", { name: "Cancel" }).click();
 
-console.log("UX-07 pinch an element that is not selected");
+console.log("UX-07 pinch: nothing selected zooms the canvas; selected element scales");
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.getByRole("button", { name: "Elements" }).click();
 await page.getByRole("button", { name: "Heart", exact: true }).click();
@@ -157,15 +166,26 @@ await touch("touchStart", [{ x: p.x - 20, y: p.y, id: 1 }, { x: p.x + 20, y: p.y
 for (let d = 24; d <= 60; d += 6) await touch("touchMove", [{ x: p.x - d, y: p.y, id: 1 }, { x: p.x + d, y: p.y, id: 2 }]);
 await touch("touchEnd", []);
 st = await S();
+check(st.selected === null && st.doc.elements.find((e) => e.id === heart.id).width === heart.width, "nothing selected: the pinch does not touch the element under the fingers");
+await page.getByRole("button", { name: "Fit" }).click(); // that pinch zoomed the canvas
+await page.waitForTimeout(300);
+await page.evaluate((id) => window.__igEditor.getState().select(id), heart.id);
+await page.waitForTimeout(200);
+p = await toPage(heart.x + heart.width / 2, heart.y + heart.height / 2);
+await touch("touchStart", [{ x: p.x - 20, y: p.y, id: 1 }, { x: p.x + 20, y: p.y, id: 2 }]);
+for (let d = 24; d <= 60; d += 6) await touch("touchMove", [{ x: p.x - d, y: p.y, id: 1 }, { x: p.x + d, y: p.y, id: 2 }]);
+await touch("touchEnd", []);
+st = await S();
 const heart2 = st.doc.elements.find((e) => e.id === heart.id);
-check(st.selected === heart.id && heart2.width > heart.width * 2, `pinch selected and scaled it (${Math.round(heart.width)} → ${Math.round(heart2.width)})`);
+check(st.selected === heart.id && heart2.width > heart.width * 2, `selected: the pinch scales it (${Math.round(heart.width)} → ${Math.round(heart2.width)})`);
 
 console.log("UX-10 layers sheet: select + lock");
 await page.getByRole("button", { name: "Done" }).click();
 await more(page, "Layers");
 await shot(page, "3-layers");
 const rows = page.getByRole("region", { name: "Layers" }).locator("li");
-check((await rows.count()) === st.doc.elements.length, `every element listed (${await rows.count()})`);
+// One row per outermost element: a layout block stands for its cells.
+check((await rows.count()) === st.doc.elements.filter((e) => !e.parentId).length, `every element listed (${await rows.count()})`);
 await rows.last().getByRole("button", { name: "Lock" }).click();
 st = await S();
 check(st.doc.elements[0].locked === true, "lock from the layers list");

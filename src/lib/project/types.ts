@@ -97,6 +97,8 @@ interface ElementBase {
   motion?: Motion;
   /** Created by a layout; replaced when another layout is applied (user-added items are kept). */
   fromLayout?: boolean;
+  /** Inside a layout block (M14, editor-v2/02): the block's id. Geometry is driven by the block. */
+  parentId?: string;
 }
 
 export const ANIM_IN = ["fade", "slideUp", "slideDown", "slideLeft", "slideRight", "zoom", "pop", "typewriter"] as const;
@@ -214,7 +216,26 @@ export interface DrawingElement extends ElementBase {
   strokeWidth: number;
 }
 
-export type CanvasElement = ImageElement | TextElement | ShapeElement | IconElement | DrawingElement;
+/**
+ * Layout block (M14, editor-v2/02): a grid / layout holding photo cells. The cells are
+ * ordinary image elements (`parentId` = this block) whose frames follow the block: moving,
+ * resizing or rotating the block moves them. Cell rects are relative to the block (0..1).
+ */
+export interface LayoutElement extends ElementBase {
+  type: "layout";
+  cells: LayoutCell[];
+}
+
+export interface LayoutCell {
+  /** Id of the image element in this cell. */
+  id: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+export type CanvasElement = ImageElement | TextElement | ShapeElement | IconElement | DrawingElement | LayoutElement;
 
 export function isImage(el: CanvasElement | undefined): el is ImageElement {
   return el?.type === "image";

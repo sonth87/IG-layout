@@ -11,6 +11,10 @@ import { strokePath } from "@/lib/elements/shapes";
 import { type CanvasElement, type ImageAsset, type ImageElement, pansInside, type Rect as Box, SLIDE_SIZE } from "@/lib/project/types";
 import { liveCrops } from "@/lib/project/liveCrop";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
+import { panCrop, wholePicture } from "@/lib/project/blocks";
+import { endFollow, type Follow, follow, startFollow } from "./followers";
+import { LayoutNode } from "./LayoutNode";
+import { elementOf, tapResult } from "./selection";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { BackgroundNode } from "./BackgroundNode";
 import { ImageNode } from "./ImageNode";
@@ -38,44 +42,124 @@ export function snapRotation(deg: number): { rotation: number; snapped: boolean 
 // Exports render at their own pixel ratio, unaffected.
 if (typeof window !== "undefined") Konva.pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
 
+/** Equal-size ruler colour (editor-v2/07 §4). */
+const RULER = "#3b82f6";
+/** Snap distance for equal sizes, screen px. */
+const SIZE_SNAP = 6;
+const PROXY_ID = "__whole-picture";
+
 /**
- * Lives in its own layer so selection handles never end up in exports.
- * Grid cells and locked elements show the outline only (UX-09). Bigger handles on touch (UX-06).
+ * Selection box (M14, editor-v2/07). Lives in its own layer so it never ends up in
+ * exports. Corner handles keep the ratio, side bars stretch one way, the turn handle sits
+ * below. A photo in a frame gets a box around the whole picture (zoom only). Locked
+ * elements: outline only.
  */
-function SelectionTransformer({ selectedId, onRotate }: { selectedId: string | null; onRotate: (deg: number | null) => void }) {
+function SelectionTransformer(props: {
+  selected: CanvasElement | undefined;
+  viewScale: number;
+  onRotate: (deg: number | null) => void;
+  onRuler: (matches: { w: number | null; h: number | null }) => void;
+  onWholeZoom: (k: number, phase: "move" | "end") => void;
+  onBlockTransform: (phase: "start" | "move" | "end") => void;
+}) {
+  const { selected: el, viewScale } = props;
   const trRef = useRef<Konva.Transformer>(null);
   const elements = useViewDoc()?.elements;
-  const el = elements?.find((e) => e.id === selectedId);
-  const fixed = !!el && (el.locked || (el.type === "image" && el.slot));
+  const whole = !!el && pansInside(el);
+  const fixed = !!el && el.locked && !whole;
+  const isText = el?.type === "text";
 
   useEffect(() => {
     const tr = trRef.current;
     if (!tr) return;
-    const node = selectedId ? tr.getStage()?.findOne(`#${selectedId}`) : undefined;
+    const stage = tr.getStage();
+    const node = !el ? undefined : stage?.findOne(`#${whole ? PROXY_ID : el.id}`);
     tr.nodes(node ? [node] : []);
     tr.getLayer()?.batchDraw();
-  }, [selectedId, elements]);
+  }, [el, whole, elements]);
+
+  /** Sizes of every other element (screen px), for the equal-size ruler. */
+  const others = () =>
+    (elements ?? []).filter((o) => o.id !== el?.id && o.parentId !== el?.id && !o.hidden && o.type !== "layout").map((o) => ({ w: o.width * viewScale, h: o.height * viewScale }));
 
   return (
     <Transformer
       ref={trRef}
       keepRatio
-      rotateEnabled={!fixed}
+      rotateEnabled={!fixed && !whole}
       resizeEnabled={!fixed}
-      anchorSize={isTouchUI ? 26 : 16}
-      anchorCornerRadius={13}
+      anchorSize={isTouchUI ? 22 : 14}
+      anchorCornerRadius={11}
       borderStroke="#f2b84b"
       borderStrokeWidth={2}
       anchorStroke="#f2b84b"
       anchorFill="#ffffff"
-      rotateAnchorOffset={isTouchUI ? 44 : 32}
+      // Turn handle below the element (editor-v2/07 §3).
+      rotateAnchorAngle={180}
+      rotateAnchorOffset={isTouchUI ? 40 : 30}
       rotationSnaps={[0, 90, 180, 270]}
       rotationSnapTolerance={ROTATE_SNAP}
-      onTransform={(e) => {
-        if (trRef.current?.getActiveAnchor() === "rotater") onRotate(e.target.rotation());
+      enabledAnchors={
+        whole
+          ? ["top-left", "top-right", "bottom-left", "bottom-right"]
+          : isText
+            ? ["top-left", "top-right", "bottom-left", "bottom-right", "middle-left", "middle-right"]
+            : ["top-left", "top-right", "bottom-left", "bottom-right", "top-center", "bottom-center", "middle-left", "middle-right"]
+      }
+      anchorStyleFunc={(anchor) => {
+        // Side handles are short bars along the edge.
+        const n = anchor.name();
+        const s = isTouchUI ? 22 : 14;
+        if (n.includes("top-center") || n.includes("bottom-center")) {
+          anchor.width(s * 1.3);
+          anchor.height(s * 0.42);
+          anchor.offsetX((s * 1.3) / 2);
+          anchor.offsetY((s * 0.42) / 2);
+          anchor.cornerRadius(s * 0.21);
+        } else if (n.includes("middle-left") || n.includes("middle-right")) {
+          anchor.width(s * 0.42);
+          anchor.height(s * 1.3);
+          anchor.offsetX((s * 0.42) / 2);
+          anchor.offsetY((s * 1.3) / 2);
+          anchor.cornerRadius(s * 0.21);
+        }
       }}
-      onTransformEnd={() => onRotate(null)}
-      enabledAnchors={["top-left", "top-right", "bottom-left", "bottom-right"]}
+      boundBoxFunc={(oldBox, box) => {
+        if (whole || Math.abs(box.rotation) > 0.01) return box;
+        // Equal sizes (editor-v2/07 §4): stick to another element's width / height.
+        const anchor = trRef.current?.getActiveAnchor() ?? "";
+        const sizes = others();
+        const corner = !anchor.includes("center") && !anchor.includes("middle");
+        let w: number | null = null;
+        let h: number | null = null;
+        if (corner || anchor.includes("middle")) w = sizes.find((o) => Math.abs(o.w - box.width) < SIZE_SNAP)?.w ?? null;
+        if (!w && (corner || anchor.includes("center"))) h = sizes.find((o) => Math.abs(o.h - box.height) < SIZE_SNAP)?.h ?? null;
+        props.onRuler({ w: w && w / viewScale, h: h && h / viewScale });
+        if (!w && !h) return box;
+        const next = { ...box };
+        if (w) {
+          next.width = w;
+          if (corner) next.height = (box.height * w) / box.width;
+        } else if (h) {
+          next.height = h;
+          if (corner) next.width = (box.width * h) / box.height;
+        }
+        if (anchor.includes("left")) next.x = box.x + box.width - next.width;
+        if (anchor.includes("top")) next.y = box.y + box.height - next.height;
+        return next.width < 5 || next.height < 5 ? oldBox : next;
+      }}
+      onTransformStart={() => el?.type === "layout" && props.onBlockTransform("start")}
+      onTransform={(e) => {
+        if (trRef.current?.getActiveAnchor() === "rotater") props.onRotate(e.target.rotation());
+        if (whole) props.onWholeZoom(e.target.scaleX(), "move");
+        if (el?.type === "layout") props.onBlockTransform("move");
+      }}
+      onTransformEnd={(e) => {
+        props.onRotate(null);
+        props.onRuler({ w: null, h: null });
+        if (whole) props.onWholeZoom(e.target.scaleX(), "end");
+        if (el?.type === "layout") props.onBlockTransform("end");
+      }}
       ignoreStroke
     />
   );
@@ -93,10 +177,33 @@ type Pinch =
       /** The twist passed the dead zone: rotation follows the fingers from then on. */
       rotating: boolean;
       snapped: boolean;
+      /** A layout block: its cells follow (M14). */
+      follow?: Follow;
     }
   | { kind: "zoom"; dist: number; angle: number; mid: { x: number; y: number } }
   /** Pinch on a selected cell / locked photo: zoom the picture inside its frame. */
-  | { kind: "crop"; el: ImageElement; dist: number; angle: number; mid: { x: number; y: number } };
+  | { kind: "crop"; el: ImageElement; dist: number; angle: number; mid: { x: number; y: number } }
+  /** Fingers down but nothing to act on (a locked element is selected). */
+  | { kind: "none"; dist: number; angle: number; mid: { x: number; y: number } };
+
+/** One-finger / mouse gesture in progress (M14, dev/editor-v2 §4). */
+interface Gesture {
+  pointerId: number;
+  mouse: boolean;
+  /** Where it started: client px, and the canvas scroll then. */
+  sx: number;
+  sy: number;
+  scroll: { x: number; y: number };
+  target: Konva.Node;
+  moved: boolean;
+  /** Decided once, when the finger first moves (editor-v2/06 rules 1 and 4). */
+  mode: null | "canvas" | "move" | "pan" | "none";
+  el?: CanvasElement;
+  node?: Konva.Node;
+  start?: { x: number; y: number };
+  follow?: Follow;
+  crop?: Box;
+}
 
 /** Crop of `el` zoomed by `k` around its centre: from "just covers the frame" up to 5×. */
 function zoomCrop(el: ImageElement, asset: ImageAsset, k: number): Box {
@@ -146,6 +253,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   const updateElement = useEditor((s) => s.updateElement);
   /** Snapping guides are drawn straight into Konva: no React render per drag frame (F-01). */
   const guidesRef = useRef<Konva.Group>(null);
+  const rulerRef = useRef<Konva.Group>(null);
   const drawing = useEditor((s) => s.drawing);
   const addStroke = useEditor((s) => s.addStroke);
   /** Stroke being drawn (M11): drawn live into a Konva line, saved on release. */
@@ -155,6 +263,12 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   const shownGuides = useRef("");
   const targets = useRef<{ xs: number[]; ys: number[] } | null>(null);
   const pinch = useRef<Pinch | null>(null);
+  const gesture = useRef<Gesture | null>(null);
+  /** Cells following a layout block being transformed with the handles. */
+  const blockFollow = useRef<Follow | null>(null);
+  const proxyRef = useRef<Konva.Rect>(null);
+  const setEditingText = useEditor((s) => s.setEditingText);
+  const selected = doc?.elements.find((e) => e.id === selectedId);
 
   // The stage stays put (sticky) over the visible area; scrolling shifts its content.
   // Layers are only as big as the screen, whatever the number of slides (D-69).
@@ -167,14 +281,12 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     const stage = stageRef.current;
     if (!stage) return;
     const box = stage.container();
+    // M14 (editor-v2/06): with something selected, a one-finger gesture anywhere acts on
+    // it; with nothing selected, the page scrolls the canvas as usual.
     const owned = (e: TouchEvent) => {
       if (e.touches.length >= 2 || useEditor.getState().drawing) return true;
-      const r = box.getBoundingClientRect();
-      const t = e.touches[0];
-      let hit: Konva.Node | null = stage.getIntersection({ x: t.clientX - r.left, y: t.clientY - r.top });
       const s = useEditor.getState();
-      while (hit && hit.id() !== s.selectedId) hit = hit.getParent();
-      const el = hit && (s.draft ?? s.doc)?.elements.find((x) => x.id === s.selectedId);
+      const el = (s.draft ?? s.doc)?.elements.find((x) => x.id === s.selectedId);
       return !!el && (!el.locked || pansInside(el));
     };
     let gesture = false;
@@ -183,7 +295,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       if (gesture && e.cancelable) e.preventDefault();
     };
     const onMove = (e: TouchEvent) => {
-      if ((gesture || Konva.isDragging()) && e.cancelable) e.preventDefault();
+      if ((gesture || Konva.isDragging() || e.touches.length >= 2) && e.cancelable) e.preventDefault();
     };
     box.addEventListener("touchstart", onStart, { passive: false });
     box.addEventListener("touchmove", onMove, { passive: false });
@@ -243,6 +355,14 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
 
   if (!doc) return null;
   const { width, height } = canvasSize(doc);
+
+  /** Konva attrs of the whole-picture box of a framed photo. */
+  function wholeAttrs(el: ImageElement) {
+    const asset = useEditor.getState().assets[el.assetId!];
+    if (!asset) return {};
+    const w = wholePicture(el, el.crop, asset);
+    return { x: w.x, y: w.y, width: w.width, height: w.height, offsetX: w.width / 2, offsetY: w.height / 2, rotation: w.rotation };
+  }
   const rects = Array.from({ length: doc.slideCount }, (_, i) => slideRect(doc, i));
 
   function onDragMove(node: Konva.Node, el: CanvasElement) {
@@ -282,33 +402,240 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
    * One history step on release.
    */
   function startPinch(stage: Konva.Stage, info: ReturnType<typeof touchInfo>) {
-    const movable = (id: string | null | undefined) => {
-      const el = doc!.elements.find((x) => x.id === id);
-      return el && !el.locked && !(el.type === "image" && el.slot) ? el : undefined;
-    };
-    const sel = doc!.elements.find((x) => x.id === selectedId);
-    if (sel?.type === "image" && pansInside(sel)) {
-      stage.findOne(`#${sel.id}`)?.stopDrag();
-      pinch.current = { kind: "crop", el: sel, ...info };
-      return;
-    }
-    let target = movable(selectedId);
-    if (!target) {
-      let hit: Konva.Node | null = stage.getIntersection(info.mid);
-      while (hit && !movable(hit.id())) hit = hit.getParent();
-      target = movable(hit?.id());
-      if (target) select(target.id);
-    }
-    if (!target) {
+    cancelGesture();
+    // M14 (editor-v2/06): fingers act on the selected element; nothing selected → the canvas.
+    const sel = selected;
+    if (!sel) {
       onPinchZoom?.(1, "start");
       pinch.current = { kind: "zoom", ...info };
       return;
     }
-    const node = stage.findOne(`#${target.id}`);
-    if (!node) return;
-    node.stopDrag();
-    node.draggable(false);
-    pinch.current = { kind: "element", node, ...info, rotation: node.rotation(), pos: node.position(), rotating: false, snapped: false };
+    if (sel.type === "image" && pansInside(sel)) {
+      pinch.current = { kind: "crop", el: sel, ...info };
+      return;
+    }
+    const node = stage.findOne(`#${sel.id}`);
+    if (sel.locked || !node) {
+      pinch.current = { kind: "none", ...info };
+      return;
+    }
+    pinch.current = {
+      kind: "element",
+      node,
+      ...info,
+      rotation: node.rotation(),
+      pos: node.position(),
+      rotating: false,
+      snapped: false,
+      follow: sel.type === "layout" ? startFollow(node, sel.cells.map((c) => c.id)) : undefined,
+    };
+  }
+
+  // ── One finger / mouse (M14, dev/editor-v2 §4) ───────────────────────
+  const TAP_SLOP = 6;
+
+  function cancelGesture() {
+    const g = gesture.current;
+    gesture.current = null;
+    if (!g?.moved) return;
+    if (g.mode === "move" && g.node && g.start) {
+      g.node.position(g.start);
+      if (g.follow) endFollow(g.follow);
+      onDragEnd();
+    }
+    if (g.mode === "pan" && g.el) liveCrops.delete(g.el.id);
+    stageRef.current?.fire("gestureend");
+    contentLayerRef.current?.batchDraw();
+  }
+
+  function onPointerDown(e: Konva.KonvaEventObject<PointerEvent>) {
+    if (drawing) return onDrawDown(e);
+    if (!e.evt.isPrimary) return cancelGesture(); // a second finger: pinch takes over
+    // Selection handles are handled by the transformer itself.
+    if (e.target.getParent() instanceof Konva.Transformer) return;
+    const area = scrollRef.current;
+    gesture.current = {
+      pointerId: e.evt.pointerId,
+      mouse: e.evt.pointerType === "mouse",
+      sx: e.evt.clientX,
+      sy: e.evt.clientY,
+      scroll: { x: area?.scrollLeft ?? 0, y: area?.scrollTop ?? 0 },
+      target: e.target,
+      moved: false,
+      mode: null,
+    };
+  }
+
+  function onPointerMove(e: Konva.KonvaEventObject<PointerEvent>) {
+    if (drawing) return onDrawMove(e);
+    const g = gesture.current;
+    if (!g || e.evt.pointerId !== g.pointerId || pinch.current) return;
+    const dx = e.evt.clientX - g.sx;
+    const dy = e.evt.clientY - g.sy;
+    if (!g.moved) {
+      if (Math.hypot(dx, dy) < TAP_SLOP) return;
+      g.moved = true;
+      const sel = selected;
+      if (!sel) g.mode = "canvas";
+      else if (sel.type === "image" && pansInside(sel)) {
+        g.mode = "pan";
+        g.el = sel;
+        g.crop = sel.crop;
+      } else if (sel.locked) g.mode = "none";
+      else {
+        const node = e.target.getStage()?.findOne(`#${sel.id}`);
+        g.mode = node ? "move" : "none";
+        g.el = sel;
+        g.node = node;
+        g.start = node?.position();
+        if (node && sel.type === "layout") g.follow = startFollow(node, sel.cells.map((c) => c.id));
+      }
+      if (g.mode === "move" || g.mode === "pan") e.target.getStage()?.fire("gesturestart");
+    }
+    if (g.mode === "canvas") {
+      // Touch scrolls natively; the mouse drags the canvas around.
+      const area = scrollRef.current;
+      if (g.mouse && area) {
+        area.scrollLeft = g.scroll.x - dx;
+        area.scrollTop = g.scroll.y - dy;
+      }
+    } else if (g.mode === "move" && g.node && g.start && g.el) {
+      g.node.position({ x: g.start.x + dx / viewScale, y: g.start.y + dy / viewScale });
+      onDragMove(g.node, g.el);
+      if (g.follow) follow(g.follow);
+      g.node.getLayer()?.batchDraw();
+    } else if (g.mode === "pan" && g.el?.type === "image" && g.crop) {
+      const asset = useEditor.getState().assets[g.el.assetId!];
+      if (!asset) return;
+      liveCrops.set(g.el.id, panCrop(g.el, g.crop, asset, dx / viewScale, dy / viewScale));
+      placeProxy();
+      contentLayerRef.current?.batchDraw();
+    }
+  }
+
+  function onPointerUp(e: Konva.KonvaEventObject<PointerEvent>) {
+    if (drawing) return onDrawUp(e);
+    const g = gesture.current;
+    if (!g || e.evt.pointerId !== g.pointerId) return;
+    gesture.current = null;
+    if (!g.moved) return onTap(g.target);
+    if (g.mode === "move" || g.mode === "pan") e.target.getStage()?.fire("gestureend");
+    if (g.mode === "move" && g.node && g.el) {
+      const p = g.node.position();
+      if (g.follow) endFollow(g.follow);
+      onDragEnd();
+      updateElement(g.el.id, { x: p.x - g.el.width / 2, y: p.y - g.el.height / 2 });
+    } else if (g.mode === "pan" && g.el) {
+      const crop = liveCrops.get(g.el.id);
+      liveCrops.delete(g.el.id);
+      if (crop) updateElement(g.el.id, { crop });
+    }
+  }
+
+  /** A tap (editor-v2/06 rules 2, 3, 5, 6). */
+  function onTap(target: Konva.Node) {
+    const st = useEditor.getState();
+    const d = st.draft ?? st.doc;
+    if (!d) return;
+    const hitId = elementOf(target, d.elements);
+    const hit = d.elements.find((x) => x.id === hitId);
+    // Swapping two cell photos: the next photo tapped is the other one.
+    if (st.swapFrom && hit?.type === "image") return select(hit.id);
+    let onPlus = false;
+    if (hit?.type === "image" && !hit.assetId) {
+      const p = target.getStage()?.getRelativePointerPosition();
+      const inner = innerFrame(hit);
+      const r = Math.max((Math.min(inner.width, inner.height) * 0.12), 22 / viewScale);
+      onPlus = !!p && Math.hypot(p.x - (hit.x + hit.width / 2), p.y - (hit.y + hit.height / 2)) <= r;
+    }
+    const res = tapResult(d, st.selectedId, hitId, onPlus);
+    select(res.select);
+    if (res.action === "editText" && res.select) setEditingText(res.select);
+    if (res.action === "fill") document.getElementById("replace-photo-input")?.click();
+  }
+
+  /** The box around the whole picture of the selected framed photo follows its crop. */
+  function placeProxy() {
+    const proxy = proxyRef.current;
+    const st = useEditor.getState();
+    const el = (st.draft ?? st.doc)?.elements.find((x) => x.id === st.selectedId);
+    if (!proxy || el?.type !== "image" || !pansInside(el)) return;
+    const asset = st.assets[el.assetId!];
+    if (!asset) return;
+    const w = wholePicture(el, liveCrops.get(el.id) ?? el.crop, asset);
+    proxy.setAttrs({ x: w.x, y: w.y, width: w.width, height: w.height, offsetX: w.width / 2, offsetY: w.height / 2, rotation: w.rotation, scaleX: 1, scaleY: 1 });
+    proxy.getLayer()?.batchDraw();
+  }
+
+  /** Corner handles of the whole-picture box zoom the photo inside its frame. */
+  function onWholeZoom(k: number, phase: "move" | "end") {
+    const el = selected;
+    if (el?.type !== "image") return;
+    const asset = useEditor.getState().assets[el.assetId!];
+    if (!asset) return;
+    const crop = zoomCrop(el, asset, k);
+    if (phase === "move") {
+      liveCrops.set(el.id, crop);
+      contentLayerRef.current?.batchDraw();
+      return;
+    }
+    liveCrops.delete(el.id);
+    proxyRef.current?.scale({ x: 1, y: 1 });
+    updateElement(el.id, { crop });
+  }
+
+  /** Cells follow their block while it is resized / turned with the handles. */
+  function onBlockTransform(phase: "start" | "move" | "end") {
+    const el = selected;
+    const node = el && stageRef.current?.findOne(`#${el.id}`);
+    if (el?.type !== "layout" || !node) return;
+    if (phase === "start") blockFollow.current = startFollow(node, el.cells.map((c) => c.id));
+    else if (phase === "move" && blockFollow.current) follow(blockFollow.current);
+    else if (phase === "end") {
+      if (blockFollow.current) endFollow(blockFollow.current);
+      blockFollow.current = null;
+      const sx = node.scaleX();
+      const sy = node.scaleY();
+      node.scale({ x: 1, y: 1 });
+      const w = Math.max(20, el.width * sx);
+      const h = Math.max(20, el.height * sy);
+      updateElement(el.id, { x: node.x() - w / 2, y: node.y() - h / 2, width: w, height: h, rotation: node.rotation() });
+    }
+  }
+
+  /** Equal-size rulers (editor-v2/07 §4) on the selected element and every match. */
+  function showRuler(m: { w: number | null; h: number | null }) {
+    const group = rulerRef.current;
+    if (!group) return;
+    group.destroyChildren();
+    const node = selected && stageRef.current?.findOne(`#${selected.id}`);
+    if (node && (m.w || m.h)) {
+      const self = node.getClientRect({ relativeTo: stageRef.current! });
+      const boxes = [
+        self,
+        ...(doc!.elements
+          .filter((o) => o.id !== selected!.id && o.parentId !== selected!.id && !o.hidden && o.type !== "layout")
+          .filter((o) => (m.w ? Math.abs(o.width - m.w) < 0.5 : Math.abs(o.height - m.h!) < 0.5))
+          .map((o) => rotatedBounds(o))),
+      ];
+      const gap = 12 / viewScale;
+      const tick = 7 / viewScale;
+      const line = { stroke: RULER, strokeWidth: 2 / viewScale, listening: false };
+      for (const b of boxes) {
+        if (m.w) {
+          const y = b.y - gap;
+          group.add(new Konva.Line({ points: [b.x, y, b.x + b.width, y], ...line }));
+          group.add(new Konva.Line({ points: [b.x, y - tick, b.x, y + tick], ...line }));
+          group.add(new Konva.Line({ points: [b.x + b.width, y - tick, b.x + b.width, y + tick], ...line }));
+        } else {
+          const x = b.x - gap;
+          group.add(new Konva.Line({ points: [x, b.y, x, b.y + b.height], ...line }));
+          group.add(new Konva.Line({ points: [x - tick, b.y, x + tick, b.y], ...line }));
+          group.add(new Konva.Line({ points: [x - tick, b.y + b.height, x + tick, b.y + b.height], ...line }));
+        }
+      }
+    }
+    group.getLayer()?.batchDraw();
   }
 
   function drawLive() {
@@ -357,6 +684,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     const p = pinch.current;
     const k = info.dist / p.dist;
     if (p.kind === "zoom") return onPinchZoom?.(k, "move");
+    if (p.kind === "none") return;
     if (p.kind === "crop") {
       const asset = useEditor.getState().assets[p.el.assetId!];
       if (asset) liveCrops.set(p.el.id, zoomCrop(p.el, asset, k));
@@ -377,6 +705,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       x: p.pos.x + (info.mid.x - p.mid.x) / viewScale,
       y: p.pos.y + (info.mid.y - p.mid.y) / viewScale,
     });
+    if (p.follow) follow(p.follow);
     p.node.getLayer()?.batchDraw();
   }
 
@@ -401,6 +730,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     pinch.current = null;
     showAngle(null);
     if (p.kind === "zoom") return onPinchZoom?.(1, "end");
+    if (p.kind === "none") return;
     if (p.kind === "crop") {
       const crop = liveCrops.get(p.el.id);
       liveCrops.delete(p.el.id);
@@ -408,7 +738,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       return;
     }
     const el = doc!.elements.find((x) => x.id === p.node.id());
-    p.node.draggable(!!el && (!el.locked || pansInside(el)));
+    if (p.follow) endFollow(p.follow);
     if (!el) return;
     const k = p.node.scaleX();
     p.node.scale({ x: 1, y: 1 });
@@ -431,13 +761,12 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       height={viewport.height}
       scaleX={viewScale}
       scaleY={viewScale}
-      onMouseDown={(e) => e.target === e.target.getStage() && select(null)}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
-      onPointerDown={drawing ? onDrawDown : undefined}
-      onPointerMove={drawing ? onDrawMove : undefined}
-      onPointerUp={drawing ? onDrawUp : undefined}
-      onPointerCancel={drawing ? onDrawUp : undefined}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={drawing ? onDrawUp : cancelGesture}
     >
       {/* Content layer: exactly what gets exported. */}
       {/* The stage also covers the margins around the canvas: clip to the canvas. */}
@@ -449,7 +778,8 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
           if (el.type === "shape") return <ShapeNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "icon") return <IconNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "drawing") return <DrawingNode key={el.id} element={el} hooks={hooks} />;
-          return <ImageNode key={el.id} element={el} onDragMove={onDragMove} onDragEnd={onDragEnd} />;
+          if (el.type === "layout") return <LayoutNode key={el.id} element={el} />;
+          return <ImageNode key={el.id} element={el} />;
         })}
       </Layer>
       {/* Slide boundaries, grid gaps, story safe zones, posting order — never exported. */}
@@ -538,6 +868,11 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       {/* Selection + snapping guides, never exported. */}
       <Layer>
         <Group ref={guidesRef} listening={false} />
+        <Group ref={rulerRef} name="rulers" listening={false} />
+        {selected?.type === "image" && pansInside(selected) && (
+          // Stands for the whole picture of the selected framed photo (box + zoom handles).
+          <Rect ref={proxyRef} id={PROXY_ID} listening={false} {...wholeAttrs(selected)} />
+        )}
         {drawing && (
           // Strokes of the drawing in progress + the live one (not exported until ✓).
           <Shape
@@ -559,7 +894,14 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
             }}
           />
         )}
-        <SelectionTransformer selectedId={selectedId} onRotate={showAngle} />
+        <SelectionTransformer
+          selected={selected}
+          viewScale={viewScale}
+          onRotate={showAngle}
+          onRuler={showRuler}
+          onWholeZoom={onWholeZoom}
+          onBlockTransform={onBlockTransform}
+        />
         <Label ref={angleRef} visible={false} listening={false}>
           <Tag fill="rgba(17,18,20,0.85)" cornerRadius={12} pointerDirection="none" />
           <Text text="" fill="#ffffff" fontSize={14} fontStyle="700" padding={7} offsetX={0} />

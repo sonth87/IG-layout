@@ -255,6 +255,7 @@ export const vi: Record<MessageKey, string> = {
   "video.volume": "Âm lượng",
   "video.noAudio": "Video này không có tiếng.",
   "video.kind": "Video",
+  "editor.kind.layout": "Bố cục",
   "editor.kind.image": "Ảnh",
   "editor.kind.text": "Chữ",
   "editor.kind.shape": "Hình",

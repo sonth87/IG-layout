@@ -65,8 +65,9 @@ export function FloatingMenu({ scrollRef, onMore }: { scrollRef: React.RefObject
     const show = () => requestAnimationFrame(() => place.current());
     const onTouch = (e: Konva.KonvaEventObject<TouchEvent>) => e.evt.touches.length >= 2 && hide();
     area.addEventListener("scroll", onScroll, { passive: true });
-    stage.on("dragstart.menu transformstart.menu", hide);
-    stage.on("dragend.menu transformend.menu", show);
+    // gesturestart / gestureend: moving or panning by one finger (CanvasStage, M14).
+    stage.on("gesturestart.menu dragstart.menu transformstart.menu", hide);
+    stage.on("gestureend.menu dragend.menu transformend.menu", show);
     stage.on("touchstart.menu", onTouch);
     stage.on("touchend.menu", show);
     return () => {

@@ -2,6 +2,30 @@
 
 > Dành cho người triển khai M14–M19. Đặc tả hành vi (cái gì, vì sao) ở [docs/product/editor-v2/](../product/editor-v2/README.md); tài liệu này mô tả **cách làm**: mô hình dữ liệu, chuyển đổi dữ liệu cũ, máy trạng thái chọn, phân xử cử chỉ, các thuật toán, cấu trúc component và kế hoạch kiểm thử. Mọi đề xuất ở đây là thiết kế ban đầu; khi triển khai mà thấy không ổn thì sửa tài liệu này cùng lúc với code.
 
+## 0. Đã cài ở M14 (2026-10-17, D-91)
+
+Khi bắt tay vào code, một số thiết kế ở các mục dưới được làm **đơn giản hơn** để ít rủi ro mà vẫn đúng hành vi của product/02, 06, 07 mục 1–4. Mục này là mô tả đúng của code hiện tại; các mục 2–4, 7, 9 giữ lại làm hướng đi cho các mốc sau và được đánh dấu chỗ khác biệt.
+
+**Dữ liệu — ô là ảnh con, không phải `media` nằm trong ô.** `LayoutElement` (`type: "layout"`) chỉ giữ hình học: vị trí, kích thước, góc xoay của khối, và `cells: { id, x, y, w, h }[]` — toạ độ ô **tương đối 0..1** theo khối, `id` của ô chính là `id` của một `ImageElement` bình thường mang `parentId = id khối`. Ảnh trong ô vì vậy vẫn là ảnh như mọi ảnh khác: cắt, chỉnh màu, bộ lọc, xoá nền, video, chuyển động, xuất… chạy nguyên, không phải viết lại `ImageNode`. Hình học của ảnh con **luôn suy ra từ khối**: `syncLayout(doc, layoutId)` (`lib/project/blocks.ts`) đặt lại khung từng ô theo khối (xoay tâm ô quanh tâm khối, cùng góc xoay), kế thừa `hidden`, và cắt lại ảnh cho phủ kín nếu tỉ lệ ô đổi (`refitCrop`). Store gọi nó sau mọi `updateElement` / `toggleHidden` lên khối (`synced`). Khe, lề, bo góc vẫn nằm trên từng ảnh con như trước (`cornerRadius`, `mask`); sheet Điều chỉnh của khối (M17) sẽ thêm `gap / padding / radius` vào khối.
+
+**Thứ tự lớp.** Mảng `elements` vẫn phẳng; khối đứng ngay dưới các ô của nó. Mọi thao tác lớp đi theo **đơn vị** (`units(doc)`: phần tử ngoài cùng + các con): bảng Lớp liệt kê một dòng cho mỗi khối, `moveUnit` dời cả cụm, `copyUnit` nhân bản khối kèm ô (id mới), xoá khối xoá cả ô (`blockIds`). Xoá một ảnh trong ô → ô trống (`assetId: null`); nhân bản ảnh trong ô → ảnh **tự do** đặt trên khối.
+
+**Chuyển đổi dữ liệu cũ** (`groupSlots`, gọi trong `migrateDoc` và `applyTemplate`): các ảnh `slot` chưa có cha được gom theo slide chứa tâm; mỗi nhóm thành một khối phủ đúng slide đó, đặt ở vị trí lớp của ô thấp nhất, ô giữ nguyên khung cũ (toạ độ tương đối tính ngược). Không đổi điểm ảnh nào nên ảnh xuất trước / sau giống hệt. Ảnh template không phải `slot` (ảnh tự do, polaroid…) giữ nguyên là phần tử ngoài cùng.
+
+**Chọn.** Giữ `selectedId: string | null`; "đường dẫn" cha → con suy ra từ `parentId` nên không cần kiểu `Selection` (mục 2.2). Bảng ở mục 3 được cài trong hàm thuần `tapResult(doc, selectedId, hitId, onPlus)` ở `canvas/selection.ts`; phần tử trúng được tìm bằng `stage.getIntersection` + `elementOf` (đi ngược cây Konva tới id có trong doc) thay vì dò hình học. Dấu + được tính trúng khi điểm chạm cách tâm ô ≤ `max(12 % cạnh ngắn của ô, 22 px màn hình)`. Ô trống trong khối **hoặc** ảnh trống của template (`fromLayout`) chạm trúng + → chọn ô và mở trình chọn ảnh ngay (Q-E1, D-90); ảnh trống người dùng tự đặt riêng → lần chạm đầu chỉ chọn. Phần tử khoá vẫn chọn được (quy tắc 7).
+
+**Cử chỉ** — cài ngay trong `CanvasStage.tsx` (không tách `gestures.ts`): `onPointerDown/Move/Up` của stage, ngưỡng 6 px, mục tiêu chốt **một lần** khi vượt ngưỡng: không chọn gì → canvas (cảm ứng: cuộn gốc của trình duyệt; chuột: tự dời `scrollLeft/Top`); chọn ảnh trong ô / ảnh khoá trong khung → dời crop (`panCrop`, vẽ trực tiếp qua `liveCrops`); chọn phần tử khoá → không làm gì; còn lại → dời phần tử (có hít đường gióng). Không vượt ngưỡng → `onTap`. Hai ngón (`startPinch`) theo cùng quy tắc: không chọn → zoom canvas; ảnh trong ô → phóng crop; khoá → không làm gì; còn lại → co giãn / xoay phần tử. Khác mục 4: **không** đặt `touch-action: none` và **không** tự làm cuộn quán tính — một listener `touchstart` (không passive) chỉ `preventDefault` khi có phần tử đang chọn (đi được hoặc dời được ảnh bên trong), còn lại để trình duyệt cuộn như cũ. Mọi node đặt `preventDefault={false}` để Konva không tự chặn cuộn. Khi dời / dời crop bằng một ngón, stage phát `gesturestart` / `gestureend` để thanh nổi ẩn / hiện.
+
+**Ô đi theo khối khi đang kéo.** Trong lúc dời, chụm, co giãn hay xoay khối, các node ảnh con được dời theo trực tiếp trên Konva (`canvas/followers.ts`: `startFollow` ghi lại vị trí / góc / scale tương đối của từng ô theo hệ trục khối, `follow` áp lại theo vị trí, góc và `scaleX/Y` hiện tại của node khối, `endFollow` trả node về như cũ trước khi store vẽ lại). Thả tay → một `updateElement` lên khối → `syncLayout` → một bước hoàn tác cho cả khối lẫn ô.
+
+**Khung chọn** (`SelectionTransformer` trong `CanvasStage.tsx`): 4 tay nắm góc (giữ tỉ lệ) + 4 thanh giữa cạnh (kéo một chiều; chữ chỉ có thanh trái / phải), nút xoay **dưới** phần tử (`rotateAnchorAngle = 180`) hít 0 / 90 / 180 / 270°. Ảnh trong ô (và ảnh khoá dời được bên trong): transformer gắn vào một `Rect` vô hình `__whole-picture` (không nhận chạm) bao **toàn bộ ảnh** (`wholePicture`), chỉ có 4 góc, không xoay; kéo góc → `zoomCrop` (không nhỏ hơn mức phủ kín ô); ảnh mờ ngoài ô được `ImageNode` vẽ khi đang chọn (độ mờ 0,32).
+
+**Thước đo kích thước bằng nhau** (mục 7): trong `boundBoxFunc`, so chiều rộng / cao đang kéo với mọi phần tử khác (trừ khối và ô của chính nó) theo px màn hình, ngưỡng 6 px; khớp → hít đúng kích thước đó và vẽ thước xanh (`#3b82f6`, đoạn thẳng + 2 vạch) phía trên (rộng) hoặc bên trái (cao) của phần tử đang kéo và mọi phần tử cùng kích thước, trong nhóm `rulers` của lớp UI; thả tay thì xoá. Chỉ áp dụng khi phần tử không xoay. Đường gióng khi dời bỏ qua các ô của khối đang dời.
+
+**Thanh công cụ khối** (tạm, đủ cho M14): **Bố cục** (mở bộ chọn kiểu chia) · **Xong**; Xoá / Nhân bản / Khoá ở thanh nổi; ⋯ có các mục lớp. Thanh đầy đủ theo product/07 mục 5 làm ở M17.
+
+**Kiểm thử:** `e2e/m14.mjs` (dữ liệu khối, quy tắc chạm 2/3/5/6, kéo không chọn không đụng phần tử, dời khối kèm ô + một lần hoàn tác, thanh cạnh, nút xoay, khung toàn ảnh + phóng bằng góc, thước đo, nhân bản / xoá khối, chuyển đổi dự án cũ từ IndexedDB). m3, m8, m10 được sửa theo quy tắc mới (chạm lần đầu chọn khối; chụm khi không chọn = zoom canvas; khoá vẫn chọn được). `SUITES=m14.mjs node e2e/run.mjs` để chạy riêng.
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:
@@ -18,6 +42,8 @@ Editor v2 đổi ba thứ nền tảng: **dữ liệu có cấp bậc** (khối 
 ## 2. Mô hình dữ liệu
 
 ### 2.1 Kiểu mới
+
+> M14 đã cài bản đơn giản hơn (mục 0): `LayoutElement` chỉ có hình học + `cells: {id,x,y,w,h}`, ảnh trong ô là `ImageElement` có `parentId`. Thiết kế dưới (media trong ô, `gap / padding / cellRadius` trên khối) là hướng mở rộng ở M17.
 
 ```ts
 /** Khối bố cục: phần tử chứa các ô (product/editor-v2/02). */
@@ -70,6 +96,8 @@ Vẽ theo thứ tự: `under` → từng ô (clip theo `path` hoặc `rect`, v�
 
 ### 2.2 Đường dẫn chọn
 
+> M14: không dùng kiểu `Selection`; giữ `selectedId`, cha suy ra từ `parentId` (mục 0). Kiểu dưới vẫn cần khi làm Chọn nhiều.
+
 ```ts
 /** Thứ đang được chọn: phần tử ngoài cùng, và (tuỳ chọn) ô bên trong nó. */
 export type Selection =
@@ -82,6 +110,8 @@ export type Selection =
 Store thay `selectedId` bằng `selection`. Để không phải sửa một lần mọi nơi dùng `selectedId`, giữ một selector tính `selectedId = selection?.kind === "element" ? selection.id : null` trong giai đoạn chuyển tiếp.
 
 ### 2.3 Chuyển đổi dữ liệu cũ (`migrate.ts`)
+
+> M14: đã cài là `groupSlots` (mục 0) — khối phủ đúng slide, ô giữ nguyên khung, không đổi điểm ảnh nào.
 
 Khi mở một dự án cũ, gom các `ImageElement` có `slot: true` thành khối bố cục:
 
@@ -238,6 +268,6 @@ Mỗi mốc thêm một bộ e2e trong `e2e/` (chạy bằng `pnpm e2e`) bám đ
 ## 11. Rủi ro
 
 - **Chuyển đổi dữ liệu cũ** có thể làm lệch vị trí ô vài pixel → kiểm bằng so sánh ảnh xuất; giữ khả năng mở lại bằng logic cũ nếu chuyển đổi thất bại [ĐX].
-- **Bỏ cuộn gốc của trình duyệt** (mục 4) đổi cách cuộn dải slide trên iOS → phải tự làm quán tính khi vuốt; thử sớm trên iPhone thật.
+- ~~**Bỏ cuộn gốc của trình duyệt**~~ — M14 giữ cuộn gốc khi không chọn gì (mục 0), nên không phải tự làm quán tính. Vẫn cần thử trên iPhone thật: chọn rồi vuốt ở chỗ trống phải dời phần tử, không cuộn.
 - **Trình chọn ảnh web** không hiển thị "Chọn tối đa N ảnh" → giải thích bằng thông báo sau khi chọn.
 - Khối lượng lớn: M14 đụng gần như mọi file của editor; làm trên nhánh riêng, giữ e2e cũ chạy được tới khi thay thế.

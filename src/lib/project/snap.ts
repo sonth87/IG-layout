@@ -24,7 +24,8 @@ export function snapTargets(doc: ProjectDoc, movingId: string) {
   xs.push(0, size.width / 2, size.width);
   ys.push(0, size.height / 2, size.height);
   for (const el of doc.elements) {
-    if (el.id === movingId || el.hidden) continue;
+    // The cells of a moving block move with it.
+    if (el.id === movingId || el.parentId === movingId || el.hidden) continue;
     const b = rotatedBounds(el);
     xs.push(b.x, b.x + b.width / 2, b.x + b.width);
     ys.push(b.y, b.y + b.height / 2, b.y + b.height);

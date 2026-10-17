@@ -256,6 +256,7 @@ export const en = {
   "video.volume": "Volume",
   "video.noAudio": "This video has no sound.",
   "video.kind": "Video",
+  "editor.kind.layout": "Layout",
   "editor.kind.image": "Photo",
   "editor.kind.text": "Text",
   "editor.kind.shape": "Shape",
