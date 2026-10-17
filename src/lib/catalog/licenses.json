@@ -1,0 +1,92 @@
+{
+  "licenses": {
+    "CC0-1.0": {
+      "name": "CC0 1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution": false,
+      "commercial": true
+    },
+    "PDM": {
+      "name": "Public Domain Mark",
+      "url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "attribution": false,
+      "commercial": true
+    },
+    "MIT": {
+      "name": "MIT",
+      "url": "https://opensource.org/license/mit",
+      "attribution": true,
+      "commercial": true
+    },
+    "ISC": {
+      "name": "ISC",
+      "url": "https://opensource.org/license/isc-license-txt",
+      "attribution": true,
+      "commercial": true
+    },
+    "Apache-2.0": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0",
+      "attribution": true,
+      "commercial": true
+    },
+    "OFL-1.1": {
+      "name": "SIL Open Font License 1.1",
+      "url": "https://openfontlicense.org",
+      "attribution": true,
+      "commercial": true
+    },
+    "CC-BY-4.0": {
+      "name": "CC BY 4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": true,
+      "commercial": true
+    },
+    "CC-BY-3.0": {
+      "name": "CC BY 3.0",
+      "url": "https://creativecommons.org/licenses/by/3.0/",
+      "attribution": true,
+      "commercial": true
+    },
+    "CC-BY-SA-4.0": {
+      "name": "CC BY-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution": true,
+      "commercial": true
+    },
+    "CC-BY-NC-4.0": {
+      "name": "CC BY-NC 4.0",
+      "url": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "attribution": true,
+      "commercial": false
+    },
+    "CC-BY-NC-SA-4.0": {
+      "name": "CC BY-NC-SA 4.0",
+      "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "attribution": true,
+      "commercial": false
+    },
+    "custom": {
+      "name": "Custom licence",
+      "url": "",
+      "attribution": true,
+      "commercial": false
+    }
+  },
+  "bannedHosts": [
+    "pixabay.com",
+    "unsplash.com",
+    "pexels.com",
+    "freepik.com",
+    "flaticon.com",
+    "canva.com",
+    "vecteezy.com",
+    "shutterstock.com",
+    "adobe.com",
+    "istockphoto.com",
+    "gettyimages.com",
+    "etsy.com",
+    "creativemarket.com",
+    "dafont.com"
+  ]
+}

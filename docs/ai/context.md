@@ -13,6 +13,7 @@ Web app (Next.js + PWA) miễn phí, giúp người dùng chỉnh ảnh, cắt �
 3. [roadmap/plan.md](../roadmap/plan.md) và [roadmap/checklist.md](../roadmap/checklist.md) — đang ở giai đoạn nào, việc tiếp theo là gì.
 4. [roadmap/open-questions.md](../roadmap/open-questions.md) — những gì chưa có câu trả lời.
 5. [architecture/overview.md](../architecture/overview.md) khi làm việc với code.
+6. Khi làm với tài sản thư viện (sticker, khung, chất liệu, phông…): [architecture/asset-catalog.md](../architecture/asset-catalog.md) và [ai/gemini-tasks.md](gemini-tasks.md).
 
 ## Quy tắc làm việc
 

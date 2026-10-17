@@ -1,0 +1,209 @@
+{
+  "tet": {
+    "en": "Lunar New Year",
+    "vi": "Tết",
+    "season": [
+      1,
+      2
+    ]
+  },
+  "valentine": {
+    "en": "Valentine",
+    "vi": "Valentine",
+    "season": [
+      2
+    ]
+  },
+  "womensDay": {
+    "en": "Women's Day",
+    "vi": "Ngày phụ nữ",
+    "season": [
+      3,
+      10
+    ]
+  },
+  "easter": {
+    "en": "Easter",
+    "vi": "Phục sinh",
+    "season": [
+      4
+    ]
+  },
+  "summer": {
+    "en": "Summer",
+    "vi": "Mùa hè",
+    "season": [
+      6,
+      7,
+      8
+    ]
+  },
+  "backToSchool": {
+    "en": "Back to school",
+    "vi": "Tựu trường",
+    "season": [
+      8,
+      9
+    ]
+  },
+  "midAutumn": {
+    "en": "Mid-Autumn",
+    "vi": "Trung thu",
+    "season": [
+      9
+    ]
+  },
+  "halloween": {
+    "en": "Halloween",
+    "vi": "Halloween",
+    "season": [
+      10
+    ]
+  },
+  "teachersDay": {
+    "en": "Teachers' Day",
+    "vi": "Ngày nhà giáo",
+    "season": [
+      11
+    ]
+  },
+  "christmas": {
+    "en": "Christmas",
+    "vi": "Giáng sinh",
+    "season": [
+      12
+    ]
+  },
+  "newYear": {
+    "en": "New Year",
+    "vi": "Năm mới",
+    "season": [
+      12,
+      1
+    ]
+  },
+  "birthday": {
+    "en": "Birthday",
+    "vi": "Sinh nhật"
+  },
+  "wedding": {
+    "en": "Wedding",
+    "vi": "Đám cưới"
+  },
+  "love": {
+    "en": "Love",
+    "vi": "Tình yêu"
+  },
+  "baby": {
+    "en": "Baby",
+    "vi": "Em bé"
+  },
+  "graduation": {
+    "en": "Graduation",
+    "vi": "Tốt nghiệp"
+  },
+  "travel": {
+    "en": "Travel",
+    "vi": "Du lịch"
+  },
+  "beach": {
+    "en": "Beach",
+    "vi": "Biển"
+  },
+  "coffee": {
+    "en": "Coffee",
+    "vi": "Cà phê"
+  },
+  "food": {
+    "en": "Food",
+    "vi": "Ẩm thực"
+  },
+  "nature": {
+    "en": "Nature",
+    "vi": "Thiên nhiên"
+  },
+  "floral": {
+    "en": "Flowers",
+    "vi": "Hoa lá"
+  },
+  "pets": {
+    "en": "Pets",
+    "vi": "Thú cưng"
+  },
+  "music": {
+    "en": "Music",
+    "vi": "Âm nhạc"
+  },
+  "sport": {
+    "en": "Sport",
+    "vi": "Thể thao"
+  },
+  "school": {
+    "en": "School",
+    "vi": "Học đường"
+  },
+  "shop": {
+    "en": "Shop & sale",
+    "vi": "Bán hàng"
+  },
+  "vietnam": {
+    "en": "Vietnam",
+    "vi": "Việt Nam"
+  },
+  "japan": {
+    "en": "Japan",
+    "vi": "Nhật Bản"
+  },
+  "korea": {
+    "en": "Korea",
+    "vi": "Hàn Quốc"
+  },
+  "film": {
+    "en": "Film",
+    "vi": "Phim"
+  },
+  "tornPaper": {
+    "en": "Torn paper",
+    "vi": "Giấy xé"
+  },
+  "journal": {
+    "en": "Journal",
+    "vi": "Nhật ký"
+  },
+  "vintage": {
+    "en": "Vintage",
+    "vi": "Cổ điển"
+  },
+  "y2k": {
+    "en": "Y2K",
+    "vi": "Y2K"
+  },
+  "digital": {
+    "en": "Digital",
+    "vi": "Kỹ thuật số"
+  },
+  "minimal": {
+    "en": "Minimal",
+    "vi": "Tối giản"
+  },
+  "cute": {
+    "en": "Cute",
+    "vi": "Dễ thương"
+  },
+  "handDrawn": {
+    "en": "Hand-drawn",
+    "vi": "Vẽ tay"
+  },
+  "retro": {
+    "en": "Retro",
+    "vi": "Retro"
+  },
+  "grunge": {
+    "en": "Grunge",
+    "vi": "Grunge"
+  },
+  "neon": {
+    "en": "Neon",
+    "vi": "Neon"
+  }
+}
