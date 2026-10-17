@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { catalogAsset, fold, loadCatalog, loadPack, packsOf, packUrl, useCatalog } from "@/lib/catalog/load";
 import type { CatalogItem, CatalogKind } from "@/lib/catalog/types";
+import { COLLECTION_IDS, COLLECTIONS, type CollectionId, inSeason } from "@/lib/catalog/collections";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { iconDataUrl } from "@/lib/elements/icons";
 import { newEmoji, newFramedPhoto, newShape, newSticker, newWidget, newOverlay, WIDGETS } from "@/lib/elements/create";
@@ -26,7 +27,7 @@ import { EmojiStickers } from "../tools/EmojiStickers";
 // a "+N" tile that opens the whole group (‹ back). Tapping an item adds it to the middle
 // of the slide in view, selects it and closes the sheet (its toolbar shows at once).
 
-export type LibraryKind = "sticker" | "shape" | "frame" | "grid" | "widget" | "brand";
+export type LibraryKind = "sticker" | "shape" | "frame" | "grid" | "widget" | "brand" | "collection";
 
 const SHOWN = 7;
 const TILE = "flex aspect-square items-center justify-center overflow-hidden rounded-[14px] bg-surface-2 p-2 active:scale-95 transition-transform";
@@ -93,7 +94,21 @@ function Group(props: { title: string; items: Item[]; full?: boolean | "titled";
 }
 
 /** Catalog kinds shown in each library sheet (M20). */
-const SHEET_PACKS: Partial<Record<LibraryKind, CatalogKind[]>> = { sticker: ["sticker", "overlay"] };
+const SHEET_PACKS: Partial<Record<LibraryKind, CatalogKind[]>> = { sticker: ["sticker", "overlay"], collection: ["sticker", "overlay", "texture"] };
+
+/** Collections in library order: the ones in season first (M20 §9). */
+const MONTH = new Date().getMonth() + 1;
+const COLLECTION_ORDER: CollectionId[] = [...new Set([...inSeason(MONTH), ...COLLECTION_IDS])];
+
+/** "By type" or "By collection" — remembered on this device. */
+const VIEW_KEY = "ig-layout:library-view";
+function readView(): "type" | "set" {
+  try {
+    return localStorage.getItem(VIEW_KEY) === "set" ? "set" : "type";
+  } catch {
+    return "type";
+  }
+}
 
 function PackThumb({ item }: { item: CatalogItem }) {
   // eslint-disable-next-line @next/next/no-img-element -- a pack thumbnail (static file)
@@ -115,6 +130,16 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
   const [reload, setReload] = useState(0);
   const catalog = useCatalog((s) => s.catalog);
   const packItems = useCatalog((s) => s.items);
+  const [view, setViewState] = useState(readView);
+  const setView = (v: "type" | "set") => {
+    setViewState(v);
+    try {
+      localStorage.setItem(VIEW_KEY, v);
+    } catch {
+      // ignore
+    }
+  };
+  const [collection, setCollection] = useState<CollectionId | null>(null);
 
   // The packs of this sheet: the catalog, then every pack's items (small JSON files).
   useEffect(() => {
@@ -180,6 +205,31 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
     node: <PackThumb item={item} />,
     add: () => addPackItem(item, packKind),
   });
+  /** Every loaded item of these kinds, with the kind it came from. */
+  const allItems = (kinds: CatalogKind[]) =>
+    kinds.flatMap((k) => packsOf(catalog, k).flatMap((p) => (packItems[p.id] ?? p.preview).map((item) => ({ item, kind: k }))));
+  /** Groups by collection instead of by pack ("Bộ" view). */
+  const collectionGroups = (kinds: CatalogKind[]) => {
+    const all = allItems(kinds).filter(({ item }) => !q || fold(item.search).includes(fold(q)));
+    return COLLECTION_ORDER.map((c) => ({
+      id: `set-${c}`,
+      title: COLLECTIONS[c][locale],
+      items: all.filter(({ item }) => item.collections.includes(c)).map(({ item, kind: k }) => ({ ...packItem(item, k), key: `${c}-${item.id}` })),
+    })).filter((g) => g.items.length > 0);
+  };
+  /** A pack texture picked in a collection: the background of the project. */
+  const setPackBackground = async (item: CatalogItem) => {
+    try {
+      const asset = await catalogAsset(item);
+      const st = useEditor.getState();
+      st.addAsset(asset);
+      st.updateDraft((d) => ({ ...d, background: { kind: "texture", texture: item.id, assetId: asset.id, tile: !!item.tile } }));
+      st.applyDraft();
+      onClose();
+    } catch {
+      onNotice?.(t("lib.offline"));
+    }
+  };
   const packGroups = (packKind: CatalogKind) =>
     packsOf(catalog, packKind).map((p) => ({
       id: `pack-${p.id}`,
@@ -191,6 +241,7 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
 
   // ── Groups of each library ───────────────────────────────────────────
   const groups: { id: string; title: string; items: Item[] }[] = [];
+  let collectionChips: { available: CollectionId[]; chosen: CollectionId | undefined } | null = null;
   if (kind === "sticker") {
     const sticker = (k: string): Item => ({
       key: `s-${k}`,
@@ -251,6 +302,18 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
       })),
     });
     groups.push(...packGroups("overlay"));
+    if (view === "set") groups.splice(0, groups.length, ...collectionGroups(["sticker", "overlay"]));
+  } else if (kind === "collection") {
+    const all = allItems(["sticker", "overlay", "texture"]);
+    const available = COLLECTION_ORDER.filter((c) => all.some(({ item }) => item.collections.includes(c)));
+    const chosen = collection && available.includes(collection) ? collection : available[0];
+    if (chosen) {
+      const of = (k: CatalogKind) => all.filter(({ item, kind: ik }) => ik === k && item.collections.includes(chosen) && (!q || fold(item.search).includes(fold(q))));
+      groups.push({ id: "c-sticker", title: t("lib.stickers"), items: of("sticker").map(({ item }) => packItem(item, "sticker")) });
+      groups.push({ id: "c-overlay", title: t("lib.overlays"), items: of("overlay").map(({ item }) => packItem(item, "overlay")) });
+      groups.push({ id: "c-texture", title: t("lib.backgrounds"), items: of("texture").map(({ item }) => ({ ...packItem(item, "texture"), add: () => setPackBackground(item) })) });
+    }
+    collectionChips = { available, chosen };
   } else if (kind === "shape") {
     for (const g of SHAPE_GROUPS)
       groups.push({
@@ -323,7 +386,8 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
     input.click();
   };
 
-  const titles: Record<LibraryKind, string> = { sticker: t("lib.stickers"), shape: t("lib.shapes"), frame: t("lib.frames"), grid: t("lib.grids"), widget: t("lib.widgets"), brand: t("lib.brand") };
+  const titles: Record<LibraryKind, string> = { sticker: t("lib.stickers"), shape: t("lib.shapes"), frame: t("lib.frames"), grid: t("lib.grids"), widget: t("lib.widgets"), brand: t("lib.brand"), collection: t("lib.collections") };
+  const chips = collectionChips as { available: CollectionId[]; chosen: CollectionId | undefined } | null;
   const opened = groups.find((g) => g.id === open);
 
   return (
@@ -357,11 +421,30 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
           </>
         ) : (
           <>
+            {kind === "sticker" && (
+              <div role="radiogroup" aria-label={t("lib.viewBy")} className="mb-3 flex gap-1 rounded-full bg-surface-2 p-1">
+                {(["type", "set"] as const).map((v) => (
+                  <button key={v} type="button" role="radio" aria-checked={view === v} onClick={() => setView(v)} className={`h-8 flex-1 rounded-full text-[13px] ${view === v ? "bg-surface font-bold shadow-sm" : "text-muted"}`}>
+                    {t(v === "type" ? "lib.byType" : "lib.byCollection")}
+                  </button>
+                ))}
+              </div>
+            )}
+            {chips && (
+              <div role="radiogroup" aria-label={t("lib.collections")} className="no-scrollbar -mx-4 mb-3 flex gap-2 overflow-x-auto px-4">
+                {chips.available.map((c) => (
+                  <button key={c} type="button" role="radio" aria-checked={chips.chosen === c} onClick={() => setCollection(c)} className={`h-9 shrink-0 rounded-full px-4 text-[13px] ${chips.chosen === c ? "bg-text font-bold text-bg" : "bg-surface-2"}`}>
+                    {COLLECTIONS[c][locale]}
+                  </button>
+                ))}
+                {chips.available.length === 0 && <p className="text-sm text-muted">{t("lib.noCollections")}</p>}
+              </div>
+            )}
             {groups.map((g) => (
               // Grids are laid out in full: no "+N" to open (owner, 2026-10-17).
               <Group key={g.id} title={g.title} items={g.items} full={kind === "grid" ? "titled" : undefined} onMore={() => setOpen(g.id)} />
             ))}
-            {kind === "sticker" && (
+            {kind === "sticker" && view === "type" && (
               <section className="pb-4">
                 <h3 className="pb-2 text-[15px] font-bold">{t("lib.emoji")}</h3>
                 <EmojiStickers
@@ -376,11 +459,11 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
           </>
         )}
       </div>
-      {kind === "sticker" && !opened && (
+      {(kind === "sticker" || kind === "collection") && !opened && (
         // Floating search pill at the bottom of the sheet (§3).
         <label className="sticky bottom-3 mx-auto -mt-16 flex h-11 w-[calc(100%-32px)] max-w-md items-center gap-2 rounded-full border border-border bg-surface/90 px-4 text-muted shadow-lg backdrop-blur-xl">
           <Icon name="search" size={18} />
-          <input type="search" aria-label={t("lib.searchStickers")} placeholder={t("lib.searchStickers")} value={query} onChange={(e) => setQuery(e.target.value)} className="flex-1 bg-transparent text-sm text-text outline-none" />
+          <input type="search" aria-label={t(kind === "collection" ? "lib.search" : "lib.searchStickers")} placeholder={t(kind === "collection" ? "lib.search" : "lib.searchStickers")} value={query} onChange={(e) => setQuery(e.target.value)} className="flex-1 bg-transparent text-sm text-text outline-none" />
         </label>
       )}
     </DragSheet>
@@ -422,6 +505,7 @@ export function NewLayerSheet(props: { onPick: (key: NewLayerKey) => void; onClo
     ["files", "folder", t("lib.files")],
     ["text", "text", t("lib.text")],
     ["sticker", "heart", t("lib.sticker")],
+    ["collection", "sparkles", t("lib.collections")],
     ["frame", "style", t("lib.frame")],
     ["grid", "layout", t("lib.grid")],
     ["draw", "pencil", t("lib.draw")],
@@ -445,4 +529,4 @@ export function NewLayerSheet(props: { onPick: (key: NewLayerKey) => void; onClo
   );
 }
 
-export type NewLayerKey = "photo" | "video" | "files" | "text" | "sticker" | "frame" | "grid" | "draw" | "widget" | "shape" | "brand";
+export type NewLayerKey = "photo" | "video" | "files" | "text" | "sticker" | "collection" | "frame" | "grid" | "draw" | "widget" | "shape" | "brand";

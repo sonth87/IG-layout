@@ -82,6 +82,34 @@ check(st.doc.background.kind === "texture" && st.doc.background.texture === "tes
 const drawn = await page.evaluate(() => !!window.__igEditor.getState().canvas.layer.findOne((n) => typeof n.fillPatternImage === "function" && n.fillPatternImage()?.width === 256));
 check(drawn, "the canvas repeats it");
 
+console.log("View by collection (C3)");
+await stickers();
+const viewBy = page.getByRole("radiogroup", { name: "View by" });
+await viewBy.getByRole("radio", { name: "Collection" }).click();
+check(await page.getByRole("region", { name: "Vintage" }).isVisible(), "stickers grouped by collection: Vintage");
+check(await page.getByRole("region", { name: "Film" }).getByRole("button", { name: "Test leak" }).isVisible(), "the film overlay under Film");
+check((await page.getByRole("region", { name: "Featured" }).count()) === 0, "the type groups are gone");
+await page.getByRole("button", { name: "Close", exact: true }).click();
+await stickers();
+check((await page.getByRole("radiogroup", { name: "View by" }).getByRole("radio", { name: "Collection" }).getAttribute("aria-checked")) === "true", "the choice is remembered");
+await page.getByRole("radiogroup", { name: "View by" }).getByRole("radio", { name: "Type" }).click();
+check(await page.getByRole("region", { name: "Featured" }).isVisible(), "back to by type");
+await page.getByRole("button", { name: "Close", exact: true }).click();
+
+console.log("Collections screen (C3)");
+await page.evaluate(() => window.__igEditor.getState().select(null));
+await page.getByRole("button", { name: "New layer" }).click();
+await page.getByRole("region", { name: "New layer" }).getByRole("button", { name: "Collections", exact: true }).click();
+const chips = page.getByRole("radiogroup", { name: "Collections" });
+const chipNames = await chips.getByRole("radio").allInnerTexts();
+check(["Vintage", "Film", "Journal"].every((c) => chipNames.includes(c)), `collections with content: ${chipNames.join(", ")}`);
+await chips.getByRole("radio", { name: "Journal" }).click();
+await page.screenshot({ path: path.join(OUT, "m20b-collection.png") });
+await page.getByRole("region", { name: "Backgrounds" }).getByRole("button", { name: "Test paper" }).click();
+await page.waitForTimeout(800);
+st = await S();
+check(st.doc.background.kind === "texture" && st.doc.background.texture === "test-textures/paper", "a collection's background applies at once");
+
 console.log("console errors:", errors);
 console.log(failures === 0 && errors.length === 0 ? "ALL PASSED" : `${failures} FAILED, ${errors.length} console errors`);
 if (failures || errors.length) process.exitCode = 1;

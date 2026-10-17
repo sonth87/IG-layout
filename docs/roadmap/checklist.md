@@ -410,8 +410,8 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](../architecture/asset-catalog.md) · Việc của Gemini: [gemini-tasks.md](../ai/gemini-tasks.md)
 - [x] Chủ dự án trả lời Q-L1…Q-L13, Q-E9 (2026-10-17)
 - [x] **C1** Định dạng danh mục (`src/lib/catalog/`), `scripts/assets/validate.mjs`, `build-catalog.mjs`, thư mục `assets/` + `public/packs/`
-- [ ] **C2** App đọc danh mục: tải gói khi cần, thêm sticker / khung / chất liệu / lớp phủ từ gói (lưu như ảnh của dự án), offline
-- [ ] **C3** Nút Loại / Bộ trong sheet thư viện; màn Bộ sưu tập; bộ theo mùa lên đầu; tìm kiếm EN / VI
+- [x] **C2** App đọc danh mục: tải gói khi cần; sticker / lớp phủ từ gói trong sheet Sticker, chất liệu từ gói trong sheet Nền (lát lặp / phủ kín); mục từ gói được tải về **thành ảnh của dự án**; "Dùng gần đây"; tìm không cần dấu (e2e m20b) — khung từ gói làm cùng C4
+- [x] **C3** Nút **Loại / Bộ** trong sheet Sticker (nhớ trên máy); màn **Bộ sưu tập** trong "Lớp mới" (chọn bộ → Sticker, Lớp phủ, Nền của bộ); bộ theo mùa lên đầu; tìm kiếm EN / VI không cần dấu
 - [ ] **C4** Khung có lớp trang trí + nhiều cửa sổ
 - [ ] **C5** Màn chọn phông mới (chữ của phần tử / câu ngẫu nhiên, tên nhỏ ở dưới, lọc ngôn ngữ / kiểu), tải phông từ danh mục
 - [ ] **C6** Màn Cảm ơn (tự động) + màn Giới thiệu (chờ nội dung của chủ dự án)
