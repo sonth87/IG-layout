@@ -110,6 +110,13 @@ await page.waitForTimeout(800);
 st = await S();
 check(st.doc.background.kind === "texture" && st.doc.background.texture === "test-textures/paper", "a collection's background applies at once");
 
+console.log("Thanks lists the pack sources (C6)");
+await page.getByLabel("Back").click();
+await page.getByRole("tab", { name: "Settings" }).click();
+await page.getByRole("button", { name: /^Thanks/ }).click();
+const assetsCredits = page.getByRole("region", { name: "Pictures in the libraries" });
+check((await assetsCredits.innerText()).includes("Test") && (await assetsCredits.innerText()).includes("CC0 1.0"), "pack credits with their licence");
+
 console.log("console errors:", errors);
 console.log(failures === 0 && errors.length === 0 ? "ALL PASSED" : `${failures} FAILED, ${errors.length} console errors`);
 if (failures || errors.length) process.exitCode = 1;

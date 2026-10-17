@@ -153,10 +153,13 @@ st = await S();
 const types = st.doc.elements.map((e) => e.type).sort().join(",");
 check(types.includes("text") && types.includes("shape") && types.includes("image"), `elements persisted (${types})`);
 
-console.log("10. Credits in Settings");
+console.log("10. Thanks (credits) from Settings (M20 C6)");
 await page.getByLabel("Back").click();
 await page.getByRole("tab", { name: "Settings" }).click();
-check(await page.getByText("Lucide — ISC License.").isVisible(), "credits listed");
+await page.getByRole("button", { name: /^Thanks/ }).click();
+check(await page.getByRole("link", { name: "Lucide icons" }).isVisible(), "icons credited");
+check(await page.getByRole("region", { name: "Code libraries" }).getByRole("link", { name: "Konva · react-konva" }).isVisible(), "code libraries credited");
+check(/Google Fonts — \d+ fonts/.test(await page.getByRole("region", { name: "Fonts" }).innerText()), "fonts credited");
 
 console.log("console errors:", errors);
 console.log(failures === 0 && errors.length === 0 ? "ALL PASSED" : `${failures} FAILED, ${errors.length} console errors`);

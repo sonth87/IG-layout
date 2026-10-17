@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ConfirmDialog } from "@/components/ui/Dialog";
 import { Icon } from "@/components/ui/Icon";
 import { formatBytes } from "@/lib/format";
+import { ThanksScreen } from "./ThanksScreen";
 import { deleteAllProjects, listProjects, storageEstimate } from "@/lib/storage/projects";
 import { type Locale, type ThemeSetting, useSettings, useT } from "@/store/settings";
 
@@ -21,6 +22,7 @@ export function SettingsScreen({ onBack, onHelp }: { onBack?: () => void; onHelp
   const [info, setInfo] = useState({ count: 0, usage: 0, persisted: false });
 
   const [reloadKey, setReloadKey] = useState(0);
+  const [thanks, setThanks] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -45,6 +47,8 @@ export function SettingsScreen({ onBack, onHelp }: { onBack?: () => void; onHelp
     { value: "en", label: "English" },
     { value: "vi", label: "Tiếng Việt" },
   ];
+
+  if (thanks) return <ThanksScreen onBack={() => setThanks(false)} />;
 
   return (
     <main className="mx-auto flex h-dvh max-w-md flex-col md:max-w-xl">
@@ -137,19 +141,13 @@ export function SettingsScreen({ onBack, onHelp }: { onBack?: () => void; onHelp
           </button>
         </section>
 
-        <section aria-labelledby="credits-title" className="flex flex-col gap-2.5">
-          <h2 id="credits-title" className="text-[13px] font-semibold tracking-wider text-muted uppercase">
-            {t("credits.title")}
-          </h2>
-          <dl className="flex flex-col gap-3 rounded-[14px] bg-surface p-3.5 text-[13px] leading-relaxed">
-            {(["fonts", "icons", "libraries"] as const).map((k) => (
-              <div key={k}>
-                <dt className="font-semibold">{t(`credits.${k}`)}</dt>
-                <dd className="text-muted">{t(`credits.${k}Body`)}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
+        <button type="button" onClick={() => setThanks(true)} className="flex items-center justify-between rounded-[14px] bg-surface px-3.5 py-3.5 text-left text-sm">
+          <span>
+            <span className="block font-medium">{t("thanks.title")}</span>
+            <span className="block text-[12px] text-muted">{t("thanks.hint")}</span>
+          </span>
+          <Icon name="chevronRight" size={18} />
+        </button>
 
         <section className="flex items-center justify-between rounded-[14px] bg-surface px-3.5 py-3.5 text-sm">
           <span>{t("settings.about")}</span>
