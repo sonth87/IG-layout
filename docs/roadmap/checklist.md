@@ -325,4 +325,5 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Thay**: nút đầu tiên trên thanh công cụ ảnh (và trong ⋯) mở cùng sheet, thay một ảnh
 - [x] Ô trống thuộc khối không có tay nắm riêng, không kéo / chụm riêng được (đi theo khối)
 - [x] Kiểm tra tự động `e2e/m16.mjs`; m3, m5, m10, m14 cập nhật theo sheet mới
+- [x] Sửa (2026-10-17): khi đang chọn một phần tử / khối thì **ẩn ‖ ⋯ dưới các slide** (nút + vẫn hiện, như IMG_3966)
 - [ ] Chủ dự án thử trên iPhone / iPad: chạm + → Lấp đầy khung → chọn nhiều ảnh; nút Ảnh thêm ảnh tự do
