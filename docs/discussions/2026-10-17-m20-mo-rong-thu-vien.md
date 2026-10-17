@@ -1,6 +1,6 @@
 # M20 — Mở rộng thư viện: hiện trạng, đề xuất và câu hỏi
 
-Ngày: 2026-10-17. Trạng thái: **đang bàn** — chưa chốt phạm vi.
+Ngày: 2026-10-17. Trạng thái: **đang bàn** — đã có câu trả lời đợt 1 (§7), còn Q-L10…Q-L13 (§10).
 Liên quan: D-104 (đổi thứ tự: M20 = mở rộng thư viện, M21 = xoá vật thể), D-66 (tài sản là của mình hoặc có giấy phép), [editor-v2/11](../product/editor-v2/11-thu-vien.md).
 
 ## 1. Hiện app có gì
@@ -76,6 +76,85 @@ Tổng: khoảng **+300 mục**, chưa tính emoji.
 - **Q-L9 — Template:** M20 có làm thêm template ở trang chủ dựng từ khung / sticker mới không, hay để mốc riêng?
 - **Q-E9 (vẫn mở):** template nhiều khung là các phần tử rời hay gom thành một nhóm?
 
-## 7. Kết quả trao đổi
+## 7. Kết quả trao đổi (2026-10-17)
 
-(Ghi lại ở đây khi chủ dự án trả lời.)
+Chủ dự án trả lời:
+- **Q-L1 Phong cách:** nhiều phong cách, nhiều bộ khác nhau.
+- **Q-L2 Quy mô:** lâu dài **trên 1.000 mục**.
+- **Q-L3 Nguồn:** **ưu tiên nguồn ngoài**, để dành công sức (token) cho những việc không lấy từ ngoài được (bộ filter, hiệu ứng, vẽ tay — xem M21). Vẽ được thì tốt nhưng tốn công mà hiệu quả có thể không cao (giấy xé, phim, khung tranh…).
+- **Phông:** thêm nhiều kiểu: viết tay, tiếng Nhật, kiểu "Harry Potter", kiểu Tết, kiểu Lego, các phông đặc biệt khác.
+  - Ô xem trước phông **không hiện "Đà Lạt"** nữa. Hiện **chữ của phần tử chữ đang chọn**, hoặc một câu hay, có ý nghĩa, lấy ngẫu nhiên từ một danh sách. Tên phông nhỏ ở dưới.
+  - Có **lọc phông theo ngôn ngữ hỗ trợ**.
+- **Q-L6 Widget:** đặc biệt và đa dạng hơn, không bó buộc vài kiểu.
+- **Q-L7 Tổ chức:**
+  - Tạm thời giữ chia theo loại.
+  - Khi có nhiều bộ (Noel, Tết, Trung thu…) thì thêm nút **chuyển xem theo loại / theo bộ**. Cách làm cụ thể cần nghĩ thêm, xem §9.
+- **Q-E9:** cái nào dễ làm trước. Trước mắt template là **các khung rời ghép lại**.
+- **Đề xuất thêm của chủ dự án:**
+  - **M21** làm bộ filter lớn, hiệu ứng tĩnh, vẽ tay / viết tay.
+  - Hiệu ứng tĩnh gồm gương, xoáy, nước, lửa, chảy màu, loang màu… và áp được cho ảnh, chữ hay bất kỳ phần tử nào.
+  - Xoá vật thể chuyển sang **M22** (D-105).
+
+## 8. Nguồn ngoài — giấy phép là điều kiện số 1
+
+Thư viện của app là **phân phối lại tài sản cho người khác dùng**. Nhiều nguồn "miễn phí" cấm đúng việc này:
+
+- **Pixabay** cấm phân phối nội dung "standalone", tức là gần như nguyên dạng.
+- **Unsplash** cấm gom ảnh để làm dịch vụ tương tự.
+- **Pexels, Freepik**, các gói "free for commercial use" trên Gumroad hay Etsy đều có điều khoản cấm đưa vào app / thư viện, hoặc bắt ghi nguồn theo từng chỗ dùng.
+
+→ **Không dùng các nguồn đó.**
+
+Đề xuất quy tắc (D-106, chờ chốt):
+- **Dùng được:**
+  - CC0 / public domain.
+  - MIT, Apache, ISC, OFL (phông).
+  - CC-BY: ghi nguồn trên màn Credits.
+- **Tránh:** CC-BY-SA (ràng buộc chia sẻ lại cùng giấy phép), mọi giấy phép "NC" (phi thương mại), và các nguồn ở trên.
+- **Hồ sơ từng mục:** mỗi mục lưu nguồn, tác giả, giấy phép, link gốc. Màn Credits sinh tự động từ đó.
+
+| Nhóm tài sản | Nguồn đề xuất | Giấy phép | Ghi chú |
+|---|---|---|---|
+| Sticker vintage: tem, vé, nhãn, bưu thiếp, hoa lá vẽ, bản đồ cổ | Smithsonian Open Access (hơn 5 triệu mục), The Met Open Access, Rijksmuseum, NYPL Public Domain, Wikimedia Commons (PD), Openverse (lọc cc0 / pdm) | CC0 / PD | Cần **tách nền, cắt, nén** — dùng luôn mô hình xoá nền của M12 trong một script xử lý hàng loạt |
+| Hình vẽ tay, doodle, người | Open Doodles, Open Peeps, Kenney, OpenGameArt (lọc CC0) | CC0 | Vector, đổi màu được |
+| Emoji | Fluent (đã có), Noto Emoji | MIT / Apache, OFL | |
+| Chất liệu nền: giấy, vải, gỗ… | ambientCG, Poly Haven | CC0 | Ảnh chụp thật |
+| Phông | Google Fonts | OFL / Apache | Có sẵn nhãn ngôn ngữ (Vietnamese, Japanese…) và kiểu (Handwriting, Display…) |
+| Khung giấy xé, phim, polaroid, khung tranh | Ít nguồn CC0 chất lượng | — | Xem dưới |
+
+**Khung là chỗ khó nhất:** gần như không có bộ khung giấy xé / phim CC0 đẹp. Đề xuất **máy tạo khung bằng tham số** thay cho vẽ từng cái:
+- Viết một bộ sinh "giấy xé": mép xé theo nhiễu, có xơ giấy, bóng đổ, nhận ảnh chất liệu CC0.
+- Viết một bộ sinh "phim": số khung, màu phim, chữ in mép.
+- Viết một bộ sinh "polaroid / khung tranh": tỉ lệ, viền, chất liệu, băng dính.
+
+Mỗi bộ sinh viết một lần, ra **hàng trăm biến thể** (đổi tham số và hạt ngẫu nhiên), nên tốn công ít hơn nhiều so với vẽ từng khung và vẫn ra cảm giác thật. Đây không phải "vẽ tay từng cái" mà chủ dự án lo.
+
+**Phông "Harry Potter", "Lego":** phông gốc là thương hiệu hoặc phông fan làm, chỉ cho dùng phi thương mại → **không dùng**. Thay bằng phông OFL **cùng phong cách** (cổ điển / kỳ ảo, khối tròn đồ chơi…).
+
+**Cách đưa vào app:**
+- Một script thu thập + xử lý (tải → tách nền → cắt → WebP → gắn nhãn EN / VI, bộ, giấy phép) sinh ra một **danh mục JSON**.
+- Tài sản chia theo nhóm, **tải khi mở nhóm lần đầu** rồi lưu offline. App không nặng lên.
+- Ước tính 1.000 mục × 30 – 60 KB ≈ 30 – 60 MB tổng cộng. Người dùng chỉ tải nhóm họ mở.
+
+## 9. Xem theo loại / theo bộ — đề xuất
+
+- **Một danh mục chung:** mỗi mục có `loại` (khung, sticker, hình, widget, phông, nền, lớp phủ, template) và danh sách `bộ` (Tết, Trung thu, Noel, Valentine, Sinh nhật, Cưới, Du lịch, Biển, Cà phê, Phim, Giấy xé, Nhật ký, Vintage, Y2K, Kỹ thuật số, Nhật Bản…). Cả hai cách xem đều lấy từ danh mục này, không phải làm hai lần.
+- **Trong mỗi sheet thư viện:** nút chuyển nhỏ **Loại | Bộ** ở đầu sheet.
+  - "Loại" giữ các nhóm như hiện nay.
+  - "Bộ" đổi các nhóm thành các bộ, chỉ hiện mục của loại đó. Ví dụ sheet Sticker → nhóm "Tết", "Noel"…
+  - Lựa chọn được nhớ trên máy.
+- **Màn "Bộ sưu tập"** (mở từ "Lớp mới" hoặc trang chủ): chạm một bộ → thấy **mọi thứ của bộ đó** chia theo loại: template, khung, sticker, phông, nền. Đây là cách duyệt kiểu Unfold.
+- **Bộ theo mùa** tự đưa lên đầu khi gần dịp (Tết khoảng tháng 1 – 2, Trung thu khoảng tháng 9, Noel tháng 12).
+- **Tìm kiếm** tìm trên cả tên, nhãn và tên bộ, bằng EN và VI.
+
+## 10. Câu hỏi còn lại
+
+- **Q-L10:** Chấp nhận quy tắc giấy phép ở §8 (D-106)? CC-BY (ghi tên trên màn Credits) có được không?
+- **Q-L11:** Chấp nhận dùng **bộ sinh khung bằng tham số** cho giấy xé / phim / polaroid, vì nguồn CC0 cho khung rất ít?
+- **Q-L12:** Tài sản để chung trong repo (Vercel phục vụ luôn), hay tách sang repo / CDN riêng cho nhẹ repo chính?
+- **Q-L13:** Thứ tự làm M20 đề xuất:
+  - **(1) Nền tảng:** danh mục + giấy phép + tải theo nhóm, khung có lớp trang trí + nhiều cửa sổ, nút Loại / Bộ, màn chọn phông mới.
+  - **(2) Đợt nội dung 1:** khoảng 300 mục.
+  - **(3) Các đợt sau** tới hơn 1.000.
+
+  Đồng ý không?

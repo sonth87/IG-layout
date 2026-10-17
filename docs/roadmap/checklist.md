@@ -407,8 +407,12 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Mỗi vùng cuộn chỉ một chiều**: dải công cụ chỉ cuộn ngang, sheet / panel chỉ cuộn dọc (sheet Nền không còn cuộn ngang; thanh công cụ chữ không còn cuộn dọc)
 
 ### M20 — Mở rộng thư viện (D-104) — đang bàn phạm vi
-- [ ] Chủ dự án trả lời Q-L1…Q-L9 và Q-E9 ở [2026-10-17-m20-mo-rong-thu-vien.md](../discussions/2026-10-17-m20-mo-rong-thu-vien.md)
+- [x] Chủ dự án trả lời Q-L1…Q-L9 và Q-E9 (đợt 1, 2026-10-17)
+- [ ] Trả lời Q-L10…Q-L13 (giấy phép, bộ sinh khung, nơi để tài sản, thứ tự làm) ở [2026-10-17-m20-mo-rong-thu-vien.md](../discussions/2026-10-17-m20-mo-rong-thu-vien.md)
 - [ ] Chốt phạm vi và chia việc
 
-### M21 — Xoá vật thể (D-104)
+### M21 — Công cụ sáng tạo (D-105)
+- [ ] Bàn chi tiết: nhóm filter, danh sách hiệu ứng tĩnh, bút vẽ / viết tay
+
+### M22 — Xoá vật thể (D-104, D-105)
 - [ ] Đặc tả: [editor-v2/09](../product/editor-v2/09-anh-va-video.md) mục 3

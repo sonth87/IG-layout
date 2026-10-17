@@ -33,7 +33,9 @@ Thứ tự được chọn sao cho mỗi mốc là nền cho mốc sau, và nh�
 
 **M20 — Mở rộng thư viện** (D-104). Khung có lớp trang trí đè lên ảnh và khung nhiều cửa sổ, thêm sticker scrapbook, hình (nhóm Mực), widget, lớp phủ / chất liệu, phông thương hiệu. Phạm vi đang bàn: [2026-10-17-m20-mo-rong-thu-vien.md](../../discussions/2026-10-17-m20-mo-rong-thu-vien.md).
 
-**M21 — Xoá vật thể.** Tô lên vật thể để máy tự xoá và vẽ lại nền phía sau, chạy trên máy (mô hình ~200 MB, tải lần đầu khi dùng, như xoá nền). Làm sau cùng (Q-E8). Tài liệu: [09](09-anh-va-video.md) mục 3.
+**M21 — Công cụ sáng tạo** (D-105). Bộ filter lớn chia nhóm; hiệu ứng tĩnh (gương, xoáy, nước, lửa, chảy màu, loang màu…) áp cho ảnh, chữ hay bất kỳ phần tử nào; vẽ tay / viết tay. Sẽ bàn chi tiết khi tới.
+
+**M22 — Xoá vật thể.** Tô lên vật thể để máy tự xoá và vẽ lại nền phía sau, chạy trên máy (mô hình ~200 MB, tải lần đầu khi dùng, như xoá nền). Làm sau cùng (Q-E8). Tài liệu: [09](09-anh-va-video.md) mục 3.
 
 Mỗi mốc kết thúc bằng: kiểm thử tự động cho các tiêu chí nghiệm thu của tài liệu tương ứng, ảnh chụp màn hình cả hai chế độ sáng / tối, và chủ dự án thử trên điện thoại.
 
@@ -46,7 +48,7 @@ Mỗi mốc kết thúc bằng: kiểm thử tự động cho các tiêu chí ng
 - **Q-E7 — Ba tab đáy.** Đồng ý **Trang chủ / Dự án / Cài đặt**. → [03](03-trang-chu-va-template.md).
 - **Q-E1 — Chạm ô ảnh trống.** Ô đứng riêng trên slide trắng: chạm là chọn luôn ô đó. Ô trong lưới / template: chạm **trúng dấu +** → mở ngay "Lấp đầy khung"; chạm chỗ khác của ô → chọn cha (vì chưa có ảnh để đi vào). → [06](06-chon-va-cu-chi.md) quy tắc 6.
 - **Q-E4 — Thẻ cạnh "Tiếp tục".** Thêm thẻ **"Tạo mới"**. → [03](03-trang-chu-va-template.md).
-- **Q-E8 — Xoá vật thể.** Làm, **để sau cùng** (M21, D-104).
+- **Q-E8 — Xoá vật thể.** Làm, **để sau cùng** (M22, D-105).
 
 ## 4. Câu hỏi còn mở
 

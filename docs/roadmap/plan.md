@@ -8,16 +8,17 @@
 ## Tổng quan
 
 ```
-GĐ0 Làm rõ yêu cầu ──▶ GĐ1 Prototype ──▶ GĐ2 MVP + Editor v2 (M1 → M21) ──▶ v1.0 phát hành ──▶ GĐ3 Mở rộng
+GĐ0 Làm rõ yêu cầu ──▶ GĐ1 Prototype ──▶ GĐ2 MVP + Editor v2 (M1 → M22) ──▶ v1.0 phát hành ──▶ GĐ3 Mở rộng
    (xong)              (xong phần code,   (code xong tới M19; còn M20 thư viện,
-                        chờ thử máy thật)   M21 xoá vật thể)
+                        chờ thử máy thật)   M21 công cụ sáng tạo,
+                                            M22 xoá vật thể)
 ```
 
 | Giai đoạn | Mục tiêu | Trạng thái |
 |---|---|---|
 | GĐ0 — Làm rõ yêu cầu | Chốt tính năng, phạm vi, kiến trúc, wireframe | Xong |
 | GĐ1 — Prototype kỹ thuật | Chứng minh phần rủi ro nhất chạy được trên điện thoại thật | Xong phần code; chờ thử máy thật ([device-test](device-test.md)) |
-| GĐ2 — MVP + Editor v2 | Bản dùng được đầy đủ luồng chính: M1–M13 (MVP, video), M14–M19 (Editor v2), **M20 mở rộng thư viện** (đang bàn), **M21 xoá vật thể** (D-104) | Đang làm — code xong tới M19 |
+| GĐ2 — MVP + Editor v2 | Bản dùng được đầy đủ luồng chính: M1–M13 (MVP, video), M14–M19 (Editor v2), **M20 mở rộng thư viện** (đang bàn), **M21 công cụ sáng tạo** (filter, hiệu ứng, vẽ tay), **M22 xoá vật thể** (D-104, D-105) | Đang làm — code xong tới M19 |
 | GĐ3 — Mở rộng | Các tính năng mức "Sau" / "Cân nhắc" | Chưa bắt đầu |
 
 Không đặt ngày cố định; mỗi mốc có **điều kiện hoàn thành** rõ ràng. Thứ tự các mốc có thể đổi nếu chủ dự án muốn.
@@ -113,7 +114,7 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 
 ## Việc tiếp theo
 
-0. **Editor v2** ([đặc tả](../product/editor-v2/README.md), D-87): M14 → M19 xong phần code (2026-10-17). Tiếp theo: **M20 mở rộng thư viện** — đang bàn phạm vi ở [2026-10-17-m20-mo-rong-thu-vien.md](../discussions/2026-10-17-m20-mo-rong-thu-vien.md); **M21 xoá vật thể** (D-104).
+0. **Editor v2** ([đặc tả](../product/editor-v2/README.md), D-87): M14 → M19 xong phần code (2026-10-17). Tiếp theo: **M20 mở rộng thư viện** — đang bàn phạm vi ở [2026-10-17-m20-mo-rong-thu-vien.md](../discussions/2026-10-17-m20-mo-rong-thu-vien.md); **M21 công cụ sáng tạo** (filter, hiệu ứng tĩnh, vẽ tay), **M22 xoá vật thể** (D-104, D-105).
 
 1. ~~M8 — Sửa UX~~ xong (2026-10-15), xem [checklist](checklist.md).
 2. **Hướng mới (D-71): làm theo SCRL** — [phân tích bản 2](../discussions/2026-10-16-phan-tich-scrl-grids.md). Lộ trình: M9 menu nổi / zoom toàn dải / lớp kéo thả (xong) → M10 trang chủ + template (xong phần code, chờ duyệt mẫu) → M11 font / filter / sticker / lớp phủ / vẽ (xong phần code) → M12 xoá nền (xong phần code) → sticker emoji Fluent (xong) → M13 video ([đặc tả](../product/video-spec.md)): M13.1 nền tảng → M13.2 cắt đoạn → M13.3 hiệu ứng / animation → M13.4 nhạc / video 9:16 — **xong phần code cả 4** (2026-10-16), chờ thử iPhone. Tìm hiểu SVG Repo: [kết luận](../discussions/2026-10-16-svgrepo.md) — không crawl, đề xuất Fluent Emoji (MIT) → M11 font, filter, sticker, vẽ → M12 xoá nền → M13 video.
