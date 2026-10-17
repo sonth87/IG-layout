@@ -201,7 +201,11 @@ export interface TextElement extends ElementBase {
   /** Export pixels. `width` wraps the text; `height` follows the text (derived). */
   fontSize: number;
   color: string;
-  align: "left" | "center" | "right";
+  align: "left" | "center" | "right" | "justify";
+  /** Format sheet toggles (M19). */
+  italic?: boolean;
+  underline?: boolean;
+  strike?: boolean;
   /** Export pixels. */
   letterSpacing: number;
   /** Multiplier of the font size. */

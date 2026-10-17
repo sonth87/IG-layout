@@ -140,7 +140,7 @@ console.log("UX-02 re-layout keeps text");
 await page.getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: "Text", exact: true }).click();
 await page.getByRole("textbox", { name: "Edit text" }).fill("Giữ lại");
-await page.getByRole("dialog").getByRole("button", { name: "Done" }).click();
+await page.getByRole("button", { name: "Done typing" }).click();
 await page.getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: "Layout" }).click();
 await page.getByRole("button", { name: "Grid", exact: true }).click();
@@ -157,7 +157,7 @@ await tap(p.x, p.y);
 await tap(p.x, p.y);
 await page.waitForTimeout(200);
 check((await S()).editing === text.id, "double-tap opened the text editor");
-await page.getByRole("dialog").getByRole("button", { name: "Cancel" }).click();
+await page.getByRole("button", { name: "Done typing" }).click();
 
 console.log("UX-07 pinch: nothing selected zooms the canvas; selected element scales");
 await page.evaluate(() => window.__igEditor.getState().select(null));
@@ -204,20 +204,20 @@ const textEl = st.doc.elements.find((e) => e.type === "text");
 await page.evaluate((id) => window.__igEditor.getState().select(id), textEl.id);
 await page.waitForTimeout(200);
 const h0 = (await page.locator("[data-stage-frame]").boundingBox()).height;
-await page.getByRole("button", { name: "Style" }).click();
+await page.getByRole("button", { name: "Format" }).click();
 await page.waitForTimeout(300);
 const h1 = (await page.locator("[data-stage-frame]").boundingBox()).height;
 // editor-v2/12 §1.2: the sheet pushes the canvas up; it stays whole above the sheet.
 const fb1 = await page.locator("[data-stage-frame]").boundingBox();
-const top1 = (await page.locator("main > section").last().boundingBox()).y; // the text style sheet
+const top1 = (await page.getByRole("region", { name: "Edit" }).boundingBox()).y; // the typing bar over the Format sheet
 check(h1 <= h0 + 1 && fb1.y >= 0 && fb1.y + fb1.height <= top1 + 1, `canvas pushed up, whole above the sheet (${Math.round(h0)} → ${Math.round(h1)})`);
 
 console.log("UX-13 slider reset button");
-await page.getByRole("tab", { name: "Style" }).click();
+await page.getByRole("region", { name: "Format" }).getByRole("button", { name: /^Size/ }).click();
 await page.getByRole("slider").first().fill("200");
 await page.getByRole("button", { name: /^Reset Size/ }).click();
 check((await page.getByRole("slider").first().inputValue()) === "97", "reset returns the size to its default");
-await page.getByLabel("Cancel").click();
+await page.getByRole("button", { name: "Done typing" }).click();
 
 console.log("UX-06 zoom");
 await page.getByRole("button", { name: "Done" }).click();

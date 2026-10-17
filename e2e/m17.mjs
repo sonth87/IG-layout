@@ -60,7 +60,7 @@ check(await page.getByRole("button", { name: "Done" }).isVisible(), "✕ to dese
 await select(null);
 await page.getByRole("button", { name: "Text", exact: true }).click();
 await page.getByRole("textbox", { name: "Edit text" }).fill("Hello");
-await page.getByRole("dialog").getByRole("button", { name: "Done" }).click();
+await page.getByRole("button", { name: "Done typing" }).click();
 st = await S();
 const text = st.doc.elements.find((e) => e.type === "text");
 await select(text.id);

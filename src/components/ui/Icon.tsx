@@ -15,6 +15,8 @@ const PATHS = {
     </>
   ),
   handle: <path d="M10 6v12M14 6v12" />,
+  alignJustify: <path d="M4 6h16M4 10h16M4 14h16M4 18h16" />,
+  cursor: <path d="M9 4h2v16H9M7 4h6M7 20h6M15 8l4 4-4 4" />,
   home: <path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z" />,
   settings: (
     <>

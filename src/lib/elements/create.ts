@@ -23,13 +23,18 @@ function centered(_ratio: AspectRatio, slide: Rect, width: number, height: numbe
   return { x: slide.x + (slide.width - width) / 2, y: slide.y + (slide.height - height) / 2, width, height };
 }
 
+/** New text box at the top-left corner of the slide in view (editor-v2/10 §1). */
 export function newText(ratio: AspectRatio, slide: Rect, text: string): TextElement {
   const s = slideSize(ratio);
   const fontSize = Math.round(s.width * 0.09);
+  const margin = Math.round(s.width * 0.06);
   return {
     id: newId(),
     type: "text",
-    ...centered(ratio, slide, s.width * 0.8, fontSize * 1.2),
+    x: slide.x + margin,
+    y: slide.y + margin,
+    width: s.width * 0.8,
+    height: fontSize * 1.2,
     rotation: 0,
     opacity: 1,
     text,

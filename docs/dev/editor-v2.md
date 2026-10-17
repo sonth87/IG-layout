@@ -70,6 +70,10 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Tỉ lệ**: `AspectRatio = "w:h" | "1080x<h>"`, `slideSize(ratio)` thay bảng `SLIDE_SIZE` (luôn rộng 1080); `CUSTOM_HEIGHT = { min: 565, max: 1920 }`. **Khung app** (`App.tsx`): tab `home | projects | settings` + `BottomNav` nổi; `NewProjectSheet` (`home/`) tạo dự án 1 slide ngay; "Lưới profile" / "Từ ảnh" mở `NewProject` (màn từng bước cũ, `initialType`). **Trang chủ** (`home/HomeScreen.tsx`): các màn con (nhóm, chi tiết, đã thích, tìm kiếm) là một ngăn xếp `stack` vẽ chồng (`role=dialog`, `animate-slide-in`, tắt khi giảm chuyển động), trang chủ vẫn giữ vị trí cuộn bên dưới. Ảnh mẫu: `lib/templates/samples.ts` (12 phong cảnh SVG dạng data URL, thứ tự riêng cho mỗi template); thích: `lib/templates/favorites.ts` (`localStorage["ig-layout:favorites"]`). **Editor**: thanh trên là nút nổi kính mờ (`GLASS`), ⋯ = menu dự án (`projectActions`), menu ⋯ của phần tử vẫn ở thanh nổi trên phần tử.
 
+## 0f. Đã cài ở M19 (2026-10-17, D-99)
+
+**Gõ chữ** (`InlineText.tsx`): khi `editingTextId` có giá trị, một `<textarea>` đặt chồng lên chữ (toạ độ = gốc canvas − cuộn + `el · viewScale`, cùng phông / cỡ / màu / nền / góc xoay; `TextNode` để `opacity 0`). Phiên gõ = một bản nháp: `setEditingText(id)` mở nháp (`draft ?? doc`), gõ và định dạng ghi vào nháp (`updateDraft`, `patchDraft`), `setEditingText(null)` ghi một bước (`applyDraft`) hoặc xoá hộp chữ nếu rỗng. Chạm canvas khi đang gõ chỉ kết thúc gõ (`onTap`). Thanh gõ và hai sheet `TextFormatPanel` / `TextAlignPanel` (`tools/TextFormat.tsx`) nằm ở chỗ thanh công cụ; chế độ (gõ / định dạng / căn) là state của `Editor` (`textMode`), mặc định "gõ" mỗi khi phiên mới bắt đầu. `TextElement` thêm `italic`, `underline`, `strike`, `align: "justify"` (Konva `fontStyle` + `textDecoration`).
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:

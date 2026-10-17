@@ -81,7 +81,7 @@ await page.getByRole("button", { name: "Done" }).click();
 console.log("M13.3 animation on text");
 await page.getByRole("button", { name: "Text", exact: true }).click();
 await page.getByRole("textbox", { name: "Edit text" }).fill("Đà Lạt");
-await page.getByRole("dialog").getByRole("button", { name: "Done" }).click();
+await page.getByRole("button", { name: "Done typing" }).click();
 doc = await S();
 const text = doc.elements.find((e) => e.type === "text");
 await page.getByRole("button", { name: "Animate" }).click();
