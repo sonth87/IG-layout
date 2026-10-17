@@ -14,6 +14,13 @@ const PATHS = {
     </>
   ),
   handle: <path d="M10 6v12M14 6v12" />,
+  folder: <path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />,
+  video: (
+    <>
+      <rect x="3" y="6" width="13" height="12" rx="2" />
+      <path d="M16 10l5-3v10l-5-3" />
+    </>
+  ),
   undo: (
     <>
       <path d="M9 14L4 9l5-5" />

@@ -1,7 +1,7 @@
 // M10 — onboarding, home template library, start from a template (like SCRL).
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, OUT as out, URL_ARG, pickInFillFrame } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -70,8 +70,14 @@ check(st.past === 0, "starting from a template is not an undo step");
 check(st.name === "Travel journal", `project named after the template (${st.name})`);
 await shot(page, "5-editor-empty");
 
-console.log("Add photos fills the empty cells in order");
-await page.locator('input[type="file"][multiple]').setInputFiles(["p3.jpg", "p4.jpg", "portrait.jpg"].map((f) => path.join(dir, f)));
+console.log("Fill frame: 3 photos go into the empty cells in order (editor-v2/09 §1.3)");
+{
+  const cells0 = st.doc.elements.filter((e) => e.type === "image");
+  const fr0 = await page.locator("[data-stage-frame]").boundingBox();
+  const k0 = fr0.width / (st.doc.slideCount * 1080);
+  await page.mouse.click(fr0.x + (cells0[0].x + cells0[0].width / 2) * k0, fr0.y + (cells0[0].y + cells0[0].height / 2) * k0);
+  await pickInFillFrame(page, ["p3.jpg", "p4.jpg", "portrait.jpg"].map((f) => path.join(dir, f)));
+}
 await page.waitForTimeout(1500);
 st = await S();
 const filled = st.doc.elements.filter((e) => e.type === "image");
@@ -85,12 +91,9 @@ await page.evaluate(() => window.__igEditor.getState().select(null));
 const fr = await page.locator("[data-stage-frame]").boundingBox();
 const kk = fr.width / (st.doc.slideCount * 1080);
 await page.evaluate(() => window.__igEditor.getState().select(null));
-const [chooser] = await Promise.all([
-  page.waitForEvent("filechooser", { timeout: 5000 }),
-  page.mouse.click(fr.x + (empty.x + empty.width / 2) * kk, fr.y + (empty.y + empty.height / 2) * kk),
-]);
-check(!!chooser, "tapping the empty cell opens the photo picker");
-await chooser.setFiles(path.join(dir, "p4.jpg"));
+await page.mouse.click(fr.x + (empty.x + empty.width / 2) * kk, fr.y + (empty.y + empty.height / 2) * kk);
+check(await page.getByRole("region", { name: "Fill frame" }).isVisible(), "tapping the + of the empty frame opens “Fill frame”");
+await pickInFillFrame(page, path.join(dir, "p4.jpg"));
 await page.waitForTimeout(1500);
 st = await S();
 const cell = st.doc.elements.find((e) => e.id === empty.id);
@@ -112,7 +115,11 @@ await page.getByRole("button", { name: "Use template" }).click();
 await page.waitForTimeout(800);
 st = await S();
 check(st.doc.elements[0].type === "image" && st.doc.elements[0].assetId === null && st.doc.elements[0].locked, "an empty locked background cell");
-await page.locator('input[type="file"][multiple]').setInputFiles([path.join(dir, "panorama.jpg")]);
+// The background is an empty frame: fill it through "Fill frame" (Q-E2, editor-v2/09 §1).
+await page.evaluate((id) => window.__igEditor.getState().select(id), st.doc.elements[0].id);
+await page.waitForTimeout(200);
+await page.getByRole("button", { name: "Add photo" }).click();
+await pickInFillFrame(page, path.join(dir, "panorama.jpg"));
 await page.waitForTimeout(1200);
 st = await S();
 check(!!st.doc.elements[0].assetId && st.doc.elements.filter((e) => e.type === "image").length === 1, "the photo becomes the background");

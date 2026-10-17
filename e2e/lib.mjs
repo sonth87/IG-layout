@@ -54,3 +54,11 @@ export async function more(page, label) {
   await page.getByRole("button", { name: "More", exact: true }).click();
   await page.getByRole("region", { name: "More" }).getByRole("button", { name: label, exact: true }).click();
 }
+
+/** Picks `files` with "Photos" in the open "Fill frame" sheet (M16). */
+export async function pickInFillFrame(page, files) {
+  const sheet = page.getByRole("region", { name: "Fill frame" });
+  await sheet.waitFor();
+  const [chooser] = await Promise.all([page.waitForEvent("filechooser"), sheet.getByRole("button", { name: "Photos", exact: true }).click()]);
+  await chooser.setFiles(files);
+}
