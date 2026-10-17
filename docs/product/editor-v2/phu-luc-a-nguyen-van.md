@@ -69,3 +69,6 @@ Chép nguyên văn để không ý nào bị mất khi diễn giải. Tên ứng
 **2026-10-17 (lần 5):**
 > IMG_4036 là ảnh ví dụ về khung, trong ảnh là 1 template được kết hợp bởi 4 khung theo hình xé giấy
 > đấy cũng là ví dụ về việc 1 template được cấu thành như thế nào
+
+**2026-10-17 (lần 6):**
+> các template là từ các khung, các layout, vị trí image, shape, sticker,.... và nhiều thứ khác, không phải là luôn theo quy tắc dàn hàng ngang, hay xếp cạnh nhau, mà có thể đè lên nhau, xoay góc,... để tạo những hiệu ứng thị giác riêng,

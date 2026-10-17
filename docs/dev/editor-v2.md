@@ -95,7 +95,7 @@ Khi mở một dự án cũ, gom các `ImageElement` có `slot: true` thành kh�
 
 ### 2.4 Template
 
-Nguyên tắc (D-89): **template = danh sách phần tử thường** (khối lưới, khung, chữ, hình, sticker…) với vị trí và thứ tự lớp; không có kiểu phần tử "template" riêng. Ví dụ chuẩn: IMG_4036 = 4 `FrameElement` giấy xé chồng mép. Định dạng template trong `lib/templates` vì vậy phải mô tả được mọi loại phần tử, không chỉ ô ảnh.
+Nguyên tắc (D-89): **template = danh sách phần tử thường** (khối lưới, khung, chữ, hình, sticker…) với vị trí và thứ tự lớp; không có kiểu phần tử "template" riêng. Ví dụ chuẩn: IMG_4036 = 4 `FrameElement` giấy xé chồng mép. Định dạng template trong `lib/templates` vì vậy phải mô tả được mọi loại phần tử, không chỉ ô ảnh, và là **bố cục tự do** (D-89): mỗi phần tử có `x, y, w, h` (tương đối theo slide, được phép âm hoặc > 1 để vắt qua slide / tràn ra ngoài), `rotation`, thứ tự trong mảng = thứ tự lớp, cùng đầy đủ thuộc tính kiểu (độ mờ, hoà trộn, bóng, viền). Không giả định các ô không chồng nhau; không sắp xếp lại lớp khi áp dụng. Định dạng hiện tại (`TemplateSlot`, `TemplateText`, `TemplateShape`) đã có `rotation` và vị trí tự do một phần — mở rộng thành một danh sách phần tử tổng quát (`TemplateElement` = mọi `CanvasElement` không kèm asset), lưu dưới dạng dữ liệu (D-49).
 
 Template trong `lib/templates` hiện sinh ra ảnh `slot`. Đổi `applyTemplate` để sinh `LayoutElement`; phần tử chữ / hình giữ nguyên. Template thiết kế sẵn (`designs.ts`) chuyển sang cùng định dạng. Sheet "Slide mới" (product/05) dùng chính danh sách kiểu chia này (Bố cục ~12, Lưới ~40) — thêm vào `lib/templates/library.ts` dưới dạng dữ liệu (D-49).
 
