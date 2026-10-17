@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { catalogAsset, fold, loadCatalog, loadPack, packsOf, packUrl, useCatalog } from "@/lib/catalog/load";
+import type { CatalogItem, CatalogKind } from "@/lib/catalog/types";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { iconDataUrl } from "@/lib/elements/icons";
 import { newEmoji, newFramedPhoto, newShape, newSticker, newWidget, newOverlay, WIDGETS } from "@/lib/elements/create";
@@ -90,7 +92,15 @@ function Group(props: { title: string; items: Item[]; full?: boolean | "titled";
   );
 }
 
-export function LibrarySheet({ kind, onClose }: { kind: LibraryKind; onClose: () => void }) {
+/** Catalog kinds shown in each library sheet (M20). */
+const SHEET_PACKS: Partial<Record<LibraryKind, CatalogKind[]>> = { sticker: ["sticker", "overlay"] };
+
+function PackThumb({ item }: { item: CatalogItem }) {
+  // eslint-disable-next-line @next/next/no-img-element -- a pack thumbnail (static file)
+  return <img src={packUrl(item.thumb)} alt="" loading="lazy" decoding="async" className="max-h-full max-w-full object-contain" />;
+}
+
+export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; onClose: () => void; onNotice?: (text: string) => void }) {
   const t = useT();
   const locale = useSettings((s) => s.locale);
   const doc = useViewDoc();
@@ -103,6 +113,15 @@ export function LibrarySheet({ kind, onClose }: { kind: LibraryKind; onClose: ()
   const [logos, setLogos] = useState<LibraryItem[]>([]);
   const [assets, setAssets] = useState<LibraryItem[]>([]);
   const [reload, setReload] = useState(0);
+  const catalog = useCatalog((s) => s.catalog);
+  const packItems = useCatalog((s) => s.items);
+
+  // The packs of this sheet: the catalog, then every pack's items (small JSON files).
+  useEffect(() => {
+    const kinds = SHEET_PACKS[kind];
+    if (!kinds) return;
+    void loadCatalog().then((c) => kinds.flatMap((k) => packsOf(c, k)).forEach((p) => void loadPack(p)));
+  }, [kind]);
 
   useEffect(() => {
     let alive = true;
@@ -125,16 +144,48 @@ export function LibrarySheet({ kind, onClose }: { kind: LibraryKind; onClose: ()
     select(el.id);
     onClose();
   };
-  /** A picture from the user's library, as a free image (about 40 % of the slide wide). */
-  const addPicture = (item: LibraryItem) => {
-    const asset = libraryAsset(item);
+  /** A picture as a free image in the middle of the slide (about 40 % of its width). */
+  const placePicture = (asset: ReturnType<typeof libraryAsset>) => {
     const w = W * 0.4;
-    const h = (w * item.height) / item.width;
+    const h = (w * asset.height) / asset.width;
     const el = imageElement(asset, { x: slide.x + (slide.width - w) / 2, y: slide.y + (slide.height - h) / 2, width: w, height: h });
     addAssetElement(asset, el);
     select(el.id);
     onClose();
   };
+  /** A picture from the user's library. */
+  const addPicture = (item: LibraryItem) => placePicture(libraryAsset(item));
+  /** A pack item (M20): downloaded into the project, then placed like the user's own pictures. */
+  const addPackItem = async (item: CatalogItem, packKind: CatalogKind) => {
+    let asset;
+    try {
+      asset = await catalogAsset(item);
+    } catch {
+      onNotice?.(t("lib.offline"));
+      return;
+    }
+    if (packKind === "overlay") {
+      const el = newOverlay(slide, asset, item.blend === "normal" || !item.blend ? "screen" : (item.blend as Parameters<typeof newOverlay>[2]));
+      addAssetElement(asset, el);
+      select(el.id);
+      onClose();
+      return;
+    }
+    brand.used({ kind: "pack", item });
+    placePicture(asset);
+  };
+  const packItem = (item: CatalogItem, packKind: CatalogKind): Item => ({
+    key: item.id,
+    label: item.name[locale],
+    node: <PackThumb item={item} />,
+    add: () => addPackItem(item, packKind),
+  });
+  const packGroups = (packKind: CatalogKind) =>
+    packsOf(catalog, packKind).map((p) => ({
+      id: `pack-${p.id}`,
+      title: p.name[locale],
+      items: (packItems[p.id] ?? p.preview).filter((it) => !q || fold(it.search).includes(fold(q))).map((it) => packItem(it, packKind)),
+    }));
   const q = query.trim().toLowerCase();
   const match = (label: string) => !q || label.toLowerCase().includes(q);
 
@@ -156,7 +207,9 @@ export function LibrarySheet({ kind, onClose }: { kind: LibraryKind; onClose: ()
       title: t("lib.recent"),
       items: brand.recent
         .map((r): Item | null =>
-          r.kind === "sticker"
+          r.kind === "pack"
+            ? packItem(r.item, "sticker")
+            : r.kind === "sticker"
             ? STICKERS[r.key]
               ? sticker(r.key)
               : null
@@ -178,6 +231,7 @@ export function LibrarySheet({ kind, onClose }: { kind: LibraryKind; onClose: ()
         .map((m) => ({ key: m.id, label: m.name, node: <MineThumb item={m} />, add: () => addPicture(m) })),
     });
     groups.push({ id: "featured", title: t("lib.featured"), items: STICKER_KEYS.filter((k) => match(STICKERS[k].name[locale])).map(sticker) });
+    groups.push(...packGroups("sticker"));
     groups.push({
       id: "overlays",
       title: t("lib.overlays"),
@@ -196,6 +250,7 @@ export function LibrarySheet({ kind, onClose }: { kind: LibraryKind; onClose: ()
         },
       })),
     });
+    groups.push(...packGroups("overlay"));
   } else if (kind === "shape") {
     for (const g of SHAPE_GROUPS)
       groups.push({

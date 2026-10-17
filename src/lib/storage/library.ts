@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import type { CatalogItem } from "@/lib/catalog/types";
 import { type ImageAsset, newId } from "@/lib/project/types";
 import { db, type LibraryItem } from "./db";
 
@@ -43,8 +44,8 @@ function write(key: string, value: unknown) {
   }
 }
 
-/** A sticker added lately: one of ours, or an emoji (with its SVG). */
-export type RecentSticker = { kind: "sticker"; key: string } | { kind: "emoji"; name: string; body: string };
+/** A sticker added lately: one of ours, an emoji (with its SVG), or one from a pack (M20). */
+export type RecentSticker = { kind: "sticker"; key: string } | { kind: "emoji"; name: string; body: string } | { kind: "pack"; item: CatalogItem };
 
 export const useBrand = create<{
   colors: string[];
@@ -66,7 +67,8 @@ export const useBrand = create<{
     write(BRAND_KEY, colors);
   },
   used: (s) => {
-    const same = (x: RecentSticker) => (x.kind === "sticker" && s.kind === "sticker" ? x.key === s.key : x.kind === "emoji" && s.kind === "emoji" && x.name === s.name);
+    const same = (x: RecentSticker) =>
+      x.kind === "sticker" && s.kind === "sticker" ? x.key === s.key : x.kind === "emoji" && s.kind === "emoji" ? x.name === s.name : x.kind === "pack" && s.kind === "pack" && x.item.id === s.item.id;
     const recent = [s, ...get().recent.filter((x) => !same(x))].slice(0, 12);
     set({ recent });
     write(RECENT_KEY, recent);

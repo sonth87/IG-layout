@@ -959,7 +959,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       {tool === "layers" && <LayersSheet onClose={close} />}
       {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
       {tool === "trim" && selected && <TrimTool elementId={selected.id} onClose={close} />}
-      {tool === "library" && <LibrarySheet kind={library} onClose={close} />}
+      {tool === "library" && <LibrarySheet kind={library} onClose={close} onNotice={showNotice} />}
       {tool === "preview" && <PreviewScreen onClose={close} />}
       {tool === "ratio" && (
         // Another slide shape for the whole project (editor-v2/12 §2).

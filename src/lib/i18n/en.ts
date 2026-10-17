@@ -249,6 +249,7 @@ export const en = {
   "lib.widgets": "Widgets",
   "lib.recent": "Recently used",
   "lib.mine": "My stickers",
+  "lib.offline": "Couldn’t download it — check your connection and try again",
   "lib.featured": "Featured",
   "lib.overlays": "Light & texture",
   "lib.emoji": "Emoji",

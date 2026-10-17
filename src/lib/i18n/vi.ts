@@ -248,6 +248,7 @@ export const vi: Record<MessageKey, string> = {
   "lib.widgets": "Widget",
   "lib.recent": "Dùng gần đây",
   "lib.mine": "Của tôi",
+  "lib.offline": "Chưa tải được — kiểm tra kết nối mạng rồi thử lại",
   "lib.featured": "Nổi bật",
   "lib.overlays": "Ánh sáng & chất liệu",
   "lib.emoji": "Emoji",
