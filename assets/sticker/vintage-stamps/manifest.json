@@ -1,0 +1,200 @@
+{
+  "id": "vintage-stamps",
+  "kind": "sticker",
+  "name": {
+    "en": "Vintage stamps",
+    "vi": "Tem bưu chính cổ"
+  },
+  "collections": [
+    "vintage",
+    "travel",
+    "journal"
+  ],
+  "order": 10,
+  "items": [
+    {
+      "id": "stamp-us-washington-2c-1903",
+      "name": {
+        "en": "US Washington 2¢ stamp 1903",
+        "vi": "Tem đỏ 2 xu Mỹ 1903"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "vintage",
+          "red",
+          "1903"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "cổ điển",
+          "đỏ",
+          "1903"
+        ]
+      },
+      "collections": [
+        "retro"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Washington_stamp_2c_1903_issue.JPG",
+        "author": "U.S. Bureau of Engraving and Printing",
+        "title": "Washington stamp 2c 1903 issue",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 938,
+      "height": 1024
+    },
+    {
+      "id": "stamp-us-columbus-1c-1893",
+      "name": {
+        "en": "Columbian 1¢ blue stamp 1893",
+        "vi": "Tem thuyền buồm xanh 1 xu 1893"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "ship",
+          "blue",
+          "1893"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "thuyền buồm",
+          "xanh dương",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "retro"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1893_1c_Columbus_in_Sight_of_Land.jpg",
+        "author": "American Bank Note Company",
+        "title": "US stamp 1893 1c Columbus in Sight of Land",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 725
+    },
+    {
+      "id": "stamp-us-columbus-3c-1893",
+      "name": {
+        "en": "Columbian 3¢ green stamp 1893",
+        "vi": "Tem xanh lá 3 xu 1893"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "green",
+          "engraving",
+          "1893"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "xanh lá",
+          "khắc cổ",
+          "1893"
+        ]
+      },
+      "collections": [
+        "retro"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1893_3c_Landing_of_Columbus.jpg",
+        "author": "American Bank Note Company",
+        "title": "US stamp 1893 3c Landing of Columbus",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 705
+    },
+    {
+      "id": "stamp-us-lindbergh-airmail-1927",
+      "name": {
+        "en": "Lindbergh 10¢ airmail stamp 1927",
+        "vi": "Tem hàng không 10 xu 1927"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "airmail",
+          "airplane",
+          "blue",
+          "1927"
+        ],
+        "vi": [
+          "tem",
+          "hàng không",
+          "máy bay",
+          "xanh",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "retro"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Lindbergh_Airmail_Stamp_c10.jpg",
+        "author": "U.S. Bureau of Engraving and Printing",
+        "title": "Lindbergh Airmail Stamp c10",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "process": {
+        "bgMode": "floodfill",
+        "tolerance": 165
+      },
+      "width": 1024,
+      "height": 495
+    },
+    {
+      "id": "stamp-us-revenue-2d-1871",
+      "name": {
+        "en": "Vintage engraved revenue stamp 1871",
+        "vi": "Tem thuế khắc tròn cổ 1871"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "revenue",
+          "engraved",
+          "ornate",
+          "vintage"
+        ],
+        "vi": [
+          "tem",
+          "hoa văn",
+          "khắc cổ",
+          "tròn",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "retro"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Hamilton_Beer_revenue_stamp_$2_Hogshead.JPG",
+        "author": "National Bank Note Company / Bureau of Engraving and Printing",
+        "title": "Hamilton Beer revenue stamp $2 Hogshead",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1006,
+      "height": 1024
+    }
+  ]
+}
