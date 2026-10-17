@@ -68,3 +68,4 @@ Chép nguyên văn để không ý nào bị mất khi diễn giải. Tên ứng
 
 **2026-10-17 (lần 5):**
 > IMG_4036 là ảnh ví dụ về khung, trong ảnh là 1 template được kết hợp bởi 4 khung theo hình xé giấy
+> đấy cũng là ví dụ về việc 1 template được cấu thành như thế nào

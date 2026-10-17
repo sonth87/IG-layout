@@ -39,7 +39,9 @@ Quan hệ này quyết định cách chọn: lần chạm đầu tiên luôn ch�
 
 ## 5. Template
 
-Một **template** là một dự án mẫu: tỉ lệ khung, số slide, nền, và danh sách các phần tử (khối bố cục với các ô, chữ, hình, sticker, khung, widget). Template trong thư viện được hiển thị **kèm ảnh mẫu** để người dùng thấy trông nó thế nào. Khi người dùng chọn "Dùng template", ứng dụng tạo dự án mới với mọi thứ của template **trừ ảnh mẫu** — tất cả các ô trở thành ô trống (xem [03](03-trang-chu-va-template.md)).
+Một **template** là một dự án mẫu: tỉ lệ khung, số slide, nền, và danh sách các phần tử (khối bố cục với các ô, chữ, hình, sticker, khung, widget). Template **không phải là một loại phần tử đặc biệt**: nó được **ghép từ chính những phần tử người dùng có thể tự thêm** — khối lưới, khung, chữ, hình, sticker — đặt ở vị trí và thứ tự lớp đã thiết kế sẵn [CDA].
+
+**Ví dụ chuẩn — IMG_4036** [CDA]: một template story được ghép từ **bốn khung giấy xé** (thư viện Khung → Giấy), xếp thành lưới 2 × 2 lệch, mép xé của mảnh trên chồng lên mảnh dưới; mỗi khung có một cửa sổ ảnh trống. Người dùng hoàn toàn có thể tự làm ra template này bằng cách thêm bốn khung giấy xé rồi kéo, xoay, xếp lớp — template chỉ là bản sắp đặt sẵn. Cách ghép này áp dụng cho mọi template: một template polaroid là các khung polaroid + chữ + sticker băng dính; một template lưới là một khối lưới + chữ tiêu đề. Chi tiết ví dụ ở [11](11-thu-vien.md) mục 5.3. Template trong thư viện được hiển thị **kèm ảnh mẫu** để người dùng thấy trông nó thế nào. Khi người dùng chọn "Dùng template", ứng dụng tạo dự án mới với mọi thứ của template **trừ ảnh mẫu** — tất cả các ô trở thành ô trống (xem [03](03-trang-chu-va-template.md)).
 
 ## 6. Lớp
 

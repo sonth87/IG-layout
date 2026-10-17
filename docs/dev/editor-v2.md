@@ -95,6 +95,8 @@ Khi mở một dự án cũ, gom các `ImageElement` có `slot: true` thành kh�
 
 ### 2.4 Template
 
+Nguyên tắc (D-89): **template = danh sách phần tử thường** (khối lưới, khung, chữ, hình, sticker…) với vị trí và thứ tự lớp; không có kiểu phần tử "template" riêng. Ví dụ chuẩn: IMG_4036 = 4 `FrameElement` giấy xé chồng mép. Định dạng template trong `lib/templates` vì vậy phải mô tả được mọi loại phần tử, không chỉ ô ảnh.
+
 Template trong `lib/templates` hiện sinh ra ảnh `slot`. Đổi `applyTemplate` để sinh `LayoutElement`; phần tử chữ / hình giữ nguyên. Template thiết kế sẵn (`designs.ts`) chuyển sang cùng định dạng. Sheet "Slide mới" (product/05) dùng chính danh sách kiểu chia này (Bố cục ~12, Lưới ~40) — thêm vào `lib/templates/library.ts` dưới dạng dữ liệu (D-49).
 
 ## 3. Máy trạng thái chọn
