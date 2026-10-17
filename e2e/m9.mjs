@@ -53,7 +53,7 @@ const px = await page.evaluate(() =>
 );
 check(px <= 390 * 844 * 4, `largest layer ${(px / 1e6).toFixed(2)} MP (≤ screen at 2×)`);
 
-console.log("F-03 the canvas doesn't move or resize");
+console.log("F-03 → editor-v2/12 §1.2: selecting doesn't move the canvas; a sheet pushes it up, still whole");
 const f0 = await frame();
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.waitForTimeout(300);
@@ -65,10 +65,13 @@ const f2 = await frame();
 await page.getByRole("button", { name: "Adjust" }).click();
 await page.waitForTimeout(400);
 const f3 = await frame();
+const sheetTop = (await page.getByRole("region", { name: "Adjust" }).boundingBox()).y;
 await page.getByLabel("Cancel").click();
 await page.waitForTimeout(300);
 const same = (a, b) => Math.abs(a.y - b.y) < 1 && Math.abs(a.height - b.height) < 1;
-check(same(f0, f1) && same(f1, f2) && same(f2, f3), `same place and size: none / selected / tool open (${[f0, f1, f2, f3].map((f) => `${Math.round(f.y)}+${Math.round(f.height)}`).join(", ")})`);
+check(same(f0, f1) && same(f1, f2), `same place and size: none / selected (${[f0, f1, f2].map((f) => `${Math.round(f.y)}+${Math.round(f.height)}`).join(", ")})`);
+check(f3.y >= 0 && f3.y + f3.height <= sheetTop + 1, `tool open: the canvas sits whole above the sheet (${Math.round(f3.y)}+${Math.round(f3.height)} ≤ ${Math.round(sheetTop)})`);
+check(same(f2, await frame()), "closing the tool puts it back");
 
 console.log("F-02 rotation: pinch doesn't tilt, snaps to 0°, Rotate to 0°");
 // Unlock the panorama so it can be rotated.

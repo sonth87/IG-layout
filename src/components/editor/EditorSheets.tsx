@@ -1,5 +1,6 @@
 "use client";
 
+import { DragSheet } from "./DragSheet";
 import type Konva from "konva";
 import { useEffect, useState } from "react";
 import { whenIdle } from "@/lib/gesture";
@@ -160,18 +161,7 @@ export function LayersSheet({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40 [&>section]:mx-auto [&>section]:w-full [&>section]:max-w-2xl" onClick={onClose}>
-      <section
-        aria-label={t("layers.title")}
-        onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[70dvh] flex-col rounded-t-[22px] bg-surface pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
-      >
-        <div className="flex items-center justify-between px-5 pb-1">
-          <h2 className="text-[15px] font-bold">{t("layers.title")}</h2>
-          <button type="button" aria-label={t("common.close")} onClick={onClose} className="flex h-10 w-10 items-center justify-center">
-            <Icon name="close" />
-          </button>
-        </div>
+    <DragSheet title={t("layers.title")} onClose={onClose}>
         <p className="px-5 pb-2 text-xs text-muted">{t("layers.hint")}</p>
         <ul className="flex flex-col overflow-y-auto px-3">
           {rows.map(({ el, label }, row) => (
@@ -246,8 +236,7 @@ export function LayersSheet({ onClose }: { onClose: () => void }) {
             </li>
           ))}
         </ul>
-      </section>
-    </div>
+    </DragSheet>
   );
 }
 

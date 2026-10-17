@@ -207,7 +207,10 @@ const h0 = (await page.locator("[data-stage-frame]").boundingBox()).height;
 await page.getByRole("button", { name: "Style" }).click();
 await page.waitForTimeout(300);
 const h1 = (await page.locator("[data-stage-frame]").boundingBox()).height;
-check(Math.abs(h1 - h0) < 1, `canvas keeps its size (${Math.round(h0)} → ${Math.round(h1)})`);
+// editor-v2/12 §1.2: the sheet pushes the canvas up; it stays whole above the sheet.
+const fb1 = await page.locator("[data-stage-frame]").boundingBox();
+const top1 = (await page.locator("main > section").last().boundingBox()).y; // the text style sheet
+check(h1 <= h0 + 1 && fb1.y >= 0 && fb1.y + fb1.height <= top1 + 1, `canvas pushed up, whole above the sheet (${Math.round(h0)} → ${Math.round(h1)})`);
 
 console.log("UX-13 slider reset button");
 await page.getByRole("tab", { name: "Style" }).click();

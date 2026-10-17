@@ -139,6 +139,7 @@ export const en = {
   "style.bottomLeft": "Bottom left",
   "style.on": "On",
   "style.off": "Off",
+  "sheet.resize": "Drag to resize",
   "editor.addSlide": "Add slide",
   "editor.emptyHint": "Add photos to start",
   "editor.importingPhotos": "Importing photos…",

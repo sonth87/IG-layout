@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon } from "@/components/ui/Icon";
+import { DragSheet } from "./DragSheet";
 import { SLIDE_GRIDS, SLIDE_LAYOUTS, type SlideLayout, slideCells } from "@/lib/templates/slideLayouts";
 import { useT } from "@/store/settings";
 
@@ -48,18 +48,7 @@ export function NewSlideSheet({ aspect, onPick, onClose }: { aspect: number; onP
     </section>
   );
   return (
-    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40 [&>section]:mx-auto [&>section]:w-full [&>section]:max-w-2xl" onClick={onClose}>
-      <section
-        aria-label={t("newSlide.title")}
-        onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[75dvh] flex-col rounded-t-[22px] bg-surface pb-[max(1rem,env(safe-area-inset-bottom))]"
-      >
-        <div className="flex items-center justify-between px-5 pt-3 pb-1">
-          <h2 className="text-[15px] font-bold">{t("newSlide.title")}</h2>
-          <button type="button" aria-label={t("common.close")} onClick={onClose} className="flex h-10 w-10 items-center justify-center">
-            <Icon name="close" />
-          </button>
-        </div>
+    <DragSheet title={t("newSlide.title")} onClose={onClose}>
         <div className="flex flex-col gap-4 overflow-y-auto px-4 pt-1 pb-2">
           <section>
             <div className="grid grid-cols-4 gap-2">
@@ -72,7 +61,6 @@ export function NewSlideSheet({ aspect, onPick, onClose }: { aspect: number; onP
           {section(t("newSlide.layouts"), SLIDE_LAYOUTS, (i) => t("newSlide.layoutItem", { index: i }))}
           {section(t("newSlide.grids"), SLIDE_GRIDS, (i) => t("newSlide.gridItem", { index: i }))}
         </div>
-      </section>
-    </div>
+    </DragSheet>
   );
 }

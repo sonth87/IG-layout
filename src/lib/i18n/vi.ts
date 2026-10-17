@@ -138,6 +138,7 @@ export const vi: Record<MessageKey, string> = {
   "style.bottomLeft": "Dưới trái",
   "style.on": "Bật",
   "style.off": "Tắt",
+  "sheet.resize": "Kéo để đổi chiều cao",
   "editor.addSlide": "Thêm slide",
   "editor.emptyHint": "Thêm ảnh để bắt đầu",
   "editor.importingPhotos": "Đang nhập ảnh…",

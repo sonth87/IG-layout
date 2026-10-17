@@ -176,6 +176,34 @@ check(c3.every((c) => c.mask === "rounded" && near(c.cornerRadius, 30, 0.5)), "e
 check(b3.fill === "#111111", "dark colour behind the cells");
 await page.screenshot({ path: path.join(OUT, "m17-block.png") });
 
+console.log("Bottom sheet 50 – 95 %, pushes the canvas up (12 §1)");
+await select(null);
+await page.getByRole("button", { name: "Layers", exact: true }).click();
+const layers = page.getByRole("region", { name: "Layers" });
+await page.waitForTimeout(400);
+const H = 844;
+let lb = await layers.boundingBox();
+check(Math.abs(lb.height - H * 0.5) < 4, `opens at 50 % (${Math.round(lb.height)} px)`);
+let fr = await page.locator("[data-stage-frame]").boundingBox();
+check(fr.y + fr.height <= lb.y + 1, "the canvas sits above it");
+const handle = layers.getByRole("separator");
+const dragTo = async (y) => {
+  const b = await handle.boundingBox();
+  await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(b.x + b.width / 2, y, { steps: 12 });
+  await page.mouse.up();
+  await page.waitForTimeout(400);
+};
+await dragTo(40);
+lb = await layers.boundingBox();
+check(lb.height > H * 0.85, `dragged up → about 95 % (${Math.round(lb.height)} px, header stays)`);
+await dragTo(H * 0.68); // ~32 % tall
+lb = await layers.boundingBox();
+check(Math.abs(lb.height - H * 0.5) < 4, `released between 20 and 50 % → back to 50 % (${Math.round(lb.height)} px)`);
+await dragTo(H * 0.9); // ~10 % tall
+check(!(await layers.isVisible()), "released under 20 % → closed");
+
 console.log("console errors:", errors);
 console.log(failures === 0 && errors.length === 0 ? "ALL PASSED" : `${failures} FAILED, ${errors.length} console errors`);
 if (failures || errors.length) process.exitCode = 1;
