@@ -97,8 +97,12 @@ export type Background =
       radial?: boolean;
     }
   | { kind: "blur"; assetId: string }
-  /** A drawn texture tile (lib/elements/textures), repeated (M19). */
-  | { kind: "texture"; texture: string };
+  /**
+   * A drawn texture tile (lib/elements/textures), repeated (M19). From a pack (M20):
+   * `texture` is the catalog id and `assetId` the project's copy of the picture —
+   * repeated when `tile`, else covering the canvas.
+   */
+  | { kind: "texture"; texture: string; assetId?: string; tile?: boolean };
 
 interface ElementBase {
   id: string;
@@ -203,7 +207,9 @@ export const BLEND_MODES = ["normal", "screen", "multiply", "overlay", "soft-lig
 export type BlendMode = (typeof BLEND_MODES)[number];
 
 export const FONT_KEYS = ["beVietnam", "playfair", "lora", "montserrat", "dancing", "spaceGrotesk", "inter", "manrope", "jakarta", "lexend", "nunito", "quicksand", "raleway", "workSans", "josefin", "openSans", "roboto", "mulish", "archivo", "bricolage", "hanken", "comfortaa", "kanit", "prompt", "geologica", "fraunces", "ebGaramond", "cormorant", "bodoni", "newsreader", "literata", "crimson", "bitter", "merriweather", "vollkorn", "alegreya", "sourceSerif", "robotoSlab", "brygada", "yeseva", "taviraj", "oswald", "anton", "bungee", "unbounded", "bigShoulders", "anybody", "leagueSpartan", "smooch", "yanone", "tektur", "museo", "grenze", "dela", "paytone", "chonburi", "amatic", "pacifico", "greatVibes", "lobster", "charm", "allura", "pinyon", "playball", "corinthia", "moonDance", "patrickHand", "itim", "mali", "shantell", "playpen", "merienda", "gluten", "sriracha", "jetbrains", "spaceMono", "robotoMono", "recursive"] as const;
-export type FontKey = (typeof FONT_KEYS)[number];
+export type BuiltinFontKey = (typeof FONT_KEYS)[number];
+/** A built-in font, or a catalog font (M20) as "c:<id>". */
+export type FontKey = BuiltinFontKey | `c:${string}`;
 
 export interface TextElement extends ElementBase {
   type: "text";
@@ -275,6 +281,11 @@ export interface LayoutElement extends ElementBase {
   radius?: number;
   /** Colour behind the cells; none = transparent. */
   fill?: string | null;
+  /**
+   * Frame art from a pack (M20 C4): a picture with transparent windows, drawn above the
+   * cells — the photos show through the windows and never cover the frame.
+   */
+  art?: { assetId: string; catalogId: string };
 }
 
 export interface LayoutCell {

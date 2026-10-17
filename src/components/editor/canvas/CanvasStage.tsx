@@ -1,19 +1,20 @@
 "use client";
 
 import Konva from "konva";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef } from "react";
 import { Circle, Group, Label, Layer, Line, Rect, Shape, Stage, Tag, Text, Transformer } from "react-konva";
 import { rotatedBounds } from "@/lib/project/geometry";
 import { snap, snapTargets } from "@/lib/project/snap";
 import { canvasSize, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
 import { scaleExtras } from "@/lib/elements/resize";
 import { strokePath } from "@/lib/elements/shapes";
-import { type CanvasElement, type ImageAsset, type ImageElement, pansInside, type Rect as Box, slideSize } from "@/lib/project/types";
+import { type CanvasElement, type ImageAsset, type ImageElement, type LayoutElement, pansInside, type Rect as Box, slideSize } from "@/lib/project/types";
 import { liveCrops } from "@/lib/project/liveCrop";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { panCrop, wholePicture } from "@/lib/project/blocks";
 import { endFollow, type Follow, follow, startFollow } from "./followers";
 import { LayoutNode } from "./LayoutNode";
+import { FrameArtNode } from "./FrameArtNode";
 import { elementOf, tapResult } from "./selection";
 import { useSettings } from "@/store/settings";
 import { useEditor, useViewDoc } from "@/store/editor";
@@ -77,6 +78,8 @@ function SelectionTransformer(props: {
   // A cell of a layout block follows its block: no handles of its own (M14 / M16).
   const fixed = !!el && (el.locked || !!el.parentId) && !whole;
   const isText = el?.type === "text";
+  // Pack frames keep the shape of their art (M20 C4): corners only.
+  const isArt = el?.type === "layout" && !!el.art;
   const snapOn = useSettings((s) => s.snap);
 
   useEffect(() => {
@@ -171,7 +174,7 @@ function SelectionTransformer(props: {
       rotationSnaps={snapOn ? [0, 90, 180, 270] : []}
       rotationSnapTolerance={ROTATE_SNAP}
       enabledAnchors={
-        whole
+        whole || isArt
           ? ["top-left", "top-right", "bottom-left", "bottom-right"]
           : isText
             ? ["top-left", "top-right", "bottom-left", "bottom-right", "top-center", "bottom-center", "middle-left", "middle-right"]
@@ -913,6 +916,14 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     });
   }
 
+  // Last cell of each pack frame → the frame, whose art is drawn after that cell.
+  const artAfter = new Map<string, LayoutElement>();
+  for (const e of doc.elements) {
+    if (e.type !== "layout" || !e.art) continue;
+    const last = doc.elements.findLast((c) => c.parentId === e.id);
+    if (last) artAfter.set(last.id, e);
+  }
+
   return (
     <Stage
       ref={stageRef}
@@ -935,8 +946,10 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
           if (el.type === "shape") return <ShapeNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "icon") return <IconNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "drawing") return <DrawingNode key={el.id} element={el} hooks={hooks} />;
-          if (el.type === "layout") return <LayoutNode key={el.id} element={el} />;
-          return <ImageNode key={el.id} element={el} />;
+          if (el.type === "layout") return <Fragment key={el.id}><LayoutNode element={el} />{el.art && el.cells.length === 0 && <FrameArtNode block={el} />}</Fragment>;
+          // A pack frame's art goes right above its last cell (M20 C4).
+          const block = el.parentId ? artAfter.get(el.id) : undefined;
+          return block ? <Fragment key={el.id}><ImageNode element={el} /><FrameArtNode block={block} /></Fragment> : <ImageNode key={el.id} element={el} />;
         })}
       </Layer>
       {/* Slide boundaries, grid gaps, story safe zones, posting order — never exported. */}

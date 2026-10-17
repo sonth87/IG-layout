@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import type { TextElement } from "@/lib/project/types";
-import { TEXT_FONTS } from "@/lib/text/fonts";
+import { fontInfo } from "@/lib/text/fonts";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { Slider, Swatches } from "./controls";
@@ -71,7 +71,7 @@ export function TextFormatPanel({ elementId }: { elementId: string }) {
               </button>
             ))}
           </div>
-          {row("font", t("fmt.font"), <span style={{ fontFamily: TEXT_FONTS[el.font].family }}>{TEXT_FONTS[el.font].label}</span>)}
+          {row("font", t("fmt.font"), <span style={{ fontFamily: fontInfo(el.font).family }}>{fontInfo(el.font).label}</span>)}
           {row("color", t("fmt.color"), <span className="h-5 w-5 rounded-full border border-border-2" style={{ background: el.color }} />)}
           {row("size", t("fmt.size"), `${Math.round(el.fontSize)} px`)}
           {row("spacing", t("fmt.spacing"), `${Math.round(el.letterSpacing)} · ${Math.round(el.lineHeight * 100)} %`)}

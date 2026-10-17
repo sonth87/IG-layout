@@ -182,3 +182,30 @@ function placeLayoutBlock(next: ProjectDoc, r: { x: number; y: number; width: nu
   const withBlock = { ...next, elements: [...next.elements, block, ...cells] };
   return { doc: syncLayout(withBlock, block.id, () => undefined), id: block.id };
 }
+
+/**
+ * A frame from a pack (M20 C4) on slide `slide`: a block the shape of its art, about 70 %
+ * of the slide, one empty cell per window; the art is drawn above the cells.
+ */
+export function addFrameBlock(
+  doc: ProjectDoc,
+  slide: number,
+  art: { assetId: string; catalogId: string; width: number; height: number },
+  windows: { x: number; y: number; w: number; h: number; shape?: "rect" | "ellipse"; rotation?: number }[],
+): { doc: ProjectDoc; id: string } {
+  const s = slideRect(doc, slide);
+  const k = Math.min((s.width * 0.7) / art.width, (s.height * 0.7) / art.height);
+  const w = art.width * k;
+  const h = art.height * k;
+  const r = { x: s.x + (s.width - w) / 2, y: s.y + (s.height - h) / 2, width: w, height: h };
+  const block: LayoutElement = { id: newId(), type: "layout", ...r, rotation: 0, opacity: 1, cells: [], art: { assetId: art.assetId, catalogId: art.catalogId } };
+  const cells: CanvasElement[] = windows.map((win) => {
+    const frame = { x: r.x + win.x * w, y: r.y + win.y * h, width: win.w * w, height: win.h * h };
+    const el = { ...imageElement({ id: "", width: frame.width, height: frame.height }, frame), assetId: null, parentId: block.id, slot: true };
+    if (win.shape === "ellipse") el.mask = "circle";
+    block.cells.push({ id: el.id, x: win.x, y: win.y, w: win.w, h: win.h, ...(win.rotation ? { rotation: win.rotation } : {}) });
+    return el;
+  });
+  const withBlock = { ...doc, elements: [...doc.elements, block, ...cells] };
+  return { doc: syncLayout(withBlock, block.id, () => undefined), id: block.id };
+}

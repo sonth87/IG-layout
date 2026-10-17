@@ -4,7 +4,7 @@ import { Image as KImage, Rect } from "react-konva";
 import type { Background } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { stillUrl } from "@/lib/project/types";
-import { useBlurredImage } from "./useHtmlImage";
+import { useBlurredImage, useHtmlImage } from "./useHtmlImage";
 import { TEXTURES, textureTile } from "@/lib/elements/textures";
 
 interface Props {
@@ -28,6 +28,8 @@ export function BackgroundNode({ background, width, height }: Props) {
   const select = useEditor((s) => s.select);
   const blurUrl = useEditor((s) => (background.kind === "blur" ? s.assets[background.assetId] && stillUrl(s.assets[background.assetId]) : undefined));
   const blurred = useBlurredImage(blurUrl, width / height);
+  const packUrl = useEditor((s) => (background.kind === "texture" && background.assetId ? s.assets[background.assetId]?.url : undefined));
+  const packImage = useHtmlImage(packUrl);
 
   const common = {
     x: 0,
@@ -61,6 +63,13 @@ export function BackgroundNode({ background, width, height }: Props) {
       );
     const { start, end } = gradientPoints(background.angle, width, height);
     return <Rect {...common} fillLinearGradientStartPoint={start} fillLinearGradientEndPoint={end} fillLinearGradientColorStops={stops} />;
+  }
+  if (background.kind === "texture" && background.assetId) {
+    // A pack texture (M20): repeated at its own size, or covering the canvas.
+    if (!packImage) return <Rect {...common} fill="#f5f3ee" />;
+    if (background.tile) return <Rect {...common} fillPatternImage={packImage} fillPatternRepeat="repeat" />;
+    const k = Math.max(width / packImage.width, height / packImage.height);
+    return <Rect {...common} fillPatternImage={packImage} fillPatternRepeat="no-repeat" fillPatternScaleX={k} fillPatternScaleY={k} fillPatternX={(width - packImage.width * k) / 2} fillPatternY={(height - packImage.height * k) / 2} />;
   }
   if (background.kind === "texture") {
     const tile = textureTile(background.texture);

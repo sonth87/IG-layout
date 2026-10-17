@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { FONT_KEYS, type TextElement } from "@/lib/project/types";
-import { FONT_CATEGORIES, type FontCategory, fontWeight, nearestWeight, TEXT_FONTS } from "@/lib/text/fonts";
+import { FONT_KEYS, type FontKey, type TextElement } from "@/lib/project/types";
+import { type FontCategory, fontInfo, fontWeight, nearestWeight, prepareCatalogFonts, TEXT_FONTS } from "@/lib/text/fonts";
+import { PREVIEW_SENTENCES } from "@/lib/text/previewSentences";
+import { fold, useCatalog } from "@/lib/catalog/load";
+import type { FontLanguage, FontStyleTag } from "@/lib/catalog/types";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
-import { useT } from "@/store/settings";
+import { useSettings, useT } from "@/store/settings";
 import { Slider, Swatches, ToolSheet } from "./controls";
 
 interface ToolProps {
@@ -189,59 +192,128 @@ export function TextEditDialog({ elementId, onClose }: ToolProps) {
           onFocus={(e) => e.target.select()}
           rows={4}
           className="w-full rounded-xl border border-border bg-surface-2 p-3 text-lg outline-none focus:border-accent"
-          style={{ fontFamily: TEXT_FONTS[el.font].family, fontWeight: fontWeight(el) }}
+          style={{ fontFamily: fontInfo(el.font).family, fontWeight: fontWeight(el) }}
         />
       </div>
     </div>
   );
 }
 
+type FontStyleChip = "all" | "sans" | "serif" | "display" | "handwriting" | "calligraphy" | "fantasy" | "playful" | "festive" | "retro" | "brush" | "mono";
+const STYLE_CHIPS: FontStyleChip[] = ["all", "sans", "serif", "display", "handwriting", "calligraphy", "fantasy", "playful", "festive", "retro", "brush", "mono"];
+const STYLE_TAGS: Record<Exclude<FontStyleChip, "all">, FontStyleTag[]> = {
+  sans: ["sans"],
+  serif: ["serif"],
+  display: ["display", "outline", "stencil"],
+  handwriting: ["handwriting"],
+  calligraphy: ["script", "calligraphy"],
+  fantasy: ["fantasy"],
+  playful: ["playful"],
+  festive: ["festive"],
+  retro: ["retro", "pixel"],
+  brush: ["brush"],
+  mono: ["mono"],
+};
+/** Built-in fonts have categories only. */
+const BUILTIN_STYLES: Record<FontCategory, FontStyleTag[]> = { sans: ["sans"], serif: ["serif"], display: ["display"], script: ["handwriting", "script"], mono: ["mono"] };
+type LangChip = "all" | "vietnamese" | "japanese" | "korean" | "chinese" | "thai" | "cyrillic";
+const LANG_CHIPS: LangChip[] = ["all", "vietnamese", "japanese", "korean", "chinese", "thai", "cyrillic"];
+const langOf = (l: FontLanguage): LangChip | null => (l === "chinese-simplified" || l === "chinese-traditional" ? "chinese" : l === "latin" || l === "greek" ? null : l);
+const SAMPLE_LANG: Partial<Record<LangChip, keyof typeof PREVIEW_SENTENCES>> = { japanese: "ja", korean: "ko", chinese: "zh" };
+
 /**
- * Font list (M11, S12): category chips, each font shown in itself, then the weight.
- * Off-screen rows are not rendered (content-visibility), so their font files are not
- * fetched until scrolled to.
+ * Font list (M11, S12; M20 C5): every font shows the element's own text (or a nice line)
+ * in itself, its name small below; filters by style and by language, and a search.
+ * Catalog fonts are declared with @font-face up front; off-screen rows are not rendered
+ * (content-visibility), so a font file is fetched only once its row is seen.
  */
 export function FontPicker({ el, patch }: { el: TextElement; patch: (p: Partial<TextElement>) => void }) {
   const t = useT();
-  const [category, setCategory] = useState<FontCategory>(TEXT_FONTS[el.font].category);
-  const keys = FONT_KEYS.filter((k) => TEXT_FONTS[k].category === category);
-  const weights = TEXT_FONTS[el.font].weights;
+  const locale = useSettings((s) => s.locale);
+  const catalog = useCatalog((s) => s.catalog);
+  const [style, setStyle] = useState<FontStyleChip>("all");
+  const [lang, setLang] = useState<LangChip>("all");
+  const [query, setQuery] = useState("");
+  // One line per opening, so the list doesn't change while scrolling.
+  const [line] = useState(() => {
+    const list = PREVIEW_SENTENCES[locale === "vi" ? "vi" : "en"];
+    return list[Math.floor(Math.random() * list.length)];
+  });
+  const [cjk] = useState(() => Object.fromEntries((["ja", "ko", "zh"] as const).map((k) => [k, PREVIEW_SENTENCES[k][Math.floor(Math.random() * PREVIEW_SENTENCES[k].length)]])));
+  useEffect(() => {
+    void prepareCatalogFonts();
+  }, []);
+
+  const own = el.text.split("\n").find((l) => l.trim())?.trim().slice(0, 32);
+  const fonts = [
+    ...FONT_KEYS.map((key) => ({ key: key as FontKey, info: TEXT_FONTS[key], styles: BUILTIN_STYLES[TEXT_FONTS[key].category], langs: ["vietnamese"] as LangChip[] })),
+    ...(catalog?.fonts ?? []).map((f) => {
+      const key = `c:${f.id}` as FontKey;
+      return { key, info: fontInfo(key), styles: f.styles, langs: f.languages.map(langOf).filter((l): l is LangChip => !!l) };
+    }),
+  ];
+  const q = fold(query.trim());
+  const shown = fonts.filter(
+    (f) => (style === "all" || f.styles.some((s) => STYLE_TAGS[style].includes(s))) && (lang === "all" || f.langs.includes(lang)) && (!q || fold(f.info.label).includes(q)),
+  );
+  const styles = STYLE_CHIPS.filter((c) => c === "all" || fonts.some((f) => f.styles.some((s) => STYLE_TAGS[c].includes(s))));
+  const langs = LANG_CHIPS.filter((c) => c === "all" || fonts.some((f) => f.langs.includes(c)));
+  /** What a font shows: the text itself, else a line in a language the font has. */
+  const sample = (langsOfFont: LangChip[]) => {
+    if (own) return own;
+    if (lang !== "all" && SAMPLE_LANG[lang]) return cjk[SAMPLE_LANG[lang]!];
+    if (!langsOfFont.includes("vietnamese") && locale === "vi") {
+      const other = langsOfFont.map((l) => SAMPLE_LANG[l]).find(Boolean);
+      return other ? cjk[other] : PREVIEW_SENTENCES.en[0];
+    }
+    return line;
+  };
+  const weights = fontInfo(el.font).weights;
   const weight = fontWeight(el);
   const setWeight = (w: number) => patch({ weight: w, bold: w >= 600 });
+  const chip = (active: boolean) => `h-8 shrink-0 rounded-full px-3 text-[13px] ${active ? "bg-text font-semibold text-bg" : "border border-border"}`;
 
   return (
     <>
-      <div className="flex gap-1.5 overflow-x-auto pb-2">
-        {FONT_CATEGORIES.map((c) => (
-          <button
-            key={c}
-            type="button"
-            aria-pressed={category === c}
-            onClick={() => setCategory(c)}
-            className={`h-8 shrink-0 rounded-full px-3 text-[13px] ${category === c ? "bg-text font-semibold text-bg" : "border border-border"}`}
-          >
-            {t(`font.category.${c}`)}
+      <label className="mb-2 flex h-9 items-center gap-2 rounded-full bg-surface-2 px-3 text-muted">
+        <Icon name="search" size={16} />
+        <input type="search" aria-label={t("font.search")} placeholder={t("font.search")} value={query} onChange={(e) => setQuery(e.target.value)} className="min-w-0 flex-1 bg-transparent text-sm text-text outline-none" />
+      </label>
+      <div role="radiogroup" aria-label={t("font.style")} className="no-scrollbar flex gap-1.5 overflow-x-auto pb-1.5">
+        {styles.map((c) => (
+          <button key={c} type="button" role="radio" aria-checked={style === c} onClick={() => setStyle(c)} className={chip(style === c)}>
+            {t(`font.style.${c}`)}
           </button>
         ))}
       </div>
-      <div role="radiogroup" aria-label={t("text.tab.font")} className="grid max-h-44 grid-cols-2 gap-2 overflow-y-auto">
-        {keys.map((key) => (
+      {langs.length > 1 && (
+        <div role="radiogroup" aria-label={t("font.language")} className="no-scrollbar flex gap-1.5 overflow-x-auto pb-2">
+          {langs.map((c) => (
+            <button key={c} type="button" role="radio" aria-checked={lang === c} onClick={() => setLang(c)} className={chip(lang === c)}>
+              {t(`font.lang.${c}`)}
+            </button>
+          ))}
+        </div>
+      )}
+      <div role="radiogroup" aria-label={t("text.tab.font")} className="flex max-h-56 flex-col gap-1.5 overflow-y-auto">
+        {shown.length === 0 && <p className="py-4 text-center text-sm text-muted">{t("font.none")}</p>}
+        {shown.map(({ key, info, langs: fl }) => (
           <button
             key={key}
             type="button"
             role="radio"
             aria-checked={el.font === key}
-            aria-label={TEXT_FONTS[key].label}
+            aria-label={info.label}
             onClick={() => patch({ font: key, weight: nearestWeight(key, weight) })}
-            style={{ contentVisibility: "auto", containIntrinsicSize: "auto 56px" }}
-            className={`flex h-14 flex-col items-start justify-center rounded-xl px-3 ${
+            style={{ contentVisibility: "auto", containIntrinsicSize: "auto 60px" }}
+            className={`flex min-h-15 shrink-0 flex-col items-start justify-center rounded-xl px-3 py-1.5 text-left ${
               el.font === key ? "border-2 border-accent bg-accent-soft" : "border border-border bg-surface-2"
             }`}
           >
-            <span style={{ fontFamily: TEXT_FONTS[key].family, fontWeight: nearestWeight(key, 600) }} className="truncate text-lg leading-tight">
-              Đà Lạt
+            <span style={{ fontFamily: info.family, fontWeight: nearestWeight(key, 500) }} className="w-full truncate text-[19px] leading-snug">
+              {sample(fl)}
             </span>
-            <span className="max-w-full truncate text-[11px] text-muted">{TEXT_FONTS[key].label}</span>
+            <span className="max-w-full truncate text-[11px] text-muted">{info.label}</span>
           </button>
         ))}
       </div>
@@ -255,7 +327,7 @@ export function FontPicker({ el, patch }: { el: TextElement; patch: (p: Partial<
                 role="radio"
                 aria-checked={weight === w}
                 onClick={() => setWeight(w)}
-                style={{ fontFamily: TEXT_FONTS[el.font].family, fontWeight: w }}
+                style={{ fontFamily: fontInfo(el.font).family, fontWeight: w }}
                 className={`h-9 min-w-11 rounded-lg px-2 text-sm ${weight === w ? "bg-text text-bg" : "border border-border"}`}
               >
                 {w}

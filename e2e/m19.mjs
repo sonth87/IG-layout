@@ -69,7 +69,7 @@ let el = st.doc.elements.find((e) => e.id === text.id);
 check(el.weight >= 600 || el.bold, "B → bold");
 check(el.italic && el.underline, "I, U on");
 await fmt.getByRole("button", { name: /^Font/ }).click();
-await page.getByRole("button", { name: "Sans", exact: true }).click();
+await page.getByRole("radiogroup", { name: "Font style" }).getByRole("radio", { name: "Sans", exact: true }).click();
 await page.getByRole("radio", { name: /Montserrat/ }).click();
 await fmt.getByRole("button", { name: "Format", exact: true }).click();
 check(await fmt.getByRole("button", { name: /^Font Montserrat/ }).isVisible(), "the Font row shows the new font");

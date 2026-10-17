@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { TextElement } from "@/lib/project/types";
-import { fontWeight, TEXT_FONTS } from "@/lib/text/fonts";
+import { fontWeight, fontInfo } from "@/lib/text/fonts";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 
@@ -76,7 +76,7 @@ export function InlineText(props: {
         transform: el.rotation ? `rotate(${el.rotation}deg)` : undefined,
         transformOrigin: "center",
         padding: pad,
-        fontFamily: TEXT_FONTS[el.font].family,
+        fontFamily: fontInfo(el.font).family,
         fontWeight: fontWeight(el),
         fontStyle: el.italic ? "italic" : "normal",
         textDecoration: [el.underline && "underline", el.strike && "line-through"].filter(Boolean).join(" ") || "none",
