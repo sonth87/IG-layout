@@ -43,7 +43,7 @@ Song song, khi **dời** phần tử, các **đường gióng** màu hồng (đ�
 
 ## 5. Thanh công cụ theo đối tượng [CDA][QS]
 
-Khi chọn một phần tử, thanh công cụ mặc định ở đáy (Ảnh · Chữ · Sticker · Hình · +) **được thay** bằng thanh công cụ riêng của loại phần tử đó. Thanh này cũng là một viên thuốc nổi, nhưng dài hơn: mỗi nút có **icon và nhãn chữ nhỏ bên dưới**, và nếu không đủ chỗ thì thanh **trượt ngang** để thấy các nút còn lại (nút cuối cùng bị cắt một nửa ở mép để gợi ý còn nữa). Ở **cuối bên phải** thanh, tách riêng, là một nút tròn **✕** để **bỏ chọn** và quay về thanh mặc định [QS].
+Khi không chọn gì, thanh công cụ mặc định ở đáy (Ảnh · Chữ · Sticker · Hình · +) là một viên thuốc nổi bên trái, còn nút **Lớp** (icon chồng giấy) là **một nút tròn tách riêng bên phải** (IMG_3957; chủ dự án chốt 2026-10-17, D-92). Khi chọn một phần tử, thanh công cụ mặc định **được thay** bằng thanh công cụ riêng của loại phần tử đó. Thanh này cũng là một viên thuốc nổi, nhưng dài hơn: mỗi nút có **icon và nhãn chữ nhỏ bên dưới**, và nếu không đủ chỗ thì thanh **trượt ngang** để thấy các nút còn lại (nút cuối cùng bị cắt một nửa ở mép để gợi ý còn nữa). Ở **cuối bên phải** thanh, tách riêng, là một nút tròn **✕** để **bỏ chọn** và quay về thanh mặc định [QS].
 
 Các thanh công cụ quan sát được:
 

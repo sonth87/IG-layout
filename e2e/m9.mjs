@@ -176,8 +176,7 @@ await page.evaluate(() => {
   s.select(null);
 });
 await page.waitForTimeout(200);
-await page.getByRole("button", { name: "More", exact: true }).click();
-await page.getByRole("region", { name: "More" }).getByRole("button", { name: "Layers", exact: true }).click();
+await page.getByRole("button", { name: "Layers", exact: true }).click(); // round button beside the toolbar
 const order0 = (await S()).doc.elements.map((e) => e.id);
 const handle = page.getByRole("button", { name: /^Drag to reorder/ }).first(); // front-most row
 const hb = await handle.boundingBox();

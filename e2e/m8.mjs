@@ -1,7 +1,7 @@
 // M8 — UX fixes from docs/discussions/2026-10-14-danh-gia-ux.md, checked on a touch phone.
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, more, OUT as out, skipOnboarding, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, OUT as out, skipOnboarding, URL_ARG } from "./lib.mjs";
 
 const url = URL_ARG;
 const shot = (p, n) => p.screenshot({ path: path.join(out, `m8-${n}.png`) });
@@ -181,7 +181,7 @@ check(st.selected === heart.id && heart2.width > heart.width * 2, `selected: the
 
 console.log("UX-10 layers sheet: select + lock");
 await page.getByRole("button", { name: "Done" }).click();
-await more(page, "Layers");
+await page.getByRole("button", { name: "Layers", exact: true }).click();
 await shot(page, "3-layers");
 const rows = page.getByRole("region", { name: "Layers" }).locator("li");
 // One row per outermost element: a layout block stands for its cells.
