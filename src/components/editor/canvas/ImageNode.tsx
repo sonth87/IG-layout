@@ -36,6 +36,17 @@ interface Props {
  * a frame is selected, the rest of the picture is drawn faintly around the frame so the
  * user sees what is cut off (editor-v2/07 §1).
  */
+/** The soft shadow photos had before it could be tuned (M17 keeps it as the default). */
+export function defaultShadow(w: number, h: number) {
+  return { opacity: 0.35, angle: 90, distance: Math.max(w, h) * 0.015, blur: Math.max(w, h) * 0.04, color: "#000000" };
+}
+
+/** `#rrggbb` + alpha → rgba(). */
+function withAlpha(hex: string, alpha: number) {
+  const n = parseInt(hex.slice(1, 7), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
+}
+
 export function ImageNode({ element: el }: Props) {
   const asset = useEditor((s) => (el.assetId ? s.assets[el.assetId] : undefined));
   const updateElement = useEditor((s) => s.updateElement);
@@ -72,6 +83,8 @@ export function ImageNode({ element: el }: Props) {
 
   const w = el.width;
   const h = el.height;
+  /** One radius for every corner, or four (Style sheet → per corner, M17). */
+  const radius = el.corners ?? el.cornerRadius;
   const cx = el.x + w / 2;
   const cy = el.y + h / 2;
 
@@ -90,12 +103,15 @@ export function ImageNode({ element: el }: Props) {
     const mask = framed ? "none" : el.mask;
     if (el.shadow) {
       c.save();
-      c.shadowColor = "rgba(0,0,0,0.35)";
+      const sh = el.shadowStyle ?? defaultShadow(w, h);
+      c.shadowColor = withAlpha(sh.color, sh.opacity);
       // Shadow sizes are in device pixels: account for view scale and export pixel ratio.
       const k = shape.getAbsoluteScale().x * ctx.canvas.getPixelRatio();
-      c.shadowBlur = Math.max(w, h) * 0.04 * k;
-      c.shadowOffsetY = Math.max(w, h) * 0.015 * k;
-      traceMask(c, mask, w, h, el.cornerRadius);
+      const a = (sh.angle * Math.PI) / 180;
+      c.shadowBlur = sh.blur * k;
+      c.shadowOffsetX = Math.cos(a) * sh.distance * k;
+      c.shadowOffsetY = Math.sin(a) * sh.distance * k;
+      traceMask(c, mask, w, h, radius);
       c.fillStyle = "#000";
       c.fill();
       c.restore();
@@ -115,7 +131,7 @@ export function ImageNode({ element: el }: Props) {
     const ih = inner.height;
     c.save();
     c.translate(inner.x, inner.y);
-    traceMask(c, mask, iw, ih, el.cornerRadius);
+    traceMask(c, mask, iw, ih, radius);
     c.clip();
     // Video: the exporter's decoded frame, else the live player, else the poster.
     const override = frameOverrides.get(el.id);
@@ -164,7 +180,7 @@ export function ImageNode({ element: el }: Props) {
         c.restore();
         c.save();
         c.translate(inner.x, inner.y);
-        traceMask(c, mask, iw, ih, el.cornerRadius);
+        traceMask(c, mask, iw, ih, radius);
         c.clip();
       }
       c.save();
@@ -218,7 +234,7 @@ export function ImageNode({ element: el }: Props) {
 
     if (el.border && el.border.width > 0) {
       c.save();
-      traceMask(c, mask, w, h, el.cornerRadius, el.border.width / 2);
+      traceMask(c, mask, w, h, radius, el.border.width / 2);
       c.lineWidth = el.border.width;
       c.strokeStyle = el.border.color;
       c.stroke();
@@ -227,7 +243,7 @@ export function ImageNode({ element: el }: Props) {
   }
 
   function hit(ctx: Konva.Context, shape: Konva.Shape) {
-    traceMask(ctx._context, el.frame !== "none" ? "none" : el.mask, w, h, el.cornerRadius);
+    traceMask(ctx._context, el.frame !== "none" ? "none" : el.mask, w, h, radius);
     ctx.fillStrokeShape(shape);
   }
 

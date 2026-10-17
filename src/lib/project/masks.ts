@@ -8,13 +8,15 @@ type Ctx = Pick<
   "beginPath" | "moveTo" | "lineTo" | "arc" | "arcTo" | "bezierCurveTo" | "closePath" | "rect" | "ellipse"
 >;
 
-function roundedRect(ctx: Ctx, x: number, y: number, w: number, h: number, r: number) {
-  const rr = Math.max(0, Math.min(r, w / 2, h / 2));
-  ctx.moveTo(x + rr, y);
-  ctx.arcTo(x + w, y, x + w, y + h, rr);
-  ctx.arcTo(x + w, y + h, x, y + h, rr);
-  ctx.arcTo(x, y + h, x, y, rr);
-  ctx.arcTo(x, y, x + w, y, rr);
+/** Rounded rectangle; `r` is one radius or four (top-left, top-right, bottom-right, bottom-left). */
+function roundedRect(ctx: Ctx, x: number, y: number, w: number, h: number, r: number | readonly number[], inset = 0) {
+  const fit = (v: number) => Math.max(0, Math.min(v - inset, w / 2, h / 2));
+  const [tl, tr, br, bl] = (typeof r === "number" ? [r, r, r, r] : r).map(fit);
+  ctx.moveTo(x + tl, y);
+  ctx.arcTo(x + w, y, x + w, y + h, tr);
+  ctx.arcTo(x + w, y + h, x, y + h, br);
+  ctx.arcTo(x, y + h, x, y, bl);
+  ctx.arcTo(x, y, x + w, y, tl);
   ctx.closePath();
 }
 
@@ -23,7 +25,7 @@ function polygon(ctx: Ctx, points: [number, number][]) {
   ctx.closePath();
 }
 
-export function traceMask(ctx: Ctx, shape: MaskShape, width: number, height: number, cornerRadius = 0, inset = 0) {
+export function traceMask(ctx: Ctx, shape: MaskShape, width: number, height: number, cornerRadius: number | readonly number[] = 0, inset = 0) {
   const x = inset;
   const y = inset;
   const w = Math.max(0, width - inset * 2);
@@ -34,7 +36,7 @@ export function traceMask(ctx: Ctx, shape: MaskShape, width: number, height: num
       ctx.rect(x, y, w, h);
       break;
     case "rounded":
-      roundedRect(ctx, x, y, w, h, cornerRadius - inset);
+      roundedRect(ctx, x, y, w, h, cornerRadius, inset);
       break;
     case "circle":
       ctx.ellipse(x + w / 2, y + h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
