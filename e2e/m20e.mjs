@@ -32,6 +32,7 @@ await page.waitForTimeout(800);
 
 console.log("Generated frame groups");
 await frames();
+await page.getByRole("region", { name: "Torn photos" }).waitFor({ timeout: 15000 }).catch(() => {});
 for (const g of ["Torn photos", "Torn paper", "Film strips", "Instant photos"]) check(await page.getByRole("region", { name: g }).isVisible(), `group ${g}`);
 await page.screenshot({ path: path.join(OUT, "m20e-sheet.png") });
 
