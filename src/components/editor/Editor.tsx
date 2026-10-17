@@ -118,15 +118,34 @@ function ToolButton(props: { label: string; icon: IconName; onClick: () => void;
     <button
       type="button"
       onClick={props.onClick}
-      className={`flex h-16 min-w-0 flex-1 flex-col items-center justify-center gap-1.5 px-0.5 text-[11px] leading-tight ${
+      className={`flex h-14 min-w-[58px] shrink-0 flex-col items-center justify-center gap-1 px-2 text-[10.5px] leading-tight ${
         props.danger ? "text-danger" : ""
       }`}
     >
-      <Icon name={props.icon} />
+      <Icon name={props.icon} size={21} />
       <span className="max-w-full truncate">{props.label}</span>
     </button>
   );
 }
+
+/** Icon-only button of the floating tool pill (nothing selected, like editor-v2/07 §5). */
+function PillButton(props: { label: string; icon: IconName; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      aria-label={props.label}
+      title={props.label}
+      onClick={props.onClick}
+      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full active:bg-surface-2"
+    >
+      <Icon name={props.icon} />
+    </button>
+  );
+}
+
+/** Round floating button beside the pill (Layers, ✕). */
+const ROUND = "flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border bg-surface shadow-lg";
+const PILL = "rounded-full border border-border bg-surface shadow-lg";
 
 function SaveIndicator() {
   const t = useT();
@@ -277,7 +296,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
 
   const close = () => setTool(null);
   const sheet = (label: string, children: React.ReactNode) => (
-    <section aria-label={label} className="rounded-t-[18px] bg-surface px-2 pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+    // Floating over the canvas colour, not a full-width panel (editor-v2/01, 07 §5).
+    <section aria-label={label} className="bg-(--canvas) px-3 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       {children}
     </section>
   );
@@ -337,8 +357,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (key === "animate") return openTool("animate");
   }
 
-  const more = <ToolButton label={t("editor.more")} icon="more" onClick={() => setTool("more")} />;
-  const done = <ToolButton label={t("common.done")} icon="check" onClick={() => store.select(null)} />;
 
   let bottom: React.ReactNode;
   if (tool === "mask" && selected) bottom = <MaskTool elementId={selected.id} onClose={close} />;
@@ -363,7 +381,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <ToolButton label={t("editor.addPhoto")} icon="image" onClick={() => pickReplacement()} />
           {selected.slot && <ToolButton label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(selected.id)} />}
           <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
-          {done}
         </>
       );
     else if (selected.type === "image" && selectedIsVideo)
@@ -376,7 +393,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <ToolButton label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />
           {/* Lock / unlock is in the floating menu, not instead of Style. */}
           <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
-          {done}
         </>
       );
     else if (selected.type === "image")
@@ -388,7 +404,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
           {/* Lock / unlock is in the floating menu, not instead of Style. */}
           <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
           <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
-          {done}
         </>
       );
     else if (selected.type === "layout")
@@ -396,7 +411,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
       tools = (
         <>
           <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
-          {done}
         </>
       );
     else if (selected.type === "text")
@@ -405,7 +419,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <ToolButton label={t("editor.editText")} icon="pencil" onClick={() => store.setEditingText(selected.id)} />
           <ToolButton label={t("editor.textStyle")} icon="text" onClick={() => openTool("text")} />
           <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
-          {done}
         </>
       );
     else
@@ -414,28 +427,33 @@ export function Editor({ onClose }: { onClose: () => void }) {
           {/* Emoji keep their own colours: opacity only (still in the Color tool). */}
           <ToolButton label={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} icon="palette" onClick={() => openTool("fill")} />
           <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
-          {done}
         </>
       );
-    bottom = sheet(t("editor.tools"), <div className="flex">{tools}</div>);
+    bottom = sheet(
+      t("editor.tools"),
+      <div className="flex items-center gap-2">
+        {/* Slides sideways when the tools don't fit; ✕ deselects (editor-v2/07 §5). */}
+        <div className={`no-scrollbar flex h-14 min-w-0 flex-1 overflow-x-auto px-1 ${PILL}`}>
+          {tools}
+        </div>
+        <button type="button" aria-label={t("common.done")} onClick={() => store.select(null)} className={ROUND}>
+          <Icon name="close" />
+        </button>
+      </div>,
+    );
   } else
     bottom = sheet(
       t("editor.tools"),
-      <div className="flex items-center">
-        <div className="flex min-w-0 flex-1">
-          <ToolButton label={busy ? t("editor.importing") : t("editor.addPhotos")} icon="image" onClick={() => addInput.current?.click()} />
-          <ToolButton label={t("editor.text")} icon="text" onClick={addText} />
-          <ToolButton label={t("editor.elements")} icon="shapes" onClick={() => setTool("elements")} />
-          <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
-          {more}
+      <div className="flex items-center justify-between gap-2">
+        <div className={`flex h-14 items-center px-1 ${PILL}`}>
+          <PillButton label={busy ? t("editor.importing") : t("editor.addPhotos")} icon="image" onClick={() => addInput.current?.click()} />
+          <PillButton label={t("editor.text")} icon="text" onClick={addText} />
+          <PillButton label={t("editor.elements")} icon="shapes" onClick={() => setTool("elements")} />
+          <PillButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
+          <PillButton label={t("editor.more")} icon="more" onClick={() => setTool("more")} />
         </div>
-        {/* Layers stand apart from the tools, as a round button on the right (editor-v2/07 §5). */}
-        <button
-          type="button"
-          aria-label={t("layers.title")}
-          onClick={() => setTool("layers")}
-          className="ml-1.5 mr-1 flex h-13 w-13 shrink-0 items-center justify-center rounded-full border border-border bg-surface-2"
-        >
+        {/* Layers stand apart from the tools, as a round button on the right (D-92). */}
+        <button type="button" aria-label={t("layers.title")} onClick={() => setTool("layers")} className={ROUND}>
           <Icon name="layers" />
         </button>
       </div>,
