@@ -405,3 +405,10 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Tay nắm co giãn **nhỏ lại** (góc 14 px cảm ứng / 10 px chuột, cạnh là thanh ngắn); vùng chạm vẫn ~30 px nhưng **lan ra ngoài khung** để phần tử nhỏ vẫn chạm vào được bên trong
 - [x] Cạnh quá ngắn trên màn hình (thu nhỏ slide, phần tử nhỏ) thì **ẩn tay nắm cạnh**, giữ tay nắm góc
 - [x] **Mỗi vùng cuộn chỉ một chiều**: dải công cụ chỉ cuộn ngang, sheet / panel chỉ cuộn dọc (sheet Nền không còn cuộn ngang; thanh công cụ chữ không còn cuộn dọc)
+
+### M20 — Mở rộng thư viện (D-104) — đang bàn phạm vi
+- [ ] Chủ dự án trả lời Q-L1…Q-L9 và Q-E9 ở [2026-10-17-m20-mo-rong-thu-vien.md](../discussions/2026-10-17-m20-mo-rong-thu-vien.md)
+- [ ] Chốt phạm vi và chia việc
+
+### M21 — Xoá vật thể (D-104)
+- [ ] Đặc tả: [editor-v2/09](../product/editor-v2/09-anh-va-video.md) mục 3

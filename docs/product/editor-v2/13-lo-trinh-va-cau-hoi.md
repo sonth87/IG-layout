@@ -31,7 +31,9 @@ Thứ tự được chọn sao cho mỗi mốc là nền cho mốc sau, và nh�
 
 **M19 — Chữ, chỉnh ảnh, thư viện, xuất.** Gõ chữ trực tiếp và sheet Định dạng; màn Chỉnh ảnh toàn màn hình; Công cụ nền mở rộng; menu "+" và thư viện Hình / Khung / Widget / Brand Kit theo nhóm; Nền có chất liệu và chuyển màu tuỳ chỉnh; Xem trước; màn Xuất mới; bảng Lớp có thumbnail. Tài liệu: [09](09-anh-va-video.md) mục 5–6, [10](10-chu.md), [11](11-thu-vien.md), [12](12-sheet-menu-xuat-lop.md) mục 2–6.
 
-**M20 — Xoá vật thể.** Tô lên vật thể để máy tự xoá và vẽ lại nền phía sau, chạy trên máy (mô hình ~200 MB, tải lần đầu khi dùng, như xoá nền). Làm sau cùng (Q-E8). Tài liệu: [09](09-anh-va-video.md) mục 3.
+**M20 — Mở rộng thư viện** (D-104). Khung có lớp trang trí đè lên ảnh và khung nhiều cửa sổ, thêm sticker scrapbook, hình (nhóm Mực), widget, lớp phủ / chất liệu, phông thương hiệu. Phạm vi đang bàn: [2026-10-17-m20-mo-rong-thu-vien.md](../../discussions/2026-10-17-m20-mo-rong-thu-vien.md).
+
+**M21 — Xoá vật thể.** Tô lên vật thể để máy tự xoá và vẽ lại nền phía sau, chạy trên máy (mô hình ~200 MB, tải lần đầu khi dùng, như xoá nền). Làm sau cùng (Q-E8). Tài liệu: [09](09-anh-va-video.md) mục 3.
 
 Mỗi mốc kết thúc bằng: kiểm thử tự động cho các tiêu chí nghiệm thu của tài liệu tương ứng, ảnh chụp màn hình cả hai chế độ sáng / tối, và chủ dự án thử trên điện thoại.
 
@@ -44,7 +46,7 @@ Mỗi mốc kết thúc bằng: kiểm thử tự động cho các tiêu chí ng
 - **Q-E7 — Ba tab đáy.** Đồng ý **Trang chủ / Dự án / Cài đặt**. → [03](03-trang-chu-va-template.md).
 - **Q-E1 — Chạm ô ảnh trống.** Ô đứng riêng trên slide trắng: chạm là chọn luôn ô đó. Ô trong lưới / template: chạm **trúng dấu +** → mở ngay "Lấp đầy khung"; chạm chỗ khác của ô → chọn cha (vì chưa có ảnh để đi vào). → [06](06-chon-va-cu-chi.md) quy tắc 6.
 - **Q-E4 — Thẻ cạnh "Tiếp tục".** Thêm thẻ **"Tạo mới"**. → [03](03-trang-chu-va-template.md).
-- **Q-E8 — Xoá vật thể.** Làm, **để sau cùng** (M20).
+- **Q-E8 — Xoá vật thể.** Làm, **để sau cùng** (M21, D-104).
 
 ## 4. Câu hỏi còn mở
 
