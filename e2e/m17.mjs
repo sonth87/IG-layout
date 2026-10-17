@@ -88,7 +88,7 @@ st = await S();
 check(near(st.doc.elements.find((e) => e.id === text.id).rotation, 15), "Rotate 15 → 15°");
 // A free photo for the size / fill checks.
 await select(null);
-await page.locator('input[type="file"][multiple]').first().setInputFiles(path.join(dir, "portrait.jpg"));
+await page.locator('input[type="file"][multiple][accept="image/*,video/*"]').first().setInputFiles(path.join(dir, "portrait.jpg"));
 for (let i = 0; i < 30 && (st = await S()).doc.elements.at(-1).type !== "image"; i++) await page.waitForTimeout(100);
 const free = st.doc.elements.at(-1);
 await select(free.id);

@@ -49,7 +49,7 @@ await page.evaluate(() => {
 });
 await page.waitForTimeout(400);
 // Something to follow slide 1 around.
-await page.getByRole("button", { name: "Elements" }).click();
+await page.getByRole("button", { name: "Shapes", exact: true }).click(); // Shapes library (M19)
 await page.getByRole("button", { name: "Heart", exact: true }).click();
 await store("select", null);
 await page.waitForTimeout(300);

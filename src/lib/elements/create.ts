@@ -92,3 +92,25 @@ export function newFramedPhoto(ratio: AspectRatio, slide: Rect, frame: FrameStyl
   el.shadow = frame !== "film";
   return el;
 }
+
+export const WIDGETS = ["label", "message", "location", "highlight", "clock"] as const;
+export type WidgetKind = (typeof WIDGETS)[number];
+
+/**
+ * Widgets (M19, editor-v2/11 §7): texts dressed as familiar UI — a label, a message
+ * bubble, a place pill, a highlight, a flip clock. They stay texts: tap to retype.
+ */
+export function newWidget(ratio: AspectRatio, slide: Rect, kind: WidgetKind, sample: string): TextElement {
+  const base = newText(ratio, slide, sample);
+  const W = slideSize(ratio).width;
+  const look: Record<WidgetKind, Partial<TextElement>> = {
+    label: { font: "beVietnam", weight: 600, bold: true, fontSize: W * 0.05, color: "#ffffff", background: { color: "#111111", padding: W * 0.02, radius: W * 0.02 } },
+    message: { font: "beVietnam", weight: 500, bold: false, fontSize: W * 0.05, color: "#ffffff", background: { color: "#2f80ed", padding: W * 0.025, radius: W * 0.045 }, align: "left" },
+    location: { font: "beVietnam", weight: 600, bold: true, fontSize: W * 0.045, color: "#111111", background: { color: "#ffffff", padding: W * 0.022, radius: W * 0.06 } },
+    highlight: { font: "playfair", weight: 700, bold: true, fontSize: W * 0.07, color: "#111111", background: { color: "#ffe066", padding: W * 0.012, radius: W * 0.008 } },
+    clock: { font: "spaceGrotesk", weight: 700, bold: true, fontSize: W * 0.16, color: "#f5f5f5", background: { color: "#1c1c1e", padding: W * 0.03, radius: W * 0.03 }, letterSpacing: W * 0.01 },
+  };
+  const el: TextElement = { ...base, ...look[kind] };
+  const width = Math.min(W * 0.7, el.fontSize * Math.max(4, sample.length * 0.62) + (el.background?.padding ?? 0) * 2);
+  return { ...el, width, x: slide.x + (slide.width - width) / 2, y: slide.y + slide.height * 0.4 };
+}

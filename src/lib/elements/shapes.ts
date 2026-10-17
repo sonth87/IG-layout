@@ -1,9 +1,30 @@
 import type { ShapeKind } from "@/lib/project/types";
+import { type LibraryShape, SHAPE_PATHS } from "./shapeLibrary";
+
+const paths = new Map<string, Path2D>();
+
+/** Shapes of the library: an SVG path scaled to the box (M19). */
+function drawPath(c: CanvasRenderingContext2D, shape: LibraryShape, key: string, w: number, h: number, fill: string) {
+  let p = paths.get(key);
+  if (!p) paths.set(key, (p = new Path2D(shape.path)));
+  c.save();
+  c.scale(w / 100, h / 100);
+  c.fillStyle = fill;
+  c.fill(p, shape.evenOdd ? "evenodd" : "nonzero");
+  c.restore();
+}
+
+/** Label of a shape: built-in ones are translated, library ones carry their name. */
+export function libraryShape(kind: string): LibraryShape | undefined {
+  return (SHAPE_PATHS as Record<string, LibraryShape>)[kind];
+}
 
 // Shape outlines drawn in a w×h box (M5). "film" is a film strip band with
 // sprocket holes (also used by the film strip layout).
 
 export function drawShape(c: CanvasRenderingContext2D, kind: ShapeKind, w: number, h: number, fill: string) {
+  const lib = libraryShape(kind);
+  if (lib) return drawPath(c, lib, kind, w, h, fill);
   c.fillStyle = fill;
   c.beginPath();
   switch (kind) {
@@ -63,7 +84,9 @@ export function defaultShapeSize(kind: ShapeKind, slideWidth: number) {
   if (kind === "line") return { width: slideWidth * 0.5, height: slideWidth * 0.012 };
   if (kind === "arrow") return { width: slideWidth * 0.4, height: slideWidth * 0.12 };
   if (kind === "film") return { width: slideWidth, height: slideWidth * 0.45 };
-  return { width: slideWidth * 0.3, height: slideWidth * 0.3 };
+  const aspect = libraryShape(kind)?.aspect ?? 1;
+  const w = slideWidth * (aspect > 2 ? 0.5 : 0.3);
+  return { width: w, height: w / aspect };
 }
 
 /** Smooth freehand stroke through points (flat x, y list) with round caps. */

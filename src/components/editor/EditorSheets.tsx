@@ -5,7 +5,8 @@ import type Konva from "konva";
 import { useEffect, useState } from "react";
 import { whenIdle } from "@/lib/gesture";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import type { CanvasElement } from "@/lib/project/types";
+import type { CanvasElement, SHAPES } from "@/lib/project/types";
+import { libraryShape } from "@/lib/elements/shapes";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { isSticker, STICKERS } from "@/lib/elements/stickers";
 import { units } from "@/lib/project/blocks";
@@ -67,7 +68,7 @@ export function ActionSheet<K extends string>({
 
 function elementLabel(el: CanvasElement, index: number, t: ReturnType<typeof useT>) {
   if (el.type === "text") return `“${el.text.slice(0, 24)}${el.text.length > 24 ? "…" : ""}”`;
-  if (el.type === "shape") return t(`shape.${el.shape}`);
+  if (el.type === "shape") return libraryShape(el.shape)?.name[useSettings.getState().locale] ?? t(`shape.${el.shape as (typeof SHAPES)[number]}`);
   if (el.type === "icon" && el.svg) return el.icon.replace(/^emoji:/, "").replace(/-/g, " ");
   if (el.type === "icon") return isSticker(el.icon) ? STICKERS[el.icon].name[useSettings.getState().locale] : t(`icon.${el.icon}` as "icon.heart");
   if (el.type === "drawing") return t("editor.kind.drawing");

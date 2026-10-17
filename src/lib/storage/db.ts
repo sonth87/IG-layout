@@ -38,20 +38,35 @@ export interface StoredAsset {
   audio?: { duration: number };
 }
 
+/** Things kept across projects (M19): the user's stickers, Brand Kit logos and assets. */
+export interface LibraryItem {
+  id: string;
+  kind: "sticker" | "logo" | "asset";
+  blob: Blob;
+  width: number;
+  height: number;
+  name: string;
+  createdAt: number;
+}
+
 interface Schema extends DBSchema {
   projects: { key: string; value: ProjectMeta; indexes: { updatedAt: number } };
   states: { key: string; value: ProjectState };
   assets: { key: string; value: StoredAsset; indexes: { projectId: string } };
+  library: { key: string; value: LibraryItem; indexes: { kind: string } };
 }
 
 let dbPromise: Promise<IDBPDatabase<Schema>> | null = null;
 
 export function db() {
-  dbPromise ??= openDB<Schema>("ig-layout", 1, {
-    upgrade(database) {
-      database.createObjectStore("projects", { keyPath: "id" }).createIndex("updatedAt", "updatedAt");
-      database.createObjectStore("states", { keyPath: "id" });
-      database.createObjectStore("assets", { keyPath: "id" }).createIndex("projectId", "projectId");
+  dbPromise ??= openDB<Schema>("ig-layout", 2, {
+    upgrade(database, oldVersion) {
+      if (oldVersion < 1) {
+        database.createObjectStore("projects", { keyPath: "id" }).createIndex("updatedAt", "updatedAt");
+        database.createObjectStore("states", { keyPath: "id" });
+        database.createObjectStore("assets", { keyPath: "id" }).createIndex("projectId", "projectId");
+      }
+      if (oldVersion < 2) database.createObjectStore("library", { keyPath: "id" }).createIndex("kind", "kind");
     },
   });
   return dbPromise;

@@ -81,8 +81,7 @@ await page.getByLabel("Cancel").click();
 await page.getByRole("button", { name: "Done" }).click();
 
 console.log("S13 stickers");
-await page.getByRole("button", { name: "Elements" }).click();
-await page.getByRole("button", { name: "Stickers", exact: true }).click();
+await page.getByRole("button", { name: "Stickers", exact: true }).click(); // Sticker library (M19)
 await shot(page, "3-stickers");
 await page.getByRole("button", { name: "Washi tape" }).click();
 st = await S();
@@ -96,7 +95,6 @@ check(last(st, "icon").color !== tape.color, "sticker colour can be changed");
 await page.getByRole("button", { name: "Done" }).click();
 
 console.log("Emoji stickers (Fluent Emoji, MIT)");
-await page.getByRole("button", { name: "Elements" }).click();
 await page.getByRole("button", { name: "Stickers", exact: true }).click();
 await page.getByRole("button", { name: "Food & Drink" }).click();
 await page.getByRole("button", { name: "pizza", exact: true }).click();
@@ -104,7 +102,7 @@ st = await S();
 const emoji = last(st, "icon");
 check(emoji.icon === "emoji:pizza" && emoji.svg?.includes("<path"), "emoji sticker added with its SVG stored in the project");
 await page.getByRole("button", { name: "Done" }).click();
-await page.getByRole("button", { name: "Elements" }).click();
+await page.getByRole("button", { name: "Stickers", exact: true }).click();
 await page.getByRole("searchbox").fill("cat face");
 await page.waitForTimeout(600);
 check((await page.getByRole("button", { name: "cat face", exact: true }).count()) === 1, "search finds emoji across categories");
@@ -119,8 +117,7 @@ const before = await page.evaluate(() => {
   for (let i = 0; i < d.length; i += 4) sum += d[i] + d[i + 1] + d[i + 2];
   return sum / (d.length / 4);
 });
-await page.getByRole("button", { name: "Elements" }).click();
-await page.getByRole("button", { name: "Overlays", exact: true }).click();
+await page.getByRole("button", { name: "Stickers", exact: true }).click(); // light & texture overlays are in the sticker library
 await shot(page, "4-overlays");
 await page.getByRole("button", { name: "Light leak" }).click();
 await page.waitForTimeout(800);
@@ -169,7 +166,8 @@ check(drawing && drawing.strokes.length === 1 && st.past === past + 1 && st.sele
 await page.getByRole("button", { name: "Done" }).click();
 
 console.log("S14 frames");
-await page.getByRole("button", { name: "Elements" }).click();
+await page.getByRole("button", { name: "New layer" }).click();
+await page.getByRole("button", { name: "Frame", exact: true }).click();
 await page.getByRole("button", { name: "Gallery" }).click();
 st = await S();
 check(last(st, "image").frame === "gallery", "gallery frame added");

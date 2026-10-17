@@ -132,7 +132,7 @@ st = await S();
 check(cellsOf(st).every((c) => !c.assetId), "cells empty again");
 await page.evaluate(() => window.__igEditor.getState().select(null));
 const n0 = st.doc.elements.length;
-await page.locator('input[type="file"][multiple]').first().setInputFiles(photos.slice(0, 2));
+await page.locator('input[type="file"][multiple][accept="image/*,video/*"]').first().setInputFiles(photos.slice(0, 2));
 st = await wait((st) => st.doc.elements.length === n0 + 2);
 const free = st.doc.elements.slice(-2);
 check(cellsOf(st).every((c) => !c.assetId) && free.every((e) => e.type === "image" && !e.parentId), "2 free photos added; empty cells stay empty");
@@ -145,7 +145,7 @@ check(st.selected === free[1].id, "the last one is selected");
 // More than 10 at once: the first 10.
 const many = Array.from({ length: 12 }, (_, i) => photos[i % 7]);
 await page.evaluate(() => window.__igEditor.getState().select(null));
-await page.locator('input[type="file"][multiple]').first().setInputFiles(many);
+await page.locator('input[type="file"][multiple][accept="image/*,video/*"]').first().setInputFiles(many);
 check(await page.getByRole("status").filter({ hasText: "Added the first 10" }).isVisible(), "more than 10 → the first 10, with a note");
 st = await wait((st) => st.doc.elements.length === n0 + 12);
 check(st.doc.elements.length === n0 + 12, "10 more free photos");

@@ -77,22 +77,20 @@ check(st.past === past0 + 1, "one history step");
 
 console.log("3. Elements: search icon, recolor");
 await page.getByRole("button", { name: "Done" }).click();
-await page.getByRole("button", { name: "Elements" }).click();
-await page.getByPlaceholder("Search shapes, icons, frames…").fill("heart");
-check((await page.getByRole("button", { name: "Heart", exact: true }).count()) === 1 && (await page.getByRole("button", { name: "Star", exact: true }).count()) === 0, "search filters to Heart");
+await page.getByRole("button", { name: "Shapes", exact: true }).click(); // Shapes library, in groups (M19)
+check((await page.getByRole("button", { name: "Heart", exact: true }).count()) === 1 && (await page.getByRole("region", { name: "Hearts" }).count()) === 1, "Hearts group with Heart");
 await page.getByRole("button", { name: "Heart", exact: true }).click();
 st = await S();
-const icon = last(st, "icon");
-check(icon?.icon === "heart" && st.selected === icon.id, "heart icon added and selected");
+const icon = last(st, "shape");
+check(icon?.shape === "heart" && st.selected === icon.id, "heart shape added and selected");
 await page.getByRole("button", { name: "Color", exact: true }).click();
 await page.getByRole("button", { name: "#f2b84b" }).click();
 await apply();
 st = await S();
-check(last(st, "icon").color === "#f2b84b", "icon recolored");
+check(last(st, "shape").fill === "#f2b84b", "shape recolored");
 
 console.log("4. Shapes: film strip");
 await page.getByRole("button", { name: "Done" }).click();
-await page.getByRole("button", { name: "Elements" }).click();
 await page.getByRole("button", { name: "Shapes", exact: true }).click();
 await page.getByRole("button", { name: "Film strip" }).click();
 st = await S();
@@ -100,7 +98,8 @@ check(last(st, "shape")?.shape === "film", "film strip shape added");
 
 console.log("5. Photo frame: polaroid, fill it");
 await page.getByRole("button", { name: "Done" }).click();
-await page.getByRole("button", { name: "Elements" }).click();
+await page.getByRole("button", { name: "New layer" }).click();
+await page.getByRole("button", { name: "Frame", exact: true }).click();
 await page.getByRole("button", { name: "Polaroid", exact: true }).click();
 st = await S();
 let framed = st.doc.elements.find((e) => e.type === "image" && e.frame === "polaroid");
@@ -126,7 +125,8 @@ check(st.doc.elements.find((e) => e.id === framed.id).frame === "white", "frame 
 
 console.log("7. Film strip layout");
 await page.getByRole("button", { name: "Done" }).click();
-await page.getByRole("button", { name: "Layout" }).click();
+await page.getByRole("button", { name: "Project menu" }).click(); // the project's Layout (M19: in the ⋯ menu)
+await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: "Layout", exact: true }).click();
 await page.getByRole("button", { name: "Seamless", exact: true }).click();
 await page.getByRole("button", { name: /^Film strip/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();
@@ -151,7 +151,7 @@ await page.locator("article").first().getByRole("button").first().click();
 await page.getByText("4:5 · 2 slides").waitFor();
 st = await S();
 const types = st.doc.elements.map((e) => e.type).sort().join(",");
-check(types.includes("text") && types.includes("icon") && types.includes("shape"), `elements persisted (${types})`);
+check(types.includes("text") && types.includes("shape") && types.includes("image"), `elements persisted (${types})`);
 
 console.log("10. Credits in Settings");
 await page.getByLabel("Back").click();

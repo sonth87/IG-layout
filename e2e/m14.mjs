@@ -188,10 +188,10 @@ check(photo2.crop.width < photo.crop.width - 1 && near(photo2.x, photo.x) && nea
 
 console.log("Equal-size ruler (editor-v2/07 §4)");
 await store("select", null);
-await page.getByRole("button", { name: "Elements" }).click();
+await page.getByRole("button", { name: "Shapes", exact: true }).click(); // Shapes library (M19)
 await page.getByRole("button", { name: "Heart", exact: true }).click();
 await page.getByRole("button", { name: "Done" }).click().catch(() => {});
-await page.getByRole("button", { name: "Elements" }).click();
+await page.getByRole("button", { name: "Shapes", exact: true }).click(); // Shapes library (M19)
 await page.getByRole("button", { name: "Heart", exact: true }).click();
 st = await S();
 const [h1, h2] = st.doc.elements.filter((e) => e.type === "shape" || e.type === "icon").slice(-2);

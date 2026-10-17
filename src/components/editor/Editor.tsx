@@ -33,7 +33,8 @@ import { AnimationTool } from "./tools/AnimationTool";
 import { MusicTool } from "./tools/MusicTool";
 import { PlaybackBar } from "./PlaybackBar";
 import { attachMusic, detachMusic, pause as pausePlayback, resetPlayback, seek, usePlayback } from "@/lib/video/playback";
-import { ElementsSheet } from "./tools/ElementsSheet";
+import { type LibraryKind, LibrarySheet, NewLayerSheet } from "./library/LibrarySheet";
+import { saveLibrary } from "@/lib/storage/library";
 import { FillTool, MaskTool, StyleTool } from "./tools/ElementTools";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
 import { TextTool } from "./tools/TextTools";
@@ -92,7 +93,9 @@ type Tool =
   | "opacity"
   | "bgTools"
   | "cutout"
-  | "erase";
+  | "erase"
+  | "library"
+  | "newLayer";
 /** Tools that edit a draft (✕ / ✓). */
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity"];
 
@@ -213,6 +216,14 @@ export function Editor({ onClose }: { onClose: () => void }) {
   /** Zoom shown while easing to a new "see every slide" level. */
   const [easing, setEasing] = useState<number | null>(null);
   const pinchZoomStart = useRef(1);
+  /** Which library the "library" sheet shows (editor-v2/11). */
+  const [library, setLibrary] = useState<LibraryKind>("sticker");
+  const openLibrary = (kind: LibraryKind) => {
+    setLibrary(kind);
+    setTool("library");
+  };
+  const videoInput = useRef<HTMLInputElement>(null);
+  const filesInput = useRef<HTMLInputElement>(null);
   /** What the typing bar shows for the text being typed: keyboard, Format or Align. */
   const [textMode, setTextMode] = useState<{ id: string; mode: "type" | "format" | "align" } | null>(null);
   const typingMode = editingText && textMode?.id === editingText ? textMode.mode : "type";
@@ -230,7 +241,10 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const size = canvasSize(doc);
   const { slide } = size;
   const isGrid = doc.type === "grid";
-  const sheetOpen = tool !== null && tool !== "more" && tool !== "layers" && tool !== "elements" && tool !== "layout" && tool !== "newSlide";
+  const sheetOpen =
+    tool !== null && tool !== "more" && tool !== "layers" && tool !== "library" && tool !== "newLayer" && tool !== "layout" && tool !== "newSlide";
+  /** Sheets that take the toolbar's place under the canvas. */
+  const contentSheet = tool === "layers" || tool === "library" || tool === "newLayer" || tool === "newSlide";
   const base = useBaseScale(areaRef, slide, isGrid ? size.width : null);
   const baseScale = base.scale;
   const areaSize = useAreaSize(areaRef);
@@ -404,7 +418,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     </section>
   );
 
-  type MoreKey = "background" | "slides" | "layers" | "draw" | "music" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg" | "crop" | "animate";
+  type MoreKey = "background" | "slides" | "layers" | "draw" | "layout" | "music" | "replace" | "swap" | "mask" | "up" | "down" | "front" | "back" | "lock" | "unrotate" | "removeBg" | "crop" | "animate";
 
   /** Secondary actions for the selection ("⋯ More"), described as data. */
   /** The project menu (the ⋯ at the top): background, slides, music, drawing. */
@@ -414,6 +428,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         { key: "slides", label: isGrid ? t("editor.grid") : doc.type === "story" ? t("editor.frames") : t("editor.slides"), icon: "slides" },
         { key: "music", label: t("music.title"), icon: "music" },
         { key: "draw", label: t("editor.draw"), icon: "pencil" },
+        { key: "layout", label: t("editor.layout"), icon: "layout" },
       ];
   }
 
@@ -444,6 +459,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (key === "background") return openTool("background");
     if (key === "slides") return openTool("slides");
     if (key === "layers") return setTool("layers");
+    if (key === "layout") return setTool("layout");
     if (key === "music") return setTool("music");
     if (key === "draw") {
       store.startDrawing();
@@ -556,6 +572,16 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <ToolButton key={t("editor.adjust")} label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />,
         <ToolButton key={t("editor.filters")} label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />,
         <ToolButton key="bgTools" label={t("bg.title")} icon="sparkles" onClick={() => setTool("bgTools")} />,
+        <ToolButton
+          key="saveSticker"
+          label={t("lib.saveSticker")}
+          icon="heart"
+          onClick={() => {
+            // Kept on this device for every project ("My stickers", editor-v2/09 §10).
+            const a = selected.assetId ? assets[selected.assetId] : undefined;
+            if (a) void saveLibrary("sticker", a.blob, a.width, a.height, a.name).then(() => showNotice(t("lib.saved")));
+          }}
+        />,
         <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
         selected.slot && <ToolButton key={t("editor.swap")} label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(id)} />,
         selected.frame === "none" && !inBlock && <ToolButton key={t("editor.mask")} label={t("editor.mask")} icon="mask" onClick={() => openTool("mask")} />,
@@ -609,8 +635,9 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <div className={`flex h-14 items-center px-1 ${PILL}`}>
           <PillButton label={busy ? t("editor.importing") : t("editor.addPhotos")} icon="image" onClick={() => addInput.current?.click()} />
           <PillButton label={t("editor.text")} icon="text" onClick={addText} />
-          <PillButton label={t("editor.elements")} icon="shapes" onClick={() => setTool("elements")} />
-          <PillButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
+          <PillButton label={t("lib.stickers")} icon="heart" onClick={() => openLibrary("sticker")} />
+          <PillButton label={t("lib.shapes")} icon="shapes" onClick={() => openLibrary("shape")} />
+          <PillButton label={t("lib.newLayer")} icon="plus" onClick={() => setTool("newLayer")} />
         </div>
         {/* Layers stand apart from the tools, as a round button on the right (D-92). */}
         <button type="button" aria-label={t("layers.title")} onClick={() => setTool("layers")} className={ROUND}>
@@ -783,6 +810,30 @@ export function Editor({ onClose }: { onClose: () => void }) {
         </div>
       )}
 
+      {/* "+ → Video / Files" (editor-v2/11 §1): free photos / videos like the photo button. */}
+      <input
+        ref={videoInput}
+        type="file"
+        accept="video/*"
+        multiple
+        hidden
+        onChange={(e) => {
+          const files = Array.from(e.target.files ?? []);
+          e.target.value = "";
+          if (files.length) void importFiles(files.slice(0, MAX_FREE_PHOTOS), currentSlide);
+        }}
+      />
+      <input
+        ref={filesInput}
+        type="file"
+        multiple
+        hidden
+        onChange={(e) => {
+          const files = Array.from(e.target.files ?? []);
+          e.target.value = "";
+          if (files.length) void importFiles(files.slice(0, MAX_FREE_PHOTOS), currentSlide);
+        }}
+      />
       <input
         ref={addInput}
         type="file"
@@ -809,7 +860,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       )}
 
       {/* A content sheet (layers, elements, new slide) takes the toolbar's place and pushes the canvas up. */}
-      {!(tool === "layers" || tool === "elements" || tool === "newSlide") && bottom}
+      {!contentSheet && bottom}
 
       {tool === "layout" && (
         <LayoutPicker
@@ -887,7 +938,23 @@ export function Editor({ onClose }: { onClose: () => void }) {
       {tool === "layers" && <LayersSheet onClose={close} />}
       {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
       {tool === "trim" && selected && <TrimTool elementId={selected.id} onClose={close} />}
-      {tool === "elements" && <ElementsSheet onClose={close} />}
+      {tool === "library" && <LibrarySheet kind={library} onClose={close} />}
+      {tool === "newLayer" && (
+        <NewLayerSheet
+          onClose={close}
+          onPick={(key) => {
+            close();
+            if (key === "photo") addInput.current?.click();
+            else if (key === "video") videoInput.current?.click();
+            else if (key === "files") filesInput.current?.click();
+            else if (key === "text") addText();
+            else if (key === "draw") {
+              store.startDrawing();
+              setTool("draw");
+            } else openLibrary(key);
+          }}
+        />
+      )}
 
       {removeBgFor && <RemoveBgDialog elementId={removeBgFor} onClose={() => setRemoveBgFor(null)} />}
       {exportOpen && <ExportSheet contentLayerRef={contentLayerRef} viewScale={viewScale} onClose={() => setExportOpen(false)} />}
