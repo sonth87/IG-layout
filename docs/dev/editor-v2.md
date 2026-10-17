@@ -78,6 +78,8 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Thư viện** (`library/LibrarySheet.tsx`): một sheet cho mọi thư viện (`kind`), nhóm → `Group` (7 mục + "+N", màn đủ nhóm). Hình thư viện: `lib/elements/shapeLibrary.ts` — path SVG trong hộp 100 × 100 (sinh đa giác / sao / hoa / tem bằng hàm), `drawShape` vẽ bằng `Path2D` (cache), `ShapeKind` = hình gốc + `PathShape`. Kho riêng trên máy: IndexedDB phiên bản 2 thêm store `library` (`sticker` / `logo` / `asset`), `lib/storage/library.ts` (+ màu thương hiệu, sticker gần đây trong `localStorage`). Widget = `TextElement` dựng sẵn (`newWidget`). Lưới = `addLayoutBlock` (khối 80 % slide).
 
+**Dự án / Nền / Xuất**: `useSettings.snap` (lưu cùng cài đặt) tắt `snap()`, `snapRotation`, `rotationSnaps` và thước đo. `changeRatio` (`lib/project/slides.ts`) đổi `ratio`, giữ tâm phần tử theo tỉ lệ chiều cao, khối nhận chiều cao mới rồi `syncLayout`. `Background` thêm `gradient.stops / radial` và `{ kind: "texture" }` (ô 512 px vẽ bằng code, `lib/elements/textures.ts`, `fillPatternImage` lặp lại). `exportSlides(..., scale)` nhân `pixelRatio` và kích thước file. `PreviewScreen` chụp từng slide từ lớp nội dung (720 px) rồi dùng `CarouselPreview`.
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:

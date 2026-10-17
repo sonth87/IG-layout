@@ -53,6 +53,8 @@ export async function exportSlides(
   video?: VideoExport,
   /** Slide n (0-based, posting order) of total, 0..1 within the slide (videos). */
   onProgress?: (n: number, total: number, p: number) => void,
+  /** Resolution: 1 = 1080 px wide, 2 = 2160 px (editor-v2/12 §5). Photos only. */
+  scale = 1,
 ): Promise<File[]> {
   const files: File[] = [];
   const order = exportOrder(doc);
@@ -65,11 +67,11 @@ export async function exportSlides(
       continue;
     }
     const r = slideRect(doc, i);
-    const rendered = layer.toCanvas({ ...layerRegion(layer, r, viewScale), pixelRatio: 1 / viewScale });
+    const rendered = layer.toCanvas({ ...layerRegion(layer, r, viewScale), pixelRatio: scale / viewScale });
     // Float rounding can make Konva's canvas a pixel off: redraw at the exact size.
     const exact = document.createElement("canvas");
-    exact.width = Math.round(r.width);
-    exact.height = Math.round(r.height);
+    exact.width = Math.round(r.width * scale);
+    exact.height = Math.round(r.height * scale);
     const ctx = exact.getContext("2d")!;
     ctx.imageSmoothingQuality = "high";
     ctx.drawImage(rendered, 0, 0, exact.width, exact.height);

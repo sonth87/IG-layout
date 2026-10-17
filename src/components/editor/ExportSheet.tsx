@@ -32,6 +32,8 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
   const hasVideo = doc.elements.some((el) => (el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video) || hasMotion(el));
   const hasSound = !!doc.music || doc.elements.some((el) => el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video?.hasAudio);
   const [withAudio, setWithAudio] = useState(true);
+  /** 1 = 1080 px wide, 2 = 2160 px (editor-v2/12 §5). */
+  const [scale, setScale] = useState<1 | 2>(1);
   const [progress, setProgress] = useState<{ n: number; total: number; p: number } | null>(null);
   const size = slideSize(doc.ratio);
   const tabs = previewTabs(doc.type);
@@ -57,7 +59,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
       .then(() => {
         layer.draw();
         const base = fileBase(useEditor.getState().projectName, doc.type);
-        if (!hasVideo) return exportSlides(layer, doc, viewScale, base);
+        if (!hasVideo) return exportSlides(layer, doc, viewScale, base, undefined, undefined, scale);
         return import("@/lib/video/export").then(({ exportVideoSlide, slideVideos }) => {
           const assets = useEditor.getState().assets;
           return exportSlides(
@@ -70,6 +72,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
               render: (index, onProgress) => exportVideoSlide({ layer, doc, index, viewScale, assets, withAudio, onProgress }),
             },
             (n, total, p) => !cancelled && setProgress({ n, total, p }),
+            scale,
           );
         });
       })
@@ -90,7 +93,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
         videoUrls.delete(u);
       });
     };
-  }, [contentLayerRef, doc, viewScale, hasVideo, withAudio]);
+  }, [contentLayerRef, doc, viewScale, hasVideo, withAudio, scale]);
 
   // The whole carousel as one 9:16 video (M13.4): made on request.
   const [reel, setReel] = useState<{ file: File; url: string } | null>(null);
@@ -147,6 +150,29 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
         </header>
 
         <div className="flex-1 overflow-y-auto px-5">
+          <div role="radiogroup" aria-label={t("export.resolution")} className="mb-3 flex items-center justify-between rounded-xl bg-surface px-3.5 py-2 text-sm">
+            <span>{t("export.resolution")}</span>
+            <span className="flex gap-1 rounded-full bg-surface-2 p-1">
+              {([1, 2] as const).map((k) => (
+                <button
+                  key={k}
+                  type="button"
+                  role="radio"
+                  aria-checked={scale === k}
+                  disabled={!files && !error}
+                  onClick={() => {
+                    if (k === scale) return;
+                    setFiles(null);
+                    setPreviews([]);
+                    setScale(k);
+                  }}
+                  className={`h-8 rounded-full px-3 text-[13px] ${scale === k ? "bg-surface font-bold shadow-sm" : "text-muted"}`}
+                >
+                  {k}× · {1080 * k} px
+                </button>
+              ))}
+            </span>
+          </div>
           {hasSound && (
             <label className="mb-3 flex items-center justify-between rounded-xl bg-surface px-3.5 py-2.5 text-sm">
               <span>{t("export.withSound")}</span>
@@ -216,7 +242,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
           {files && (
             <>
               <p className="text-[13px] text-muted">
-                {t("export.summary", { count: files.length, width: size.width, height: size.height })}
+                {t("export.summary", { count: files.length, width: size.width * scale, height: size.height * scale })}
               </p>
               <aside className="mt-3 rounded-2xl border border-border bg-surface px-3.5 py-3 text-[13px] leading-relaxed text-text-2">
                 <strong className="text-text">{t("export.tipTitle")}</strong>{" "}

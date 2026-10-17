@@ -18,23 +18,27 @@ const DICTS: Record<Locale, Record<MessageKey, string>> = { en, vi };
 interface SettingsState {
   theme: ThemeSetting;
   locale: Locale;
+  /** Guides, equal-size ruler and angle snapping (project ⋯ → Snap, editor-v2/12 §2). */
+  snap: boolean;
   setTheme: (theme: ThemeSetting) => void;
   setLocale: (locale: Locale) => void;
+  setSnap: (on: boolean) => void;
 }
 
-function read(): Pick<SettingsState, "theme" | "locale"> {
+function read(): Pick<SettingsState, "theme" | "locale" | "snap"> {
   try {
     const raw = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? "{}");
     return {
       theme: ["light", "dark"].includes(raw.theme) ? raw.theme : "system",
       locale: raw.locale === "vi" ? "vi" : "en",
+      snap: raw.snap !== false,
     };
   } catch {
-    return { theme: "system", locale: "en" };
+    return { theme: "system", locale: "en", snap: true };
   }
 }
 
-function write(state: Pick<SettingsState, "theme" | "locale">) {
+function write(state: Pick<SettingsState, "theme" | "locale" | "snap">) {
   try {
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(state));
   } catch {
@@ -50,16 +54,20 @@ export function applyTheme(theme: ThemeSetting) {
 
 export const useSettings = create<SettingsState>()((set, get) => ({
   // Read synchronously on the client so the first render already uses saved settings.
-  ...(typeof window === "undefined" ? { theme: "system" as const, locale: "en" as const } : read()),
+  ...(typeof window === "undefined" ? { theme: "system" as const, locale: "en" as const, snap: true } : read()),
   setTheme: (theme) => {
     set({ theme });
     applyTheme(theme);
-    write({ theme, locale: get().locale });
+    write({ theme, locale: get().locale, snap: get().snap });
   },
   setLocale: (locale) => {
     set({ locale });
     document.documentElement.lang = locale;
-    write({ theme: get().theme, locale });
+    write({ theme: get().theme, locale, snap: get().snap });
+  },
+  setSnap: (snap) => {
+    set({ snap });
+    write({ theme: get().theme, locale: get().locale, snap });
   },
 }));
 

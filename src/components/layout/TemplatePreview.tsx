@@ -15,6 +15,7 @@ function cssBackground(doc: ProjectDoc) {
   const bg = doc.background;
   if (bg.kind === "color") return bg.color;
   if (bg.kind === "gradient") return `linear-gradient(${bg.angle}deg, ${bg.from}, ${bg.to})`;
+  if (bg.kind === "texture") return "#f5f3ee";
   return "#9a9a9a";
 }
 
