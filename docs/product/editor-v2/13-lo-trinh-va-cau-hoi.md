@@ -33,12 +33,19 @@ Thứ tự được chọn sao cho mỗi mốc là nền cho mốc sau, và nh�
 
 Mỗi mốc kết thúc bằng: kiểm thử tự động cho các tiêu chí nghiệm thu của tài liệu tương ứng, ảnh chụp màn hình cả hai chế độ sáng / tối, và chủ dự án thử trên điện thoại.
 
-## 3. Câu hỏi mở
+## 3. Câu hỏi đã chốt (2026-10-17)
 
-- **Q-E1 — Chạm ô trống lần đầu.** Theo quy tắc chung, lần chạm đầu chọn khối cha, lần sau mới mở "Lấp đầy khung". Ứng dụng hiện tại mở "Lấp đầy khung" ngay lần đầu cho nhanh. Chọn cách nào?
-- **Q-E2 — Nút Ảnh khi còn ô trống.** Thêm ảnh tự do như tham chiếu, hay hỏi "Điền vào ô trống / Thêm ảnh tự do"?
-- **Q-E3 — Chạm phần tử khác khi đang chọn.** Bỏ chọn rồi chọn luôn phần tử ngoài cùng tại đó (một chạm), hay chỉ bỏ chọn (phải chạm thêm)?
-- **Q-E4 — Thẻ cạnh "Tiếp tục" ở trang chủ.** "Tạo mới" hay bỏ hẳn?
-- **Q-E5 — Kéo sheet xuống dưới 50 %.** Đóng sheet, hay bật về 50 %?
-- **Q-E6 — Màu nút chính.** Theo tham chiếu (nút trắng chữ đen trên nền tối), hay giữ màu nhấn vàng hổ phách hiện tại?
-- **Q-E7 — Tên ba tab điều hướng đáy.** "Trang chủ / Dự án / Cài đặt" có được không?
+- **Q-E2 — Nút Ảnh.** Bấm nút Ảnh ở thanh công cụ (không phải chạm vào ô trống) thì luôn **thêm ảnh tự do**, không điền vào ô trống. → [09](09-anh-va-video.md) mục 2.
+- **Q-E3 — Chạm phần tử khác khi đang chọn.** **Chuyển sang chọn phần tử đó luôn**; chạm chỗ không thuộc phần tử nào thì bỏ chọn. → [06](06-chon-va-cu-chi.md) quy tắc 5.
+- **Q-E5 — Kéo bottom sheet.** Thả ở **0 – 20 %** → đóng; **20 – 50 %** → bật về 50 %. → [12](12-sheet-menu-xuat-lop.md) mục 1.1.
+- **Q-E6 — Nút chính.** Giữ màu nhấn hiện tại. → [01](01-giao-dien.md).
+- **Q-E7 — Ba tab đáy.** Đồng ý **Trang chủ / Dự án / Cài đặt**. → [03](03-trang-chu-va-template.md).
+
+## 4. Câu hỏi còn mở
+
+- **Q-E1 — Chạm vào ô ảnh trống (không phải slide trống).** "Ô trống" ở đây là **chỗ chứa ảnh chưa có ảnh** — hình chữ nhật xám có dấu **+** tròn ở giữa, nằm trong một khối lưới / bố cục hoặc trong một khung (như IMG_3962, IMG_4005, IMG_4019). Slide trắng không có gì thì chạm vào không xảy ra gì — đúng như chủ dự án nói. Câu hỏi là: **khi chưa chọn gì**, người dùng chạm thẳng vào dấu + của một ô trống nằm trong lưới, thì:
+  - (a) lần chạm đầu **chọn cả lưới** (theo quy tắc "cha trước"), phải chạm thêm lần nữa vào ô mới mở "Lấp đầy khung"; hay
+  - (b) lần chạm đầu **mở ngay "Lấp đầy khung"** cho ô đó (ô trống là ngoại lệ của quy tắc "cha trước").
+  Mô tả của chủ dự án ("ấn lần 1 select cha, ấn thêm 1 lần nữa vào vị trí component nào bên trong sẽ select component đó … nếu chỉ là khoảng trống với dấu "+" thì sẽ hiện bottom sheet") nghiêng về (a). Còn với **khung đứng riêng** (một khung polaroid đặt tự do, chỉ có một cửa sổ): lần chạm đầu chọn khung, lần sau vào dấu + mở "Lấp đầy khung" — hay mở ngay?
+- **Q-E4 — Thẻ trên trang chủ mới của app mình.** Trong trang chủ mới (Phần 03), ngay dưới banner có một hàng **hai thẻ nhỏ**. Thẻ trái là **"Tiếp tục"** — mở lại dự án bạn làm gần nhất (app tham chiếu có thẻ này, IMG_4003). Thẻ phải trong app tham chiếu là "kết nối Instagram" — app mình không làm nên phải bỏ. Câu hỏi: chỗ thẻ phải đó **để trống (chỉ còn một thẻ "Tiếp tục" rộng cả hàng)**, hay **đặt thẻ "Tạo mới"** (mở luồng tạo dự án)?
+- **Q-E8 — Xoá vật thể.** Tính năng này cần AI vẽ lại phần nền sau vật thể. Chạy được trên máy (như xoá nền) nhưng mô hình nặng khoảng 200 MB, xử lý chậm trên điện thoại. Làm (để sau cùng), hay bỏ?

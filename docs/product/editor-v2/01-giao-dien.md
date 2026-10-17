@@ -12,7 +12,7 @@ Toàn bộ ảnh tham chiếu đều chụp ở chế độ tối, nên bố c�
 
 Ở **chế độ sáng** [ĐX], vùng làm việc của editor dùng xám rất nhạt (khoảng #ECECEF) thay vì trắng, để slide trắng vẫn tách khỏi nền. Thanh và sheet là trắng bán trong suốt có làm mờ phía sau. Chữ chính gần đen, chữ phụ xám trung tính. Ô chọn trong thư viện có nền xám nhạt.
 
-Ở cả hai chế độ, màu nhấn (nút chính, mục đang chọn, viền khung chọn) giữ nhất quán. Tham chiếu dùng trắng làm màu nút chính trên nền tối ("Explore Now", "Use Template" là nút trắng chữ đen); app mình có thể giữ màu nhấn hiện tại (vàng hổ phách) cho nút chính, nhưng các thành phần còn lại theo phong cách mô tả ở đây. Đây là điểm cần chủ dự án chọn (xem câu hỏi Q-E6 trong [13](13-lo-trinh-va-cau-hoi.md)).
+Ở cả hai chế độ, màu nhấn (nút chính, mục đang chọn, viền khung chọn) giữ nhất quán. Tham chiếu dùng trắng làm màu nút chính trên nền tối ("Explore Now", "Use Template" là nút trắng chữ đen); app mình có thể giữ màu nhấn hiện tại (vàng hổ phách) cho nút chính, nhưng các thành phần còn lại theo phong cách mô tả ở đây. Chủ dự án đã chốt (Q-E6, 2026-10-17): **nút chính giữ như hiện tại** — màu nhấn vàng hổ phách [CDA].
 
 ## 3. Hình khối và kích thước
 

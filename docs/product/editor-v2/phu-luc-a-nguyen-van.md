@@ -43,3 +43,26 @@ Chép nguyên văn để không ý nào bị mất khi diễn giải. Tên ứng
 
 ---
 
+**2026-10-17 (lần 4 — trả lời câu hỏi và ảnh thao tác với ảnh / khung):**
+> - QE1: chưa rõ đang hỏi ô trống này là ô trống gì? slide trống? nếu đang nói về slide trống thì click vào không có hiện tượng gì cả vì nó không có gì cả.
+> - QE2: bấn nút ảnh ở menu mà không phải là focus vào ô ảnh trống thì cũng không thêm ảnh vào ô trống đó. mà thêm tự do như logic bình thường
+> - QE3: đang chọn 1 thứ mà chọn 1 thứ khác thì chuyển sang select thứ khác luôn. ấn ra ngoài không thuộc comp nào thì là bỏ chọn.
+> - QE4: chưa rõ câu hỏi, chưa rõ thẻ nào, nút tiếp tục nào, ở app … hay app của mình?
+> - QE5: kéo bottom sheet trong khoảng từ 0 - 20% thì đóng sheet, từ 20-50% thì bật về 50%
+> - QE6: nút chính cứ như hiện tại cũng được
+> - QE7: đồng ý 3 tab
+>
+> bổ sung thêm 1 số ảnh khi thao tác với comp ảnh:
+> - IMG_4020 --> IMG_4022 là khi select vào ảnh, thì có menu như hình. (trừ cái extend ảnh phải dùng AI ra thì những cái khác chắc ok đúng không)
+> - IMG_4006 - IMG_4007 là khi ấn nút position
+> - ấn nút replace ảnh thì vẫn hiện như IMG_3971
+> - ấn nút crop thì như ảnh IMG_4008 sẽ show toàn bộ ảnh, chỗ nào nằm ngoài vùng hiển thị ảnh thì mờ mờ, để user có thể thay đổi vị trí hiển thị ảnh trên cái khung view đó
+> - IMG_4009 - IMG_4010 là khi ấn nút style
+> - IMG_4011 --> IMG_4013 là khi ấn nút Edit
+> - IMG_4014 là khi ấn filter (nhưng cái này cần lấy theo cái của mình, vì của mình sẽ đưa filter theo nhiều nhóm, và đưa thêm tab All để hiện tất cả filter)
+> - IMG_4015 --> IMG_4018 là BG Tools. bg tool này có mục cut out cho phép user vẽ 1 hình bất kỳ và sẽ crop ảnh theo hình đó.
+> - IMG_4019 là khi ấn nút clear thì clear ảnh để thành 1 ô trống
+> - ấn nút delete là xóa luôn comp đó
+> - IMG_4026 --> IMG_4035 là danh sách các frames theo từng nhóm, tôi có chụp thêm chi tiết bên trong các nhóm để thấy nó có những thành phần gì. mỗi frame là 1 nơi chứa ảnh/video/file. khi thêm frame vào canvas thì chính là 1 nơi hiển thị ảnh, khi trống thì cũng có dấu "+" khi thêm ảnh thì ảnh sẽ hiển thị theo đúng hình dáng của frame đó. các thành phần frame ở trên ảnh (ví dụ frame có text, hay có hình băng keo dán, thì ảnh không hiện bên trên những cái đấy, mà nằm dưới, tức là frame này là khung tranh, tranh chỉ nằm bên dưới cái khung thôi)
+> - IMG_4023 --> IMG_4025 là 1 số template được cấu thành từ các phần của frame. tức là 1 nhóm các frame được kết hợp với nhau thành 1 template.
+

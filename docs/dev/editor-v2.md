@@ -45,7 +45,28 @@ export type CellMedia = Pick<ImageElement,
   "assetId" | "crop" | "straighten" | "flipX" | "flipY" | "adjust" | "filter" | "media" | "blend">;
 ```
 
-`CanvasElement` thêm `LayoutElement`. Các khung ảnh trang trí (polaroid, máy ảnh — product/11) dùng cùng cấu trúc: một `LayoutElement` có một ô và một `frameStyle` [để quyết định khi làm M19].
+`CanvasElement` thêm `LayoutElement`.
+
+**Khung (product/11 mục 5, D-88).** Khung là khung tranh: trang trí ở trên, ảnh ở dưới, ảnh lộ qua một hoặc nhiều cửa sổ có hình dạng bất kỳ. Dùng chung cấu trúc khối bố cục, thêm hình cửa sổ và lớp trang trí:
+
+```ts
+export interface FrameElement extends ElementBase {
+  type: "frame";
+  frame: string;            // id trong thư viện khung
+  cells: Cell[];            // mỗi cửa sổ là một ô (rect tương đối + media)
+}
+
+/** Thư viện khung (dữ liệu, không lưu trong dự án). */
+interface FrameDef {
+  id: string; group: string;
+  aspect: number;                        // tỉ lệ mặc định
+  windows: { rect: Rect01; path?: string }[];  // path SVG (0..1) cho cửa sổ không chữ nhật: tim, sao, giấy xé
+  overlay: string;                       // ảnh trang trí (PNG / SVG, chỗ cửa sổ trong suốt)
+  under?: string;                        // lớp nền dưới ảnh (ví dụ mặt giấy), tuỳ chọn
+}
+```
+
+Vẽ theo thứ tự: `under` → từng ô (clip theo `path` hoặc `rect`, vẽ ảnh) → `overlay`. Vì `overlay` vẽ sau cùng, băng dính / chữ in / viền luôn nằm trên ảnh. Template ghép từ khung (IMG_4023 → 4025) chỉ là nhiều `FrameElement` trong một template. `fillTargets` (mục 6) duyệt cả ô của `LayoutElement` lẫn `FrameElement`.
 
 ### 2.2 Đường dẫn chọn
 
@@ -97,7 +118,7 @@ Bảng chuyển trạng thái (Q-E1 / Q-E3 chọn theo đề xuất; đổi bằ
 | `element E` | cùng E, có `cellId` C, ô trống | `cell E/C` | `fillFrame` |
 | `element E` (chữ) | cùng E | `element E` | `editText` |
 | `element E` | cùng E, không có ô (khe) | `element E` | — |
-| `element E` / `cell E/*` | phần tử khác F | `element F` (Q-E3 = b) | — |
+| `element E` / `cell E/*` | phần tử khác F | `element F` (Q-E3, D-88) | — |
 | `cell E/C` | cùng ô C | `cell E/C` | ô trống → `fillFrame` |
 | `cell E/C` | ô D khác trong E | `cell E/D` [ĐX] | ô trống → `fillFrame` |
 | bất kỳ | `null` | `null` | — |
@@ -166,13 +187,20 @@ Số ảnh tối đa = `fillTargets(doc, active).length`. Ảnh thứ i vào `ta
 
 Trình chọn ảnh web (`<input type=file multiple>`) không giới hạn được số lượng; lấy `files.slice(0, n)` và báo nếu cắt bớt.
 
+## 6b. Công cụ ảnh mới (product/09)
+
+- **Làm trống**: `media = null` cho ô; với ảnh tự do, thay bằng một `FrameElement` một cửa sổ chữ nhật trống (giữ x, y, w, h, rotation, kiểu) [ĐX] — hoặc cho phép `ImageElement.assetId = null` như hiện nay (đã có cho ô trống).
+- **Cắt rời (vẽ tay)**: lưu đường cắt dạng path tương đối (0..1 theo ảnh) trong `cutout?: string` của ảnh; khi vẽ, clip theo path trước khi vẽ ảnh. Không sửa ảnh gốc → "Khôi phục nền" chỉ cần xoá `cutout` / kết quả xoá nền (giữ asset gốc trong `originalAssetId`).
+- **Cắt (crop) hiện cả ảnh**: trong chế độ cắt, vẽ thêm toàn bộ ảnh với độ mờ 35 % phía dưới phần trong khung; kéo trên ảnh = đổi `crop.x/y`, tay nắm khung = đổi `crop` + kích thước khung (ảnh tự do) hoặc chỉ `crop` (ảnh trong ô / khung).
+- **Bộ lọc theo nhóm + Tất cả**: `FILTER_GROUPS` đã có; thêm tab "all" ở UI.
+
 ## 7. Thước đo kích thước bằng nhau
 
 Khi co giãn phần tử A: lấy tập kích thước `W = {w của mọi phần tử khác}`, `H = {h …}` (sau xoay: dùng kích thước chưa xoay nếu cả hai cùng góc xoay, bỏ qua nếu khác góc [ĐX]). Ngưỡng hít = 6 px màn hình / scale. Nếu `|wA − w| < ngưỡng` → đặt `wA = w` (giữ tỉ lệ nếu đang kéo góc) và vẽ thước ngang trên A và mọi phần tử có cùng `w`. Vẽ trên layer UI (layer thứ ba hiện có) bằng `Konva.Line` + 2 vạch, không qua React mỗi khung hình (như đường gióng hiện tại).
 
 ## 8. Bottom sheet
 
-Một component `Sheet` dùng chung: props `snap: [0.5, 0.95]` (hoặc `"content"` cho sheet vừa nội dung), `onClose`, `title`, `onBack?`. Kéo tay cầm / nội dung (khi đã cuộn tới đầu) bằng pointer events; thả → bám mốc gần nhất theo vị trí và vận tốc; dưới 50 % → đóng (Q-E5). Ghi `sheetHeight` vào store để viewport (mục 5) tính lại. Thay thế các sheet hiện có (`ToolSheet`, `ActionSheet`, `LayersSheet`, `ElementsSheet`…) dần qua M17.
+Một component `Sheet` dùng chung: props `snap: [0.5, 0.95]` (hoặc `"content"` cho sheet vừa nội dung), `onClose`, `title`, `onBack?`. Kéo tay cầm / nội dung (khi đã cuộn tới đầu) bằng pointer events. Khi thả (Q-E5, D-88): chiều cao `h` (tỉ lệ màn hình) `< 0.2` → đóng; `0.2 ≤ h < 0.5` → về 0.5; `h ≥ 0.5` → bám 0.5 hoặc 0.95 theo vị trí + vận tốc. Ghi `sheetHeight` vào store để viewport (mục 5) tính lại. Thay thế các sheet hiện có (`ToolSheet`, `ActionSheet`, `LayersSheet`, `ElementsSheet`…) dần qua M17.
 
 ## 9. Cấu trúc component đề xuất
 

@@ -30,7 +30,7 @@ Các phần tử có thể lồng nhau, tạo thành quan hệ **cha – con**:
 
 - Khối bố cục là **cha** của các ô của nó.
 - Ô là cha của ảnh trong ô.
-- Khung ảnh (ví dụ khung polaroid, khung máy ảnh — xem [11](11-thu-vien.md)) là cha của ảnh bên trong khung.
+- **Khung** (khung polaroid, khung máy ảnh, giấy xé, hình tim… — xem [11](11-thu-vien.md)) là cha của các **cửa sổ ảnh** của nó, và mỗi cửa sổ là cha của ảnh bên trong. Khung giống khung tranh: phần trang trí của khung luôn nằm **trên** ảnh, ảnh chỉ lộ ra qua cửa sổ theo đúng hình dạng cửa sổ.
 - Khi người dùng gom nhiều phần tử thành nhóm (tính năng chọn nhiều) [ĐX], nhóm là cha của các phần tử trong nhóm.
 
 Chữ, sticker, hình khối, nét vẽ, ảnh tự do đặt thẳng lên canvas không có cha — chúng là **phần tử ngoài cùng**.

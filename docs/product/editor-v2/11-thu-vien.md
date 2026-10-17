@@ -41,20 +41,50 @@ Sheet **"Hình"**: theo chủ dự án, **các hình được chia theo nhóm, m
 
 Hình trong thư viện hiển thị màu xám; khi thêm vào canvas dùng màu mặc định và đổi được bằng nút **Màu**.
 
-## 5. Khung [QS] (IMG_3990 → IMG_3993)
+## 5. Khung [CDA][QS] (IMG_3990 → IMG_3993, IMG_4026 → IMG_4035)
 
-**Khung** là phần tử có **ô ảnh bên trong**: thêm vào canvas là một khung với ô trống có dấu +, chạm vào ô (theo quy tắc chọn) để điền ảnh. Sheet **"Khung"** gồm các nhóm:
+### 5.1 Khung là gì
 
-- **Lấy liền** — nhiều kiểu khung ảnh lấy liền: viền trắng đáy dày, viền đều, viền có vạch, viền giấy cũ… (+31).
-- **Phim** — dải phim ngang có lỗ hai bên, 3–4 khung.
-- **Máy ảnh** — ảnh nằm trong màn hình máy ảnh compact, máy ảnh số, máy cơ, điện thoại nắp gập, máy chơi game cầm tay.
-- **Giấy** — giấy viền ren, giấy răng cưa (như tem thư), giấy viền đôi.
-- **Vẽ tay** — khung nét vẽ tay một đến bốn ô.
-- **Kỹ thuật số** — khung giả giao diện tin nhắn, ghi chú, cửa sổ, lịch, lưới ứng dụng.
-- **Theo mùa** — ví dụ TV cổ, poster "truy nã"…
-- **Khác**.
+Theo chủ dự án, **mỗi khung là một nơi chứa ảnh / video / tệp**. Thêm một khung vào canvas chính là thêm **một chỗ hiển thị ảnh**: khi chưa có ảnh, khung có **dấu + tròn** ở giữa vùng ảnh (giống ô trống — chạm vào theo quy tắc chọn để mở "Lấp đầy khung"); khi đã có ảnh, **ảnh hiển thị theo đúng hình dạng của khung** — khung hình tim thì ảnh hình tim, khung giấy xé thì ảnh có mép xé [CDA].
 
-App mình hiện có 6 khung (polaroid trắng / đen, viền trắng / đen, triển lãm, phim) — mở rộng theo các nhóm trên.
+Khung hoạt động như **khung tranh**: các thành phần trang trí của khung — viền giấy, chữ in trên khung, miếng băng dính, dải lỗ của cuộn phim, thân máy ảnh — luôn nằm **bên trên** ảnh. Ảnh chỉ nằm **bên dưới**, lộ ra qua "cửa sổ" của khung, và **không bao giờ đè lên** các thành phần đó [CDA]. Ví dụ khung polaroid có miếng băng dính ở mép trên: băng dính che lên ảnh, không bị ảnh che.
+
+Vì vậy mỗi khung gồm hai thứ:
+- **Vùng ảnh (cửa sổ)** — hình dạng mà ảnh được cắt theo (chữ nhật, tròn, tim, sao, hoa, mép xé…). Một khung có thể có **nhiều cửa sổ** (ví dụ dải phim 4 khung hình, khung lưới 2 × 2, chồng polaroid), mỗi cửa sổ là một ô chứa ảnh riêng.
+- **Lớp trang trí** — hình ảnh của khung (có chỗ trong suốt ở vùng cửa sổ) vẽ đè lên trên ảnh.
+
+Với ảnh trong khung, mọi thao tác của ảnh trong ô đều áp dụng: chọn ảnh (chạm lần hai), kéo để dời ảnh trong cửa sổ, chụm để phóng, Thay, Cắt, Chỉnh, Làm trống… ([09](09-anh-va-video.md)).
+
+### 5.2 Các nhóm khung
+
+Sheet **"Khung"** liệt kê các nhóm; mỗi nhóm hiện 7 khung và ô **"+N"** để xem đủ (màn con có ‹ quay lại, IMG_4027 → IMG_4035). Nội dung quan sát được trong từng nhóm:
+
+**Lấy liền** (+31; IMG_4027, IMG_4028) — khung ảnh lấy liền với nhiều tỉ lệ (vuông, chữ nhật đứng, chữ nhật ngang); mép dưới dày (kiểu polaroid) hoặc viền đều; nền viền trắng, ngà, giấy cũ, nhám; viền màu xanh dương, vàng, đỏ, cam, be; viền có hoa văn / họa tiết; viền đen; dải ảnh dọc 4 khung kiểu photobooth; khung có cửa sổ **tròn**; nhóm **nhiều polaroid xếp chồng nghiêng**; lưới **3 – 4 polaroid**; một polaroid có **miếng băng dính** ở trên.
+
+**Phim** (+63; IMG_4029 → IMG_4031) — dải phim ngang 3 – 4 khung có lỗ hai bên (màu nâu cam, xám, đen); dải phim dọc; một khung phim 35 mm đơn có lỗ; khung phim cuộn có đầu cuộn; viền khung phim âm bản (có số khung, chữ in mép phim); khung phim lấy liền đen / trắng; khung **điện thoại**; khung có **vệt sáng / cháy phim** (light leak); lưới tiếp xúc (contact sheet) nhiều khung nhỏ.
+
+**Máy ảnh** (IMG_4026) — ảnh nằm trong **màn hình** của máy ảnh compact bạc, máy ảnh số đen, máy cơ có ống kính, máy ảnh cổ, điện thoại nắp gập, máy ảnh hồng, máy ảnh đen nhỏ.
+
+**Giấy** (IMG_4032 → IMG_4034) — viền **răng cưa như tem thư**; viền giấy **xé** (mép rách tự nhiên, nhiều hình: chữ nhật, méo, tam giác); trang **sổ tay / sổ mở**; mảnh giấy có **ghim / băng dính**; **phong bì** (thư mở, ảnh thò ra); bìa sách / sổ màu (tím nhạt, đỏ đô, hồng, xanh đậm) có ô dán ảnh nhỏ; nhãn trắng có ô vuông đen; khung **viền chỉ khâu** nhiều màu (xanh lá, vàng, tím, xanh dương); các **hình cắt giấy màu** — hoa, sao, tim, vuông — trên nền giấy pastel (xanh lá, vàng, hồng, xanh dương), cửa sổ ảnh có đúng hình đó; khung lưới cửa sổ; vòng tròn giấy xé; phong bì.
+
+**Vẽ tay** (+6) — khung nét vẽ tay một đến bốn ô.
+
+**Kỹ thuật số** (IMG_4035) — khung giả **giao diện ứng dụng**: thông báo / tin nhắn có nút, cửa sổ trình duyệt, ghi chú, lịch tháng màu xanh, máy nghe nhạc, thư mục màu xanh có ảnh thò ra, trang giấy kem, khung hội thoại, **khung ngắm của camera điện thoại** (có nút chụp, vạch lưới, thông số).
+
+**Theo mùa** (+6) — TV cổ, poster "truy nã", khung bí ngô / Halloween…
+
+**Khác**.
+
+App mình hiện có 6 khung (polaroid trắng / đen, viền trắng / đen, triển lãm, phim) — mở rộng theo các nhóm trên; mọi khung đều là tài sản tự vẽ hoặc có giấy phép (D-66). Trong tham chiếu nhiều khung có biểu tượng ♥ (trả phí) — ở app mình tất cả miễn phí.
+
+### 5.3 Template ghép từ khung [CDA] (IMG_4023 → IMG_4025)
+
+Chủ dự án chỉ ra: **một số template được cấu thành từ các khung — tức là một nhóm khung kết hợp với nhau thành một template**. Ví dụ quan sát được (story 9:16, khi chưa có ảnh):
+- **IMG_4023** — nền xám, một đường xé chéo chia slide thành hai mảng; mảng trên có ba ô ảnh, mảng dưới có một ô ảnh (mỗi ô có dấu +).
+- **IMG_4024** — bốn mảnh giấy xé ghép thành lưới 2 × 2, các mép xé lộ rõ, mỗi mảnh một ô ảnh.
+- **IMG_4025** — bốn dải giấy xé xếp chồng theo chiều dọc, mép xé ngang, mỗi dải một ô ảnh.
+
+Nghĩa là template không chỉ là khối bố cục kẻ ô thẳng: nó có thể là **nhiều khung đặt cạnh / chồng lên nhau**, mỗi khung là một phần tử riêng có cửa sổ ảnh và trang trí riêng. Thứ tự điền ảnh ([09](09-anh-va-video.md) mục 1.3) áp dụng cho mọi cửa sổ trống của mọi khung trong dự án.
 
 ## 6. Lưới
 
@@ -90,6 +120,8 @@ Mọi widget sửa được chữ (chạm lại khi đang chọn để gõ) và 
 1. "+" mở "Lớp mới" đủ 11 mục, mỗi mục mở đúng thư viện.
 2. Hình: nhóm Chú ý có ô "+2"; chạm → màn đủ nhóm có ‹; ‹ quay lại đúng vị trí cuộn.
 3. Sticker: gõ "tim" ở ô tìm kiếm → chỉ còn sticker / emoji tim.
-4. Khung polaroid thêm vào có ô trống; chạm ô → Lấp đầy khung; ảnh vào khung.
-5. Widget Địa điểm: chạm lại để sửa chữ "Đà Lạt".
-6. Thêm logo vào Brand Kit ở dự án 1 → mở dự án 2 vẫn thấy logo.
+4. Khung polaroid có băng dính: thêm vào có dấu +; điền ảnh → ảnh nằm dưới viền và dưới băng dính, không đè lên.
+5. Khung hình tim (nhóm Giấy): ảnh hiện đúng hình tim; kéo ảnh dời trong cửa sổ, khung đứng yên.
+6. Template ghép 4 mảnh giấy xé: chọn 4 ảnh từ một ô → điền đủ 4 cửa sổ theo thứ tự điền.
+7. Widget Địa điểm: chạm lại để sửa chữ "Đà Lạt".
+8. Thêm logo vào Brand Kit ở dự án 1 → mở dự án 2 vẫn thấy logo.

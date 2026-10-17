@@ -8,7 +8,12 @@
 
 Chủ dự án mô tả: **các bottom sheet có thể thay đổi kích thước; mặc định hiển thị 50 %, nhỏ nhất cũng là 50 %, lớn nhất là 95 %** [CDA]. Áp dụng cho mọi sheet chọn nội dung: Slide mới, Lớp mới, Sticker, Hình, Khung, Widget, Brand Kit, Lớp, Nền.
 
-Người dùng kéo **tay cầm** ở mép trên sheet lên hoặc xuống để đổi chiều cao. Khi nội dung trong sheet đã cuộn lên tới đầu, kéo nội dung xuống cũng kéo sheet xuống (giống sheet của iOS). Khi thả tay, sheet **bám** về mốc gần nhất trong hai mốc 50 % và 95 % [ĐX], có hiệu ứng lò xo nhẹ. Kéo sheet xuống thấp hơn 50 % rồi thả: đề xuất **đóng sheet** (giống thói quen trên iOS), hoặc bật về 50 % nếu chủ dự án muốn giữ đúng "nhỏ nhất 50 %" (Q-E5).
+Người dùng kéo **tay cầm** ở mép trên sheet lên hoặc xuống để đổi chiều cao. Khi nội dung trong sheet đã cuộn lên tới đầu, kéo nội dung xuống cũng kéo sheet xuống (giống sheet của iOS). Khi thả tay, chiều cao sheet được quyết định theo quy tắc chủ dự án đã chốt (Q-E5, 2026-10-17) [CDA]:
+- thả khi sheet đang cao **từ 0 đến 20 %** màn hình → **đóng sheet**;
+- thả khi đang cao **từ 20 đến 50 %** → **bật về 50 %**;
+- thả khi đang cao **trên 50 %** → bám về mốc gần nhất trong hai mốc 50 % và 95 % [ĐX], có tính cả hướng và tốc độ vuốt (vuốt nhanh lên thì lên 95 %, vuốt nhanh xuống thì về 50 %).
+
+Các chuyển động bám có hiệu ứng lò xo nhẹ.
 
 Sheet công cụ nhỏ (Vị trí, Kiểu, Định dạng chữ, Độ mờ, Lấp đầy khung…) có chiều cao **vừa với nội dung** và không kéo dãn [ĐX].
 
@@ -59,7 +64,7 @@ Hai nút ↶ ↷ trên cùng, không giới hạn số bước (đã có). Nguy�
 ## 8. Tiêu chí nghiệm thu
 
 1. Mở sheet Sticker: cao 50 %, canvas bị đẩy lên và vẫn thấy hết slide phía trên sheet.
-2. Kéo tay cầm lên → sheet 95 %; thả ở giữa → bám về mốc gần nhất.
+2. Kéo tay cầm lên → sheet 95 %; kéo xuống thả ở 35 % → bật về 50 %; kéo xuống thả ở 15 % → sheet đóng.
 3. Menu ⋯ → Hít → Tắt: kéo phần tử không còn đường gióng / hít.
 4. Nền → Chuyển màu tuỳ chỉnh: thêm điểm dừng, đổi góc → nền đổi ngay.
 5. Xem trước: vuốt ngang qua đủ các slide.

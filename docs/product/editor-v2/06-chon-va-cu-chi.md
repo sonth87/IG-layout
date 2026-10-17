@@ -25,7 +25,7 @@ Chủ dự án mô tả: việc chọn đi **từ phần tử lớn đến phầ
 
 Theo chủ dự án, khi đang chọn C thì **việc di chuyển hiển thị C sẽ luôn nhận được** — tức là người dùng không phải đặt ngón tay chính xác lên C mới kéo được; đề xuất cụ thể là cử chỉ bắt đầu **ở bất cứ đâu trên canvas** cũng tác động lên phần tử đang chọn [ĐX]. Điều này giúp chỉnh những phần tử nhỏ dễ dàng mà không che mất chúng bằng ngón tay.
 
-**Quy tắc 5 — chạm ra ngoài để bỏ chọn.** Chạm vào vùng trống, hoặc vào một chỗ nằm ngoài phần tử đang chọn, thì **bỏ chọn**; sau đó cử chỉ quay về dành cho canvas. Khi chạm ra ngoài trúng một phần tử khác, có hai cách xử lý: (a) chỉ bỏ chọn, người dùng phải chạm thêm một lần nữa để chọn phần tử kia; (b) bỏ chọn và chọn luôn phần tử ngoài cùng ở điểm chạm. Đề xuất cách (b) cho nhanh, chờ chủ dự án quyết (Q-E3).
+**Quy tắc 5 — chạm sang phần tử khác thì chọn luôn nó; chạm ra ngoài thì bỏ chọn.** Chủ dự án đã chốt (Q-E3, 2026-10-17): **đang chọn một thứ mà chạm vào một thứ khác thì chuyển sang chọn thứ khác luôn** — một chạm, không phải bỏ chọn trước. "Thứ khác" được chọn theo quy tắc 2, tức là phần tử ngoài cùng tại điểm chạm. **Chạm ra chỗ không thuộc phần tử nào** (vùng trống của slide hoặc nền đen quanh canvas) thì **bỏ chọn**; sau đó cử chỉ quay về dành cho canvas [CDA].
 
 **Quy tắc 6 — ô trống.** Chủ dự án mô tả: **nếu bên trong chưa có phần tử nào mà chỉ là khoảng trống với dấu "+", chạm vào sẽ hiện bottom sheet "Lấp đầy khung"** để chọn ảnh, video hoặc tệp [CDA]. Theo đúng quy tắc 2 và 3, ô trống được "đi vào" ở lần chạm thứ hai: lần đầu chạm vào ô trống chọn khối cha; lần chạm tiếp theo vào ô trống mở "Lấp đầy khung" cho đúng ô đó và đánh dấu ô đó là **ô đang chọn** (ô đang chọn quyết định thứ tự điền ảnh — xem [09](09-anh-va-video.md)). Ứng dụng hiện tại đang mở "Lấp đầy khung" ngay từ lần chạm đầu; cần chủ dự án chọn cách nào (Q-E1).
 
@@ -47,7 +47,8 @@ Theo chủ dự án, khi đang chọn C thì **việc di chuyển hiển thị C
 | Đang chọn khối | Chạm vào khe giữa các ô | Giữ nguyên chọn khối |
 | Đang chọn ảnh trong ô | Kéo một ngón | **Dời ảnh trong ô**, ô đứng yên |
 | Đang chọn ảnh trong ô | Chụm | **Phóng ảnh trong ô**, không nhỏ hơn mức phủ kín |
-| Đang chọn ảnh trong ô | Chạm ra ngoài ô | Bỏ chọn |
+| Đang chọn ảnh trong ô | Chạm vào phần tử khác | Chọn luôn phần tử ngoài cùng đó |
+| Đang chọn bất kỳ | Chạm chỗ không thuộc phần tử nào | Bỏ chọn |
 | Đang chọn chữ | Chạm lại vào chữ | Vào chế độ gõ chữ (xem [10](10-chu.md)) |
 | Đang chọn bất kỳ | Bấm ✕ trên thanh công cụ | Bỏ chọn |
 | Đang chọn bất kỳ | Mở một bottom sheet công cụ | Vẫn giữ chọn; sheet tác động lên phần tử đang chọn |

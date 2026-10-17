@@ -34,7 +34,7 @@ Cuối trang chủ là nhóm **"Khám phá thêm"**. Khác với các nhóm phí
 
 ### 2.6 Thanh điều hướng đáy
 
-Ở đáy màn hình là một **thanh điều hướng nổi**: một viên thuốc chứa ba icon — **Trang chủ**, **Dự án** (thư mục) và **Cài đặt** (tham chiếu là "Tài khoản"; app mình không có tài khoản nên đổi thành Cài đặt [ĐX]) — và tách riêng bên phải là một **nút tròn có dấu +** để tạo dự án mới. Icon của tab đang mở có nền sáng hơn. Thanh nằm cách đáy khoảng 20 px (cộng vùng an toàn của máy có tai thỏ). Trong tham chiếu còn có một thẻ quảng cáo gói trả phí nổi ngay trên thanh này — **bỏ**.
+Ở đáy màn hình là một **thanh điều hướng nổi**: một viên thuốc chứa ba icon — **Trang chủ**, **Dự án** (thư mục) và **Cài đặt** (tham chiếu là "Tài khoản"; app mình không có tài khoản nên đổi thành Cài đặt [ĐX]) — và tách riêng bên phải là một **nút tròn có dấu +** để tạo dự án mới. Chủ dự án đã đồng ý ba tab **Trang chủ / Dự án / Cài đặt** (Q-E7, 2026-10-17) [CDA]. Icon của tab đang mở có nền sáng hơn. Thanh nằm cách đáy khoảng 20 px (cộng vùng an toàn của máy có tai thỏ). Trong tham chiếu còn có một thẻ quảng cáo gói trả phí nổi ngay trên thanh này — **bỏ**.
 
 ## 3. Thẻ template
 

@@ -55,4 +55,27 @@
 | 4003 | Trang chủ đầu trang khác: banner "Piece together your favorite memories", thẻ Continue / Instagram |
 | 4004 | Chi tiết template "Travel notes from Amsterdam": Portrait 🖼16 ▢8, Similar Templates, Use Template |
 | 4005 | Sau Use Template: slide 1 ô ảnh trống xám lớn có dấu +, chữ template giữ nguyên |
+| 4006 | Ảnh tự do được chọn (thanh nổi 🗑 ⧉ ⋯, tay nắm góc / cạnh); sheet Position tab Position: Arrange (Front, Forward, Backward, Back), Nudge (Left, Right, Up, Down), Align (Left, Center, Right, Top, Center, Bottom) |
+| 4007 | Sheet Position tab Advanced: Width 436 px, Height 545 px, nút khoá Ratio, X 312, Y 655, Rotation 0° |
+| 4008 | Cắt: toàn bộ ảnh gốc hiện ra quanh khung, phần ngoài khung mờ; khung có tay nắm; sheet "Crop": Aspect Ratio 1:1, 2:3, 3:4, 4:3, 4:5, 9:16, 16:9 (icon đúng tỉ lệ), Rotation thanh trượt + ô 0° |
+| 4009 | Sheet Style: Opacity 100 %, Corner Radius 0 px, công tắc Individual Corners tắt, Shadow Off ›, Border 0 px › |
+| 4010 | Style với Individual Corners bật: 4 ô số 2 × 2 có icon góc |
+| 4011 → 4013 | Màn Edit toàn màn hình: ✕ trái; ↶ ↷ ✓ phải; thanh đáy Filter, Exposure, Brightness, Contrast, Highlights, Shadows, Temperature, Tint, Vibrance, Saturation, Blur, Sharpen, Grain, Reset (mờ) |
+| 4014 | Edit → Filter: dải thumbnail None (đang chọn), Film I, Film II, Film III… |
+| 4015 | Sheet BG Tools: Remove BG (♥), Cut Out, Erase |
+| 4016 | Cut Out: màn toàn màn hình, nét đứt vàng vẽ tay quanh ba lô, chấm vàng ở đầu và cuối nét |
+| 4017 | Cut Out sau khi khép nét: phần ngoài vùng vẽ phủ đỏ; ↶ ✓ sáng |
+| 4018 | Kết quả Cut Out trên canvas: ảnh chỉ còn hình đã vẽ, khung chọn vẫn chữ nhật; sheet BG Tools đổi thành Restore BG, Cut Out, Erase |
+| 4019 | Sau khi bấm Clear: phần tử thành ô trống xám có dấu + to ở giữa, cùng vị trí / kích thước |
+| 4020 | Thanh công cụ ảnh (đầu): Replace, Position, Crop, Style, Edit |
+| 4021 | Thanh công cụ ảnh (giữa): Edit, BG Tools, Remove Object, AI Expand, Save Sticker |
+| 4022 | Thanh công cụ ảnh (cuối): Save Sticker, Lock, Duplicate, Clear, Delete |
+| 4023 | Template story từ khung: nền xám, đường xé chéo; 3 ô + phía trên, 1 ô + phía dưới |
+| 4024 | Template story: 4 mảnh giấy xé ghép lưới 2 × 2, mỗi mảnh một ô + |
+| 4025 | Template story: 4 dải giấy xé chồng dọc, mỗi dải một ô + |
+| 4026 | Sheet Frames: Instant (+31), Film (+63), Camera (máy compact bạc, máy số, máy cơ, máy cổ, điện thoại nắp gập, máy hồng, máy đen), Paper |
+| 4027 → 4028 | Màn "Instant" đủ: polaroid nhiều tỉ lệ / màu viền / họa tiết, dải photobooth dọc, cửa sổ tròn, chồng polaroid nghiêng, lưới polaroid, polaroid có băng dính |
+| 4029 → 4031 | Màn "Film" đủ: dải phim ngang / dọc, khung 35 mm, cuộn phim, viền âm bản, phim lấy liền đen / trắng, điện thoại, vệt sáng, contact sheet |
+| 4032 → 4034 | Màn "Paper" đủ: viền răng cưa tem, giấy xé nhiều hình, sổ tay, phong bì, bìa sổ màu, khung chỉ khâu màu, hình cắt giấy màu (hoa, sao, tim, vuông) trên nền pastel, vòng giấy xé |
+| 4035 | Màn "Digital": thông báo / tin nhắn, trình duyệt, ghi chú, lịch xanh, máy nghe nhạc, thư mục xanh có ảnh, khung ngắm camera điện thoại |
 

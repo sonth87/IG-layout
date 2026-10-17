@@ -49,7 +49,7 @@ Các thanh công cụ quan sát được:
 
 **Khối bố cục** (IMG_3966, IMG_3970): **Bố cục** (đổi kiểu chia) · **Điều chỉnh** (khe, lề, bo góc ô) · **Vị trí** · **Kiểu** · **Khoá** · **Nhân bản** · **Xoá**.
 
-**Ảnh** — ảnh tự do hoặc ảnh trong ô (IMG_3973, video 3:57, 5:11): **Thay** · **Vị trí** · **Cắt** · **Kiểu** · **Chỉnh** · **Công cụ nền**. Tham chiếu còn có **Xoá vật thể** và **Mở rộng bằng AI** — cần máy chủ nên **bỏ**.
+**Ảnh** — ảnh tự do, ảnh trong ô hoặc trong khung (IMG_4020 → IMG_4022): **Thay · Vị trí · Cắt · Kiểu · Chỉnh · Công cụ nền · Xoá vật thể · Mở rộng bằng AI · Lưu sticker · Khoá · Nhân bản · Làm trống · Xoá**. **Mở rộng bằng AI** bỏ (cần máy chủ); **Xoá vật thể** là AI chạy được trên máy nhưng nặng — chờ quyết (Q-E8). Chi tiết từng nút ở [09](09-anh-va-video.md).
 
 **Ô trống** (sau khi đóng "Lấp đầy khung" mà không chọn ảnh — video 2:42): **Thay** (ở đây nghĩa là thêm ảnh) · **Vị trí** · **Kiểu**.
 
