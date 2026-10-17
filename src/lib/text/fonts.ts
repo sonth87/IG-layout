@@ -1,4 +1,6 @@
-import type { FontKey, TextElement } from "@/lib/project/types";
+import { loadCatalog, packUrl, useCatalog } from "@/lib/catalog/load";
+import type { CatalogFont, FontLanguage, FontStyleTag } from "@/lib/catalog/types";
+import type { BuiltinFontKey, FontKey, TextElement } from "@/lib/project/types";
 
 // Text fonts for canvas text (M5, M11). Labels stay as the font names. Families by
 // name: their @font-face rules come from app/fonts.ts (loaded with the app) and
@@ -15,9 +17,13 @@ export interface TextFont {
   family: string;
   category: FontCategory;
   weights: FontWeights;
+  /** Finer styles (catalog fonts, M20); built-ins derive them from the category. */
+  styles?: FontStyleTag[];
+  /** Scripts covered; built-ins are all Latin + Vietnamese (D-32). */
+  languages?: FontLanguage[];
 }
 
-export const TEXT_FONTS: Record<FontKey, TextFont> = {
+export const TEXT_FONTS: Record<BuiltinFontKey, TextFont> = {
   beVietnam: { label: "Be Vietnam Pro", family: "'Be Vietnam Pro'", category: "sans", weights: [300, 400, 500, 600, 700, 800] },
   playfair: { label: "Playfair Display", family: "'Playfair Display'", category: "serif", weights: { min: 400, max: 900 } },
   lora: { label: "Lora", family: "'Lora'", category: "serif", weights: { min: 400, max: 700 } },
@@ -98,9 +104,49 @@ export const TEXT_FONTS: Record<FontKey, TextFont> = {
   recursive: { label: "Recursive", family: "'Recursive'", category: "mono", weights: { min: 300, max: 1000 } },
 };
 
+// ── Catalog fonts (M20 C5) ─────────────────────────────────────────────────
+
+const CATEGORY_OF: Partial<Record<FontStyleTag, FontCategory>> = { serif: "serif", mono: "mono", handwriting: "script", script: "script", calligraphy: "script", brush: "script" };
+
+export const isCatalogFont = (key: string): key is `c:${string}` => key.startsWith("c:");
+
+function catalogFont(key: string): CatalogFont | undefined {
+  return useCatalog.getState().catalog?.fonts.find((f) => f.id === key.slice(2));
+}
+
+/** Label, family and weights of any font: built-in or catalog. */
+export function fontInfo(key: FontKey): TextFont {
+  if (!isCatalogFont(key)) return TEXT_FONTS[key] ?? TEXT_FONTS.beVietnam;
+  const f = catalogFont(key);
+  // Not in the catalog (yet): draw with the default font meanwhile.
+  if (!f) return { ...TEXT_FONTS.beVietnam, label: key.slice(2) };
+  return { label: f.label, family: `'c-${f.id}'`, category: f.styles.map((s) => CATEGORY_OF[s]).find(Boolean) ?? "display", weights: f.weights, styles: f.styles, languages: f.languages };
+}
+
+/** @font-face rules of every catalog font, added once: the browser fetches a file only when text needs it. */
+let faces = false;
+function addCatalogFaces(fonts: CatalogFont[]) {
+  if (faces || typeof document === "undefined" || fonts.length === 0) return;
+  faces = true;
+  const css = fonts
+    .flatMap((f) => f.files.map((file) => `@font-face{font-family:'c-${f.id}';font-style:normal;font-weight:${file.weight};font-display:swap;src:url(${packUrl(file.file)}) format('woff2');unicode-range:${file.unicodeRange};}`))
+    .join("\n");
+  const style = document.createElement("style");
+  style.dataset.catalogFonts = "";
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+
+/** Loads the catalog and declares its fonts (call before showing or drawing them). */
+export async function prepareCatalogFonts() {
+  const catalog = await loadCatalog();
+  addCatalogFaces(catalog.fonts);
+  return catalog.fonts;
+}
+
 /** The weight closest to `wanted` that the font has. */
 export function nearestWeight(font: FontKey, wanted: number) {
-  const w = TEXT_FONTS[font].weights;
+  const w = fontInfo(font).weights;
   if (!Array.isArray(w)) return Math.max(w.min, Math.min(w.max, wanted));
   return w.reduce((best, x) => (Math.abs(x - wanted) < Math.abs(best - wanted) ? x : best), w[0]);
 }
@@ -111,11 +157,9 @@ export function fontWeight(el: Pick<TextElement, "font" | "bold" | "weight">) {
 }
 
 /** Canvas text only renders a web font once it is loaded: load it explicitly. */
-export function loadFont(font: FontKey, weight: number) {
-  if (typeof document === "undefined" || !document.fonts) return Promise.resolve();
+export async function loadFont(font: FontKey, weight: number, sample = "Đà Lạt ấm áp") {
+  if (typeof document === "undefined" || !document.fonts) return;
+  if (isCatalogFont(font)) await prepareCatalogFonts();
   // A Vietnamese sample makes sure the Vietnamese subset is fetched too.
-  return document.fonts
-    .load(`${weight} 64px ${TEXT_FONTS[font].family}`, "Đà Lạt ấm áp")
-    .then(() => undefined)
-    .catch(() => undefined);
+  await document.fonts.load(`${weight} 64px ${fontInfo(font).family}`, sample).catch(() => undefined);
 }

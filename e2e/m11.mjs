@@ -45,13 +45,10 @@ await page.getByRole("button", { name: "Done typing" }).click();
 await page.waitForTimeout(300);
 await page.getByRole("button", { name: "Format", exact: true }).click();
 await page.getByRole("region", { name: "Format" }).getByRole("button", { name: /^Font/ }).click();
-let total = 0;
-for (const c of ["Sans", "Serif", "Display", "Handwritten", "Mono"]) {
-  await page.getByRole("button", { name: c, exact: true }).click();
-  total += await page.getByRole("radiogroup", { name: "Font" }).getByRole("radio").count();
-}
-check(total >= 70, `${total} fonts across 5 categories`);
-await page.getByRole("button", { name: "Serif", exact: true }).click();
+const styles = page.getByRole("radiogroup", { name: "Font style" });
+const total = await page.getByRole("radiogroup", { name: "Font", exact: true }).getByRole("radio").count();
+check(total >= 70, `${total} fonts`);
+await styles.getByRole("radio", { name: "Serif", exact: true }).click();
 await page.getByRole("radio", { name: "Fraunces" }).click();
 await page.getByRole("slider", { name: "Weight" }).fill("900");
 await page.waitForTimeout(800);

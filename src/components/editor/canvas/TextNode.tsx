@@ -4,7 +4,8 @@ import type Konva from "konva";
 import { useEffect, useRef, useState } from "react";
 import { Group, Rect, Text } from "react-konva";
 import type { TextElement } from "@/lib/project/types";
-import { fontWeight, loadFont, TEXT_FONTS } from "@/lib/text/fonts";
+import { fontInfo, fontWeight, loadFont } from "@/lib/text/fonts";
+import { useCatalog } from "@/lib/catalog/load";
 import { scaleExtras } from "@/lib/elements/resize";
 import { useEditor } from "@/store/editor";
 import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
@@ -21,7 +22,9 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
   // While typing, an HTML box stands in for it (InlineText).
   const typing = useEditor((s) => s.editingTextId === el.id);
   const textRef = useRef<Konva.Text>(null);
-  const family = TEXT_FONTS[el.font].family;
+  // Catalog fonts (M20) are known once the catalog is loaded: redraw then.
+  useCatalog((s) => s.catalog);
+  const family = fontInfo(el.font).family;
   const weight = fontWeight(el);
   const fontKey = `${el.font}:${weight}`;
   const [loadedKey, setLoadedKey] = useState<string | null>(null);

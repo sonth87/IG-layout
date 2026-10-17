@@ -10,7 +10,7 @@ import { patchElement } from "@/lib/project/position";
 import { relayout } from "@/lib/templates/blockLayout";
 import { canvasSize, GRID_COLS } from "@/lib/project/layout";
 import { changeRatio, deleteSlide, duplicateSlide, insertSlide, moveSlide, moveSlideTo, setGridGap, setGridRows } from "@/lib/project/slides";
-import { addLayoutBlock, addLayoutSlide, applyTemplate, templateSlides } from "@/lib/templates/apply";
+import { addFrameBlock, addLayoutBlock, addLayoutSlide, applyTemplate, templateSlides } from "@/lib/templates/apply";
 import { slideLayoutById } from "@/lib/templates/slideLayouts";
 import { DEFAULT_OPTIONS, type Template, type TemplateOptions } from "@/lib/templates/types";
 import {
@@ -86,6 +86,8 @@ interface EditorState {
   addAssetElement: (asset: ImageAsset, el: CanvasElement) => void;
   /** Keeps a picture in the project without an element (a pack background, M20). */
   addAsset: (asset: ImageAsset) => void;
+  /** A frame from a pack (M20 C4): its art and one empty cell per window. */
+  addFrameBlock: (asset: ImageAsset, catalogId: string, windows: Parameters<typeof addFrameBlock>[3]) => void;
   /** Values derived from rendering (e.g. text height): no history step. */
   setDerived: (id: string, patch: Partial<CanvasElement>) => void;
   updateElement: (id: string, patch: Partial<CanvasElement>) => void;
@@ -359,6 +361,14 @@ export const useEditor = create<EditorState>()((set, get) => {
     },
 
     addAsset: (asset) => storeAssets([asset]),
+    addFrameBlock: (asset, catalogId, windows) => {
+      const doc = get().doc;
+      if (!doc) return;
+      storeAssets([asset]);
+      const r = addFrameBlock(doc, Math.min(get().currentSlide, doc.slideCount - 1), { assetId: asset.id, catalogId, width: asset.width, height: asset.height }, windows);
+      commit(() => r.doc);
+      set({ selectedId: r.id });
+    },
 
     addAssetElement: (asset, el) => {
       storeAssets([asset]);

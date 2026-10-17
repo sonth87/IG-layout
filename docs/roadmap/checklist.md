@@ -412,9 +412,10 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] **C1** Định dạng danh mục (`src/lib/catalog/`), `scripts/assets/validate.mjs`, `build-catalog.mjs`, thư mục `assets/` + `public/packs/`
 - [x] **C2** App đọc danh mục: tải gói khi cần; sticker / lớp phủ từ gói trong sheet Sticker, chất liệu từ gói trong sheet Nền (lát lặp / phủ kín); mục từ gói được tải về **thành ảnh của dự án**; "Dùng gần đây"; tìm không cần dấu (e2e m20b) — khung từ gói làm cùng C4
 - [x] **C3** Nút **Loại / Bộ** trong sheet Sticker (nhớ trên máy); màn **Bộ sưu tập** trong "Lớp mới" (chọn bộ → Sticker, Lớp phủ, Nền của bộ); bộ theo mùa lên đầu; tìm kiếm EN / VI không cần dấu
-- [ ] **C4** Khung có lớp trang trí + nhiều cửa sổ
-- [ ] **C5** Màn chọn phông mới (chữ của phần tử / câu ngẫu nhiên, tên nhỏ ở dưới, lọc ngôn ngữ / kiểu), tải phông từ danh mục
-- [ ] **C6** Màn Cảm ơn (tự động) + màn Giới thiệu (chờ nội dung của chủ dự án)
+- [x] **C4** Khung từ gói = khối bố cục có **ảnh khung đè lên trên** các ô; mỗi cửa sổ một ô trống (cửa sổ bầu dục → ô tròn); giữ tỉ lệ ảnh khung (chỉ kéo góc); không chia lại ô; có trong sheet Khung và màn Bộ sưu tập (e2e m20d)
+- [x] **C5** Màn chọn phông mới: mỗi phông hiện **dòng đầu của chữ đang chọn** (không có thì một câu hay ngẫu nhiên, phông Nhật / Hàn / Trung dùng câu tiếng đó), tên phông nhỏ ở dưới; lọc **kiểu** và **ngôn ngữ**, ô tìm phông; phông từ danh mục khai báo bằng @font-face, chỉ tải khi hiện / khi dùng; dùng được trên canvas và khi xuất (e2e m20c). Danh sách câu đầy đủ chờ G6
+- [x] **C6a** Màn **Cảm ơn** (Cài đặt → Cảm ơn): nguồn tài sản từ `credits` của danh mục, phông, icon / emoji / mô hình, thư viện code kèm giấy phép
+- [ ] **C6b** Màn **Giới thiệu** — chờ nội dung của chủ dự án
 - [ ] **C7** Bộ sinh khung tự nhiên: giấy xé, phim, polaroid / khung tranh (D-107) + trang duyệt
 - [ ] **C8** Ghép từng đợt của Gemini, e2e, merge, deploy
 - [ ] **G6** Câu xem trước phông, chữ mẫu widget (Gemini)

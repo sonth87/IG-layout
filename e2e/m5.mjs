@@ -60,7 +60,7 @@ const past0 = st.past;
 const fmt = page.getByRole("region", { name: "Format" });
 await page.getByRole("button", { name: "Format" }).click();
 await fmt.getByRole("button", { name: /^Font/ }).click();
-await page.getByRole("button", { name: "Sans", exact: true }).click(); // font categories (M11)
+await page.getByRole("radiogroup", { name: "Font style" }).getByRole("radio", { name: "Sans", exact: true }).click(); // font categories (M11)
 await page.getByRole("radio", { name: /Montserrat/ }).click();
 await fmt.getByRole("button", { name: "Format", exact: true }).click(); // back
 await fmt.getByRole("button", { name: /^Size/ }).click();

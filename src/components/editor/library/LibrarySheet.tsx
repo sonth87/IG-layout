@@ -94,7 +94,7 @@ function Group(props: { title: string; items: Item[]; full?: boolean | "titled";
 }
 
 /** Catalog kinds shown in each library sheet (M20). */
-const SHEET_PACKS: Partial<Record<LibraryKind, CatalogKind[]>> = { sticker: ["sticker", "overlay"], collection: ["sticker", "overlay", "texture"] };
+const SHEET_PACKS: Partial<Record<LibraryKind, CatalogKind[]>> = { sticker: ["sticker", "overlay"], frame: ["frame"], collection: ["sticker", "overlay", "texture", "frame"] };
 
 /** Collections in library order: the ones in season first (M20 §9). */
 const MONTH = new Date().getMonth() + 1;
@@ -187,6 +187,11 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
       asset = await catalogAsset(item);
     } catch {
       onNotice?.(t("lib.offline"));
+      return;
+    }
+    if (packKind === "frame") {
+      useEditor.getState().addFrameBlock(asset, item.id, item.windows ?? [{ x: 0.1, y: 0.1, w: 0.8, h: 0.8 }]);
+      onClose();
       return;
     }
     if (packKind === "overlay") {
@@ -311,6 +316,7 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
       const of = (k: CatalogKind) => all.filter(({ item, kind: ik }) => ik === k && item.collections.includes(chosen) && (!q || fold(item.search).includes(fold(q))));
       groups.push({ id: "c-sticker", title: t("lib.stickers"), items: of("sticker").map(({ item }) => packItem(item, "sticker")) });
       groups.push({ id: "c-overlay", title: t("lib.overlays"), items: of("overlay").map(({ item }) => packItem(item, "overlay")) });
+      groups.push({ id: "c-frame", title: t("lib.frames"), items: of("frame").map(({ item }) => packItem(item, "frame")) });
       groups.push({ id: "c-texture", title: t("lib.backgrounds"), items: of("texture").map(({ item }) => ({ ...packItem(item, "texture"), add: () => setPackBackground(item) })) });
     }
     collectionChips = { available, chosen };
@@ -343,6 +349,7 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
     groups.push({ id: "instant", title: t("lib.instant"), items: (["polaroid", "polaroidBlack", "white", "black", "gallery"] as FrameStyle[]).map(frame) });
     groups.push({ id: "film", title: t("lib.film"), items: [frame("film")] });
     groups.push({ id: "cutouts", title: t("lib.cutouts"), items: (["circle", "heart", "star", "hexagon", "blob", "arch", "rounded"] as MaskShape[]).map(window) });
+    groups.push(...packGroups("frame"));
   } else if (kind === "grid") {
     const aspect = slide.width / slide.height;
     const lay = (list: typeof SLIDE_GRIDS, label: (i: number) => string) =>

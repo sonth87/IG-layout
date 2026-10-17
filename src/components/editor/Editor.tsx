@@ -604,12 +604,15 @@ export function Editor({ onClose }: { onClose: () => void }) {
         tail[2],
       ];
     else if (selected.type === "layout")
-      tools = [
-        <ToolButton key="layout" label={t("block.layout")} icon="layout" onClick={() => openTool("blockLayout")} />,
-        <ToolButton key="adjust" label={t("block.adjust")} icon="adjust" onClick={() => openTool("blockAdjust")} />,
-        position,
-        ...tail,
-      ];
+      // A pack frame's windows come from its art (M20 C4): no re-splitting / re-spacing.
+      tools = selected.art
+        ? [position, <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />, ...tail]
+        : [
+            <ToolButton key="layout" label={t("block.layout")} icon="layout" onClick={() => openTool("blockLayout")} />,
+            <ToolButton key="adjust" label={t("block.adjust")} icon="adjust" onClick={() => openTool("blockAdjust")} />,
+            position,
+            ...tail,
+          ];
     else if (selected.type === "text")
       tools = [
         <ToolButton key="edit" label={t("type.edit")} icon="pencil" onClick={() => typeText(id, "type")} />,

@@ -5,7 +5,7 @@ import { canvasSize, slideRect } from "@/lib/project/layout";
 import { type AspectRatio, frameColor, stillUrl, type ImageAsset, type ImageElement, type ProjectDoc, type ProjectType } from "@/lib/project/types";
 import { applyTemplate } from "@/lib/templates/apply";
 import type { Template, TemplateOptions } from "@/lib/templates/types";
-import { TEXT_FONTS, fontWeight } from "@/lib/text/fonts";
+import { fontInfo, fontWeight } from "@/lib/text/fonts";
 import { useSettings } from "@/store/settings";
 
 /** Soft placeholder tones for empty photo cells (template library, before photos are added). */
@@ -82,7 +82,7 @@ export function TemplatePreview(props: {
                 top: el.y * k,
                 width: el.width * k,
                 transform: el.rotation ? `rotate(${el.rotation}deg)` : undefined,
-                fontFamily: TEXT_FONTS[el.font].family,
+                fontFamily: fontInfo(el.font).family,
                 fontWeight: fontWeight(el),
                 fontSize: el.fontSize * k,
                 lineHeight: el.lineHeight,
