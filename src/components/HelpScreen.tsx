@@ -10,7 +10,7 @@ const SECTIONS = ["start", "layouts", "editing", "post", "story", "grid", "data"
 export function HelpScreen({ onBack }: { onBack: () => void }) {
   const t = useT();
   return (
-    <main className="mx-auto flex h-dvh max-w-md flex-col">
+    <main className="mx-auto flex h-dvh max-w-md flex-col md:max-w-xl">
       <header className="flex items-center gap-1 px-2 pt-2.5 pb-1">
         <button type="button" aria-label={t("common.back")} onClick={onBack} className="flex h-11 w-11 items-center justify-center">
           <Icon name="back" />

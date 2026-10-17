@@ -48,7 +48,7 @@ export function NewSlideSheet({ aspect, onPick, onClose }: { aspect: number; onP
     </section>
   );
   return (
-    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40" onClick={onClose}>
+    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40 [&>section]:mx-auto [&>section]:w-full [&>section]:max-w-2xl" onClick={onClose}>
       <section
         aria-label={t("newSlide.title")}
         onClick={(e) => e.stopPropagation()}

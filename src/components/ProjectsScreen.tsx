@@ -160,7 +160,7 @@ export function ProjectsScreen(props: {
   );
 
   return (
-    <main className="mx-auto flex h-dvh max-w-md flex-col">
+    <main className="mx-auto flex h-dvh max-w-md flex-col md:max-w-3xl lg:max-w-5xl">
       {dialogs}
       <header className="flex items-center justify-between px-5 pt-5 pb-2">
         <h1 className="font-display text-3xl font-bold tracking-tight">{t("projects.title")}</h1>

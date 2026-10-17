@@ -142,7 +142,7 @@ export function NewProject({ onClose }: { onClose: () => void }) {
   const sectionTitle = "text-sm font-semibold tracking-wider text-muted uppercase";
 
   return (
-    <main className="mx-auto flex h-dvh max-w-md flex-col">
+    <main className="mx-auto flex h-dvh max-w-md flex-col md:max-w-xl">
       <header className="flex items-center gap-1 px-3 pt-3.5 pb-1">
         <button type="button" aria-label={t("common.close")} onClick={onClose} className="flex h-11 w-11 items-center justify-center">
           <Icon name="close" />

@@ -42,8 +42,12 @@ const CONTROLS_SPACE = 56;
 const PLUS_SPACE = 58;
 /** Side margin when every slide is in view (about 5 % of the screen, like the reference). */
 const FIT_MARGIN = 16;
-/** Smallest zoom: one slide about a quarter of the screen wide (editor-v2/05 §2.3). */
+/**
+ * Smallest zoom: one slide about a quarter of the screen wide on a phone (editor-v2/05
+ * §2.3), at most 120 px on a tablet so a whole carousel fits there.
+ */
 const MIN_SLIDE_FRACTION = 0.25;
+const MIN_SLIDE_PX = 120;
 /**
  * Room kept for the tallest bottom bar (slide strip + selection toolbar). The canvas is
  * sized against the screen minus this, not against whatever bar is showing, so it
@@ -209,7 +213,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     ? 1
     : isGrid
       ? Math.min(1, (areaSize.width - STAGE_PADDING * 2) / (size.width * baseScale))
-      : Math.min(1, (areaSize.width * MIN_SLIDE_FRACTION) / (slide.width * baseScale));
+      : Math.min(1, Math.min(areaSize.width * MIN_SLIDE_FRACTION, MIN_SLIDE_PX) / (slide.width * baseScale));
   /** Every slide in view (plus the + after them), never below the smallest zoom. */
   const fitFor = (width: number) =>
     !ready || isGrid ? 1 : Math.max(minZoom, Math.min(1, (areaSize.width - FIT_MARGIN * 2 - PLUS_SPACE) / (width * baseScale)));
@@ -515,7 +519,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
 
   return (
     // data-fonts uses the text-font module so its @font-face CSS ships with the editor (M11).
-    <main data-fonts={WEB_FONTS} className="mx-auto flex h-dvh max-w-3xl flex-col">
+    <main data-fonts={WEB_FONTS} className="flex h-dvh flex-col">
       <header className="flex items-center gap-0.5 px-2 pt-2.5 pb-1.5">
         <button type="button" aria-label={t("common.back")} onClick={onBack} className="flex h-11 w-11 items-center justify-center">
           <Icon name="back" />

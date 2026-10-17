@@ -136,7 +136,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
 
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="export-title" className="fixed inset-0 z-10 flex flex-col bg-bg">
-      <div className="mx-auto flex h-full w-full max-w-md flex-col">
+      <div className="mx-auto flex h-full w-full max-w-md flex-col md:max-w-2xl">
         <header className="flex items-center gap-1 px-2 pt-2.5 pb-1">
           <button type="button" aria-label={t("export.backToEditor")} onClick={onClose} className="flex h-11 w-11 items-center justify-center">
             <Icon name="back" />

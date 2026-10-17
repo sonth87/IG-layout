@@ -9,7 +9,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Edit photos, build carousel layouts and export them for Instagram.",
     start_url: "/",
     display: "standalone",
-    orientation: "portrait",
+    orientation: "any",
     background_color: "#111214",
     theme_color: "#111214",
     icons: [

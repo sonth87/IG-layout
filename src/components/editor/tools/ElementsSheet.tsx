@@ -98,7 +98,7 @@ export function ElementsSheet({ onClose }: { onClose: () => void }) {
   const tile = "flex h-[72px] flex-col items-center justify-center gap-1 rounded-xl bg-surface-2 text-[11px]";
 
   return (
-    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40" onClick={onClose}>
+    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40 [&>section]:mx-auto [&>section]:w-full [&>section]:max-w-2xl" onClick={onClose}>
       <section
         aria-label={t("elements.title")}
         onClick={(e) => e.stopPropagation()}

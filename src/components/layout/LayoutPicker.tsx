@@ -56,7 +56,7 @@ export function LayoutPicker({ photos: initial, ratio, slides, type, grid, onApp
 
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="layout-title" className="fixed inset-0 z-20 flex flex-col bg-bg">
-      <div className="mx-auto flex h-full w-full max-w-md flex-col">
+      <div className="mx-auto flex h-full w-full max-w-md flex-col md:max-w-2xl">
         <header className="flex items-center justify-between px-2 pt-2.5 pb-1">
           <div className="flex items-center gap-1">
             <button type="button" aria-label={t("common.back")} onClick={onClose} className="flex h-11 w-11 items-center justify-center">
@@ -113,7 +113,7 @@ export function LayoutPicker({ photos: initial, ratio, slides, type, grid, onApp
           ))}
         </nav>
 
-        <div className="grid flex-1 auto-rows-min grid-cols-2 gap-3 overflow-y-auto px-5 pb-3">
+        <div className="grid flex-1 auto-rows-min grid-cols-2 gap-3 md:grid-cols-3 overflow-y-auto px-5 pb-3">
           {list.map((tpl) => {
             const active = tpl.id === selected.id;
             const s = templateSlides(tpl, photos.length, slides, type);

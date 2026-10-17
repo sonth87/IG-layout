@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import type Konva from "konva";
+import { useEffect, useState } from "react";
+import { whenIdle } from "@/lib/gesture";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import type { CanvasElement } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
@@ -29,7 +31,7 @@ export function ActionSheet<K extends string>({
 }) {
   const t = useT();
   return (
-    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40" onClick={onClose}>
+    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40 [&>section]:mx-auto [&>section]:w-full [&>section]:max-w-2xl" onClick={onClose}>
       <section
         aria-label={title}
         onClick={(e) => e.stopPropagation()}
@@ -75,7 +77,48 @@ function elementLabel(el: CanvasElement, index: number, t: ReturnType<typeof use
 const KIND_ICON: Record<CanvasElement["type"], IconName> = { image: "image", text: "text", shape: "shapes", icon: "heart", drawing: "pencil", layout: "layout" };
 
 /** Layers list (UX-10): select anything, even when it is covered; lock / unlock. Top of the list = front. */
-const LAYER_ROW = 48;
+const LAYER_ROW = 60;
+/** Thumbnail box in a layer row (CSS px). */
+const THUMB = { width: 220, height: 44 };
+
+/**
+ * Picture of one layer unit (an element, or a block with its cells) as drawn on the
+ * canvas, for the layers list (editor-v2/12 §6). Hidden elements are drawn too.
+ */
+function unitThumb(layer: Konva.Layer, ids: string[]): string | null {
+  const stage = layer.getStage();
+  const nodes = ids.map((id) => stage.findOne(`#${id}`)).filter((n): n is Konva.Node => !!n);
+  if (!nodes.length) return null;
+  const shown = nodes.map((n) => n.visible());
+  nodes.forEach((n) => n.visible(true));
+  try {
+    const rects = nodes.map((n) => n.getClientRect());
+    const x0 = Math.min(...rects.map((r) => r.x));
+    const y0 = Math.min(...rects.map((r) => r.y));
+    const w = Math.max(...rects.map((r) => r.x + r.width)) - x0;
+    const h = Math.max(...rects.map((r) => r.y + r.height)) - y0;
+    if (w < 1 || h < 1) return null;
+    const pr = Math.min((THUMB.height * 2) / h, (THUMB.width * 2) / w);
+    const out = document.createElement("canvas");
+    out.width = Math.max(1, Math.round(w * pr));
+    out.height = Math.max(1, Math.round(h * pr));
+    const ctx = out.getContext("2d")!;
+    nodes.forEach((n, i) => {
+      const r = rects[i];
+      if (r.width < 1 || r.height < 1) return;
+      ctx.drawImage(n.toCanvas({ pixelRatio: pr }), (r.x - x0) * pr, (r.y - y0) * pr, r.width * pr, r.height * pr);
+    });
+    return out.toDataURL("image/png");
+  } finally {
+    nodes.forEach((n, i) => n.visible(shown[i]));
+  }
+}
+
+/** Transparent-background pattern behind the layer thumbnails. */
+const CHECKER = {
+  backgroundImage: "repeating-conic-gradient(var(--surface-2) 0 25%, var(--border) 0 50%)",
+  backgroundSize: "14px 14px",
+};
 
 /**
  * Layers panel (UX-10, S8): front-most on top. Tap a row to select, drag the handle to
@@ -87,6 +130,17 @@ export function LayersSheet({ onClose }: { onClose: () => void }) {
   const selectedId = useEditor((s) => s.selectedId);
   const { select, toggleLock, toggleHidden, moveLayerToIndex } = useEditor.getState();
   const [drag, setDrag] = useState<{ id: string; row: number; startY: number; dy: number } | null>(null);
+  const canvas = useEditor((s) => s.canvas);
+  const [thumbs, setThumbs] = useState<Record<string, string | null>>({});
+  // Thumbnails drawn from the canvas once it is idle (they force a full redraw).
+  useEffect(() => {
+    if (!doc || !canvas) return;
+    return whenIdle(() => {
+      const next: Record<string, string | null> = {};
+      for (const unit of units(doc)) next[unit[0].id] = unitThumb(canvas.layer, unit.map((e) => e.id));
+      setThumbs(next);
+    });
+  }, [doc, canvas]);
   if (!doc) return null;
   let photo = 0;
   // One row per top-level element: a layout block is one row, not one per cell (M14).
@@ -106,7 +160,7 @@ export function LayersSheet({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40" onClick={onClose}>
+    <div className="fixed inset-0 z-20 flex flex-col justify-end bg-black/40 [&>section]:mx-auto [&>section]:w-full [&>section]:max-w-2xl" onClick={onClose}>
       <section
         aria-label={t("layers.title")}
         onClick={(e) => e.stopPropagation()}
@@ -129,8 +183,48 @@ export function LayersSheet({ onClose }: { onClose: () => void }) {
                 transition: drag && drag.id !== el.id ? "transform 150ms ease" : undefined,
                 zIndex: drag?.id === el.id ? 1 : undefined,
               }}
-              className={`relative flex shrink-0 items-center gap-0.5 rounded-xl ${el.id === selectedId ? "bg-accent-soft" : drag?.id === el.id ? "bg-surface-2 shadow-md" : ""}`}
+              className={`relative flex shrink-0 items-center gap-1 rounded-xl ${drag?.id === el.id ? "bg-surface shadow-lg" : ""}`}
             >
+              <button
+                type="button"
+                aria-label={el.hidden ? t("layers.show") : t("layers.hide")}
+                aria-pressed={!!el.hidden}
+                onClick={() => toggleHidden(el.id)}
+                className={`flex h-10 w-9 shrink-0 items-center justify-center ${el.hidden ? "text-accent-text" : "text-muted"}`}
+              >
+                <Icon name={el.hidden ? "eyeOff" : "eye"} size={18} />
+              </button>
+              <button
+                type="button"
+                aria-label={label}
+                onClick={() => {
+                  select(el.id);
+                  onClose();
+                }}
+                style={CHECKER}
+                className={`relative flex h-[52px] min-w-0 flex-1 items-center justify-center overflow-hidden rounded-xl ${
+                  el.id === selectedId ? "ring-2 ring-accent" : ""
+                } ${el.hidden ? "opacity-40" : ""}`}
+              >
+                {thumbs[el.id] ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- generated thumbnail
+                  <img src={thumbs[el.id]!} alt="" className="max-h-[44px] max-w-[calc(100%-16px)] object-contain" />
+                ) : (
+                  <span className="flex items-center gap-2 text-sm text-text-2">
+                    <Icon name={KIND_ICON[el.type]} size={18} />
+                    <span className="truncate">{label}</span>
+                  </span>
+                )}
+              </button>
+              <button
+                type="button"
+                aria-label={el.locked ? t("editor.unlock") : t("editor.lock")}
+                aria-pressed={!!el.locked}
+                onClick={() => toggleLock(el.id)}
+                className={`flex h-10 w-9 shrink-0 items-center justify-center ${el.locked ? "text-accent-text" : "text-muted"}`}
+              >
+                <Icon name={el.locked ? "lock" : "unlock"} size={17} />
+              </button>
               <span
                 role="button"
                 aria-label={t("layers.reorder", { name: label })}
@@ -149,36 +243,6 @@ export function LayersSheet({ onClose }: { onClose: () => void }) {
               >
                 <Icon name="grip" size={18} />
               </span>
-              <button
-                type="button"
-                disabled={el.hidden}
-                onClick={() => {
-                  select(el.id);
-                  onClose();
-                }}
-                className={`flex h-12 min-w-0 flex-1 items-center gap-3 px-1 text-left text-sm ${el.hidden ? "text-disabled" : ""}`}
-              >
-                <Icon name={KIND_ICON[el.type]} size={18} />
-                <span className="truncate">{label}</span>
-              </button>
-              <button
-                type="button"
-                aria-label={el.hidden ? t("layers.show") : t("layers.hide")}
-                aria-pressed={!!el.hidden}
-                onClick={() => toggleHidden(el.id)}
-                className={`flex h-10 w-10 items-center justify-center ${el.hidden ? "text-accent-text" : "text-muted"}`}
-              >
-                <Icon name={el.hidden ? "eyeOff" : "eye"} size={18} />
-              </button>
-              <button
-                type="button"
-                aria-label={el.locked ? t("editor.unlock") : t("editor.lock")}
-                aria-pressed={!!el.locked}
-                onClick={() => toggleLock(el.id)}
-                className={`flex h-10 w-10 items-center justify-center ${el.locked ? "text-accent-text" : "text-muted"}`}
-              >
-                <Icon name={el.locked ? "lock" : "unlock"} size={18} />
-              </button>
             </li>
           ))}
         </ul>

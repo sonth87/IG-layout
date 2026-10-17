@@ -55,7 +55,7 @@ Nút **chia sẻ** ở góc trên phải mở màn **"Xuất"** (nút ✕ ở ph
 
 ## 6. Lớp [QS] (IMG_4001)
 
-Nút **Lớp** ở góc dưới phải mở sheet **"Lớp"**. Mỗi dòng là một phần tử ngoài cùng, phần tử ở lớp trên cùng nằm đầu danh sách. Điểm đặc biệt là **nội dung dòng là ảnh thu nhỏ của chính phần tử đó** — không phải tên — đặt trên **nền ô cờ** (kiểu nền trong suốt), nên người dùng nhận ra ngay đâu là chữ "Thêm chữ", đâu là tấm ảnh nào. Dòng cao khoảng 56 px, bo góc. Bên trái mỗi dòng có một nút tròn viền (⊖) — trong tham chiếu chưa rõ chức năng; đề xuất là **ẩn / hiện** phần tử [ĐX]. Bên phải mỗi dòng là **tay kéo ≡**: giữ và kéo dọc để đổi thứ tự lớp. Chạm vào dòng sẽ chọn phần tử đó và đóng sheet. App hiện tại có bảng Lớp với icon và tên — thay bằng thumbnail.
+Nút **Lớp** ở góc dưới phải mở sheet **"Lớp"**. Mỗi dòng là một phần tử ngoài cùng, phần tử ở lớp trên cùng nằm đầu danh sách. Điểm đặc biệt là **nội dung dòng là ảnh thu nhỏ của chính phần tử đó** — không phải tên — đặt trên **nền ô cờ** (kiểu nền trong suốt), nên người dùng nhận ra ngay đâu là chữ "Thêm chữ", đâu là tấm ảnh nào. Dòng cao khoảng 56 px, bo góc. Bên trái mỗi dòng có một nút tròn viền (⊖) — trong tham chiếu chưa rõ chức năng; đề xuất là **ẩn / hiện** phần tử [ĐX]. Bên phải mỗi dòng là **tay kéo ≡**: giữ và kéo dọc để đổi thứ tự lớp. Chạm vào dòng sẽ chọn phần tử đó và đóng sheet. Đã làm (D-94): ảnh thu nhỏ vẽ từ canvas trên nền ô cờ, nút 👁 ẩn / hiện bên trái, 🔒 khoá và ⠿ kéo đổi thứ tự bên phải.
 
 ## 7. Hoàn tác / Làm lại
 

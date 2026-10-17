@@ -68,7 +68,7 @@ export function TemplateLibrary({ onUse }: { onUse: (tpl: Template) => void }) {
           </button>
         ))}
       </nav>
-      <div className="grid flex-1 auto-rows-min grid-cols-2 gap-x-3 gap-y-4 overflow-y-auto px-5 pt-2 pb-4">
+      <div className="grid flex-1 auto-rows-min grid-cols-2 gap-x-3 sm:grid-cols-3 lg:grid-cols-4 gap-y-4 overflow-y-auto px-5 pt-2 pb-4">
         {list.map((tpl) => {
           // Carousels show the whole strip across both columns; single images sit two by two.
           const wide = tpl.design!.type !== "grid" && slidesOf(tpl) > 1;
@@ -97,7 +97,7 @@ export function TemplateLibrary({ onUse }: { onUse: (tpl: Template) => void }) {
           <section
             aria-label={open.name[locale]}
             onClick={(e) => e.stopPropagation()}
-            className="mx-auto flex w-full max-w-md flex-col gap-4 rounded-t-[22px] bg-surface px-5 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+            className="mx-auto flex w-full max-w-md flex-col gap-4 rounded-t-[22px] md:max-w-xl bg-surface px-5 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
           >
             <div className="flex items-center justify-between">
               <div className="flex flex-col">

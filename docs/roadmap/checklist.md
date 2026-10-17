@@ -312,4 +312,6 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Phần tử thuộc slide theo tâm của nó; ô của khối đi theo slide của khối
 - [x] Sửa kèm: chụm hai ngón không bị chặn khi một ngón đặt lên tay nắm khung chọn hoặc lên các nút dưới slide
 - [x] Kiểm tra tự động `e2e/m15.mjs` (8 tiêu chí nghiệm thu); m7, m8, m9, m10 cập nhật
+- [x] Sửa (2026-10-17, D-94): **bảng Lớp có ảnh xem trước** — mỗi dòng là ảnh thu nhỏ của chính phần tử (khối kèm ô) vẽ từ canvas, trên nền ô cờ; 👁 ẩn / hiện bên trái, 🔒 và ⠿ kéo đổi thứ tự bên phải; chạm ảnh để chọn
+- [x] Sửa (2026-10-17, D-94): **hỗ trợ iPad** — editor dùng hết bề rộng, cho xoay ngang (manifest `orientation: any`), trang chủ / chọn layout / xuất rộng hơn và nhiều cột hơn, các sheet căn giữa tối đa 672 px; mức zoom nhỏ nhất ¼ màn hình nhưng ≤ 120 px / slide để cả carousel vừa màn iPad
 - [ ] Chủ dự án thử trên iPhone: zoom "thấy hết", bật lại khi thu nhỏ quá, menu slide, giữ ‖ kéo đổi chỗ, Slide mới

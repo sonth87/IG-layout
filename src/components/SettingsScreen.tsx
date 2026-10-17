@@ -47,7 +47,7 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
   ];
 
   return (
-    <main className="mx-auto flex h-dvh max-w-md flex-col">
+    <main className="mx-auto flex h-dvh max-w-md flex-col md:max-w-xl">
       {confirming && (
         <ConfirmDialog
           title={t("settings.deleteAllConfirm")}

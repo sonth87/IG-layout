@@ -194,7 +194,7 @@ check((await rows.count()) === st.doc.elements.filter((e) => !e.parentId).length
 await rows.last().getByRole("button", { name: "Lock" }).click();
 st = await S();
 check(st.doc.elements[0].locked === true, "lock from the layers list");
-await rows.last().locator("button").first().click();
+await rows.last().locator("button").nth(1).click(); // the thumbnail
 st = await S();
 check(st.selected === st.doc.elements[0].id, "select the bottom layer from the list");
 
