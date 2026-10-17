@@ -76,6 +76,8 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Chỉnh ảnh** (`tools/PhotoEditScreen.tsx`): công cụ nháp toàn màn hình thay `AdjustTool` / `FilterTool`; lịch sử riêng (`history.looks`, các thay đổi liên tiếp cùng một công cụ gộp một mục); xem trước bằng `processImage` trên ảnh gốc ≤ 1400 px. `blur` / `sharpen` thêm vào `ADJUST_KEYS` và shader (5 × 5 mẫu / unsharp 4 điểm). **Công cụ nền** (`tools/MaskScreen.tsx`): Cắt rời và Tẩy vẽ trên canvas cỡ ảnh gốc, kết quả là PNG cùng kích thước (`swapAsset` → crop giữ nguyên, ghi `originalAssetId` lần đầu); `restoreOriginal` quay về ảnh gốc. `migrateImage` giữ `corners`, `shadowStyle`, `originalAssetId`.
 
+**Thư viện** (`library/LibrarySheet.tsx`): một sheet cho mọi thư viện (`kind`), nhóm → `Group` (7 mục + "+N", màn đủ nhóm). Hình thư viện: `lib/elements/shapeLibrary.ts` — path SVG trong hộp 100 × 100 (sinh đa giác / sao / hoa / tem bằng hàm), `drawShape` vẽ bằng `Path2D` (cache), `ShapeKind` = hình gốc + `PathShape`. Kho riêng trên máy: IndexedDB phiên bản 2 thêm store `library` (`sticker` / `logo` / `asset`), `lib/storage/library.ts` (+ màu thương hiệu, sticker gần đây trong `localStorage`). Widget = `TextElement` dựng sẵn (`newWidget`). Lưới = `addLayoutBlock` (khối 80 % slide).
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { create } from "zustand";
+import { useBrand } from "@/lib/storage/library";
 import { Icon } from "@/components/ui/Icon";
 import { traceMask } from "@/lib/project/masks";
 import type { MaskShape } from "@/lib/project/types";
@@ -138,6 +139,7 @@ function Dot(props: { color: string; active: boolean; onClick: () => void }) {
 export function Swatches(props: { value: string; onChange: (color: string) => void; colors?: string[] }) {
   const t = useT();
   const recent = useRecentColors();
+  const brandColors = useBrand((s) => s.colors);
   const value = props.value.toLowerCase();
   const [hex, setHex] = useState<string | null>(null);
   const custom = (c: string) => {
@@ -166,6 +168,11 @@ export function Swatches(props: { value: string; onChange: (color: string) => vo
           onKeyDown={(e) => e.key === "Enter" && (e.currentTarget as HTMLInputElement).blur()}
           className="h-8 w-[84px] shrink-0 rounded-full border border-border bg-surface-2 px-3 font-mono text-[12px] outline-none"
         />
+        {/* Brand Kit colours first (editor-v2/11 §8), then the ones used lately. */}
+        {brandColors.map((c) => (
+          <Dot key={`b${c}`} color={c} active={value === c} onClick={() => props.onChange(c)} />
+        ))}
+        {brandColors.length > 0 && <span className="h-6 w-px shrink-0 bg-border" />}
         {recent.colors.map((c) => (
           <Dot key={`r${c}`} color={c} active={value === c} onClick={() => props.onChange(c)} />
         ))}

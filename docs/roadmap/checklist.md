@@ -369,3 +369,12 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Làm trống** ở thanh công cụ ảnh → ô trống cùng chỗ
 - [x] Sửa: mở lại dự án không còn làm mất bo từng góc / bóng tuỳ chỉnh (M17)
 - [x] Kiểm tra `e2e/m19b.mjs`
+- [x] **Thanh công cụ mặc định** Ảnh · Chữ · Sticker · Hình · **+**; nút **+** mở **"Lớp mới"** với 11 mục: Ảnh · Video · Tệp · Chữ · Sticker · Khung · Lưới · Vẽ · Widget · Hình · Brand Kit; "Bố cục" cả dự án chuyển vào menu ⋯ của dự án
+- [x] **Thư viện chia nhóm** (bottom sheet kéo được): mỗi nhóm hiện 7 mục + ô **"+N"** mở màn đủ nhóm có ‹ quay lại; chạm mục → thêm vào giữa slide đang xem, chọn luôn, đóng sheet
+- [x] **Hình**: 9 nhóm (Cơ bản, Đường, Sao, Tim, Mũi tên, Chú ý, Băng rôn, Hoa, Trừu tượng) ~40 hình vẽ bằng path, đổi màu được
+- [x] **Sticker**: Dùng gần đây · Của tôi · Nổi bật · Ánh sáng & chất liệu · Emoji; ô tìm kiếm nổi ở đáy
+- [x] **Khung**: Lấy liền (polaroid trắng / đen, viền trắng / đen, triển lãm) · Phim · Giấy cắt hình (cửa sổ tròn, tim, sao, lục giác, mềm, vòm, bo góc) — đều là ô ảnh trống có dấu +
+- [x] **Lưới**: thêm khối bố cục (80 % slide, căn giữa) vào slide đang xem; **Widget**: Nhãn, Tin nhắn, Địa điểm, Tô sáng, Đồng hồ lật (là chữ, sửa được)
+- [x] **Brand Kit** lưu trên máy, dùng cho mọi dự án: logo, tài sản, màu thương hiệu (hiện đầu bảng màu chung); **Lưu sticker** (ảnh đang chọn → "Của tôi")
+- [ ] Còn lại của thư viện: khung có lớp trang trí đè lên ảnh (băng dính, giấy xé, máy ảnh, kỹ thuật số), nhóm Mực / tem dấu, Phông thương hiệu
+- [x] Kiểm tra `e2e/m19c.mjs`

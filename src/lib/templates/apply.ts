@@ -155,7 +155,20 @@ export function applyTemplate(
 export function addLayoutSlide(doc: ProjectDoc, at: number, layout: SlideLayout | null): ProjectDoc {
   const next = insertSlideAt(doc, at);
   if (next === doc || !layout) return next;
-  const r = slideRect(next, at);
+  return placeLayoutBlock(next, slideRect(next, at), layout).doc;
+}
+
+/**
+ * A layout block of `layout` on slide `slide`, about 80 % of it and centred ("+ → Grid",
+ * editor-v2/11 §6). Returns the doc and the block's id.
+ */
+export function addLayoutBlock(doc: ProjectDoc, slide: number, layout: SlideLayout): { doc: ProjectDoc; id: string } {
+  const s = slideRect(doc, slide);
+  const r = { x: s.x + s.width * 0.1, y: s.y + s.height * 0.1, width: s.width * 0.8, height: s.height * 0.8 };
+  return placeLayoutBlock(doc, r, layout);
+}
+
+function placeLayoutBlock(next: ProjectDoc, r: { x: number; y: number; width: number; height: number }, layout: SlideLayout): { doc: ProjectDoc; id: string } {
   const block: LayoutElement = { id: newId(), type: "layout", x: r.x, y: r.y, width: r.width, height: r.height, rotation: 0, opacity: 1, cells: [], layout: layout.id };
   const cells: CanvasElement[] = slideCells(layout, r.width / r.height).map((c) => {
     const frame = { x: r.x + c.x * r.width, y: r.y + c.y * r.height, width: c.w * r.width, height: c.h * r.height };
@@ -167,5 +180,5 @@ export function addLayoutSlide(doc: ProjectDoc, at: number, layout: SlideLayout 
     return el;
   });
   const withBlock = { ...next, elements: [...next.elements, block, ...cells] };
-  return syncLayout(withBlock, block.id, () => undefined);
+  return { doc: syncLayout(withBlock, block.id, () => undefined), id: block.id };
 }

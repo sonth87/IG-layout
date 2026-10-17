@@ -2,6 +2,7 @@
 // slideSize(ratio) wide/high, and the canvas is slideCount slides side by side.
 // Full design: docs/architecture/editor-model.md.
 
+import type { PathShape } from "@/lib/elements/shapeLibrary";
 import type { Adjustments, FilterRef } from "@/lib/color/params";
 
 export type ProjectType = "post" | "story" | "grid";
@@ -218,7 +219,8 @@ export interface TextElement extends ElementBase {
 }
 
 export const SHAPES = ["rect", "roundRect", "circle", "triangle", "line", "arrow", "film"] as const;
-export type ShapeKind = (typeof SHAPES)[number];
+/** Built-in shapes, plus the path shapes of the library (M19). */
+export type ShapeKind = (typeof SHAPES)[number] | PathShape;
 
 export interface ShapeElement extends ElementBase {
   type: "shape";

@@ -116,7 +116,8 @@ await shot(page, "2-toolbar");
 
 console.log("UX-09 grid cells: outline only");
 await page.getByRole("button", { name: "Done" }).click();
-await page.getByRole("button", { name: "Layout" }).click();
+await page.getByRole("button", { name: "Project menu" }).click(); // the project's Layout (M19: in the ⋯ menu)
+await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: "Layout", exact: true }).click();
 await page.getByRole("button", { name: "Grid", exact: true }).click();
 await page.getByRole("button", { name: /^2 × 2 4 photos/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();
@@ -142,7 +143,8 @@ await page.getByRole("button", { name: "Text", exact: true }).click();
 await page.getByRole("textbox", { name: "Edit text" }).fill("Giữ lại");
 await page.getByRole("button", { name: "Done typing" }).click();
 await page.getByRole("button", { name: "Done" }).click();
-await page.getByRole("button", { name: "Layout" }).click();
+await page.getByRole("button", { name: "Project menu" }).click(); // the project's Layout (M19: in the ⋯ menu)
+await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: "Layout", exact: true }).click();
 await page.getByRole("button", { name: "Grid", exact: true }).click();
 await page.getByRole("button", { name: /^1 big \+ 3/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();
@@ -161,7 +163,7 @@ await page.getByRole("button", { name: "Done typing" }).click();
 
 console.log("UX-07 pinch: nothing selected zooms the canvas; selected element scales");
 await page.evaluate(() => window.__igEditor.getState().select(null));
-await page.getByRole("button", { name: "Elements" }).click();
+await page.getByRole("button", { name: "Shapes", exact: true }).click(); // Shapes library (M19)
 await page.getByRole("button", { name: "Heart", exact: true }).click();
 st = await S();
 const heart = st.doc.elements.at(-1);
