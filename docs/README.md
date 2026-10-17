@@ -26,3 +26,5 @@
 - Mỗi mục tính năng/quyết định có trạng thái: `Đề xuất` → `Đã chốt` → `Đang làm` → `Xong` (hoặc `Bỏ`).
 - Quyết định quan trọng ghi vào [discussions/decisions.md](discussions/decisions.md) kèm lý do.
 - Câu hỏi chưa có câu trả lời ghi vào [roadmap/open-questions.md](roadmap/open-questions.md).
+
+**Editor v2 (đặc tả mới, 2026-10-17):** [product/editor-v2/](product/editor-v2/README.md) · kỹ thuật: [dev/editor-v2.md](dev/editor-v2.md) · hướng dẫn người dùng: [user/huong-dan-editor-v2.md](user/huong-dan-editor-v2.md)

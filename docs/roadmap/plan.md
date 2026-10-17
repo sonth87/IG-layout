@@ -112,7 +112,7 @@ Thứ tự sẽ quyết định sau khi có phản hồi người dùng. Danh s�
 
 ## Việc tiếp theo
 
-0. **Editor v2** ([đặc tả](../product/editor-v2-spec.md), D-87): M14 mô hình chọn & cử chỉ → M15 canvas & slide → M16 thêm ảnh → M17 thanh công cụ & sheet → M18 giao diện tối & trang chủ → M19 thư viện.
+0. **Editor v2** ([đặc tả](../product/editor-v2/README.md), D-87): M14 mô hình chọn & cử chỉ → M15 canvas & slide → M16 thêm ảnh → M17 thanh công cụ & sheet → M18 giao diện tối & trang chủ → M19 thư viện.
 
 1. ~~M8 — Sửa UX~~ xong (2026-10-15), xem [checklist](checklist.md).
 2. **Hướng mới (D-71): làm theo SCRL** — [phân tích bản 2](../discussions/2026-10-16-phan-tich-scrl-grids.md). Lộ trình: M9 menu nổi / zoom toàn dải / lớp kéo thả (xong) → M10 trang chủ + template (xong phần code, chờ duyệt mẫu) → M11 font / filter / sticker / lớp phủ / vẽ (xong phần code) → M12 xoá nền (xong phần code) → sticker emoji Fluent (xong) → M13 video ([đặc tả](../product/video-spec.md)): M13.1 nền tảng → M13.2 cắt đoạn → M13.3 hiệu ứng / animation → M13.4 nhạc / video 9:16 — **xong phần code cả 4** (2026-10-16), chờ thử iPhone. Tìm hiểu SVG Repo: [kết luận](../discussions/2026-10-16-svgrepo.md) — không crawl, đề xuất Fluent Emoji (MIT) → M11 font, filter, sticker, vẽ → M12 xoá nền → M13 video.
