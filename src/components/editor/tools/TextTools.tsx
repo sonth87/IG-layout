@@ -201,7 +201,7 @@ export function TextEditDialog({ elementId, onClose }: ToolProps) {
  * Off-screen rows are not rendered (content-visibility), so their font files are not
  * fetched until scrolled to.
  */
-function FontPicker({ el, patch }: { el: TextElement; patch: (p: Partial<TextElement>) => void }) {
+export function FontPicker({ el, patch }: { el: TextElement; patch: (p: Partial<TextElement>) => void }) {
   const t = useT();
   const [category, setCategory] = useState<FontCategory>(TEXT_FONTS[el.font].category);
   const keys = FONT_KEYS.filter((k) => TEXT_FONTS[k].category === category);

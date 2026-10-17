@@ -43,7 +43,7 @@ await page.getByRole("button", { name: "Text", exact: true }).click();
 const box = page.getByRole("textbox", { name: "Edit text" });
 await box.waitFor();
 await box.fill("Đà Lạt mùa sương");
-await page.getByRole("dialog").getByRole("button", { name: "Done" }).click();
+await page.getByRole("button", { name: "Done typing" }).click();
 let st = await S();
 let text = last(st, "text");
 check(text?.text === "Đà Lạt mùa sương", "text element with Vietnamese text");
@@ -56,15 +56,20 @@ check(fontOk, "Playfair Display (with Vietnamese) loaded for canvas");
 
 console.log("2. Text style: font, size, background — one step");
 const past0 = st.past;
-await page.getByRole("button", { name: "Style" }).click();
+// Format sheet of the typing session (M19, editor-v2/10 §3).
+const fmt = page.getByRole("region", { name: "Format" });
+await page.getByRole("button", { name: "Format" }).click();
+await fmt.getByRole("button", { name: /^Font/ }).click();
 await page.getByRole("button", { name: "Sans", exact: true }).click(); // font categories (M11)
 await page.getByRole("radio", { name: /Montserrat/ }).click();
-await page.getByRole("tab", { name: "Style" }).click();
-await page.getByRole("slider").first().fill("150");
-await page.getByRole("tab", { name: "Effects" }).click();
-await page.getByRole("checkbox", { name: "Background" }).check();
+await fmt.getByRole("button", { name: "Format", exact: true }).click(); // back
+await fmt.getByRole("button", { name: /^Size/ }).click();
+await fmt.getByRole("slider").first().fill("150");
+await fmt.getByRole("button", { name: "Format", exact: true }).click();
+await fmt.getByRole("button", { name: /^Background/ }).click();
+await fmt.getByRole("checkbox", { name: "Background" }).check();
 await shot(page, "1-text-style");
-await apply();
+await page.getByRole("button", { name: "Done typing" }).click();
 st = await S();
 text = last(st, "text");
 check(text.font === "montserrat" && text.fontSize === 150 && !!text.background, "font Montserrat, size 150, background on");

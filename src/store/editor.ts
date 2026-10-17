@@ -444,7 +444,22 @@ export const useEditor = create<EditorState>()((set, get) => {
 
     moveLayerToIndex: (id, index) => commit((d) => moveUnit(d, id, () => index)),
 
-    setEditingText: (id) => set({ editingTextId: id }),
+    // Typing on the canvas (M19, editor-v2/10): text and formatting go into one draft,
+    // recorded as one step when typing ends; an emptied text box is removed.
+    setEditingText: (id) => {
+      if (id) return set((s) => ({ editingTextId: id, selectedId: id, draft: s.draft ?? s.doc }));
+      const s = get();
+      const cur = s.editingTextId;
+      if (!cur) return;
+      const el = s.draft?.elements.find((e) => e.id === cur);
+      set({ editingTextId: null });
+      if (el?.type === "text" && !el.text.trim()) {
+        set({ draft: null, selectedId: null });
+        get().removeElement(cur);
+        return;
+      }
+      get().applyDraft();
+    },
 
     insertSlide: (after) => commit((d) => insertSlide(d, after)),
     setGridRows: (rows) => {

@@ -35,7 +35,10 @@ import { attachMusic, detachMusic, pause as pausePlayback, resetPlayback, seek, 
 import { ElementsSheet } from "./tools/ElementsSheet";
 import { FillTool, MaskTool, StyleTool } from "./tools/ElementTools";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
-import { TextEditDialog, TextTool } from "./tools/TextTools";
+import { TextTool } from "./tools/TextTools";
+import { TextAlignPanel, TextFormatPanel } from "./tools/TextFormat";
+import { OpacityTool } from "./tools/OpacityTool";
+import { InlineText } from "./InlineText";
 import { useImportPhotos } from "./useImportPhotos";
 import { useShortcuts } from "./useShortcuts";
 
@@ -84,9 +87,10 @@ type Tool =
   | "position"
   | "blockLayout"
   | "blockAdjust"
-  | "projectMenu";
+  | "projectMenu"
+  | "opacity";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -205,6 +209,9 @@ export function Editor({ onClose }: { onClose: () => void }) {
   /** Zoom shown while easing to a new "see every slide" level. */
   const [easing, setEasing] = useState<number | null>(null);
   const pinchZoomStart = useRef(1);
+  /** What the typing bar shows for the text being typed: keyboard, Format or Align. */
+  const [textMode, setTextMode] = useState<{ id: string; mode: "type" | "format" | "align" } | null>(null);
+  const typingMode = editingText && textMode?.id === editingText ? textMode.mode : "type";
   const fillFrame = useEditor((s) => s.fillFrame);
   /** Short message at the bottom of the canvas (e.g. some picked photos were not used). */
   const [notice, setNotice] = useState<string | null>(null);
@@ -376,7 +383,13 @@ export function Editor({ onClose }: { onClose: () => void }) {
   function addText() {
     const el = newText(doc.ratio, slideRect(doc, currentSlide), t("text.placeholder"));
     store.addElement(el);
-    store.setEditingText(el.id);
+    typeText(el.id, "type");
+  }
+
+  /** Starts (or switches) the typing session on a text: keyboard, format or align (editor-v2/10 §2). */
+  function typeText(id: string, mode: "type" | "format" | "align") {
+    setTextMode({ id, mode });
+    store.setEditingText(id);
   }
 
   const close = () => setTool(null);
@@ -449,6 +462,43 @@ export function Editor({ onClose }: { onClose: () => void }) {
   let bottom: React.ReactNode;
   if (tool === "mask" && selected) bottom = <MaskTool elementId={selected.id} onClose={close} />;
   else if (tool === "position" && selected) bottom = <PositionTool elementId={selected.id} onClose={close} />;
+  else if (tool === "opacity" && selected) bottom = <OpacityTool elementId={selected.id} onClose={close} />;
+  else if (editingText)
+    // Typing bar (editor-v2/10 §2): A| keyboard · Aa Format · ≡ Align, ✕ ends typing.
+    bottom = (
+      <div>
+        <section aria-label={t("type.edit")} className="bg-(--canvas) px-3 pt-2 pb-2">
+          <div className="flex items-center gap-2">
+            <div role="tablist" className={`flex h-12 flex-1 items-center gap-1 px-1 ${PILL}`}>
+              {(
+                [
+                  ["type", "cursor", t("type.edit")],
+                  ["format", "text", t("type.format")],
+                  ["align", "alignLeft", t("type.align")],
+                ] as const
+              ).map(([mode, icon, label]) => (
+                <button
+                  key={mode}
+                  type="button"
+                  role="tab"
+                  aria-selected={typingMode === mode}
+                  onClick={() => typeText(editingText, mode)}
+                  className={`flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full text-[13px] ${typingMode === mode ? "bg-surface-2 font-semibold" : "text-muted"}`}
+                >
+                  <Icon name={icon} size={18} />
+                  {label}
+                </button>
+              ))}
+            </div>
+            <button type="button" aria-label={t("type.done")} onClick={() => store.setEditingText(null)} className={`${ROUND} h-12! w-12!`}>
+              <Icon name="close" />
+            </button>
+          </div>
+        </section>
+        {typingMode === "format" && <TextFormatPanel elementId={editingText} />}
+        {typingMode === "align" && <TextAlignPanel elementId={editingText} />}
+      </div>
+    );
   else if (tool === "blockLayout" && selected)
     bottom = <BlockLayoutTool elementId={selected.id} onClose={close} onOutside={(n) => showNotice(t("block.outside", { count: n }))} />;
   else if (tool === "blockAdjust" && selected) bottom = <BlockAdjustTool elementId={selected.id} onClose={close} />;
@@ -521,10 +571,12 @@ export function Editor({ onClose }: { onClose: () => void }) {
       ];
     else if (selected.type === "text")
       tools = [
-        <ToolButton key={t("editor.editText")} label={t("editor.editText")} icon="pencil" onClick={() => store.setEditingText(id)} />,
-        <ToolButton key={t("editor.textStyle")} label={t("editor.textStyle")} icon="text" onClick={() => openTool("text")} />,
+        <ToolButton key="edit" label={t("type.edit")} icon="pencil" onClick={() => typeText(id, "type")} />,
+        <ToolButton key="format" label={t("type.format")} icon="text" onClick={() => typeText(id, "format")} />,
+        <ToolButton key="align" label={t("type.align")} icon="alignLeft" onClick={() => typeText(id, "align")} />,
         position,
-        <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />,
+        <ToolButton key="animate" label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
         ...tail,
       ];
     else
@@ -584,10 +636,10 @@ export function Editor({ onClose }: { onClose: () => void }) {
           <SaveIndicator />
         </div>
         <div className={`flex h-11 items-center px-1 ${GLASS}`}>
-          <button type="button" aria-label={t("editor.undo")} disabled={!canUndo || sheetOpen} onClick={store.undo} className="flex h-10 w-10 items-center justify-center disabled:text-disabled">
+          <button type="button" aria-label={t("editor.undo")} disabled={!canUndo || sheetOpen || !!editingText} onClick={store.undo} className="flex h-10 w-10 items-center justify-center disabled:text-disabled">
             <Icon name="undo" />
           </button>
-          <button type="button" aria-label={t("editor.redo")} disabled={!canRedo || sheetOpen} onClick={store.redo} className="flex h-10 w-10 items-center justify-center disabled:text-disabled">
+          <button type="button" aria-label={t("editor.redo")} disabled={!canRedo || sheetOpen || !!editingText} onClick={store.redo} className="flex h-10 w-10 items-center justify-center disabled:text-disabled">
             <Icon name="redo" />
           </button>
           <button type="button" aria-label={t("editor.projectMenu")} disabled={sheetOpen} onClick={() => setTool("projectMenu")} className="flex h-10 w-10 items-center justify-center disabled:text-disabled">
@@ -640,7 +692,10 @@ export function Editor({ onClose }: { onClose: () => void }) {
                   }}
                   onFit={fitAll}
                 />
-                {!sheetOpen && <FloatingMenu scrollRef={areaRef} onMore={() => setTool("more")} />}
+                {!sheetOpen && !editingText && <FloatingMenu scrollRef={areaRef} onMore={() => setTool("more")} />}
+                {editingText && (
+                  <InlineText elementId={editingText} origin={origin} viewScale={viewScale} scrollRef={areaRef} active={typingMode === "type"} />
+                )}
               </div>
               {/* Where the canvas is in the scroll content (layout reference for tests). */}
               <div
@@ -807,7 +862,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
       {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
       {tool === "trim" && selected && <TrimTool elementId={selected.id} onClose={close} />}
       {tool === "elements" && <ElementsSheet onClose={close} />}
-      {editingText && <TextEditDialog elementId={editingText} onClose={() => store.setEditingText(null)} />}
 
       {removeBgFor && <RemoveBgDialog elementId={removeBgFor} onClose={() => setRemoveBgFor(null)} />}
       {exportOpen && <ExportSheet contentLayerRef={contentLayerRef} viewScale={viewScale} onClose={() => setExportOpen(false)} />}

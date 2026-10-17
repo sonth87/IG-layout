@@ -354,3 +354,12 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Editor**: nút nổi kính mờ ‹ · (↶ ↷ ⋯) · Xuất (nút tròn); ⋯ là menu dự án (Nền, Slide, Nhạc, Vẽ); thanh công cụ dưới chỉ còn Ảnh · Chữ · Thành phần · Bố cục + Lớp
 - [x] Kiểm tra tự động `e2e/m18.mjs`; các bộ cũ đổi sang luồng mới (`newProject()` = + → Từ ảnh, tab Dự án sau khi tải lại)
 - [ ] Chủ dự án thử trên iPhone / iPad: trang chủ mới, tạo dự án theo tỉ lệ / tuỳ chỉnh, màn chi tiết template, editor mới
+
+### M19 — Chữ, chỉnh ảnh, thư viện, xuất — đang làm
+Đặc tả: [10](../product/editor-v2/10-chu.md), [09](../product/editor-v2/09-anh-va-video.md) mục 6–10, [11](../product/editor-v2/11-thu-vien.md), [12](../product/editor-v2/12-sheet-menu-xuat-lop.md) mục 2–5; cách cài: [dev/editor-v2](../dev/editor-v2.md) mục 0f.
+- [x] **Chữ gõ trực tiếp trên canvas**: nút Chữ đặt "Thêm chữ" ở góc trên trái slide đang xem, bàn phím mở ngay, chữ mẫu được chọn sẵn để gõ đè; hộp gõ nằm đúng chỗ, đúng phông / cỡ / màu / góc xoay của chữ
+- [x] **Thanh gõ**: A| Sửa · Aa Định dạng · ≡ Căn lề · ✕; Aa / ≡ cất bàn phím và mở sheet ở chỗ bàn phím
+- [x] **Định dạng**: B · I · U · S, Phông (theo nhóm, có độ đậm), Màu chữ, Cỡ, Giãn cách (chữ, dòng), Viền chữ, Nền chữ + Bóng; **Căn lề** trái / giữa / phải / đều hai bên
+- [x] Kết thúc gõ bằng ✕ hoặc chạm ra ngoài; chữ vẫn được chọn; **cả lần gõ + định dạng là một bước hoàn tác**; xoá hết chữ thì hộp chữ biến mất
+- [x] Thanh công cụ chữ: Sửa · Định dạng · Căn lề · Vị trí · **Độ mờ** · Chuyển động · Khoá · Nhân bản · Xoá
+- [x] Kiểm tra `e2e/m19.mjs`; m5, m8, m11 chuyển sang sheet Định dạng

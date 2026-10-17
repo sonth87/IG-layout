@@ -563,6 +563,8 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   /** A tap (editor-v2/06 rules 2, 3, 5, 6). */
   function onTap(target: Konva.Node, time: number) {
     const st = useEditor.getState();
+    // While typing, a tap outside the text box ends typing; the text stays selected (editor-v2/10 §7).
+    if (st.editingTextId) return st.setEditingText(null);
     const d = st.draft ?? st.doc;
     if (!d) return;
     const hitId = elementOf(target, d.elements);

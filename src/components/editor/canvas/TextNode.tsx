@@ -17,6 +17,8 @@ import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
 export function TextNode({ element: el, hooks }: { element: TextElement; hooks: DragHooks }) {
   const setDerived = useEditor((s) => s.setDerived);
   const setEditingText = useEditor((s) => s.setEditingText);
+  // While typing, an HTML box stands in for it (InlineText).
+  const typing = useEditor((s) => s.editingTextId === el.id);
   const textRef = useRef<Konva.Text>(null);
   const family = TEXT_FONTS[el.font].family;
   const weight = fontWeight(el);
@@ -43,7 +45,7 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
 
   const pad = el.background?.padding ?? 0;
   return (
-    <Group {...props} onDblTap={() => setEditingText(el.id)} onDblClick={() => setEditingText(el.id)}>
+    <Group {...props} opacity={typing ? 0 : props.opacity} onDblTap={() => setEditingText(el.id)} onDblClick={() => setEditingText(el.id)}>
       {el.background && (
         <Rect width={el.width} height={el.height} fill={el.background.color} cornerRadius={el.background.radius} />
       )}
@@ -53,7 +55,8 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
         width={el.width}
         padding={pad}
         fontFamily={loadedKey === fontKey ? family : "sans-serif"}
-        fontStyle={String(weight)}
+        fontStyle={`${el.italic ? "italic " : ""}${weight}`}
+        textDecoration={[el.underline && "underline", el.strike && "line-through"].filter(Boolean).join(" ")}
         fontSize={el.fontSize}
         lineHeight={el.lineHeight}
         letterSpacing={el.letterSpacing}
