@@ -5,6 +5,7 @@ import { create } from "zustand";
 import { migrateDoc } from "@/lib/project/migrate";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { placeImages } from "@/lib/project/placement";
+import { fillCells, fillTargets, freePhotos } from "@/lib/project/fill";
 import { canvasSize, GRID_COLS } from "@/lib/project/layout";
 import { deleteSlide, duplicateSlide, insertSlide, moveSlide, moveSlideTo, setGridGap, setGridRows } from "@/lib/project/slides";
 import { addLayoutSlide, applyTemplate, templateSlides } from "@/lib/templates/apply";
@@ -44,6 +45,8 @@ interface EditorState {
   selectedId: string | null;
   /** While set, the next photo the user taps swaps photos with this one. */
   swapFrom: string | null;
+  /** "Fill frame" sheet open for this photo cell (M16): fill empty cells, or replace one photo. */
+  fillFrame: { id: string; mode: "fill" | "replace" } | null;
   /** "Hold to compare": the selected photo is drawn without colour changes. */
   compare: boolean;
   /** Export in progress: photos are processed at full resolution. */
@@ -84,6 +87,10 @@ interface EditorState {
   removeElement: (id: string) => void;
   moveLayer: (id: string, direction: "up" | "down") => void;
   startSwap: (id: string | null) => void;
+  openFillFrame: (id: string, mode: "fill" | "replace") => void;
+  closeFillFrame: () => void;
+  /** Photos into the empty cells, starting with `activeId` (editor-v2/09 §1.3): one undo step. */
+  fillEmpty: (activeId: string, assets: ImageAsset[]) => void;
   applyLayout: (tpl: Template, photos: ImageAsset[], opts: TemplateOptions) => void;
   moveLayerTo: (id: string, where: "front" | "back") => void;
   toggleLock: (id: string) => void;
@@ -130,6 +137,7 @@ const EMPTY = {
   future: [],
   selectedId: null,
   swapFrom: null,
+  fillFrame: null,
   compare: false,
   exporting: false,
   currentSlide: 0,
@@ -255,21 +263,10 @@ export const useEditor = create<EditorState>()((set, get) => {
       const doc = get().doc;
       if (!doc || assets.length === 0) return;
       storeAssets(assets);
-      // Empty template cells first, in template order (M10); the rest float as before.
-      const empty = doc.elements.filter((el) => isImage(el) && !el.assetId).map((el) => el.id);
-      const fill = new Map(empty.slice(0, assets.length).map((id, i) => [id, assets[i]]));
-      const rest = assets.slice(fill.size);
-      const added = rest.length ? placeImages(doc, rest, doc.elements.length === 0 ? 0 : firstSlide) : [];
-      commit((d) => ({
-        ...d,
-        elements: [
-          ...d.elements.map((el) => {
-            const asset = fill.get(el.id);
-            return asset && isImage(el) ? { ...el, assetId: asset.id, crop: coverCrop(asset, innerFrame(el)), straighten: 0 } : el;
-          }),
-          ...added,
-        ],
-      }));
+      // An empty project is laid out from the photos; otherwise they are added as free
+      // photos on the slide in view, never into empty cells (Q-E2, editor-v2/09 §2).
+      const added = doc.elements.length === 0 ? placeImages(doc, assets, 0) : freePhotos(doc, assets, firstSlide);
+      commit((d) => ({ ...d, elements: [...d.elements, ...added] }));
       set({ selectedId: added[added.length - 1]?.id ?? null });
     },
 
@@ -393,6 +390,16 @@ export const useEditor = create<EditorState>()((set, get) => {
     moveLayer: (id, direction) => commit((d) => moveUnit(d, id, (from) => from + (direction === "up" ? 1 : -1))),
 
     startSwap: (id) => set({ swapFrom: id }),
+    openFillFrame: (id, mode) => set({ fillFrame: { id, mode }, selectedId: id }),
+    closeFillFrame: () => set({ fillFrame: null }),
+    fillEmpty: (activeId, assets) => {
+      const doc = get().doc;
+      if (!doc || assets.length === 0) return;
+      storeAssets(assets);
+      const targets = fillTargets(doc, activeId);
+      commit((d) => fillCells(d, targets, assets));
+      set({ selectedId: null, fillFrame: null });
+    },
 
     applyLayout: (tpl, photos, opts) => {
       storeAssets(photos);

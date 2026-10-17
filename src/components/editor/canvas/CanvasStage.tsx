@@ -66,7 +66,8 @@ function SelectionTransformer(props: {
   const trRef = useRef<Konva.Transformer>(null);
   const elements = useViewDoc()?.elements;
   const whole = !!el && pansInside(el);
-  const fixed = !!el && el.locked && !whole;
+  // A cell of a layout block follows its block: no handles of its own (M14 / M16).
+  const fixed = !!el && (el.locked || !!el.parentId) && !whole;
   const isText = el?.type === "text";
 
   useEffect(() => {
@@ -442,7 +443,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       return;
     }
     const node = stage.findOne(`#${sel.id}`);
-    if (sel.locked || !node) {
+    if (sel.locked || sel.parentId || !node) {
       pinch.current = { kind: "none", ...info };
       return;
     }
@@ -508,7 +509,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
         g.mode = "pan";
         g.el = sel;
         g.crop = sel.crop;
-      } else if (sel.locked) g.mode = "none";
+      } else if (sel.locked || sel.parentId) g.mode = "none";
       else {
         const node = e.target.getStage()?.findOne(`#${sel.id}`);
         g.mode = node ? "move" : "none";
@@ -582,7 +583,8 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     const res = tapResult(d, st.selectedId, hitId, onPlus);
     select(res.select);
     if (res.action === "editText" && res.select) setEditingText(res.select);
-    if (res.action === "fill") document.getElementById("replace-photo-input")?.click();
+    // Fill frame sheet for that cell (editor-v2/09 §1.1).
+    if (res.action === "fill" && res.select) st.openFillFrame(res.select, "fill");
   }
 
   /** The box around the whole picture of the selected framed photo follows its crop. */

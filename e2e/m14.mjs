@@ -88,11 +88,12 @@ await tapAt(full[1]);
 check((await S()).selected === full[1].id, "rule 5: another cell of the same block is selected directly");
 await tapAt(empty, empty.width * 0.35, 0);
 check((await S()).selected === block.id, "rule 6: beside the + of an empty cell → the block");
-const [chooser] = await Promise.all([page.waitForEvent("filechooser", { timeout: 3000 }).catch(() => null), tapAt(empty)]);
-check(!!chooser && (await S()).selected === empty.id, "rule 6: on the + → that cell is selected and the photo picker opens");
-await page.keyboard.press("Escape");
-// Below the slide: no element there.
-const below = await toPage(540, 1350 + 60);
+await tapAt(empty);
+const fillSheet = page.getByRole("region", { name: "Fill frame" });
+check((await fillSheet.isVisible()) && (await S()).selected === empty.id, "rule 6: on the + → that cell is selected and “Fill frame” opens");
+await fillSheet.getByRole("button", { name: "Close" }).click();
+// Well below the slide (under its ‖ ⋯ buttons): no element there.
+const below = await toPage(540, 1350 + 300);
 await page.mouse.click(below.x, below.y);
 check((await S()).selected === null, "tap where there is no element deselects");
 

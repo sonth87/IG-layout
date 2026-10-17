@@ -315,3 +315,14 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Sửa (2026-10-17, D-94): **bảng Lớp có ảnh xem trước** — mỗi dòng là ảnh thu nhỏ của chính phần tử (khối kèm ô) vẽ từ canvas, trên nền ô cờ; 👁 ẩn / hiện bên trái, 🔒 và ⠿ kéo đổi thứ tự bên phải; chạm ảnh để chọn
 - [x] Sửa (2026-10-17, D-94): **hỗ trợ iPad** — editor dùng hết bề rộng, cho xoay ngang (manifest `orientation: any`), trang chủ / chọn layout / xuất rộng hơn và nhiều cột hơn, các sheet căn giữa tối đa 672 px; mức zoom nhỏ nhất ¼ màn hình nhưng ≤ 120 px / slide để cả carousel vừa màn iPad
 - [ ] Chủ dự án thử trên iPhone: zoom "thấy hết", bật lại khi thu nhỏ quá, menu slide, giữ ‖ kéo đổi chỗ, Slide mới
+
+### M16 — Thêm ảnh — xong phần code 2026-10-17
+Đặc tả: [09](../product/editor-v2/09-anh-va-video.md) mục 1–2, 4; cách cài: [dev/editor-v2](../dev/editor-v2.md) mục 0c (D-95).
+- [x] Chạm **dấu +** của ô trống (lưới / template / khung) → sheet **"Lấp đầy khung"**: Ảnh · Video · Tệp (Tệp không lọc loại → iOS mở app Tệp, Android mở trình chọn tệp); đóng mà không chọn thì ô vẫn được chọn
+- [x] Chọn **nhiều ảnh**, tối đa bằng **số ô trống của cả dự án**; chọn thừa → dùng N ảnh đầu và báo "Đã dùng N ảnh đầu cho N ô trống"
+- [x] **Thứ tự điền**: ô đang chọn → ô trống khác cùng slide (đọc trái → phải, trên → dưới) → các slide từ đầu đến cuối (ví dụ G H / I J K / L: 1 ảnh → K; 3 → K I J; 6 → K I J G H L); mỗi ảnh phủ kín ô; cả lô là **một bước hoàn tác**; xong thì bỏ chọn
+- [x] **Nút Ảnh** ở thanh công cụ luôn thêm **ảnh tự do** (Q-E2), không điền ô trống: tối đa 10 ảnh (thừa thì báo), bắt đầu từ góc trên trái slide đang xem, rộng ~60 % slide, mỗi ảnh sau lệch 40 px, chọn ảnh cuối
+- [x] **Thay**: nút đầu tiên trên thanh công cụ ảnh (và trong ⋯) mở cùng sheet, thay một ảnh
+- [x] Ô trống thuộc khối không có tay nắm riêng, không kéo / chụm riêng được (đi theo khối)
+- [x] Kiểm tra tự động `e2e/m16.mjs`; m3, m5, m10, m14 cập nhật theo sheet mới
+- [ ] Chủ dự án thử trên iPhone / iPad: chạm + → Lấp đầy khung → chọn nhiều ảnh; nút Ảnh thêm ảnh tự do

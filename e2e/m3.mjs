@@ -1,5 +1,5 @@
 import { chromium } from "playwright-core";
-import { more, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { more, pickInFillFrame, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
 import path from "node:path";
 
 const url = URL_ARG;
@@ -113,9 +113,9 @@ check(cells(st).length === 9 && empties.length === 5, `9 cells, ${empties.length
 await tapEl(empties[0], empties[0].width * 0.35, 0);
 check((await page.evaluate(() => window.__igEditor.getState().selectedId)) === st.doc.elements.find((e) => e.type === "layout").id, "tap beside the + selects the block");
 // Right on the +: picks a photo for that cell at once.
-const [chooser] = await Promise.all([page.waitForEvent("filechooser"), tapEl(empties[0])]);
-check((await page.evaluate(() => window.__igEditor.getState().selectedId)) === empties[0].id, "tap on the + selects the empty cell and opens the picker");
-await chooser.setFiles(path.join(dir, "p3.jpg"));
+await tapEl(empties[0]);
+check((await page.evaluate(() => window.__igEditor.getState().selectedId)) === empties[0].id, "tap on the + selects the empty cell and opens “Fill frame”");
+await pickInFillFrame(page, path.join(dir, "p3.jpg"));
 for (let i = 0; i < 30 && cells(st = await S()).filter((e) => !e.assetId).length !== 4; i++);
 check(cells(st).filter((e) => !e.assetId).length === 4, "one empty cell filled");
 await shot(page, "4-grid9");

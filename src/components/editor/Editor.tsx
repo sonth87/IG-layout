@@ -18,6 +18,8 @@ import { ExportSheet } from "./ExportSheet";
 import { RemoveBgDialog } from "./RemoveBgDialog";
 import { FloatingMenu } from "./FloatingMenu";
 import { NewSlideSheet } from "./NewSlideSheet";
+import { FillFrameSheet } from "./FillFrameSheet";
+import { fillTargets, MAX_FREE_PHOTOS } from "@/lib/project/fill";
 import { SlideControls } from "./SlideControls";
 import { AdjustTool, FilterTool } from "./tools/ColorTools";
 import { CropTool } from "./tools/CropTool";
@@ -54,12 +56,7 @@ const MIN_SLIDE_PX = 120;
  * never changes size when you select something or open a tool (F-03).
  */
 const DOCK_RESERVE = 100;
-const REPLACE_INPUT_ID = "replace-photo-input";
 
-/** Opens the photo picker for "Replace" / "Add photo". */
-function pickReplacement() {
-  document.getElementById(REPLACE_INPUT_ID)?.click();
-}
 const MAX_ZOOM = 4;
 
 type Tool =
@@ -198,6 +195,15 @@ export function Editor({ onClose }: { onClose: () => void }) {
   /** Zoom shown while easing to a new "see every slide" level. */
   const [easing, setEasing] = useState<number | null>(null);
   const pinchZoomStart = useRef(1);
+  const fillFrame = useEditor((s) => s.fillFrame);
+  /** Short message at the bottom of the canvas (e.g. some picked photos were not used). */
+  const [notice, setNotice] = useState<string | null>(null);
+  const noticeTimer = useRef(0);
+  function showNotice(text: string) {
+    setNotice(text);
+    clearTimeout(noticeTimer.current);
+    noticeTimer.current = window.setTimeout(() => setNotice(null), 3500);
+  }
   useShortcuts(tool === null && !editingText && !exportOpen);
 
   const size = canvasSize(doc);
@@ -403,7 +409,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       return setTool("draw");
     }
     if (!id) return;
-    if (key === "replace") return pickReplacement();
+    if (key === "replace") return store.openFillFrame(id, "replace");
     if (key === "swap") return store.startSwap(id);
     if (key === "mask") return openTool("mask");
     if (key === "up" || key === "down") return store.moveLayer(id, key);
@@ -436,7 +442,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (selected.type === "image" && !selected.assetId)
       tools = (
         <>
-          <ToolButton label={t("editor.addPhoto")} icon="image" onClick={() => pickReplacement()} />
+          <ToolButton label={t("editor.addPhoto")} icon="image" onClick={() => store.openFillFrame(selected.id, "fill")} />
           {selected.slot && <ToolButton label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(selected.id)} />}
           <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
         </>
@@ -456,6 +462,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     else if (selected.type === "image")
       tools = (
         <>
+          <ToolButton label={t("editor.replace")} icon="replace" onClick={() => store.openFillFrame(selected.id, "replace")} />
           <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />
           <ToolButton label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />
           <ToolButton label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />
@@ -690,24 +697,12 @@ export function Editor({ onClose }: { onClose: () => void }) {
         multiple
         hidden
         onChange={(e) => {
-          if (e.target.files?.length) void importFiles(e.target.files, currentSlide);
-          e.target.value = "";
-        }}
-      />
-      <input
-        id={REPLACE_INPUT_ID}
-        type="file"
-        accept="image/*,video/*"
-        hidden
-        onChange={async (e) => {
-          // Copy before clearing the input: clearing empties its FileList.
+          // Free photos on the slide in view, at most 10 at once (editor-v2/09 §2).
           const files = Array.from(e.target.files ?? []);
           e.target.value = "";
-          // The cell selected when the picker opened (tapping an empty "+" cell selects it).
-          const target = useEditor.getState().selectedId;
-          if (!files.length || !target) return;
-          const [asset] = await decodeFiles(files);
-          if (asset) store.replaceImage(target, asset);
+          if (!files.length) return;
+          if (files.length > MAX_FREE_PHOTOS && doc.elements.length > 0) showNotice(t("photos.trimmed", { count: MAX_FREE_PHOTOS }));
+          void importFiles(doc.elements.length > 0 ? files.slice(0, MAX_FREE_PHOTOS) : files, currentSlide);
         }}
       />
 
@@ -735,6 +730,28 @@ export function Editor({ onClose }: { onClose: () => void }) {
             close();
           }}
         />
+      )}
+      {fillFrame && (
+        <FillFrameSheet
+          replace={fillFrame.mode === "replace"}
+          max={fillFrame.mode === "replace" ? 1 : Math.max(1, fillTargets(doc, fillFrame.id).length)}
+          onClose={store.closeFillFrame}
+          onFiles={async (files) => {
+            const { id, mode } = fillFrame;
+            const max = mode === "replace" ? 1 : Math.max(1, fillTargets(doc, id).length);
+            if (files.length > max) showNotice(t("fill.trimmed", { count: max }));
+            store.closeFillFrame();
+            const assets = await decodeFiles(files.slice(0, max));
+            if (mode === "replace") {
+              if (assets[0]) store.replaceImage(id, assets[0]);
+            } else store.fillEmpty(id, assets);
+          }}
+        />
+      )}
+      {notice && (
+        <div role="status" className="pointer-events-none fixed inset-x-0 bottom-28 z-30 flex justify-center px-4">
+          <span className="rounded-full bg-text px-4 py-2 text-sm text-bg shadow-lg">{notice}</span>
+        </div>
       )}
       {tool === "newSlide" && (
         <NewSlideSheet

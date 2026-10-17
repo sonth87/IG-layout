@@ -42,6 +42,18 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Kiểm thử:** `e2e/m15.mjs` theo 8 tiêu chí của product/05.
 
+## 0c. Đã cài ở M16 (2026-10-17, D-95)
+
+**Điền ô trống** (`lib/project/fill.ts`): `fillTargets(doc, activeId)` — "ô trống" là mọi `ImageElement` chưa có ảnh (ô của khối, ảnh trống của template, khung ảnh), không bị ẩn; slide của ô = slide chứa **tâm của ô**; thứ tự đọc trong slide = theo hàng (tâm lệch nhau ≤ 4 % chiều cao slide coi là cùng hàng) rồi trái → phải. `fillCells(doc, targets, assets)` đặt ảnh `i` vào ô `i` với `coverCrop(innerFrame)`. Store: `fillEmpty(activeId, assets)` (một `commit`, bỏ chọn).
+
+**Sheet "Lấp đầy khung"** (`FillFrameSheet.tsx`): store giữ `fillFrame: { id, mode: "fill" | "replace" }` (`openFillFrame` cũng chọn ô đó). Mở từ: chạm trúng dấu + (`tapResult` → `"fill"`, `CanvasStage` gọi `openFillFrame`), nút "Thêm ảnh" của ô trống, nút "Thay" của ảnh. Ba `<input type=file>`: `image/*` multiple, `video/*` multiple, không `accept` (Tệp). Ở chế độ thay: không `multiple`, `replaceImage`. Số tối đa = `fillTargets(...).length`; thừa thì `slice` + thông báo (`notice` trong `Editor`, tự ẩn sau 3,5 s). Bỏ `#replace-photo-input` cũ.
+
+**Nút Ảnh** (`addImages`): dự án trống → bố cục ban đầu như cũ (`placeImages`); có nội dung → `freePhotos(doc, assets, currentSlide)` (lề 6 %, 60 % slide, lệch 40 px), không bao giờ điền ô trống; giới hạn `MAX_FREE_PHOTOS = 10` ở `Editor`.
+
+**Ô của khối** không có tay nắm, không dời / chụm riêng (`SelectionTransformer.fixed`, `onPointerMove`, `startPinch` coi `parentId` như khoá) — trừ khi ô có ảnh thì vẫn dời / phóng ảnh bên trong như M14.
+
+**Kiểm thử:** `e2e/m16.mjs` (ví dụ G H / I J K / L với 1, 3, 7 ảnh; một bước hoàn tác; Thay; nút Ảnh tự do, giới hạn 10).
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:

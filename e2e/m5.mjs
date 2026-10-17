@@ -1,6 +1,6 @@
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG, pickInFillFrame } from "./lib.mjs";
 
 const url = URL_ARG;
 const shot = (p, n) => p.screenshot({ path: path.join(out, `m5-${n}.png`) });
@@ -100,8 +100,8 @@ await page.getByRole("button", { name: "Polaroid", exact: true }).click();
 st = await S();
 let framed = st.doc.elements.find((e) => e.type === "image" && e.frame === "polaroid");
 check(!!framed && framed.assetId === null, "empty polaroid frame added");
-const [chooser] = await Promise.all([page.waitForEvent("filechooser"), page.getByRole("button", { name: "Add photo" }).click()]);
-await chooser.setFiles(path.join(dir, "portrait.jpg"));
+await page.getByRole("button", { name: "Add photo" }).click();
+await pickInFillFrame(page, path.join(dir, "portrait.jpg"));
 for (let i = 0; i < 30 && !(st = await S()).doc.elements.find((e) => e.id === framed.id).assetId; i++);
 framed = st.doc.elements.find((e) => e.id === framed.id);
 const m = Math.min(framed.width, framed.height);
@@ -110,6 +110,9 @@ check(Math.abs(framed.crop.width / framed.crop.height - innerAspect) < 0.01, "ph
 await shot(page, "2-elements");
 
 console.log("6. Frame from the Style tool");
+// Filling leaves nothing selected (editor-v2/09 §1.3): select the framed photo again.
+await page.evaluate((id) => window.__igEditor.getState().select(id), framed.id);
+await page.waitForTimeout(200);
 await page.getByRole("button", { name: "Style" }).click();
 await page.getByRole("radio", { name: "White frame" }).click();
 await apply();
