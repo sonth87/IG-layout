@@ -4,11 +4,11 @@ import type Konva from "konva";
 import { useEffect, useMemo, useRef } from "react";
 import { Shape } from "react-konva";
 import { drawShape } from "@/lib/elements/shapes";
-import { frameInset, straightenScale } from "@/lib/project/geometry";
+import { frameInset, innerFrame, straightenScale } from "@/lib/project/geometry";
+import { refitCrop } from "@/lib/project/blocks";
 import { traceMask } from "@/lib/project/masks";
-import { frameColor, type ImageElement, pansInside, type Rect } from "@/lib/project/types";
+import { frameColor, type ImageElement, pansInside } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
-import { useElementInteraction } from "./interaction";
 import { useHtmlImage } from "./useHtmlImage";
 import { frameOverrides } from "@/lib/video/frames";
 import { attachVideo, defaultMedia, detachVideo } from "@/lib/video/playback";
@@ -24,8 +24,6 @@ import { useProcessedImage } from "./useProcessedImage";
 
 interface Props {
   element: ImageElement;
-  onDragMove: (node: Konva.Node, element: ImageElement) => void;
-  onDragEnd: () => void;
 }
 
 /**
@@ -33,13 +31,15 @@ interface Props {
  * image, border. Its self rect is exactly the frame, so selection handles fit it.
  * Positioned by its center (rotation around the center).
  *
- * Template cells (`slot`): dragging pans the photo inside the frame instead of
- * moving the frame. Empty cells (no photo) show a "+" placeholder.
+ * Empty cells (no photo) show a "+" placeholder. Tapping, dragging and pinching are
+ * handled by the canvas for the selected element (M14, editor-v2/06). While a photo in
+ * a frame is selected, the rest of the picture is drawn faintly around the frame so the
+ * user sees what is cut off (editor-v2/07 §1).
  */
-export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
+export function ImageNode({ element: el }: Props) {
   const asset = useEditor((s) => (el.assetId ? s.assets[el.assetId] : undefined));
-  const { draggable, preventDefault, onSelect, onMouseSelect } = useElementInteraction(el);
   const updateElement = useEditor((s) => s.updateElement);
+  const showWhole = useEditor((s) => s.selectedId === el.id && !s.exporting && pansInside(el) && !s.drawing);
   const isVideo = !!asset?.video;
   // Videos (M13): the poster stands in until the player has a frame.
   const original = useHtmlImage(isVideo ? asset?.video?.posterUrl : asset?.url);
@@ -69,17 +69,6 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
     [isVideo, compareThis, el.adjust, el.filter, preset],
   );
   const frameCanvas = useRef<{ scratch: HTMLCanvasElement; out: HTMLCanvasElement } | null>(null);
-  /** Crop while panning a slot (drawn live, committed on release). */
-  const liveCrop = useRef<Rect | null>(null);
-  const panStart = useRef<{ x: number; y: number } | null>(null);
-
-  const inside = pansInside(el);
-
-  /** Selects the empty cell and opens the photo picker (the editor fills the selected cell). */
-  function fillEmpty() {
-    useEditor.getState().select(el.id);
-    document.getElementById("replace-photo-input")?.click();
-  }
 
   const w = el.width;
   const h = el.height;
@@ -152,7 +141,7 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       }
     }
     if (source && original) {
-      let crop = liveCrops.get(el.id) ?? liveCrop.current ?? el.crop;
+      let crop = liveCrops.get(el.id) ?? el.crop;
       // Ken Burns (M13.3): drift inside the frame while playing / exporting.
       const kb = el.motion?.kenBurns;
       const progress = kb ? motionClock()?.progress.get(el.id) : undefined;
@@ -161,6 +150,23 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       // Crop is in source pixels; the processed photo copy may be smaller (videos: same size).
       const k = isVideo ? (source === original ? original.width / (asset?.width || original.width) : videoScale) : image!.width / original.width;
       const s = straightenScale(iw, ih, el.straighten);
+      if (showWhole && asset && !el.straighten) {
+        // The whole picture, faint, outside the clip (editor-v2/07 §1): drawn on the
+        // un-clipped context below, then the frame's part on top as usual.
+        c.restore();
+        c.save();
+        c.translate(inner.x, inner.y);
+        const z = iw / crop.width; // frame px per picture px
+        c.globalAlpha *= 0.32;
+        c.translate(iw / 2, ih / 2);
+        c.scale(el.flipX ? -1 : 1, el.flipY ? -1 : 1);
+        c.drawImage(source, 0, 0, asset.width * k, asset.height * k, -iw / 2 - crop.x * z, -ih / 2 - crop.y * z, asset.width * z, asset.height * z);
+        c.restore();
+        c.save();
+        c.translate(inner.x, inner.y);
+        traceMask(c, mask, iw, ih, el.cornerRadius);
+        c.clip();
+      }
       c.save();
       c.translate(iw / 2, ih / 2);
       c.rotate((el.straighten * Math.PI) / 180);
@@ -225,29 +231,10 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
     ctx.fillStrokeShape(shape);
   }
 
-  /** Slot panning: keep the frame in place, shift the crop instead. */
-  function panSlot(node: Konva.Node) {
-    const start = panStart.current;
-    if (!start || !asset) return;
-    const scale = el.crop.width / frameInset(el.frame, w, h).width; // image px per frame px
-    const t = (-el.rotation * Math.PI) / 180;
-    const dx = node.x() - start.x;
-    const dy = node.y() - start.y;
-    // Finger movement in the frame's own (rotated) axes.
-    const fx = dx * Math.cos(t) - dy * Math.sin(t);
-    const fy = dx * Math.sin(t) + dy * Math.cos(t);
-    node.position(start);
-    liveCrop.current = {
-      ...el.crop,
-      x: Math.max(0, Math.min(asset.width - el.crop.width, el.crop.x - fx * scale * (el.flipX ? -1 : 1))),
-      y: Math.max(0, Math.min(asset.height - el.crop.height, el.crop.y - fy * scale * (el.flipY ? -1 : 1))),
-    };
-    node.getLayer()?.batchDraw();
-  }
-
   return (
     <Shape
       id={el.id}
+      preventDefault={false}
       x={cx}
       y={cy}
       width={w}
@@ -259,40 +246,23 @@ export function ImageNode({ element: el, onDragMove, onDragEnd }: Props) {
       visible={!el.hidden}
       sceneFunc={draw}
       hitFunc={hit}
-      draggable={draggable}
-      preventDefault={preventDefault}
-      onMouseDown={el.assetId ? onMouseSelect : undefined}
-      // Empty cell ("+"): tap / click opens the photo picker right away and fills this cell.
-      onClick={el.assetId ? undefined : () => fillEmpty()}
-      onTap={el.assetId ? onSelect : () => fillEmpty()}
-      onDragStart={(e) => {
-        if (inside) panStart.current = { x: e.target.x(), y: e.target.y() };
-      }}
-      onDragMove={(e) => (inside ? panSlot(e.target) : onDragMove(e.target, el))}
-      // One history step per gesture: recorded when the finger is lifted.
-      onDragEnd={(e) => {
-        if (inside) {
-          const crop = liveCrop.current;
-          liveCrop.current = null;
-          panStart.current = null;
-          e.target.position({ x: cx, y: cy });
-          if (crop) updateElement(el.id, { crop });
-          return;
-        }
-        onDragEnd();
-        updateElement(el.id, { x: e.target.x() - w / 2, y: e.target.y() - h / 2 });
-      }}
       onTransformEnd={(e) => {
         const node = e.target;
         const nw = Math.max(20, w * node.scaleX());
         const nh = Math.max(20, h * node.scaleY());
         node.scale({ x: 1, y: 1 });
+        const next = { ...el, width: nw, height: nh };
+        const inner = innerFrame(next);
+        const before = innerFrame(el);
+        // A side handle changes the frame's shape (M14): re-crop instead of stretching.
+        const reshaped = asset && Math.abs(inner.width / inner.height - before.width / before.height) > 1e-3;
         updateElement(el.id, {
           x: node.x() - nw / 2,
           y: node.y() - nh / 2,
           width: nw,
           height: nh,
           rotation: node.rotation(),
+          ...(reshaped && { crop: refitCrop(el.crop, inner.width / inner.height, asset) }),
         });
       }}
     />

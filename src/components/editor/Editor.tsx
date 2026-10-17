@@ -392,6 +392,14 @@ export function Editor({ onClose }: { onClose: () => void }) {
           {done}
         </>
       );
+    else if (selected.type === "layout")
+      // Layout block (M14): change the split; move / resize / turn on the canvas.
+      tools = (
+        <>
+          <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
+          {done}
+        </>
+      );
     else if (selected.type === "text")
       tools = (
         <>

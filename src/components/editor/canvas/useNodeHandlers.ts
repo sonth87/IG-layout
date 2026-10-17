@@ -3,7 +3,6 @@
 import type Konva from "konva";
 import type { CanvasElement } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
-import { useElementInteraction } from "./interaction";
 
 export interface DragHooks {
   onDragMove: (node: Konva.Node, element: CanvasElement) => void;
@@ -18,14 +17,15 @@ export interface DragHooks {
  */
 export function useNodeHandlers(
   el: CanvasElement,
-  hooks: DragHooks,
+  _hooks: DragHooks,
   onResize?: (scale: number) => Partial<CanvasElement>,
 ) {
   const updateElement = useEditor((s) => s.updateElement);
-  const { draggable, preventDefault, onSelect, onMouseSelect } = useElementInteraction(el);
   const w = el.width;
   const h = el.height;
 
+  // Selecting, dragging and pinching are handled by the canvas for whatever is selected
+  // (M14, editor-v2/06); nodes only report transformer resizes / turns.
   return {
     id: el.id,
     x: el.x + w / 2,
@@ -35,23 +35,18 @@ export function useNodeHandlers(
     rotation: el.rotation,
     opacity: el.opacity,
     visible: !el.hidden,
-    draggable,
-    preventDefault,
-    onMouseDown: onMouseSelect,
-    onTap: onSelect,
-    onDragMove: (e: Konva.KonvaEventObject<DragEvent>) => hooks.onDragMove(e.target, el),
-    onDragEnd: (e: Konva.KonvaEventObject<DragEvent>) => {
-      hooks.onDragEnd();
-      updateElement(el.id, { x: e.target.x() - w / 2, y: e.target.y() - h / 2 });
-    },
+    // Who owns a touch is decided by CanvasStage (M14); Konva must not block scrolling.
+    preventDefault: false,
     onTransformEnd: (e: Konva.KonvaEventObject<Event>) => {
       const node = e.target;
       const sx = node.scaleX();
       const sy = node.scaleY();
       node.scale({ x: 1, y: 1 });
-      const extra = onResize ? onResize(sx) : {};
+      // A side handle stretches one way (M14): no font / stroke scaling then.
+      const uniform = Math.abs(sx - sy) < 1e-3;
+      const extra = onResize && uniform ? onResize(sx) : {};
       const nw = Math.max(10, w * sx);
-      const nh = Math.max(10, h * sy);
+      const nh = el.type === "text" && !uniform ? h : Math.max(10, h * sy);
       updateElement(el.id, {
         x: node.x() - nw / 2,
         y: node.y() - nh / 2,

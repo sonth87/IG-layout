@@ -5,6 +5,7 @@ import { Icon, type IconName } from "@/components/ui/Icon";
 import type { CanvasElement } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { isSticker, STICKERS } from "@/lib/elements/stickers";
+import { units } from "@/lib/project/blocks";
 import { useSettings, useT } from "@/store/settings";
 
 export interface Action<K extends string = string> {
@@ -67,10 +68,11 @@ function elementLabel(el: CanvasElement, index: number, t: ReturnType<typeof use
   if (el.type === "icon" && el.svg) return el.icon.replace(/^emoji:/, "").replace(/-/g, " ");
   if (el.type === "icon") return isSticker(el.icon) ? STICKERS[el.icon].name[useSettings.getState().locale] : t(`icon.${el.icon}` as "icon.heart");
   if (el.type === "drawing") return t("editor.kind.drawing");
+  if (el.type === "layout") return `${t("editor.kind.layout")} · ${el.cells.length}`;
   return `${t("editor.kind.image")} ${index}`;
 }
 
-const KIND_ICON: Record<CanvasElement["type"], IconName> = { image: "image", text: "text", shape: "shapes", icon: "heart", drawing: "pencil" };
+const KIND_ICON: Record<CanvasElement["type"], IconName> = { image: "image", text: "text", shape: "shapes", icon: "heart", drawing: "pencil", layout: "layout" };
 
 /** Layers list (UX-10): select anything, even when it is covered; lock / unlock. Top of the list = front. */
 const LAYER_ROW = 48;
@@ -87,7 +89,10 @@ export function LayersSheet({ onClose }: { onClose: () => void }) {
   const [drag, setDrag] = useState<{ id: string; row: number; startY: number; dy: number } | null>(null);
   if (!doc) return null;
   let photo = 0;
-  const rows = doc.elements.map((el) => ({ el, label: elementLabel(el, el.type === "image" ? ++photo : 0, t) })).reverse();
+  // One row per top-level element: a layout block is one row, not one per cell (M14).
+  const rows = units(doc)
+    .map(([el]) => ({ el, label: elementLabel(el, el.type === "image" ? ++photo : 0, t) }))
+    .reverse();
   const last = rows.length - 1;
   const target = drag ? Math.max(0, Math.min(last, drag.row + Math.round(drag.dy / LAYER_ROW))) : -1;
 

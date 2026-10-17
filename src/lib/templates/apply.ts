@@ -2,6 +2,7 @@ import { imageElement } from "@/lib/project/placement";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { canvasSize, slideRect } from "@/lib/project/layout";
 import { type CanvasElement, MAX_SLIDES, type ImageAsset, newId, type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
+import { groupSlots } from "@/lib/project/blocks";
 import type { Template, TemplateOptions, TemplateSlot } from "./types";
 
 const EPS = 0.001;
@@ -140,5 +141,6 @@ export function applyTemplate(
     });
   }
 
-  return { ...doc, slideCount, background, elements: elements.map((e) => ({ ...e, fromLayout: true })) };
+  // Grid cells become one layout block per slide (M14).
+  return groupSlots({ ...doc, slideCount, background, elements: elements.map((e) => ({ ...e, fromLayout: true })) });
 }
