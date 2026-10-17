@@ -465,7 +465,7 @@
       "id": "checklist",
       "existing": false,
       "name": { "en": "Mini checklist", "vi": "Danh sách việc" },
-      "description": " Tờ giấy ghi chú các đầu việc kèm ô đánh dấu hoàn thành cho ngày cuối tuần hoặc chuyến đi.",
+      "description": "Tờ giấy ghi chú các đầu việc kèm ô đánh dấu hoàn thành cho ngày cuối tuần hoặc chuyến đi.",
       "fields": ["title", "item1", "item2", "item3"],
       "samples": {
         "en": {
@@ -545,7 +545,7 @@
       "id": "receipt",
       "existing": false,
       "name": { "en": "Mini receipt", "vi": "Hoá đơn kỷ niệm" },
-      "description": "Tờ hoá đơn giấy nhiệt in các 'món' kỷ niệm trong ngày kèm tổng kết100% niềm vui.",
+      "description": "Tờ hoá đơn giấy nhiệt in các 'món' kỷ niệm trong ngày kèm tổng kết 100% niềm vui.",
       "fields": ["storeName", "line1", "line2", "line3", "total"],
       "samples": {
         "en": {
@@ -565,7 +565,7 @@
       }
     },
     {
-      "id": "StepCounter",
+      "id": "stepCounter",
       "existing": false,
       "name": { "en": "Step & distance", "vi": "Số bước chân" },
       "description": "Thẻ thống kê số bước chân và quãng đường đi bộ khám phá trong ngày du lịch.",
