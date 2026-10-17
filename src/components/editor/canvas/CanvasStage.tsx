@@ -29,6 +29,10 @@ const SNAP_SCREEN_PX = 8;
 /** Two-finger twist ignored below this, so a pinch doesn't tilt the photo (F-02). */
 const ROTATE_DEAD_ZONE = 8;
 /** Rotation sticks to 0 / 90 / 180 / 270° within this many degrees (F-02; 6 → 3, owner 2026-10-17). */
+/** Handle size (screen px): small like the reference, a bit larger on touch. */
+const ANCHOR = isTouchUI ? 14 : 10;
+/** Lucide "rotate-cw" (ISC), drawn on the turn handle. */
+const ROTATE_ICON = typeof Path2D === "undefined" ? [] : ["M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8", "M21 3v5h-5"].map((d) => new Path2D(d));
 const ROTATE_SNAP = 3;
 
 /** Rotation with snapping to right angles; `snapped` = it stuck to one. */
@@ -156,15 +160,14 @@ function SelectionTransformer(props: {
       keepRatio
       rotateEnabled={!fixed && !whole}
       resizeEnabled={!fixed}
-      anchorSize={isTouchUI ? 22 : 14}
-      anchorCornerRadius={11}
+      anchorSize={ANCHOR}
       borderStroke="#f2b84b"
       borderStrokeWidth={2}
       anchorStroke="#f2b84b"
       anchorFill="#ffffff"
       // Turn handle below the element (editor-v2/07 §3).
       rotateAnchorAngle={180}
-      rotateAnchorOffset={isTouchUI ? 40 : 30}
+      rotateAnchorOffset={isTouchUI ? 34 : 26}
       rotationSnaps={snapOn ? [0, 90, 180, 270] : []}
       rotationSnapTolerance={ROTATE_SNAP}
       enabledAnchors={
@@ -175,63 +178,73 @@ function SelectionTransformer(props: {
             : ["top-left", "top-right", "bottom-left", "bottom-right", "top-center", "bottom-center", "middle-left", "middle-right"]
       }
       anchorStyleFunc={(anchor) => {
-        // Side handles are short bars along the edge.
+        // Small handles like the reference; the grab area stays finger-sized.
         const n = anchor.name();
-        const s = isTouchUI ? 22 : 14;
+        const s = ANCHOR;
+        const grab = isTouchUI ? 30 : 18;
         if (n.includes("rotater")) {
-          // The turn handle is a round button with a ⟳ (editor-v2/07 §3).
-          const d = s * 1.35;
+          // The turn handle is a round button with Lucide's rotate-cw (editor-v2/07 §3).
+          const d = isTouchUI ? 26 : 20;
           anchor.size({ width: d, height: d });
           anchor.offset({ x: d / 2, y: d / 2 });
-          anchor.sceneFunc((ctx, shape) => {
+          anchor.sceneFunc((ctx) => {
+            const c = ctx._context;
             const r = d / 2;
-            ctx.beginPath();
-            ctx.arc(r, r, r, 0, Math.PI * 2);
-            ctx.closePath();
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
-            ctx.lineWidth = 1.5;
-            ctx.strokeStyle = "#f2b84b";
-            ctx.stroke();
-            // Circular arrow.
-            ctx.beginPath();
-            ctx.arc(r, r, r * 0.45, -Math.PI * 0.15, Math.PI * 1.45);
-            ctx.lineWidth = Math.max(1.6, d * 0.07);
-            ctx.lineCap = "round";
-            ctx.strokeStyle = "#1a1b1e";
-            ctx.stroke();
-            const a = -Math.PI * 0.15;
-            const tx = r + Math.cos(a) * r * 0.45;
-            const ty = r + Math.sin(a) * r * 0.45;
-            ctx.beginPath();
-            ctx.moveTo(tx - d * 0.13, ty - d * 0.02);
-            ctx.lineTo(tx + d * 0.01, ty + d * 0.01);
-            ctx.lineTo(tx + d * 0.04, ty - d * 0.14);
-            ctx.stroke();
-            void shape;
+            c.beginPath();
+            c.arc(r, r, r - 0.75, 0, Math.PI * 2);
+            c.fillStyle = "#ffffff";
+            c.fill();
+            c.lineWidth = 1.5;
+            c.strokeStyle = "#f2b84b";
+            c.stroke();
+            const k = (d * 0.58) / 24;
+            c.save();
+            c.translate(r - 12 * k, r - 12 * k);
+            c.scale(k, k);
+            c.lineWidth = 2.2;
+            c.lineCap = "round";
+            c.lineJoin = "round";
+            c.strokeStyle = "#1a1b1e";
+            for (const path of ROTATE_ICON) c.stroke(path);
+            c.restore();
           });
-          // Grabbed anywhere on the round button (a bit larger on touch).
           anchor.hitFunc((ctx, shape) => {
             ctx.beginPath();
-            ctx.arc(d / 2, d / 2, d * 0.75, 0, Math.PI * 2);
+            ctx.arc(d / 2, d / 2, grab / 2 + 4, 0, Math.PI * 2);
             ctx.closePath();
             ctx.fillStrokeShape(shape);
           });
           return;
         }
-        if (n.includes("top-center") || n.includes("bottom-center")) {
-          anchor.width(s * 1.3);
-          anchor.height(s * 0.42);
-          anchor.offsetX((s * 1.3) / 2);
-          anchor.offsetY((s * 0.42) / 2);
-          anchor.cornerRadius(s * 0.21);
-        } else if (n.includes("middle-left") || n.includes("middle-right")) {
-          anchor.width(s * 0.42);
-          anchor.height(s * 1.3);
-          anchor.offsetX((s * 0.42) / 2);
-          anchor.offsetY((s * 1.3) / 2);
-          anchor.cornerRadius(s * 0.21);
+        const side = n.includes("center") || n.includes("middle");
+        const w = n.includes("top-center") || n.includes("bottom-center") ? s * 1.7 : side ? s * 0.5 : s;
+        const h = n.includes("middle-left") || n.includes("middle-right") ? s * 1.7 : side ? s * 0.5 : s;
+        anchor.width(w);
+        anchor.height(h);
+        anchor.offsetX(w / 2);
+        anchor.offsetY(h / 2);
+        anchor.cornerRadius(Math.min(w, h) / 2);
+        anchor.strokeWidth(1.5);
+        if (side) {
+          // A short edge (small zoom, thin element) hides its side handle; corners stay.
+          const tr = anchor.getParent();
+          const [from, to] = n.includes("center") ? ["top-left", "top-right"] : ["top-left", "bottom-left"];
+          const p = tr?.findOne("." + from)?.getAbsolutePosition();
+          const q = tr?.findOne("." + to)?.getAbsolutePosition();
+          const len = p && q ? Math.hypot(q.x - p.x, q.y - p.y) : Infinity;
+          if (len < s * 1.7 + grab * 2) anchor.visible(false);
         }
+        // The larger grab area grows outwards, so a small element stays tappable inside.
+        const dx = n.includes("left") ? -1 : n.includes("right") ? 1 : 0;
+        const dy = n.includes("top") ? -1 : n.includes("bottom") ? 1 : 0;
+        anchor.hitFunc((ctx, shape) => {
+          const gw = Math.max(w, grab);
+          const gh = Math.max(h, grab);
+          ctx.beginPath();
+          ctx.rect(w / 2 - gw / 2 + (dx * (gw - w)) / 2, h / 2 - gh / 2 + (dy * (gh - h)) / 2, gw, gh);
+          ctx.closePath();
+          ctx.fillStrokeShape(shape);
+        });
       }}
       boundBoxFunc={(oldBox, box) => {
         if (whole || Math.abs(box.rotation) > 0.01 || !snapOn) return box;

@@ -399,3 +399,9 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Menu ⋯ của dự án là **popover thả xuống** dưới nút (kính mờ), **Hít ›** mở tại chỗ Bật / Tắt có ✓
 - [x] Thư viện **Lưới trải hết**, không cần "+N"
 - [x] Thẻ template nhiều slide ở trang chủ **vuốt ngang ngay trên thẻ** để xem các slide, chấm chỉ slide đổi theo
+
+### Sửa theo góp ý (2026-10-17, lần 3) — D-103
+- [x] Nút xoay dùng icon **Lucide rotate-cw** (mũi tên đúng chiều)
+- [x] Tay nắm co giãn **nhỏ lại** (góc 14 px cảm ứng / 10 px chuột, cạnh là thanh ngắn); vùng chạm vẫn ~30 px nhưng **lan ra ngoài khung** để phần tử nhỏ vẫn chạm vào được bên trong
+- [x] Cạnh quá ngắn trên màn hình (thu nhỏ slide, phần tử nhỏ) thì **ẩn tay nắm cạnh**, giữ tay nắm góc
+- [x] **Mỗi vùng cuộn chỉ một chiều**: dải công cụ chỉ cuộn ngang, sheet / panel chỉ cuộn dọc (sheet Nền không còn cuộn ngang; thanh công cụ chữ không còn cuộn dọc)

@@ -154,3 +154,14 @@ img {
     animation: none;
   }
 }
+
+/* One scroll direction per strip / panel: a row of tools only scrolls sideways and a
+   panel only scrolls up and down (an "auto" axis would otherwise make the other one
+   scrollable too). Unlayered, so it wins over the utilities. */
+.overflow-x-auto:not(.overflow-y-auto) {
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+.overflow-y-auto:not(.overflow-x-auto) {
+  overflow-x: hidden;
+}

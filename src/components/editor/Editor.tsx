@@ -633,7 +633,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
       t("editor.tools"),
       <div className="flex items-center gap-2">
         {/* Slides sideways when the tools don't fit; ✕ deselects (editor-v2/07 §5). */}
-        <div className={`no-scrollbar flex h-14 min-w-0 flex-1 overflow-x-auto px-1 ${PILL}`}>
+        <div className={`no-scrollbar flex h-14 min-w-0 flex-1 touch-pan-x overflow-x-auto px-1 ${PILL}`}>
           {tools}
         </div>
         <button type="button" aria-label={t("common.done")} onClick={() => store.select(null)} className={ROUND}>
