@@ -1,0 +1,587 @@
+{
+  "widgets": [
+    {
+      "id": "label",
+      "existing": true,
+      "name": { "en": "Label", "vi": "Nhãn" },
+      "description": "Nhãn chữ ngắn gọn trên nền hộp tối bo góc nhỏ, dùng để gắn thẻ hoặc chú thích ngắn trên ảnh.",
+      "fields": ["text"],
+      "samples": {
+        "en": { "text": "Weekend mood" },
+        "vi": { "text": "Cuối tuần thảnh thơi" }
+      },
+      "variants": {
+        "en": [
+          { "text": "Me" },
+          { "text": "Core memory" },
+          { "text": "Little joys" },
+          { "text": "Photo dump" },
+          { "text": "Good vibes" }
+        ],
+        "vi": [
+          { "text": "Mình" },
+          { "text": "Kỷ niệm đẹp" },
+          { "text": "Chút bình yên" },
+          { "text": "Góc nhỏ" },
+          { "text": "Ngày nắng" }
+        ]
+      }
+    },
+    {
+      "id": "message",
+      "existing": true,
+      "name": { "en": "Message", "vi": "Tin nhắn" },
+      "description": "Bong bóng tin nhắn một chiều màu xanh dương bo tròn kiểu ứng dụng nhắn tin.",
+      "fields": ["text"],
+      "samples": {
+        "en": { "text": "See you soon!" },
+        "vi": { "text": "Hẹn gặp lại nhé!" }
+      },
+      "variants": {
+        "en": [
+          { "text": "On my way ☕" },
+          { "text": "Made it home safe!" },
+          { "text": "Wish you were here" },
+          { "text": "Best trip ever!" }
+        ],
+        "vi": [
+          { "text": "Đang qua đón nè ☕" },
+          { "text": "Về tới nhà an toàn rồi!" },
+          { "text": "Ước gì có cậu ở đây" },
+          { "text": "Chuyến đi vui hết nấc!" }
+        ]
+      }
+    },
+    {
+      "id": "location",
+      "existing": true,
+      "name": { "en": "Location", "vi": "Địa điểm" },
+      "description": "Viên thuốc (pill) nền trắng chữ đậm kèm biểu tượng ghim vị trí để đánh dấu nơi chụp ảnh.",
+      "fields": ["place"],
+      "samples": {
+        "en": { "place": "📍 Da Lat" },
+        "vi": { "place": "📍 Đà Lạt" }
+      },
+      "variants": {
+        "en": [
+          { "place": "📍 Hanoi Old Quarter" },
+          { "place": "📍 Hoi An Ancient Town" },
+          { "place": "📍 Saigon, Vietnam" },
+          { "place": "📍 Kyoto, Japan" }
+        ],
+        "vi": [
+          { "place": "📍 Phố cổ Hà Nội" },
+          { "place": "📍 Phố cổ Hội An" },
+          { "place": "📍 Sài Gòn" },
+          { "place": "📍 Phú Quốc" }
+        ]
+      }
+    },
+    {
+      "id": "highlight",
+      "existing": true,
+      "name": { "en": "Highlight", "vi": "Tô sáng" },
+      "description": "Chữ serif đậm trên nền vàng tươi như bút dạ quang tô nổi bật cụm từ chính.",
+      "fields": ["text"],
+      "samples": {
+        "en": { "text": "best day" },
+        "vi": { "text": "ngày đẹp nhất" }
+      },
+      "variants": {
+        "en": [
+          { "text": "golden hour" },
+          { "text": "pure happiness" },
+          { "text": "unforgettable" },
+          { "text": "slow living" }
+        ],
+        "vi": [
+          { "text": "chiều hoàng hôn" },
+          { "text": "thanh xuân rực rỡ" },
+          { "text": "đáng nhớ nhất" },
+          { "text": "sống chậm lại" }
+        ]
+      }
+    },
+    {
+      "id": "clock",
+      "existing": true,
+      "name": { "en": "Flip clock", "vi": "Đồng hồ lật" },
+      "description": "Đồng hồ số lật cỡ lớn trên nền xám đen cổ điển, ghi dấu mốc thời gian trong ngày.",
+      "fields": ["time"],
+      "samples": {
+        "en": { "time": "09:41" },
+        "vi": { "time": "09:41" }
+      },
+      "variants": {
+        "en": [
+          { "time": "06:30" },
+          { "time": "17:45" },
+          { "time": "23:11" }
+        ],
+        "vi": [
+          { "time": "06:30" },
+          { "time": "17:45" },
+          { "time": "23:11" }
+        ]
+      }
+    },
+    {
+      "id": "weather",
+      "existing": false,
+      "name": { "en": "Weather card", "vi": "Thời tiết" },
+      "description": "Thẻ thời tiết nhỏ gọn hiển thị biểu tượng nắng/mưa, nhiệt độ, trạng thái trời và tên thành phố.",
+      "fields": ["icon", "temperature", "condition", "city"],
+      "samples": {
+        "en": {
+          "icon": "☀️",
+          "temperature": "24°C",
+          "condition": "Sunny & Breezy",
+          "city": "Da Lat"
+        },
+        "vi": {
+          "icon": "☀️",
+          "temperature": "24°C",
+          "condition": "Nắng dịu & gió mát",
+          "city": "Đà Lạt"
+        }
+      }
+    },
+    {
+      "id": "calendarDate",
+      "existing": false,
+      "name": { "en": "Calendar sheet", "vi": "Tờ lịch ngày" },
+      "description": "Tờ lịch bóc theo ngày gồm tháng ở dải màu phía trên, số ngày lớn ở giữa và thứ ở dưới.",
+      "fields": ["month", "day", "weekday", "note"],
+      "samples": {
+        "en": {
+          "month": "OCTOBER",
+          "day": "18",
+          "weekday": "Sunday",
+          "note": "Autumn trip"
+        },
+        "vi": {
+          "month": "THÁNG 10",
+          "day": "18",
+          "weekday": "Chủ nhật",
+          "note": "Chuyến đi mùa thu"
+        }
+      }
+    },
+    {
+      "id": "countdown",
+      "existing": false,
+      "name": { "en": "Countdown", "vi": "Đếm ngược" },
+      "description": "Khung đếm ngược số ngày hoặc số giờ còn lại tới một sự kiện đặc biệt (sinh nhật, chuyến đi, lễ kỷ niệm).",
+      "fields": ["title", "count", "unit", "targetDate"],
+      "samples": {
+        "en": {
+          "title": "Summer Vacation",
+          "count": "D-14",
+          "unit": "days left",
+          "targetDate": "2026.07.01"
+        },
+        "vi": {
+          "title": "Chuyến đi biển",
+          "count": "Còn 14",
+          "unit": "ngày nữa",
+          "targetDate": "01.07.2026"
+        }
+      }
+    },
+    {
+      "id": "nowPlaying",
+      "existing": false,
+      "name": { "en": "Now playing", "vi": "Bài hát đang nghe" },
+      "description": "Thanh trình phát nhạc thu nhỏ có tên bài hát, nghệ sĩ, vạch thời gian và nút điều khiển.",
+      "fields": ["songTitle", "artist", "currentTime", "totalTime"],
+      "samples": {
+        "en": {
+          "songTitle": "Sunday Morning Breeze",
+          "artist": "Acoustic Sessions",
+          "currentTime": "01:28",
+          "totalTime": "03:45"
+        },
+        "vi": {
+          "songTitle": "Nắng Sớm Ban Mai",
+          "artist": "Khúc Nhạc Dịu Êm",
+          "currentTime": "01:28",
+          "totalTime": "03:45"
+        }
+      }
+    },
+    {
+      "id": "starRating",
+      "existing": false,
+      "name": { "en": "Star rating", "vi": "Đánh giá sao" },
+      "description": "Thẻ đánh giá 5 sao kèm điểm số và nhận xét ngắn cho quán ăn, bộ phim hoặc địa điểm du lịch.",
+      "fields": ["stars", "score", "title", "comment"],
+      "samples": {
+        "en": {
+          "stars": "★★★★★",
+          "score": "5.0 / 5.0",
+          "title": "Corner Matcha Latte",
+          "comment": "Rich flavor, cozy upstairs seat!"
+        },
+        "vi": {
+          "stars": "★★★★★",
+          "score": "5.0 / 5.0",
+          "title": "Cà phê muối góc phố",
+          "comment": "Thơm béo vừa miệng, quán cực xinh!"
+        }
+      }
+    },
+    {
+      "id": "poll",
+      "existing": false,
+      "name": { "en": "Story poll", "vi": "Bình chọn" },
+      "description": "Hộp bình chọn 2 lựa chọn kèm tỉ lệ phần trăm kiểu tương tác trên mạng xã hội.",
+      "fields": ["question", "optionA", "percentA", "optionB", "percentB"],
+      "samples": {
+        "en": {
+          "question": "Weekend getaway pick?",
+          "optionA": "Mountain cabin 🌲",
+          "percentA": "68%",
+          "optionB": "Sunny beach 🏖️",
+          "percentB": "32%"
+        },
+        "vi": {
+          "question": "Cuối tuần này đi đâu?",
+          "optionA": "Lên núi săn mây 🌲",
+          "percentA": "68%",
+          "optionB": "Xuống biển đón nắng 🏖️",
+          "percentB": "32%"
+        }
+      }
+    },
+    {
+      "id": "chatConvo",
+      "existing": false,
+      "name": { "en": "Two-way chat", "vi": "Đoạn chat hai người" },
+      "description": "Cặp bong bóng hội thoại qua lại giữa hai người kèm giờ gửi tin nhắn.",
+      "fields": ["senderName", "incomingText", "outgoingText", "timestamp"],
+      "samples": {
+        "en": {
+          "senderName": "Bestie",
+          "incomingText": "Are you ready for coffee?",
+          "outgoingText": "Already downstairs with pastries! 🥐",
+          "timestamp": "10:15 AM"
+        },
+        "vi": {
+          "senderName": "Bạn thân",
+          "incomingText": "Chuẩn bị xong chưa đi cà phê nè?",
+          "outgoingText": "Đang đợi dưới nhà kèm bánh sừng bò rồi! 🥐",
+          "timestamp": "10:15"
+        }
+      }
+    },
+    {
+      "id": "phoneNotification",
+      "existing": false,
+      "name": { "en": "Notification banner", "vi": "Thông báo điện thoại" },
+      "description": "Khung thông báo màn hình khóa bán trong suốt gồm tên ứng dụng, thời gian, tiêu đề và nội dung.",
+      "fields": ["appName", "timeAgo", "title", "body"],
+      "samples": {
+        "en": {
+          "appName": "REMINDERS",
+          "timeAgo": "now",
+          "title": "Take a deep breath",
+          "body": "You are doing better than you think ✨"
+        },
+        "vi": {
+          "appName": "LỜI NHẮC",
+          "timeAgo": "bây giờ",
+          "title": "Nghỉ ngơi một chút nhé",
+          "body": "Hôm nay bạn đã cố gắng rất nhiều rồi ✨"
+        }
+      }
+    },
+    {
+      "id": "questionBox",
+      "existing": false,
+      "name": { "en": "Q&A prompt", "vi": "Hộp câu hỏi" },
+      "description": "Khung đặt câu hỏi và câu trả lời nổi bật, dùng để chia sẻ suy nghĩ hoặc giải đáp nhanh.",
+      "fields": ["prompt", "question", "answer"],
+      "samples": {
+        "en": {
+          "prompt": "Ask me anything",
+          "question": "Favorite spot from this trip?",
+          "answer": "The little hillside tea house at sunrise!"
+        },
+        "vi": {
+          "prompt": "Hỏi đáp cuối tuần",
+          "question": "Nơi thích nhất trong chuyến đi này?",
+          "answer": "Tiệm trà nhỏ trên đồi lúc bình minh!"
+        }
+      }
+    },
+    {
+      "id": "priceTag",
+      "existing": false,
+      "name": { "en": "Price & sale tag", "vi": "Giá / khuyến mãi" },
+      "description": "Nhãn giá sản phẩm có giá gốc gạch ngang, giá ưu đãi và mức giảm phần trăm.",
+      "fields": ["itemName", "originalPrice", "salePrice", "badge"],
+      "samples": {
+        "en": {
+          "itemName": "Handmade Linen Tote",
+          "originalPrice": "$35",
+          "salePrice": "$24",
+          "badge": "-30% OFF"
+        },
+        "vi": {
+          "itemName": "Túi vải lanh thêu tay",
+          "originalPrice": "250.000đ",
+          "salePrice": "175.000đ",
+          "badge": "GIẢM 30%"
+        }
+      }
+    },
+    {
+      "id": "hashtagPill",
+      "existing": false,
+      "name": { "en": "Hashtag group", "vi": "Cụm hashtag" },
+      "description": "Nhóm các thẻ hashtag dạng viên thuốc xếp ngang để phân loại chủ đề bức ảnh.",
+      "fields": ["tag1", "tag2", "tag3"],
+      "samples": {
+        "en": {
+          "tag1": "#SlowMorning",
+          "tag2": "#CoffeeLover",
+          "tag3": "#FilmDiary"
+        },
+        "vi": {
+          "tag1": "#GócNhỏBìnhYên",
+          "tag2": "#CàPhêSáng",
+          "tag3": "#NhậtKýẢnh"
+        }
+      }
+    },
+    {
+      "id": "mentionTag",
+      "existing": false,
+      "name": { "en": "Mention pill", "vi": "@Nhắc tên" },
+      "description": "Thẻ nhắc tên tài khoản kèm biểu tượng đại diện nhỏ để gắn thẻ bạn bè đồng hành.",
+      "fields": ["handle", "role"],
+      "samples": {
+        "en": {
+          "handle": "@travel.buddy",
+          "role": "Photo credit 📸"
+        },
+        "vi": {
+          "handle": "@ban.dong.hanh",
+          "role": "Người chụp có tâm 📸"
+        }
+      }
+    },
+    {
+      "id": "progressBar",
+      "existing": false,
+      "name": { "en": "Progress bar", "vi": "Thanh tiến trình" },
+      "description": "Thanh tiến độ trực quan kèm nhãn và phần trăm hoàn thành mục tiêu hoặc năng lượng trong ngày.",
+      "fields": ["label", "percentage", "status"],
+      "samples": {
+        "en": {
+          "label": "Weekend Battery",
+          "percentage": "100%",
+          "status": "Fully recharged ⚡"
+        },
+        "vi": {
+          "label": "Năng lượng cuối tuần",
+          "percentage": "100%",
+          "status": "Đã sạc đầy pin ⚡"
+        }
+      }
+    },
+    {
+      "id": "boardingPass",
+      "existing": false,
+      "name": { "en": "Boarding pass", "vi": "Vé máy bay" },
+      "description": "Thẻ lên máy bay thu nhỏ có mã sân bay đi/đến, số hiệu chuyến bay, cổng và ghế ngồi.",
+      "fields": ["fromCode", "fromCity", "toCode", "toCity", "flight", "date", "seat"],
+      "samples": {
+        "en": {
+          "fromCode": "SGN",
+          "fromCity": "Ho Chi Minh",
+          "toCode": "DAD",
+          "toCity": "Da Nang",
+          "flight": "VN124",
+          "date": "18 OCT",
+          "seat": "14A"
+        },
+        "vi": {
+          "fromCode": "SGN",
+          "fromCity": "TP.HCM",
+          "toCode": "DLI",
+          "toCity": "Đà Lạt",
+          "flight": "VN318",
+          "date": "18 TH10",
+          "seat": "12F"
+        }
+      }
+    },
+    {
+      "id": "recipeCard",
+      "existing": false,
+      "name": { "en": "Recipe note", "vi": "Công thức món ăn" },
+      "description": "Phiếu công thức nấu ăn hoặc pha chế ngắn gọn có tên món, thời gian chuẩn bị và nguyên liệu chính.",
+      "fields": ["dishName", "prepTime", "servings", "ingredients", "tip"],
+      "samples": {
+        "en": {
+          "dishName": "Iced Honey Lemon Tea",
+          "prepTime": "10 mins",
+          "servings": "2 glasses",
+          "ingredients": "Black tea • Wild honey • Fresh lemon • Mint",
+          "tip": "Shake well with ice for frothy top"
+        },
+        "vi": {
+          "dishName": "Trà Chanh Mật Ong Đá",
+          "prepTime": "10 phút",
+          "servings": "2 ly",
+          "ingredients": "Hồng trà • Mật ong rừng • Chanh tươi • Bạc hà",
+          "tip": "Lắc đều với đá viên để lên bọt mịn"
+        }
+      }
+    },
+    {
+      "id": "filmExif",
+      "existing": false,
+      "name": { "en": "Camera EXIF stamp", "vi": "Thông số máy ảnh" },
+      "description": "Dải thông số chụp ảnh kiểu máy ảnh phim hoặc kỹ thuật số: tên máy, ống kính, khẩu độ, tốc độ, ISO.",
+      "fields": ["camera", "lens", "settings", "filmStock"],
+      "samples": {
+        "en": {
+          "camera": "FM2",
+          "lens": "50mm f/1.8",
+          "settings": "1/500s • f/2.8 • ISO 400",
+          "filmStock": "Color Negative 400"
+        },
+        "vi": {
+          "camera": "Máy phim 35mm",
+          "lens": "50mm f/1.8",
+          "settings": "1/500s • f/2.8 • ISO 400",
+          "filmStock": "Phim màu 400"
+        }
+      }
+    },
+    {
+      "id": "checklist",
+      "existing": false,
+      "name": { "en": "Mini checklist", "vi": "Danh sách việc" },
+      "description": " Tờ giấy ghi chú các đầu việc kèm ô đánh dấu hoàn thành cho ngày cuối tuần hoặc chuyến đi.",
+      "fields": ["title", "item1", "item2", "item3"],
+      "samples": {
+        "en": {
+          "title": "Sunday Checklist",
+          "item1": "☑ Morning coffee & pastry",
+          "item2": "☑ Walk in the park",
+          "item3": "☐ Read 20 pages before bed"
+        },
+        "vi": {
+          "title": "Việc nhỏ hôm nay",
+          "item1": "☑ Uống cà phê sáng",
+          "item2": "☑ Dạo bộ công viên",
+          "item3": "☐ Đọc 20 trang sách tối nay"
+        }
+      }
+    },
+    {
+      "id": "moodMeter",
+      "existing": false,
+      "name": { "en": "Mood tracker", "vi": "Thước đo tâm trạng" },
+      "description": "Thanh trượt biểu cảm thể hiện tâm trạng hiện tại bằng biểu tượng và câu mô tả ngắn.",
+      "fields": ["label", "emoji", "moodText", "level"],
+      "samples": {
+        "en": {
+          "label": "Today's Vibe",
+          "emoji": "😌",
+          "moodText": "Peaceful & Grateful",
+          "level": "95%"
+        },
+        "vi": {
+          "label": "Tâm trạng hôm nay",
+          "emoji": "😌",
+          "moodText": "Bình yên & Biết ơn",
+          "level": "95%"
+        }
+      }
+    },
+    {
+      "id": "searchBar",
+      "existing": false,
+      "name": { "en": "Search bar", "vi": "Thanh tìm kiếm" },
+      "description": "Khung tìm kiếm bo tròn kèm biểu tượng kính lúp để gõ từ khóa hài hước hoặc chủ đề bộ ảnh.",
+      "fields": ["query", "hint"],
+      "samples": {
+        "en": {
+          "query": "how to make weekends last forever",
+          "hint": "🔍 Search"
+        },
+        "vi": {
+          "query": "cách để cuối tuần kéo dài mãi mãi",
+          "hint": "🔍 Tìm kiếm"
+        }
+      }
+    },
+    {
+      "id": "bookQuote",
+      "existing": false,
+      "name": { "en": "Reading note", "vi": "Phiếu đọc sách" },
+      "description": "Thẻ ghi chép suy nghĩ khi đọc sách hoặc nhật ký ngắn có tiêu đề, số trang và dòng cảm nhận.",
+      "fields": ["heading", "page", "thought", "date"],
+      "samples": {
+        "en": {
+          "heading": "Afternoon Journal",
+          "page": "Page 42",
+          "thought": "Slow down and appreciate how far you have come.",
+          "date": "Oct 18, 2026"
+        },
+        "vi": {
+          "heading": "Nhật ký buổi chiều",
+          "page": "Trang 42",
+          "thought": "Chậm lại một chút để thấy mình đã đi được thật xa.",
+          "date": "18/10/2026"
+        }
+      }
+    },
+    {
+      "id": "receipt",
+      "existing": false,
+      "name": { "en": "Mini receipt", "vi": "Hoá đơn kỷ niệm" },
+      "description": "Tờ hoá đơn giấy nhiệt in các 'món' kỷ niệm trong ngày kèm tổng kết100% niềm vui.",
+      "fields": ["storeName", "line1", "line2", "line3", "total"],
+      "samples": {
+        "en": {
+          "storeName": "MEMORY MART #2026",
+          "line1": "1x Morning Sunshine ...... $0.00",
+          "line2": "2x Iced Coffees .......... $0.00",
+          "line3": "Endless Laughter ......... $0.00",
+          "total": "TOTAL: 100% HAPPY"
+        },
+        "vi": {
+          "storeName": "TIỆM KỶ NIỆM #2026",
+          "line1": "1x Nắng sớm dịu dàng ..... 0đ",
+          "line2": "2x Cà phê sữa đá ......... 0đ",
+          "line3": "Tiếng cười rộn rã ........ 0đ",
+          "total": "TỔNG CỘNG: 100% VUI"
+        }
+      }
+    },
+    {
+      "id": "StepCounter",
+      "existing": false,
+      "name": { "en": "Step & distance", "vi": "Số bước chân" },
+      "description": "Thẻ thống kê số bước chân và quãng đường đi bộ khám phá trong ngày du lịch.",
+      "fields": ["steps", "distance", "caption"],
+      "samples": {
+        "en": {
+          "steps": "14,820 steps",
+          "distance": "10.4 km",
+          "caption": "Exploring every little alley 👟"
+        },
+        "vi": {
+          "steps": "14.820 bước",
+          "distance": "10,4 km",
+          "caption": "Đi bộ khắp mọi ngóc ngách 👟"
+        }
+      }
+    }
+  ]
+}

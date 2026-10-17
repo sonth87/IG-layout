@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ConfirmDialog } from "@/components/ui/Dialog";
 import { Icon } from "@/components/ui/Icon";
 import { formatBytes } from "@/lib/format";
+import { AboutScreen } from "./AboutScreen";
 import { ThanksScreen } from "./ThanksScreen";
 import { deleteAllProjects, listProjects, storageEstimate } from "@/lib/storage/projects";
 import { type Locale, type ThemeSetting, useSettings, useT } from "@/store/settings";
@@ -23,6 +24,7 @@ export function SettingsScreen({ onBack, onHelp }: { onBack?: () => void; onHelp
 
   const [reloadKey, setReloadKey] = useState(0);
   const [thanks, setThanks] = useState(false);
+  const [about, setAbout] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -49,6 +51,7 @@ export function SettingsScreen({ onBack, onHelp }: { onBack?: () => void; onHelp
   ];
 
   if (thanks) return <ThanksScreen onBack={() => setThanks(false)} />;
+  if (about) return <AboutScreen version={VERSION} onBack={() => setAbout(false)} onThanks={() => setThanks(true)} />;
 
   return (
     <main className="mx-auto flex h-dvh max-w-md flex-col md:max-w-xl">
@@ -149,10 +152,13 @@ export function SettingsScreen({ onBack, onHelp }: { onBack?: () => void; onHelp
           <Icon name="chevronRight" size={18} />
         </button>
 
-        <section className="flex items-center justify-between rounded-[14px] bg-surface px-3.5 py-3.5 text-sm">
+        <button type="button" onClick={() => setAbout(true)} className="flex items-center justify-between rounded-[14px] bg-surface px-3.5 py-3.5 text-left text-sm">
           <span>{t("settings.about")}</span>
-          <span className="text-[13px] text-muted">IG Layout · {t("settings.version", { version: VERSION })}</span>
-        </section>
+          <span className="flex items-center gap-1 text-[13px] text-muted">
+            IG Layout · {t("settings.version", { version: VERSION })}
+            <Icon name="chevronRight" size={18} />
+          </span>
+        </button>
       </div>
     </main>
   );

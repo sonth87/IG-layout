@@ -609,6 +609,11 @@ export const en = {
   "icon.smile": "Smile",
   "icon.arrow": "Arrow",
 
+  "about.title": "About",
+  "about.maker": "Maker",
+  "about.role": "Maker of IG Layout",
+  "about.app": "About the app",
+  "about.body": "A free app for beautiful Instagram posts: carousels, grids, stories, text, stickers, video. No sign-in, no ads; your photos always stay on your device. Made for fun, non-commercial.",
   "thanks.title": "Thanks",
   "thanks.hint": "Libraries, fonts, pictures and authors the app uses",
   "thanks.intro": "This app exists thanks to many people who share their work. Thank you to the authors, museums, libraries and open-source communities below.",

@@ -160,6 +160,13 @@ await page.getByRole("button", { name: /^Thanks/ }).click();
 check(await page.getByRole("link", { name: "Lucide icons" }).isVisible(), "icons credited");
 check(await page.getByRole("region", { name: "Code libraries" }).getByRole("link", { name: "Konva · react-konva" }).isVisible(), "code libraries credited");
 check(/Google Fonts — \d+ fonts/.test(await page.getByRole("region", { name: "Fonts" }).innerText()), "fonts credited");
+await page.getByLabel("Back").click();
+
+console.log("11. About (M20 C6b)");
+await page.getByRole("button", { name: /^About/ }).click();
+const maker = page.getByRole("region", { name: "Maker" });
+check((await maker.innerText()).includes("sonth87") && (await maker.getByRole("link", { name: /github\.com\/sonth87/ }).getAttribute("href")) === "https://github.com/sonth87", "maker and GitHub link");
+check(await maker.locator("img").evaluate((i) => (i.complete ? i.naturalWidth : new Promise((r) => (i.onload = () => r(i.naturalWidth))))) === 256, "avatar shown (kept in the app)");
 
 console.log("console errors:", errors);
 console.log(failures === 0 && errors.length === 0 ? "ALL PASSED" : `${failures} FAILED, ${errors.length} console errors`);

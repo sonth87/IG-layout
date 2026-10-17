@@ -415,7 +415,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] **C4** Khung từ gói = khối bố cục có **ảnh khung đè lên trên** các ô; mỗi cửa sổ một ô trống (cửa sổ bầu dục → ô tròn); giữ tỉ lệ ảnh khung (chỉ kéo góc); không chia lại ô; có trong sheet Khung và màn Bộ sưu tập (e2e m20d)
 - [x] **C5** Màn chọn phông mới: mỗi phông hiện **dòng đầu của chữ đang chọn** (không có thì một câu hay ngẫu nhiên, phông Nhật / Hàn / Trung dùng câu tiếng đó), tên phông nhỏ ở dưới; lọc **kiểu** và **ngôn ngữ**, ô tìm phông; phông từ danh mục khai báo bằng @font-face, chỉ tải khi hiện / khi dùng; dùng được trên canvas và khi xuất (e2e m20c). Danh sách câu đầy đủ chờ G6
 - [x] **C6a** Màn **Cảm ơn** (Cài đặt → Cảm ơn): nguồn tài sản từ `credits` của danh mục, phông, icon / emoji / mô hình, thư viện code kèm giấy phép
-- [ ] **C6b** Màn **Giới thiệu** — chờ nội dung của chủ dự án
+- [x] **C6b** Màn **Giới thiệu** (Cài đặt → Giới thiệu): sonth87, avatar GitHub (lưu sẵn trong app, dùng được offline), link github.com/sonth87, vài dòng về app, phiên bản, lối sang Cảm ơn
 - [ ] **C7** Bộ sinh khung tự nhiên: giấy xé, phim, polaroid / khung tranh (D-107) + trang duyệt
 - [ ] **C8** Ghép từng đợt của Gemini, e2e, merge, deploy
 - [ ] **G6** Câu xem trước phông, chữ mẫu widget (Gemini)
