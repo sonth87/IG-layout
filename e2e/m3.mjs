@@ -59,7 +59,7 @@ await shot(page, "2-seamless");
 
 console.log("2. Re-layout in the editor: Grid 2 × 2 with spacing");
 await page.getByRole("button", { name: "Project menu" }).click(); // the project's Layout (M19: in the ⋯ menu)
-await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: "Layout", exact: true }).click();
+await page.getByRole("menu", { name: "Project menu" }).getByRole("menuitem", { name: "Layout", exact: true }).click();
 await page.getByRole("button", { name: "Grid", exact: true }).click();
 await page.getByRole("button", { name: /^2 × 2 4 photos/ }).click();
 await page.getByRole("slider").nth(0).fill("20");
@@ -104,7 +104,7 @@ check(cells(st)[0].assetId === a1 && cells(st)[1].assetId === a0, "photos swappe
 console.log("5. Empty cells: 3 × 3 with 4 photos, fill one");
 await page.getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: "Project menu" }).click(); // the project's Layout (M19: in the ⋯ menu)
-await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: "Layout", exact: true }).click();
+await page.getByRole("menu", { name: "Project menu" }).getByRole("menuitem", { name: "Layout", exact: true }).click();
 await page.getByRole("button", { name: "Grid", exact: true }).click();
 await page.getByRole("button", { name: /^3 × 3 9 photos/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();

@@ -41,14 +41,14 @@ export function newText(ratio: AspectRatio, slide: Rect, text: string): TextElem
     font: "playfair",
     bold: true,
     fontSize,
-    color: "#ffffff",
-    align: "center",
+    // Plain black text, no box (owner, 2026-10-17): style it in Format.
+    color: "#111111",
+    align: "left",
     letterSpacing: 0,
     lineHeight: 1.15,
     stroke: null,
     shadow: false,
-    // A soft dark box keeps white text readable on light and dark photos alike (UX-12).
-    background: { color: "#1a1b1ecc", padding: Math.round(fontSize * 0.3), radius: Math.round(fontSize * 0.25) },
+    background: null,
   };
 }
 

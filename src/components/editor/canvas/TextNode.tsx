@@ -17,6 +17,7 @@ import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
 export function TextNode({ element: el, hooks }: { element: TextElement; hooks: DragHooks }) {
   const setDerived = useEditor((s) => s.setDerived);
   const setEditingText = useEditor((s) => s.setEditingText);
+  const updateElement = useEditor((s) => s.updateElement);
   // While typing, an HTML box stands in for it (InlineText).
   const typing = useEditor((s) => s.editingTextId === el.id);
   const textRef = useRef<Konva.Text>(null);
@@ -45,7 +46,53 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
 
   const pad = el.background?.padding ?? 0;
   return (
-    <Group {...props} opacity={typing ? 0 : props.opacity} onDblTap={() => setEditingText(el.id)} onDblClick={() => setEditingText(el.id)}>
+    <Group
+      {...props}
+      opacity={typing ? 0 : props.opacity}
+      onDblTap={() => setEditingText(el.id)}
+      onDblClick={() => setEditingText(el.id)}
+      // Live while resizing (no stretched text): a side bar changes the wrap width, a corner
+      // or the top / bottom bar the size of the letters (editor-v2/10 §6).
+      onTransform={(e) => {
+        const g = e.target as unknown as Konva.Group;
+        const text = textRef.current;
+        if (!text) return;
+        const anchor = g.getStage()?.findOne<Konva.Transformer>("Transformer")?.getActiveAnchor() ?? "";
+        const side = anchor.includes("middle");
+        const k = side ? 1 : anchor.includes("center") ? g.scaleY() : g.scaleX();
+        const w = Math.max(20, side ? text.width() * g.scaleX() : text.width() * k);
+        if (!side) {
+          text.fontSize(text.fontSize() * k);
+          text.letterSpacing(text.letterSpacing() * k);
+          text.padding(text.padding() * k);
+          if (el.stroke) text.strokeWidth(text.strokeWidth() * k);
+        }
+        text.width(w);
+        g.scale({ x: 1, y: 1 });
+        g.offset({ x: w / 2, y: text.height() / 2 });
+        const bg = g.findOne<Konva.Rect>("Rect");
+        if (bg) {
+          bg.size({ width: w, height: text.height() });
+          bg.cornerRadius(bg.cornerRadius() as number * k);
+        }
+      }}
+      onTransformEnd={(e) => {
+        const g = e.target as unknown as Konva.Group;
+        const text = textRef.current;
+        if (!text) return;
+        const k = text.fontSize() / el.fontSize;
+        const w = text.width();
+        const h = text.height();
+        updateElement(el.id, {
+          x: g.x() - w / 2,
+          y: g.y() - h / 2,
+          width: w,
+          height: h,
+          rotation: g.rotation(),
+          ...(Math.abs(k - 1) > 1e-3 ? scaleExtras(el, k) : {}),
+        });
+      }}
+    >
       {el.background && (
         <Rect width={el.width} height={el.height} fill={el.background.color} cornerRadius={el.background.radius} />
       )}

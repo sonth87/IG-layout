@@ -384,3 +384,18 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] **Xuất**: chọn độ phân giải **1× (1080 px) / 2× (2160 px)**
 - [x] Kiểm tra `e2e/m19d.mjs`
 - [ ] Chủ dự án thử trên iPhone / iPad: gõ chữ trên canvas, màn Chỉnh ảnh, Cắt rời / Tẩy, các thư viện, Brand Kit, Nền chuyển màu / chất liệu, Xem trước, xuất 2×
+
+### Sửa theo góp ý của chủ dự án (2026-10-17, lần 2) — D-101, D-102
+- [x] **Khoá = khoá mọi thứ** (thay D-85): phần tử khoá không kéo, không co giãn / xoay, không dời / phóng ảnh bên trong, không có tay nắm; chỉ còn chạm **dấu +** của ô trống để thêm ảnh / video; khoá khối thì khoá luôn các ô
+- [x] Chế độ sáng / tối của app báo cho trình duyệt (`color-scheme`, màu thanh trạng thái) để bàn phím, thanh trạng thái, nền khi kéo quá theo đúng lựa chọn trong app chứ không theo máy
+- [x] Xem trước và ảnh xuất **không có dấu +** của ô trống
+- [x] Chữ mới: **màu đen, không nền**, căn trái
+- [x] Co giãn chữ **cập nhật ngay khi kéo** (không méo rồi mới bật lại); chữ có thêm tay nắm trên / dưới (phóng cỡ chữ)
+- [x] **Hít khi co giãn**: mép đang kéo dính vào mép / tâm slide và mép phần tử khác, có đường gióng hồng
+- [x] Nút xoay có **icon ⟳**; hít góc xoay giảm **6° → 3°**
+- [x] Kéo bottom sheet mượt hơn: trong lúc kéo sheet đè lên canvas, thả tay mới đẩy canvas một lần
+- [x] Thanh phát chỉ hiện khi **đang chọn video / phần tử có chuyển động** (hoặc đang phát, hoặc dự án có nhạc nền và không chọn gì)
+- [x] Đường phân cách slide **hai màu** (đậm + trắng xen kẽ), thấy được trên nền trắng
+- [x] Menu ⋯ của dự án là **popover thả xuống** dưới nút (kính mờ), **Hít ›** mở tại chỗ Bật / Tắt có ✓
+- [x] Thư viện **Lưới trải hết**, không cần "+N"
+- [x] Thẻ template nhiều slide ở trang chủ **vuốt ngang ngay trên thẻ** để xem các slide, chấm chỉ slide đổi theo

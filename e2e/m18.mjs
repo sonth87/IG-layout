@@ -94,7 +94,7 @@ await page.getByRole("button", { name: "Explore now" }).nth(1).click();
 check(await page.getByRole("heading", { name: "Story", exact: true }).isVisible(), "“Explore now” opens that group");
 await back();
 // Group strip slides sideways without scrolling the page.
-const strip = page.getByRole("region", { name: "Carousel" }).locator(".overflow-x-auto");
+const strip = page.getByRole("region", { name: "Carousel" }).locator(".overflow-x-auto").first();
 const pageTop = await page.locator("main > div.overflow-y-auto").evaluate((e) => e.scrollTop);
 await strip.evaluate((e) => (e.scrollLeft = 200));
 check((await strip.evaluate((e) => e.scrollLeft)) > 100 && (await page.locator("main > div.overflow-y-auto").evaluate((e) => e.scrollTop)) === pageTop, "a group strip scrolls sideways");
@@ -109,11 +109,17 @@ await page.getByRole("button", { name: "Liked" }).click();
 check((await page.getByRole("button", { name: "Unlike" }).count()) >= 1, "the liked list shows it");
 await back();
 
+// A carousel card swipes through its slides (owner, 2026-10-17).
+const strip0 = page.getByRole("region", { name: "Carousel" }).locator(".snap-mandatory").first();
+await strip0.evaluate((e) => e.scrollTo({ left: e.clientWidth }));
+await page.waitForTimeout(400);
+check((await strip0.evaluate((e) => e.scrollLeft)) > 50, "a carousel template card swipes to its next slide");
+
 console.log("Template detail (03 §5–6)");
 await page.getByRole("button", { name: "Travel journal" }).first().click();
 check(await page.getByRole("heading", { name: "Template", exact: true }).isVisible(), "detail screen");
 check(await page.getByText("4 photos").isVisible() && (await page.getByText("3 slides").isVisible()), "photo and slide counts");
-const slides = page.locator(".snap-mandatory").last();
+const slides = page.getByRole("dialog", { name: "Template" }).locator(".snap-mandatory").first();
 await slides.evaluate((e) => e.scrollTo({ left: e.clientWidth }));
 await page.waitForTimeout(400);
 check(await page.getByLabel("2 / 3").isVisible(), "swipe to see slide 2");

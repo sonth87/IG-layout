@@ -66,14 +66,14 @@ interface Item {
 }
 
 /** One group: a title, 7 items and "+N" (or everything once opened). */
-function Group(props: { title: string; items: Item[]; full?: boolean; onMore: () => void }) {
+function Group(props: { title: string; items: Item[]; full?: boolean | "titled"; onMore: () => void }) {
   const t = useT();
   const many = !props.full && props.items.length > SHOWN + 1;
   const shown = many ? props.items.slice(0, SHOWN) : props.items;
   if (!props.items.length) return null;
   return (
     <section aria-label={props.title} className="pb-4">
-      {!props.full && <h3 className="pb-2 text-[15px] font-bold">{props.title}</h3>}
+      {props.full !== true && <h3 className="pb-2 text-[15px] font-bold">{props.title}</h3>}
       <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
         {shown.map((it) => (
           <button key={it.key} type="button" aria-label={it.label} title={it.label} onClick={() => void it.add()} className={TILE}>
@@ -303,7 +303,8 @@ export function LibrarySheet({ kind, onClose }: { kind: LibraryKind; onClose: ()
         ) : (
           <>
             {groups.map((g) => (
-              <Group key={g.id} title={g.title} items={g.items} onMore={() => setOpen(g.id)} />
+              // Grids are laid out in full: no "+N" to open (owner, 2026-10-17).
+              <Group key={g.id} title={g.title} items={g.items} full={kind === "grid" ? "titled" : undefined} onMore={() => setOpen(g.id)} />
             ))}
             {kind === "sticker" && (
               <section className="pb-4">

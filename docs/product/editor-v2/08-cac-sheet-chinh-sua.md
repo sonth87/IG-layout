@@ -59,7 +59,7 @@ Tham chiếu có nút **Điều chỉnh** trên thanh của khối nhưng video 
 
 ## 6. Khoá, Nhân bản, Xoá
 
-**Khoá** làm phần tử đứng yên: không kéo, không co giãn, không xoay được (thanh nổi chỉ còn nút ⋯ để mở khoá). Phần tử khoá vẫn chọn được; với ảnh khoá trong khung, ảnh bên trong vẫn dời và phóng được (D-85). Khoá một khối bố cục không ngăn chọn các ô bên trong để thay ảnh [ĐX].
+**Khoá** làm phần tử đứng yên: không kéo, không co giãn, không xoay được (thanh nổi chỉ còn nút ⋯ để mở khoá). Phần tử khoá vẫn chọn được; ảnh bên trong cũng đứng yên; chỉ dấu + của ô trống vẫn thêm được ảnh (D-101, thay D-85). Khoá một khối bố cục không ngăn chọn các ô bên trong để thay ảnh [ĐX].
 
 **Nhân bản** tạo bản sao lệch khoảng 24 px xuống – sang phải và chọn bản sao.
 

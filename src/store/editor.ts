@@ -444,10 +444,13 @@ export const useEditor = create<EditorState>()((set, get) => {
 
     moveLayerTo: (id, where) => commit((d) => moveUnit(d, id, (_from, count) => (where === "front" ? count - 1 : 0))),
 
+    // A block locks with its cells (everything inside stays put too).
     toggleLock: (id) =>
       commit((d) => {
         const el = d.elements.find((e) => e.id === id);
-        return el ? updateEl(d, id, { locked: !el.locked }) : d;
+        if (!el) return d;
+        const locked = !el.locked;
+        return { ...d, elements: d.elements.map((e) => (e.id === id || e.parentId === id ? { ...e, locked } : e)) };
       }),
 
     toggleHidden: (id) => {

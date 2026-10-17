@@ -46,10 +46,21 @@ function write(state: Pick<SettingsState, "theme" | "locale" | "snap">) {
   }
 }
 
+const THEME_COLOR = { light: "#f6f5f2", dark: "#111214" };
+
+/**
+ * The chosen theme on <html>, and told to the browser too: `color-scheme` (keyboard,
+ * form controls, overscroll) and the status-bar colour follow the app, not the system.
+ */
 export function applyTheme(theme: ThemeSetting) {
   const root = document.documentElement;
   if (theme === "system") delete root.dataset.theme;
   else root.dataset.theme = theme;
+  root.style.colorScheme = theme === "system" ? "light dark" : theme;
+  document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((m) => {
+    const media = m.getAttribute("media") ?? "";
+    m.content = theme === "system" ? (media.includes("dark") ? THEME_COLOR.dark : THEME_COLOR.light) : THEME_COLOR[theme];
+  });
 }
 
 export const useSettings = create<SettingsState>()((set, get) => ({

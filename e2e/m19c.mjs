@@ -90,7 +90,7 @@ check(last.type === "image" && last.assetId === null && last.mask === "heart", "
 
 console.log("Grid (§6)");
 await newLayer("Grid");
-await page.getByRole("button", { name: "29 more" }).click(); // +N → the whole group
+check((await page.getByRole("button", { name: /^\d+ more$/ }).count()) === 0 && (await page.getByRole("button", { name: "Grid 36", exact: true }).count()) === 1, "every grid laid out, no “+N”");
 await page.getByRole("button", { name: "Grid 9", exact: true }).click();
 st = await S();
 const block = st.doc.elements.find((e) => e.type === "layout");
