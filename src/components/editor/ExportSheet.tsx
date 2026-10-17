@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import { canShareFiles, downloadEach, downloadZip, shareFiles } from "@/lib/export/deliver";
 import { exportSlides, fileBase } from "@/lib/export/slices";
 import { fontWeight, loadFont } from "@/lib/text/fonts";
-import { SLIDE_SIZE } from "@/lib/project/types";
+import { slideSize } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { CarouselPreview, type PreviewTab, previewTabs, ProfilePreview, StoryPreview, videoUrls } from "@/components/export/InstagramPreview";
@@ -33,7 +33,7 @@ export function ExportSheet({ contentLayerRef, viewScale, onClose }: Props) {
   const hasSound = !!doc.music || doc.elements.some((el) => el.type === "image" && !!el.assetId && !!assets[el.assetId]?.video?.hasAudio);
   const [withAudio, setWithAudio] = useState(true);
   const [progress, setProgress] = useState<{ n: number; total: number; p: number } | null>(null);
-  const size = SLIDE_SIZE[doc.ratio];
+  const size = slideSize(doc.ratio);
   const tabs = previewTabs(doc.type);
   const [tab, setTab] = useState<PreviewTab>(tabs[0]);
 

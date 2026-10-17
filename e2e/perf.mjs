@@ -1,7 +1,7 @@
 // Performance probe (M7): import 20 large photos, then time canvas redraws.
 // Not part of `pnpm e2e` (numbers, not pass/fail). Usage: node e2e/perf.mjs <url>
 import { chromium } from "playwright-core";
-import { chromePath, URL_ARG } from "./lib.mjs";
+import { chromePath, URL_ARG, newProject } from "./lib.mjs";
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const page = await (await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3 })).newPage();
@@ -32,7 +32,7 @@ const files = await page.evaluate(async () => {
   }
   return out;
 });
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 for (let i = 0; i < 4; i++) await page.getByLabel("More slides").click(); // 9 slides
 const t0 = Date.now();
 await page.locator('input[type="file"]').setInputFiles(

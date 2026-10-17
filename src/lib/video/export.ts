@@ -2,7 +2,7 @@ import type Konva from "konva";
 import { layerRegion } from "@/lib/export/slices";
 import { rotatedBounds } from "@/lib/project/geometry";
 import { slideRect } from "@/lib/project/layout";
-import { type ImageAsset, type ImageElement, type MediaSettings, type Music, type ProjectDoc, type Rect, SLIDE_SIZE } from "@/lib/project/types";
+import { type ImageAsset, type ImageElement, type MediaSettings, type Music, type ProjectDoc, type Rect, slideSize } from "@/lib/project/types";
 import { musicGain } from "./music";
 import { applyMotion, clearMotion, hasMotion, motionDuration } from "@/lib/motion/motion";
 import { frameOverrides } from "./frames";
@@ -162,7 +162,7 @@ export async function exportVideoSlide(opts: {
         const next = await s.it.next();
         if (!next.done && next.value) frameOverrides.set(s.id, next.value.canvas);
       }
-      if (animated) applyMotion(layer, doc, i / VIDEO_FPS, () => duration, SLIDE_SIZE[doc.ratio]);
+      if (animated) applyMotion(layer, doc, i / VIDEO_FPS, () => duration, slideSize(doc.ratio));
       const rendered = layer.toCanvas({ ...layerRegion(layer, r, viewScale), pixelRatio: 1 / viewScale });
       ctx.clearRect(0, 0, width, height);
       ctx.drawImage(rendered, 0, 0, width, height);

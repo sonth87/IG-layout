@@ -1,6 +1,6 @@
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { more, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { more, skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG, newProject } from "./lib.mjs";
 
 const url = URL_ARG;
 const shot = (p, n) => p.screenshot({ path: path.join(out, `m6-${n}.png`) });
@@ -55,7 +55,7 @@ async function exported() {
 await page.goto(url);
 
 console.log("1. Story project");
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.getByRole("radio", { name: /Story/ }).click();
 await page.getByLabel("Fewer frames").click();
 await shot(page, "1-new-story");
@@ -78,7 +78,7 @@ await page.getByLabel("Back to editor").click();
 await page.getByLabel("Back").click();
 
 console.log("2. Grid project 3 × 2 with gap compensation");
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.getByRole("radio", { name: /Grid/ }).click();
 await page.getByLabel("Fewer rows").click();
 check(await page.getByText("6 posts on your profile").isVisible(), "6 posts");

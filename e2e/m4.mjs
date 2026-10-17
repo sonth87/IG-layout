@@ -1,6 +1,6 @@
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG, newProject } from "./lib.mjs";
 
 const url = URL_ARG;
 const shot = (p, n) => p.screenshot({ path: path.join(out, `m4-${n}.png`) });
@@ -50,7 +50,7 @@ const lum = ([r, g, b]) => 0.2126 * r + 0.7152 * g + 0.0722 * b;
 const gray = ([r, g, b]) => Math.max(Math.abs(r - g), Math.abs(g - b), Math.abs(r - b)) <= 6;
 
 await page.goto(url);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.getByLabel("Fewer slides").click();
 await page.getByLabel("Fewer slides").click();
 await page.getByLabel("Fewer slides").click();
@@ -151,6 +151,7 @@ await page.getByLabel("Back to editor").click();
 console.log("5. Saved and reopened");
 await page.waitForTimeout(1200);
 await page.reload();
+await page.getByRole("tab", { name: "Projects" }).click();
 await page.locator("article").first().getByRole("button").first().click();
 await page.getByText("4:5 · 2 slides").waitFor();
 st = await S();

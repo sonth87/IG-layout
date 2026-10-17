@@ -15,7 +15,7 @@ const THEME_PREVIEW: Record<ThemeSetting, string> = {
   dark: "bg-[#111214]",
 };
 
-export function SettingsScreen({ onBack }: { onBack: () => void }) {
+export function SettingsScreen({ onBack, onHelp }: { onBack?: () => void; onHelp?: () => void }) {
   const t = useT();
   const { theme, locale, setTheme, setLocale } = useSettings();
   const [info, setInfo] = useState({ count: 0, usage: 0, persisted: false });
@@ -58,13 +58,22 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
         />
       )}
       <header className="flex items-center gap-1 px-2 pt-2.5 pb-1">
-        <button type="button" aria-label={t("common.back")} onClick={onBack} className="flex h-11 w-11 items-center justify-center">
-          <Icon name="back" />
-        </button>
+        {onBack ? (
+          <button type="button" aria-label={t("common.back")} onClick={onBack} className="flex h-11 w-11 items-center justify-center">
+            <Icon name="back" />
+          </button>
+        ) : (
+          <span className="w-3" />
+        )}
         <h1 className="font-display text-[22px] font-semibold">{t("settings.title")}</h1>
+        {onHelp && (
+          <button type="button" aria-label={t("help.title")} onClick={onHelp} className="ml-auto mr-2 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface">
+            <Icon name="help" />
+          </button>
+        )}
       </header>
 
-      <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-5 pt-2 pb-8">
+      <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-5 pt-2 pb-32">
         <section className="flex flex-col gap-2.5">
           <h2 className="text-[13px] font-semibold tracking-wider text-muted uppercase">{t("settings.appearance")}</h2>
           <div role="radiogroup" aria-label={t("settings.theme")} className="grid grid-cols-3 gap-2.5">

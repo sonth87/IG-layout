@@ -3,7 +3,7 @@
 // Not part of `pnpm e2e` (numbers, not pass/fail). Usage: node e2e/drag-perf.mjs <url>
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, skipTips, URL_ARG, newProject } from "./lib.mjs";
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true });
@@ -13,7 +13,7 @@ const cdp = await context.newCDPSession(page);
 const touch = (type, points) => cdp.send("Input.dispatchTouchEvent", { type, touchPoints: points });
 
 await page.goto(URL_ARG);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.locator('input[type="file"]').setInputFiles(["panorama.jpg", "portrait.jpg", "p3.jpg", "p4.jpg"].map((f) => path.join(dir, f)));
 await page.getByRole("button", { name: /Panorama \+ 3 floating/ }).click();
 await page.getByRole("button", { name: "Use this layout" }).click();

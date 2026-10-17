@@ -4,7 +4,7 @@ import { chromium } from "playwright-core";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, more, OUT as out, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, more, OUT as out, skipTips, URL_ARG, newProject } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -35,7 +35,7 @@ page.on("pageerror", (e) => errors.push(String(e)));
 const S = () => page.evaluate(() => window.__igEditor.getState().doc);
 
 await page.goto(URL_ARG);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.getByLabel("Fewer slides").click();
 await page.getByLabel("Fewer slides").click(); // 3 slides
 await page.locator('input[type="file"]').setInputFiles([path.join(dir, "p3.jpg"), path.join(dir, "clip.mp4")]);
@@ -97,6 +97,7 @@ await page.getByRole("button", { name: "Back to editor" }).click();
 console.log("Saved and reopened");
 await page.waitForTimeout(1200);
 await page.reload();
+await page.getByRole("tab", { name: "Projects" }).click();
 await page.locator("article button").first().click();
 await page.waitForTimeout(1500);
 doc = await S();

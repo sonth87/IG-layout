@@ -1,7 +1,7 @@
 import { imageElement } from "@/lib/project/placement";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { canvasSize, slideRect } from "@/lib/project/layout";
-import { type CanvasElement, MAX_SLIDES, type ImageAsset, newId, type ProjectDoc, SLIDE_SIZE } from "@/lib/project/types";
+import { type CanvasElement, MAX_SLIDES, type ImageAsset, newId, type ProjectDoc, slideSize } from "@/lib/project/types";
 import { groupSlots, syncLayout } from "@/lib/project/blocks";
 import { insertSlideAt } from "@/lib/project/slides";
 import type { LayoutElement } from "@/lib/project/types";
@@ -29,7 +29,7 @@ export function applyTemplate(
   opts: TemplateOptions,
   locale: "en" | "vi" = "en",
 ): ProjectDoc {
-  const { width: W, height: H } = SLIDE_SIZE[doc.ratio];
+  const { width: W, height: H } = slideSize(doc.ratio);
   const slideCount = templateSlides(tpl, photos.length, doc.slideCount, doc.type);
   const sized = { ...doc, slideCount };
   const full = canvasSize(sized);

@@ -7,7 +7,7 @@ import { newEmoji, newFramedPhoto, newIcon, newOverlay, newShape, newSticker } f
 import { EmojiStickers } from "./EmojiStickers";
 import { OVERLAY_KINDS, OVERLAYS, overlayBlob, drawOverlay, type OverlayKind } from "@/lib/elements/overlays";
 import { STICKER_KEYS, STICKERS } from "@/lib/elements/stickers";
-import { newId, SLIDE_SIZE } from "@/lib/project/types";
+import { newId, slideSize } from "@/lib/project/types";
 import { iconDataUrl, ICON_KEYS } from "@/lib/elements/icons";
 import { drawShape } from "@/lib/elements/shapes";
 import type { CanvasElement, FrameStyle, ShapeKind } from "@/lib/project/types";
@@ -87,7 +87,7 @@ export function ElementsSheet({ onClose }: { onClose: () => void }) {
     if (!doc || making) return;
     setMaking(true);
     try {
-      const { width, height } = SLIDE_SIZE[doc.ratio];
+      const { width, height } = slideSize(doc.ratio);
       const blob = await overlayBlob(kind, width, height);
       const asset = { id: newId(), blob, url: URL.createObjectURL(blob), width, height, name: `${kind}.jpg` };
       addAssetElement(asset, newOverlay(slide, asset, OVERLAYS[kind].blend));

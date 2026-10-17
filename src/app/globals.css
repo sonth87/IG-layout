@@ -116,3 +116,21 @@ img {
     display: none;
   }
 }
+
+/* Screens that slide in from the right (editor-v2/01 §4); off when motion is reduced. */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@utility animate-slide-in {
+  animation: slide-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-in {
+    animation: none;
+  }
+}

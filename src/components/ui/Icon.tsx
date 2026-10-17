@@ -15,6 +15,13 @@ const PATHS = {
     </>
   ),
   handle: <path d="M10 6v12M14 6v12" />,
+  home: <path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z" />,
+  settings: (
+    <>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1" />
+    </>
+  ),
   move: <path d="M12 3v18M3 12h18M9 6l3-3 3 3M9 18l3 3 3-3M6 9l-3 3 3 3M18 9l3 3-3 3" />,
   arrowLeft: <path d="M19 12H5M11 6l-6 6 6 6" />,
   arrowRight: <path d="M5 12h14M13 6l6 6-6 6" />,
@@ -292,13 +299,13 @@ const PATHS = {
 
 export type IconName = keyof typeof PATHS;
 
-export function Icon({ name, size = 22 }: { name: IconName; size?: number }) {
+export function Icon({ name, size = 22, filled = false }: { name: IconName; size?: number; filled?: boolean }) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
+      fill={filled ? "currentColor" : "none"}
       stroke="currentColor"
       strokeWidth={1.8}
       strokeLinecap="round"

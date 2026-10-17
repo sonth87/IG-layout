@@ -4,7 +4,7 @@
 // side bars, turn handle below, box around the whole picture, equal-size ruler.
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, OUT, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, OUT, skipTips, URL_ARG, newProject } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -59,7 +59,7 @@ const cellsOf = (st, block) => st.doc.elements.filter((e) => e.parentId === bloc
 const blockOf = (st) => st.doc.elements.find((e) => e.type === "layout");
 
 await page.goto(URL_ARG);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.locator('input[type="file"]').setInputFiles(["panorama.jpg", "portrait.jpg", "p3.jpg"].map((f) => path.join(dir, f)));
 await page.getByText("Choose a layout").waitFor();
 await page.getByRole("button", { name: "Grid", exact: true }).click();

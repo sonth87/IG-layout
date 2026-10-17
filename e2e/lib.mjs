@@ -51,8 +51,15 @@ export async function skipTips(context) {
 
 /** Opens the editor's "More" sheet and taps an action in it. */
 export async function more(page, label) {
-  await page.getByRole("button", { name: "More", exact: true }).click();
-  await page.getByRole("region", { name: "More" }).getByRole("button", { name: label, exact: true }).click();
+  // With a selection: its ⋯ (floating menu); otherwise the project menu at the top (M18).
+  const own = page.getByRole("button", { name: "More", exact: true });
+  if (await own.count()) {
+    await own.click();
+    await page.getByRole("region", { name: "More" }).getByRole("button", { name: label, exact: true }).click();
+  } else {
+    await page.getByRole("button", { name: "Project menu" }).click();
+    await page.getByRole("region", { name: "Project menu" }).getByRole("button", { name: label, exact: true }).click();
+  }
 }
 
 /** Picks `files` with "Photos" in the open "Fill frame" sheet (M16). */
@@ -61,4 +68,10 @@ export async function pickInFillFrame(page, files) {
   await sheet.waitFor();
   const [chooser] = await Promise.all([page.waitForEvent("filechooser"), sheet.getByRole("button", { name: "Photos", exact: true }).click()]);
   await chooser.setFiles(files);
+}
+
+/** Home "+" → "From photos": the step-by-step new project (type, slides, photos, layout). */
+export async function newProject(page) {
+  await page.getByRole("button", { name: "New project" }).click();
+  await page.getByRole("button", { name: "From photos" }).click();
 }

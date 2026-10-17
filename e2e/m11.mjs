@@ -2,7 +2,7 @@
 // freehand drawing, new frames (like SCRL, docs/discussions/2026-10-16-phan-tich-scrl-grids.md).
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, more, OUT as out, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, more, OUT as out, skipTips, URL_ARG, newProject } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -30,7 +30,7 @@ const S = async () => {
 const last = (st, type) => st.doc.elements.filter((e) => e.type === type).at(-1);
 
 await page.goto(URL_ARG);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 for (let i = 0; i < 4; i++) await page.getByLabel("Fewer slides").click(); // 5 → 1
 await page.locator('input[type="file"]').setInputFiles([path.join(dir, "p3.jpg")]);
 await page.getByRole("button", { name: "Skip" }).click();
@@ -180,7 +180,7 @@ console.log("Saved and reopened");
 const mem = JSON.stringify((await S()).doc);
 await page.waitForTimeout(1200);
 await page.reload();
-await page.getByRole("tab", { name: "My projects" }).click().catch(() => {});
+await page.getByRole("tab", { name: "Projects" }).click().catch(() => {});
 await page.locator("article button").first().click();
 await page.waitForTimeout(1200);
 const reloaded = JSON.stringify((await S()).doc);

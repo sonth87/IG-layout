@@ -3,7 +3,7 @@
 // doesn't move, F-04 no duplicate layouts, D-67 no page zoom / text selection.
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, more, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, more, skipTips, URL_ARG, newProject } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -37,7 +37,7 @@ check(/maximum-scale=1/.test(meta) && /user-scalable=no/.test(meta), `viewport b
 check((await page.evaluate(() => getComputedStyle(document.body).userSelect)) === "none", "body text is not selectable");
 
 console.log("F-04 layout picker lists each layout once");
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.locator('input[type="file"]').setInputFiles([path.join(dir, "panorama.jpg")]);
 await page.getByText("Choose a layout").waitFor();
 const all = await page.evaluate(() =>

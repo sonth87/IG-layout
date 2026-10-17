@@ -1,5 +1,5 @@
 import { chromium } from "playwright-core";
-import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG } from "./lib.mjs";
+import { skipTips, chromePath, FIXTURES as dir, OUT as out, URL_ARG, newProject } from "./lib.mjs";
 import path from "node:path";
 
 const url = URL_ARG;
@@ -15,11 +15,12 @@ page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
 page.on("pageerror", (e) => errors.push(String(e)));
 
 await page.goto(url);
+await page.getByRole("tab", { name: "Projects" }).click();
 await page.getByText("No projects yet").waitFor();
 log("empty projects screen OK");
 await shot(page, "1-empty");
 
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 await page.getByLabel("Fewer slides").click();
 await page.getByLabel("Fewer slides").click();
 await page.locator('input[type="file"]').setInputFiles(path.join(dir, "panorama.jpg"));
@@ -35,6 +36,7 @@ await page.waitForTimeout(1200); // autosave debounce + thumbnail
 log("editor + drag OK");
 
 await page.reload();
+await page.getByRole("tab", { name: "Projects" }).click();
 await page.getByText("4:5 · 3 slides · ").waitFor();
 log("after reload, project listed:", await page.locator("article h2").allTextContents());
 await shot(page, "2-list");
@@ -55,13 +57,13 @@ await page.getByRole("button", { name: "Save" }).click();
 await page.getByText("Da Lat trip").waitFor();
 log("rename OK");
 
-await page.getByLabel("Settings and language").click();
+await page.getByRole("tab", { name: "Settings" }).click();
 await page.getByRole("radio", { name: "Tiếng Việt" }).click();
 await page.getByRole("radio", { name: "Tối" }).click();
 log("html data-theme =", await page.evaluate(() => document.documentElement.dataset.theme), "lang =", await page.evaluate(() => document.documentElement.lang));
 await shot(page, "3-settings-vi-dark");
-await page.getByLabel("Quay lại").click();
 await page.reload();
+await page.getByRole("tab", { name: "Dự án" }).click();
 await page.getByRole("button", { name: "Tạo project" }).waitFor();
 log("after reload still VI + theme", await page.evaluate(() => document.documentElement.dataset.theme));
 await shot(page, "4-list-vi-dark");
@@ -70,6 +72,7 @@ await page.evaluate(() => navigator.serviceWorker.ready);
 await page.reload(); // let the SW control the page
 await context.setOffline(true);
 await page.reload();
+await page.getByRole("tab", { name: "Dự án" }).click();
 await page.getByRole("button", { name: "Tạo project" }).waitFor({ timeout: 5000 });
 log("offline reload OK; projects:", await page.locator("article h2").allTextContents());
 await context.setOffline(false);

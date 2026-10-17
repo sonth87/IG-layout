@@ -4,7 +4,7 @@ import { chromium } from "playwright-core";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { chromePath, FIXTURES as dir, OUT as out, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES as dir, OUT as out, skipTips, URL_ARG, newProject } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -55,7 +55,7 @@ function frameLuma(file, t, crop) {
 }
 
 await page.goto(URL_ARG);
-await page.getByRole("button", { name: "New project" }).click();
+await newProject(page);
 for (let i = 0; i < 3; i++) await page.getByLabel("Fewer slides").click(); // 2 slides
 await page.locator('input[type="file"]').setInputFiles([path.join(dir, "p3.jpg"), path.join(dir, "clip.mp4")]);
 await page.getByRole("button", { name: "Skip" }).click({ timeout: 120000 });

@@ -66,6 +66,10 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Bottom sheet** (`DragSheet.tsx`, thay mục 8): nằm trong luồng trang, dưới vùng canvas, thay chỗ thanh công cụ (không còn lớp phủ tối); chiều cao `frac · 100dvh` (≤ `100dvh − 64px`), kéo bằng tay cầm (pointer events), thả: < 0,2 đóng, < 0,5 → 0,5, còn lại theo vận tốc (> 0,8 màn hình / s) hoặc mốc gần nhất. Vùng canvas co lại theo → `fitFor` có thêm giới hạn theo **chiều cao** vùng canvas và gốc toạ độ căn giữa trong chiều cao hiện tại, nên mọi sheet (cả sheet công cụ) đều đẩy canvas lên và thu cho vừa. Quy tắc cũ F-03 / UX-08 "canvas không đổi khi mở công cụ" được thay bằng quy tắc này (product/12 §1.2).
 
+## 0e. Đã cài ở M18 (2026-10-17, D-98)
+
+**Tỉ lệ**: `AspectRatio = "w:h" | "1080x<h>"`, `slideSize(ratio)` thay bảng `SLIDE_SIZE` (luôn rộng 1080); `CUSTOM_HEIGHT = { min: 565, max: 1920 }`. **Khung app** (`App.tsx`): tab `home | projects | settings` + `BottomNav` nổi; `NewProjectSheet` (`home/`) tạo dự án 1 slide ngay; "Lưới profile" / "Từ ảnh" mở `NewProject` (màn từng bước cũ, `initialType`). **Trang chủ** (`home/HomeScreen.tsx`): các màn con (nhóm, chi tiết, đã thích, tìm kiếm) là một ngăn xếp `stack` vẽ chồng (`role=dialog`, `animate-slide-in`, tắt khi giảm chuyển động), trang chủ vẫn giữ vị trí cuộn bên dưới. Ảnh mẫu: `lib/templates/samples.ts` (12 phong cảnh SVG dạng data URL, thứ tự riêng cho mỗi template); thích: `lib/templates/favorites.ts` (`localStorage["ig-layout:favorites"]`). **Editor**: thanh trên là nút nổi kính mờ (`GLASS`), ⋯ = menu dự án (`projectActions`), menu ⋯ của phần tử vẫn ở thanh nổi trên phần tử.
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:
