@@ -62,7 +62,7 @@ await page.getByRole("button", { name: "Skip" }).click({ timeout: 120000 });
 await page.getByText("4:5 · 2 slides").waitFor();
 await page.waitForTimeout(1500);
 let doc = await S();
-const photo = doc.elements.find((e) => e.type === "image" && !e.assetId?.includes("x") && e.x < 1080);
+const photo = doc.elements.find((e) => e.type === "image" && e.x < 1080);
 const video = doc.elements.find((e) => e.type === "image" && e.x >= 1080);
 
 console.log("M13.3 colour on video");

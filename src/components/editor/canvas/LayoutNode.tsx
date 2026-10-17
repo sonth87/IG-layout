@@ -5,7 +5,7 @@ import { Shape } from "react-konva";
 import type { LayoutElement } from "@/lib/project/types";
 
 /**
- * A layout block (M14): draws nothing itself (its cells are image elements drawn
+ * A layout block (M14): draws only its background colour (its cells are image elements drawn
  * right above it), but it has a shape so it can be hit, selected and transformed.
  * Positioned by its centre so it turns around it, like every element.
  */
@@ -22,7 +22,12 @@ export function LayoutNode({ element: el }: { element: LayoutElement }) {
       offsetY={el.height / 2}
       rotation={el.rotation}
       visible={!el.hidden}
-      sceneFunc={() => {}}
+      // Its colour behind the cells, if any (Adjust sheet, M17).
+      sceneFunc={(ctx: Konva.Context) => {
+        if (!el.fill) return;
+        ctx.fillStyle = el.fill;
+        ctx.fillRect(0, 0, el.width, el.height);
+      }}
       hitFunc={(ctx: Konva.Context, shape: Konva.Shape) => {
         ctx.beginPath();
         ctx.rect(0, 0, el.width, el.height);

@@ -14,6 +14,20 @@ const PATHS = {
     </>
   ),
   handle: <path d="M10 6v12M14 6v12" />,
+  move: <path d="M12 3v18M3 12h18M9 6l3-3 3 3M9 18l3 3 3-3M6 9l-3 3 3 3M18 9l3 3-3 3" />,
+  arrowLeft: <path d="M19 12H5M11 6l-6 6 6 6" />,
+  arrowRight: <path d="M5 12h14M13 6l6 6-6 6" />,
+  arrowUp: <path d="M12 19V5M6 11l6-6 6 6" />,
+  arrowDown: <path d="M12 5v14M6 13l6 6 6-6" />,
+  alignTop: <path d="M4 4h16M9 8v12M15 8v7" />,
+  alignMiddle: <path d="M4 12h16M9 6v12M15 8v8" />,
+  alignBottom: <path d="M4 20h16M9 4v12M15 9v7" />,
+  alignH: <path d="M12 3v18M6 8h12v3H6zM8 14h8v3H8z" />,
+  toFront: <path d="M12 4v10M8 8l4-4 4 4M5 20h14" />,
+  toBack: <path d="M12 20V10M8 16l4 4 4-4M5 4h14" />,
+  fillHeight: <path d="M8 3v18M16 3v18M12 7v10M10 9l2-2 2 2M10 15l2 2 2-2" />,
+  fillWidth: <path d="M3 8h18M3 16h18M7 12h10M9 10l-2 2 2 2M15 10l2 2-2 2" />,
+  fillWidth2: <path d="M3 6h18v12H3zM12 6v12" />,
   folder: <path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />,
   video: (
     <>

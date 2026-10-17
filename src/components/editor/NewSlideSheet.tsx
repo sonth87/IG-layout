@@ -7,7 +7,7 @@ import { useT } from "@/store/settings";
 // "New slide" sheet (editor-v2/05 §5): a blank slide, ~12 layouts, ~36 grids. Picking one
 // adds a slide holding a layout block of that kind, every cell empty.
 
-function Thumb({ layout, aspect }: { layout: SlideLayout; aspect: number }) {
+export function Thumb({ layout, aspect }: { layout: SlideLayout; aspect: number }) {
   return (
     <span
       aria-hidden="true"

@@ -224,6 +224,15 @@ export interface DrawingElement extends ElementBase {
 export interface LayoutElement extends ElementBase {
   type: "layout";
   cells: LayoutCell[];
+  /** Split it was made from (lib/templates/slideLayouts): cells can then be re-spaced (M17). */
+  layout?: string;
+  /** Gap between cells and margin around them, relative to the block width. */
+  gap?: number;
+  padding?: number;
+  /** Corner radius of the cells, relative to the block width. */
+  radius?: number;
+  /** Colour behind the cells; none = transparent. */
+  fill?: string | null;
 }
 
 export interface LayoutCell {

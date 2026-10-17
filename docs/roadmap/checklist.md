@@ -327,3 +327,14 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 - [x] Kiểm tra tự động `e2e/m16.mjs`; m3, m5, m10, m14 cập nhật theo sheet mới
 - [x] Sửa (2026-10-17): khi đang chọn một phần tử / khối thì **ẩn ‖ ⋯ dưới các slide** (nút + vẫn hiện, như IMG_3966)
 - [ ] Chủ dự án thử trên iPhone / iPad: chạm + → Lấp đầy khung → chọn nhiều ảnh; nút Ảnh thêm ảnh tự do
+
+### M17 — Thanh công cụ và các sheet — đang làm
+Đặc tả: [07](../product/editor-v2/07-khung-chon-va-thanh-cong-cu.md) mục 5, [08](../product/editor-v2/08-cac-sheet-chinh-sua.md), [12](../product/editor-v2/12-sheet-menu-xuat-lop.md) mục 1; cách cài: [dev/editor-v2](../dev/editor-v2.md) mục 0d.
+- [x] Khi đang chọn: ẩn ‖ ⋯ dưới các slide, nút + vẫn hiện (chủ dự án, như IMG_3966)
+- [x] **Thanh công cụ theo loại** (trượt ngang, ✕ bỏ chọn): Khối — Bố cục · Điều chỉnh · Vị trí · Khoá · Nhân bản · Xoá; Ảnh — Thay · Vị trí · Cắt · Kiểu · Chỉnh · Bộ lọc · Xoá nền · Chuyển động · (Đổi chỗ) · (Mặt nạ) · Khoá · Nhân bản · Làm trống · Xoá; Video — Thay · Cắt đoạn · Âm thanh · Bộ lọc · Chỉnh · Chuyển động · Vị trí · Cắt · Kiểu …; Ô trống — Thêm ảnh · (Đổi chỗ) · Kiểu · Xoá; Chữ — Sửa · Kiểu chữ · Vị trí · Chuyển động · Khoá · Nhân bản · Xoá; Hình / sticker — Màu · Vị trí · Chuyển động · Khoá · Nhân bản · Xoá. Ảnh trong ô không có Vị trí / Khoá / Nhân bản riêng (đi theo khối)
+- [x] **Sheet Vị trí**: tab Vị trí — Sắp lớp (4 nút, mờ khi vô tác dụng), Dịch ← → ↑ ↓ (1 px, giữ thì lặp nhanh dần), Căn trái / giữa / phải / trên / giữa dọc / dưới theo slide chứa phần tử, Lấp đầy Cao / Rộng / Rộng 2×, Lật ngang / dọc (khối: lật vị trí ô); tab Nâng cao — Rộng, Cao (khoá tỉ lệ), X, Y, Xoay; ✓ là một bước hoàn tác, ✕ trả lại
+- [x] **Bố cục của khối**: đổi sang kiểu chia khác (36 lưới + 12 bố cục), giữ vị trí / kích thước khối; ảnh giữ theo thứ tự ô, ảnh thừa thành ảnh tự do cạnh khối kèm thông báo, ô thừa để trống
+- [x] **Điều chỉnh của khối**: Khe, Lề (khối có kiểu chia), Bo góc ô, Màu nền khối
+- [ ] Sheet Kiểu (bo từng góc, bóng có góc / khoảng cách / độ nhoè, viền) + bảng màu dùng chung (tuỳ chỉnh, đã lưu, mặc định)
+- [ ] Bottom sheet kéo 50 – 95 % và đẩy canvas lên
+- [x] Kiểm tra `e2e/m17.mjs` (phần đã làm); sửa test m13b chọn nhầm ảnh theo id ngẫu nhiên

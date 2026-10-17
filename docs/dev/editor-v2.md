@@ -54,6 +54,14 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Kiểm thử:** `e2e/m16.mjs` (ví dụ G H / I J K / L với 1, 3, 7 ảnh; một bước hoàn tác; Thay; nút Ảnh tự do, giới hạn 10).
 
+## 0d. Đã cài ở M17 (2026-10-17, D-96) — phần thanh công cụ, Vị trí, khối
+
+**Thanh công cụ** (`Editor.tsx`): danh sách nút theo loại phần tử, trong viên thuốc trượt ngang; ✕ (aria "Done") bỏ chọn. Ảnh trong ô (`parentId`) không có Vị trí / Khoá / Nhân bản; "Xoá" của ô = làm trống ô. "Làm trống" = `assetId: null`.
+
+**Sheet Vị trí** (`tools/PositionTool.tsx`, `lib/project/position.ts`): là công cụ nháp (`beginDraft` khi mở). `patchDraft(id, patch)` → `patchElement` (khối: `syncLayout` + dàn lại ô nếu đổi khe / lề / kích thước; ảnh: `refitCrop` nếu khung đổi tỉ lệ). Sắp lớp dùng `moveUnit` trên bản nháp. Căn theo `rotatedBounds` so với slide chứa tâm. Lấp đầy co giãn giữ tỉ lệ và đưa góc xoay về 0. Lật: ảnh đổi `flipX/Y`, khối lật toạ độ ô.
+
+**Khối có kiểu chia** (`LayoutElement.layout / gap / padding / radius / fill`): khối tạo từ sheet Slide mới hoặc đổi Bố cục nhớ id kiểu chia → `respaced()` tính lại ô theo khe / lề (`slideCells(def, aspect, gap, padding)`). Khối cũ (gom từ ô lưới cũ) chưa có id → sheet Điều chỉnh chỉ cho Bo góc và Màu nền, ghi chú "chọn kiểu bố cục trước". `radius` áp lên mọi ô trong `syncLayout` (mask `rounded`); `fill` do `LayoutNode` vẽ. `relayout()` (`lib/templates/blockLayout.ts`) dùng lại phần tử ảnh cũ theo thứ tự ô (ảnh trước, ô trống sau), ảnh thừa bỏ `parentId` và đặt bên phải khối; luôn tính từ `doc` gốc (không phải bản nháp) nên thử nhiều kiểu không mất ảnh.
+
 ## 1. Hiện trạng cần thay đổi
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:
