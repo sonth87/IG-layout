@@ -18,6 +18,8 @@ import { ExportSheet } from "./ExportSheet";
 import { RemoveBgDialog } from "./RemoveBgDialog";
 import { FloatingMenu } from "./FloatingMenu";
 import { NewSlideSheet } from "./NewSlideSheet";
+import { PositionTool } from "./tools/PositionTool";
+import { BlockAdjustTool, BlockLayoutTool } from "./tools/BlockTools";
 import { FillFrameSheet } from "./FillFrameSheet";
 import { fillTargets, MAX_FREE_PHOTOS } from "@/lib/project/fill";
 import { SlideControls } from "./SlideControls";
@@ -78,9 +80,12 @@ type Tool =
   | "trim"
   | "animate"
   | "music"
-  | "newSlide";
+  | "newSlide"
+  | "position"
+  | "blockLayout"
+  | "blockAdjust";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -424,6 +429,10 @@ export function Editor({ onClose }: { onClose: () => void }) {
 
   let bottom: React.ReactNode;
   if (tool === "mask" && selected) bottom = <MaskTool elementId={selected.id} onClose={close} />;
+  else if (tool === "position" && selected) bottom = <PositionTool elementId={selected.id} onClose={close} />;
+  else if (tool === "blockLayout" && selected)
+    bottom = <BlockLayoutTool elementId={selected.id} onClose={close} onOutside={(n) => showNotice(t("block.outside", { count: n }))} />;
+  else if (tool === "blockAdjust" && selected) bottom = <BlockAdjustTool elementId={selected.id} onClose={close} />;
   else if (tool === "style" && selected) bottom = <StyleTool elementId={selected.id} onClose={close} />;
   else if (tool === "adjust" && selected) bottom = <AdjustTool elementId={selected.id} onClose={close} />;
   else if (tool === "filters" && selected) bottom = <FilterTool elementId={selected.id} onClose={close} />;
@@ -436,64 +445,78 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "animate" && selected) bottom = <AnimationTool elementId={selected.id} onClose={close} />;
   else if (tool === "slides") bottom = <SlidesTool onClose={close} showSafeZone={showSafeZone} onSafeZone={setShowSafeZone} />;
   else if (selected) {
-    // Tools for the selection (≤ 4) + Done. Duplicate / delete / lock / more float over
-    // the element (S7). Same height as the bar with nothing selected (F-03).
+    // Toolbar of the selected kind of element (editor-v2/07 §5): slides sideways, ✕ deselects.
+    const id = selected.id;
+    const inBlock = !!selected.parentId;
+    const position = !inBlock && <ToolButton key={t("editor.position")} label={t("editor.position")} icon="move" onClick={() => openTool("position")} />;
+    const tail = [
+      !inBlock && <ToolButton key={selected.locked ? t("editor.unlock") : t("editor.lock")} label={selected.locked ? t("editor.unlock") : t("editor.lock")} icon={selected.locked ? "unlock" : "lock"} onClick={() => store.toggleLock(id)} />,
+      !inBlock && <ToolButton key={t("editor.duplicate")} label={t("editor.duplicate")} icon="duplicate" onClick={() => store.duplicateElement(id)} />,
+      <ToolButton key={t("common.delete")} label={t("common.delete")} icon="trash" onClick={() => store.removeElement(id)} danger />,
+    ];
     let tools: React.ReactNode;
     if (selected.type === "image" && !selected.assetId)
-      tools = (
-        <>
-          <ToolButton label={t("editor.addPhoto")} icon="image" onClick={() => store.openFillFrame(selected.id, "fill")} />
-          {selected.slot && <ToolButton label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(selected.id)} />}
-          <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
-        </>
-      );
+      tools = [
+        <ToolButton key={t("editor.addPhoto")} label={t("editor.addPhoto")} icon="image" onClick={() => store.openFillFrame(id, "fill")} />,
+        selected.slot && <ToolButton key={t("editor.swap")} label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(id)} />,
+        position,
+        <ToolButton key={t("editor.style")} label={t("editor.style")} icon="style" onClick={() => openTool("style")} />,
+        ...tail,
+      ];
     else if (selected.type === "image" && selectedIsVideo)
-      // Video: trim, sound, colour; crop is in ⋯ (M13.3).
-      tools = (
-        <>
-          <ToolButton label={t("trim.title")} icon="scissors" onClick={() => openTool("trim")} />
-          <ToolButton label={t("video.sound")} icon="volume" onClick={() => openTool("sound")} />
-          <ToolButton label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />
-          <ToolButton label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />
-          {/* Lock / unlock is in the floating menu, not instead of Style. */}
-          <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
-        </>
-      );
+      tools = [
+        <ToolButton key={t("editor.replace")} label={t("editor.replace")} icon="replace" onClick={() => store.openFillFrame(id, "replace")} />,
+        <ToolButton key={t("trim.title")} label={t("trim.title")} icon="scissors" onClick={() => openTool("trim")} />,
+        <ToolButton key={t("video.sound")} label={t("video.sound")} icon="volume" onClick={() => openTool("sound")} />,
+        <ToolButton key={t("editor.filters")} label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />,
+        <ToolButton key={t("editor.adjust")} label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />,
+        <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        position,
+        <ToolButton key={t("editor.crop")} label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />,
+        <ToolButton key={t("editor.style")} label={t("editor.style")} icon="style" onClick={() => openTool("style")} />,
+        ...tail,
+      ];
     else if (selected.type === "image")
-      tools = (
-        <>
-          <ToolButton label={t("editor.replace")} icon="replace" onClick={() => store.openFillFrame(selected.id, "replace")} />
-          <ToolButton label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />
-          <ToolButton label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />
-          <ToolButton label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />
-          {/* Lock / unlock is in the floating menu, not instead of Style. */}
-          <ToolButton label={t("editor.style")} icon="style" onClick={() => openTool("style")} />
-          <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
-        </>
-      );
+      tools = [
+        <ToolButton key={t("editor.replace")} label={t("editor.replace")} icon="replace" onClick={() => store.openFillFrame(id, "replace")} />,
+        position,
+        <ToolButton key={t("editor.crop")} label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />,
+        <ToolButton key={t("editor.style")} label={t("editor.style")} icon="style" onClick={() => openTool("style")} />,
+        <ToolButton key={t("editor.adjust")} label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />,
+        <ToolButton key={t("editor.filters")} label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />,
+        <ToolButton key={t("removeBg.title")} label={t("removeBg.title")} icon="sparkles" onClick={() => setRemoveBgFor(id)} />,
+        <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        selected.slot && <ToolButton key={t("editor.swap")} label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(id)} />,
+        selected.frame === "none" && !inBlock && <ToolButton key={t("editor.mask")} label={t("editor.mask")} icon="mask" onClick={() => openTool("mask")} />,
+        tail[0],
+        tail[1],
+        <ToolButton key={t("editor.clear")} label={t("editor.clear")} icon="reset" onClick={() => store.updateElement(id, { assetId: null })} />,
+        tail[2],
+      ];
     else if (selected.type === "layout")
-      // Layout block (M14): change the split; move / resize / turn on the canvas.
-      tools = (
-        <>
-          <ToolButton label={t("editor.layout")} icon="layout" onClick={() => setTool("layout")} />
-        </>
-      );
+      tools = [
+        <ToolButton key="layout" label={t("block.layout")} icon="layout" onClick={() => openTool("blockLayout")} />,
+        <ToolButton key="adjust" label={t("block.adjust")} icon="adjust" onClick={() => openTool("blockAdjust")} />,
+        position,
+        ...tail,
+      ];
     else if (selected.type === "text")
-      tools = (
-        <>
-          <ToolButton label={t("editor.editText")} icon="pencil" onClick={() => store.setEditingText(selected.id)} />
-          <ToolButton label={t("editor.textStyle")} icon="text" onClick={() => openTool("text")} />
-          <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
-        </>
-      );
+      tools = [
+        <ToolButton key={t("editor.editText")} label={t("editor.editText")} icon="pencil" onClick={() => store.setEditingText(id)} />,
+        <ToolButton key={t("editor.textStyle")} label={t("editor.textStyle")} icon="text" onClick={() => openTool("text")} />,
+        position,
+        <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        ...tail,
+      ];
     else
-      tools = (
-        <>
-          {/* Emoji keep their own colours: opacity only (still in the Color tool). */}
-          <ToolButton label={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} icon="palette" onClick={() => openTool("fill")} />
-          <ToolButton label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />
-        </>
-      );
+      tools = [
+        // Emoji keep their own colours: opacity only (still in the Color tool).
+        selected.type !== "drawing" &&
+          <ToolButton key={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} label={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} icon="palette" onClick={() => openTool("fill")} />,
+        position,
+        <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        ...tail,
+      ];
     bottom = sheet(
       t("editor.tools"),
       <div className="flex items-center gap-2">

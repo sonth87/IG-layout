@@ -126,10 +126,10 @@ check(photo.width > widthBefore * 1.6, `pinch scaled ${widthBefore.toFixed(0)} â
 
 console.log("8. Duplicate");
 await tapElement(photo);
-await page.getByRole("button", { name: "Duplicate" }).click();
+await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Duplicate" }).click();
 st = await state();
 check(st.doc.elements.length === 3, "3 elements after duplicate");
-await page.getByRole("button", { name: "Delete" }).click();
+await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Delete" }).click();
 await page.waitForTimeout(200);
 
 console.log("9. Background gradient");
@@ -150,7 +150,7 @@ const before = st.doc.elements.map((e) => e.x);
 await page.getByRole("button", { name: "Move right" }).click();
 st = await state();
 check(st.doc.elements[1].x - before[1] === 1080, "photo on slide 1 moved to slide 2 (+1080)");
-await page.getByRole("button", { name: "Delete" }).click();
+await page.getByRole("button", { name: "Delete", exact: true }).click(); // in the Slides tool
 st = await state();
 check(st.doc.slideCount === 3, "back to 3 slides");
 await page.getByRole("button", { name: "Done" }).click();

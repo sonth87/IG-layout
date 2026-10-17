@@ -146,21 +146,26 @@ export const SLIDE_GRIDS: SlideLayout[] = (
   ] as [string, SlideCell[]][]
 ).map(([id, cells]) => ({ id, kind: "grid", cells }));
 
-/** Cell rects (0..1 of the slide) for a slide `aspect` = width / height, white lines between grid cells. */
-export function slideCells(layout: SlideLayout, aspect: number) {
+/**
+ * Cell rects (0..1 of the slide / block) for an `aspect` = width / height. Grids get `gap`
+ * between cells (white lines by default) and `padding` around them, both relative to the width.
+ */
+export function slideCells(layout: SlideLayout, aspect: number, gap = layout.kind === "grid" ? GRID_LINE : 0, padding = 0) {
   const EPS = 0.001;
   return layout.cells.map((c) => {
     const h = c.square ? c.w * aspect : (c.h ?? c.w);
     let r = { x: c.x, y: c.y ?? (1 - h) / 2, w: c.w, h };
     if (layout.kind === "grid") {
-      // Half a line on inner edges, none on the slide's edges.
-      const gx = GRID_LINE / 2;
-      const gy = (GRID_LINE * aspect) / 2;
-      const l = r.x < EPS ? 0 : gx;
-      const rt = r.x + r.w > 1 - EPS ? 0 : gx;
-      const tp = r.y < EPS ? 0 : gy;
-      const b = r.y + r.h > 1 - EPS ? 0 : gy;
-      r = { x: r.x + l, y: r.y + tp, w: r.w - l - rt, h: r.h - tp - b };
+      // Half a gap on inner edges, the padding on the outer ones.
+      const gx = gap / 2;
+      const gy = (gap * aspect) / 2;
+      const px = padding;
+      const py = padding * aspect;
+      const l = r.x < EPS ? px : gx;
+      const rt = r.x + r.w > 1 - EPS ? px : gx;
+      const tp = r.y < EPS ? py : gy;
+      const b = r.y + r.h > 1 - EPS ? py : gy;
+      r = { x: r.x + l, y: r.y + tp, w: Math.max(0.01, r.w - l - rt), h: Math.max(0.01, r.h - tp - b) };
     }
     return { ...r, style: c };
   });

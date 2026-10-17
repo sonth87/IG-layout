@@ -75,6 +75,12 @@ export function syncLayout(doc: ProjectDoc, layoutId: string, assetSize: AssetSi
       if (!f || !isImage(el)) return el;
       const moved: ImageElement = { ...el, ...f, hidden: block.hidden || undefined };
       if (!moved.hidden) delete moved.hidden;
+      // Corner radius set on the block (Adjust sheet, M17) applies to every cell.
+      if (block.radius !== undefined) {
+        moved.cornerRadius = block.radius * block.width;
+        if (block.radius > 0 && moved.mask === "none") moved.mask = "rounded";
+        if (block.radius === 0 && moved.mask === "rounded") moved.mask = "none";
+      }
       // Same picture, new frame shape: refit the crop so the photo isn't stretched.
       const inner = innerFrame(moved);
       const before = innerFrame(el);

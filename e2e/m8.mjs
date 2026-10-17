@@ -110,8 +110,8 @@ const overflow = await page.evaluate(() => {
   return sec.scrollWidth - sec.clientWidth;
 });
 check(overflow <= 0, "bottom toolbar fits the screen");
-check(await page.getByRole("button", { name: "Duplicate" }).isVisible(), "Duplicate visible");
-check(await page.getByRole("button", { name: "Delete" }).isVisible(), "Delete visible");
+check(await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Duplicate" }).isVisible(), "Duplicate visible");
+check(await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Delete" }).isVisible(), "Delete visible");
 await shot(page, "2-toolbar");
 
 console.log("UX-09 grid cells: outline only");

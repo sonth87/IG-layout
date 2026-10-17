@@ -156,7 +156,7 @@ export function addLayoutSlide(doc: ProjectDoc, at: number, layout: SlideLayout 
   const next = insertSlideAt(doc, at);
   if (next === doc || !layout) return next;
   const r = slideRect(next, at);
-  const block: LayoutElement = { id: newId(), type: "layout", x: r.x, y: r.y, width: r.width, height: r.height, rotation: 0, opacity: 1, cells: [] };
+  const block: LayoutElement = { id: newId(), type: "layout", x: r.x, y: r.y, width: r.width, height: r.height, rotation: 0, opacity: 1, cells: [], layout: layout.id };
   const cells: CanvasElement[] = slideCells(layout, r.width / r.height).map((c) => {
     const frame = { x: r.x + c.x * r.width, y: r.y + c.y * r.height, width: c.w * r.width, height: c.h * r.height };
     const el = { ...imageElement({ id: "", width: frame.width, height: frame.height }, frame), assetId: null, parentId: block.id, slot: true };

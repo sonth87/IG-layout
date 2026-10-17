@@ -6,6 +6,8 @@ import { migrateDoc } from "@/lib/project/migrate";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { placeImages } from "@/lib/project/placement";
 import { fillCells, fillTargets, freePhotos } from "@/lib/project/fill";
+import { patchElement } from "@/lib/project/position";
+import { relayout } from "@/lib/templates/blockLayout";
 import { canvasSize, GRID_COLS } from "@/lib/project/layout";
 import { deleteSlide, duplicateSlide, insertSlide, moveSlide, moveSlideTo, setGridGap, setGridRows } from "@/lib/project/slides";
 import { addLayoutSlide, applyTemplate, templateSlides } from "@/lib/templates/apply";
@@ -114,6 +116,10 @@ interface EditorState {
 
   beginDraft: () => void;
   updateDraft: (update: (doc: ProjectDoc) => ProjectDoc) => void;
+  /** Changes one element of the draft; a block keeps its cells, a photo its crop (M17). */
+  patchDraft: (id: string, patch: Partial<CanvasElement>) => void;
+  /** Another split for the block in the draft; returns how many photos went outside it. */
+  relayoutDraft: (id: string, layoutId: string) => number;
   applyDraft: () => void;
   cancelDraft: () => void;
 
@@ -464,6 +470,15 @@ export const useEditor = create<EditorState>()((set, get) => {
 
     beginDraft: () => set((s) => ({ draft: s.doc })),
     updateDraft: (update) => set((s) => (s.draft ? { draft: update(s.draft) } : {})),
+    relayoutDraft: (id, layoutId) => {
+      const s = get();
+      if (!s.draft) return 0;
+      // From the doc before the sheet opened: trying splits never loses photos.
+      const r = relayout(s.doc!, id, layoutId, (a) => s.assets[a]);
+      set({ draft: r.doc });
+      return r.outside;
+    },
+    patchDraft: (id, patch) => set((s) => (s.draft ? { draft: patchElement(s.draft, id, patch, (a) => s.assets[a]) } : {})),
     applyDraft: () => {
       const draft = get().draft;
       if (draft) commit(() => draft);

@@ -108,7 +108,7 @@ check(errors.length === 0, "no errors while exporting");
 await page.getByRole("button", { name: "Back to editor" }).click();
 
 console.log("Seamless template with a background photo cell");
-await page.getByRole("button", { name: "Back" }).click();
+await page.getByRole("button", { name: "Back", exact: true }).click();
 await page.getByRole("tab", { name: "Templates" }).click();
 await page.getByRole("button", { name: "Panorama + title" }).click();
 await page.getByRole("button", { name: "Use template" }).click();
@@ -137,9 +137,8 @@ await page.waitForTimeout(300);
 check((await page.evaluate(() => window.__igEditor.getState().selectedId)) === bg0.id, "tap selects the background photo");
 check(
   (await page.getByRole("region", { name: "Tools" }).getByRole("button", { name: "Style", exact: true }).isVisible()) &&
-    (await page.getByRole("region", { name: "Tools" }).getByRole("button", { name: "Unlock", exact: true }).count()) === 0 &&
     (await page.getByRole("toolbar", { name: "Quick actions" }).getByRole("button", { name: "Unlock" }).isVisible()),
-  "toolbar shows Style, not Unlock (unlock is in the floating menu)",
+  "toolbar keeps Style; Unlock in the floating menu too",
 );
 await touch("touchStart", [tp]);
 for (let i = 1; i <= 10; i++) await touch("touchMove", [{ x: tp.x - i * 8, y: tp.y }]);
@@ -158,7 +157,7 @@ bg = (await S()).doc.elements[0];
 check(bg.crop.width < c0.width * 0.8 && bg.width === bg0.width, `pinch zooms the picture inside (crop width ${Math.round(c0.width)} → ${Math.round(bg.crop.width)})`);
 
 console.log("Vietnamese template text");
-await page.getByRole("button", { name: "Back" }).click();
+await page.getByRole("button", { name: "Back", exact: true }).click();
 await page.evaluate(() => {
   const s = JSON.parse(localStorage.getItem("ig-layout:settings") || "{}");
   localStorage.setItem("ig-layout:settings", JSON.stringify({ ...s, locale: "vi" }));
