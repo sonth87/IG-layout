@@ -108,7 +108,7 @@ Toàn bộ quy tắc ở product/06 được cài trong **một hàm thuần** �
 function onTap(doc: ProjectDoc, sel: Selection, hit: Hit): { selection: Selection; action?: "fillFrame" | "editText" }
 ```
 
-`Hit` là kết quả dò điểm chạm: `{ elementId, cellId? }` của phần tử **ngoài cùng trên cùng** tại điểm đó (dò bằng hình học trên `doc`, không dựa vào cây Konva, để không phụ thuộc thứ tự vẽ của Konva), hoặc `null` nếu trúng vùng trống.
+`Hit` có thêm cờ `plus: boolean` — điểm chạm nằm trong vùng dấu + của một ô trống (D-90); kiểm tra cờ này **trước** mọi quy tắc khác. `Hit` là kết quả dò điểm chạm: `{ elementId, cellId? }` của phần tử **ngoài cùng trên cùng** tại điểm đó (dò bằng hình học trên `doc`, không dựa vào cây Konva, để không phụ thuộc thứ tự vẽ của Konva), hoặc `null` nếu trúng vùng trống.
 
 Bảng chuyển trạng thái (Q-E1 / Q-E3 chọn theo đề xuất; đổi bằng cờ cấu hình):
 
@@ -117,7 +117,8 @@ Bảng chuyển trạng thái (Q-E1 / Q-E3 chọn theo đề xuất; đổi bằ
 | `null` | `null` | `null` | — |
 | `null` | phần tử E (có hay không có ô) | `element E` | — |
 | `element E` | cùng E, có `cellId` C, ô có ảnh | `cell E/C` | — |
-| `element E` | cùng E, có `cellId` C, ô trống | `cell E/C` | `fillFrame` |
+| bất kỳ | **trúng dấu +** của ô trống C trong E (vùng tròn 44 px quanh tâm ô) | `cell E/C` | `fillFrame` (D-90) |
+| `element E` | cùng E, có `cellId` C, ô trống, không trúng dấu + | `element E` | — |
 | `element E` (chữ) | cùng E | `element E` | `editText` |
 | `element E` | cùng E, không có ô (khe) | `element E` | — |
 | `element E` / `cell E/*` | phần tử khác F | `element F` (Q-E3, D-88) | — |

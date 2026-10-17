@@ -31,6 +31,8 @@ Thứ tự được chọn sao cho mỗi mốc là nền cho mốc sau, và nh�
 
 **M19 — Chữ, chỉnh ảnh, thư viện, xuất.** Gõ chữ trực tiếp và sheet Định dạng; màn Chỉnh ảnh toàn màn hình; Công cụ nền mở rộng; menu "+" và thư viện Hình / Khung / Widget / Brand Kit theo nhóm; Nền có chất liệu và chuyển màu tuỳ chỉnh; Xem trước; màn Xuất mới; bảng Lớp có thumbnail. Tài liệu: [09](09-anh-va-video.md) mục 5–6, [10](10-chu.md), [11](11-thu-vien.md), [12](12-sheet-menu-xuat-lop.md) mục 2–6.
 
+**M20 — Xoá vật thể.** Tô lên vật thể để máy tự xoá và vẽ lại nền phía sau, chạy trên máy (mô hình ~200 MB, tải lần đầu khi dùng, như xoá nền). Làm sau cùng (Q-E8). Tài liệu: [09](09-anh-va-video.md) mục 3.
+
 Mỗi mốc kết thúc bằng: kiểm thử tự động cho các tiêu chí nghiệm thu của tài liệu tương ứng, ảnh chụp màn hình cả hai chế độ sáng / tối, và chủ dự án thử trên điện thoại.
 
 ## 3. Câu hỏi đã chốt (2026-10-17)
@@ -40,14 +42,10 @@ Mỗi mốc kết thúc bằng: kiểm thử tự động cho các tiêu chí ng
 - **Q-E5 — Kéo bottom sheet.** Thả ở **0 – 20 %** → đóng; **20 – 50 %** → bật về 50 %. → [12](12-sheet-menu-xuat-lop.md) mục 1.1.
 - **Q-E6 — Nút chính.** Giữ màu nhấn hiện tại. → [01](01-giao-dien.md).
 - **Q-E7 — Ba tab đáy.** Đồng ý **Trang chủ / Dự án / Cài đặt**. → [03](03-trang-chu-va-template.md).
+- **Q-E1 — Chạm ô ảnh trống.** Ô đứng riêng trên slide trắng: chạm là chọn luôn ô đó. Ô trong lưới / template: chạm **trúng dấu +** → mở ngay "Lấp đầy khung"; chạm chỗ khác của ô → chọn cha (vì chưa có ảnh để đi vào). → [06](06-chon-va-cu-chi.md) quy tắc 6.
+- **Q-E4 — Thẻ cạnh "Tiếp tục".** Thêm thẻ **"Tạo mới"**. → [03](03-trang-chu-va-template.md).
+- **Q-E8 — Xoá vật thể.** Làm, **để sau cùng** (M20).
 
 ## 4. Câu hỏi còn mở
 
-- **Q-E1 — Chạm vào ô ảnh trống (không phải slide trống).** "Ô trống" ở đây là **chỗ chứa ảnh chưa có ảnh** — hình chữ nhật xám có dấu **+** tròn ở giữa, nằm trong một khối lưới / bố cục hoặc trong một khung (như IMG_3962, IMG_4005, IMG_4019). Slide trắng không có gì thì chạm vào không xảy ra gì — đúng như chủ dự án nói. Câu hỏi là: **khi chưa chọn gì**, người dùng chạm thẳng vào dấu + của một ô trống nằm trong lưới, thì:
-  - (a) lần chạm đầu **chọn cả lưới** (theo quy tắc "cha trước"), phải chạm thêm lần nữa vào ô mới mở "Lấp đầy khung"; hay
-  - (b) lần chạm đầu **mở ngay "Lấp đầy khung"** cho ô đó (ô trống là ngoại lệ của quy tắc "cha trước").
-  Mô tả của chủ dự án ("ấn lần 1 select cha, ấn thêm 1 lần nữa vào vị trí component nào bên trong sẽ select component đó … nếu chỉ là khoảng trống với dấu "+" thì sẽ hiện bottom sheet") nghiêng về (a). Còn với **khung đứng riêng** (một khung polaroid đặt tự do, chỉ có một cửa sổ): lần chạm đầu chọn khung, lần sau vào dấu + mở "Lấp đầy khung" — hay mở ngay?
-- **Q-E4 — Thẻ trên trang chủ mới của app mình.** Trong trang chủ mới (Phần 03), ngay dưới banner có một hàng **hai thẻ nhỏ**. Thẻ trái là **"Tiếp tục"** — mở lại dự án bạn làm gần nhất (app tham chiếu có thẻ này, IMG_4003). Thẻ phải trong app tham chiếu là "kết nối Instagram" — app mình không làm nên phải bỏ. Câu hỏi: chỗ thẻ phải đó **để trống (chỉ còn một thẻ "Tiếp tục" rộng cả hàng)**, hay **đặt thẻ "Tạo mới"** (mở luồng tạo dự án)?
-- **Q-E8 — Xoá vật thể.** Tính năng này cần AI vẽ lại phần nền sau vật thể. Chạy được trên máy (như xoá nền) nhưng mô hình nặng khoảng 200 MB, xử lý chậm trên điện thoại. Làm (để sau cùng), hay bỏ?
 - **Q-E9 — Template ghép từ nhiều khung (như IMG_4036).** Bốn khung giấy xé trong template là **bốn phần tử riêng** (chạm lần đầu chọn từng mảnh giấy, kéo đi được từng mảnh), hay được **gom thành một nhóm** (chạm lần đầu chọn cả nhóm bốn mảnh, chạm lần nữa mới chọn từng mảnh — giống khối lưới)?
-

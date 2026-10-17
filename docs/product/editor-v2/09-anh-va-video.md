@@ -8,7 +8,7 @@ Có **hai cách thêm ảnh** với mục đích khác nhau: **điền vào ô t
 
 ### 1.1 Mở sheet
 
-Khi người dùng chạm vào một **ô trống** (ô có nền xám và dấu + — theo quy tắc ở [06](06-chon-va-cu-chi.md)), ứng dụng đánh dấu ô đó là **ô đang chọn** và mở bottom sheet **"Lấp đầy khung"** (IMG_3971). Sheet này thấp (khoảng 25 % màn hình), có tiêu đề ở giữa và nút ✕, nội dung là **ba nút tròn lớn** (đường kính khoảng 64 px, nền xám) xếp hàng ngang, mỗi nút có icon và nhãn bên dưới:
+Khi người dùng chạm **trúng dấu + tròn** của một **ô trống** (Q-E1 — xem quy tắc 6 ở [06](06-chon-va-cu-chi.md); chạm vào phần khác của ô trống trong lưới thì chỉ chọn lưới), ứng dụng đánh dấu ô đó là **ô đang chọn** và mở bottom sheet **"Lấp đầy khung"** (IMG_3971). Sheet này thấp (khoảng 25 % màn hình), có tiêu đề ở giữa và nút ✕, nội dung là **ba nút tròn lớn** (đường kính khoảng 64 px, nền xám) xếp hàng ngang, mỗi nút có icon và nhãn bên dưới:
 
 - **Ảnh** — chọn ảnh từ thư viện ảnh của máy.
 - **Video** — chọn video từ thư viện (video được nén về 1080p như tính năng video đã có).
@@ -56,7 +56,7 @@ Chủ dự án đã chốt (Q-E2, 2026-10-17): **bấm nút Ảnh ở thanh côn
 
 Khi chọn một ảnh (ảnh tự do, ảnh trong ô hay ảnh trong khung), thanh công cụ đáy có đủ các nút sau, trượt ngang để xem hết: **Thay · Vị trí · Cắt · Kiểu · Chỉnh · Công cụ nền · Xoá vật thể · Mở rộng bằng AI · Lưu sticker · Khoá · Nhân bản · Làm trống · Xoá**, và nút ✕ ở cuối để bỏ chọn.
 
-Chủ dự án nhận định: trừ "Mở rộng bằng AI" (cần AI tạo thêm phần ảnh) thì các nút khác đều làm được. Cần lưu ý thêm là **"Xoá vật thể" cũng là một tính năng AI** (tô lên vật thể, máy tự vẽ lại phần nền phía sau): có thể chạy ngay trên máy giống xoá nền, nhưng mô hình nặng khoảng 200 MB và chạy chậm trên điện thoại — đề xuất để sau cùng hoặc bỏ (Q-E8) [ĐX]. **"Mở rộng bằng AI" bỏ** (cần máy chủ).
+Chủ dự án nhận định: trừ "Mở rộng bằng AI" (cần AI tạo thêm phần ảnh) thì các nút khác đều làm được. Cần lưu ý thêm là **"Xoá vật thể" cũng là một tính năng AI** (tô lên vật thể, máy tự vẽ lại phần nền phía sau): có thể chạy ngay trên máy giống xoá nền, nhưng mô hình nặng khoảng 200 MB và chạy chậm trên điện thoại — chủ dự án chốt **làm, để sau cùng** (Q-E8, 2026-10-17): đưa vào mốc cuối M20; trước đó nút này chưa hiện [CDA]. **"Mở rộng bằng AI" bỏ** (cần máy chủ).
 
 ## 4. Thay [CDA]
 

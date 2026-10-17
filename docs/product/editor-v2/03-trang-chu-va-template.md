@@ -18,7 +18,7 @@ Ngay dưới (và nằm sau) thanh trên là một **banner lớn** chiếm kho�
 
 ### 2.3 Hàng thẻ "Tiếp tục"
 
-Dưới banner là một hàng hai thẻ nhỏ nằm ngang, bo góc. Thẻ trái là **"Tiếp tục"**: có thumbnail nhỏ của dự án được mở gần nhất, tên "Tiếp tục" và dòng phụ là thời gian ("2 giờ trước"). Chạm vào mở lại đúng dự án đó trong editor. Thẻ này **ẩn** khi người dùng chưa có dự án nào [QS]. Thẻ phải trong tham chiếu là "kết nối tài khoản mạng xã hội" — **bỏ**; đề xuất thay bằng thẻ **"Tạo mới"** mở luồng tạo dự án (câu hỏi Q-E4) [ĐX].
+Dưới banner là một hàng hai thẻ nhỏ nằm ngang, bo góc. Thẻ trái là **"Tiếp tục"**: có thumbnail nhỏ của dự án được mở gần nhất, tên "Tiếp tục" và dòng phụ là thời gian ("2 giờ trước"). Chạm vào mở lại đúng dự án đó trong editor. Thẻ này **ẩn** khi người dùng chưa có dự án nào [QS]. Thẻ phải trong tham chiếu là "kết nối tài khoản mạng xã hội" — **bỏ**, thay bằng thẻ **"Tạo mới"** (chủ dự án chốt Q-E4, 2026-10-17) [CDA]: icon + trong ô vuông bo góc, chữ "Tạo mới", dòng phụ "Trang trắng"; chạm mở sheet "Dự án mới" ([04](04-tao-du-an.md)). Khi chưa có dự án nào (thẻ "Tiếp tục" ẩn), thẻ "Tạo mới" chiếm cả hàng [ĐX].
 
 ### 2.4 Các nhóm template
 

@@ -72,3 +72,8 @@ Chép nguyên văn để không ý nào bị mất khi diễn giải. Tên ứng
 
 **2026-10-17 (lần 6):**
 > các template là từ các khung, các layout, vị trí image, shape, sticker,.... và nhiều thứ khác, không phải là luôn theo quy tắc dàn hàng ngang, hay xếp cạnh nhau, mà có thể đè lên nhau, xoay góc,... để tạo những hiệu ứng thị giác riêng,
+
+**2026-10-17 (lần 7):**
+> - QE1 : chạm ô chưa ảnh mà chưa có ảnh, thì có 2 tình huống. nếu ô chứa ảnh này nằm trong 1 blank slide (IMG_3959) thì có thể chạm vào comp ảnh đó luôn, nếu comp ảnh đó nằm trong 1 template/grid (IMG_3959, IMG_3960) thì nếu chạm đúng vào dấu + tròn, thì có thể hiện bottom sheet như ảnh IMG_3971 để user chọn ảnh/video/file (ảnh/video) luôn, nếu không click trúng vào dấu + tròn đó thì vẫn là đang hiểu chọn vào cha, vì lúc này chưa có component con (là ảnh ở khu vực đó)
+> - QE4: thêm thẻ tạo mới
+> - QE8: để sau cùng

@@ -27,7 +27,14 @@ Theo chủ dự án, khi đang chọn C thì **việc di chuyển hiển thị C
 
 **Quy tắc 5 — chạm sang phần tử khác thì chọn luôn nó; chạm ra ngoài thì bỏ chọn.** Chủ dự án đã chốt (Q-E3, 2026-10-17): **đang chọn một thứ mà chạm vào một thứ khác thì chuyển sang chọn thứ khác luôn** — một chạm, không phải bỏ chọn trước. "Thứ khác" được chọn theo quy tắc 2, tức là phần tử ngoài cùng tại điểm chạm. **Chạm ra chỗ không thuộc phần tử nào** (vùng trống của slide hoặc nền đen quanh canvas) thì **bỏ chọn**; sau đó cử chỉ quay về dành cho canvas [CDA].
 
-**Quy tắc 6 — ô trống.** Chủ dự án mô tả: **nếu bên trong chưa có phần tử nào mà chỉ là khoảng trống với dấu "+", chạm vào sẽ hiện bottom sheet "Lấp đầy khung"** để chọn ảnh, video hoặc tệp [CDA]. Theo đúng quy tắc 2 và 3, ô trống được "đi vào" ở lần chạm thứ hai: lần đầu chạm vào ô trống chọn khối cha; lần chạm tiếp theo vào ô trống mở "Lấp đầy khung" cho đúng ô đó và đánh dấu ô đó là **ô đang chọn** (ô đang chọn quyết định thứ tự điền ảnh — xem [09](09-anh-va-video.md)). Ứng dụng hiện tại đang mở "Lấp đầy khung" ngay từ lần chạm đầu; cần chủ dự án chọn cách nào (Q-E1).
+**Quy tắc 6 — ô ảnh trống: chạm đúng dấu + là thêm ảnh ngay.** Chủ dự án đã chốt (Q-E1, 2026-10-17) [CDA]. "Ô ảnh trống" là chỗ chứa ảnh chưa có ảnh: hình xám có **dấu + tròn** ở giữa. Có hai tình huống:
+
+- **Ô ảnh đứng riêng** — ví dụ một chỗ chứa ảnh / một khung đặt thẳng lên một slide trắng, không nằm trong lưới hay template nào. Ô này **là phần tử ngoài cùng**, nên chạm vào nó là **chọn luôn nó** (không có cha để chọn trước). Chạm đúng vào dấu + cũng mở ngay "Lấp đầy khung" như tình huống dưới [ĐX — để thao tác thống nhất].
+- **Ô ảnh nằm trong một lưới / template** (ví dụ slide tạo từ mục Bố cục hoặc Lưới — IMG_3959, IMG_3960). Có hai khả năng tuỳ chỗ chạm:
+  - chạm **trúng dấu + tròn** → **mở ngay** sheet **"Lấp đầy khung"** (IMG_3971) để chọn ảnh / video / tệp, kể cả khi đang chưa chọn gì; ô đó trở thành **ô đang chọn** (dùng cho thứ tự điền ảnh — [09](09-anh-va-video.md));
+  - chạm **vào phần còn lại của ô** (không trúng dấu +) → hiểu là **chọn phần tử cha** (cả lưới / khung chứa nó) theo quy tắc 2, vì lúc này ở chỗ đó **chưa có phần tử con** (chưa có ảnh) để đi vào.
+
+Vùng chạm của dấu + lớn hơn hình vẽ của nó: hình tròn hiển thị khoảng 28 px nhưng vùng nhận chạm là hình tròn đường kính 44 px quanh tâm [ĐX], để dễ bấm trúng mà không lấn hết ô. Khi canvas đang thu nhỏ đến mức ô nhỏ hơn vùng chạm, vùng chạm co lại bằng ô.
 
 **Quy tắc 7 — phần tử bị khoá.** Phần tử bị khoá vẫn chọn được (để mở khoá, đổi kiểu, thay ảnh…), nhưng không kéo, co giãn hay xoay được. Với ảnh bị khoá trong khung, ảnh bên trong vẫn dời và phóng được (D-85).
 
@@ -37,13 +44,15 @@ Theo chủ dự án, khi đang chọn C thì **việc di chuyển hiển thị C
 |---|---|---|
 | Không chọn gì | Chụm hai ngón (ở bất kỳ đâu, kể cả trên ảnh) | Phóng / thu canvas |
 | Không chọn gì | Kéo một ngón | Dời canvas khi đang phóng, hoặc cuộn dải slide |
-| Không chọn gì | Chạm một ô trong lưới | Chọn **cả khối bố cục** |
+| Không chọn gì | Chạm một ô trong lưới (có ảnh, hoặc ô trống nhưng **không trúng** dấu +) | Chọn **cả khối bố cục** |
+| Bất kỳ | Chạm **trúng dấu +** của một ô trống | Mở **Lấp đầy khung** ngay cho ô đó |
+| Không chọn gì | Chạm ô ảnh trống **đứng riêng** trên slide | Chọn ô đó |
 | Không chọn gì | Chạm một chữ / sticker / ảnh tự do | Chọn phần tử đó |
 | Không chọn gì | Chạm vùng trống | Không có gì xảy ra |
 | Đang chọn khối | Kéo một ngón | Dời cả khối (các ô và ảnh đi theo) |
 | Đang chọn khối | Chụm / xoay hai ngón | Co giãn / xoay cả khối |
 | Đang chọn khối | Chạm lại vào một ô **có ảnh** | Chọn **ảnh trong ô** đó |
-| Đang chọn khối | Chạm lại vào một ô **trống** | Mở **Lấp đầy khung** cho ô đó |
+| Đang chọn khối | Chạm lại vào một ô **trống** (không trúng dấu +) | Giữ chọn khối [ĐX] |
 | Đang chọn khối | Chạm vào khe giữa các ô | Giữ nguyên chọn khối |
 | Đang chọn ảnh trong ô | Kéo một ngón | **Dời ảnh trong ô**, ô đứng yên |
 | Đang chọn ảnh trong ô | Chụm | **Phóng ảnh trong ô**, không nhỏ hơn mức phủ kín |
