@@ -1,6 +1,6 @@
 # M20 — Mở rộng thư viện: hiện trạng, đề xuất và câu hỏi
 
-Ngày: 2026-10-17. Trạng thái: **đang bàn** — đã có câu trả lời đợt 1 (§7), còn Q-L10…Q-L13 (§10).
+Ngày: 2026-10-17. Trạng thái: **đã chốt hướng** (§7, §11). Bắt đầu từ phần nền tảng.
 Liên quan: D-104 (đổi thứ tự: M20 = mở rộng thư viện, M21 = xoá vật thể), D-66 (tài sản là của mình hoặc có giấy phép), [editor-v2/11](../product/editor-v2/11-thu-vien.md).
 
 ## 1. Hiện app có gì
@@ -158,3 +158,46 @@ Mỗi bộ sinh viết một lần, ra **hàng trăm biến thể** (đổi tham
   - **(3) Các đợt sau** tới hơn 1.000.
 
   Đồng ý không?
+
+## 11. Kết quả trao đổi đợt 2 (2026-10-17)
+
+- **Q-L10 Giấy phép:** app **phi thương mại**, nên dùng được cả tài sản **chỉ cho phép phi thương mại** (CC-BY-NC, phông "free for personal use"…) — D-106.
+  - **Vẫn loại** các nguồn cấm đưa tài sản vào một thư viện / app để người khác dùng lại. Điều khoản này không liên quan đến thương mại hay không. Gồm Pixabay (cấm "standalone"), Unsplash (cấm gom làm dịch vụ tương tự), Pexels, Freepik.
+  - Mỗi mục **lưu giấy phép**. Nếu sau này app có quảng cáo / thu phí thì lọc ra được ngay các mục NC để thay.
+  - CC-BY-SA: dùng được cho tài sản tách rời (sticker, phông); ghi rõ trên màn Cảm ơn.
+- **Q-L11 Bộ sinh khung:** đồng ý, **nhưng phải tự nhiên** (D-107). Xem §12.
+- **Q-L12 Nơi để tài sản:** chung repo, **thư mục riêng** — `assets/` (nguồn gốc + hồ sơ giấy phép) và `public/packs/` (bản đã xử lý app tải về) — D-108.
+- **Q-L13 Thứ tự:** đồng ý — (1) nền tảng → (2) đợt nội dung 1 (~300 mục) → (3) các đợt sau tới > 1.000.
+- **Thêm:**
+  - Màn **Giới thiệu** về chủ dự án.
+  - Một mục nhỏ **Cảm ơn** các thư viện / tác giả, sinh tự động từ hồ sơ giấy phép.
+  - **M23 Liquid glass** (D-109).
+
+## 12. Bộ sinh khung phải tự nhiên (D-107)
+
+Yêu cầu của chủ dự án: tham số đơn giản (độ răng cưa, độ dày) **không đủ tự nhiên**. Giấy xé thật thì:
+- không xé thẳng, có lúc lệch;
+- vế to vế nhỏ, xé chéo, không vuông vức;
+- cạnh to cạnh nhỏ, mỗi cạnh một kiểu.
+
+Cách làm:
+- **Hình dạng lớn trước, chi tiết sau.**
+  - Đường xé là một đường cong đi lệch dần: hướng trôi ngẫu nhiên, có chỗ đổi hướng đột ngột, có chỗ "giật" khi giấy rách sai thớ.
+  - Không phải một đường thẳng cộng nhiễu.
+  - Sau đó mới thêm răng cưa nhỏ nhiều lớp (nhiễu nhiều tầng tần số).
+- **Mỗi cạnh độc lập:**
+  - Cạnh nào cũng có thể xé hay giữ mép cắt thẳng.
+  - Mỗi cạnh có độ sâu, độ nghiêng và độ gồ ghề riêng.
+  - Góc không vuông; mảnh có thể hơi hình thang hoặc méo.
+- **Hai lớp giấy:**
+  - Mép xé lộ **lõi giấy trắng có xơ**, bề rộng thay đổi dọc theo mép: chỗ rộng, chỗ gần như mất.
+  - Đôi chỗ lớp mặt bong rộng hơn.
+- **Chi tiết phụ ngẫu nhiên:** nếp gấp, góc quăn có bóng, vết nhăn nhẹ, bóng đổ không đều (giấy không nằm phẳng).
+- **Chất liệu thật:** mặt giấy dùng ảnh chất liệu CC0 / NC, không tô màu phẳng.
+- **Tuyển chọn bằng tay:**
+  - Sinh rất nhiều biến thể, **chỉ giữ cái đẹp**.
+  - Lưu lại hạt ngẫu nhiên, để cùng một khung luôn ra giống nhau.
+  - Chủ dự án duyệt trên một trang so sánh trước khi đưa vào app.
+- **Dùng mép xé thật:** nếu tìm được ảnh mép giấy xé thật có giấy phép dùng được, lấy mép đó làm "cọ" để vẽ dọc đường xé, cho độ thật cao hơn.
+
+Phim, polaroid, khung tranh cũng theo tinh thần này. Ví dụ phim thì lỗ phim lệch nhẹ, mép phim cong, vệt sáng ngẫu nhiên, chữ in mép mờ chỗ đậm chỗ nhạt; polaroid thì viền hơi ố, góc hơi bo không đều, băng dính dán lệch.

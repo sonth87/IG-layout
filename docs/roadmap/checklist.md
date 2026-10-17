@@ -408,11 +408,22 @@ Chi tiết: [video-lab](../discussions/2026-10-16-video-lab.md).
 
 ### M20 — Mở rộng thư viện (D-104) — đang bàn phạm vi
 - [x] Chủ dự án trả lời Q-L1…Q-L9 và Q-E9 (đợt 1, 2026-10-17)
-- [ ] Trả lời Q-L10…Q-L13 (giấy phép, bộ sinh khung, nơi để tài sản, thứ tự làm) ở [2026-10-17-m20-mo-rong-thu-vien.md](../discussions/2026-10-17-m20-mo-rong-thu-vien.md)
-- [ ] Chốt phạm vi và chia việc
+- [x] Trả lời Q-L10…Q-L13 (D-106 … D-108)
+- [ ] **(1) Nền tảng:**
+  - [ ] danh mục tài sản + hồ sơ giấy phép (`assets/`, `public/packs/`), tải theo nhóm, lưu offline
+  - [ ] khung có lớp trang trí + nhiều cửa sổ
+  - [ ] nút Loại / Bộ, màn Bộ sưu tập
+  - [ ] màn chọn phông mới (chữ của phần tử / câu ngẫu nhiên, lọc ngôn ngữ / kiểu)
+  - [ ] màn Cảm ơn sinh tự động
+  - [ ] màn Giới thiệu (chờ nội dung của chủ dự án)
+- [ ] **(2) Đợt nội dung 1** (~300 mục)
+- [ ] **(3) Các đợt sau** (> 1.000 mục)
 
 ### M21 — Công cụ sáng tạo (D-105)
 - [ ] Bàn chi tiết: nhóm filter, danh sách hiệu ứng tĩnh, bút vẽ / viết tay
+
+### M23 — Liquid glass (D-109)
+- [ ] Bàn chi tiết khi tới (kính trên Safari / iPhone)
 
 ### M22 — Xoá vật thể (D-104, D-105)
 - [ ] Đặc tả: [editor-v2/09](../product/editor-v2/09-anh-va-video.md) mục 3
