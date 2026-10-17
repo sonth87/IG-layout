@@ -1,0 +1,1344 @@
+{
+  "id": "gen-instant",
+  "kind": "frame",
+  "name": {
+    "en": "Instant photos",
+    "vi": "Ảnh lấy liền"
+  },
+  "collections": [
+    "journal",
+    "vintage",
+    "film"
+  ],
+  "order": 13,
+  "items": [
+    {
+      "id": "instant-1",
+      "name": {
+        "en": "Instant photo, sage, taped",
+        "vi": "Ảnh lấy liền viền xanh xám có băng dính"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "sage",
+          "portrait",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "xanh xám",
+          "dọc",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #1",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-1",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 980,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1134,
+          "y": 0.0807,
+          "w": 0.7724,
+          "h": 0.6757
+        }
+      ]
+    },
+    {
+      "id": "instant-2",
+      "name": {
+        "en": "Instant photo, sage",
+        "vi": "Ảnh lấy liền viền xanh xám"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "sage",
+          "portrait"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "xanh xám",
+          "dọc"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #2",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-2",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 993,
+      "height": 1379,
+      "windows": [
+        {
+          "x": 0.1186,
+          "y": 0.0851,
+          "w": 0.7654,
+          "h": 0.6889
+        }
+      ]
+    },
+    {
+      "id": "instant-3",
+      "name": {
+        "en": "Instant photo, blue, taped",
+        "vi": "Ảnh lấy liền viền xanh dương có băng dính"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "blue",
+          "portrait",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "xanh dương",
+          "dọc",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #3",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-3",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 985,
+      "height": 1344,
+      "windows": [
+        {
+          "x": 0.114,
+          "y": 0.0856,
+          "w": 0.7716,
+          "h": 0.7068
+        }
+      ]
+    },
+    {
+      "id": "instant-4",
+      "name": {
+        "en": "Instant photo, cream, taped",
+        "vi": "Ảnh lấy liền viền kem có băng dính"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "cream",
+          "wide",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "kem",
+          "ngang",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #4",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-4",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1241,
+      "height": 1178,
+      "windows": [
+        {
+          "x": 0.106,
+          "y": 0.1105,
+          "w": 0.7897,
+          "h": 0.599
+        }
+      ]
+    },
+    {
+      "id": "instant-5",
+      "name": {
+        "en": "Instant photo, white",
+        "vi": "Ảnh lấy liền viền trắng"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "white",
+          "portrait"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "trắng",
+          "dọc"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #5",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-5",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1007,
+      "height": 1391,
+      "windows": [
+        {
+          "x": 0.1212,
+          "y": 0.0885,
+          "w": 0.7547,
+          "h": 0.683
+        }
+      ]
+    },
+    {
+      "id": "instant-6",
+      "name": {
+        "en": "Instant photo, pink",
+        "vi": "Ảnh lấy liền viền hồng"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "pink",
+          "portrait"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "hồng",
+          "dọc"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #6",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-6",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 984,
+      "height": 1354,
+      "windows": [
+        {
+          "x": 0.1123,
+          "y": 0.085,
+          "w": 0.7724,
+          "h": 0.7016
+        }
+      ]
+    },
+    {
+      "id": "instant-7",
+      "name": {
+        "en": "Instant photo, pink, taped",
+        "vi": "Ảnh lấy liền viền hồng có băng dính"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "pink",
+          "square",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "hồng",
+          "vuông",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #7",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-7",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 985,
+      "height": 1202,
+      "windows": [
+        {
+          "x": 0.1145,
+          "y": 0.0982,
+          "w": 0.7716,
+          "h": 0.6323
+        }
+      ]
+    },
+    {
+      "id": "instant-8",
+      "name": {
+        "en": "Instant photo, pink 2",
+        "vi": "Ảnh lấy liền viền hồng 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "pink",
+          "square"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "hồng",
+          "vuông"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #8",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-8",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1003,
+      "height": 1205,
+      "windows": [
+        {
+          "x": 0.1201,
+          "y": 0.1003,
+          "w": 0.7577,
+          "h": 0.6307
+        }
+      ]
+    },
+    {
+      "id": "instant-9",
+      "name": {
+        "en": "Instant photo, blue",
+        "vi": "Ảnh lấy liền viền xanh dương"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "blue",
+          "square"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "xanh dương",
+          "vuông"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #9",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-9",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1009,
+      "height": 1215,
+      "windows": [
+        {
+          "x": 0.1249,
+          "y": 0.1012,
+          "w": 0.7532,
+          "h": 0.6255
+        }
+      ]
+    },
+    {
+      "id": "instant-10",
+      "name": {
+        "en": "Instant photo, black, taped",
+        "vi": "Ảnh lấy liền viền đen có băng dính"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "black",
+          "portrait",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "đen",
+          "dọc",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #10",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-10",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1003,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.124,
+          "y": 0.0925,
+          "w": 0.7517,
+          "h": 0.6733
+        }
+      ]
+    },
+    {
+      "id": "instant-11",
+      "name": {
+        "en": "Instant photo, sage, taped 2",
+        "vi": "Ảnh lấy liền viền xanh xám có băng dính 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "sage",
+          "portrait",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "xanh xám",
+          "dọc",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #11",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-11",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1000,
+      "height": 1389,
+      "windows": [
+        {
+          "x": 0.1204,
+          "y": 0.0893,
+          "w": 0.76,
+          "h": 0.6839
+        }
+      ]
+    },
+    {
+      "id": "instant-12",
+      "name": {
+        "en": "Instant photo, white, taped",
+        "vi": "Ảnh lấy liền viền trắng có băng dính"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "white",
+          "square",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "trắng",
+          "vuông",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #12",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-12",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 986,
+      "height": 1215,
+      "windows": [
+        {
+          "x": 0.1146,
+          "y": 0.0959,
+          "w": 0.7708,
+          "h": 0.6255
+        }
+      ]
+    },
+    {
+      "id": "instant-13",
+      "name": {
+        "en": "Instant photo, white 2",
+        "vi": "Ảnh lấy liền viền trắng 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "white",
+          "portrait"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "trắng",
+          "dọc"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #13",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-13",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 995,
+      "height": 1344,
+      "windows": [
+        {
+          "x": 0.1169,
+          "y": 0.0861,
+          "w": 0.7638,
+          "h": 0.7068
+        }
+      ]
+    },
+    {
+      "id": "instant-14",
+      "name": {
+        "en": "Instant photo, cream, taped 2",
+        "vi": "Ảnh lấy liền viền kem có băng dính 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "cream",
+          "square",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "kem",
+          "vuông",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #14",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-14",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 997,
+      "height": 1180,
+      "windows": [
+        {
+          "x": 0.1172,
+          "y": 0.1015,
+          "w": 0.7623,
+          "h": 0.6441
+        }
+      ]
+    },
+    {
+      "id": "instant-15",
+      "name": {
+        "en": "Instant photo, cream, taped 3",
+        "vi": "Ảnh lấy liền viền kem có băng dính 3"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "cream",
+          "square",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "kem",
+          "vuông",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #15",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-15",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 996,
+      "height": 1185,
+      "windows": [
+        {
+          "x": 0.1191,
+          "y": 0.1001,
+          "w": 0.7631,
+          "h": 0.6414
+        }
+      ]
+    },
+    {
+      "id": "instant-16",
+      "name": {
+        "en": "Instant photo, black, taped 2",
+        "vi": "Ảnh lấy liền viền đen có băng dính 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "black",
+          "portrait",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "đen",
+          "dọc",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #16",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-16",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 988,
+      "height": 1370,
+      "windows": [
+        {
+          "x": 0.1151,
+          "y": 0.0866,
+          "w": 0.7692,
+          "h": 0.6934
+        }
+      ]
+    },
+    {
+      "id": "instant-17",
+      "name": {
+        "en": "Instant photo, white, taped 2",
+        "vi": "Ảnh lấy liền viền trắng có băng dính 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "white",
+          "portrait",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "trắng",
+          "dọc",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #17",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-17",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 989,
+      "height": 1354,
+      "windows": [
+        {
+          "x": 0.1151,
+          "y": 0.0869,
+          "w": 0.7685,
+          "h": 0.7016
+        }
+      ]
+    },
+    {
+      "id": "instant-18",
+      "name": {
+        "en": "Instant photo, blue 2",
+        "vi": "Ảnh lấy liền viền xanh dương 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "blue",
+          "square"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "xanh dương",
+          "vuông"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #18",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-18",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1002,
+      "height": 1173,
+      "windows": [
+        {
+          "x": 0.1206,
+          "y": 0.1059,
+          "w": 0.7585,
+          "h": 0.6479
+        }
+      ]
+    },
+    {
+      "id": "instant-19",
+      "name": {
+        "en": "Instant photo, sage, taped 3",
+        "vi": "Ảnh lấy liền viền xanh xám có băng dính 3"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "sage",
+          "square",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "xanh xám",
+          "vuông",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #19",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-19",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 994,
+      "height": 1206,
+      "windows": [
+        {
+          "x": 0.1172,
+          "y": 0.0986,
+          "w": 0.7646,
+          "h": 0.6302
+        }
+      ]
+    },
+    {
+      "id": "instant-20",
+      "name": {
+        "en": "Instant photo, black",
+        "vi": "Ảnh lấy liền viền đen"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "black",
+          "wide"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "đen",
+          "ngang"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #20",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-20",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1243,
+      "height": 1201,
+      "windows": [
+        {
+          "x": 0.1059,
+          "y": 0.1123,
+          "w": 0.7884,
+          "h": 0.5875
+        }
+      ]
+    },
+    {
+      "id": "instant-21",
+      "name": {
+        "en": "Instant photo, black, taped 3",
+        "vi": "Ảnh lấy liền viền đen có băng dính 3"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "black",
+          "square",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "đen",
+          "vuông",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #21",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-21",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 997,
+      "height": 1180,
+      "windows": [
+        {
+          "x": 0.1185,
+          "y": 0.0998,
+          "w": 0.7623,
+          "h": 0.6441
+        }
+      ]
+    },
+    {
+      "id": "instant-22",
+      "name": {
+        "en": "Instant photo, black, taped 4",
+        "vi": "Ảnh lấy liền viền đen có băng dính 4"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "black",
+          "portrait",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "đen",
+          "dọc",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #22",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-22",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 991,
+      "height": 1354,
+      "windows": [
+        {
+          "x": 0.1164,
+          "y": 0.0843,
+          "w": 0.7669,
+          "h": 0.7016
+        }
+      ]
+    },
+    {
+      "id": "instant-23",
+      "name": {
+        "en": "Instant photo, cream",
+        "vi": "Ảnh lấy liền viền kem"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "cream",
+          "square"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "kem",
+          "vuông"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #23",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-23",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 986,
+      "height": 1172,
+      "windows": [
+        {
+          "x": 0.1159,
+          "y": 0.0999,
+          "w": 0.7708,
+          "h": 0.6485
+        }
+      ]
+    },
+    {
+      "id": "instant-24",
+      "name": {
+        "en": "Instant photo, pink 3",
+        "vi": "Ảnh lấy liền viền hồng 3"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "pink",
+          "square"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "hồng",
+          "vuông"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #24",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-24",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1013,
+      "height": 1168,
+      "windows": [
+        {
+          "x": 0.1246,
+          "y": 0.1091,
+          "w": 0.7502,
+          "h": 0.6507
+        }
+      ]
+    },
+    {
+      "id": "instant-25",
+      "name": {
+        "en": "Instant photo, cream, taped 4",
+        "vi": "Ảnh lấy liền viền kem có băng dính 4"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "cream",
+          "portrait",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "kem",
+          "dọc",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #25",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-25",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1006,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1223,
+          "y": 0.0917,
+          "w": 0.7532,
+          "h": 0.6766
+        }
+      ]
+    },
+    {
+      "id": "instant-26",
+      "name": {
+        "en": "Instant photo, blue 3",
+        "vi": "Ảnh lấy liền viền xanh dương 3"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "blue",
+          "portrait"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "xanh dương",
+          "dọc"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #26",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-26",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1006,
+      "height": 1351,
+      "windows": [
+        {
+          "x": 0.1234,
+          "y": 0.094,
+          "w": 0.7555,
+          "h": 0.7032
+        }
+      ]
+    },
+    {
+      "id": "instant-27",
+      "name": {
+        "en": "Instant photo, blue 4",
+        "vi": "Ảnh lấy liền viền xanh dương 4"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "blue",
+          "square"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "xanh dương",
+          "vuông"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #27",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-27",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 984,
+      "height": 1157,
+      "windows": [
+        {
+          "x": 0.1136,
+          "y": 0.0945,
+          "w": 0.7724,
+          "h": 0.6569
+        }
+      ]
+    },
+    {
+      "id": "instant-28",
+      "name": {
+        "en": "Instant photo, cream 2",
+        "vi": "Ảnh lấy liền viền kem 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "cream",
+          "square"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "kem",
+          "vuông"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #28",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-28",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1005,
+      "height": 1214,
+      "windows": [
+        {
+          "x": 0.1206,
+          "y": 0.1047,
+          "w": 0.7562,
+          "h": 0.626
+        }
+      ]
+    },
+    {
+      "id": "instant-29",
+      "name": {
+        "en": "Instant photo, black 2",
+        "vi": "Ảnh lấy liền viền đen 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "black",
+          "square"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "đen",
+          "vuông"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #29",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-29",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 988,
+      "height": 1167,
+      "windows": [
+        {
+          "x": 0.1162,
+          "y": 0.0994,
+          "w": 0.7692,
+          "h": 0.6512
+        }
+      ]
+    },
+    {
+      "id": "instant-30",
+      "name": {
+        "en": "Instant photo, white 3",
+        "vi": "Ảnh lấy liền viền trắng 3"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "white",
+          "wide"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "trắng",
+          "ngang"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #30",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-30",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1262,
+      "height": 1200,
+      "windows": [
+        {
+          "x": 0.1123,
+          "y": 0.1203,
+          "w": 0.7765,
+          "h": 0.588
+        }
+      ]
+    },
+    {
+      "id": "instant-31",
+      "name": {
+        "en": "Instant photo, black 3",
+        "vi": "Ảnh lấy liền viền đen 3"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "black",
+          "portrait"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "đen",
+          "dọc"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #31",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-31",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1009,
+      "height": 1358,
+      "windows": [
+        {
+          "x": 0.1232,
+          "y": 0.0962,
+          "w": 0.7532,
+          "h": 0.6996
+        }
+      ]
+    },
+    {
+      "id": "instant-32",
+      "name": {
+        "en": "Instant photo, pink, taped 2",
+        "vi": "Ảnh lấy liền viền hồng có băng dính 2"
+      },
+      "tags": {
+        "en": [
+          "instant",
+          "polaroid",
+          "photo",
+          "pink",
+          "square",
+          "tape",
+          "washi"
+        ],
+        "vi": [
+          "ảnh lấy liền",
+          "polaroid",
+          "hồng",
+          "vuông",
+          "băng dính"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "polaroid #32",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#polaroid-32",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-17"
+      },
+      "width": 1008,
+      "height": 1218,
+      "windows": [
+        {
+          "x": 0.1235,
+          "y": 0.1018,
+          "w": 0.754,
+          "h": 0.624
+        }
+      ]
+    }
+  ]
+}

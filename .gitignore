@@ -51,3 +51,4 @@ public/emoji/
 # M20 asset sources: originals are re-downloadable from each item's source.url
 /assets/**/src/
 /assets/**/review.html
+/assets/_review/

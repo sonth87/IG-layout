@@ -191,7 +191,7 @@ export function addFrameBlock(
   doc: ProjectDoc,
   slide: number,
   art: { assetId: string; catalogId: string; width: number; height: number },
-  windows: { x: number; y: number; w: number; h: number; shape?: "rect" | "ellipse"; rotation?: number }[],
+  windows: { x: number; y: number; w: number; h: number; shape?: "rect" | "ellipse"; points?: number[]; rotation?: number }[],
 ): { doc: ProjectDoc; id: string } {
   const s = slideRect(doc, slide);
   const k = Math.min((s.width * 0.7) / art.width, (s.height * 0.7) / art.height);
@@ -203,6 +203,7 @@ export function addFrameBlock(
     const frame = { x: r.x + win.x * w, y: r.y + win.y * h, width: win.w * w, height: win.h * h };
     const el = { ...imageElement({ id: "", width: frame.width, height: frame.height }, frame), assetId: null, parentId: block.id, slot: true };
     if (win.shape === "ellipse") el.mask = "circle";
+    if (win.points?.length) el.maskPoints = win.points;
     block.cells.push({ id: el.id, x: win.x, y: win.y, w: win.w, h: win.h, ...(win.rotation ? { rotation: win.rotation } : {}) });
     return el;
   });

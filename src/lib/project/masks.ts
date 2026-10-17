@@ -25,12 +25,22 @@ function polygon(ctx: Ctx, points: [number, number][]) {
   ctx.closePath();
 }
 
-export function traceMask(ctx: Ctx, shape: MaskShape, width: number, height: number, cornerRadius: number | readonly number[] = 0, inset = 0) {
+/**
+ * `points` (M20: a torn-photo frame's window): a polygon [x0, y0, x1, y1…] in 0–1 of the
+ * box, used instead of `shape`.
+ */
+export function traceMask(ctx: Ctx, shape: MaskShape, width: number, height: number, cornerRadius: number | readonly number[] = 0, inset = 0, points?: readonly number[]) {
   const x = inset;
   const y = inset;
   const w = Math.max(0, width - inset * 2);
   const h = Math.max(0, height - inset * 2);
   ctx.beginPath();
+  if (points && points.length >= 6) {
+    const pts: [number, number][] = [];
+    for (let i = 0; i + 1 < points.length; i += 2) pts.push([x + points[i] * w, y + points[i + 1] * h]);
+    polygon(ctx, pts);
+    return;
+  }
   switch (shape) {
     case "none":
       ctx.rect(x, y, w, h);

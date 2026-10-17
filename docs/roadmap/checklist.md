@@ -416,7 +416,10 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] **C5** Màn chọn phông mới: mỗi phông hiện **dòng đầu của chữ đang chọn** (không có thì một câu hay ngẫu nhiên, phông Nhật / Hàn / Trung dùng câu tiếng đó), tên phông nhỏ ở dưới; lọc **kiểu** và **ngôn ngữ**, ô tìm phông; phông từ danh mục khai báo bằng @font-face, chỉ tải khi hiện / khi dùng; dùng được trên canvas và khi xuất (e2e m20c). Danh sách câu đầy đủ chờ G6
 - [x] **C6a** Màn **Cảm ơn** (Cài đặt → Cảm ơn): nguồn tài sản từ `credits` của danh mục, phông, icon / emoji / mô hình, thư viện code kèm giấy phép
 - [x] **C6b** Màn **Giới thiệu** (Cài đặt → Giới thiệu): sonth87, avatar GitHub (lưu sẵn trong app, dùng được offline), link github.com/sonth87, vài dòng về app, phiên bản, lối sang Cảm ơn
-- [ ] **C7** Bộ sinh khung tự nhiên: giấy xé, phim, polaroid / khung tranh (D-107) + trang duyệt
+- [x] **C7** Bộ sinh khung tự nhiên (D-107), `scripts/frames/`: **ảnh xé** (ảnh theo đúng mép xé — ô cắt theo đa giác `maskPoints`), **giấy xé có lỗ**, **dải phim** (tỉ lệ 35 mm, lỗ phim lệch nhẹ, chữ in mép, vệt sáng), **ảnh lấy liền** (viền dưới dày như thật, ố nhẹ, băng dính dán lệch); xé = hình lớn trước (trôi, nghiêng, "giật"), mỗi cạnh một kiểu, lõi giấy trắng rộng hẹp, xơ mềm, viền mờ, bóng không đều
+  - [x] Đợt 1: **122 khung** (30 ảnh xé, 36 giấy xé, 24 phim, 32 ảnh lấy liền) — gói `gen-*`, giấy phép CC0 (e2e m20e)
+  - [ ] Chủ dự án duyệt: `node scripts/frames/generate.mjs explore <tornPhoto|tornPaper|film|polaroid> 40` → mở `assets/_review/frames/<kiểu>/index.html`; bỏ / thêm seed trong `scripts/frames/picks.json` rồi `generate.mjs build`
+  - [ ] Thêm kiểu: khung tranh, phong bì, sổ tay, tem răng cưa, băng dính rời…
 - [ ] **C8** Ghép từng đợt của Gemini, e2e, merge, deploy
 - [ ] **G6** Câu xem trước phông, chữ mẫu widget (Gemini)
 - [ ] **G1** Script xử lý ảnh + trang duyệt (Gemini)

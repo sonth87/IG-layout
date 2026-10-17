@@ -101,6 +101,7 @@ export function ImageNode({ element: el }: Props) {
     const framed = el.frame !== "none";
     // Framed photos are rectangular (the frame replaces the mask).
     const mask = framed ? "none" : el.mask;
+    const points = framed ? undefined : el.maskPoints;
     if (el.shadow) {
       c.save();
       const sh = el.shadowStyle ?? defaultShadow(w, h);
@@ -111,7 +112,7 @@ export function ImageNode({ element: el }: Props) {
       c.shadowBlur = sh.blur * k;
       c.shadowOffsetX = Math.cos(a) * sh.distance * k;
       c.shadowOffsetY = Math.sin(a) * sh.distance * k;
-      traceMask(c, mask, w, h, radius);
+      traceMask(c, mask, w, h, radius, 0, points);
       c.fillStyle = "#000";
       c.fill();
       c.restore();
@@ -131,7 +132,7 @@ export function ImageNode({ element: el }: Props) {
     const ih = inner.height;
     c.save();
     c.translate(inner.x, inner.y);
-    traceMask(c, mask, iw, ih, radius);
+    traceMask(c, mask, iw, ih, radius, 0, points);
     c.clip();
     // Video: the exporter's decoded frame, else the live player, else the poster.
     const override = frameOverrides.get(el.id);
@@ -180,7 +181,7 @@ export function ImageNode({ element: el }: Props) {
         c.restore();
         c.save();
         c.translate(inner.x, inner.y);
-        traceMask(c, mask, iw, ih, radius);
+        traceMask(c, mask, iw, ih, radius, 0, points);
         c.clip();
       }
       c.save();
@@ -234,7 +235,7 @@ export function ImageNode({ element: el }: Props) {
 
     if (el.border && el.border.width > 0) {
       c.save();
-      traceMask(c, mask, w, h, radius, el.border.width / 2);
+      traceMask(c, mask, w, h, radius, el.border.width / 2, points);
       c.lineWidth = el.border.width;
       c.strokeStyle = el.border.color;
       c.stroke();
@@ -243,7 +244,7 @@ export function ImageNode({ element: el }: Props) {
   }
 
   function hit(ctx: Konva.Context, shape: Konva.Shape) {
-    traceMask(ctx._context, el.frame !== "none" ? "none" : el.mask, w, h, radius);
+    traceMask(ctx._context, el.frame !== "none" ? "none" : el.mask, w, h, radius, 0, el.frame !== "none" ? undefined : el.maskPoints);
     ctx.fillStrokeShape(shape);
   }
 
