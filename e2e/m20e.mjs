@@ -88,6 +88,27 @@ doc = await S();
 check(doc.elements.at(-1).type === "icon" || doc.elements.at(-1).sticker === "doodle-arrowCurve" || JSON.stringify(doc.elements.at(-1)).includes("doodle-arrowCurve"), "a doodle added (recolourable sticker)");
 await page.screenshot({ path: path.join(OUT, "m20e-stickers.png") });
 
+console.log("Catalog fonts (G5) in the font list");
+await page.getByRole("button", { name: "Close", exact: true }).click().catch(() => {});
+await page.evaluate(() => window.__igEditor.getState().select(null));
+await page.getByRole("button", { name: "Text", exact: true }).click();
+await page.getByRole("textbox", { name: "Edit text" }).fill("Mùa thu Hà Nội");
+await page.getByRole("button", { name: "Done typing" }).click();
+await page.getByRole("button", { name: "Format", exact: true }).click();
+await page.getByRole("region", { name: "Format" }).getByRole("button", { name: /^Font/ }).click();
+const fontList = page.getByRole("radiogroup", { name: "Font", exact: true });
+await fontList.getByRole("radio", { name: "Bangers" }).waitFor({ timeout: 15000 });
+const total = await fontList.getByRole("radio").count();
+check(total >= 250, `${total} fonts (built-in + catalog)`);
+await page.getByRole("radiogroup", { name: "Language" }).getByRole("radio", { name: "日本語" }).click();
+const jp = await fontList.getByRole("radio").count();
+check(jp >= 10, `${jp} Japanese fonts`);
+await page.screenshot({ path: path.join(OUT, "m20e-fonts-ja.png") });
+await page.getByRole("radiogroup", { name: "Language" }).getByRole("radio", { name: "All languages" }).click();
+await page.getByRole("radiogroup", { name: "Font style" }).getByRole("radio", { name: "Fantasy" }).click();
+await page.waitForTimeout(1500);
+await page.screenshot({ path: path.join(OUT, "m20e-fonts-fantasy.png") });
+
 console.log("console errors:", errors);
 console.log(failures === 0 && errors.length === 0 ? "ALL PASSED" : `${failures} FAILED, ${errors.length} console errors`);
 if (failures || errors.length) process.exitCode = 1;

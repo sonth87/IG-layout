@@ -529,6 +529,7 @@ export const en = {
   "font.search": "Search fonts",
   "font.style": "Font style",
   "font.language": "Language",
+  "font.noVietnamese": "no Vietnamese accents",
   "font.none": "No font matches",
   "font.style.all": "All",
   "font.style.sans": "Sans",

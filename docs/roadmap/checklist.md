@@ -426,10 +426,10 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
   - [x] Chủ dự án (2026-10-18): ảnh xé **không vuông vức** → gói "Ảnh xé" làm lại bằng bộ sinh **mảnh ảnh xé**: tứ giác méo, hình thang, xiên, 5–8 cạnh, tròn, mất góc theo đường chéo, dải dài; xé **1 cạnh tới mọi cạnh**; mép có chỗ **lẹm** vào, lõi giấy chỗ bong rộng chỗ gần như không có — 40 mảnh
   - Tổng sinh tự động: **228 khung + 94 sticker + 40 nét vẽ tay**
 - [ ] **C8** Ghép từng đợt của Gemini, e2e, merge, deploy
-- [ ] **G6** Câu xem trước phông, chữ mẫu widget (Gemini)
-- [ ] **G1** Script xử lý ảnh + trang duyệt (Gemini)
-- [ ] **G5** ~150 phông (Gemini)
-- [ ] **G2** ~200 sticker (Gemini)
+- [x] **G6** Câu xem trước phông (125 VI, 125 EN, 35 JA / KO / ZH — đã dùng trong màn chọn phông), chữ mẫu 27 widget (Gemini, duyệt 2026-10-18)
+- [x] **G1** Script xử lý ảnh `process.mjs` + trang duyệt `review.mjs` (Gemini, duyệt 2026-10-18)
+- [x] **G5** **195 phông** trong 11 gói (viết tay, thư pháp, Nhật, Hàn, Trung, kỳ ảo, vui nhộn, lễ hội, retro / pixel, cọ…) — 127 phông có dấu tiếng Việt; phông không có dấu tiếng Việt được ghi chú trong màn chọn phông (Gemini, duyệt 2026-10-18)
+- [ ] **G2** ~200 sticker (Gemini) — **cần sửa**: bỏ / làm lại các mục tách nền lỗi, bỏ gói trùng emoji (xem ghi chú duyệt trong gemini-tasks.md)
 - [ ] **G3** ~40 chất liệu + ~20 lớp phủ (Gemini)
 - [ ] **G4** ~40 khung + mép giấy xé thật (Gemini)
 - [ ] **G7** Nghiên cứu M21 (Gemini)

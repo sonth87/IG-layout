@@ -313,7 +313,10 @@ export function FontPicker({ el, patch }: { el: TextElement; patch: (p: Partial<
             <span style={{ fontFamily: info.family, fontWeight: nearestWeight(key, 500) }} className="w-full truncate text-[19px] leading-snug">
               {sample(fl)}
             </span>
-            <span className="max-w-full truncate text-[11px] text-muted">{info.label}</span>
+            <span className="max-w-full truncate text-[11px] text-muted">
+              {info.label}
+              {!fl.includes("vietnamese") && ` · ${t("font.noVietnamese")}`}
+            </span>
           </button>
         ))}
       </div>

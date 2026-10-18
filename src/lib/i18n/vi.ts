@@ -528,6 +528,7 @@ export const vi: Record<MessageKey, string> = {
   "font.search": "Tìm phông",
   "font.style": "Kiểu phông",
   "font.language": "Ngôn ngữ",
+  "font.noVietnamese": "không có dấu tiếng Việt",
   "font.none": "Không có phông nào khớp",
   "font.style.all": "Tất cả",
   "font.style.sans": "Không chân",
