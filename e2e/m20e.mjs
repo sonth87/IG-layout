@@ -32,12 +32,12 @@ await page.waitForTimeout(800);
 
 console.log("Generated frame groups");
 await frames();
-await page.getByRole("region", { name: "Torn photos" }).waitFor({ timeout: 15000 }).catch(() => {});
-for (const g of ["Torn photos", "Torn paper", "Film strips", "Instant photos"]) check(await page.getByRole("region", { name: g }).isVisible(), `group ${g}`);
+await page.getByRole("region", { name: "Torn photos", exact: true }).waitFor({ timeout: 15000 }).catch(() => {});
+for (const g of ["Torn photos", "Torn photo collages", "Torn photos on paper", "Film strips", "Instant photos"]) check(await page.getByRole("region", { name: g, exact: true }).isVisible(), `group ${g}`);
 await page.screenshot({ path: path.join(OUT, "m20e-sheet.png") });
 
 console.log("A torn photo: the photo follows the tear");
-await page.getByRole("region", { name: "Torn photos" }).getByRole("button").first().click();
+await page.getByRole("region", { name: "Torn photos", exact: true }).getByRole("button").first().click();
 await page.waitForTimeout(800);
 let doc = await S();
 const block = doc.elements.findLast((e) => e.type === "layout" && e.art);
@@ -57,6 +57,26 @@ await page.waitForTimeout(800);
 doc = await S();
 const strip = doc.elements.findLast((e) => e.type === "layout" && e.art);
 check(doc.elements.filter((e) => e.parentId === strip.id).length === 3, "three windows, three cells");
+
+console.log("A torn collage: several torn photos, the upper ones last");
+await frames();
+await page.getByRole("region", { name: "Torn photo collages" }).getByRole("button", { name: /4 pieces/ }).first().click();
+await page.waitForTimeout(800);
+doc = await S();
+const collage = doc.elements.findLast((e) => e.type === "layout" && e.art);
+const pieces = doc.elements.filter((e) => e.parentId === collage.id);
+check(pieces.length === 4 && pieces.every((c) => c.maskPoints?.length > 40), "four torn windows, each clipped to its tear");
+await page.evaluate(() => window.__igEditor.getState().select(null));
+await page.screenshot({ path: path.join(OUT, "m20e-collage.png") });
+
+console.log("Generated stickers and doodles");
+await page.getByRole("button", { name: "Stickers", exact: true }).click();
+for (const g of ["Doodles", "Washi tape", "Sticky notes", "Paper scraps"]) check(await page.getByRole("region", { name: g, exact: true }).isVisible(), `group ${g}`);
+await page.getByRole("region", { name: "Doodles" }).getByRole("button", { name: "Curved arrow" }).click();
+await page.waitForTimeout(400);
+doc = await S();
+check(doc.elements.at(-1).type === "icon" || doc.elements.at(-1).sticker === "doodle-arrowCurve" || JSON.stringify(doc.elements.at(-1)).includes("doodle-arrowCurve"), "a doodle added (recolourable sticker)");
+await page.screenshot({ path: path.join(OUT, "m20e-stickers.png") });
 
 console.log("console errors:", errors);
 console.log(failures === 0 && errors.length === 0 ? "ALL PASSED" : `${failures} FAILED, ${errors.length} console errors`);

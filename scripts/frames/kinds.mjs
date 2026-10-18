@@ -252,3 +252,151 @@ export function polaroid(seed) {
 export const KINDS = { tornPhoto, tornPaper, film, polaroid };
 // Unused here, kept for callers.
 export { bbox, fbm, normals };
+
+/** Rotate / scale a quad around a point. */
+function transformQuad(q, cx, cy, k, deg, dx = 0, dy = 0) {
+  const a = (deg * Math.PI) / 180;
+  return q.map(([x, y]) => {
+    const ux = (x - cx) * k;
+    const uy = (y - cy) * k;
+    return [cx + ux * Math.cos(a) - uy * Math.sin(a) + dx, cy + ux * Math.sin(a) + uy * Math.cos(a) + dy];
+  });
+}
+
+/** A torn photo laid on a torn piece of coloured paper: both torn on the outside. */
+export function tornBacked(seed) {
+  const r = rng(seed);
+  const ratio = pick(r, RATIOS);
+  const long = 1000;
+  const w = ratio >= 1 ? long : long * ratio;
+  const h = ratio >= 1 ? long / ratio : long;
+  const pad = 150;
+  const W = Math.round(w + pad * 2);
+  const H = Math.round(h + pad * 2);
+  const photoQuad = looseQuad(r, w, h, pad, pad, range(r, 0.012, 0.035));
+  const backQuad = transformQuad(looseQuad(r, w, h, pad, pad, range(r, 0.015, 0.04)), W / 2, H / 2, range(r, 1.08, 1.2), range(r, -5, 5), range(r, -20, 20), range(r, -20, 20));
+  const photo = flaggedOutline(r, photoQuad, sides(r, 0.8), range(r, 0.7, 1.4));
+  const back = flaggedOutline(r, backQuad, sides(r, 0.7), range(r, 0.8, 1.5));
+  const [paperName, paper] = pick(r, PAPERS);
+  const core = "#fbfaf6";
+  const pr = fibreRim(r, photo.pts, { width: range(r, 5, 11), torn: (i) => photo.flags[i] });
+  const br = fibreRim(r, back.pts, { width: range(r, 3, 8), torn: (i) => back.flags[i] });
+  const inner = d(photo.pts);
+  const pOuter = d(pr.out);
+  const bOuter = d(br.out);
+  const sh = { dx: range(r, 1, 5), dy: range(r, 3, 8), blur: range(r, 5, 9), opacity: range(r, 0.2, 0.32) };
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>${grain("g", { freq: 0.85, strength: paperName === "kraft" ? 0.2 : 0.12, seed, warm: paperName !== "black" })}${grain("gc", { freq: 2.2, strength: 0.035, seed: seed + 1 })}
+    <mask id="ph" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#fff"/><path d="${inner}" fill="#000"/></mask></defs>
+  ${shadow("sb", bOuter, sh, W, H)}
+  <g mask="url(#ph)">
+    <path d="${d(br.fuzz)}${d(back.pts)}" fill-rule="evenodd" fill="${core}" opacity="0.45"/>
+    <path d="${bOuter}${d(back.pts)}" fill-rule="evenodd" fill="${core}" filter="url(#gc)"/>
+    <path d="${d(back.pts)}" fill="${paper}" filter="url(#g)"/>
+  </g>
+  ${shadow("sp", pOuter, { ...sh, opacity: sh.opacity * 0.9, blur: sh.blur * 0.7 }, W, H)}
+  <path d="${d(pr.fuzz)}${inner}" fill-rule="evenodd" fill="${core}" opacity="0.45"/>
+  <path d="${pOuter}${inner}" fill-rule="evenodd" fill="${core}" filter="url(#gc)"/>
+  <path d="${hairPath(pr.hairs)}" fill="none" stroke="${core}" stroke-width="0.6" stroke-linecap="round" opacity="0.55"/>
+  <path d="${inner}" fill="none" stroke="#000" stroke-opacity="0.16" stroke-width="0.9"/>
+</svg>`;
+  return { svg, width: W, height: H, windows: [windowOf(photo.pts, W, H)], info: { ratio, paper: paperName } };
+}
+
+/**
+ * Several torn photos making one picture (like a story template): the splits wander and
+ * slant, pieces overlap a little, the upper piece's torn edge lies over the lower photo,
+ * its shadow too — and a lower piece's edge never shows over an upper photo.
+ */
+export function tornCollage(seed) {
+  const r = rng(seed);
+  const layout = pick(r, ["2v", "2h", "3v", "3h", "4", "4", "1+2"]);
+  const ratio = pick(r, [4 / 5, 9 / 16, 1, 3 / 4]);
+  const long = 1300;
+  const w = ratio >= 1 ? long : long * ratio;
+  const h = ratio >= 1 ? long / ratio : long;
+  const pad = 40;
+  const W = Math.round(w + pad * 2);
+  const H = Math.round(h + pad * 2);
+  const X = (u) => pad + u * w;
+  const Y = (v) => pad + v * h;
+  const j = (a) => (r() - 0.5) * 2 * a;
+  // Split lines as two end values (a slant), each a little off-centre.
+  const cut = (at) => [at + j(0.06), at + j(0.06)];
+  const pieces = [];
+  if (layout === "2v" || layout === "3v") {
+    const n = layout === "2v" ? 2 : 3;
+    const cuts = Array.from({ length: n - 1 }, (_, i) => cut((i + 1) / n));
+    for (let i = 0; i < n; i++) {
+      const a = i === 0 ? [0, 0] : cuts[i - 1];
+      const b = i === n - 1 ? [1, 1] : cuts[i];
+      pieces.push({ q: [[X(a[0]), Y(0)], [X(b[0]), Y(0)], [X(b[1]), Y(1)], [X(a[1]), Y(1)]], inside: [false, i < n - 1, false, i > 0] });
+    }
+  } else if (layout === "2h" || layout === "3h") {
+    const n = layout === "2h" ? 2 : 3;
+    const cuts = Array.from({ length: n - 1 }, (_, i) => cut((i + 1) / n));
+    for (let i = 0; i < n; i++) {
+      const a = i === 0 ? [0, 0] : cuts[i - 1];
+      const b = i === n - 1 ? [1, 1] : cuts[i];
+      pieces.push({ q: [[X(0), Y(a[0])], [X(1), Y(a[1])], [X(1), Y(b[1])], [X(0), Y(b[0])]], inside: [i > 0, false, i < n - 1, false] });
+    }
+  } else {
+    // 2 × 2 (or one on top, two below): the row split, then each row's own column split.
+    const row = cut(layout === "1+2" ? 0.55 : 0.5);
+    const top = layout === "1+2" ? null : cut(range(r, 0.4, 0.6));
+    const bottom = cut(range(r, 0.38, 0.62));
+    const at = (c, t) => c[0] + (c[1] - c[0]) * t;
+    const rowAt = (u) => row[0] + (row[1] - row[0]) * u;
+    if (top) {
+      pieces.push({ q: [[X(0), Y(0)], [X(top[0]), Y(0)], [X(top[1]), Y(rowAt(at(top, 1)))], [X(0), Y(row[0])]], inside: [false, true, true, false] });
+      pieces.push({ q: [[X(top[0]), Y(0)], [X(1), Y(0)], [X(1), Y(row[1])], [X(top[1]), Y(rowAt(at(top, 1)))]], inside: [false, false, true, true] });
+    } else pieces.push({ q: [[X(0), Y(0)], [X(1), Y(0)], [X(1), Y(row[1])], [X(0), Y(row[0])]], inside: [false, false, true, false] });
+    pieces.push({ q: [[X(0), Y(row[0])], [X(bottom[0]), Y(rowAt(bottom[0]))], [X(bottom[1]), Y(1)], [X(0), Y(1)]], inside: [true, true, false, false] });
+    pieces.push({ q: [[X(bottom[0]), Y(rowAt(bottom[0]))], [X(1), Y(row[1])], [X(1), Y(1)], [X(bottom[1]), Y(1)]], inside: [true, false, false, true] });
+  }
+  // Inside edges move outwards a little so neighbours overlap; outside edges stay cut.
+  const overlap = range(r, 10, 22);
+  const outerTorn = r() < 0.35;
+  const shaped = pieces.map((p) => {
+    const cx = p.q.reduce((s, v) => s + v[0], 0) / 4;
+    const cy = p.q.reduce((s, v) => s + v[1], 0) / 4;
+    const q = p.q.map(([x, y], i) => {
+      const prev = p.inside[(i + 3) % 4];
+      const next = p.inside[i];
+      const k = (prev || next ? overlap : 0) / Math.max(1, Math.hypot(x - cx, y - cy));
+      const m = pad * 0.6;
+      return [Math.min(W - m, Math.max(m, x + (x - cx) * k * (prev || next ? 1 : 0))), Math.min(H - m, Math.max(m, y + (y - cy) * k * (prev || next ? 1 : 0)))];
+    });
+    const torn = p.inside.map((ins) => ins || (outerTorn && r() < 0.6));
+    const o = flaggedOutline(r, q, torn, range(r, 0.8, 1.5));
+    const rim = fibreRim(r, o.pts, { width: range(r, 5, 11), torn: (i) => o.flags[i] });
+    return { ...o, rim };
+  });
+  // Stacking: a random order; windows follow it (lower first).
+  const order = shaped.map((_, i) => i).sort(() => r() - 0.5);
+  const stack = order.map((i) => shaped[i]);
+  const core = "#fbfaf6";
+  const sh = { dx: range(r, 1, 4), dy: range(r, 3, 7), blur: range(r, 4, 8), opacity: range(r, 0.22, 0.36) };
+  let body = "";
+  stack.forEach((p, i) => {
+    const above = stack.slice(i + 1).map((q) => d(q.pts)).join("");
+    const outer = d(p.rim.out);
+    body += `<mask id="m${i}" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#fff"/><path d="${above}" fill="#000"/></mask>
+    <mask id="s${i}" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#fff"/><path d="${above}${outer}" fill="#000"/></mask>
+    <g mask="url(#s${i})"><path d="${outer}" transform="translate(${sh.dx.toFixed(1)} ${sh.dy.toFixed(1)})" fill="#000" opacity="${sh.opacity.toFixed(2)}" filter="url(#b)"/></g>
+    <g mask="url(#m${i})">
+      <path d="${d(p.rim.fuzz)}${d(p.pts)}" fill-rule="evenodd" fill="${core}" opacity="0.45"/>
+      <path d="${outer}${d(p.pts)}" fill-rule="evenodd" fill="${core}" filter="url(#gc)"/>
+      <path d="${hairPath(p.rim.hairs)}" fill="none" stroke="${core}" stroke-width="0.6" opacity="0.55"/>
+      <path d="${d(p.pts)}" fill="none" stroke="#000" stroke-opacity="0.15" stroke-width="0.9"/>
+    </g>`;
+  });
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>${grain("gc", { freq: 2.2, strength: 0.035, seed })}<filter id="b" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="${sh.blur.toFixed(1)}"/></filter></defs>
+  ${body}
+</svg>`;
+  return { svg, width: W, height: H, windows: stack.map((p) => windowOf(p.pts, W, H)), info: { layout, ratio, n: stack.length } };
+}
+
+KINDS.tornBacked = tornBacked;
+KINDS.tornCollage = tornCollage;

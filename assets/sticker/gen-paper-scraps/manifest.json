@@ -1,0 +1,1006 @@
+{
+  "id": "gen-paper-scraps",
+  "kind": "sticker",
+  "name": {
+    "en": "Paper scraps",
+    "vi": "Mẩu giấy xé"
+  },
+  "collections": [
+    "journal",
+    "tornPaper",
+    "school"
+  ],
+  "order": 22,
+  "items": [
+    {
+      "id": "scrap-1",
+      "name": {
+        "en": "Torn notebook paper",
+        "vi": "Mẩu giấy vở xé"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #1",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-1",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 610,
+      "height": 373
+    },
+    {
+      "id": "scrap-2",
+      "name": {
+        "en": "Torn grid paper",
+        "vi": "Mẩu giấy ô ly xé"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "grid"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #2",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-2",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 636,
+      "height": 485
+    },
+    {
+      "id": "scrap-3",
+      "name": {
+        "en": "Torn notebook paper 2",
+        "vi": "Mẩu giấy vở xé 2"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #3",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-3",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 633,
+      "height": 396
+    },
+    {
+      "id": "scrap-4",
+      "name": {
+        "en": "Torn grid paper 2",
+        "vi": "Mẩu giấy ô ly xé 2"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "grid"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #4",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-4",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 682,
+      "height": 521
+    },
+    {
+      "id": "scrap-5",
+      "name": {
+        "en": "Torn notebook paper 3",
+        "vi": "Mẩu giấy vở xé 3"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #5",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-5",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 626,
+      "height": 612
+    },
+    {
+      "id": "scrap-6",
+      "name": {
+        "en": "Torn notebook paper 4",
+        "vi": "Mẩu giấy vở xé 4"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #6",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-6",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 586,
+      "height": 359
+    },
+    {
+      "id": "scrap-7",
+      "name": {
+        "en": "Torn notebook paper 5",
+        "vi": "Mẩu giấy vở xé 5"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #7",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-7",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 463,
+      "height": 304
+    },
+    {
+      "id": "scrap-8",
+      "name": {
+        "en": "Torn notebook paper 6",
+        "vi": "Mẩu giấy vở xé 6"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #8",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-8",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 498,
+      "height": 453
+    },
+    {
+      "id": "scrap-9",
+      "name": {
+        "en": "Torn notebook paper 7",
+        "vi": "Mẩu giấy vở xé 7"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #9",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-9",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 508,
+      "height": 515
+    },
+    {
+      "id": "scrap-10",
+      "name": {
+        "en": "Torn notebook paper 8",
+        "vi": "Mẩu giấy vở xé 8"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #10",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-10",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 580,
+      "height": 608
+    },
+    {
+      "id": "scrap-11",
+      "name": {
+        "en": "Torn notebook paper 9",
+        "vi": "Mẩu giấy vở xé 9"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #11",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-11",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 583,
+      "height": 503
+    },
+    {
+      "id": "scrap-12",
+      "name": {
+        "en": "Torn notebook paper 10",
+        "vi": "Mẩu giấy vở xé 10"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #12",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-12",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 529,
+      "height": 346
+    },
+    {
+      "id": "scrap-13",
+      "name": {
+        "en": "Torn grid paper 3",
+        "vi": "Mẩu giấy ô ly xé 3"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "grid"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #13",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-13",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 596,
+      "height": 466
+    },
+    {
+      "id": "scrap-14",
+      "name": {
+        "en": "Torn notebook paper 11",
+        "vi": "Mẩu giấy vở xé 11"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #14",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-14",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 568,
+      "height": 462
+    },
+    {
+      "id": "scrap-15",
+      "name": {
+        "en": "Torn notebook paper 12",
+        "vi": "Mẩu giấy vở xé 12"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #15",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-15",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 517,
+      "height": 418
+    },
+    {
+      "id": "scrap-16",
+      "name": {
+        "en": "Torn notebook paper 13",
+        "vi": "Mẩu giấy vở xé 13"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #16",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-16",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 612,
+      "height": 415
+    },
+    {
+      "id": "scrap-17",
+      "name": {
+        "en": "Torn notebook paper 14",
+        "vi": "Mẩu giấy vở xé 14"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #17",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-17",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 623,
+      "height": 436
+    },
+    {
+      "id": "scrap-18",
+      "name": {
+        "en": "Torn grid paper 4",
+        "vi": "Mẩu giấy ô ly xé 4"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "grid"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #18",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-18",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 556,
+      "height": 499
+    },
+    {
+      "id": "scrap-19",
+      "name": {
+        "en": "Torn notebook paper 15",
+        "vi": "Mẩu giấy vở xé 15"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #19",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-19",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 474,
+      "height": 368
+    },
+    {
+      "id": "scrap-20",
+      "name": {
+        "en": "Torn notebook paper 16",
+        "vi": "Mẩu giấy vở xé 16"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #20",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-20",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 641,
+      "height": 507
+    },
+    {
+      "id": "scrap-21",
+      "name": {
+        "en": "Torn grid paper 5",
+        "vi": "Mẩu giấy ô ly xé 5"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "grid"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #21",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-21",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 564,
+      "height": 465
+    },
+    {
+      "id": "scrap-22",
+      "name": {
+        "en": "Torn grid paper 6",
+        "vi": "Mẩu giấy ô ly xé 6"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "grid"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #22",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-22",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 609,
+      "height": 440
+    },
+    {
+      "id": "scrap-23",
+      "name": {
+        "en": "Torn notebook paper 17",
+        "vi": "Mẩu giấy vở xé 17"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #23",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-23",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 482,
+      "height": 316
+    },
+    {
+      "id": "scrap-24",
+      "name": {
+        "en": "Torn grid paper 7",
+        "vi": "Mẩu giấy ô ly xé 7"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "grid"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #24",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-24",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 540,
+      "height": 577
+    },
+    {
+      "id": "scrap-25",
+      "name": {
+        "en": "Torn notebook paper 18",
+        "vi": "Mẩu giấy vở xé 18"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #25",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-25",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 604,
+      "height": 607
+    },
+    {
+      "id": "scrap-26",
+      "name": {
+        "en": "Torn notebook paper 19",
+        "vi": "Mẩu giấy vở xé 19"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #26",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-26",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 583,
+      "height": 562
+    },
+    {
+      "id": "scrap-27",
+      "name": {
+        "en": "Torn grid paper 8",
+        "vi": "Mẩu giấy ô ly xé 8"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "grid"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #27",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-27",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 557,
+      "height": 349
+    },
+    {
+      "id": "scrap-28",
+      "name": {
+        "en": "Torn notebook paper 20",
+        "vi": "Mẩu giấy vở xé 20"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #28",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-28",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 563,
+      "height": 533
+    },
+    {
+      "id": "scrap-29",
+      "name": {
+        "en": "Torn notebook paper 21",
+        "vi": "Mẩu giấy vở xé 21"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "lined"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #29",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-29",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 511,
+      "height": 352
+    },
+    {
+      "id": "scrap-30",
+      "name": {
+        "en": "Torn grid paper 9",
+        "vi": "Mẩu giấy ô ly xé 9"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "torn",
+          "notebook",
+          "scrap",
+          "grid"
+        ],
+        "vi": [
+          "giấy",
+          "xé",
+          "giấy vở",
+          "mẩu giấy",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "scrap #30",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#scrap-30",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 667,
+      "height": 684
+    }
+  ]
+}

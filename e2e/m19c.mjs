@@ -82,7 +82,7 @@ await page.getByRole("button", { name: "Close", exact: true }).click();
 
 console.log("Frame (§5)");
 await newLayer("Frame");
-for (const g of ["Instant", "Film", "Paper cut-outs"]) check(await page.getByRole("region", { name: g }).isVisible(), `group ${g}`);
+for (const g of ["Instant", "Film", "Paper cut-outs"]) check(await page.getByRole("region", { name: g, exact: true }).isVisible(), `group ${g}`);
 await page.getByRole("button", { name: "Heart window" }).click();
 st = await S();
 last = st.doc.elements.at(-1);

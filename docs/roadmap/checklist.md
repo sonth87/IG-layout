@@ -417,7 +417,10 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] **C6a** Màn **Cảm ơn** (Cài đặt → Cảm ơn): nguồn tài sản từ `credits` của danh mục, phông, icon / emoji / mô hình, thư viện code kèm giấy phép
 - [x] **C6b** Màn **Giới thiệu** (Cài đặt → Giới thiệu): sonth87, avatar GitHub (lưu sẵn trong app, dùng được offline), link github.com/sonth87, vài dòng về app, phiên bản, lối sang Cảm ơn
 - [x] **C7** Bộ sinh khung tự nhiên (D-107), `scripts/frames/`: **ảnh xé** (ảnh theo đúng mép xé — ô cắt theo đa giác `maskPoints`), **giấy xé có lỗ**, **dải phim** (tỉ lệ 35 mm, lỗ phim lệch nhẹ, chữ in mép, vệt sáng), **ảnh lấy liền** (viền dưới dày như thật, ố nhẹ, băng dính dán lệch); xé = hình lớn trước (trôi, nghiêng, "giật"), mỗi cạnh một kiểu, lõi giấy trắng rộng hẹp, xơ mềm, viền mờ, bóng không đều
-  - [x] Đợt 1: **122 khung** (30 ảnh xé, 36 giấy xé, 24 phim, 32 ảnh lấy liền) — gói `gen-*`, giấy phép CC0 (e2e m20e)
+  - [x] Đợt 1: **134 khung** — 30 ảnh xé, 24 **ảnh xé ghép** 2–4 mảnh (kiểu template IG-4036: mép mảnh trên đè lên ảnh mảnh dưới, bóng đổ xuống), 24 **ảnh xé trên giấy lót**, 24 phim, 32 ảnh lấy liền — gói `gen-*`, CC0 (e2e m20e)
+  - [x] Chủ dự án (2026-10-18): **xé là ảnh bị xé ở viền ngoài**, không phải khung giấy thủng lỗ ở giữa → bỏ gói "giấy xé có lỗ"
+  - [x] **Sticker sinh tự động**: 40 băng dính washi (10 họa tiết, mép xé răng cưa, trong mờ), 24 giấy note (góc quăn, dải keo), 30 mẩu giấy vở / ô ly xé (lỗ đục, lề đỏ)
+  - [x] **Nét vẽ tay** (doodle) bằng code, đổi màu được: 40 mẫu — mũi tên (thẳng, cong, vòng, zigzag, xoắn, hai đầu…), gạch chân, khoanh tròn, khung, sao, lấp lánh, tim, mặt cười, vương miện, mặt trời, mây, hoa, tia chớp, dấu tích / nhân, ngoặc kép, nốt nhạc, bong bóng thoại…
   - [ ] Chủ dự án duyệt: `node scripts/frames/generate.mjs explore <tornPhoto|tornPaper|film|polaroid> 40` → mở `assets/_review/frames/<kiểu>/index.html`; bỏ / thêm seed trong `scripts/frames/picks.json` rồi `generate.mjs build`
   - [ ] Thêm kiểu: khung tranh, phong bì, sổ tay, tem răng cưa, băng dính rời…
 - [ ] **C8** Ghép từng đợt của Gemini, e2e, merge, deploy

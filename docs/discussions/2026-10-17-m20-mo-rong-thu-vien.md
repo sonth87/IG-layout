@@ -201,3 +201,7 @@ Cách làm:
 - **Dùng mép xé thật:** nếu tìm được ảnh mép giấy xé thật có giấy phép dùng được, lấy mép đó làm "cọ" để vẽ dọc đường xé, cho độ thật cao hơn.
 
 Phim, polaroid, khung tranh cũng theo tinh thần này. Ví dụ phim thì lỗ phim lệch nhẹ, mép phim cong, vệt sáng ngẫu nhiên, chữ in mép mờ chỗ đậm chỗ nhạt; polaroid thì viền hơi ố, góc hơi bo không đều, băng dính dán lệch.
+
+## 13. Góp ý về kiểu xé (2026-10-18)
+
+Chủ dự án: kiểu xé giấy là **ảnh bị xé ở viền ngoài**, không phải khung giấy bị xé thủng ở viền trong. → Bỏ gói "giấy xé có lỗ"; các kiểu xé gồm: ảnh xé (một mảnh), **ảnh xé ghép** 2–4 mảnh chồng mép (như IG-4036), **ảnh xé đặt trên mảnh giấy lót** (cả hai xé mép ngoài).
