@@ -369,7 +369,7 @@ interface Props {
   /** Story: show the areas covered by Instagram's UI. */
   showSafeZone?: boolean;
   /** Two-finger pinch on empty space: zoom the view (k = distance ratio since start). */
-  onPinchZoom?: (k: number, phase: "start" | "move" | "end") => void;
+  onPinchZoom?: (k: number, phase: "start" | "move" | "end", mid?: { x: number; y: number }) => void;
   /** Double tap where there is no element: back to "see every slide" (editor-v2/05 §2.4). */
   onFit?: () => void;
 }
@@ -564,7 +564,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     // M14 (editor-v2/06): fingers act on the selected element; nothing selected → the canvas.
     const sel = selected;
     if (!sel) {
-      onPinchZoom?.(1, "start");
+      onPinchZoom?.(1, "start", info.mid);
       pinch.current = { kind: "zoom", ...info };
       return;
     }
@@ -848,7 +848,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     if (!pinch.current) return startPinch(stage, info);
     const p = pinch.current;
     const k = info.dist / p.dist;
-    if (p.kind === "zoom") return onPinchZoom?.(k, "move");
+    if (p.kind === "zoom") return onPinchZoom?.(k, "move", info.mid);
     if (p.kind === "none") return;
     if (p.kind === "crop") {
       const asset = useEditor.getState().assets[p.el.assetId!];

@@ -450,3 +450,8 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 ### Cắt ảnh làm lại (D-111, 2026-10-18)
 - [x] Đợt 1 (e2e crop.mjs): cắt ngay trên canvas, phủ tối phần còn lại, phóng tới phần tử; khung nhìn đổi kích thước (không di chuyển); ảnh có tay nắm phóng / thu, kéo bất kỳ đâu = dời ảnh, chụm = phóng; ảnh luôn phủ kín khung; thanh Cắt (Xoay, tỉ lệ, xoay 90°, lật, đặt lại); tay nắm khung trùng tay nắm ảnh: kéo ra ngoài = phóng ảnh, kéo vào = thu khung
 - [x] Đợt 2: xoay 3D **Dọc / Ngang** (±25°, phối cảnh quanh tâm khung) — vẽ qua phép chiếu (homography) bằng WebGL ở cả canvas lẫn ảnh xuất; ảnh tự phóng để luôn phủ kín khung; kéo / phóng tính trên mặt phẳng ảnh đã nghiêng (e2e crop.mjs)
+
+### Phóng / thu mượt (2026-10-18)
+- [x] Chụm 2 ngón: phóng quanh điểm giữa hai ngón (giữ cố định điểm neo suốt lần chụm, ngón tay kéo được trong lúc chụm); trục nào canvas đang vừa màn hình thì phóng quanh tâm canvas — không chạy tới chạy lui
+- [x] Vị trí cuộn và vị trí canvas áp **cùng một khung hình** (layout effect), không trễ một nhịp → các thành phần không dịch trái / phải theo nhịp phóng; mỗi khung hình chỉ cập nhật một lần dù sự kiện chạm đến dồn dập (e2e zoom-smooth.mjs)
+- [ ] Chủ dự án thử lại trên điện thoại

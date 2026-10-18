@@ -1,7 +1,7 @@
 "use client";
 
 import type Konva from "konva";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { LayoutPicker } from "@/components/layout/LayoutPicker";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { newText } from "@/lib/elements/create";
@@ -234,6 +234,9 @@ export function Editor({ onClose }: { onClose: () => void }) {
   /** Zoom shown while easing to a new "see every slide" level. */
   const [easing, setEasing] = useState<number | null>(null);
   const pinchZoomStart = useRef(1);
+  /** Latest pinch ratio waiting for the next frame, and that frame. */
+  const pinchPending = useRef<number | null>(null);
+  const pinchFrame = useRef(0);
   const playing = usePlayback((s) => s.playing);
   const snapOn = useSettings((s) => s.snap);
   /** Which library the "library" sheet shows (editor-v2/11). */
@@ -392,25 +395,51 @@ export function Editor({ onClose }: { onClose: () => void }) {
     if (index !== useEditor.getState().currentSlide) store.setCurrentSlide(index);
   }
 
+  /**
+   * The canvas point (ax, ay; export px) kept under a screen point (sx, sy; px in the visible
+   * area) while zooming. Applied right after the new zoom is laid out — scroll and stage in
+   * the same frame — so nothing drifts or shakes between the canvas and the controls.
+   */
+  const zoomAnchor = useRef<{ ax: number; ay: number; sx: number; sy: number; once: boolean; lockX: boolean; lockY: boolean; fingers?: { x: number; y: number }; sx0?: number; sy0?: number } | null>(null);
+  useLayoutEffect(() => {
+    const a = zoomAnchor.current;
+    const area = areaRef.current;
+    if (!a || !area) return;
+    area.scrollLeft = origin.x + a.ax * viewScale - a.sx;
+    area.scrollTop = origin.y + a.ay * viewScale - a.sy;
+    const stage = useEditor.getState().canvas?.layer.getStage();
+    if (stage) {
+      stage.position({ x: origin.x - area.scrollLeft, y: origin.y - area.scrollTop });
+      stage.batchDraw();
+    }
+    if (a.once) zoomAnchor.current = null;
+  }, [viewScale, origin.x, origin.y]);
+
+  /**
+   * Anchor at a point of the visible area (default: its middle). On an axis where the
+   * canvas fits (it is centred, nothing to scroll), the anchor is the canvas centre instead:
+   * the canvas grows evenly from there, then the same point simply stays put once it can be
+   * scrolled — no back-and-forth.
+   */
+  function anchorAt(sx?: number, sy?: number, once = false) {
+    const area = areaRef.current;
+    if (!area) return;
+    const lockX = area.scrollWidth <= area.clientWidth + 1;
+    const lockY = area.scrollHeight <= area.clientHeight + 1;
+    const ax = lockX ? size.width / 2 : (area.scrollLeft + (sx ?? area.clientWidth / 2) - origin.x) / viewScale;
+    const ay = lockY ? size.height / 2 : (area.scrollTop + (sy ?? area.clientHeight / 2) - origin.y) / viewScale;
+    zoomAnchor.current = { ax, ay, sx: origin.x + ax * viewScale - area.scrollLeft, sy: origin.y + ay * viewScale - area.scrollTop, once, lockX, lockY };
+  }
+
   /** Zoom around the middle of the visible area. `elastic`: may go a little below the smallest zoom (pinch). */
   function zoomTo(next: number, elastic = false) {
-    const area = areaRef.current;
     let z = Math.min(MAX_ZOOM, next);
     // Below the smallest zoom the canvas resists, and springs back on release (editor-v2/05 §2.3).
     if (z < minZoom) z = elastic ? minZoom * (z / minZoom) ** 0.3 : minZoom;
-    if (!area || z === zoom) return;
-    const cx = (area.scrollLeft + area.clientWidth / 2 - origin.x) / viewScale;
-    const cy = (area.scrollTop + area.clientHeight / 2 - origin.y) / viewScale;
+    if (z === zoom) return;
+    if (!zoomAnchor.current) anchorAt(undefined, undefined, true);
     setEasing(null);
     setUserZoom(z);
-    requestAnimationFrame(() => {
-      const s = baseScale * z;
-      const o = originFor(s);
-      area.scrollTo({
-        left: o.x + cx * s - area.clientWidth / 2,
-        top: o.y + cy * s - area.clientHeight / 2,
-      });
-    });
   }
 
   /** Eases the zoom to `to` in 250 ms; `follow`: then keep "see every slide". */
@@ -782,10 +811,38 @@ export function Editor({ onClose }: { onClose: () => void }) {
                   origin={origin}
                   contentLayerRef={contentLayerRef}
                   showSafeZone={showSafeZone}
-                  onPinchZoom={(k, phase) => {
-                    if (phase === "start") pinchZoomStart.current = zoom;
-                    else if (phase === "move") zoomTo(pinchZoomStart.current * k, true);
-                    else if (zoom < minZoom) easeZoom(minZoom, minZoom >= fitZoom);
+                  onPinchZoom={(k, phase, mid) => {
+                    if (phase === "start") {
+                      pinchZoomStart.current = zoom;
+                      // Zoom around the fingers; the point under them stays under them.
+                      anchorAt(mid?.x, mid?.y);
+                      const a = zoomAnchor.current;
+                      if (a && mid) Object.assign(a, { fingers: mid, sx0: a.sx, sy0: a.sy });
+                    } else if (phase === "move") {
+                      // The fingers can also pan while they pinch (not on a centred axis).
+                      const a = zoomAnchor.current;
+                      if (a && mid && a.fingers) {
+                        if (!a.lockX) a.sx = (a.sx0 ?? a.sx) + mid.x - a.fingers.x;
+                        if (!a.lockY) a.sy = (a.sy0 ?? a.sy) + mid.y - a.fingers.y;
+                      }
+                      // One zoom per frame: touch events come faster than the screen draws.
+                      pinchPending.current = k;
+                      pinchFrame.current ||= requestAnimationFrame(() => {
+                        pinchFrame.current = 0;
+                        if (pinchPending.current !== null) zoomTo(pinchZoomStart.current * pinchPending.current, true);
+                        pinchPending.current = null;
+                      });
+                    } else {
+                      cancelAnimationFrame(pinchFrame.current);
+                      pinchFrame.current = 0;
+                      if (pinchPending.current !== null && zoomAnchor.current) {
+                        // The last step still keeps the point under the fingers, then the anchor goes.
+                        zoomAnchor.current.once = true;
+                        zoomTo(pinchZoomStart.current * pinchPending.current, true);
+                      } else zoomAnchor.current = null;
+                      pinchPending.current = null;
+                      if (zoom < minZoom) easeZoom(minZoom, minZoom >= fitZoom);
+                    }
                   }}
                   onFit={fitAll}
                 />
