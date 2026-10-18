@@ -1,0 +1,524 @@
+{
+  "id": "vintage-labels",
+  "kind": "sticker",
+  "name": {
+    "en": "Vintage Labels & Tickets",
+    "vi": "Vé & Nhãn hiệu cổ"
+  },
+  "collections": [
+    "vintage",
+    "journal"
+  ],
+  "order": 20,
+  "items": [
+    {
+      "id": "label-shakespeare-1864",
+      "name": {
+        "en": "Shakespeare Tercentenary Poster Stamp (1864)",
+        "vi": "Nhãn kỷ niệm Shakespeare cổ điển (1864)"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "poster stamp",
+          "shakespeare",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn cổ",
+          "tem nhãn",
+          "văn học",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1864_Shakespeare_Poster_Stamp.jpg",
+        "author": "Unknown authorUnknown author",
+        "title": "1864 Shakespeare Poster Stamp",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 931,
+      "height": 1024
+    },
+    {
+      "id": "label-kupferberg-gold-1910",
+      "name": {
+        "en": "Kupferberg Gold Vintage Advertising Label",
+        "vi": "Nhãn quảng cáo Kupferberg Gold cổ điển"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "advertising",
+          "vintage",
+          "poster stamp"
+        ],
+        "vi": [
+          "nhãn cổ",
+          "quảng cáo",
+          "hoài cổ",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1900-1920_circa_Ernst_Heilemann_Reklamemarken_Kupferberg_Gold.jpg",
+        "author": "Ernst Heilemann",
+        "title": "1900-1920 circa Ernst Heilemann Reklamemarken Kupferberg Gold",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 742
+    },
+    {
+      "id": "label-lindener-fabrik-1900",
+      "name": {
+        "en": "Lindener Factory Vintage Industrial Label (1900)",
+        "vi": "Nhãn xưởng thủ công Lindener (1900)"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "industrial",
+          "vintage",
+          "ephemera"
+        ],
+        "vi": [
+          "nhãn cổ",
+          "thủ công",
+          "nhật ký",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1900_circa_Reklamemarke_Lindener_Z%C3%BCndh%C3%BCtchen_u._Thonwaren-Fabrik_..._vorm._Georg_Egestorff_-_Linden_u._Hannover.jpg",
+        "author": "unbekannter Künstler",
+        "title": "1900 circa Reklamemarke Lindener Zündhütchen u. Thonwaren-Fabrik ... vorm. Georg Egestorff - Linden u. Hannover",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 744
+    },
+    {
+      "id": "label-gustav-cords-1913",
+      "name": {
+        "en": "Gustav Cords Berlin Fashion Label (1913)",
+        "vi": "Nhãn hiệu vải thời trang Berlin (1913)"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "fashion",
+          "berlin",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn cổ",
+          "thời trang",
+          "vải vóc",
+          "berlin"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1913_circa_Gustav_Cords_Damenkleiderstoffe_Berlin_K%C3%B6ln_Reklamemarke.jpg",
+        "author": "unbekannter Grafiker, mutmaßlich Karl Michels",
+        "title": "1913 circa Gustav Cords Damenkleiderstoffe Berlin Köln Reklamemarke",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1010
+    },
+    {
+      "id": "label-neumarkt-bruderhaus",
+      "name": {
+        "en": "Neumarkt Courtyard Architectural Stamp Label",
+        "vi": "Nhãn kiến trúc sân cổ Neumarkt"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "architecture",
+          "courtyard",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn cổ",
+          "kiến trúc",
+          "du lịch",
+          "châu âu"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Album_Reklamemarke_-_Albert_Reich_(Maler)_Neumarkt_in_der_Oberpfalz_-_Hof_im_Bruderhaus.jpg",
+        "author": "Albert Reich",
+        "title": "Album Reklamemarke - Albert Reich (Maler) Neumarkt in der Oberpfalz - Hof im Bruderhaus",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 771,
+      "height": 1024
+    },
+    {
+      "id": "label-salvator-wien-1920",
+      "name": {
+        "en": "Salvator Vienna Vintage Shoe Label (1920s)",
+        "vi": "Nhãn hiệu giày cổ điển thành Viên (1920)"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "vienna",
+          "retro",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn cổ",
+          "thành viên",
+          "quảng cáo",
+          "hoài cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1920er_Jahre_circa_anonym_Reklamemarkt_Salvator_Schuhabsatz,_Papier-_und_Blechdruck-Industrie,_Wien_XIX.jpg",
+        "author": "unsigniert",
+        "title": "1920er Jahre circa anonym Reklamemarkt Salvator Schuhabsatz, Papier- und Blechdruck-Industrie, Wien XIX",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 746,
+      "height": 1024
+    },
+    {
+      "id": "label-uhlmann-tea-1920",
+      "name": {
+        "en": "Emil Uhlmann Vintage Tea Vignette Label (1920)",
+        "vi": "Nhãn hộp trà Emil Uhlmann cổ (1920)"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "tea",
+          "vignette",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn trà",
+          "nhãn cổ",
+          "trà chiều",
+          "bao bì"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1920_circa_Emil_Uhlmann_GmbH_Reklamemarke_Vignette_Thee_Tee.jpg",
+        "author": "ungenannt",
+        "title": "1920 circa Emil Uhlmann GmbH Reklamemarke Vignette Thee Tee",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 764,
+      "height": 1024
+    },
+    {
+      "id": "label-uhlmann-1813-1913",
+      "name": {
+        "en": "Centenary 1813–1913 Vintage Commemorative Label",
+        "vi": "Nhãn kỷ niệm bách niên 1813–1913"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "commemorative",
+          "history",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn cổ",
+          "kỷ niệm",
+          "lịch sử",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "tolerance": 8,
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1913_Emil_Uhlmann_GmbH_Reklamemarke_Vignette_1813_Kampf_um_Schoenefeld.jpg",
+        "author": "ungenannt",
+        "title": "1913 Emil Uhlmann GmbH Reklamemarke Vignette 1813 Kampf um Schoenefeld",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 729
+    },
+    {
+      "id": "label-strache-packen-1925",
+      "name": {
+        "en": "Ed. Strache Illustrated Travel Label (1925)",
+        "vi": "Nhãn hành lý du lịch Ed. Strache (1925)"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "luggage",
+          "travel",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn hành lý",
+          "du lịch",
+          "nhãn cổ",
+          "1925"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1925_circa_Graphische_Kunstanstalten_Ed._Strache_Warnsdorf_i.B._Packen_Sie_...,_Bildseite.jpg",
+        "author": "Ed. Strache",
+        "title": "1925 circa Graphische Kunstanstalten Ed. Strache Warnsdorf i.B. Packen Sie ..., Bildseite",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 708,
+      "height": 1024
+    },
+    {
+      "id": "label-hannover-culinary-1898",
+      "name": {
+        "en": "Hannover Culinary Exhibition Stamp Label (1898)",
+        "vi": "Nhãn triển lãm ẩm thực Hannover (1898)"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "culinary",
+          "exhibition",
+          "1898"
+        ],
+        "vi": [
+          "nhãn cổ",
+          "ẩm thực",
+          "triển lãm",
+          "1898"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1898_Allgemeine_deutsche_Kochkunst-_und_Nahrungsmittel-Ausstellung_Hannover.jpg",
+        "author": "ungenannt",
+        "title": "1898 Allgemeine deutsche Kochkunst- und Nahrungsmittel-Ausstellung Hannover",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 996,
+      "height": 1024
+    },
+    {
+      "id": "label-sembach-frankfurt-1910",
+      "name": {
+        "en": "Sembach Frankfurt Vintage Bookplate Label (1910)",
+        "vi": "Nhãn hiệu sách Frankfurt cổ điển (1910)"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "bookplate",
+          "frankfurt",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn sách",
+          "nhãn cổ",
+          "sổ tay",
+          "1910"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "tolerance": 8,
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1910_circa_Album_f%C3%BCr_Reklame-Marken_R16_(Hugo_Flatow,_Krausnickstr._7)_gedruckt_f%C3%BCr_G._C._F._Sembach_Nachfl._in_Frankfurt_an_der_Oder_Grosse_Scharrnstrasse_44.jpg",
+        "author": "im Auftrag der ausgebende Firma durch die Druckerei Hugo Flatow in Berlin, Krausnickstraße 7 mit Jugendstil-Ornament auf",
+        "title": "1910 circa Album für Reklame-Marken R16 (Hugo Flatow, Krausnickstr. 7) gedruckt für G. C. F. Sembach Nachfl. in Frankfurt an der Oder Grosse",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 798,
+      "height": 1024
+    },
+    {
+      "id": "label-havana-cigar-1871",
+      "name": {
+        "en": "Havana 1871 Vintage ornate Box Label",
+        "vi": "Nhãn hộp gỗ Havana hoa văn cổ (1871)"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "ornate",
+          "box",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn hộp",
+          "hoa văn",
+          "nhãn cổ",
+          "1871"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Sigarendoos_De_Nederlandsche_Bank,_honderd_cigaren_havana_1871.jpg",
+        "author": "Unknown authorUnknown author",
+        "title": "Sigarendoos De Nederlandsche Bank, honderd cigaren havana 1871",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 623
+    },
+    {
+      "id": "label-beer-revenue-stamp",
+      "name": {
+        "en": "Alexander Hamilton Vintage Engraved Revenue Label",
+        "vi": "Nhãn khắc gỗ cổ điển Alexander Hamilton"
+      },
+      "tags": {
+        "en": [
+          "label",
+          "engraving",
+          "revenue",
+          "vintage"
+        ],
+        "vi": [
+          "nhãn khắc",
+          "cổ điển",
+          "tem thuế",
+          "hoài cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%22BEER_STAMP_TWO_DOLLARS_SERIES_OF_1971%22_art_detail,_Alexander_Hamilton_Beer_revenue_stamp_$2_Hogshead_(cropped).JPG",
+        "author": "Frame printed by National Bank Note Company; Engraved black vignette printed by Bureau of Engraving and Printing",
+        "title": "\"BEER STAMP TWO DOLLARS SERIES OF 1971\" art detail, Alexander Hamilton Beer revenue stamp $2 Hogshead (cropped)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1000,
+      "height": 945
+    }
+  ]
+}

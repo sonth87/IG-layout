@@ -1,0 +1,440 @@
+{
+  "id": "japanese-ukiyoe",
+  "kind": "sticker",
+  "name": {
+    "en": "Japanese Ukiyo-e",
+    "vi": "Tranh khắc gỗ Nhật Bản"
+  },
+  "collections": [
+    "japan",
+    "vintage"
+  ],
+  "order": 100,
+  "items": [
+    {
+      "id": "ukiyoe-great-wave",
+      "name": {
+        "en": "The Great Wave off Kanagawa (Hokusai)",
+        "vi": "Sóng lừng ngoài khơi Kanagawa (Hokusai)"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "wave",
+          "hokusai",
+          "japan"
+        ],
+        "vi": [
+          "sóng thần",
+          "nhật bản",
+          "hokusai",
+          "tranh khắc gỗ"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:The_Great_Wave_off_Kanagawa.jpg",
+        "author": "After Katsushika Hokusai",
+        "title": "The Great Wave off Kanagawa",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 724
+    },
+    {
+      "id": "ukiyoe-great-wave-cutout",
+      "name": {
+        "en": "Great Wave Crest Cutout (Hokusai)",
+        "vi": "Đỉnh sóng Kanagawa tách nền (Hokusai)"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "wave",
+          "cutout",
+          "hokusai"
+        ],
+        "vi": [
+          "đỉnh sóng",
+          "tách nền",
+          "nhật bản",
+          "hokusai"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:The_Great_Wave_off_Kanagawa-cutout.png",
+        "author": "Hokusai",
+        "title": "The Great Wave off Kanagawa-cutout",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 960
+    },
+    {
+      "id": "ukiyoe-bird-and-camellia",
+      "name": {
+        "en": "Songbird & Blooming Camellia Woodblock Print",
+        "vi": "Chim nhỏ và hoa trà đỏ khắc gỗ"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "camellia",
+          "bird",
+          "japan"
+        ],
+        "vi": [
+          "hoa trà",
+          "chim nhỏ",
+          "nhật bản",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Vogel_en_camelia,_RP-P-1956-767.jpg",
+        "author": "Rijksmuseum",
+        "title": "Vogel en camelia, RP-P-1956-767",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 520,
+      "height": 1024
+    },
+    {
+      "id": "ukiyoe-quails-and-poppies",
+      "name": {
+        "en": "Quails & Red Poppies Woodblock Print",
+        "vi": "Chim cút và hoa anh túc khắc gỗ"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "quail",
+          "poppy",
+          "woodblock"
+        ],
+        "vi": [
+          "chim cút",
+          "hoa đỏ",
+          "tranh khắc gỗ",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Kwartels_en_papavers,_RP-P-1956-764.jpg",
+        "author": "Rijksmuseum",
+        "title": "Kwartels en papavers, RP-P-1956-764",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 407,
+      "height": 1024
+    },
+    {
+      "id": "ukiyoe-hiroshige-swallows",
+      "name": {
+        "en": "Swallows & Kingfisher with Rose Mallows (The Met)",
+        "vi": "Chim én và bói cá bên hoa phù dung"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "swallow",
+          "flower",
+          "japan"
+        ],
+        "vi": [
+          "chim én",
+          "hoa phù dung",
+          "tranh nhật",
+          "mùa xuân"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%E7%B4%85%E8%9C%80%E8%91%B5%E3%81%AB%E7%87%95%E3%81%A8%E5%B7%9D%E8%9D%89%E5%9B%B3-Swallows_and_Kingfisher_with_Rose_Mallows_MET_DP121492.jpg",
+        "author": "Utagawa Hiroshige",
+        "title": "紅蜀葵に燕と川蝉図",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 760,
+      "height": 1024
+    },
+    {
+      "id": "ukiyoe-hiroshige-golden-pheasant",
+      "name": {
+        "en": "Golden Pheasant & Pine in Snow (The Met)",
+        "vi": "Chim trĩ vàng bên cành tùng phủ tuyết"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "pheasant",
+          "snow",
+          "pine"
+        ],
+        "vi": [
+          "chim trĩ",
+          "cành tùng",
+          "mùa đông",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%E7%94%BB_%E9%9B%AA%E4%B8%AD%E5%B0%8F%E6%9D%BE%E3%81%AB%E9%8C%A6%E9%9B%89-Golden_Pheasant_and_Pine_Shoots_in_Snow_MET_DP140958.jpg",
+        "author": "Utagawa Hiroshige",
+        "title": "歌川広重画 雪中小松に錦雉",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 501,
+      "height": 1024
+    },
+    {
+      "id": "ukiyoe-hiroshige-plum-bird",
+      "name": {
+        "en": "Long-Tailed Bird on Blossoming Plum Branch",
+        "vi": "Chim đuôi dài trên cành hoa mận"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "plum blossom",
+          "bird",
+          "spring"
+        ],
+        "vi": [
+          "hoa mận",
+          "hoa mai",
+          "chim xuân",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%E6%A2%85%E3%81%AB%E4%B8%89%E5%85%89%E9%B3%A5-Long_Tailed_Bird_MET_DP121506.jpg",
+        "author": "Utagawa Hiroshige",
+        "title": "梅に三光鳥",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 534,
+      "height": 1024
+    },
+    {
+      "id": "ukiyoe-hiroshige-plum-blossom",
+      "name": {
+        "en": "Songbird on White Plum Branch (The Met)",
+        "vi": "Chim nhỏ đậu cành mai trắng"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "plum",
+          "blossom",
+          "hiroshige"
+        ],
+        "vi": [
+          "mai trắng",
+          "cành hoa",
+          "nhật bản",
+          "thanh tao"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%E6%A2%85%E3%81%AB%E4%B8%89%E5%85%89%E9%B3%A5-Bird_on_a_Plum_Branch_MET_DP123573.jpg",
+        "author": "Utagawa Hiroshige",
+        "title": "梅に三光鳥",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 493,
+      "height": 1024
+    },
+    {
+      "id": "ukiyoe-hiroshige-warbler",
+      "name": {
+        "en": "Bush Warbler & Pink Plum Blossoms (The Met)",
+        "vi": "Chim oanh bên nhành đào xuân"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "warbler",
+          "blossom",
+          "japan"
+        ],
+        "vi": [
+          "chim oanh",
+          "hoa đào",
+          "mùa xuân",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%E7%94%BB_%E6%A2%85%E3%81%AB%E9%B6%AF-Warbler_on_a_Plum_Branch_MET_DP120482.jpg",
+        "author": "Utagawa Hiroshige",
+        "title": "歌川広重画 梅に鶯",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 411,
+      "height": 1024,
+      "process": {
+        "bgMode": "flood",
+        "tolerance": 8,
+        "trim": true
+      }
+    },
+    {
+      "id": "ukiyoe-hiroshige-kingfisher-iris",
+      "name": {
+        "en": "Kingfisher & Blue Iris Flowers (Hiroshige)",
+        "vi": "Chim bói cá và hoa diên vĩ xanh"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "kingfisher",
+          "iris",
+          "hiroshige"
+        ],
+        "vi": [
+          "chim bói cá",
+          "hoa diên vĩ",
+          "tranh nhật",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Utagawa_hiroshige,_iris_con_martin_pescatore,_XIX_sec.JPG",
+        "author": "Utagawa Hiroshige",
+        "title": "Utagawa hiroshige, iris con martin pescatore, XIX sec",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 417,
+      "height": 1024
+    },
+    {
+      "id": "ukiyoe-hiroshige-rose-bird",
+      "name": {
+        "en": "Small Bird on Blooming Rose Branch (Hiroshige)",
+        "vi": "Chim nhỏ bên nhành hồng cổ Nhật Bản"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "rose",
+          "bird",
+          "japan"
+        ],
+        "vi": [
+          "nhành hồng",
+          "chim nhỏ",
+          "nhật bản",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Utagawa_hiroshige,_rosa_con_uccello,_XIX_sec.JPG",
+        "author": "Utagawa Hiroshige",
+        "title": "Utagawa hiroshige, rosa con uccello, XIX sec",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 395,
+      "height": 1024
+    },
+    {
+      "id": "ukiyoe-wave-vertical-scroll",
+      "name": {
+        "en": "Cresting Ocean Wave Woodblock Detail (Hokusai)",
+        "vi": "Ngọn sóng bạc đầu khắc gỗ (Hokusai)"
+      },
+      "tags": {
+        "en": [
+          "ukiyoe",
+          "ocean",
+          "wave",
+          "japan"
+        ],
+        "vi": [
+          "sóng biển",
+          "khắc gỗ",
+          "nhật bản",
+          "hokusai"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Great_Wave_Hokusai_BM_1906.1220.0.533_n02.jpg",
+        "author": "Katsushika Hokusai",
+        "title": "Japanese: 『神奈川沖浪裏』Under the Wave, off Kanagawatitle QS:P1476,ja:\"神奈川沖浪裏\"label QS:Lja,\"神奈川沖浪裏\"label QS:Lit,\"La grande onda di Kanagawa\"label ",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 928,
+      "height": 1024
+    }
+  ]
+}

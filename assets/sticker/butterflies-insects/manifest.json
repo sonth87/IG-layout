@@ -1,0 +1,225 @@
+{
+  "id": "butterflies-insects",
+  "kind": "sticker",
+  "name": {
+    "en": "Butterflies & Insects",
+    "vi": "Bướm & Côn trùng"
+  },
+  "collections": [
+    "vintage",
+    "journal"
+  ],
+  "order": 50,
+  "items": [
+    {
+      "id": "morpho-achilles",
+      "name": {
+        "en": "Blue Banded Morpho Butterfly (Morpho Achilles)",
+        "vi": "Bướm đêm xanh ngọc (Morpho Achilles)"
+      },
+      "tags": {
+        "en": [
+          "butterfly",
+          "morpho",
+          "blue",
+          "insect"
+        ],
+        "vi": [
+          "cánh bướm",
+          "bướm xanh",
+          "côn trùng",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Morphoachilles.JPG",
+        "author": "Notafly",
+        "title": "Morphoachilles",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 919
+    },
+    {
+      "id": "morpho-anaxibia",
+      "name": {
+        "en": "Electric Blue Emperor Butterfly (Morpho Anaxibia)",
+        "vi": "Bướm hoàng đế cánh xanh biếc"
+      },
+      "tags": {
+        "en": [
+          "butterfly",
+          "blue",
+          "wings",
+          "specimen"
+        ],
+        "vi": [
+          "bướm xanh",
+          "đôi cánh",
+          "bướm cổ",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Morphoanaxibia.JPG",
+        "author": "Notafly",
+        "title": "Morphoanaxibia",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 780
+    },
+    {
+      "id": "morpho-telemachus",
+      "name": {
+        "en": "Golden-Edged Telemachus Butterfly",
+        "vi": "Bướm viền vàng cổ điển (Telemachus)"
+      },
+      "tags": {
+        "en": [
+          "butterfly",
+          "gold",
+          "wings",
+          "specimen"
+        ],
+        "vi": [
+          "cánh bướm",
+          "viền vàng",
+          "tiêu bản",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Morphotelemachusperseus.JPG",
+        "author": "Notafly",
+        "title": "Morphotelemachusperseus",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 973,
+      "height": 926
+    },
+    {
+      "id": "morpho-helenor-pindarus",
+      "name": {
+        "en": "Deep Indigo & Black Morpho Helenor",
+        "vi": "Bướm chàm đen huyền bí (Morpho Helenor)"
+      },
+      "tags": {
+        "en": [
+          "butterfly",
+          "indigo",
+          "dark",
+          "morpho"
+        ],
+        "vi": [
+          "bướm đêm",
+          "màu chàm",
+          "đôi cánh",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Morphohelenorpindarus.JPG",
+        "author": "Notafly",
+        "title": "Morphohelenorpindarus",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 908,
+      "height": 897
+    },
+    {
+      "id": "morpho-deidamia",
+      "name": {
+        "en": "Iridescent Blue-Green Morpho Deidamia",
+        "vi": "Bướm lục lam chuyển sắc (Deidamia)"
+      },
+      "tags": {
+        "en": [
+          "butterfly",
+          "iridescent",
+          "teal",
+          "blue"
+        ],
+        "vi": [
+          "cánh bướm",
+          "lục lam",
+          "chuyển sắc",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Morphodeidamia.JPG",
+        "author": "Notafly",
+        "title": "Morphodeidamia",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 713,
+      "height": 638
+    },
+    {
+      "id": "morpho-pyrrhus",
+      "name": {
+        "en": "Spotted Underside Owl Pattern Butterfly",
+        "vi": "Bướm vân mắt cú cổ điển (Pyrrhus)"
+      },
+      "tags": {
+        "en": [
+          "butterfly",
+          "owl pattern",
+          "brown",
+          "vintage"
+        ],
+        "vi": [
+          "bướm nâu",
+          "hoa văn cổ",
+          "tiêu bản",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Morphodeidamuspyrrhus.JPG",
+        "author": "Notafly",
+        "title": "Morphodeidamuspyrrhus",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 859,
+      "height": 718
+    }
+  ]
+}

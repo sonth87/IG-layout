@@ -1,0 +1,514 @@
+{
+  "id": "vintage-postcards",
+  "kind": "sticker",
+  "name": {
+    "en": "Wax seals",
+    "vi": "Dấu sáp cổ"
+  },
+  "collections": [
+    "vintage",
+    "journal",
+    "travel"
+  ],
+  "order": 30,
+  "items": [
+    {
+      "id": "seal-jan-kazimierz",
+      "name": {
+        "en": "Royal Red Wax Seal of Jan Kazimierz",
+        "vi": "Dấu sáp đỏ hoàng gia cổ điển"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "seal",
+          "red",
+          "vintage"
+        ],
+        "vi": [
+          "dấu sáp",
+          "niêm phong",
+          "sáp đỏ",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Pieczec_przy_dokumencie_Jana_Kazimierza.png",
+        "author": "anonymous",
+        "title": "Pieczec przy dokumencie Jana Kazimierza potwierdzającym przywileje miasta Poznania",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1007
+    },
+    {
+      "id": "seal-wladyslaw-jagiello",
+      "name": {
+        "en": "Medieval Royal Wax Seal",
+        "vi": "Dấu sáp niêm phong thời Trung cổ"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "seal",
+          "medieval",
+          "letter"
+        ],
+        "vi": [
+          "dấu sáp",
+          "con dấu",
+          "thư cổ",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Piecz%C4%99%C4%87_ma%C5%82a_woskowa_W%C5%82adys%C5%82awa_Jagie%C5%82%C5%82y.png",
+        "author": "anonymous",
+        "title": "Pieczęć mała woskowa Władysława Jagiełły przy dokumencie, w którym Władysław zezwala krawcom i piekarzom poznańskim na założenie składów w g",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 944
+    },
+    {
+      "id": "seal-jan-olbracht",
+      "name": {
+        "en": "Antique Round Parchment Wax Seal",
+        "vi": "Dấu sáp tròn đóng trên giấy da"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "round",
+          "parchment",
+          "antique"
+        ],
+        "vi": [
+          "dấu sáp",
+          "dấu tròn",
+          "giấy cổ",
+          "niêm phong"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Piecz%C4%99%C4%87_przy_dokumencie_Jana_Olbrachta.png",
+        "author": "anonymous",
+        "title": "Pieczęć przy dokumencie, w którym Jan Olbracht król polski rozstrzyga spór pomiędzy sukiennikami i krawcami poznańskimi, polecając tym ostat",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 976,
+      "height": 1024
+    },
+    {
+      "id": "seal-francis-ii-1810",
+      "name": {
+        "en": "Imperial Ceremonial Gold & Red Seal (1810)",
+        "vi": "Ấn lễ nghi hoàng gia chạm nổi (1810)"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "imperial",
+          "gold",
+          "1810"
+        ],
+        "vi": [
+          "dấu sáp",
+          "hoàng gia",
+          "chạm nổi",
+          "1810"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1810_ceremonial_seal_of_the_imperial_Francis_II.jpg",
+        "author": "Jacek Proszyk",
+        "title": "1810 ceremonial seal of the imperial Francis II",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "seal-cdb-embossed-1920",
+      "name": {
+        "en": "Embossed Red Paper Seal Stamp (1920)",
+        "vi": "Tem dấu nổi màu đỏ cổ điển (1920)"
+      },
+      "tags": {
+        "en": [
+          "seal",
+          "embossed",
+          "red",
+          "stamp"
+        ],
+        "vi": [
+          "dấu nổi",
+          "tem tròn",
+          "màu đỏ",
+          "1920"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1920_CDB_Siegelmarke.jpg",
+        "author": "Commerzbank Aktiengesellschaft",
+        "title": "1920 CDB Siegelmarke",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1018,
+      "height": 1024
+    },
+    {
+      "id": "seal-cpb-embossed-1920",
+      "name": {
+        "en": "Embossed Blue & Gold Paper Seal (1920)",
+        "vi": "Tem dấu nổi xanh viền vàng (1920)"
+      },
+      "tags": {
+        "en": [
+          "seal",
+          "embossed",
+          "blue",
+          "vintage"
+        ],
+        "vi": [
+          "dấu nổi",
+          "tem nhãn",
+          "xanh vàng",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1920-1940_CPB_Siegelmarke.jpg",
+        "author": "Commerzbank Aktiengesellschaft",
+        "title": "1920-1940 CPB Siegelmarke",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 948
+    },
+    {
+      "id": "seal-alavieska-blue",
+      "name": {
+        "en": "Vintage Nordic Blue Parish Seal",
+        "vi": "Tem dấu niêm phong xanh Bắc Âu"
+      },
+      "tags": {
+        "en": [
+          "seal",
+          "nordic",
+          "blue",
+          "stamp"
+        ],
+        "vi": [
+          "con dấu",
+          "niêm phong",
+          "màu xanh",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Alavieska_sinetti.jpg",
+        "author": "National Archives of Finland",
+        "title": "Alavieska sinetti",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 794,
+      "height": 1024
+    },
+    {
+      "id": "seal-moro-vieregg-1778",
+      "name": {
+        "en": "Twin Coat of Arms Red Wax Seal (1778)",
+        "vi": "Dấu sáp đỏ song huy cổ điển (1778)"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "coat of arms",
+          "red",
+          "1778"
+        ],
+        "vi": [
+          "dấu sáp",
+          "gia huy",
+          "màu đỏ",
+          "1778"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Allianzwappen_MoroVieregg_1778.jpg",
+        "author": "Schlosstoni",
+        "title": "Allianzwappen MoroVieregg 1778",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 980,
+      "height": 977
+    },
+    {
+      "id": "seal-bartha-1726",
+      "name": {
+        "en": "Octagonal Red Wax Signet Seal (1726)",
+        "vi": "Dấu sáp bát giác cổ điển (1726)"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "octagonal",
+          "signet",
+          "1726"
+        ],
+        "vi": [
+          "dấu sáp",
+          "bát giác",
+          "ấn tín",
+          "1726"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Bartha_Mih%C3%A1ly_esk%C3%BCdt_pecs%C3%A9tje_1726.jpg",
+        "author": "Taz",
+        "title": "Bartha Mihály esküdt pecsétje 1726",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 978
+    },
+    {
+      "id": "seal-bogyo-1846",
+      "name": {
+        "en": "Oval Vermilion Wax Signet Seal (1846)",
+        "vi": "Dấu sáp bầu dục màu chu sa (1846)"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "oval",
+          "vermilion",
+          "1846"
+        ],
+        "vi": [
+          "dấu sáp",
+          "bầu dục",
+          "đỏ son",
+          "1846"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Bogy%C3%B3_Mih%C3%A1ly_Vereb%C3%A9lyi_sz%C3%A9ki_esk%C3%BCdt_1846.jpg",
+        "author": "Taz",
+        "title": "Bogyó Mihály Verebélyi széki esküdt 1846",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 958,
+      "height": 1024
+    },
+    {
+      "id": "seal-bartha-1740",
+      "name": {
+        "en": "Antique Crimson Wax Seal Impression (1740)",
+        "vi": "Dấu sáp đỏ thẫm thế kỷ 18 (1740)"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "crimson",
+          "antique",
+          "1740"
+        ],
+        "vi": [
+          "dấu sáp",
+          "đỏ thẫm",
+          "thư cổ",
+          "1740"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Bartha_Mih%C3%A1ly_vereb%C3%A9ly_sz%C3%A9ki_esk%C3%BCdt_1740.jpg",
+        "author": "Taz",
+        "title": "Bartha Mihály verebély széki esküdt 1740",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 910,
+      "height": 1024
+    },
+    {
+      "id": "seal-bogyo-jakab-1747",
+      "name": {
+        "en": "Ornate Noble Wax Seal Impression (1747)",
+        "vi": "Dấu sáp quý tộc chạm khắc (1747)"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "noble",
+          "ornate",
+          "1747"
+        ],
+        "vi": [
+          "dấu sáp",
+          "quý tộc",
+          "chạm khắc",
+          "1747"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Bogy%C3%B3_Jakab_vereb%C3%A9ly_sz%C3%A9ki_szolgab%C3%ADr%C3%B3_1747.jpg",
+        "author": "Taz",
+        "title": "Bogyó Jakab verebély széki szolgabíró 1747",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 958
+    },
+    {
+      "id": "postcard-bonn-1899",
+      "name": {
+        "en": "Vintage Bonn Illustrated Postmark Card",
+        "vi": "Bưu thiếp đóng dấu Bonn cổ điển"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "postmark",
+          "bonn",
+          "vintage"
+        ],
+        "vi": [
+          "bưu thiếp",
+          "dấu bưu điện",
+          "du lịch",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Bonn_1280.jpg",
+        "author": "Wolfgang Sauber",
+        "title": "Bonn 1280",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 967,
+      "height": 1024
+    },
+    {
+      "id": "envelope-wax-seal-fragment",
+      "name": {
+        "en": "Vintage Envelope Fragment with Red Wax Seals",
+        "vi": "Phong bì thư cổ đóng dấu sáp đỏ"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "wax seal",
+          "letter",
+          "vintage"
+        ],
+        "vi": [
+          "phong bì",
+          "dấu sáp",
+          "thư cổ",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Ministerstwo_Spraw_Wojskowych_-_Fragment_koperty_z_piecz%C4%99ci%C4%85_Wiceministra_Spraw_Wojskowych_-_701-001-058-345.jpg",
+        "author": "Unknown authorUnknown author or not provided",
+        "title": "Fragment koperty z pieczęcią Wiceministra Spraw Wojskowych",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 605,
+      "height": 686
+    }
+  ]
+}

@@ -2,13 +2,13 @@
   "id": "vintage-stamps",
   "kind": "sticker",
   "name": {
-    "en": "Vintage stamps",
+    "en": "Vintage Postage Stamps",
     "vi": "Tem bưu chính cổ"
   },
   "collections": [
     "vintage",
-    "travel",
-    "journal"
+    "journal",
+    "travel"
   ],
   "order": 10,
   "items": [
@@ -195,6 +195,412 @@
       },
       "width": 1006,
       "height": 1024
+    },
+    {
+      "id": "stamp-us-columbus-10c-1893",
+      "name": {
+        "en": "Postage due stamp 10c",
+        "vi": "Tem thu cước 10c"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage due",
+          "numeral",
+          "pink"
+        ],
+        "vi": [
+          "tem",
+          "tem thu cước",
+          "số",
+          "hồng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1893-10c.jpg",
+        "author": "postalmuseum.si.edu",
+        "title": "1893-10c",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 827,
+      "height": 1024
+    },
+    {
+      "id": "stamp-us-columbus-30c-1893",
+      "name": {
+        "en": "Postage due stamp 30c",
+        "vi": "Tem thu cước 30c"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage due",
+          "numeral",
+          "pink"
+        ],
+        "vi": [
+          "tem",
+          "tem thu cước",
+          "số",
+          "hồng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1893-30c.jpg",
+        "author": "postalmuseum.si.edu",
+        "title": "1893-30c",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 845,
+      "height": 1024
+    },
+    {
+      "id": "stamp-us-franklin-1c-1898",
+      "name": {
+        "en": "US 1c Benjamin Franklin Green Stamp (1898)",
+        "vi": "Tem Mỹ 1 xu Franklin xanh lá (1898)"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "franklin",
+          "green",
+          "1898"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "tem xanh",
+          "cổ điển",
+          "1898"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1898_1c_Franklin_green.jpg",
+        "author": "R. A. Nonenmacher",
+        "title": "US stamp 1898 1c Franklin green",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 900,
+      "height": 1024
+    },
+    {
+      "id": "stamp-us-emigration-10c-1898",
+      "name": {
+        "en": "US 10c Trans-Mississippi Stamp (1898)",
+        "vi": "Tem Mỹ 10 xu hành trình miền Tây (1898)"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "vintage",
+          "western",
+          "1898"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "viễn tây",
+          "cổ điển",
+          "1898"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1898_10c_Hardships_of_Emigration.jpg",
+        "author": "R. A. Nonenmacher",
+        "title": "US stamp 1898 10c Hardships of Emigration",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 667
+    },
+    {
+      "id": "stamp-us-lake-nav-1c-1901",
+      "name": {
+        "en": "US 1c Pan-American Steamship Stamp (1901)",
+        "vi": "Tem Mỹ 1 xu tàu thủy Pan-American (1901)"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "ship",
+          "green",
+          "1901"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "tàu thủy",
+          "du lịch",
+          "1901"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1901_Pan_Am_1c_Fast_Lake_Navigation.jpg",
+        "author": "R. A. Nonenmacher",
+        "title": "US stamp 1901 Pan Am 1c Fast Lake Navigation",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 779
+    },
+    {
+      "id": "stamp-us-fast-express-2c-1901",
+      "name": {
+        "en": "US 2c Pan-American Fast Express Train Stamp (1901)",
+        "vi": "Tem Mỹ 2 xu đoàn tàu tốc hành đỏ (1901)"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "train",
+          "red",
+          "1901"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "tàu hỏa",
+          "tem đỏ",
+          "1901"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1901_Pan_Am_2c_Fast_Express.jpg",
+        "author": "R. A. Nonenmacher",
+        "title": "US stamp 1901 Pan Am 2c Fast Express",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 769
+    },
+    {
+      "id": "stamp-us-automobile-4c-1901",
+      "name": {
+        "en": "US 4c Pan-American Electric Automobile Stamp (1901)",
+        "vi": "Tem Mỹ 4 xu xe hơi cổ điển (1901)"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "automobile",
+          "car",
+          "1901"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "xe cổ",
+          "nâu",
+          "1901"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1901_Pan_Am_4c_Automobile.jpg",
+        "author": "R. A. Nonenmacher",
+        "title": "US stamp 1901 Pan Am 4c Automobile",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 787
+    },
+    {
+      "id": "stamp-us-niagara-5c-1901",
+      "name": {
+        "en": "US 5c Bridge at Niagara Falls Stamp (1901)",
+        "vi": "Tem Mỹ 5 xu cầu thác Niagara (1901)"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "bridge",
+          "blue",
+          "1901"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "cây cầu",
+          "xanh lam",
+          "1901"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1901_Pan_Am_5c_Bridge_at_Niagara_Falls.jpg",
+        "author": "R. A. Nonenmacher",
+        "title": "US stamp 1901 Pan Am 5c Bridge at Niagara Falls",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 772
+    },
+    {
+      "id": "stamp-us-canal-locks-8c-1901",
+      "name": {
+        "en": "US 8c Sault Ste. Marie Canal Stamp (1901)",
+        "vi": "Tem Mỹ 8 xu kênh đào cổ điển (1901)"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "canal",
+          "violet",
+          "1901"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "kênh đào",
+          "tím",
+          "1901"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1901_Pan_Am_8c_Canal_Locks_at_Sault_de_St_Marie.jpg",
+        "author": "R. A. Nonenmacher",
+        "title": "US stamp 1901 Pan Am 8c Canal Locks at Sault de St Marie",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 775
+    },
+    {
+      "id": "stamp-us-ocean-nav-10c-1901",
+      "name": {
+        "en": "US 10c Ocean Liner Stamp (1901)",
+        "vi": "Tem Mỹ 10 xu tàu vượt đại dương (1901)"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "ocean",
+          "ship",
+          "1901"
+        ],
+        "vi": [
+          "tem",
+          "bưu chính",
+          "đại dương",
+          "tàu biển",
+          "1901"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "process": {
+        "bgMode": "flood",
+        "trim": true
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:US_stamp_1901_Pan_Am_10c_Fast_Ocean_Navigation.jpg",
+        "author": "R. A. Nonenmacher",
+        "title": "US stamp 1901 Pan Am 10c Fast Ocean Navigation",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 790
     }
   ]
 }

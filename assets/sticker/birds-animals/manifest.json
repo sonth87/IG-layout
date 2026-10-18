@@ -1,0 +1,645 @@
+{
+  "id": "birds-animals",
+  "kind": "sticker",
+  "name": {
+    "en": "Vintage Birds & Fauna",
+    "vi": "Chim & Động vật vẽ cổ"
+  },
+  "collections": [
+    "vintage",
+    "journal"
+  ],
+  "order": 60,
+  "items": [
+    {
+      "id": "bird-gould-spatuletail",
+      "name": {
+        "en": "Marvelous Spatuletail Hummingbird & Bromeliad (Gould)",
+        "vi": "Chim ruồi đuôi vợt bên hoa dứa rừng (Gould)"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "hummingbird",
+          "flower",
+          "gould"
+        ],
+        "vi": [
+          "chim ruồi",
+          "hoa rừng",
+          "tranh cổ",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Loddigesia_mirabilis_%2B_Aechmea_mucroniflora_-_Gould_Troch._pl._161.jpg",
+        "author": "John Gould / Henry Constantine Richter",
+        "title": "Loddigesia mirabilis + Aechmea mucroniflora - Gould Troch. pl. 161",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 755,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-190",
+      "name": {
+        "en": "Ruby-Throated Hummingbirds on Flowering Branch",
+        "vi": "Đôi chim ruồi đậu trên cành hoa"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "hummingbird",
+          "branch",
+          "vintage"
+        ],
+        "vi": [
+          "đôi chim",
+          "chim ruồi",
+          "cành hoa",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_190)_(8185365691).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 190) (8185365691)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 649,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-163",
+      "name": {
+        "en": "Racket-Tailed Hummingbirds in Flight (Gould)",
+        "vi": "Chim ruồi vỗ cánh bên nhành lan cổ"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "hummingbird",
+          "flight",
+          "botanical"
+        ],
+        "vi": [
+          "chim bay",
+          "chim ruồi",
+          "hoa lan",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_163)_(8185349569).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 163) (8185349569)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 599,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-146",
+      "name": {
+        "en": "Emerald Hummingbirds & Tropical Blossom",
+        "vi": "Chim ruồi xanh ngọc và hoa nhiệt đới"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "emerald",
+          "tropical",
+          "vintage"
+        ],
+        "vi": [
+          "chim xanh",
+          "hoa nhiệt đới",
+          "màu nước",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_146)_(8185339765).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 146) (8185339765)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 596,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-127",
+      "name": {
+        "en": "Crested Hummingbirds & Pink Trumpet Flowers",
+        "vi": "Chim ruồi mào nhỏ bên hoa chuông hồng"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "crested",
+          "pink flower",
+          "gould"
+        ],
+        "vi": [
+          "chim nhỏ",
+          "hoa hồng",
+          "tranh chim",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_127)_(8185366288).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 127) (8185366288)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 664,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-320",
+      "name": {
+        "en": "White-Crowned Hummingbirds on Mossy Twig",
+        "vi": "Chim ruồi đầu trắng trên nhánh rêu"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "hummingbird",
+          "moss",
+          "illustration"
+        ],
+        "vi": [
+          "chim ruồi",
+          "nhánh cây",
+          "vẽ tay",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_320)_(8551722992).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 320) (8551722992)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 596,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-311",
+      "name": {
+        "en": "Violet-Eared Hummingbirds & Wildflowers",
+        "vi": "Chim ruồi ngực tím và hoa dại"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "violet",
+          "wildflower",
+          "vintage"
+        ],
+        "vi": [
+          "chim tím",
+          "hoa dại",
+          "tranh cổ",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_311)_(8550617703).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 311) (8550617703)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 608,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-301",
+      "name": {
+        "en": "Golden-Breasted Hummingbirds & Nest (Gould)",
+        "vi": "Gia đình chim ruồi bên tổ nhỏ"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "nest",
+          "hummingbird",
+          "gould"
+        ],
+        "vi": [
+          "tổ chim",
+          "chim ruồi",
+          "ấm áp",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_301)_(8550613269).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 301) (8550613269)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 627,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-289",
+      "name": {
+        "en": "Sapphire-Throated Hummingbirds & White Blooms",
+        "vi": "Chim ruồi cổ xanh bên chùm hoa trắng"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "sapphire",
+          "white flower",
+          "vintage"
+        ],
+        "vi": [
+          "chim ruồi",
+          "hoa trắng",
+          "thanh nhã",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_289)_(8550607745).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 289) (8550607745)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 642,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-268",
+      "name": {
+        "en": "Long-Billed Starthroat Hummingbirds",
+        "vi": "Đôi chim mỏ dài hút mật hoa"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "nectar",
+          "blossom",
+          "illustration"
+        ],
+        "vi": [
+          "hút mật",
+          "chim ruồi",
+          "hoa nở",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_268)_(8549348348).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 268) (8549348348)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 758,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-227",
+      "name": {
+        "en": "Sunbeam Hummingbirds on Mountain Shrub",
+        "vi": "Chim ruồi ánh nắng đậu cành cao"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "sunbeam",
+          "shrub",
+          "gould"
+        ],
+        "vi": [
+          "chim nhỏ",
+          "ánh nắng",
+          "cành lá",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_227)_(8549318362).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 227) (8549318362)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 907,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-220",
+      "name": {
+        "en": "Trainbearer Hummingbird with Long Tail",
+        "vi": "Chim ruồi đuôi dài thướt tha"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "long tail",
+          "graceful",
+          "vintage"
+        ],
+        "vi": [
+          "chim đuôi dài",
+          "thướt tha",
+          "tranh cổ",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_220)_(8548215241).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 220) (8548215241)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 435,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-218",
+      "name": {
+        "en": "Comet Hummingbird & Crimson Cactus Flower",
+        "vi": "Chim sao chổi bên hoa xương rồng đỏ"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "cactus flower",
+          "crimson",
+          "gould"
+        ],
+        "vi": [
+          "chim ruồi",
+          "hoa đỏ",
+          "rực rỡ",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_218)_(8549311828).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 218) (8549311828)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 914,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-213",
+      "name": {
+        "en": "Sylph Hummingbird with Iridescent Blue Tail",
+        "vi": "Chim tiên cánh xanh lam óng ánh"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "blue tail",
+          "iridescent",
+          "vintage"
+        ],
+        "vi": [
+          "chim xanh",
+          "óng ánh",
+          "cổ điển",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_213)_(8548210101).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 213) (8548210101)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 787,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-205",
+      "name": {
+        "en": "fork-Tailed Woodnymph Hummingbirds",
+        "vi": "Đôi chim rừng xanh biếc bên suối"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "woodnymph",
+          "green",
+          "illustration"
+        ],
+        "vi": [
+          "chim rừng",
+          "xanh biếc",
+          "màu nước",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_205)_(8549303242).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 205) (8549303242)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 562,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-114",
+      "name": {
+        "en": "Puffleg Hummingbirds & Alpine Bellflowers",
+        "vi": "Chim ruồi chân bông và hoa chuông núi"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "bellflower",
+          "alpine",
+          "gould"
+        ],
+        "vi": [
+          "chim nhỏ",
+          "hoa chuông",
+          "tranh cổ",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_114)_(7175971272).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 114) (7175971272)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 685,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-92",
+      "name": {
+        "en": "Mango Hummingbirds & Tropical Hibiscus",
+        "vi": "Chim ruồi bên hoa dâm bụt cổ điển"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "hibiscus",
+          "tropical",
+          "vintage"
+        ],
+        "vi": [
+          "chim ruồi",
+          "hoa dâm bụt",
+          "nhiệt đới",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_92)_(7175956428).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 92) (7175956428)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 666,
+      "height": 1024
+    },
+    {
+      "id": "bird-gould-plate-79",
+      "name": {
+        "en": "Sabrewing Hummingbirds & Orchid Spray",
+        "vi": "Đôi chim ruồi bên nhành phong lan"
+      },
+      "tags": {
+        "en": [
+          "bird",
+          "orchid",
+          "blossom",
+          "gould"
+        ],
+        "vi": [
+          "chim ruồi",
+          "phong lan",
+          "hoa lá",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_monograph_of_the_Trochilid%C3%A6,_or_family_of_humming-birds_(Plate_79)_(7175948512).jpg",
+        "author": "Gould, John; Hullmandel &amp; Walton; Richter, Henry Constantine; Walter &amp; Cohn",
+        "title": "A monograph of the Trochilidæ, or family of humming-birds (Plate 79) (7175948512)",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 538,
+      "height": 1024
+    }
+  ]
+}
