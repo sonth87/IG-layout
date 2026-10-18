@@ -118,6 +118,475 @@
       },
       "width": 1010,
       "height": 1400
+    },
+    {
+      "id": "ov-fine-35mm-grain-screen",
+      "name": {
+        "en": "Fine Silver 35mm Film Grain on Black",
+        "vi": "Hạt bạc phim 35mm mịn trên nền đen"
+      },
+      "tags": {
+        "en": [
+          "film grain",
+          "analog",
+          "silver",
+          "noise"
+        ],
+        "vi": [
+          "hạt phim",
+          "phim 35mm",
+          "mịn",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Fine Silver 35mm Film Grain on Black (seed 201)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-folded-quad-creases",
+      "name": {
+        "en": "Quarter-Folded Paper Cross Crease Lines",
+        "vi": "Nếp gấp giấy chia bốn ô chữ thập"
+      },
+      "tags": {
+        "en": [
+          "folded",
+          "crease",
+          "cross",
+          "paper"
+        ],
+        "vi": [
+          "nếp gấp",
+          "gấp tư",
+          "chữ thập",
+          "giấy trắng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Quarter-Folded Paper Cross Crease Lines (seed 202)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-folded-eight-grid",
+      "name": {
+        "en": "Eight-Panel Folded Letter Paper Grid",
+        "vi": "Nếp gấp bức thư chia tám ô chữ nhật"
+      },
+      "tags": {
+        "en": [
+          "folded",
+          "grid",
+          "letter",
+          "crease"
+        ],
+        "vi": [
+          "nếp gấp",
+          "bức thư",
+          "chia ô",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Eight-Panel Folded Letter Paper Grid (seed 203)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-diagonal-envelope-fold",
+      "name": {
+        "en": "Diagonal X-Crease Paper Fold Lines",
+        "vi": "Hai đường nếp gấp chéo chữ X trên giấy trắng"
+      },
+      "tags": {
+        "en": [
+          "diagonal",
+          "crease",
+          "fold",
+          "paper"
+        ],
+        "vi": [
+          "gấp chéo",
+          "nếp gấp",
+          "chữ X",
+          "giấy trắng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Diagonal X-Crease Paper Fold Lines (seed 204)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-coffee-cup-ring-single",
+      "name": {
+        "en": "Single Espresso Cup Ring Stain on White",
+        "vi": "Vòng vết ố đáy cốc cà phê ở góc dưới"
+      },
+      "tags": {
+        "en": [
+          "coffee stain",
+          "cup ring",
+          "espresso",
+          "journal"
+        ],
+        "vi": [
+          "vết cà phê",
+          "đáy cốc",
+          "vết ố",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Single Espresso Cup Ring Stain on White (seed 205)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-coffee-double-stain",
+      "name": {
+        "en": "Overlapping Double Coffee Mug Rings",
+        "vi": "Hai vòng đáy cốc cà phê giao nhau ở góc trên"
+      },
+      "tags": {
+        "en": [
+          "coffee rings",
+          "double stain",
+          "cafe",
+          "vintage"
+        ],
+        "vi": [
+          "vết cà phê",
+          "hai vòng cốc",
+          "quán cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Overlapping Double Coffee Mug Rings (seed 206)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-tea-wash-blotch",
+      "name": {
+        "en": "Organic Dried Tea Spill Blotch",
+        "vi": "Vệt nước trà khô loang tự nhiên trên nền trắng"
+      },
+      "tags": {
+        "en": [
+          "tea stain",
+          "waterblotch",
+          "organic",
+          "aged"
+        ],
+        "vi": [
+          "vết trà",
+          "loang màu",
+          "ố vàng",
+          "thủ công"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Organic Dried Tea Spill Blotch (seed 207)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-vintage-foxing-spots",
+      "name": {
+        "en": "Antique Book Page Foxing Spots",
+        "vi": "Đốm ố thời gian trên trang sách cổ"
+      },
+      "tags": {
+        "en": [
+          "foxing",
+          "antique",
+          "book page",
+          "spots"
+        ],
+        "vi": [
+          "đốm ố",
+          "sách cổ",
+          "thời gian",
+          "giấy cũ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Antique Book Page Foxing Spots (seed 208)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-burnt-charred-edges",
+      "name": {
+        "en": "Warm Scorched Paper Vignette Border",
+        "vi": "Viền bốn cạnh giấy rám nắng nâu ấm"
+      },
+      "tags": {
+        "en": [
+          "scorched",
+          "vignette",
+          "border",
+          "aged"
+        ],
+        "vi": [
+          "viền giấy",
+          "rám nắng",
+          "nâu ấm",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Warm Scorched Paper Vignette Border (seed 209)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-do-paper-fibers",
+      "name": {
+        "en": "Vietnamese Mulberry Dó Paper Silk Fibers",
+        "vi": "Vân sợi vỏ cây giấy dó thủ công trên nền trắng"
+      },
+      "tags": {
+        "en": [
+          "mulberry",
+          "fibers",
+          "handmade",
+          "do paper"
+        ],
+        "vi": [
+          "giấy dó",
+          "sợi giấy",
+          "thủ công",
+          "truyền thống"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "tet",
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Vietnamese Mulberry Dó Paper Silk Fibers (seed 210)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-subtle-halftone-dots",
+      "name": {
+        "en": "Subtle Corner Halftone Print Dots",
+        "vi": "Hạt trame in báo cổ điển mờ dần từ bốn góc"
+      },
+      "tags": {
+        "en": [
+          "halftone",
+          "dots",
+          "print",
+          "newspaper"
+        ],
+        "vi": [
+          "hạt trame",
+          "chấm bi",
+          "in báo",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Subtle Corner Halftone Print Dots (seed 211)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-magazine-spine-wear",
+      "name": {
+        "en": "Vertical Magazine Center Spine Fold Wear",
+        "vi": "Nếp gấp dọc giữa trang tạp chí kèm vết sờn nhẹ"
+      },
+      "tags": {
+        "en": [
+          "magazine",
+          "spine",
+          "center fold",
+          "crease"
+        ],
+        "vi": [
+          "gáy sách",
+          "nếp gấp dọc",
+          "tạp chí",
+          "vết sờn"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Vertical Magazine Center Spine Fold Wear (seed 212)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-aged-parchment-border",
+      "name": {
+        "en": "Aged Parchment Paper Corner Patina",
+        "vi": "Quầng ố vàng nâu cổ điển ở bốn góc giấy"
+      },
+      "tags": {
+        "en": [
+          "parchment",
+          "patina",
+          "aged",
+          "corners"
+        ],
+        "vi": [
+          "giấy cổ",
+          "ố vàng",
+          "bốn góc",
+          "hoài niệm"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Aged Parchment Paper Corner Patina (seed 213)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
     }
   ]
 }

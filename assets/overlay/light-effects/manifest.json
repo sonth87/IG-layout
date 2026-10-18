@@ -47,6 +47,581 @@
       },
       "width": 933,
       "height": 1400
+    },
+    {
+      "id": "ov-film-burn-orange-left",
+      "name": {
+        "en": "Warm Orange Left Edge Film Burn",
+        "vi": "Rò sáng phim cam ấm cạnh trái"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "film burn",
+          "orange",
+          "warm"
+        ],
+        "vi": [
+          "rò sáng",
+          "cháy phim",
+          "cam ấm",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Warm Orange Left Edge Film Burn (seed 101)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-film-burn-crimson-corner",
+      "name": {
+        "en": "Crimson Corner Dual Film Leak",
+        "vi": "Quầng rò sáng đỏ thẫm hai góc"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "crimson",
+          "red",
+          "corner"
+        ],
+        "vi": [
+          "rò sáng",
+          "đỏ thẫm",
+          "góc ảnh",
+          "phim nhựa"
+        ]
+      },
+      "collections": [
+        "vintage"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Crimson Corner Dual Film Leak (seed 102)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-light-leak-rose-gold",
+      "name": {
+        "en": "Rose Gold Right Edge Light Leak",
+        "vi": "Vệt rò sáng hồng vàng cạnh phải"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "rose gold",
+          "pink",
+          "pastel"
+        ],
+        "vi": [
+          "rò sáng",
+          "hồng đào",
+          "vàng kim",
+          "dịu dàng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Rose Gold Right Edge Light Leak (seed 103)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-light-leak-sunset-strip",
+      "name": {
+        "en": "35mm Vertical Sunset Film Strip Leak",
+        "vi": "Dải lộ sáng dọc màu hoàng hôn"
+      },
+      "tags": {
+        "en": [
+          "film strip",
+          "light leak",
+          "vertical",
+          "sunset"
+        ],
+        "vi": [
+          "dải sáng",
+          "lộ sáng",
+          "hoàng hôn",
+          "phim 35mm"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "35mm Vertical Sunset Film Strip Leak (seed 104)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-diagonal-warm-streaks",
+      "name": {
+        "en": "Warm Diagonal Light Streaks",
+        "vi": "Ba vệt sáng chéo màu nắng ấm"
+      },
+      "tags": {
+        "en": [
+          "streaks",
+          "diagonal",
+          "sunlight",
+          "warm"
+        ],
+        "vi": [
+          "vệt sáng",
+          "chéo",
+          "nắng ấm",
+          "lấp lánh"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Warm Diagonal Light Streaks (seed 105)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-prism-rainbow-streak",
+      "name": {
+        "en": "Soft Optical Prism Rainbow Streak",
+        "vi": "Vệt tán sắc cầu vồng qua lăng kính"
+      },
+      "tags": {
+        "en": [
+          "prism",
+          "rainbow",
+          "spectrum",
+          "refraction"
+        ],
+        "vi": [
+          "lăng kính",
+          "cầu vồng",
+          "tán sắc",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Soft Optical Prism Rainbow Streak (seed 106)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-anamorphic-blue-flare",
+      "name": {
+        "en": "Cinematic Anamorphic Horizontal Blue Flare",
+        "vi": "Tia sáng ngang ống kính điện ảnh xanh lam"
+      },
+      "tags": {
+        "en": [
+          "anamorphic",
+          "lens flare",
+          "cinematic",
+          "blue"
+        ],
+        "vi": [
+          "tia sáng",
+          "ống kính",
+          "điện ảnh",
+          "xanh lam"
+        ]
+      },
+      "collections": [
+        "vintage"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Cinematic Anamorphic Horizontal Blue Flare (seed 107)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1400,
+      "height": 1050
+    },
+    {
+      "id": "ov-golden-sun-flare",
+      "name": {
+        "en": "Golden Hour Corner Sun Lens Flare",
+        "vi": "Quầng nắng vàng và phản xạ thấu kính góc trên"
+      },
+      "tags": {
+        "en": [
+          "sun flare",
+          "golden hour",
+          "lens",
+          "warm"
+        ],
+        "vi": [
+          "quầng nắng",
+          "hoàng hôn",
+          "thấu kính",
+          "vàng ấm"
+        ]
+      },
+      "collections": [
+        "summer",
+        "vintage"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Golden Hour Corner Sun Lens Flare (seed 108)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-soft-halo-ring-flare",
+      "name": {
+        "en": "Optical Halo Ring Refraction Flare",
+        "vi": "Vòng tròn khúc xạ ánh sáng dịu"
+      },
+      "tags": {
+        "en": [
+          "halo",
+          "ring flare",
+          "optical",
+          "refraction"
+        ],
+        "vi": [
+          "vòng sáng",
+          "khúc xạ",
+          "quầng sáng",
+          "thấu kính"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Optical Halo Ring Refraction Flare (seed 109)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-bokeh-golden-circles",
+      "name": {
+        "en": "Warm Golden Bokeh Light Discs",
+        "vi": "Đốm sáng tròn Bokeh vàng kim ấm áp"
+      },
+      "tags": {
+        "en": [
+          "bokeh",
+          "golden",
+          "circles",
+          "lights"
+        ],
+        "vi": [
+          "bokeh",
+          "đốm sáng",
+          "vàng kim",
+          "lung linh"
+        ]
+      },
+      "collections": [
+        "christmas",
+        "vintage",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Warm Golden Bokeh Light Discs (seed 110)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-bokeh-pastel-dream",
+      "name": {
+        "en": "Pastel Pink & Mint Dream Bokeh",
+        "vi": "Đốm sáng Bokeh hồng phấn và xanh bạc hà"
+      },
+      "tags": {
+        "en": [
+          "bokeh",
+          "pastel",
+          "dreamy",
+          "pink"
+        ],
+        "vi": [
+          "bokeh",
+          "mộng mơ",
+          "hồng phấn",
+          "pastel"
+        ]
+      },
+      "collections": [
+        "cute",
+        "wedding",
+        "birthday"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Pastel Pink & Mint Dream Bokeh (seed 111)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-bokeh-christmas-warm",
+      "name": {
+        "en": "Festive Red & Gold Bokeh Border",
+        "vi": "Viền đốm sáng Bokeh đỏ vàng mùa lễ hội"
+      },
+      "tags": {
+        "en": [
+          "bokeh",
+          "festive",
+          "christmas",
+          "border"
+        ],
+        "vi": [
+          "bokeh",
+          "lễ hội",
+          "giáng sinh",
+          "tết"
+        ]
+      },
+      "collections": [
+        "christmas",
+        "tet"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Festive Red & Gold Bokeh Border (seed 112)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-sunbeams-top-right",
+      "name": {
+        "en": "Morning Golden Sunbeams from Top Right",
+        "vi": "Chùm tia nắng sớm chiếu xiên từ góc phải"
+      },
+      "tags": {
+        "en": [
+          "sunbeams",
+          "god rays",
+          "morning",
+          "sunlight"
+        ],
+        "vi": [
+          "tia nắng",
+          "nắng sớm",
+          "chiếu xiên",
+          "ấm áp"
+        ]
+      },
+      "collections": [
+        "summer",
+        "vintage"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Morning Golden Sunbeams from Top Right (seed 113)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-starburst-sparkles",
+      "name": {
+        "en": "Vintage Cross Screen Starburst Sparkles",
+        "vi": "Ánh sao lấp lánh 4 cánh kiểu kính lọc cổ điển"
+      },
+      "tags": {
+        "en": [
+          "starburst",
+          "sparkles",
+          "glitter",
+          "stars"
+        ],
+        "vi": [
+          "ánh sao",
+          "lấp lánh",
+          "tia sao",
+          "lễ hội"
+        ]
+      },
+      "collections": [
+        "christmas",
+        "birthday",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Vintage Cross Screen Starburst Sparkles (seed 114)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-film-dust-specks",
+      "name": {
+        "en": "Darkroom Film Dust & Lint Specks",
+        "vi": "Hạt bụi trắng và sợi tơ buồng tối trên nền đen"
+      },
+      "tags": {
+        "en": [
+          "dust",
+          "film",
+          "specks",
+          "analog"
+        ],
+        "vi": [
+          "bụi phim",
+          "hạt bụi",
+          "phim cổ",
+          "buồng tối"
+        ]
+      },
+      "collections": [
+        "vintage"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "Darkroom Film Dust & Lint Specks (seed 115)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
+    },
+    {
+      "id": "ov-film-scratches-vertical",
+      "name": {
+        "en": "35mm Vertical Film Scratches & Dust",
+        "vi": "Vệt xước dọc phim nhựa 35mm và bụi mịn"
+      },
+      "tags": {
+        "en": [
+          "scratches",
+          "film",
+          "vertical",
+          "vintage"
+        ],
+        "vi": [
+          "xước phim",
+          "phim cũ",
+          "vệt xước",
+          "hoài cổ"
+        ]
+      },
+      "collections": [
+        "vintage"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-overlays.mjs",
+        "author": "IG Layout Procedural Generator",
+        "title": "35mm Vertical Film Scratches & Dust (seed 116)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1400
     }
   ]
 }
