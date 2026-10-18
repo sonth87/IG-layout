@@ -68,7 +68,7 @@ Sheet Vị trí của ảnh giống mục 1 của [08](08-cac-sheet-chinh-sua.md
 
 ## 6. Cắt [CDA][QS] (IMG_4008) — làm lại theo D-111 (2026-10-18)
 
-**Ngay trên canvas.** Chạm **Cắt**: không mở màn riêng. Canvas phóng tới phần tử đang chọn (vừa vùng nhìn, phía trên thanh Cắt); **mọi thứ khác bị phủ tối**. Tại phần tử hiện **toàn bộ tấm ảnh gốc**: trong khung nhìn sáng bình thường, phần nằm ngoài khung hiện **mờ** trên lớp tối [CDA]. Đóng Cắt thì canvas về mức phóng cũ.
+**Ngay trên canvas.** Chạm **Cắt**: không mở màn riêng. Canvas phóng tới phần tử đang chọn (vừa vùng nhìn, phía trên thanh Cắt); **mọi thứ khác bị phủ tối**. Tại phần tử hiện **toàn bộ tấm ảnh gốc**: trong khung nhìn sáng bình thường, phần nằm ngoài khung hiện **mờ** trên lớp tối [CDA]. Đóng Cắt thì canvas về mức phóng cũ. Trong lúc cắt, nút phóng **+ / −** phóng quanh chính ảnh đang cắt (ảnh luôn ở giữa) và nút **%** đưa về mức vừa ảnh — không về "thấy hết các slide" (khi cắt không cuộn canvas được) [CDA 2026-10-18].
 
 **Hai thứ riêng biệt** [CDA]:
 - **Khung nhìn** — vùng ảnh hiện ra sau khi cắt (= khung của phần tử). Có **dấu góc chữ L** ở 4 góc và thanh ở giữa 4 cạnh để **đổi kích thước** (cạnh / góc đối diện đứng yên, kích thước phần tử trên canvas đổi theo). **Không kéo khung đi chỗ khác được.** Không kéo khung rộng quá phần ảnh đang có.

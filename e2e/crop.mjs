@@ -71,6 +71,21 @@ await page.screenshot({ path: path.join(OUT, "crop-open.png") });
 const asset = st.assets[free.assetId];
 let e0 = el(st, free.id);
 
+console.log("Zoom buttons while cropping stay on the photo");
+const centreOnScreen = async () => {
+  const e = el(await S(), free.id);
+  const c = await toPage(e.x + e.width / 2, e.y + e.height / 2);
+  return c.x > 0 && c.x < 390 && c.y > 100 && c.y < 700;
+};
+await page.getByRole("button", { name: "Zoom in" }).click();
+await page.waitForTimeout(400);
+await page.getByRole("button", { name: "Zoom in" }).click();
+await page.waitForTimeout(400);
+check((await toPage(0, 0)).scale > scale1 * 1.5 && (await centreOnScreen()), "zoom in: the photo stays in the middle");
+await page.getByRole("button", { name: "Fit", exact: true }).click();
+await page.waitForTimeout(400);
+check(Math.abs((await toPage(0, 0)).scale - scale1) < 0.005 && (await centreOnScreen()), "% : back to the photo, not to every slide");
+
 console.log("Drag anywhere = move the picture, the window stays");
 // Start outside the window (left of it, in the dark area).
 // Start outside the window, away from its handles (under it, a quarter across).

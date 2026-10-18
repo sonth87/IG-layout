@@ -299,23 +299,29 @@ export function Editor({ onClose }: { onClose: () => void }) {
   // photo (with room around it for the rest of the picture) and comes back afterwards.
   const cropId = tool === "crop" && selected?.type === "image" ? selected.id : null;
   const cropSaved = useRef<{ zoom: number | null; left: number; top: number } | null>(null);
+  /** Zooms to `z` (default: the photo with room around it) keeping the cropped photo centred. */
+  function focusCrop(id: string, z?: number) {
+    const area = areaRef.current;
+    const el = doc.elements.find((e) => e.id === id);
+    if (!area || !el) return;
+    const b = rotatedBounds(el);
+    const fit = Math.max(minZoom, Math.min(MAX_ZOOM, (areaSize.width * 0.62) / (b.width * baseScale), (areaSize.height * 0.62) / (b.height * baseScale)));
+    const to = Math.max(minZoom, Math.min(MAX_ZOOM, z ?? fit));
+    setEasing(null);
+    setUserZoom(to);
+    requestAnimationFrame(() => {
+      const sc = baseScale * to;
+      const o = originFor(sc);
+      area.scrollTo({ left: o.x + (b.x + b.width / 2) * sc - area.clientWidth / 2, top: o.y + (b.y + b.height / 2) * sc - area.clientHeight / 2 });
+    });
+  }
   useEffect(() => {
     store.setCropping(cropId);
     const area = areaRef.current;
     if (!area || !ready) return;
-    const el = cropId ? doc.elements.find((e) => e.id === cropId) : undefined;
-    if (el) {
+    if (cropId) {
       cropSaved.current ??= { zoom: userZoom, left: area.scrollLeft, top: area.scrollTop };
-      const b = rotatedBounds(el);
-      const z = Math.max(minZoom, Math.min(MAX_ZOOM, (areaSize.width * 0.62) / (b.width * baseScale), (areaSize.height * 0.62) / (b.height * baseScale)));
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- zoom follows the tool being opened
-      setEasing(null);
-      setUserZoom(z);
-      requestAnimationFrame(() => {
-        const sc = baseScale * z;
-        const o = originFor(sc);
-        area.scrollTo({ left: o.x + (b.x + b.width / 2) * sc - area.clientWidth / 2, top: o.y + (b.y + b.height / 2) * sc - area.clientHeight / 2 });
-      });
+      focusCrop(cropId);
     } else if (cropSaved.current) {
       const saved = cropSaved.current;
       cropSaved.current = null;
@@ -806,11 +812,11 @@ export function Editor({ onClose }: { onClose: () => void }) {
 
         {/* Zoom (UX-06). Touch: pinch, with a pill to get back to fit; mouse: buttons. */}
         {isTouchUI ? (
-          Math.abs(zoom - fitZoom) > 0.01 && (
+          (cropId || Math.abs(zoom - fitZoom) > 0.01) && (
             <button
               type="button"
               aria-label={t("zoom.fit")}
-              onClick={fitAll}
+              onClick={() => (cropId ? focusCrop(cropId) : fitAll())}
               className="absolute right-2 bottom-2 z-10 h-9 rounded-full border border-border bg-surface/90 px-3 text-xs font-semibold tabular-nums shadow-sm"
             >
               {Math.round(zoom * 100)}%
@@ -822,13 +828,14 @@ export function Editor({ onClose }: { onClose: () => void }) {
               type="button"
               aria-label={t("zoom.out")}
               disabled={zoom <= minZoom + 0.001}
-              onClick={() => zoomTo(zoom / 1.5)}
+              onClick={() => (cropId ? focusCrop(cropId, zoom / 1.5) : zoomTo(zoom / 1.5))}
               className="flex h-9 w-9 items-center justify-center rounded-full disabled:text-disabled"
             >
               <Icon name="minus" size={18} />
             </button>
-            {Math.abs(zoom - fitZoom) > 0.01 && (
-              <button type="button" aria-label={t("zoom.fit")} onClick={fitAll} className="h-9 px-1 text-xs font-semibold tabular-nums">
+            {(cropId || Math.abs(zoom - fitZoom) > 0.01) && (
+              // Cropping: back to the photo, not to every slide (the canvas can't be scrolled then).
+              <button type="button" aria-label={t("zoom.fit")} onClick={() => (cropId ? focusCrop(cropId) : fitAll())} className="h-9 px-1 text-xs font-semibold tabular-nums">
                 {Math.round(zoom * 100)}%
               </button>
             )}
@@ -836,7 +843,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
               type="button"
               aria-label={t("zoom.in")}
               disabled={zoom >= MAX_ZOOM}
-              onClick={() => zoomTo(zoom * 1.5)}
+              onClick={() => (cropId ? focusCrop(cropId, zoom * 1.5) : zoomTo(zoom * 1.5))}
               className="flex h-9 w-9 items-center justify-center rounded-full disabled:text-disabled"
             >
               <Icon name="plus" size={18} />
