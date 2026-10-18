@@ -66,17 +66,18 @@ Nút **Thay** mở đúng sheet **"Lấp đầy khung"** như khi chạm ô tr�
 
 Sheet Vị trí của ảnh giống mục 1 của [08](08-cac-sheet-chinh-sua.md) (IMG_4006, IMG_4007): tab **Vị trí** có Sắp lớp (Lên trên cùng, Lên một lớp, Xuống một lớp, Xuống dưới cùng), Dịch (← → ↑ ↓), Căn (trái, giữa, phải, trên, giữa, dưới), Lấp đầy, Lật; tab **Nâng cao** có Rộng, Cao, nút khoá tỉ lệ, X, Y, Xoay.
 
-## 6. Cắt [CDA][QS] (IMG_4008)
+## 6. Cắt [CDA][QS] (IMG_4008) — làm lại theo D-111 (2026-10-18)
 
-Chạm **Cắt**: canvas giữ nguyên chỗ cũ, nhưng tại phần tử đang chọn ứng dụng **hiện toàn bộ tấm ảnh gốc**. Phần ảnh nằm **trong khung hiển thị** sáng bình thường; phần ảnh **nằm ngoài khung** hiện **mờ đi** (phủ một lớp tối bán trong suốt), để người dùng thấy cả tấm ảnh và biết phần nào đang được dùng [CDA]. Khung hiển thị có bốn tay nắm góc và bốn thanh giữa cạnh. Người dùng có thể:
+**Ngay trên canvas.** Chạm **Cắt**: không mở màn riêng. Canvas phóng tới phần tử đang chọn (vừa vùng nhìn, phía trên thanh Cắt); **mọi thứ khác bị phủ tối**. Tại phần tử hiện **toàn bộ tấm ảnh gốc**: trong khung nhìn sáng bình thường, phần nằm ngoài khung hiện **mờ** trên lớp tối [CDA]. Đóng Cắt thì canvas về mức phóng cũ.
 
-- **kéo tấm ảnh** (chạm vào phần ảnh rồi kéo) để **đổi vị trí hiển thị** của ảnh trong khung;
-- **kéo tay nắm của khung** để đổi vùng cắt;
-- **chụm** để phóng / thu tấm ảnh so với khung.
+**Hai thứ riêng biệt** [CDA]:
+- **Khung nhìn** — vùng ảnh hiện ra sau khi cắt (= khung của phần tử). Có **dấu góc chữ L** ở 4 góc và thanh ở giữa 4 cạnh để **đổi kích thước** (cạnh / góc đối diện đứng yên, kích thước phần tử trên canvas đổi theo). **Không kéo khung đi chỗ khác được.** Không kéo khung rộng quá phần ảnh đang có.
+- **Ảnh** — có khung riêng (viền mảnh) với **tay nắm góc và cạnh để phóng to / thu nhỏ** (giữ tỉ lệ ảnh, điểm đối diện đứng yên). **Kéo ở bất kỳ đâu** — trong hay ngoài khung nhìn — là **di chuyển ảnh**. **Chụm hai ngón** để phóng quanh điểm giữa hai ngón.
+- **Ảnh luôn phủ kín khung nhìn**: thu nhỏ / kéo / xoay tới đâu cũng không để lộ khoảng trống — ảnh dừng ở mép (hoặc tự phóng lên tối thiểu cần thiết khi xoay).
 
-Ở đáy là sheet **"Cắt"** gồm: dòng **Tỉ lệ khung** với các nút icon hình chữ nhật đúng tỉ lệ kèm nhãn **1:1, 2:3, 3:4, 4:3, 4:5, 9:16, 16:9** (chạm để ép khung về tỉ lệ đó; chạm lại để bỏ ép — tự do [ĐX]); và dòng **Xoay** với thanh trượt (0 ở giữa, khoảng −45° đến 45°) và ô số độ, xoay tấm ảnh bên trong khung (ảnh tự phóng để khung không lộ khoảng trống — như "nắn thẳng" hiện có). Nút ✕ đóng sheet và giữ thay đổi [QS: tham chiếu không có nút ✓ riêng]; hoàn tác được như một bước.
+**Thanh Cắt** (dưới canvas, không phải màn tối riêng): ✕ (huỷ) · tên · ✓ (áp dụng, một bước hoàn tác); thanh trượt **Xoay** (−45° … 45°, xoay phẳng); [đợt 2] **Dọc / Ngang** — **xoay 3D** quanh trục X / Y qua tâm ảnh (phối cảnh, như app Ảnh của iPhone); dòng **Tỉ lệ khung** (Tự do, Gốc, 1:1, 2:3, 3:4, 4:3, 4:5, 9:16, 16:9 — đổi kích thước khung nhìn, giữ tâm); nút **Xoay 90°, Lật ngang, Lật dọc, Đặt lại**.
 
-Với **ảnh trong ô / trong khung**, khung cắt chính là hình của ô / khung (không đổi được tỉ lệ), người dùng chỉ dời, phóng và xoay ảnh bên trong.
+**Ảnh trong ô / trong khung trang trí / khung từ thư viện**: khung nhìn chính là ô / cửa sổ — **không đổi kích thước** (không có tay nắm khung, không có dòng tỉ lệ); chỉ dời, phóng, xoay ảnh bên trong.
 
 ## 7. Kiểu [QS] (IMG_4009, IMG_4010)
 

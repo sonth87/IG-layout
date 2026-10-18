@@ -443,3 +443,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 
 ### M22 — Xoá vật thể (D-104, D-105)
 - [ ] Đặc tả: [editor-v2/09](../product/editor-v2/09-anh-va-video.md) mục 3
+
+### Cắt ảnh làm lại (D-111, 2026-10-18)
+- [ ] Đợt 1: cắt ngay trên canvas, phủ tối phần còn lại, phóng tới phần tử; khung nhìn đổi kích thước (không di chuyển); ảnh có tay nắm phóng / thu, kéo bất kỳ đâu = dời ảnh, chụm = phóng; ảnh luôn phủ kín khung; thanh Cắt (Xoay, tỉ lệ, xoay 90°, lật, đặt lại)
+- [ ] Đợt 2: xoay 3D trục X / Y (phối cảnh) — vẽ bằng WebGL, xuất ảnh giống hệt
