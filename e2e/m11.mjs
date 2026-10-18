@@ -165,7 +165,7 @@ await page.getByRole("button", { name: "Done" }).click();
 console.log("S14 frames");
 await page.getByRole("button", { name: "New layer" }).click();
 await page.getByRole("button", { name: "Frame", exact: true }).click();
-await page.getByRole("button", { name: "Gallery" }).click();
+await page.getByRole("button", { name: "Gallery", exact: true }).click();
 st = await S();
 check(last(st, "image").frame === "gallery", "gallery frame added");
 await page.getByRole("button", { name: "Done" }).click();
