@@ -1,0 +1,309 @@
+{
+  "id": "wood",
+  "kind": "texture",
+  "name": {
+    "en": "Wood & Veneer",
+    "vi": "Gỗ & Vân gỗ"
+  },
+  "collections": [
+    "vintage",
+    "minimal",
+    "journal"
+  ],
+  "order": 30,
+  "items": [
+    {
+      "id": "wood-natural-oak",
+      "name": {
+        "en": "Warm Natural Oak Veneer",
+        "vi": "Gỗ sồi sáng màu tự nhiên"
+      },
+      "tags": {
+        "en": [
+          "wood",
+          "oak",
+          "veneer",
+          "warm",
+          "grain"
+        ],
+        "vi": [
+          "gỗ sồi",
+          "vân gỗ",
+          "tự nhiên",
+          "ấm áp"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/oak_veneer_01",
+        "author": "Jenelle van Heerden",
+        "title": "Oak Veneer 01",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "wood-american-walnut",
+      "name": {
+        "en": "Rich Dark American Walnut",
+        "vi": "Gỗ óc chó nâu trầm"
+      },
+      "tags": {
+        "en": [
+          "wood",
+          "walnut",
+          "dark",
+          "luxury",
+          "grain"
+        ],
+        "vi": [
+          "gỗ óc chó",
+          "nâu trầm",
+          "sang trọng",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/american_walnut_veneer",
+        "author": "Jenelle van Heerden",
+        "title": "American Walnut Veneer",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "wood-golden-bamboo",
+      "name": {
+        "en": "Pressed Golden Bamboo Grain",
+        "vi": "Gỗ tre ép vàng thanh nhã"
+      },
+      "tags": {
+        "en": [
+          "wood",
+          "bamboo",
+          "asian",
+          "natural"
+        ],
+        "vi": [
+          "gỗ tre",
+          "tre ép",
+          "á đông",
+          "tự nhiên"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/bamboo_veneer",
+        "author": "Jenelle van Heerden",
+        "title": "Bamboo Veneer",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "wood-white-maple",
+      "name": {
+        "en": "Light Scandinavian White Maple",
+        "vi": "Gỗ phong trắng Bắc Âu"
+      },
+      "tags": {
+        "en": [
+          "wood",
+          "maple",
+          "light",
+          "minimal",
+          "nordic"
+        ],
+        "vi": [
+          "gỗ thông",
+          "gỗ phong",
+          "sáng màu",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/white_maple_veneer",
+        "author": "Jenelle van Heerden",
+        "title": "White Maple Veneer",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "wood-rustic-table",
+      "name": {
+        "en": "Rustic Wooden Tabletop Planks",
+        "vi": "Mặt bàn gỗ ghép mộc mạc"
+      },
+      "tags": {
+        "en": [
+          "wood",
+          "table",
+          "planks",
+          "rustic"
+        ],
+        "vi": [
+          "mặt bàn gỗ",
+          "ván gỗ",
+          "mộc mạc",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/wood_table_001",
+        "author": "Dimitrios Savva",
+        "title": "Wood Table 001",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "wood-weathered-planks",
+      "name": {
+        "en": "Sun-Bleached Weathered Wood Planks",
+        "vi": "Ván gỗ xưa bạc màu sương gió"
+      },
+      "tags": {
+        "en": [
+          "wood",
+          "weathered",
+          "aged",
+          "planks",
+          "vintage"
+        ],
+        "vi": [
+          "gỗ cũ",
+          "bạc màu",
+          "cổ điển",
+          "phong trần"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/weathered_planks",
+        "author": "Dario Barresi",
+        "title": "Weathered Planks",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "wood-japanese-hinoki",
+      "name": {
+        "en": "Japanese Hinoki Cypress Planks",
+        "vi": "Gỗ bách Hinoki Nhật Bản"
+      },
+      "tags": {
+        "en": [
+          "wood",
+          "hinoki",
+          "cypress",
+          "japan",
+          "clean"
+        ],
+        "vi": [
+          "gỗ bách",
+          "hinoki",
+          "nhật bản",
+          "tinh tế"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/hinoki_planks",
+        "author": "Charlotte Baglioni",
+        "title": "Hinoki Planks",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "wood-red-rosewood",
+      "name": {
+        "en": "Classic Reddish Rosewood Grain",
+        "vi": "Gỗ cẩm lai đỏ cổ điển"
+      },
+      "tags": {
+        "en": [
+          "wood",
+          "rosewood",
+          "red",
+          "antique"
+        ],
+        "vi": [
+          "gỗ cẩm lai",
+          "gỗ đỏ",
+          "cổ truyền",
+          "ấm"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/rosewood_veneer1",
+        "author": "Jenelle van Heerden",
+        "title": "Rosewood Veneer1",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    }
+  ]
+}

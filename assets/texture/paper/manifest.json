@@ -1,0 +1,271 @@
+{
+  "id": "paper",
+  "kind": "texture",
+  "name": {
+    "en": "Paper & Cardboard",
+    "vi": "Giấy & Bìa carton"
+  },
+  "collections": [
+    "journal",
+    "vintage",
+    "minimal"
+  ],
+  "order": 10,
+  "items": [
+    {
+      "id": "paper-white-fine-01",
+      "name": {
+        "en": "Fine White Drawing Paper",
+        "vi": "Giấy vẽ trắng mịn"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "white",
+          "clean",
+          "minimal",
+          "drawing"
+        ],
+        "vi": [
+          "giấy trắng",
+          "giấy vẽ",
+          "mịn",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper001",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper001 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "id": "paper-crumpled-white-02",
+      "name": {
+        "en": "Soft Crumpled White Paper",
+        "vi": "Giấy trắng nhăn nhẹ"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crumpled",
+          "wrinkled",
+          "white"
+        ],
+        "vi": [
+          "giấy nhăn",
+          "giấy trắng",
+          "nếp gấp",
+          "thủ công"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper002",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper002 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 794,
+      "height": 1024
+    },
+    {
+      "id": "paper-rough-ivory-03",
+      "name": {
+        "en": "Textured Ivory Watercolor Paper",
+        "vi": "Giấy màu nước trắng ngà sần"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "ivory",
+          "watercolor",
+          "textured"
+        ],
+        "vi": [
+          "giấy mỹ thuật",
+          "trắng ngà",
+          "màu nước",
+          "vân sần"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper003",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper003 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-lined-notebook-04",
+      "name": {
+        "en": "Ruled Notebook Paper Sheet",
+        "vi": "Giấy vở kẻ ngang"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "notebook",
+          "ruled",
+          "lined",
+          "journal"
+        ],
+        "vi": [
+          "giấy vở",
+          "kẻ ngang",
+          "sổ tay",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper004",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper004 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-warm-kraft-06",
+      "name": {
+        "en": "Warm Beige Kraft Paper",
+        "vi": "Giấy xi măng (Kraft) nâu ấm"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "kraft",
+          "brown",
+          "beige",
+          "vintage"
+        ],
+        "vi": [
+          "giấy kraft",
+          "giấy xi măng",
+          "nâu ấm",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper006",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper006 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "cardboard-natural-01",
+      "name": {
+        "en": "Natural Brown Cardboard Sheet",
+        "vi": "Bìa carton nâu tự nhiên"
+      },
+      "tags": {
+        "en": [
+          "cardboard",
+          "kraft",
+          "brown",
+          "packaging"
+        ],
+        "vi": [
+          "bìa carton",
+          "bìa cứng",
+          "giấy bìa",
+          "mộc"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Cardboard001",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Cardboard001 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "cardboard-corrugated-02",
+      "name": {
+        "en": "Worn Corrugated Cardboard",
+        "vi": "Bìa carton gợn sóng"
+      },
+      "tags": {
+        "en": [
+          "cardboard",
+          "corrugated",
+          "craft",
+          "texture"
+        ],
+        "vi": [
+          "carton sóng",
+          "bìa giấy",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Cardboard002",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Cardboard002 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    }
+  ]
+}

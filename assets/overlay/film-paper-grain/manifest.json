@@ -1,0 +1,123 @@
+{
+  "id": "film-paper-grain",
+  "kind": "overlay",
+  "name": {
+    "en": "Paper Creases, Stains & Film Grain",
+    "vi": "Nếp gấp giấy, Vết ố & Hạt phim"
+  },
+  "collections": [
+    "vintage",
+    "journal"
+  ],
+  "order": 20,
+  "items": [
+    {
+      "id": "ov-crumpled-paper-creases",
+      "name": {
+        "en": "Dense Crumpled Paper Wrinkle Web",
+        "vi": "Mạng nếp giấy vò nhăn dày"
+      },
+      "tags": {
+        "en": [
+          "crumpled",
+          "wrinkled",
+          "paper",
+          "texture"
+        ],
+        "vi": [
+          "giấy nhăn",
+          "vò nhàu",
+          "nếp nhăn",
+          "thủ công"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Crumpled_olive_green_paper.jpg",
+        "author": "Photos Public Domain",
+        "title": "Crumpled olive green paper.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1400,
+      "height": 933
+    },
+    {
+      "id": "ov-scrunched-kraft-folds",
+      "name": {
+        "en": "Sharp Scrunched Paper Ridge Folds",
+        "vi": "Sống giấy gấp khúc sắc nét"
+      },
+      "tags": {
+        "en": [
+          "scrunched",
+          "folded",
+          "ridges",
+          "paper"
+        ],
+        "vi": [
+          "nếp gấp",
+          "giấy vò",
+          "gấp khúc",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Scrunched_brown_paper.png",
+        "author": "Yxnxxxn",
+        "title": "Scrunched brown paper.png",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1400,
+      "height": 788
+    },
+    {
+      "id": "ov-linen-watermark-grain",
+      "name": {
+        "en": "Backlit Linen Paper Fiber Grain",
+        "vi": "Sợi giấy lanh xuyên sáng mịn"
+      },
+      "tags": {
+        "en": [
+          "grain",
+          "fiber",
+          "linen",
+          "paper"
+        ],
+        "vi": [
+          "sợi giấy",
+          "hạt giấy",
+          "mịn",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Linen_Bank_A4_backlit_watermarks.jpg",
+        "author": "Olli Niemitalo",
+        "title": "Linen Bank A4 backlit watermarks.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1010,
+      "height": 1400
+    }
+  ]
+}

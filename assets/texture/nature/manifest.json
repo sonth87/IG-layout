@@ -1,0 +1,307 @@
+{
+  "id": "nature",
+  "kind": "texture",
+  "name": {
+    "en": "Sand, Leaves & Nature",
+    "vi": "Cát biển, Lá khô & Thiên nhiên"
+  },
+  "collections": [
+    "travel",
+    "summer",
+    "journal"
+  ],
+  "order": 50,
+  "items": [
+    {
+      "id": "nature-beach-sand-ripples",
+      "name": {
+        "en": "Sunlit Golden Beach Sand Ripples",
+        "vi": "Cát vàng bãi biển gợn sóng"
+      },
+      "tags": {
+        "en": [
+          "nature",
+          "sand",
+          "beach",
+          "summer",
+          "travel"
+        ],
+        "vi": [
+          "cát biển",
+          "mùa hè",
+          "bãi biển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "travel",
+        "summer"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/aerial_beach_01",
+        "author": "Rob Tuytel",
+        "title": "Aerial Beach 01",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "nature-fine-coastal-sand",
+      "name": {
+        "en": "Soft Fine Coastal Sand",
+        "vi": "Bãi cát mịn ven biển"
+      },
+      "tags": {
+        "en": [
+          "nature",
+          "sand",
+          "coast",
+          "beige",
+          "minimal"
+        ],
+        "vi": [
+          "cát mịn",
+          "biển",
+          "màu be",
+          "tự nhiên"
+        ]
+      },
+      "collections": [
+        "travel",
+        "summer"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/coast_sand_01",
+        "author": "Rob Tuytel",
+        "title": "Coast Sand 01",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "nature-autumn-forest-leaves",
+      "name": {
+        "en": "Fallen Autumn Forest Leaves",
+        "vi": "Thảm lá khô mùa thu"
+      },
+      "tags": {
+        "en": [
+          "nature",
+          "leaves",
+          "autumn",
+          "forest"
+        ],
+        "vi": [
+          "lá khô",
+          "mùa thu",
+          "rừng cây",
+          "hoài niệm"
+        ]
+      },
+      "collections": [
+        "travel",
+        "summer"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/forest_leaves_02",
+        "author": "Rob Tuytel",
+        "title": "Forest Leaves 02",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "nature-woodland-leaf-litter",
+      "name": {
+        "en": "Dry Woodland Leaf Bed",
+        "vi": "Lá rừng rụng tự nhiên"
+      },
+      "tags": {
+        "en": [
+          "nature",
+          "leaves",
+          "ground",
+          "organic"
+        ],
+        "vi": [
+          "lá rụng",
+          "thiên nhiên",
+          "rừng thu",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "travel",
+        "summer"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/leaves_forest_ground",
+        "author": "Dario Barresi",
+        "title": "Leaves Forest Ground",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "nature-meadow-grass",
+      "name": {
+        "en": "Fresh Green Meadow Grass",
+        "vi": "Thảm cỏ xanh tươi mát"
+      },
+      "tags": {
+        "en": [
+          "nature",
+          "grass",
+          "green",
+          "lawn",
+          "spring"
+        ],
+        "vi": [
+          "thảm cỏ",
+          "cỏ xanh",
+          "mùa xuân",
+          "tươi mát"
+        ]
+      },
+      "collections": [
+        "travel",
+        "summer"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/grass_ground",
+        "author": "Charlotte Baglioni",
+        "title": "Grass Ground",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "nature-clover-leafy-lawn",
+      "name": {
+        "en": "Lush Leafy Garden Turf",
+        "vi": "Vườn cỏ lá nhỏ xanh mướt"
+      },
+      "tags": {
+        "en": [
+          "nature",
+          "grass",
+          "garden",
+          "leaves"
+        ],
+        "vi": [
+          "vườn cỏ",
+          "lá xanh",
+          "thiên nhiên",
+          "dã ngoại"
+        ]
+      },
+      "collections": [
+        "travel",
+        "summer"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/leafy_grass",
+        "author": "Charlotte Baglioni",
+        "title": "Leafy Grass",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "nature-velvet-forest-moss",
+      "name": {
+        "en": "Velvet Green Forest Moss & Bark",
+        "vi": "Rêu phong xanh thẫm trên gỗ"
+      },
+      "tags": {
+        "en": [
+          "nature",
+          "moss",
+          "green",
+          "forest"
+        ],
+        "vi": [
+          "rêu xanh",
+          "rêu phong",
+          "rừng già",
+          "tự nhiên"
+        ]
+      },
+      "collections": [
+        "travel",
+        "summer"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/moss_wood",
+        "author": "Rob Tuytel",
+        "title": "Moss Wood",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "nature-pine-needle-floor",
+      "name": {
+        "en": "Pine Needle & Twigs Forest Floor",
+        "vi": "Thảm lá thông khô Đà Lạt"
+      },
+      "tags": {
+        "en": [
+          "nature",
+          "pine",
+          "forest",
+          "earth"
+        ],
+        "vi": [
+          "lá thông",
+          "rừng thông",
+          "đà lạt",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "travel",
+        "summer"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/forrest_ground_01",
+        "author": "Rob Tuytel",
+        "title": "Forest Ground 01",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    }
+  ]
+}
