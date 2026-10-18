@@ -16,7 +16,7 @@ Trạng thái:
 | G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Xong (chờ duyệt) |
 | G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | **Đã duyệt, đã merge** (2026-10-18) |
 | G8 — Lớp phủ (làm lại, ~30) | `gemini/g8-overlays` | Chưa giao |
-| G9 — Sticker lễ hội & Việt Nam (~80) | `gemini/g9-festive` | Chưa giao |
+| G9 — Sticker lễ hội & Việt Nam (~80) | `gemini/g9-festive` | Xong (chờ duyệt) — 83 sticker (4 gói) |
 
 ---
 

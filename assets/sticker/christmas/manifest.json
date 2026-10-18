@@ -1,0 +1,817 @@
+{
+  "id": "christmas",
+  "kind": "sticker",
+  "name": {
+    "en": "Christmas & Winter Holidays",
+    "vi": "Giáng Sinh & Mùa Đông"
+  },
+  "collections": [
+    "christmas"
+  ],
+  "order": 140,
+  "items": [
+    {
+      "id": "xmas-decorated-pine-tree",
+      "name": {
+        "en": "Decorated Christmas Pine Tree",
+        "vi": "Cây thông Giáng sinh trang trí ngôi sao"
+      },
+      "tags": {
+        "en": [
+          "christmas tree",
+          "pine",
+          "holiday",
+          "star"
+        ],
+        "vi": [
+          "cây thông",
+          "giáng sinh",
+          "noel",
+          "ngôi sao"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F384/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F384 — Decorated Christmas Pine Tree",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 616,
+      "height": 969
+    },
+    {
+      "id": "xmas-santa-claus-portrait",
+      "name": {
+        "en": "Illustrated Santa Claus with Red Hat",
+        "vi": "Ông già Noel đội mũ đỏ râu trắng"
+      },
+      "tags": {
+        "en": [
+          "santa claus",
+          "father christmas",
+          "red hat",
+          "christmas"
+        ],
+        "vi": [
+          "ông già noel",
+          "giáng sinh",
+          "mũ đỏ",
+          "noel"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F385/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F385 — Illustrated Santa Claus with Red Hat",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 730,
+      "height": 796
+    },
+    {
+      "id": "xmas-mrs-claus-portrait",
+      "name": {
+        "en": "Illustrated Mrs. Claus in Holiday Hat",
+        "vi": "Bà già Noel hiền hậu đội mũ đỏ"
+      },
+      "tags": {
+        "en": [
+          "mrs claus",
+          "christmas",
+          "holiday",
+          "winter"
+        ],
+        "vi": [
+          "bà già noel",
+          "giáng sinh",
+          "noel",
+          "mùa đông"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F936/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F936 — Illustrated Mrs. Claus in Holiday Hat",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 615,
+      "height": 792
+    },
+    {
+      "id": "xmas-classic-snowman",
+      "name": {
+        "en": "Snowman with Hat & Falling Snow",
+        "vi": "Người tuyết đội mũ giữa trời tuyết rơi"
+      },
+      "tags": {
+        "en": [
+          "snowman",
+          "winter",
+          "snow",
+          "christmas"
+        ],
+        "vi": [
+          "người tuyết",
+          "mùa đông",
+          "tuyết rơi",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-2603/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 2603 — Snowman with Hat & Falling Snow",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 887,
+      "height": 888
+    },
+    {
+      "id": "xmas-hot-cocoa-marshmallows",
+      "name": {
+        "en": "Red Mug of Hot Cocoa with Marshmallows",
+        "vi": "Cốc ca cao nóng phủ kẹo bông mùa đông"
+      },
+      "tags": {
+        "en": [
+          "hot cocoa",
+          "marshmallows",
+          "mug",
+          "christmas"
+        ],
+        "vi": [
+          "ca cao nóng",
+          "cốc đỏ",
+          "mùa đông",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#xmas-hot-cocoa-marshmallows",
+        "author": "IG Layout Illustration",
+        "title": "Red Mug of Hot Cocoa with Marshmallows",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 668,
+      "height": 610
+    },
+    {
+      "id": "xmas-reindeer-stag",
+      "name": {
+        "en": "Holiday Antlered Reindeer",
+        "vi": "Tuần lộc nâu sừng lớn mùa Giáng sinh"
+      },
+      "tags": {
+        "en": [
+          "reindeer",
+          "deer",
+          "antlers",
+          "christmas"
+        ],
+        "vi": [
+          "tuần lộc",
+          "hươu",
+          "kéo xe",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F98C/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F98C — Holiday Antlered Reindeer",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 837,
+      "height": 966
+    },
+    {
+      "id": "xmas-golden-jingle-bell",
+      "name": {
+        "en": "Golden Christmas Jingle Bell",
+        "vi": "Chuông vàng Giáng sinh ngân vang"
+      },
+      "tags": {
+        "en": [
+          "bell",
+          "jingle bell",
+          "gold",
+          "christmas"
+        ],
+        "vi": [
+          "chuông vàng",
+          "chuông ngân",
+          "giáng sinh",
+          "noel"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F514/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F514 — Golden Christmas Jingle Bell",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 664,
+      "height": 852
+    },
+    {
+      "id": "xmas-wrapped-gift-box",
+      "name": {
+        "en": "Festive Wrapped Present Box",
+        "vi": "Hộp quà Giáng sinh buộc nơ đỏ"
+      },
+      "tags": {
+        "en": [
+          "gift box",
+          "present",
+          "ribbon",
+          "christmas"
+        ],
+        "vi": [
+          "hộp quà",
+          "quà tặng",
+          "nơ đỏ",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas",
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F381/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F381 — Festive Wrapped Present Box",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 700,
+      "height": 803
+    },
+    {
+      "id": "xmas-crystal-snowflake",
+      "name": {
+        "en": "Six-Pointed Ice Blue Crystal Snowflake",
+        "vi": "Bông tuyết băng giá sáu cánh xanh lam"
+      },
+      "tags": {
+        "en": [
+          "snowflake",
+          "ice",
+          "winter",
+          "crystal"
+        ],
+        "vi": [
+          "bông tuyết",
+          "hoa tuyết",
+          "mùa đông",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#xmas-crystal-snowflake",
+        "author": "IG Layout Illustration",
+        "title": "Six-Pointed Ice Blue Crystal Snowflake",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 740,
+      "height": 852
+    },
+    {
+      "id": "xmas-glowing-top-star",
+      "name": {
+        "en": "Glowing Golden Bethlehem Star",
+        "vi": "Ngôi sao vàng toả sáng đêm Noel"
+      },
+      "tags": {
+        "en": [
+          "star",
+          "glowing",
+          "gold",
+          "christmas"
+        ],
+        "vi": [
+          "ngôi sao",
+          "sao sáng",
+          "đêm noel",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F31F/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F31F — Glowing Golden Bethlehem Star",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 968,
+      "height": 936
+    },
+    {
+      "id": "xmas-lit-wax-candle",
+      "name": {
+        "en": "Warm Lit Holiday Wax Candle",
+        "vi": "Ngọn nến sáp cháy sáng ấm áp"
+      },
+      "tags": {
+        "en": [
+          "candle",
+          "flame",
+          "warm",
+          "christmas"
+        ],
+        "vi": [
+          "ngọn nến",
+          "nến ấm",
+          "đêm đông",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F56F/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F56F — Warm Lit Holiday Wax Candle",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 260,
+      "height": 863
+    },
+    {
+      "id": "xmas-holiday-cookie",
+      "name": {
+        "en": "Baked Christmas Chocolate Chip Cookie",
+        "vi": "Bánh quy bơ Giáng sinh thơm phức"
+      },
+      "tags": {
+        "en": [
+          "cookie",
+          "baking",
+          "sweet",
+          "christmas"
+        ],
+        "vi": [
+          "bánh quy",
+          "bánh ngọt",
+          "noel",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F36A/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F36A — Baked Christmas Chocolate Chip Cookie",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 874,
+      "height": 874
+    },
+    {
+      "id": "xmas-warm-winter-gloves",
+      "name": {
+        "en": "Cozy Knitted Winter Gloves",
+        "vi": "Đôi găng tay len mùa đông ấm áp"
+      },
+      "tags": {
+        "en": [
+          "gloves",
+          "mittens",
+          "winter",
+          "cozy"
+        ],
+        "vi": [
+          "găng tay",
+          "đồ len",
+          "mùa đông",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F9E4/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F9E4 — Cozy Knitted Winter Gloves",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 824,
+      "height": 618
+    },
+    {
+      "id": "xmas-knitted-red-scarf",
+      "name": {
+        "en": "Red Winter Wool Scarf with Fringes",
+        "vi": "Khăn choàng len đỏ mùa Giáng sinh"
+      },
+      "tags": {
+        "en": [
+          "scarf",
+          "red",
+          "wool",
+          "winter"
+        ],
+        "vi": [
+          "khăn len",
+          "khăn choàng",
+          "mùa đông",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F9E3/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F9E3 — Red Winter Wool Scarf with Fringes",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 719,
+      "height": 785
+    },
+    {
+      "id": "xmas-evergreen-fir-tree",
+      "name": {
+        "en": "Snowy Forest Evergreen Fir Tree",
+        "vi": "Cây tùng xanh rừng tuyết mùa đông"
+      },
+      "tags": {
+        "en": [
+          "evergreen",
+          "fir tree",
+          "forest",
+          "winter"
+        ],
+        "vi": [
+          "cây thông",
+          "cây tùng",
+          "rừng thông",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F332/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F332 — Snowy Forest Evergreen Fir Tree",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 626,
+      "height": 906
+    },
+    {
+      "id": "xmas-winter-skier",
+      "name": {
+        "en": "Winter Holiday Downhill Skier",
+        "vi": "Trượt tuyết kỳ nghỉ mùa đông"
+      },
+      "tags": {
+        "en": [
+          "skier",
+          "snow",
+          "winter sport",
+          "holiday"
+        ],
+        "vi": [
+          "trượt tuyết",
+          "kỳ nghỉ",
+          "mùa đông",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-26F7/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 26F7 — Winter Holiday Downhill Skier",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 859,
+      "height": 830
+    },
+    {
+      "id": "xmas-candy-cane-bow",
+      "name": {
+        "en": "Striped Peppermint Candy Cane with Green Bow",
+        "vi": "Kẹo gậy bạc hà sọc đỏ trắng thắt nơ"
+      },
+      "tags": {
+        "en": [
+          "candy cane",
+          "peppermint",
+          "striped",
+          "christmas"
+        ],
+        "vi": [
+          "kẹo gậy",
+          "kẹo bạc hà",
+          "nơ xanh",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#xmas-candy-cane-bow",
+        "author": "IG Layout Illustration",
+        "title": "Striped Peppermint Candy Cane with Green Bow",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 574,
+      "height": 840
+    },
+    {
+      "id": "xmas-holly-berry-wreath",
+      "name": {
+        "en": "Christmas Holly Wreath with Red Ribbon Bow",
+        "vi": "Vòng nguyệt quế Giáng sinh đính nơ đỏ"
+      },
+      "tags": {
+        "en": [
+          "wreath",
+          "holly",
+          "red bow",
+          "christmas"
+        ],
+        "vi": [
+          "vòng nguyệt quế",
+          "vòng lá thông",
+          "nơ đỏ",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#xmas-holly-berry-wreath",
+        "author": "IG Layout Illustration",
+        "title": "Christmas Holly Wreath with Red Ribbon Bow",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 794,
+      "height": 822
+    },
+    {
+      "id": "xmas-red-fireplace-stocking",
+      "name": {
+        "en": "Red Christmas Stocking with White Fur Cuff",
+        "vi": "Tất đỏ Giáng sinh viền lông trắng"
+      },
+      "tags": {
+        "en": [
+          "stocking",
+          "christmas sock",
+          "fireplace",
+          "gift"
+        ],
+        "vi": [
+          "tất giáng sinh",
+          "vớ noel",
+          "quà noel",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#xmas-red-fireplace-stocking",
+        "author": "IG Layout Illustration",
+        "title": "Red Christmas Stocking with White Fur Cuff",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 552,
+      "height": 750
+    },
+    {
+      "id": "xmas-gingerbread-man",
+      "name": {
+        "en": "Iced Gingerbread Man Holiday Cookie",
+        "vi": "Bánh quy gừng hình người dễ thương"
+      },
+      "tags": {
+        "en": [
+          "gingerbread",
+          "cookie",
+          "christmas",
+          "cute"
+        ],
+        "vi": [
+          "bánh gừng",
+          "bánh quy",
+          "dễ thương",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#xmas-gingerbread-man",
+        "author": "IG Layout Illustration",
+        "title": "Iced Gingerbread Man Holiday Cookie",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 756,
+      "height": 834
+    },
+    {
+      "id": "xmas-glass-bauble-ornament",
+      "name": {
+        "en": "Red & Gold Christmas Glass Bauble Ornament",
+        "vi": "Quả châu đỏ trang trí hoa văn vàng"
+      },
+      "tags": {
+        "en": [
+          "bauble",
+          "ornament",
+          "christmas ball",
+          "gold"
+        ],
+        "vi": [
+          "quả châu",
+          "trái châu",
+          "trang trí",
+          "giáng sinh"
+        ]
+      },
+      "collections": [
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#xmas-glass-bauble-ornament",
+        "author": "IG Layout Illustration",
+        "title": "Red & Gold Christmas Glass Bauble Ornament",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 692,
+      "height": 840
+    }
+  ]
+}

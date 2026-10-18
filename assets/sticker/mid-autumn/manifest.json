@@ -1,0 +1,642 @@
+{
+  "id": "mid-autumn",
+  "kind": "sticker",
+  "name": {
+    "en": "Mid-Autumn Festival",
+    "vi": "Tết Trung Thu"
+  },
+  "collections": [
+    "midAutumn",
+    "vietnam"
+  ],
+  "order": 135,
+  "items": [
+    {
+      "id": "mid-mooncake-stamped",
+      "name": {
+        "en": "Traditional Baked Golden Mooncake",
+        "vi": "Bánh trung thu nướng dập hoa văn"
+      },
+      "tags": {
+        "en": [
+          "mooncake",
+          "mid-autumn",
+          "pastry",
+          "vietnam"
+        ],
+        "vi": [
+          "bánh trung thu",
+          "bánh nướng",
+          "trung thu",
+          "rằm tháng tám"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F96E/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F96E — Traditional Baked Golden Mooncake",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 804,
+      "height": 785
+    },
+    {
+      "id": "mid-full-harvest-moon",
+      "name": {
+        "en": "Bright Full Harvest Moon",
+        "vi": "Trăng rằm tháng Tám tròn sáng"
+      },
+      "tags": {
+        "en": [
+          "full moon",
+          "harvest moon",
+          "mid-autumn",
+          "night"
+        ],
+        "vi": [
+          "trăng rằm",
+          "mặt trăng",
+          "trung thu",
+          "đêm trăng"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F315/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F315 — Bright Full Harvest Moon",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 876,
+      "height": 876
+    },
+    {
+      "id": "mid-crescent-gold-moon",
+      "name": {
+        "en": "Golden Crescent Night Moon",
+        "vi": "Trăng khuyết vàng dịu đêm thu"
+      },
+      "tags": {
+        "en": [
+          "crescent moon",
+          "moon",
+          "night",
+          "autumn"
+        ],
+        "vi": [
+          "trăng khuyết",
+          "trăng non",
+          "mùa thu",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F319/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F319 — Golden Crescent Night Moon",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 892,
+      "height": 895
+    },
+    {
+      "id": "mid-carp-streamer-flag",
+      "name": {
+        "en": "Colorful Carp Windsock Streamers",
+        "vi": "Cờ cá chép rực rỡ mùa lễ hội"
+      },
+      "tags": {
+        "en": [
+          "carp",
+          "streamer",
+          "lantern",
+          "festival"
+        ],
+        "vi": [
+          "cá chép",
+          "cờ cá chép",
+          "rước đèn",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F38F/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F38F — Colorful Carp Windsock Streamers",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 794,
+      "height": 964
+    },
+    {
+      "id": "mid-jade-rabbit-face",
+      "name": {
+        "en": "Cute White Moon Rabbit",
+        "vi": "Thỏ ngọc trắng tai hồng dễ thương"
+      },
+      "tags": {
+        "en": [
+          "jade rabbit",
+          "bunny",
+          "mid-autumn",
+          "cute"
+        ],
+        "vi": [
+          "thỏ ngọc",
+          "con thỏ",
+          "trung thu",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F430/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F430 — Cute White Moon Rabbit",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 882,
+      "height": 953
+    },
+    {
+      "id": "mid-festival-lion-drum",
+      "name": {
+        "en": "Red & Gold Mid-Autumn Lion Dance Drum",
+        "vi": "Trống hội múa lân Trung thu sơn đỏ"
+      },
+      "tags": {
+        "en": [
+          "lion drum",
+          "festival drum",
+          "mid-autumn",
+          "vietnam"
+        ],
+        "vi": [
+          "trống lân",
+          "trống hội",
+          "múa lân",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam",
+        "tet"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-festival-lion-drum",
+        "author": "IG Layout Illustration",
+        "title": "Red & Gold Mid-Autumn Lion Dance Drum",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 718,
+      "height": 742
+    },
+    {
+      "id": "mid-star-lantern-five-point",
+      "name": {
+        "en": "Vietnamese Five-Pointed Cellophane Star Lantern (Đèn Ông Sao)",
+        "vi": "Đèn ông sao năm cánh giấy bóng kính"
+      },
+      "tags": {
+        "en": [
+          "star lantern",
+          "den ong sao",
+          "mid-autumn",
+          "vietnam"
+        ],
+        "vi": [
+          "đèn ông sao",
+          "ngôi sao",
+          "rước đèn",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-star-lantern-five-point",
+        "author": "IG Layout Illustration",
+        "title": "Vietnamese Five-Pointed Cellophane Star Lantern (Đèn Ông Sao)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 814,
+      "height": 824
+    },
+    {
+      "id": "mid-carp-lantern-hoi-an",
+      "name": {
+        "en": "Traditional Red & Gold Carp Lantern (Đèn Cá Chép)",
+        "vi": "Đèn lồng cá chép giấy bóng kính"
+      },
+      "tags": {
+        "en": [
+          "carp lantern",
+          "den ca chep",
+          "mid-autumn",
+          "vietnam"
+        ],
+        "vi": [
+          "đèn cá chép",
+          "cá chép",
+          "rước đèn",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-carp-lantern-hoi-an",
+        "author": "IG Layout Illustration",
+        "title": "Traditional Red & Gold Carp Lantern (Đèn Cá Chép)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 810,
+      "height": 756
+    },
+    {
+      "id": "mid-butterfly-lantern",
+      "name": {
+        "en": "Cellophane Butterfly Mid-Autumn Lantern",
+        "vi": "Đèn lồng con bướm giấy bóng kính"
+      },
+      "tags": {
+        "en": [
+          "butterfly lantern",
+          "cellophane",
+          "mid-autumn",
+          "vietnam"
+        ],
+        "vi": [
+          "đèn con bướm",
+          "đèn giấy kính",
+          "rước đèn",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-butterfly-lantern",
+        "author": "IG Layout Illustration",
+        "title": "Cellophane Butterfly Mid-Autumn Lantern",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 762,
+      "height": 678
+    },
+    {
+      "id": "mid-revolving-lantern-keo-quan",
+      "name": {
+        "en": "Hexagonal Revolving Shadow Lantern (Đèn Kéo Quân)",
+        "vi": "Đèn kéo quân lục giác truyền thống"
+      },
+      "tags": {
+        "en": [
+          "revolving lantern",
+          "den keo quan",
+          "mid-autumn",
+          "vietnam"
+        ],
+        "vi": [
+          "đèn kéo quân",
+          "đèn lồng",
+          "truyền thống",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-revolving-lantern-keo-quan",
+        "author": "IG Layout Illustration",
+        "title": "Hexagonal Revolving Shadow Lantern (Đèn Kéo Quân)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 666,
+      "height": 939
+    },
+    {
+      "id": "mid-accordion-paper-lantern",
+      "name": {
+        "en": "Pleated Round Accordion Paper Lantern",
+        "vi": "Đèn lồng giấy xếp tròn có tua rua"
+      },
+      "tags": {
+        "en": [
+          "paper lantern",
+          "accordion",
+          "pleated",
+          "mid-autumn"
+        ],
+        "vi": [
+          "đèn giấy xếp",
+          "đèn lồng tròn",
+          "rước đèn",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-accordion-paper-lantern",
+        "author": "IG Layout Illustration",
+        "title": "Pleated Round Accordion Paper Lantern",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 648,
+      "height": 927
+    },
+    {
+      "id": "mid-snowskin-mooncake-white",
+      "name": {
+        "en": "Snowskin White Sticky Rice Mooncake (Bánh Dẻo)",
+        "vi": "Bánh trung thu dẻo trắng in hoa sen"
+      },
+      "tags": {
+        "en": [
+          "snowskin mooncake",
+          "banh deo",
+          "lotus",
+          "mid-autumn"
+        ],
+        "vi": [
+          "bánh dẻo",
+          "bánh trung thu",
+          "hoa sen",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-snowskin-mooncake-white",
+        "author": "IG Layout Illustration",
+        "title": "Snowskin White Sticky Rice Mooncake (Bánh Dẻo)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 734,
+      "height": 734
+    },
+    {
+      "id": "mid-jade-rabbit-mortar",
+      "name": {
+        "en": "Jade Rabbit Pounding Elixir Under the Moon",
+        "vi": "Thỏ ngọc giã thuốc bên trăng rằm"
+      },
+      "tags": {
+        "en": [
+          "jade rabbit",
+          "moon rabbit",
+          "folklore",
+          "mid-autumn"
+        ],
+        "vi": [
+          "thỏ ngọc",
+          "cung trăng",
+          "cổ tích",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-jade-rabbit-mortar",
+        "author": "IG Layout Illustration",
+        "title": "Jade Rabbit Pounding Elixir Under the Moon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 638,
+      "height": 734
+    },
+    {
+      "id": "mid-chu-cuoi-banyan-tree",
+      "name": {
+        "en": "Chú Cuội Sitting Under the Moon Banyan Tree",
+        "vi": "Chú Cuội ngồi gốc cây đa cung trăng"
+      },
+      "tags": {
+        "en": [
+          "chu cuoi",
+          "banyan tree",
+          "moon",
+          "mid-autumn"
+        ],
+        "vi": [
+          "chú cuội",
+          "cây đa",
+          "cung trăng",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-chu-cuoi-banyan-tree",
+        "author": "IG Layout Illustration",
+        "title": "Chú Cuội Sitting Under the Moon Banyan Tree",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 768,
+      "height": 768
+    },
+    {
+      "id": "mid-ong-dia-papier-mache-mask",
+      "name": {
+        "en": "Smiling Papier-Mâché Ông Địa Folk Mask",
+        "vi": "Mặt nạ Ông Địa giấy bồi cười tươi"
+      },
+      "tags": {
+        "en": [
+          "ong dia",
+          "folk mask",
+          "papier mache",
+          "mid-autumn"
+        ],
+        "vi": [
+          "ông địa",
+          "mặt nạ",
+          "giấy bồi",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-ong-dia-papier-mache-mask",
+        "author": "IG Layout Illustration",
+        "title": "Smiling Papier-Mâché Ông Địa Folk Mask",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 734,
+      "height": 734
+    },
+    {
+      "id": "mid-lotus-tea-pot-set",
+      "name": {
+        "en": "Ceramic Lotus Tea Pot & Cups Set",
+        "vi": "Bộ ấm chén trà sen thưởng nguyệt"
+      },
+      "tags": {
+        "en": [
+          "tea pot",
+          "lotus tea",
+          "ceramic",
+          "mid-autumn"
+        ],
+        "vi": [
+          "ấm trà",
+          "trà sen",
+          "thưởng nguyệt",
+          "trung thu"
+        ]
+      },
+      "collections": [
+        "midAutumn",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#mid-lotus-tea-pot-set",
+        "author": "IG Layout Illustration",
+        "title": "Ceramic Lotus Tea Pot & Cups Set",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 818,
+      "height": 590
+    }
+  ]
+}

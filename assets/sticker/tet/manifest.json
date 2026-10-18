@@ -1,0 +1,796 @@
+{
+  "id": "tet",
+  "kind": "sticker",
+  "name": {
+    "en": "Lunar New Year & Tết",
+    "vi": "Tết Cổ Truyền Việt Nam"
+  },
+  "collections": [
+    "tet",
+    "vietnam"
+  ],
+  "order": 130,
+  "items": [
+    {
+      "id": "tet-red-envelope-lucky",
+      "name": {
+        "en": "Red Lucky Money Envelope (Lì Xì)",
+        "vi": "Bao lì xì đỏ may mắn"
+      },
+      "tags": {
+        "en": [
+          "red envelope",
+          "li xi",
+          "lucky money",
+          "tet"
+        ],
+        "vi": [
+          "bao lì xì",
+          "mừng tuổi",
+          "lì xì",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F9E7/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F9E7 — Red Lucky Money Envelope (Lì Xì)",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 624,
+      "height": 964
+    },
+    {
+      "id": "tet-firecracker-spark",
+      "name": {
+        "en": "Lit Red Festive Firecracker",
+        "vi": "Viền pháo đỏ châm ngòi nổ"
+      },
+      "tags": {
+        "en": [
+          "firecracker",
+          "spark",
+          "tet",
+          "lunar new year"
+        ],
+        "vi": [
+          "pháo tết",
+          "pháo đỏ",
+          "năm mới",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F9E8/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F9E8 — Lit Red Festive Firecracker",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 974,
+      "height": 679
+    },
+    {
+      "id": "tet-red-paper-lantern",
+      "name": {
+        "en": "Traditional Red Hanging Lantern",
+        "vi": "Đèn lồng đỏ treo Tết"
+      },
+      "tags": {
+        "en": [
+          "lantern",
+          "red",
+          "hanging",
+          "tet"
+        ],
+        "vi": [
+          "đèn lồng",
+          "đèn đỏ",
+          "trang trí",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F3EE/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F3EE — Traditional Red Hanging Lantern",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 548,
+      "height": 966
+    },
+    {
+      "id": "tet-zodiac-dragon",
+      "name": {
+        "en": "Eastern Zodiac Green Dragon",
+        "vi": "Rồng phương Đông (Tuổi Thìn)"
+      },
+      "tags": {
+        "en": [
+          "dragon",
+          "zodiac",
+          "lunar",
+          "tet"
+        ],
+        "vi": [
+          "con rồng",
+          "tuổi thìn",
+          "con giáp",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F409/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F409 — Eastern Zodiac Green Dragon",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 834,
+      "height": 930
+    },
+    {
+      "id": "tet-dragon-head-emblem",
+      "name": {
+        "en": "Auspicious Eastern Dragon Head",
+        "vi": "Đầu rồng uy nghi may mắn"
+      },
+      "tags": {
+        "en": [
+          "dragon head",
+          "zodiac",
+          "auspicious",
+          "tet"
+        ],
+        "vi": [
+          "đầu rồng",
+          "rồng thần",
+          "con giáp",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F432/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F432 — Auspicious Eastern Dragon Head",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 756,
+      "height": 770
+    },
+    {
+      "id": "tet-zodiac-tiger",
+      "name": {
+        "en": "Zodiac Striped Golden Tiger",
+        "vi": "Hổ vàng vằn đen (Tuổi Dần)"
+      },
+      "tags": {
+        "en": [
+          "tiger",
+          "zodiac",
+          "lunar",
+          "tet"
+        ],
+        "vi": [
+          "con hổ",
+          "ông ba mươi",
+          "tuổi dần",
+          "con giáp"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F405/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F405 — Zodiac Striped Golden Tiger",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 973,
+      "height": 545
+    },
+    {
+      "id": "tet-zodiac-white-rabbit",
+      "name": {
+        "en": "Spring White Zodiac Rabbit",
+        "vi": "Thỏ trắng mùa xuân"
+      },
+      "tags": {
+        "en": [
+          "rabbit",
+          "zodiac",
+          "spring",
+          "tet"
+        ],
+        "vi": [
+          "con thỏ",
+          "mùa xuân",
+          "con giáp",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F407/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F407 — Spring White Zodiac Rabbit",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 839,
+      "height": 727
+    },
+    {
+      "id": "tet-zodiac-galloping-horse",
+      "name": {
+        "en": "Galloping Zodiac Horse (Mã Đáo)",
+        "vi": "Ngựa phi mã đáo thành công (Tuổi Ngọ)"
+      },
+      "tags": {
+        "en": [
+          "horse",
+          "zodiac",
+          "galloping",
+          "tet"
+        ],
+        "vi": [
+          "con ngựa",
+          "mã đáo",
+          "tuổi ngọ",
+          "con giáp"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F40E/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F40E — Galloping Zodiac Horse (Mã Đáo)",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 945,
+      "height": 802
+    },
+    {
+      "id": "tet-zodiac-golden-rooster",
+      "name": {
+        "en": "Zodiac Red-Crested Rooster",
+        "vi": "Gà trống mào đỏ (Tuổi Dậu)"
+      },
+      "tags": {
+        "en": [
+          "rooster",
+          "zodiac",
+          "morning",
+          "tet"
+        ],
+        "vi": [
+          "gà trống",
+          "tuổi dậu",
+          "con giáp",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F413/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F413 — Zodiac Red-Crested Rooster",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 748,
+      "height": 770
+    },
+    {
+      "id": "tet-pink-peach-blossom",
+      "name": {
+        "en": "Five-Petal Pink Peach Blossom",
+        "vi": "Bông hoa đào năm cánh hồng phấn"
+      },
+      "tags": {
+        "en": [
+          "peach blossom",
+          "flower",
+          "pink",
+          "tet"
+        ],
+        "vi": [
+          "hoa đào",
+          "cánh đào",
+          "mùa xuân",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F338/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F338 — Five-Petal Pink Peach Blossom",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 678,
+      "height": 845
+    },
+    {
+      "id": "tet-apricot-blossom-branch",
+      "name": {
+        "en": "Southern Golden Ochna (Hoa Mai) Branch",
+        "vi": "Cành hoa mai vàng nở rộ"
+      },
+      "tags": {
+        "en": [
+          "hoa mai",
+          "apricot blossom",
+          "yellow flower",
+          "tet"
+        ],
+        "vi": [
+          "hoa mai",
+          "mai vàng",
+          "cành mai",
+          "tết miền nam"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-apricot-blossom-branch",
+        "author": "IG Layout Illustration",
+        "title": "Southern Golden Ochna (Hoa Mai) Branch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 892,
+      "height": 705
+    },
+    {
+      "id": "tet-peach-blossom-branch",
+      "name": {
+        "en": "Northern Pink Peach Blossom (Hoa Đào) Branch",
+        "vi": "Cành hoa đào phai Nhật Tân"
+      },
+      "tags": {
+        "en": [
+          "hoa dao",
+          "peach branch",
+          "spring",
+          "tet"
+        ],
+        "vi": [
+          "cành đào",
+          "đào phai",
+          "nhật tân",
+          "tết miền bắc"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-peach-blossom-branch",
+        "author": "IG Layout Illustration",
+        "title": "Northern Pink Peach Blossom (Hoa Đào) Branch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 815,
+      "height": 751
+    },
+    {
+      "id": "tet-banh-chung-square",
+      "name": {
+        "en": "Square Green Bánh Chưng Sticky Rice Cake",
+        "vi": "Bánh chưng xanh gói lá dong buộc lạt đỏ"
+      },
+      "tags": {
+        "en": [
+          "banh chung",
+          "sticky rice cake",
+          "traditional food",
+          "tet"
+        ],
+        "vi": [
+          "bánh chưng",
+          "lá dong",
+          "lạt đỏ",
+          "ẩm thực tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-banh-chung-square",
+        "author": "IG Layout Illustration",
+        "title": "Square Green Bánh Chưng Sticky Rice Cake",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 750,
+      "height": 730
+    },
+    {
+      "id": "tet-banh-tet-cylinder",
+      "name": {
+        "en": "Cylindrical Southern Bánh Tét Rice Cake",
+        "vi": "Đòn bánh tét lá chuối và khoanh cắt"
+      },
+      "tags": {
+        "en": [
+          "banh tet",
+          "cylindrical cake",
+          "vietnam food",
+          "tet"
+        ],
+        "vi": [
+          "bánh tét",
+          "lá chuối",
+          "đòn bánh",
+          "tết miền nam"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-banh-tet-cylinder",
+        "author": "IG Layout Illustration",
+        "title": "Cylindrical Southern Bánh Tét Rice Cake",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 730,
+      "height": 564
+    },
+    {
+      "id": "tet-mam-ngu-qua-tray",
+      "name": {
+        "en": "Vietnamese Five-Fruit Tet Offering Tray",
+        "vi": "Mâm ngũ quả Tết Việt truyền thống"
+      },
+      "tags": {
+        "en": [
+          "five fruit tray",
+          "mam ngu qua",
+          "offering",
+          "tet"
+        ],
+        "vi": [
+          "mâm ngũ quả",
+          "trái cây tết",
+          "sum vầy",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-mam-ngu-qua-tray",
+        "author": "IG Layout Illustration",
+        "title": "Vietnamese Five-Fruit Tet Offering Tray",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 784,
+      "height": 631
+    },
+    {
+      "id": "tet-cau-doi-red-scrolls",
+      "name": {
+        "en": "Red Tet Parallel Calligraphy Scrolls (Câu Đối)",
+        "vi": "Đôi liễn câu đối đỏ chúc Tết"
+      },
+      "tags": {
+        "en": [
+          "cau doi",
+          "red scrolls",
+          "calligraphy",
+          "tet"
+        ],
+        "vi": [
+          "câu đối đỏ",
+          "liễn tết",
+          "thư pháp",
+          "chúc tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-cau-doi-red-scrolls",
+        "author": "IG Layout Illustration",
+        "title": "Red Tet Parallel Calligraphy Scrolls (Câu Đối)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 764,
+      "height": 882
+    },
+    {
+      "id": "tet-chu-phuc-diamond",
+      "name": {
+        "en": "Red Diamond Phúc Calligraphy Hanging Ornament",
+        "vi": "Khánh treo chữ Phúc đỏ viền vàng"
+      },
+      "tags": {
+        "en": [
+          "chu phuc",
+          "blessing",
+          "ornament",
+          "tet"
+        ],
+        "vi": [
+          "chữ phúc",
+          "khánh treo",
+          "phúc lộc thọ",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-chu-phuc-diamond",
+        "author": "IG Layout Illustration",
+        "title": "Red Diamond Phúc Calligraphy Hanging Ornament",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 796,
+      "height": 997
+    },
+    {
+      "id": "tet-firecracker-string",
+      "name": {
+        "en": "Hanging String of Red Tet Firecrackers",
+        "vi": "Tràng pháo đỏ Tết nổ giòn"
+      },
+      "tags": {
+        "en": [
+          "firecracker string",
+          "crackers",
+          "celebration",
+          "tet"
+        ],
+        "vi": [
+          "tràng pháo",
+          "dây pháo",
+          "pháo tết",
+          "giao thừa"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-firecracker-string",
+        "author": "IG Layout Illustration",
+        "title": "Hanging String of Red Tet Firecrackers",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 476,
+      "height": 921
+    },
+    {
+      "id": "tet-kumquat-bonsai-pot",
+      "name": {
+        "en": "Fruiting Golden Kumquat Tree in Red Pot",
+        "vi": "Chậu cây quất cảnh Tết sai trĩu quả"
+      },
+      "tags": {
+        "en": [
+          "kumquat tree",
+          "bonsai",
+          "prosperity",
+          "tet"
+        ],
+        "vi": [
+          "cây quất",
+          "chậu tắc",
+          "tài lộc",
+          "cây cảnh tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-kumquat-bonsai-pot",
+        "author": "IG Layout Illustration",
+        "title": "Fruiting Golden Kumquat Tree in Red Pot",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 620,
+      "height": 832
+    },
+    {
+      "id": "tet-lion-dance-head",
+      "name": {
+        "en": "Festive Red & Gold Lion Dance Head (Đầu Lân)",
+        "vi": "Đầu lân sư rồng múa Tết rực rỡ"
+      },
+      "tags": {
+        "en": [
+          "lion dance",
+          "dau lan",
+          "festival",
+          "tet"
+        ],
+        "vi": [
+          "đầu lân",
+          "múa lân",
+          "sư rồng",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "midAutumn"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#tet-lion-dance-head",
+        "author": "IG Layout Illustration",
+        "title": "Festive Red & Gold Lion Dance Head (Đầu Lân)",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 756,
+      "height": 860
+    }
+  ]
+}
