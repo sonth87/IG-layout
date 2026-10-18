@@ -2,8 +2,8 @@
   "packs": [
     {
       "id": "gen-torn-photos",
-      "kind": "tornPhoto",
-      "prefix": "torn-photo",
+      "kind": "tornPiece",
+      "prefix": "torn-piece",
       "order": 10,
       "name": {
         "en": "Torn photos",
@@ -44,7 +44,17 @@
         27,
         28,
         29,
-        30
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
       ]
     },
     {

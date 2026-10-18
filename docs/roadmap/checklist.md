@@ -423,7 +423,8 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
   - [x] **Nét vẽ tay** (doodle) bằng code, đổi màu được: 40 mẫu — mũi tên (thẳng, cong, vòng, zigzag, xoắn, hai đầu…), gạch chân, khoanh tròn, khung, sao, lấp lánh, tim, mặt cười, vương miện, mặt trời, mây, hoa, tia chớp, dấu tích / nhân, ngoặc kép, nốt nhạc, bong bóng thoại…
   - [ ] Chủ dự án duyệt: `node scripts/frames/generate.mjs explore <tornPhoto|tornPaper|film|polaroid> 40` → mở `assets/_review/frames/<kiểu>/index.html`; bỏ / thêm seed trong `scripts/frames/picks.json` rồi `generate.mjs build`
   - [x] Đợt 2: **84 khung** — 24 tem (răng cưa, chữ in, có lúc đóng dấu bưu điện), 24 khung tranh (gỗ sồi / óc chó / trắng / đen / mạ vàng / gỗ mộc, có hoặc không viền giấy), 20 trang album có góc dán ảnh (trang hơi nghiêng, ô ảnh nghiêng theo), 16 phong bì có ảnh thò ra
-  - Tổng sinh tự động: **218 khung + 94 sticker + 40 nét vẽ tay**
+  - [x] Chủ dự án (2026-10-18): ảnh xé **không vuông vức** → gói "Ảnh xé" làm lại bằng bộ sinh **mảnh ảnh xé**: tứ giác méo, hình thang, xiên, 5–8 cạnh, tròn, mất góc theo đường chéo, dải dài; xé **1 cạnh tới mọi cạnh**; mép có chỗ **lẹm** vào, lõi giấy chỗ bong rộng chỗ gần như không có — 40 mảnh
+  - Tổng sinh tự động: **228 khung + 94 sticker + 40 nét vẽ tay**
 - [ ] **C8** Ghép từng đợt của Gemini, e2e, merge, deploy
 - [ ] **G6** Câu xem trước phông, chữ mẫu widget (Gemini)
 - [ ] **G1** Script xử lý ảnh + trang duyệt (Gemini)

@@ -44,7 +44,7 @@ export function fbm(r, scale, octaves = 4) {
  * torn = false: a cut edge (scissors), almost straight.
  * The tear: a slow wander + a slant + a few sudden jerks + mid ripples + fine jitter.
  */
-export function edge(r, p0, p1, { torn, depth = 1, step = 3 }) {
+export function edge(r, p0, p1, { torn, depth = 1, step = 3, bites = 0 }) {
   const dx = p1[0] - p0[0];
   const dy = p1[1] - p0[1];
   const L = Math.hypot(dx, dy);
@@ -66,12 +66,18 @@ export function edge(r, p0, p1, { torn, depth = 1, step = 3 }) {
   const slant = range(r, -1, 1) * amp * 0.025;
   const ripple = fbm(r, range(r, 18, 40), 3);
   const jerks = Array.from({ length: Math.floor(range(r, 0, 3.2)) }, () => ({ at: range(r, 0.1, 0.9) * L, size: (r() < 0.5 ? -1 : 1) * range(r, 3, 12) * depth, w: range(r, 4, 22) }));
+  // Scoops: the tear bit into the paper ("lẹm"), a dip of 1–4 % of the side, uneven.
+  const scoops = Array.from({ length: bites }, () => ({ at: range(r, 0.15, 0.85) * L, span: range(r, 0.08, 0.3) * L, depth: range(r, 8, 34) * depth, skew: range(r, -0.35, 0.35) }));
   for (let i = 0; i < steps; i++) {
     const s = (i / steps) * L;
     // Ends meet the corners: fade the offsets in and out.
     const env = Math.min(1, s / 25, (L - s) / 25);
     let o = wander(s) * amp * 0.035 + slant * (s / L - 0.5) + ripple(s) * 4.5 * depth;
     for (const j of jerks) o += j.size * smooth(Math.min(1, Math.max(0, (s - j.at) / j.w + 0.5)));
+    for (const b of scoops) {
+      const u = (s - b.at) / b.span + 0.5 + b.skew * 0.2;
+      if (u > 0 && u < 1) o -= b.depth * Math.sin(Math.PI * u) ** (1.4 + b.skew);
+    }
     o += (r() - 0.5) * 2.2 * depth;
     o *= env;
     // A tear is not monotonic: it can bite back a little along the edge.
@@ -142,9 +148,17 @@ export function normals(pts, k = 3) {
  * along the edge (wide here, almost nothing there), with fibre spikes. Only where
  * `mask(i)` is true (torn parts); cut parts get a hairline.
  */
-export function fibreRim(r, pts, { width = 6, dir = 1, torn = () => true }) {
+export function fibreRim(r, pts, { width = 6, dir = 1, torn = () => true, peel = 0 }) {
   const nn = normals(pts);
   const N = pts.length;
+  // Peeled stretches: the top layer came off wider there (2–3.5× the rim).
+  const peelK = new Float32Array(N).fill(1);
+  for (let k = 0; k < peel; k++) {
+    const at = Math.floor(r() * N);
+    const span = Math.floor(range(r, 8, 40));
+    const amount = range(r, 1, 2.5);
+    for (let i = -span; i <= span; i++) peelK[(at + i + N) % N] += amount * Math.cos((i / span) * (Math.PI / 2)) ** 2;
+  }
   const wide = fbm(r, range(r, 40, 110), 3);
   const fine = fbm(r, 7, 2);
   // Tufts: soft bumps a few points wide where fibres pull out further.
@@ -155,7 +169,7 @@ export function fibreRim(r, pts, { width = 6, dir = 1, torn = () => true }) {
     const span = Math.floor(range(r, 2, 6));
     for (let k = -span; k <= span; k++) tuft[(i + k + N) % N] += size * (1 - Math.abs(k) / (span + 1)) ** 2;
   }
-  const widthAt = pts.map((_, i) => (torn(i) ? width * Math.max(0.1, 0.85 + wide(i * 3) * 1.2) + Math.max(0, fine(i * 3)) * width * 0.5 + tuft[i] : 0.6));
+  const widthAt = pts.map((_, i) => (torn(i) ? width * peelK[i] * Math.max(0.06, 0.85 + wide(i * 3) * 1.4) + Math.max(0, fine(i * 3)) * width * 0.5 + tuft[i] : 0.6));
   const at = (i, extra) => [pts[i][0] + nn[i][0] * (widthAt[i] + extra) * dir, pts[i][1] + nn[i][1] * (widthAt[i] + extra) * dir];
   const out = pts.map((_, i) => at(i, 0));
   // A thin, half-transparent fuzz beyond the rim: torn paper has no hard outer line.

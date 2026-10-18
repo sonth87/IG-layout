@@ -579,3 +579,117 @@ KINDS.stamp = stamp;
 KINDS.pictureFrame = pictureFrame;
 KINDS.photoCorners = photoCorners;
 KINDS.envelope = envelope;
+
+/** Corners of a piece of paper as torn by hand: never square (D-107, owner 2026-10-18). */
+function pieceShape(r, w, h, pad) {
+  const shape = pick(r, ["quad", "quad", "trapezoid", "skew", "poly", "poly", "round", "corner", "strip"]);
+  const cx = pad + w / 2;
+  const cy = pad + h / 2;
+  const jit = (a) => (r() - 0.5) * 2 * a;
+  if (shape === "poly" || shape === "round") {
+    const n = shape === "round" ? Math.round(range(r, 9, 13)) : Math.round(range(r, 5, 8));
+    const start = r() * Math.PI * 2;
+    const pts = Array.from({ length: n }, (_, i) => {
+      const a = start + (i / n) * Math.PI * 2 + jit((Math.PI / n) * (shape === "round" ? 0.2 : 0.55));
+      const k = shape === "round" ? range(r, 0.93, 1) : range(r, 0.72, 1);
+      return [cx + Math.cos(a) * (w / 2) * k, cy + Math.sin(a) * (h / 2) * k];
+    });
+    // Clockwise on screen (like the quads) so edge normals point out.
+    return { shape, corners: pts };
+  }
+  const x0 = pad;
+  const y0 = pad;
+  const x1 = pad + w;
+  const y1 = pad + h;
+  if (shape === "trapezoid") {
+    const inset = range(r, 0.08, 0.2) * w;
+    const top = r() < 0.5;
+    return { shape, corners: top ? [[x0 + inset + jit(10), y0 + jit(12)], [x1 - inset * range(r, 0.4, 1.3), y0 + jit(12)], [x1 + jit(10), y1 + jit(12)], [x0 + jit(10), y1 + jit(12)]] : [[x0 + jit(10), y0 + jit(12)], [x1 + jit(10), y0 + jit(12)], [x1 - inset * range(r, 0.4, 1.3), y1 + jit(12)], [x0 + inset, y1 + jit(12)]] };
+  }
+  if (shape === "skew") {
+    const sk = range(r, 0.05, 0.14) * w * (r() < 0.5 ? -1 : 1);
+    return { shape, corners: [[x0 + Math.max(0, sk) + jit(8), y0 + jit(20)], [x1 + Math.min(0, sk) + jit(8), y0 + jit(30)], [x1 - Math.max(0, sk) + jit(8), y1 + jit(20)], [x0 - Math.min(0, sk) + jit(8), y1 + jit(30)]] };
+  }
+  if (shape === "corner") {
+    // A corner torn off along a slant: five corners.
+    const a = range(r, 0.2, 0.45);
+    const b = range(r, 0.2, 0.45);
+    const which = Math.floor(r() * 4);
+    const c = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]].map(([x, y]) => [x + jit(14), y + jit(14)]);
+    const prev = c[(which + 3) % 4];
+    const cur = c[which];
+    const next = c[(which + 1) % 4];
+    const p1 = [cur[0] + (prev[0] - cur[0]) * a, cur[1] + (prev[1] - cur[1]) * a];
+    const p2 = [cur[0] + (next[0] - cur[0]) * b, cur[1] + (next[1] - cur[1]) * b];
+    const out = [];
+    for (let i = 0; i < 4; i++) {
+      if (i === which) out.push(p1, p2);
+      else out.push(c[i]);
+    }
+    return { shape, corners: out, diagonal: which };
+  }
+  if (shape === "strip") {
+    const thin = range(r, 0.3, 0.45);
+    const horizontal = w >= h;
+    const corners = horizontal
+      ? [[x0 + jit(15), cy - (h * thin) / 2 + jit(20)], [x1 + jit(15), cy - (h * thin) / 2 + jit(30)], [x1 + jit(15), cy + (h * thin) / 2 + jit(30)], [x0 + jit(15), cy + (h * thin) / 2 + jit(20)]]
+      : [[cx - (w * thin) / 2 + jit(20), y0 + jit(15)], [cx + (w * thin) / 2 + jit(30), y0 + jit(15)], [cx + (w * thin) / 2 + jit(30), y1 + jit(15)], [cx - (w * thin) / 2 + jit(20), y1 + jit(15)]];
+    return { shape, corners };
+  }
+  // A quad with uneven sides: corners pushed hard, one side often shorter.
+  return { shape, corners: looseQuad(r, w, h, pad, pad, range(r, 0.04, 0.09)) };
+}
+
+/**
+ * A piece of a torn photo (owner, 2026-10-18): the photo shows to the very edge; the
+ * edge is the torn paper — white core, fibres, uneven. Any number of sides torn (1 to
+ * all), any shape (uneven quad, trapezoid, slanted, 5–8 sides, round, corner torn off,
+ * strip); tears scoop in here and there and the core shows wide in places.
+ */
+export function tornPiece(seed) {
+  const r = rng(seed);
+  const ratio = pick(r, RATIOS);
+  const long = 1050;
+  const w = ratio >= 1 ? long : long * ratio;
+  const h = ratio >= 1 ? long / ratio : long;
+  const pad = 80;
+  const W = Math.round(w + pad * 2);
+  const H = Math.round(h + pad * 2);
+  const { shape, corners, diagonal } = pieceShape(r, w, h, pad);
+  const n = corners.length;
+  // How many sides are torn: anything from one to all (round pieces: all).
+  let torn;
+  if (shape === "round") torn = corners.map(() => true);
+  else {
+    const k = Math.max(1, Math.min(n, Math.round(range(r, 0.6, n + 0.49))));
+    const order = corners.map((_, i) => i).sort(() => r() - 0.5);
+    torn = corners.map((_, i) => order.indexOf(i) < k);
+    if (diagonal !== undefined) torn[diagonal] = true; // the slanted corner is always a tear
+  }
+  const depth = range(r, 0.7, 1.6);
+  const pts = [];
+  const flags = [];
+  for (let i = 0; i < n; i++) {
+    const a = corners[i];
+    const b = corners[(i + 1) % n];
+    const e = edge(r, a, b, { torn: torn[i], depth, bites: torn[i] && r() < 0.45 ? Math.round(range(r, 1, 2.4)) : 0 });
+    pts.push(...e);
+    flags.push(...e.map(() => torn[i]));
+  }
+  const core = pick(r, ["#fbfaf6", "#f7f3ea", "#fffdf9", "#f3efe6"]);
+  const rim = fibreRim(r, pts, { width: range(r, 5, 12), torn: (i) => flags[i], peel: Math.round(range(r, 0, 3.4)) });
+  const outer = d(rim.out);
+  const inner = d(pts);
+  const sh = { dx: range(r, 1, 5), dy: range(r, 3, 8), blur: range(r, 4, 9), opacity: range(r, 0.22, 0.38) };
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>${grain("g", { freq: 2.2, strength: 0.035, seed })}</defs>
+  ${shadow("s", outer, sh, W, H)}
+  <path d="${d(rim.fuzz)}${inner}" fill-rule="evenodd" fill="${core}" opacity="0.45"/>
+  <path d="${outer}${inner}" fill-rule="evenodd" fill="${core}" filter="url(#g)"/>
+  <path d="${hairPath(rim.hairs)}" fill="none" stroke="${core}" stroke-width="0.6" stroke-linecap="round" opacity="0.55"/>
+  <path d="${inner}" fill="none" stroke="#000" stroke-opacity="0.16" stroke-width="0.9"/>
+</svg>`;
+  return { svg, width: W, height: H, windows: [windowOf(pts, W, H)], info: { ratio, shape, torn: torn.filter(Boolean).length, sides: n } };
+}
+
+KINDS.tornPiece = tornPiece;
