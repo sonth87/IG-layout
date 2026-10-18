@@ -13,7 +13,7 @@ Trạng thái:
 | G5 — Phông (~150) | `gemini/g5-fonts` | **Đã duyệt, đã merge** — 195 phông (2026-10-18) |
 | G2 — Sticker đợt 1 (~200) | `gemini/g2-stickers` | **Cần sửa** — xem ghi chú 2026-10-18 |
 | G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | Chưa giao (cần G1) |
-| G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Chưa giao (cần G1) |
+| G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Xong (chờ duyệt) |
 | G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | Chưa giao |
 
 ---

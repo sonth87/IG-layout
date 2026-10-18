@@ -1,0 +1,110 @@
+{
+  "id": "postcards",
+  "kind": "frame",
+  "name": {
+    "en": "Vintage Postcard Frames",
+    "vi": "Khung bưu thiếp cổ"
+  },
+  "collections": [
+    "vintage",
+    "travel",
+    "journal"
+  ],
+  "order": 40,
+  "items": [
+    {
+      "id": "postcard-frame-xmas-dpla",
+      "name": {
+        "en": "Festive Holly & Ribbon Postcard Frame",
+        "vi": "Khung bưu thiếp Giáng sinh ruy băng & lá thông"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "christmas",
+          "border",
+          "vintage"
+        ],
+        "vi": [
+          "khung bưu thiếp",
+          "giáng sinh",
+          "noel",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "windows": [
+        {
+          "x": 0.14,
+          "y": 0.16,
+          "w": 0.72,
+          "h": 0.68
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 14
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%22A_merry_Christmas.%22_-_DPLA_-_6db1f61ebbc0136d2434b17034c5f48f.jpg",
+        "author": "Wikimedia Commons",
+        "title": "\"A merry Christmas.\" - DPLA - 6db1f61ebbc0136d2434b17034c5f48f.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 809
+    },
+    {
+      "id": "postcard-frame-new-year-734",
+      "name": {
+        "en": "Embossed Floral New Year Postcard Frame",
+        "vi": "Khung bưu thiếp hoa nổi mừng Năm mới"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "new year",
+          "floral",
+          "embossed"
+        ],
+        "vi": [
+          "bưu thiếp hoa",
+          "năm mới",
+          "tết",
+          "dập nổi"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "windows": [
+        {
+          "x": 0.16,
+          "y": 0.18,
+          "w": 0.68,
+          "h": 0.64
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 12
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_happy_new_year_LCCN2007684734.jpg",
+        "author": "Miscellaneous Items in High Demand, PPOC, Library of Congress",
+        "title": "A happy new year LCCN2007684734.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 849
+    }
+  ]
+}

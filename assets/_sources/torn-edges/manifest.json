@@ -1,0 +1,1167 @@
+{
+  "id": "torn-edges",
+  "kind": "sticker",
+  "name": {
+    "en": "Real Torn & Deckle Paper Edges",
+    "vi": "Bộ mép giấy xé & xơ giấy thật"
+  },
+  "collections": [
+    "tornPaper",
+    "journal"
+  ],
+  "order": 10,
+  "items": [
+    {
+      "id": "edge-flax-deckle-top",
+      "name": {
+        "en": "Handmade Flax Paper Deckle Edge (Top)",
+        "vi": "Mép giấy lanh thủ công xơ tự nhiên (trên)"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-flax-deckle-top.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Deckle_edge_flax_paper.jpg",
+        "author": "Phase.change",
+        "title": "Deckle edge flax paper.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-flax-deckle-bottom",
+      "name": {
+        "en": "Handmade Flax Paper Deckle Edge (Bottom)",
+        "vi": "Mép giấy lanh thủ công xơ tự nhiên (dưới)"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-flax-deckle-bottom.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Deckle_edge_flax_paper.jpg",
+        "author": "Phase.change",
+        "title": "Deckle edge flax paper.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-fiber-deckle-long",
+      "name": {
+        "en": "Long-Fiber Cotton Rag Deckle Edge",
+        "vi": "Mép giấy bông sợi dài lộ xơ trắng"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-fiber-deckle-long.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Fiber_and_deckle.jpg",
+        "author": "Phase.change",
+        "title": "Fiber and deckle.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-fiber-deckle-diagonal",
+      "name": {
+        "en": "Slanted Cotton Rag Torn Paper Edge",
+        "vi": "Mép giấy bông xé vát lộ thớ sợi"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-fiber-deckle-diagonal.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Fiber_and_deckle.jpg",
+        "author": "Phase.change",
+        "title": "Fiber and deckle.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-white-torn-halves-a",
+      "name": {
+        "en": "Hand-Torn White Sheet Left Tear",
+        "vi": "Mép giấy trắng xé tay tự nhiên (vế trái)"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-white-torn-halves-a.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Tear_paper_to_two_parts.JPG",
+        "author": "Yuchen.li94",
+        "title": "Tear paper to two parts.JPG",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-white-torn-halves-b",
+      "name": {
+        "en": "Hand-Torn White Sheet Right Tear",
+        "vi": "Mép giấy trắng xé tay tự nhiên (vế phải)"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-white-torn-halves-b.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Tear_paper_to_two_parts.JPG",
+        "author": "Yuchen.li94",
+        "title": "Tear paper to two parts.JPG",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-fibrous-towel-tear",
+      "name": {
+        "en": "Soft Fibrous Tissue Paper Tear Edge",
+        "vi": "Mép giấy mềm xé bông xơ dày"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-fibrous-towel-tear.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Use_glue_stick_to_seal_the_torn_paper_towel_pieces.JPG",
+        "author": "Yuchen.li94",
+        "title": "Use glue stick to seal the torn paper towel pieces.JPG",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-paris-poster-tear-01",
+      "name": {
+        "en": "1950s Layered Poster Jagged Tear 01",
+        "vi": "Mép áp phích giấy bồi xé nhiều lớp 01"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-paris-poster-tear-01.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Original_1950s_french_ripped_posters_found_in_Paris_subway.jpg",
+        "author": "Biusch",
+        "title": "Original 1950s french ripped posters found in Paris subway.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-paris-poster-tear-02",
+      "name": {
+        "en": "1950s Layered Poster Jagged Tear 02",
+        "vi": "Mép áp phích giấy bồi xé nhiều lớp 02"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-paris-poster-tear-02.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Original_1950s_french_ripped_posters_found_in_Paris_subway_1.jpg",
+        "author": "Biusch",
+        "title": "Original 1950s french ripped posters found in Paris subway 1.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-paris-poster-tear-03",
+      "name": {
+        "en": "1950s Layered Poster Jagged Tear 03",
+        "vi": "Mép áp phích giấy bồi xé nhiều lớp 03"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-paris-poster-tear-03.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Original_1950s_french_ripped_posters_found_in_Paris_subway_2.jpg",
+        "author": "Biusch",
+        "title": "Original 1950s french ripped posters found in Paris subway 2.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-paris-poster-tear-04",
+      "name": {
+        "en": "1950s Layered Poster Jagged Tear 04",
+        "vi": "Mép áp phích giấy bồi xé nhiều lớp 04"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-paris-poster-tear-04.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Original_1950s_french_ripped_posters_found_in_Paris_subway_3.jpg",
+        "author": "Biusch",
+        "title": "Original 1950s french ripped posters found in Paris subway 3.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-shiroishi-washi-letter",
+      "name": {
+        "en": "Japanese Shiroishi Washi Mulberry Edge",
+        "vi": "Mép giấy dó Washi Nhật Bản sợi tơi"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-shiroishi-washi-letter.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Shiroishi_washi_letter_paper.jpg",
+        "author": "Mizu basyo",
+        "title": "Shiroishi washi letter paper.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-shiroishi-washi-envelope",
+      "name": {
+        "en": "Feathered Washi Envelope Deckle Edge",
+        "vi": "Mép bì thư giấy Washi xơ mảnh"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-shiroishi-washi-envelope.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Shiroishi_washi_envelope.jpg",
+        "author": "Mizu basyo",
+        "title": "Shiroishi washi envelope.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-yagyuu-washi-rough",
+      "name": {
+        "en": "Unbleached Yagyuu Washi Bark Fiber Edge",
+        "vi": "Mép giấy bản mộc lộ sợi vỏ cây"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-yagyuu-washi-rough.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Yagyuu_washi.jpg",
+        "author": "Mizu basyo",
+        "title": "Yagyuu washi.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-yanagiu-washi-natural",
+      "name": {
+        "en": "Warm Ivory Yanagiu Washi Torn Edge",
+        "vi": "Mép giấy thủ công trắng ngà xé tay"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-yanagiu-washi-natural.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Yanagiu_washi.jpg",
+        "author": "Mizu basyo",
+        "title": "Yanagiu washi.jpg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-ukiyoe-mulberry-macro",
+      "name": {
+        "en": "Antique Woodblock Mulberry Paper Edge",
+        "vi": "Mép giấy bản cổ in tranh khắc gỗ"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-ukiyoe-mulberry-macro.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Washi_close-up_from_ukiyo-e_print.jpeg",
+        "author": "User:Ragesoss",
+        "title": "Washi close-up from ukiyo-e print.jpeg",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-1849-letter-aged-top",
+      "name": {
+        "en": "1849 Aged Rag Letter Worn Tear Edge",
+        "vi": "Mép thư cổ năm 1849 sờn rách tự nhiên"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-1849-letter-aged-top.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Correspondence_-_Lesquereux_(Leo)_and_Engelmann_(George)_(Feb_07,_1849_(1)_verso)_BHL43677647.jpg",
+        "author": "Lesquereux, Leo",
+        "title": "Correspondence - Lesquereux (Leo) and Engelmann (George) (Feb 07, 1849 (1) verso) BHL43677647.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-1882-letter-aged-side",
+      "name": {
+        "en": "1882 Cream Stationary Torn Margin",
+        "vi": "Mép giấy thư ngà năm 1882 xé lệch"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-1882-letter-aged-side.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Correspondence_-_Lesquereux_(Leo)_and_Engelmann_(George)_(May_03,_1882_(2)_verso)_BHL43677707.jpg",
+        "author": "Lesquereux, Leo",
+        "title": "Correspondence - Lesquereux (Leo) and Engelmann (George) (May 03, 1882 (2) verso) BHL43677707.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-white-drawing-a",
+      "name": {
+        "en": "White Drawing Paper Gentle Tear A",
+        "vi": "Mép giấy vẽ trắng mịn xé lượn nhẹ A"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-white-drawing-a.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper001",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper001 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-white-drawing-b",
+      "name": {
+        "en": "White Drawing Paper Abrupt Notch Tear B",
+        "vi": "Mép giấy vẽ trắng xé vấp thớ B"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-white-drawing-b.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper001",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper001 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-crumpled-white-a",
+      "name": {
+        "en": "Crumpled White Paper Wrinkled Tear A",
+        "vi": "Mép giấy trắng vò nhăn xé gồ ghề A"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-crumpled-white-a.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper002",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper002 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-crumpled-white-b",
+      "name": {
+        "en": "Crumpled White Paper Deep Core Tear B",
+        "vi": "Mép giấy trắng nhăn lộ lõi trắng rộng B"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-crumpled-white-b.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper002",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper002 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-ivory-watercolor-a",
+      "name": {
+        "en": "Heavy Ivory Watercolor Paper Tear A",
+        "vi": "Mép giấy màu nước định lượng dày xé xơ A"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-ivory-watercolor-a.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper003",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper003 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-ivory-watercolor-b",
+      "name": {
+        "en": "Heavy Ivory Watercolor Paper Tear B",
+        "vi": "Mép giấy mỹ thuật trắng ngà xé chéo B"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-ivory-watercolor-b.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper003",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper003 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-lined-notebook-a",
+      "name": {
+        "en": "Ruled Notebook Page Torn Margin A",
+        "vi": "Mép trang vở kẻ ngang xé rời A"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-lined-notebook-a.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper004",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper004 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-lined-notebook-b",
+      "name": {
+        "en": "Ruled Notebook Page Jagged Tear B",
+        "vi": "Mép giấy vở học sinh xé răng cưa B"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-lined-notebook-b.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper004",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper004 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-creased-craft-a",
+      "name": {
+        "en": "Creased Vintage Craft Paper Tear A",
+        "vi": "Mép giấy thủ công nhăn xé tự nhiên A"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-creased-craft-a.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper005",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper005 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-kraft-brown-a",
+      "name": {
+        "en": "Brown Kraft Paper Wide White Core Tear A",
+        "vi": "Mép giấy Kraft nâu lộ lõi trắng xơ A"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-kraft-brown-a.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper006",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper006 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-kraft-brown-b",
+      "name": {
+        "en": "Brown Kraft Paper Diagonal Tear B",
+        "vi": "Mép giấy xi măng nâu xé chéo B"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-kraft-brown-b.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Paper006",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Paper006 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-cardboard-thick-a",
+      "name": {
+        "en": "Thick Brown Cardboard Delaminated Tear A",
+        "vi": "Mép bìa carton dày xé tước lớp mặt A"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-cardboard-thick-a.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Cardboard001",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Cardboard001 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-cardboard-thick-b",
+      "name": {
+        "en": "Thick Brown Cardboard Rough Tear B",
+        "vi": "Mép bìa cứng nâu xé thô lộ xơ giấy B"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-cardboard-thick-b.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Cardboard001",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Cardboard001 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    },
+    {
+      "id": "edge-cc0-corrugated-board",
+      "name": {
+        "en": "Corrugated Kraft Board Ripped Edge",
+        "vi": "Mép bìa carton gợn sóng xé rách"
+      },
+      "tags": {
+        "en": [
+          "torn paper",
+          "deckle edge",
+          "paper fiber",
+          "brush"
+        ],
+        "vi": [
+          "mép giấy xé",
+          "xơ giấy",
+          "giấy xé",
+          "cọ viền"
+        ]
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "file": "assets/_sources/torn-edges/files/edge-cc0-corrugated-board.png",
+      "width": 1600,
+      "height": 240,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Cardboard002",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Cardboard002 Paper Texture",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      }
+    }
+  ]
+}

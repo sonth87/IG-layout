@@ -1,0 +1,109 @@
+{
+  "id": "labels-cards",
+  "kind": "frame",
+  "name": {
+    "en": "Vintage Trade Cards & Label Frames",
+    "vi": "Khung nhãn & Thiệp thương mại cổ"
+  },
+  "collections": [
+    "vintage",
+    "journal"
+  ],
+  "order": 60,
+  "items": [
+    {
+      "id": "card-bm-d-2-3868",
+      "name": {
+        "en": "Neoclassical Urn & Ribbon Trade Card Border (BM)",
+        "vi": "Khung thiệp cổ điển hoạ tiết bình hoa & ruy băng"
+      },
+      "tags": {
+        "en": [
+          "trade card",
+          "ribbon",
+          "neoclassical",
+          "border"
+        ],
+        "vi": [
+          "ruy băng",
+          "thiệp cổ",
+          "tân cổ điển",
+          "trang nhã"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.2,
+          "y": 0.25,
+          "w": 0.6,
+          "h": 0.5
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 16
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Print,_trade-card_(BM_D,2.3868).jpg",
+        "author": "Wikimedia Commons",
+        "title": "Print, trade-card (BM D,2.3868).jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 998,
+      "height": 1600
+    },
+    {
+      "id": "card-bm-1849-68",
+      "name": {
+        "en": "Square Ornate Crest Trade Card Frame (BM)",
+        "vi": "Khung vuông huy hiệu chạm khắc cổ điển"
+      },
+      "tags": {
+        "en": [
+          "trade card",
+          "square",
+          "crest",
+          "ornate"
+        ],
+        "vi": [
+          "khung vuông",
+          "huy hiệu",
+          "cổ điển",
+          "nhãn giấy"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.21,
+          "y": 0.22,
+          "w": 0.58,
+          "h": 0.56
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 16
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Print,_trade-card_(BM_1849,0512.68).jpg",
+        "author": "Wikimedia Commons",
+        "title": "Print, trade-card (BM 1849,0512.68).jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1229
+    }
+  ]
+}
