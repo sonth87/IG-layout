@@ -197,107 +197,23 @@
       "height": 1024
     },
     {
-      "id": "stamp-us-columbus-2c-1893",
-      "name": {
-        "en": "US 2c Landing of Columbus Stamp (1893)",
-        "vi": "Tem Mỹ 2 xu Columbus đặt chân lên châu Mỹ (1893)"
-      },
-      "tags": {
-        "en": [
-          "stamp",
-          "postage",
-          "vintage",
-          "columbus",
-          "1893"
-        ],
-        "vi": [
-          "tem",
-          "bưu chính",
-          "tem cổ",
-          "mỹ",
-          "1893"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "process": {
-        "bgMode": "flood",
-        "trim": true
-      },
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:1893-2c.jpg",
-        "author": "postalmuseum.si.edu",
-        "title": "1893-2c",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 826,
-      "height": 1024
-    },
-    {
-      "id": "stamp-us-columbus-5c-1893",
-      "name": {
-        "en": "US 5c Columbus Soliciting Aid Stamp (1893)",
-        "vi": "Tem Mỹ 5 xu kỷ niệm Columbus (1893)"
-      },
-      "tags": {
-        "en": [
-          "stamp",
-          "postage",
-          "vintage",
-          "brown",
-          "1893"
-        ],
-        "vi": [
-          "tem",
-          "bưu chính",
-          "tem cổ",
-          "nâu",
-          "1893"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "process": {
-        "bgMode": "flood",
-        "trim": true
-      },
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:1893stamp-5c.jpg",
-        "author": "postalmuseum.si.edu",
-        "title": "1893stamp-5c",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 823,
-      "height": 1024
-    },
-    {
       "id": "stamp-us-columbus-10c-1893",
       "name": {
-        "en": "US 10c Columbus Presenting Natives Stamp (1893)",
-        "vi": "Tem Mỹ 10 xu kỷ niệm hàng hải (1893)"
+        "en": "Postage due stamp 10c",
+        "vi": "Tem thu cước 10c"
       },
       "tags": {
         "en": [
           "stamp",
-          "postage",
-          "vintage",
-          "sepia",
-          "1893"
+          "postage due",
+          "numeral",
+          "pink"
         ],
         "vi": [
           "tem",
-          "bưu chính",
-          "tem cổ",
-          "hàng hải",
-          "1893"
+          "tem thu cước",
+          "số",
+          "hồng"
         ]
       },
       "collections": [
@@ -322,23 +238,21 @@
     {
       "id": "stamp-us-columbus-30c-1893",
       "name": {
-        "en": "US 30c Columbus at La Rabida Stamp (1893)",
-        "vi": "Tem Mỹ 30 xu màu cam cổ điển (1893)"
+        "en": "Postage due stamp 30c",
+        "vi": "Tem thu cước 30c"
       },
       "tags": {
         "en": [
           "stamp",
-          "postage",
-          "vintage",
-          "orange",
-          "1893"
+          "postage due",
+          "numeral",
+          "pink"
         ],
         "vi": [
           "tem",
-          "bưu chính",
-          "tem cổ",
-          "cam",
-          "1893"
+          "tem thu cước",
+          "số",
+          "hồng"
         ]
       },
       "collections": [
@@ -358,47 +272,6 @@
         "retrieved": "2026-10-18"
       },
       "width": 845,
-      "height": 1024
-    },
-    {
-      "id": "stamp-us-columbus-50c-1893",
-      "name": {
-        "en": "US 50c Recall of Columbus Stamp (1893)",
-        "vi": "Tem Mỹ 50 xu xanh đen cổ điển (1893)"
-      },
-      "tags": {
-        "en": [
-          "stamp",
-          "postage",
-          "vintage",
-          "slate",
-          "1893"
-        ],
-        "vi": [
-          "tem",
-          "bưu chính",
-          "tem cổ",
-          "xanh đen",
-          "1893"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "process": {
-        "bgMode": "flood",
-        "trim": true
-      },
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:1893-50c.jpg",
-        "author": "postalmuseum.si.edu",
-        "title": "1893-50c",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 788,
       "height": 1024
     },
     {

@@ -152,41 +152,6 @@
       "height": 1024
     },
     {
-      "id": "ukiyoe-hiroshige-blue-magpie",
-      "name": {
-        "en": "Blue Magpie on Autumn Maple Branch (Hiroshige)",
-        "vi": "Chim ác là xanh trên cành phong đỏ (Hiroshige)"
-      },
-      "tags": {
-        "en": [
-          "ukiyoe",
-          "bird",
-          "maple",
-          "hiroshige"
-        ],
-        "vi": [
-          "lá phong",
-          "chim xanh",
-          "mùa thu",
-          "nhật bản"
-        ]
-      },
-      "collections": [
-        "japan",
-        "vintage"
-      ],
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Utagawa_Hiroshige_-_Blue_magpie_on_maple_branch_-_Google_Art_Project.jpg",
-        "author": "Utagawa Hiroshige",
-        "title": "Blue magpie on maple branchtitle QS:P1476,en:\"Blue magpie on maple branch\"label QS:Len,\"Blue magpie on maple branch\"",
-        "license": "PDM",
-        "retrieved": "2026-10-18"
-      },
-      "width": 776,
-      "height": 1024
-    },
-    {
       "id": "ukiyoe-hiroshige-swallows",
       "name": {
         "en": "Swallows & Kingfisher with Rose Mallows (The Met)",
@@ -222,46 +187,6 @@
       "height": 1024
     },
     {
-      "id": "ukiyoe-hiroshige-chrysanthemums",
-      "name": {
-        "en": "Shrike & Autumn Chrysanthemums (The Met)",
-        "vi": "Chim bách thanh và hoa cúc mùa thu"
-      },
-      "tags": {
-        "en": [
-          "ukiyoe",
-          "chrysanthemum",
-          "bird",
-          "autumn"
-        ],
-        "vi": [
-          "hoa cúc",
-          "mùa thu",
-          "chim đậu",
-          "nhật bản"
-        ]
-      },
-      "collections": [
-        "japan",
-        "vintage"
-      ],
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%E7%94%BB_%E8%8F%8A%E3%81%AB%E7%99%BE%E8%88%8C%E9%B3%A5-Shrike_and_Chrysanthemums_MET_DP121501.jpg",
-        "author": "Utagawa Hiroshige",
-        "title": "歌川広重画 菊に百舌鳥",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 380,
-      "height": 1024,
-      "process": {
-        "bgMode": "flood",
-        "tolerance": 8,
-        "trim": true
-      }
-    },
-    {
       "id": "ukiyoe-hiroshige-golden-pheasant",
       "name": {
         "en": "Golden Pheasant & Pine in Snow (The Met)",
@@ -295,46 +220,6 @@
       },
       "width": 501,
       "height": 1024
-    },
-    {
-      "id": "ukiyoe-hiroshige-pheasant-flowers",
-      "name": {
-        "en": "Pheasant Among Blooming Chrysanthemums (The Met)",
-        "vi": "Chim trĩ giữa khóm cúc nở rộ"
-      },
-      "tags": {
-        "en": [
-          "ukiyoe",
-          "pheasant",
-          "chrysanthemum",
-          "japan"
-        ],
-        "vi": [
-          "chim trĩ",
-          "hoa cúc",
-          "tranh khắc gỗ",
-          "cổ điển"
-        ]
-      },
-      "collections": [
-        "japan",
-        "vintage"
-      ],
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%E7%94%BB_%E8%8F%8A%E3%81%AB%E9%9B%89-Pheasant_with_Chrysanthemums_MET_DP121505.jpg",
-        "author": "Utagawa Hiroshige",
-        "title": "歌川広重画 菊に雉",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 512,
-      "height": 1024,
-      "process": {
-        "bgMode": "flood",
-        "tolerance": 8,
-        "trim": true
-      }
     },
     {
       "id": "ukiyoe-hiroshige-plum-bird",

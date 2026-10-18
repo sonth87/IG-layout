@@ -2,8 +2,8 @@
   "id": "vintage-postcards",
   "kind": "sticker",
   "name": {
-    "en": "Vintage Postcards & Wax Seals",
-    "vi": "Bưu thiếp & Dấu sáp cổ"
+    "en": "Wax seals",
+    "vi": "Dấu sáp cổ"
   },
   "collections": [
     "vintage",
@@ -83,41 +83,6 @@
       "height": 944
     },
     {
-      "id": "seal-wladyslaw-warnenczyk",
-      "name": {
-        "en": "Heraldic Red Wax Crest Seal",
-        "vi": "Dấu sáp huy hiệu hoàng tộc"
-      },
-      "tags": {
-        "en": [
-          "wax seal",
-          "crest",
-          "heraldic",
-          "vintage"
-        ],
-        "vi": [
-          "dấu sáp",
-          "huy hiệu",
-          "niêm phong",
-          "thư tay"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Piecz%C4%99%C4%87_W%C5%82adys%C5%82awa_Warne%C5%84czyka.png",
-        "author": "kustoszka",
-        "title": "Pieczęć Władysława Warneńczyka",
-        "license": "CC-BY-SA-4.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1024,
-      "height": 948
-    },
-    {
       "id": "seal-jan-olbracht",
       "name": {
         "en": "Antique Round Parchment Wax Seal",
@@ -151,41 +116,6 @@
       },
       "width": 976,
       "height": 1024
-    },
-    {
-      "id": "seal-alexander-1505",
-      "name": {
-        "en": "Great Realm Wax Seal with Ribbon (1505)",
-        "vi": "Đại ấn sáp kèm dây ruy băng cổ (1505)"
-      },
-      "tags": {
-        "en": [
-          "wax seal",
-          "ribbon",
-          "royal",
-          "1505"
-        ],
-        "vi": [
-          "dấu sáp",
-          "ấn cổ",
-          "ruy băng",
-          "1505"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Great_Seal_of_the_Realm_of_Alexander_of_Poland_(1505).png",
-        "author": "anonymous",
-        "title": "Pieczęć przy dokumencie, w którym Aleksander Jagiellończyk król polski zezwala burmistrzowi i radzie miasta Poznania na sprowadzenie, ustano",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1024,
-      "height": 782
     },
     {
       "id": "seal-francis-ii-1810",
@@ -433,41 +363,6 @@
       "height": 1024
     },
     {
-      "id": "seal-boronkay-1771",
-      "name": {
-        "en": "Baroque Red Wax Crest Seal (1771)",
-        "vi": "Dấu sáp hoa văn Baroque (1771)"
-      },
-      "tags": {
-        "en": [
-          "wax seal",
-          "baroque",
-          "red",
-          "1771"
-        ],
-        "vi": [
-          "dấu sáp",
-          "hoa văn",
-          "cổ điển",
-          "1771"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Boronkay_Imre_1771.jpg",
-        "author": "Taz",
-        "title": "Boronkay Imre 1771",
-        "license": "CC-BY-SA-4.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 910,
-      "height": 1024
-    },
-    {
       "id": "seal-bartha-1740",
       "name": {
         "en": "Antique Crimson Wax Seal Impression (1740)",
@@ -536,45 +431,6 @@
       },
       "width": 1024,
       "height": 958
-    },
-    {
-      "id": "ticket-morgan-lecture-1765",
-      "name": {
-        "en": "Antique Handwritten Admission Ticket (1765)",
-        "vi": "Vé mời viết tay thế kỷ 18 (1765)"
-      },
-      "tags": {
-        "en": [
-          "ticket",
-          "handwritten",
-          "ephemera",
-          "1765"
-        ],
-        "vi": [
-          "vé cổ",
-          "chữ viết tay",
-          "nhật ký",
-          "1765"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "process": {
-        "bgMode": "flood",
-        "trim": true
-      },
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Admission_ticket_to_John_Morgan_lecture_1765.jpg",
-        "author": "Unknown authorUnknown author",
-        "title": "Admission ticket to John Morgan lecture 1765",
-        "license": "PDM",
-        "retrieved": "2026-10-18"
-      },
-      "width": 769,
-      "height": 1024
     },
     {
       "id": "postcard-bonn-1899",

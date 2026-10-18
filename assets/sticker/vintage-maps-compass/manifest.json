@@ -188,41 +188,6 @@
       "height": 1024
     },
     {
-      "id": "compass-card-vintage",
-      "name": {
-        "en": "Classic Star Mariner Compass Card",
-        "vi": "Ngôi sao phương hướng la bàn cổ"
-      },
-      "tags": {
-        "en": [
-          "compass",
-          "star",
-          "north",
-          "travel"
-        ],
-        "vi": [
-          "ngôi sao",
-          "la bàn",
-          "bắc nam",
-          "hành trình"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "travel"
-      ],
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Compass_card_(mn).png",
-        "author": "Compass_card_(de).svg: User:Madden derivative work: Munkhzaya (talk)",
-        "title": "Compass card (mn)",
-        "license": "CC-BY-SA-4.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1014,
-      "height": 1018
-    },
-    {
       "id": "compass-juan-de-la-cosa-1500",
       "name": {
         "en": "Juan de la Cosa Portolan Map Compass (1500)",
@@ -570,41 +535,6 @@
         "retrieved": "2026-10-18"
       },
       "width": 1016,
-      "height": 1024
-    },
-    {
-      "id": "watch-archer-alexander",
-      "name": {
-        "en": "Historic Gold Chain Pocket Watch",
-        "vi": "Đồng hồ quả quýt vàng thế kỷ 19"
-      },
-      "tags": {
-        "en": [
-          "pocket watch",
-          "gold watch",
-          "heirloom",
-          "vintage"
-        ],
-        "vi": [
-          "đồng hồ cổ",
-          "quả quýt",
-          "kỷ vật",
-          "nhật ký"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "travel"
-      ],
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Pocket_watch_presented_to_Christopher_Rhodes_Eliot_by_Archer_Alexander.jpg",
-        "author": "Santiago James Moore French",
-        "title": "Pocket watch presented to Christopher Rhodes Eliot by Archer Alexander",
-        "license": "PDM",
-        "retrieved": "2026-10-18"
-      },
-      "width": 728,
       "height": 1024
     },
     {
