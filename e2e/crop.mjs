@@ -143,6 +143,18 @@ e1 = el(st, free.id);
 check(e1.width / e1.crop.width > v0 * 1.05, `zoomed in (${v0.toFixed(3)} → ${(e1.width / e1.crop.width).toFixed(3)})`);
 check(inside(e1, asset), "still covered");
 
+console.log("Reset: back to the window Crop opened with");
+const opened = free; // the window when Crop was opened (it was resized above)
+await page.getByRole("radio", { name: "Original" }).click();
+await page.getByRole("radio", { name: "1:1" }).click();
+await page.waitForTimeout(200);
+check(Math.abs(el(await S(), free.id).width - el(await S(), free.id).height) < 1, "1:1 applied");
+await page.getByRole("button", { name: "Reset", exact: true }).click();
+await page.waitForTimeout(200);
+e1 = el(await S(), free.id);
+check(Math.abs(e1.width - opened.width) < 0.5 && Math.abs(e1.height - opened.height) < 0.5 && Math.abs(e1.x - opened.x) < 0.5, `window as when Crop opened (${e1.width.toFixed(0)}×${e1.height.toFixed(0)})`);
+check((await page.getByRole("radio", { name: "Free" }).getAttribute("aria-checked")) === "true" && e1.straighten === 0, "ratio back to Free, picture reset");
+
 console.log("✕ drops it all, ✓ is one step");
 await page.getByRole("region", { name: "Crop" }).getByLabel("Cancel").click();
 st = await S();
