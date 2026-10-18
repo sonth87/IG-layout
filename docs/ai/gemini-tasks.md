@@ -11,10 +11,10 @@ Trạng thái:
 | G6 — Câu xem trước phông, chữ mẫu widget | `gemini/g6-text` | **Đã duyệt, đã merge** (2026-10-18) |
 | G1 — Script xử lý ảnh + trang duyệt | `gemini/g1-process` | **Đã duyệt, đã merge** (2026-10-18) |
 | G5 — Phông (~150) | `gemini/g5-fonts` | **Đã duyệt, đã merge** — 195 phông (2026-10-18) |
-| G2 — Sticker đợt 1 (~200) | `gemini/g2-stickers` | **Cần sửa** — xem ghi chú 2026-10-18 |
-| G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | Chưa giao (cần G1) |
+| G2 — Sticker đợt 1 (~200) | `gemini/g2-stickers` | **Claude đã tự sửa và merge** — còn 141 / 212 (2026-10-18) |
+| G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | **Đã merge sau khi lọc** — 42 / 46 chất liệu, 4 / 22 lớp phủ (2026-10-18) |
 | G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Xong (chờ duyệt) |
-| G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | Chưa giao |
+| G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | **Đã duyệt, đã merge** (2026-10-18) |
 
 ---
 
@@ -297,6 +297,13 @@ Phạm vi: docs/discussions/<ngày>-m21-nghien-cuu.md, assets/research/m21/**, b
 3. Nếu ổn thì merge vào `main`. Nếu chưa ổn thì ghi việc cần sửa vào mục của việc đó (dưới đây), rồi chủ dự án chuyển lại cho Gemini.
 
 ### Ghi chú nhận việc
+
+- **2026-10-18 — Duyệt đợt 2 (Claude tự sửa rồi merge):**
+  - **G2 chưa được Gemini sửa** (nhánh vẫn là commit cũ) → Claude tự áp các điểm của lần duyệt trước: bỏ gói `everyday-objects` (trùng emoji), bỏ gói `festive-holidays` (bưu thiếp tách nền hỏng, ảnh người thật, tranh tôn giáo), bỏ bướm còn hộp / nhãn, hiện vật chưa tách nền, nhãn mép nham nhở, tem trùng; đổi tên gói dấu sáp; sửa tên tem thu cước (bị đặt nhầm là tem Columbus). Còn **141** sticker.
+  - **G3:** chất liệu tốt (bỏ 4 tấm bị nhuộm sai màu, gần như phẳng). **Lớp phủ: 18 / 22 bị bỏ** — là ảnh chụp thường, tên không khớp nội dung (vd. "vết nước trên giấy" là tờ đô la, "bokeh ấm" là ảnh chụp trang Wikipedia, "rò sáng" là ảnh toà nhà). Lớp phủ phải là **vệt sáng / hạt / bụi / nếp giấy trên nền đen hoặc trắng**, không có vật thể; luôn **mở ảnh ra xem** trước khi ghi tên.
+  - **G4:** cả 44 khung **không tách nền ngoài** (nền trắng / xám của ảnh chụp bảo tàng còn nguyên) và cửa sổ nhỏ hơn mép trong của khung. Claude viết script tự xoá nền ngoài + nới cửa sổ tới mép trong + nhận ô bầu dục; bỏ 9 khung không sửa được và 9 mục không phải khung (giấy tờ toàn chữ, mục có **thẻ màu chuẩn của bảo tàng**, dấu sáp, tranh tôn giáo, bưu thiếp chữ viết tay). Còn **26** khung. 32 mép giấy xé: tốt.
+  - **G7:** tốt — 120 filter đúng định dạng `FilterPreset`, 20 hiệu ứng tĩnh có phân tích độ nặng, đề xuất thứ tự.
+  - Lỗi chung cần tránh ở đợt sau: **không kiểm tra bằng mắt** (validate.mjs chỉ kiểm định dạng, không kiểm nội dung). Bắt buộc mở `review.html` từng gói, xem trên nền ca rô để thấy nền chưa tách.
 
 - **2026-10-18 — Quy tắc mới: làm trong thư mục riêng.** Gemini và Claude đang dùng chung một thư mục làm việc; một file nháp của G6 đã lọt vào commit của Claude. Từ nay Gemini làm trong **git worktree riêng**: `git worktree add ../IG-layout-gemini -b gemini/<việc> origin/main` rồi chỉ làm trong `../IG-layout-gemini` (cài `pnpm install` ở đó, hoặc symlink `node_modules`). Không checkout nhánh khác trong thư mục chính.
 - **2026-10-18 — Duyệt G6:** đạt. Câu tự nhiên, đủ dấu, đủ số lượng; 27 widget có chữ mẫu VI / EN.

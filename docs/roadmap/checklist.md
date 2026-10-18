@@ -429,10 +429,10 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] **G6** Câu xem trước phông (125 VI, 125 EN, 35 JA / KO / ZH — đã dùng trong màn chọn phông), chữ mẫu 27 widget (Gemini, duyệt 2026-10-18)
 - [x] **G1** Script xử lý ảnh `process.mjs` + trang duyệt `review.mjs` (Gemini, duyệt 2026-10-18)
 - [x] **G5** **195 phông** trong 11 gói (viết tay, thư pháp, Nhật, Hàn, Trung, kỳ ảo, vui nhộn, lễ hội, retro / pixel, cọ…) — 127 phông có dấu tiếng Việt; phông không có dấu tiếng Việt được ghi chú trong màn chọn phông (Gemini, duyệt 2026-10-18)
-- [ ] **G2** ~200 sticker (Gemini) — **cần sửa**: bỏ / làm lại các mục tách nền lỗi, bỏ gói trùng emoji (xem ghi chú duyệt trong gemini-tasks.md)
-- [ ] **G3** ~40 chất liệu + ~20 lớp phủ (Gemini)
-- [ ] **G4** ~40 khung + mép giấy xé thật (Gemini)
-- [ ] **G7** Nghiên cứu M21 (Gemini)
+- [x] **G2** sticker — 141 mục sạch / 212 sau khi Claude lọc (tem, nhãn, dấu sáp, hoa hồng cổ, chim, bướm, bản đồ / la bàn, ukiyo-e, Đông Hồ, doodle người)
+- [x] **G3** 42 chất liệu nền (giấy, vải, gỗ, đá, thiên nhiên…) + 4 lớp phủ — lớp phủ còn thiếu, làm lại đợt sau
+- [x] **G4** 26 khung (tranh mạ vàng, gỗ, bạc, bìa ảnh, viền hoa văn sách cổ, thiệp) + 32 mép giấy xé thật
+- [x] **G7** Nghiên cứu M21: [2026-10-18-m21-nghien-cuu.md](../discussions/2026-10-18-m21-nghien-cuu.md) + 120 filter (`assets/research/m21/filters.json`)
 - [ ] Đủ điều kiện xong ở [m20-plan.md](m20-plan.md) (≥ 1.000 mục…)
 
 ### M21 — Công cụ sáng tạo (D-105)
