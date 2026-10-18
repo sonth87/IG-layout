@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Icon } from "@/components/ui/Icon";
+import { Icon, type IconName } from "@/components/ui/Icon";
 import { FILTER_GROUPS, FILTERS, filterById, type FilterDef, type FilterGroup } from "@/lib/color/filters";
 import { type Adjustments, ADJUST_MIN, type AdjustKey, type FilterRef, NO_ADJUST, shaderParams } from "@/lib/color/params";
 import { processImage } from "@/lib/color/processor";
@@ -218,7 +218,7 @@ export function PhotoEditScreen({ elementId, start, onClose }: { elementId: stri
             onClick={() => setTool(k)}
             className={`relative flex h-14 min-w-[64px] shrink-0 flex-col items-center justify-center gap-1 rounded-xl px-2 text-[11px] ${tool === k ? "bg-white/15 font-semibold" : "text-white/70"}`}
           >
-            <Icon name={k === "filters" ? "filters" : "adjust"} size={20} />
+            <Icon name={k === "filters" ? "filters" : (`adj${k[0].toUpperCase()}${k.slice(1)}` as IconName)} size={20} />
             {k === "filters" ? t("tool.filters") : t(`adjust.${k}`)}
             {(k === "filters" ? !!look.filter : changed(k)) && <span aria-hidden="true" className="absolute top-1.5 right-2 h-1.5 w-1.5 rounded-full bg-red-500" />}
           </button>
