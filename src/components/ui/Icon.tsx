@@ -9,6 +9,129 @@ const PATHS = {
       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
     </>
   ),
+  // Adjust tools (Lucide, ISC): one icon each.
+  adjExposure: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="m14.31 8 5.74 9.94" />
+      <path d="M9.69 8h11.48" />
+      <path d="m7.38 12 5.74-9.94" />
+      <path d="M9.69 16 3.95 6.06" />
+      <path d="M14.31 16H2.83" />
+      <path d="m16.62 12-5.74 9.94" />
+    </>
+  ),
+  adjBrightness: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2" />
+      <path d="M12 20v2" />
+      <path d="m4.93 4.93 1.41 1.41" />
+      <path d="m17.66 17.66 1.41 1.41" />
+      <path d="M2 12h2" />
+      <path d="M20 12h2" />
+      <path d="m6.34 17.66-1.41 1.41" />
+      <path d="m19.07 4.93-1.41 1.41" />
+    </>
+  ),
+  adjContrast: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 18a6 6 0 0 0 0-12v12z" />
+    </>
+  ),
+  adjHighlights: (
+    <>
+      <path d="m5.2 6.2 1.4 1.4" />
+      <path d="M2 13h2" />
+      <path d="M20 13h2" />
+      <path d="m17.4 7.6 1.4-1.4" />
+      <path d="M22 17H2" />
+      <path d="M22 21H2" />
+      <path d="M16 13a4 4 0 0 0-8 0" />
+      <path d="M12 5V2.5" />
+    </>
+  ),
+  adjShadows: (
+    <>
+      <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+    </>
+  ),
+  adjTemperature: (
+    <>
+      <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" />
+    </>
+  ),
+  adjTint: (
+    <>
+      <path d="m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12" />
+      <path d="m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z" />
+      <path d="m2 22 .414-.414" />
+    </>
+  ),
+  adjVibrance: (
+    <>
+      <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+      <path d="M20 2v4" />
+      <path d="M22 4h-4" />
+      <circle cx="4" cy="20" r="2" />
+    </>
+  ),
+  adjSaturation: (
+    <>
+      <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
+    </>
+  ),
+  adjBlur: (
+    <>
+      <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+      <path d="M16 17H7" />
+      <path d="M17 21H9" />
+    </>
+  ),
+  adjSharpen: (
+    <>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+      <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+      <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+      <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+    </>
+  ),
+  adjGrain: (
+    <>
+      <circle cx="12" cy="5" r="1" />
+      <circle cx="19" cy="5" r="1" />
+      <circle cx="5" cy="5" r="1" />
+      <circle cx="12" cy="12" r="1" />
+      <circle cx="19" cy="12" r="1" />
+      <circle cx="5" cy="12" r="1" />
+      <circle cx="12" cy="19" r="1" />
+      <circle cx="19" cy="19" r="1" />
+      <circle cx="5" cy="19" r="1" />
+    </>
+  ),
+  adjHue: (
+    <>
+      <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" />
+      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+    </>
+  ),
+  adjVignette: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 2a7 7 0 1 0 10 10" />
+    </>
+  ),
+  adjFade: (
+    <>
+      <circle cx="15" cy="9" r="7" />
+      <circle cx="9" cy="15" r="7" />
+    </>
+  ),
   close: <path d="M18 6L6 18M6 6l12 12" />,
   insertLeft: (
     <>
