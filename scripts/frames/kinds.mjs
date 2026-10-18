@@ -400,3 +400,182 @@ export function tornCollage(seed) {
 
 KINDS.tornBacked = tornBacked;
 KINDS.tornCollage = tornCollage;
+
+const STAMP_COLORS = ["#fbfaf6", "#f4ecd8", "#f6e0dc", "#dfe8f1", "#e3eedc", "#f7efc8"];
+const STAMP_INKS = ["#b23b3b", "#2f5d8a", "#2f6b4f", "#7a4b8f", "#a0522d", "#333333"];
+
+/** A postage stamp: perforated edge, a printed border, a value, sometimes a postmark over it. */
+export function stamp(seed) {
+  const r = rng(seed);
+  const ratio = pick(r, [4 / 5, 5 / 6, 1, 6 / 5]);
+  const w = ratio >= 1 ? 700 : 700 * ratio;
+  const h = ratio >= 1 ? 700 / ratio : 700;
+  const pad = 50;
+  const W = Math.round(w + pad * 2);
+  const H = Math.round(h + pad * 2);
+  const paper = pick(r, STAMP_COLORS);
+  const ink = pick(r, STAMP_INKS);
+  const hole = range(r, 9, 13);
+  const pitch = hole * range(r, 2.5, 2.9);
+  // Perforations: half-holes bitten out of every edge, slightly uneven.
+  const bites = [];
+  for (let x = pad + pitch / 2; x < pad + w; x += pitch) for (const y of [pad, pad + h]) bites.push([x + (r() - 0.5), y + (r() - 0.5) * 1.5, hole * range(r, 0.92, 1.06)]);
+  for (let y = pad + pitch / 2; y < pad + h; y += pitch) for (const x of [pad, pad + w]) bites.push([x + (r() - 0.5) * 1.5, y + (r() - 0.5), hole * range(r, 0.92, 1.06)]);
+  const margin = range(r, 0.07, 0.11) * Math.min(w, h);
+  const bottom = margin * range(r, 1.6, 2.6);
+  const win = { x: pad + margin, y: pad + margin, w: w - margin * 2, h: h - margin - bottom };
+  const value = pick(r, ["5", "10", "20", "25", "50", "100", "1đ", "2đ", "5đ"]);
+  const word = pick(r, ["POSTAGE", "POSTES", "BƯU CHÍNH", "AIR MAIL", "PAR AVION", "SOUVENIR"]);
+  const mark = r() < 0.5;
+  const mx = pad + w * range(r, 0.55, 0.9);
+  const my = pad + h * range(r, 0.6, 0.9);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>${grain("g", { freq: 1.2, strength: 0.07, seed, warm: true })}
+    <mask id="perf" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#fff"/><g fill="#000">${bites.map(([x, y, rr]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rr.toFixed(1)}"/>`).join("")}</g><rect x="${win.x}" y="${win.y}" width="${win.w}" height="${win.h}" fill="#000"/></mask>
+    <filter id="b" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="5"/></filter></defs>
+  <rect x="${pad + 2}" y="${pad + 5}" width="${w}" height="${h}" fill="#000" opacity="0.18" filter="url(#b)" mask="url(#perf)"/>
+  <g mask="url(#perf)">
+    <rect x="${pad}" y="${pad}" width="${w}" height="${h}" fill="${paper}" filter="url(#g)"/>
+    <rect x="${win.x - 6}" y="${win.y - 6}" width="${win.w + 12}" height="${win.h + 12}" fill="none" stroke="${ink}" stroke-width="3" opacity="0.85"/>
+    <text x="${pad + margin}" y="${(pad + h - bottom * 0.38).toFixed(1)}" font-family="Georgia, serif" font-size="${(bottom * 0.34).toFixed(1)}" letter-spacing="3" fill="${ink}">${word}</text>
+    <text x="${(pad + w - margin).toFixed(1)}" y="${(pad + h - bottom * 0.3).toFixed(1)}" text-anchor="end" font-family="Georgia, serif" font-weight="bold" font-size="${(bottom * 0.55).toFixed(1)}" fill="${ink}">${value}</text>
+  </g>
+  ${mark ? `<g transform="translate(${mx.toFixed(1)} ${my.toFixed(1)}) rotate(${range(r, -25, 25).toFixed(1)})" fill="none" stroke="#2b2b2b" stroke-opacity="${range(r, 0.35, 0.6).toFixed(2)}" stroke-width="3"><circle r="${(w * 0.17).toFixed(1)}"/><circle r="${(w * 0.13).toFixed(1)}"/>${Array.from({ length: 4 }, (_, i) => `<path d="M${(w * 0.2).toFixed(1)},${(-18 + i * 12).toFixed(1)}q${(w * 0.08).toFixed(1)},-10 ${(w * 0.16).toFixed(1)},0t${(w * 0.16).toFixed(1)},0"/>`).join("")}</g>` : ""}
+</svg>`;
+  return { svg, width: W, height: H, windows: [{ x: +(win.x / W).toFixed(4), y: +(win.y / H).toFixed(4), w: +(win.w / W).toFixed(4), h: +(win.h / H).toFixed(4) }], info: { ratio, mark, ink } };
+}
+
+const WOODS = [
+  ["oak", "#b8874f", "#7c5530"],
+  ["walnut", "#6b4a32", "#3d2a1c"],
+  ["white", "#f2efe8", "#c9c3b6"],
+  ["black", "#2a2826", "#111"],
+  ["gold", "#d9b45a", "#8a6a22"],
+  ["natural", "#d9c3a0", "#a38662"],
+];
+
+/** A picture frame: bevelled moulding with grain, sometimes a mat around the picture. */
+export function pictureFrame(seed) {
+  const r = rng(seed);
+  const ratio = pick(r, [4 / 5, 1, 3 / 4, 5 / 4, 2 / 3]);
+  const long = 1000;
+  const w = ratio >= 1 ? long : long * ratio;
+  const h = ratio >= 1 ? long / ratio : long;
+  const pad = 50;
+  const W = Math.round(w + pad * 2);
+  const H = Math.round(h + pad * 2);
+  const [woodName, wood, dark] = pick(r, WOODS);
+  const m = Math.min(w, h) * range(r, 0.06, 0.12);
+  const mat = r() < 0.55 ? Math.min(w, h) * range(r, 0.06, 0.12) : 0;
+  const matColor = pick(r, ["#f7f5ef", "#efe9dc", "#fbfbf9", "#e9e4da"]);
+  const x0 = pad;
+  const y0 = pad;
+  const x1 = pad + w;
+  const y1 = pad + h;
+  const ix0 = x0 + m;
+  const iy0 = y0 + m;
+  const ix1 = x1 - m;
+  const iy1 = y1 - m;
+  const win = { x: ix0 + mat, y: iy0 + mat, w: ix1 - ix0 - mat * 2, h: iy1 - iy0 - mat * 2 };
+  // Four mitred sides, each lit differently (light from the top left).
+  const side = (pts, shade) => `<path d="${d(pts)}" fill="${wood}" filter="url(#g)"/><path d="${d(pts)}" fill="${shade > 0 ? "#fff" : "#000"}" opacity="${Math.abs(shade).toFixed(2)}"/>`;
+  const gold = woodName === "gold";
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>
+    <filter id="g" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="${gold ? "0.9 0.9" : "0.012 0.35"}" numOctaves="3" seed="${seed}" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.2  0 0 0 0 0.13  0 0 0 0 0.05  0 0 0 0.55 -0.12" result="t"/>
+      <feComposite in="t" in2="SourceGraphic" operator="in" result="ti"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="ti"/></feMerge>
+    </filter>
+    <filter id="b" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="ib" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="4"/></filter>
+    <clipPath id="win"><rect x="${win.x}" y="${win.y}" width="${win.w}" height="${win.h}"/></clipPath>
+    <mask id="hole" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#fff"/><rect x="${x0}" y="${y0}" width="${w}" height="${h}" fill="#000"/></mask></defs>
+  <rect x="${x0 + 3}" y="${y0 + 9}" width="${w}" height="${h}" fill="#000" opacity="0.3" filter="url(#b)" mask="url(#hole)"/>
+  ${mat ? `<path d="M${ix0},${iy0}H${ix1}V${iy1}H${ix0}ZM${win.x},${win.y}v${win.h}h${win.w}v${-win.h}Z" fill="${matColor}"/><path d="M${win.x - 3},${win.y - 3}h${win.w + 6}v${win.h + 6}h${-win.w - 6}Z" fill="none" stroke="#000" stroke-opacity="0.12" stroke-width="2"/>` : ""}
+  ${side([[x0, y0], [x1, y0], [ix1, iy0], [ix0, iy0]], 0.22)}
+  ${side([[x1, y0], [x1, y1], [ix1, iy1], [ix1, iy0]], -0.12)}
+  ${side([[x1, y1], [x0, y1], [ix0, iy1], [ix1, iy1]], -0.28)}
+  ${side([[x0, y1], [x0, y0], [ix0, iy0], [ix0, iy1]], 0.08)}
+  <path d="M${x0},${y0}H${x1}V${y1}H${x0}Z" fill="none" stroke="${dark}" stroke-width="2"/>
+  <path d="M${ix0},${iy0}H${ix1}V${iy1}H${ix0}Z" fill="none" stroke="${dark}" stroke-width="2" opacity="0.8"/>
+  ${gold ? `<path d="M${x0 + m * 0.35},${y0 + m * 0.35}H${x1 - m * 0.35}V${y1 - m * 0.35}H${x0 + m * 0.35}Z" fill="none" stroke="#fff3c4" stroke-opacity="0.55" stroke-width="${(m * 0.12).toFixed(1)}" stroke-dasharray="${(m * 0.18).toFixed(1)} ${(m * 0.1).toFixed(1)}"/>` : ""}
+  <g clip-path="url(#win)"><rect x="${win.x}" y="${win.y}" width="${win.w}" height="${win.h}" fill="none" stroke="#000" stroke-opacity="0.35" stroke-width="10" filter="url(#ib)"/></g>
+</svg>`;
+  return { svg, width: W, height: H, windows: [{ x: +(win.x / W).toFixed(4), y: +(win.y / H).toFixed(4), w: +(win.w / W).toFixed(4), h: +(win.h / H).toFixed(4) }], info: { ratio, wood: woodName, mat: !!mat } };
+}
+
+/** A photo held on an album page by four paper corners. */
+export function photoCorners(seed) {
+  const r = rng(seed);
+  const ratio = pick(r, RATIOS);
+  const long = 1000;
+  const w = ratio >= 1 ? long : long * ratio;
+  const h = ratio >= 1 ? long / ratio : long;
+  const pad = 40;
+  const W = Math.round(w + pad * 2);
+  const H = Math.round(h + pad * 2);
+  const page = pick(r, [["kraft", "#c49b6c"], ["black", "#232221"], ["cream", "#efe5cf"], ["white", "#f6f4ee"], ["sage", "#cdd8c3"]]);
+  const cornerColor = pick(r, ["#1d1c1b", "#f7f5ef", "#c9a24b", "#8c2f2f", "#33415c"]);
+  const border = Math.min(w, h) * range(r, 0.09, 0.14);
+  const photo = { x: pad + border, y: pad + border, w: w - border * 2, h: h - border * 2 };
+  const rot = range(r, -2.5, 2.5);
+  const cs = Math.min(photo.w, photo.h) * range(r, 0.11, 0.15);
+  const corner = (x, y, sx, sy) => `<path d="M${x},${y}l${sx * cs},0l${-sx * cs},${sy * cs}Z" transform="translate(${(-sx * 3).toFixed(1)} ${(-sy * 3).toFixed(1)})" fill="${cornerColor}"/><path d="M${x + (sx * cs) / 2},${y}L${x},${y + (sy * cs) / 2}" stroke="#000" stroke-opacity="0.15" stroke-width="2"/>`;
+  const cx = pad + w / 2;
+  const cy = pad + h / 2;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>${grain("g", { freq: 0.85, strength: page[0] === "kraft" ? 0.2 : 0.1, seed, warm: true })}
+    <filter id="b" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+  <g transform="rotate(${rot.toFixed(2)} ${cx} ${cy})">
+    <path d="M${pad},${pad}h${w}v${h}h${-w}ZM${photo.x},${photo.y}v${photo.h}h${photo.w}v${-photo.h}Z" fill-rule="evenodd" fill="${page[1]}" filter="url(#g)"/>
+    <path d="M${photo.x + 2},${photo.y + photo.h}h${photo.w}v${-photo.h + 4}" fill="none" stroke="#000" stroke-opacity="0.25" stroke-width="4" filter="url(#b)"/>
+    ${corner(photo.x, photo.y, 1, 1)}${corner(photo.x + photo.w, photo.y, -1, 1)}${corner(photo.x + photo.w, photo.y + photo.h, -1, -1)}${corner(photo.x, photo.y + photo.h, 1, -1)}
+  </g>
+</svg>`;
+  // The window turns with the page.
+  return { svg, width: W, height: H, windows: [{ x: +(photo.x / W).toFixed(4), y: +(photo.y / H).toFixed(4), w: +(photo.w / W).toFixed(4), h: +(photo.h / H).toFixed(4), rotation: +rot.toFixed(2) }], info: { ratio, page: page[0] } };
+}
+
+const ENVELOPES = [["kraft", "#c8a374"], ["white", "#f4f1ea"], ["pink", "#efcfd0"], ["blue", "#cdd9e8"], ["sage", "#d3dec8"], ["red", "#b8443e"]];
+
+/** An open envelope with the photo sliding out of it. */
+export function envelope(seed) {
+  const r = rng(seed);
+  const ew = 1000;
+  const eh = ew * range(r, 0.58, 0.66);
+  const photoW = ew * range(r, 0.78, 0.86);
+  const photoH = photoW * pick(r, [0.75, 1, 1.2]);
+  const out = photoH * range(r, 0.55, 0.75);
+  const pad = 60;
+  const W = Math.round(ew + pad * 2);
+  const H = Math.round(eh + out + pad * 2);
+  const top = pad + out;
+  const [name, color] = pick(r, ENVELOPES);
+  const px = pad + (ew - photoW) / 2 + range(r, -15, 15);
+  const py = top - out;
+  // Front pocket: the two side flaps and the bottom flap over the photo.
+  const pocket = `M${pad},${top + eh * 0.12}L${pad + ew * 0.5},${top + eh * 0.62}L${pad + ew},${top + eh * 0.12}V${top + eh}H${pad}Z`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>${grain("g", { freq: 0.9, strength: name === "kraft" ? 0.18 : 0.09, seed, warm: true })}
+    <filter id="b" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="7"/></filter>
+    <mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#fff"/><rect x="${px}" y="${py}" width="${photoW}" height="${photoH}" fill="#000"/></mask></defs>
+  <g mask="url(#m)">
+    <rect x="${pad + 3}" y="${top + 8}" width="${ew}" height="${eh}" fill="#000" opacity="0.25" filter="url(#b)"/>
+    <rect x="${pad}" y="${top}" width="${ew}" height="${eh}" fill="${color}" filter="url(#g)"/>
+    <path d="M${pad},${top}L${pad + ew * 0.5},${top - eh * 0.45}L${pad + ew},${top}Z" fill="${color}" filter="url(#g)"/>
+    <path d="M${pad},${top}L${pad + ew * 0.5},${top - eh * 0.45}L${pad + ew},${top}" fill="none" stroke="#000" stroke-opacity="0.12" stroke-width="2"/>
+  </g>
+  <path d="${pocket}" transform="translate(0 -4)" fill="#000" opacity="0.18" filter="url(#b)"/>
+  <path d="${pocket}" fill="${color}" filter="url(#g)"/>
+  <path d="M${pad},${top + eh * 0.12}L${pad + ew * 0.5},${top + eh * 0.62}L${pad + ew},${top + eh * 0.12}" fill="none" stroke="#000" stroke-opacity="0.15" stroke-width="2"/>
+  <path d="M${pad},${top + eh}L${pad + ew * 0.5},${top + eh * 0.62}L${pad + ew},${top + eh}" fill="none" stroke="#000" stroke-opacity="0.08" stroke-width="2"/>
+</svg>`;
+  return { svg, width: W, height: H, windows: [{ x: +(px / W).toFixed(4), y: +(py / H).toFixed(4), w: +(photoW / W).toFixed(4), h: +(photoH / H).toFixed(4) }], info: { color: name } };
+}
+
+KINDS.stamp = stamp;
+KINDS.pictureFrame = pictureFrame;
+KINDS.photoCorners = photoCorners;
+KINDS.envelope = envelope;

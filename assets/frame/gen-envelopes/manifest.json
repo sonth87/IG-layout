@@ -1,0 +1,640 @@
+{
+  "id": "gen-envelopes",
+  "kind": "frame",
+  "name": {
+    "en": "Envelopes",
+    "vi": "Phong bì"
+  },
+  "collections": [
+    "love",
+    "journal",
+    "vintage"
+  ],
+  "order": 17,
+  "items": [
+    {
+      "id": "envelope-1",
+      "name": {
+        "en": "Envelope, red",
+        "vi": "Phong bì đỏ"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "red"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "đỏ"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #1",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-1",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1332,
+      "windows": [
+        {
+          "x": 0.1458,
+          "y": 0.045,
+          "w": 0.6966,
+          "h": 0.5857
+        }
+      ]
+    },
+    {
+      "id": "envelope-2",
+      "name": {
+        "en": "Envelope, red 2",
+        "vi": "Phong bì đỏ 2"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "red"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "đỏ"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #2",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-2",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1156,
+      "windows": [
+        {
+          "x": 0.1437,
+          "y": 0.0519,
+          "w": 0.7196,
+          "h": 0.5229
+        }
+      ]
+    },
+    {
+      "id": "envelope-3",
+      "name": {
+        "en": "Envelope, sage",
+        "vi": "Phong bì xanh xám"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "sage"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "xanh xám"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #3",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-3",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1200,
+      "windows": [
+        {
+          "x": 0.1499,
+          "y": 0.05,
+          "w": 0.6992,
+          "h": 0.6526
+        }
+      ]
+    },
+    {
+      "id": "envelope-4",
+      "name": {
+        "en": "Envelope, white",
+        "vi": "Phong bì trắng"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "white"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #4",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-4",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1117,
+      "windows": [
+        {
+          "x": 0.1401,
+          "y": 0.0537,
+          "w": 0.7202,
+          "h": 0.5416
+        }
+      ]
+    },
+    {
+      "id": "envelope-5",
+      "name": {
+        "en": "Envelope, kraft",
+        "vi": "Phong bì kraft"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "kraft"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #5",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-5",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1181,
+      "windows": [
+        {
+          "x": 0.1267,
+          "y": 0.0508,
+          "w": 0.7516,
+          "h": 0.5346
+        }
+      ]
+    },
+    {
+      "id": "envelope-6",
+      "name": {
+        "en": "Envelope, blue",
+        "vi": "Phong bì xanh dương"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "blue"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "xanh dương"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #6",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-6",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1203,
+      "windows": [
+        {
+          "x": 0.1402,
+          "y": 0.0499,
+          "w": 0.6966,
+          "h": 0.6485
+        }
+      ]
+    },
+    {
+      "id": "envelope-7",
+      "name": {
+        "en": "Envelope, blue 2",
+        "vi": "Phong bì xanh dương 2"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "blue"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "xanh dương"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #7",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-7",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1351,
+      "windows": [
+        {
+          "x": 0.147,
+          "y": 0.0444,
+          "w": 0.7009,
+          "h": 0.6972
+        }
+      ]
+    },
+    {
+      "id": "envelope-8",
+      "name": {
+        "en": "Envelope, blue 3",
+        "vi": "Phong bì xanh dương 3"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "blue"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "xanh dương"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #8",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-8",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1142,
+      "windows": [
+        {
+          "x": 0.1281,
+          "y": 0.0525,
+          "w": 0.7411,
+          "h": 0.5451
+        }
+      ]
+    },
+    {
+      "id": "envelope-9",
+      "name": {
+        "en": "Envelope, sage 2",
+        "vi": "Phong bì xanh xám 2"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "sage"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "xanh xám"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #9",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-9",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1170,
+      "windows": [
+        {
+          "x": 0.1264,
+          "y": 0.0513,
+          "w": 0.7572,
+          "h": 0.5437
+        }
+      ]
+    },
+    {
+      "id": "envelope-10",
+      "name": {
+        "en": "Envelope, pink",
+        "vi": "Phong bì hồng"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "pink"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "hồng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #10",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-10",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1068,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1176,
+          "y": 0.0409,
+          "w": 0.762,
+          "h": 0.6976
+        }
+      ]
+    },
+    {
+      "id": "envelope-11",
+      "name": {
+        "en": "Envelope, red 3",
+        "vi": "Phong bì đỏ 3"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "red"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "đỏ"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #11",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-11",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1290,
+      "windows": [
+        {
+          "x": 0.1339,
+          "y": 0.0465,
+          "w": 0.7343,
+          "h": 0.6375
+        }
+      ]
+    },
+    {
+      "id": "envelope-12",
+      "name": {
+        "en": "Envelope, kraft 2",
+        "vi": "Phong bì kraft 2"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "kraft"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #12",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-12",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1303,
+      "windows": [
+        {
+          "x": 0.1361,
+          "y": 0.046,
+          "w": 0.7018,
+          "h": 0.6033
+        }
+      ]
+    },
+    {
+      "id": "envelope-13",
+      "name": {
+        "en": "Envelope, kraft 3",
+        "vi": "Phong bì kraft 3"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "kraft"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #13",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-13",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1085,
+      "windows": [
+        {
+          "x": 0.1257,
+          "y": 0.0553,
+          "w": 0.7222,
+          "h": 0.5591
+        }
+      ]
+    },
+    {
+      "id": "envelope-14",
+      "name": {
+        "en": "Envelope, white 2",
+        "vi": "Phong bì trắng 2"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "white"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #14",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-14",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1241,
+      "windows": [
+        {
+          "x": 0.1346,
+          "y": 0.0483,
+          "w": 0.7268,
+          "h": 0.656
+        }
+      ]
+    },
+    {
+      "id": "envelope-15",
+      "name": {
+        "en": "Envelope, white 3",
+        "vi": "Phong bì trắng 3"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "white"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #15",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-15",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1238,
+      "windows": [
+        {
+          "x": 0.1417,
+          "y": 0.0485,
+          "w": 0.7253,
+          "h": 0.6562
+        }
+      ]
+    },
+    {
+      "id": "envelope-16",
+      "name": {
+        "en": "Envelope, pink 2",
+        "vi": "Phong bì hồng 2"
+      },
+      "tags": {
+        "en": [
+          "envelope",
+          "letter",
+          "mail",
+          "pink"
+        ],
+        "vi": [
+          "phong bì",
+          "thư",
+          "lá thư",
+          "hồng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "envelope #16",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#envelope-16",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1120,
+      "height": 1347,
+      "windows": [
+        {
+          "x": 0.1338,
+          "y": 0.0445,
+          "w": 0.7067,
+          "h": 0.7052
+        }
+      ]
+    }
+  ]
+}

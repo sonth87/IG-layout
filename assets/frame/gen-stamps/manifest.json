@@ -1,0 +1,966 @@
+{
+  "id": "gen-stamps",
+  "kind": "frame",
+  "name": {
+    "en": "Stamps",
+    "vi": "Con tem"
+  },
+  "collections": [
+    "vintage",
+    "travel",
+    "journal"
+  ],
+  "order": 14,
+  "items": [
+    {
+      "id": "stamp-1",
+      "name": {
+        "en": "Postage stamp",
+        "vi": "Con tem"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail",
+          "postmark"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa",
+          "dấu bưu điện"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #1",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-1",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1526,
+          "y": 0.1526,
+          "w": 0.6948,
+          "h": 0.5921
+        }
+      ]
+    },
+    {
+      "id": "stamp-2",
+      "name": {
+        "en": "Postage stamp 2",
+        "vi": "Con tem 2"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #2",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-2",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1326,
+          "y": 0.1326,
+          "w": 0.7348,
+          "h": 0.6877
+        }
+      ]
+    },
+    {
+      "id": "stamp-3",
+      "name": {
+        "en": "Postage stamp 3",
+        "vi": "Con tem 3"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #3",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-3",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1307,
+          "y": 0.1307,
+          "w": 0.7386,
+          "h": 0.6637
+        }
+      ]
+    },
+    {
+      "id": "stamp-4",
+      "name": {
+        "en": "Postage stamp 4",
+        "vi": "Con tem 4"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #4",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-4",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 683,
+      "windows": [
+        {
+          "x": 0.1137,
+          "y": 0.1331,
+          "w": 0.7727,
+          "h": 0.6719
+        }
+      ]
+    },
+    {
+      "id": "stamp-5",
+      "name": {
+        "en": "Postage stamp 5",
+        "vi": "Con tem 5"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #5",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-5",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1508,
+          "y": 0.1508,
+          "w": 0.6983,
+          "h": 0.6043
+        }
+      ]
+    },
+    {
+      "id": "stamp-6",
+      "name": {
+        "en": "Postage stamp 6",
+        "vi": "Con tem 6"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #6",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-6",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1251,
+          "y": 0.1251,
+          "w": 0.7497,
+          "h": 0.6889
+        }
+      ]
+    },
+    {
+      "id": "stamp-7",
+      "name": {
+        "en": "Postage stamp 7",
+        "vi": "Con tem 7"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #7",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-7",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 660,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1681,
+          "y": 0.1386,
+          "w": 0.6639,
+          "h": 0.6128
+        }
+      ]
+    },
+    {
+      "id": "stamp-8",
+      "name": {
+        "en": "Postage stamp 8",
+        "vi": "Con tem 8"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail",
+          "postmark"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa",
+          "dấu bưu điện"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #8",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-8",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 660,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.136,
+          "y": 0.1122,
+          "w": 0.7281,
+          "h": 0.7063
+        }
+      ]
+    },
+    {
+      "id": "stamp-9",
+      "name": {
+        "en": "Postage stamp 9",
+        "vi": "Con tem 9"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #9",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-9",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 660,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1657,
+          "y": 0.1367,
+          "w": 0.6687,
+          "h": 0.6688
+        }
+      ]
+    },
+    {
+      "id": "stamp-10",
+      "name": {
+        "en": "Postage stamp 10",
+        "vi": "Con tem 10"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail",
+          "postmark"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa",
+          "dấu bưu điện"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #10",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-10",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1354,
+          "y": 0.1354,
+          "w": 0.7291,
+          "h": 0.6681
+        }
+      ]
+    },
+    {
+      "id": "stamp-11",
+      "name": {
+        "en": "Postage stamp 11",
+        "vi": "Con tem 11"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #11",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-11",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.137,
+          "y": 0.137,
+          "w": 0.726,
+          "h": 0.6249
+        }
+      ]
+    },
+    {
+      "id": "stamp-12",
+      "name": {
+        "en": "Postage stamp 12",
+        "vi": "Con tem 12"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #12",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-12",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 683,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.157,
+          "y": 0.1341,
+          "w": 0.6865,
+          "h": 0.6599
+        }
+      ]
+    },
+    {
+      "id": "stamp-13",
+      "name": {
+        "en": "Postage stamp 13",
+        "vi": "Con tem 13"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #13",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-13",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1344,
+          "y": 0.1344,
+          "w": 0.7312,
+          "h": 0.6867
+        }
+      ]
+    },
+    {
+      "id": "stamp-14",
+      "name": {
+        "en": "Postage stamp 14",
+        "vi": "Con tem 14"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #14",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-14",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 683,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1563,
+          "y": 0.1335,
+          "w": 0.6878,
+          "h": 0.6557
+        }
+      ]
+    },
+    {
+      "id": "stamp-15",
+      "name": {
+        "en": "Postage stamp 15",
+        "vi": "Con tem 15"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #15",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-15",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 660,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.163,
+          "y": 0.1345,
+          "w": 0.6739,
+          "h": 0.6296
+        }
+      ]
+    },
+    {
+      "id": "stamp-16",
+      "name": {
+        "en": "Postage stamp 16",
+        "vi": "Con tem 16"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #16",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-16",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.145,
+          "y": 0.145,
+          "w": 0.71,
+          "h": 0.6218
+        }
+      ]
+    },
+    {
+      "id": "stamp-17",
+      "name": {
+        "en": "Postage stamp 17",
+        "vi": "Con tem 17"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #17",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-17",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1522,
+          "y": 0.1522,
+          "w": 0.6955,
+          "h": 0.586
+        }
+      ]
+    },
+    {
+      "id": "stamp-18",
+      "name": {
+        "en": "Postage stamp 18",
+        "vi": "Con tem 18"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #18",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-18",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 683,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1402,
+          "y": 0.1197,
+          "w": 0.7202,
+          "h": 0.7038
+        }
+      ]
+    },
+    {
+      "id": "stamp-19",
+      "name": {
+        "en": "Postage stamp 19",
+        "vi": "Con tem 19"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail",
+          "postmark"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa",
+          "dấu bưu điện"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #19",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-19",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 660,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1362,
+          "y": 0.1123,
+          "w": 0.7277,
+          "h": 0.7292
+        }
+      ]
+    },
+    {
+      "id": "stamp-20",
+      "name": {
+        "en": "Postage stamp 20",
+        "vi": "Con tem 20"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail",
+          "postmark"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa",
+          "dấu bưu điện"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #20",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-20",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 683,
+      "windows": [
+        {
+          "x": 0.1163,
+          "y": 0.1362,
+          "w": 0.7674,
+          "h": 0.6613
+        }
+      ]
+    },
+    {
+      "id": "stamp-21",
+      "name": {
+        "en": "Postage stamp 21",
+        "vi": "Con tem 21"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail",
+          "postmark"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa",
+          "dấu bưu điện"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #21",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-21",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 683,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1539,
+          "y": 0.1314,
+          "w": 0.6926,
+          "h": 0.6485
+        }
+      ]
+    },
+    {
+      "id": "stamp-22",
+      "name": {
+        "en": "Postage stamp 22",
+        "vi": "Con tem 22"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail",
+          "postmark"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa",
+          "dấu bưu điện"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #22",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-22",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 800,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.152,
+          "y": 0.152,
+          "w": 0.6959,
+          "h": 0.5601
+        }
+      ]
+    },
+    {
+      "id": "stamp-23",
+      "name": {
+        "en": "Postage stamp 23",
+        "vi": "Con tem 23"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #23",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-23",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 660,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1461,
+          "y": 0.1205,
+          "w": 0.7079,
+          "h": 0.7081
+        }
+      ]
+    },
+    {
+      "id": "stamp-24",
+      "name": {
+        "en": "Postage stamp 24",
+        "vi": "Con tem 24"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postage",
+          "perforated",
+          "mail"
+        ],
+        "vi": [
+          "tem",
+          "tem thư",
+          "bưu chính",
+          "răng cưa"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "stamp #24",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#stamp-24",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 683,
+      "height": 800,
+      "windows": [
+        {
+          "x": 0.1463,
+          "y": 0.1249,
+          "w": 0.7078,
+          "h": 0.6922
+        }
+      ]
+    }
+  ]
+}
