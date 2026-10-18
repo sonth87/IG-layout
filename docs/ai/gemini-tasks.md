@@ -15,7 +15,7 @@ Trạng thái:
 | G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | **Đã merge sau khi lọc** — 42 / 46 chất liệu, 4 / 22 lớp phủ (2026-10-18) |
 | G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Xong (chờ duyệt) |
 | G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | **Đã duyệt, đã merge** (2026-10-18) |
-| G8 — Lớp phủ (làm lại, ~30) | `gemini/g8-overlays` | Chưa giao |
+| G8 — Lớp phủ (làm lại, ~30) | `gemini/g8-overlays` | Xong (chờ duyệt — 33 lớp phủ: 4 giữ lại + 29 tự sinh) |
 | G9 — Sticker lễ hội & Việt Nam (~80) | `gemini/g9-festive` | Chưa giao |
 
 ---
