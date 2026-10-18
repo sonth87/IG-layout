@@ -74,6 +74,11 @@ if (cmd === "explore") {
   if (kind === "scrap") {
     return { name: info.grid ? { en: "Torn grid paper", vi: "Mẩu giấy ô ly xé" } : { en: "Torn notebook paper", vi: "Mẩu giấy vở xé" }, tags: { en: ["paper", "torn", "notebook", "scrap", info.grid ? "grid" : "lined"], vi: ["giấy", "xé", "giấy vở", "mẩu giấy", info.grid ? "ô ly" : "kẻ dòng"] } };
   }
+  if (kind === "tornPiece") {
+    const S = { quad: ["", ""], trapezoid: [", trapezoid", " hình thang"], skew: [", slanted", " xiên"], poly: [`, ${info.sides} sides`, ` ${info.sides} cạnh`], round: [", round", " tròn"], corner: [", corner torn off", " mất góc"], strip: [", strip", " dải dài"] }[info.shape];
+    const T = info.torn === info.sides ? ["torn all round", "xé quanh"] : [`${info.torn} torn side${info.torn > 1 ? "s" : ""}`, `xé ${info.torn} cạnh`];
+    return { name: { en: `Torn photo${S[0]} (${T[0]})`, vi: `Ảnh xé${S[1]} (${T[1]})` }, tags: { en: ["torn", "ripped", "paper", "photo", info.shape], vi: ["xé", "ảnh xé", "giấy xé", S[1].trim() || "chữ nhật"] } };
+  }
   if (kind === "stamp") return { name: { en: "Postage stamp", vi: "Con tem" }, tags: { en: ["stamp", "postage", "perforated", "mail", ...(info.mark ? ["postmark"] : [])], vi: ["tem", "tem thư", "bưu chính", "răng cưa", ...(info.mark ? ["dấu bưu điện"] : [])] } };
   if (kind === "pictureFrame") {
     const Wd = { oak: ["Oak", "gỗ sồi"], walnut: ["Walnut", "gỗ óc chó"], white: ["White", "trắng"], black: ["Black", "đen"], gold: ["Gold", "vàng"], natural: ["Natural wood", "gỗ mộc"] }[info.wood];

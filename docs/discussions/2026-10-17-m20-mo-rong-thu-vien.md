@@ -205,3 +205,5 @@ Phim, polaroid, khung tranh cũng theo tinh thần này. Ví dụ phim thì lỗ
 ## 13. Góp ý về kiểu xé (2026-10-18)
 
 Chủ dự án: kiểu xé giấy là **ảnh bị xé ở viền ngoài**, không phải khung giấy bị xé thủng ở viền trong. → Bỏ gói "giấy xé có lỗ"; các kiểu xé gồm: ảnh xé (một mảnh), **ảnh xé ghép** 2–4 mảnh chồng mép (như IG-4036), **ảnh xé đặt trên mảnh giấy lót** (cả hai xé mép ngoài).
+
+Bổ sung (2026-10-18): giấy xé **không nhất thiết vuông vức** — hình chữ nhật, hình thang, cạnh ngắn cạnh dài, cạnh xiên, không đều, xé không thẳng, vát, lẹm; xơ / lõi giấy chỗ to chỗ nhỏ; xé 1 tới nhiều cạnh, kể cả tròn. → Bộ sinh "mảnh ảnh xé" (`tornPiece`) thay cho gói ảnh xé cũ.
