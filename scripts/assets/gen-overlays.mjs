@@ -1198,13 +1198,889 @@ const PAPER_ITEMS = [
   },
 ];
 
-async function buildPack(packId, generatedSpecs) {
+// ============================================================================
+// PACK 3: lens-flares (blend: "screen", pure black background, 20 items)
+// ============================================================================
+
+function polyPoints(cx, cy, r, sides = 6, rotDeg = 15) {
+  const pts = [];
+  const rot = (rotDeg * Math.PI) / 180;
+  for (let i = 0; i < sides; i++) {
+    const a = rot + (i * 2 * Math.PI) / sides;
+    pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`);
+  }
+  return pts.join(" ");
+}
+
+function starNeedles(cx, cy, spikes, rLong, rShort, width, rotDeg = 0, fill = "#ffffff", opacity = 0.85) {
+  let out = "";
+  for (let i = 0; i < spikes; i++) {
+    const a = ((rotDeg + (i * 360) / spikes) * Math.PI) / 180;
+    const len = i % 2 === 0 ? rLong : rShort;
+    const tx = cx + Math.cos(a) * len;
+    const ty = cy + Math.sin(a) * len;
+    const px = -Math.sin(a) * width;
+    const py = Math.cos(a) * width;
+    out += `<polygon points="${(cx + px).toFixed(1)},${(cy + py).toFixed(1)} ${tx.toFixed(1)},${ty.toFixed(1)} ${(cx - px).toFixed(1)},${(cy - py).toFixed(1)}" fill="${fill}" fill-opacity="${opacity}"/>`;
+  }
+  return out;
+}
+
+function ghostChainSvg(sx, sy, tx, ty, specs) {
+  let out = "";
+  const dx = tx - sx;
+  const dy = ty - sy;
+  const angleDeg = (Math.atan2(dy, dx) * 180) / Math.PI;
+  for (const g of specs) {
+    const gx = sx + dx * g.t;
+    const gy = sy + dy * g.t;
+    const sides = g.sides || 6;
+    const pts = polyPoints(gx, gy, g.r, sides, angleDeg + (g.rot || 0));
+    if (g.ring) {
+      out += `<polygon points="${pts}" fill="${g.col}" fill-opacity="${(g.op * 0.25).toFixed(2)}" stroke="${g.col}" stroke-width="${g.sw || 3}" stroke-opacity="${g.op}"/>`;
+    } else {
+      out += `<polygon points="${pts}" fill="${g.col}" fill-opacity="${g.op}" stroke="${g.col}" stroke-width="1.5" stroke-opacity="${Math.min(1, g.op * 1.4).toFixed(2)}"/>`;
+    }
+  }
+  return out;
+}
+
+const FLARE_ITEMS = [
+  {
+    id: "ov-flare-helios-swirl-gold",
+    name: { en: "Vintage Helios Swirly Golden Ring Flare", vi: "Quầng lóe xoáy ống kính cổ Helios vàng ấm" },
+    tags: {
+      en: ["lens flare", "helios", "swirl", "golden", "vintage"],
+      vi: ["lóe ống kính", "xoáy", "vàng ấm", "cổ điển", "helios"],
+    },
+    collections: ["vintage", "summer"],
+    blend: "screen",
+    seed: 301,
+    width: 1200,
+    height: 1200,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="hcore" cx="18%" cy="16%" r="48%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="16%" stop-color="#ffe8a3" stop-opacity="0.88"/>
+            <stop offset="44%" stop-color="#ff8c24" stop-opacity="0.44"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="hring" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="68%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="79%" stop-color="#ff7722" stop-opacity="0.32"/>
+            <stop offset="86%" stop-color="#ffe484" stop-opacity="0.72"/>
+            <stop offset="92%" stop-color="#68d8ff" stop-opacity="0.38"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="hmaskg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+            <stop offset="55%" stop-color="#ffffff" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0.9"/>
+          </linearGradient>
+          <mask id="hm"><rect width="${w}" height="${h}" fill="url(#hmaskg)"/></mask>
+          <filter id="hb"><feGaussianBlur stdDeviation="7"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <ellipse cx="620" cy="610" rx="510" ry="440" transform="rotate(-24 620 610)" fill="url(#hring)" mask="url(#hm)" filter="url(#hb)"/>
+        <rect width="${w}" height="${h}" fill="url(#hcore)"/>
+        <g filter="url(#hb)">
+          ${ghostChainSvg(216, 192, 980, 1010, [
+            { t: 0.28, r: 52, col: "#ffd27a", op: 0.34, sides: 8 },
+            { t: 0.46, r: 94, col: "#ff9442", op: 0.28, sides: 8, ring: true, sw: 4 },
+            { t: 0.68, r: 64, col: "#82f0c8", op: 0.26, sides: 8 },
+            { t: 0.88, r: 132, col: "#ffc46b", op: 0.24, sides: 8, ring: true, sw: 5 },
+          ])}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-hex-aperture-chain",
+    name: { en: "Hexagonal Aperture Ghost Chain Sun Flare", vi: "Chuỗi phản xạ lá khẩu lục giác nắng chiều" },
+    tags: {
+      en: ["hexagonal", "aperture", "lens flare", "sun", "ghosts"],
+      vi: ["lá khẩu", "lục giác", "phản xạ", "nắng chiều", "ống kính"],
+    },
+    collections: ["summer", "vintage"],
+    blend: "screen",
+    seed: 302,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const sx = 145, sy = 165, tx = 995, ty = 1260;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="sunc" cx="13%" cy="12%" r="46%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+            <stop offset="15%" stop-color="#fff0b8" stop-opacity="0.92"/>
+            <stop offset="42%" stop-color="#ff8e2b" stop-opacity="0.46"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="gb"><feGaussianBlur stdDeviation="6"/></filter>
+          <filter id="sb"><feGaussianBlur stdDeviation="2.5"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#sunc)"/>
+        <g filter="url(#sb)">${starNeedles(sx, sy, 12, 340, 165, 5, 12, "#fff5d6", 0.72)}</g>
+        <g filter="url(#gb)">
+          ${ghostChainSvg(sx, sy, tx, ty, [
+            { t: 0.18, r: 36, col: "#ffe89e", op: 0.42, sides: 6 },
+            { t: 0.31, r: 68, col: "#ff9b42", op: 0.32, sides: 6, ring: true, sw: 4 },
+            { t: 0.44, r: 44, col: "#74f2ce", op: 0.34, sides: 6 },
+            { t: 0.58, r: 108, col: "#ffc864", op: 0.26, sides: 6, ring: true, sw: 5 },
+            { t: 0.71, r: 58, col: "#ff6e8e", op: 0.30, sides: 6 },
+            { t: 0.85, r: 88, col: "#ffe082", op: 0.28, sides: 6 },
+            { t: 1.02, r: 156, col: "#ff8c3b", op: 0.22, sides: 6, ring: true, sw: 6 },
+          ])}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-octa-chromatic-ghosts",
+    name: { en: "Multi-Coated Octagonal Chromatic Lens Ghosts", vi: "Phản xạ lá khẩu bát giác tán sắc lục lam" },
+    tags: {
+      en: ["octagonal", "multi-coated", "lens flare", "cyan", "emerald"],
+      vi: ["bát giác", "tráng phủ", "lục lam", "phản xạ", "thấu kính"],
+    },
+    collections: ["vintage", "summer"],
+    blend: "screen",
+    seed: 303,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const sx = 960, sy = 180, tx = 140, ty = 1240;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="oc" cx="86%" cy="13%" r="44%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="18%" stop-color="#d4fff5" stop-opacity="0.86"/>
+            <stop offset="48%" stop-color="#2ad4b8" stop-opacity="0.38"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="ob"><feGaussianBlur stdDeviation="7"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#oc)"/>
+        <g filter="url(#ob)">
+          ${ghostChainSvg(sx, sy, tx, ty, [
+            { t: 0.20, r: 48, col: "#64ffda", op: 0.36, sides: 8 },
+            { t: 0.35, r: 92, col: "#38b6ff", op: 0.30, sides: 8, ring: true, sw: 4 },
+            { t: 0.50, r: 62, col: "#b388ff", op: 0.32, sides: 8 },
+            { t: 0.64, r: 118, col: "#4ce8b5", op: 0.26, sides: 8, ring: true, sw: 5 },
+            { t: 0.79, r: 74, col: "#ffd56b", op: 0.30, sides: 8 },
+            { t: 0.95, r: 152, col: "#52abff", op: 0.24, sides: 8, ring: true, sw: 6 },
+          ])}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-anamorphic-cyan-double",
+    name: { en: "Dual Horizontal Anamorphic Cyan Sci-Fi Flare", vi: "Tia lóe ngang điện ảnh kép màu xanh băng" },
+    tags: {
+      en: ["anamorphic", "cyan", "horizontal", "cinematic", "flare"],
+      vi: ["tia sáng ngang", "điện ảnh", "xanh băng", "anamorphic", "lóe sáng"],
+    },
+    collections: ["vintage"],
+    blend: "screen",
+    seed: 304,
+    width: 1400,
+    height: 1050,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="ac1" cx="32%" cy="28%" r="34%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="18%" stop-color="#a8f5ff" stop-opacity="0.82"/>
+            <stop offset="50%" stop-color="#0088ff" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="ac2" cx="74%" cy="68%" r="28%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.92"/>
+            <stop offset="22%" stop-color="#80deea" stop-opacity="0.72"/>
+            <stop offset="55%" stop-color="#1e56ff" stop-opacity="0.24"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="abar" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="12%" stop-color="#0077ff" stop-opacity="0.42"/>
+            <stop offset="32%" stop-color="#ffffff" stop-opacity="0.95"/>
+            <stop offset="68%" stop-color="#4dd0e1" stop-opacity="0.65"/>
+            <stop offset="92%" stop-color="#0066ff" stop-opacity="0.32"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="ab1"><feGaussianBlur stdDeviation="16"/></filter>
+          <filter id="ab2"><feGaussianBlur stdDeviation="3.5"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#ac1)"/>
+        <rect width="${w}" height="${h}" fill="url(#ac2)"/>
+        <ellipse cx="700" cy="294" rx="680" ry="30" fill="url(#abar)" filter="url(#ab1)"/>
+        <ellipse cx="700" cy="294" rx="660" ry="6" fill="url(#abar)" filter="url(#ab2)"/>
+        <ellipse cx="740" cy="714" rx="620" ry="24" fill="url(#abar)" filter="url(#ab1)" opacity="0.82"/>
+        <ellipse cx="740" cy="714" rx="600" ry="5" fill="url(#abar)" filter="url(#ab2)" opacity="0.88"/>
+        <ellipse cx="920" cy="294" rx="95" ry="38" fill="none" stroke="#64ffda" stroke-width="3" stroke-opacity="0.36" filter="url(#ab2)"/>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-anamorphic-amber-cinema",
+    name: { en: "Warm Amber Gold Anamorphic Cinema Flare", vi: "Tia lóe ngang điện ảnh vàng hổ phách" },
+    tags: {
+      en: ["anamorphic", "amber", "gold", "cinema", "streak"],
+      vi: ["tia lóe ngang", "hổ phách", "vàng kim", "điện ảnh", "ấm áp"],
+    },
+    collections: ["vintage", "summer"],
+    blend: "screen",
+    seed: 305,
+    width: 1400,
+    height: 1050,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="amc" cx="46%" cy="48%" r="42%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="16%" stop-color="#ffe596" stop-opacity="0.86"/>
+            <stop offset="45%" stop-color="#ff7b1c" stop-opacity="0.36"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="ambar" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="14%" stop-color="#ff6600" stop-opacity="0.45"/>
+            <stop offset="46%" stop-color="#fff8dc" stop-opacity="0.96"/>
+            <stop offset="82%" stop-color="#ff8811" stop-opacity="0.48"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="amb1"><feGaussianBlur stdDeviation="18"/></filter>
+          <filter id="amb2"><feGaussianBlur stdDeviation="3.5"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#amc)"/>
+        <ellipse cx="680" cy="504" rx="680" ry="38" fill="url(#ambar)" filter="url(#amb1)"/>
+        <ellipse cx="680" cy="504" rx="660" ry="7" fill="url(#ambar)" filter="url(#amb2)"/>
+        <ellipse cx="320" cy="504" rx="110" ry="48" fill="#ffb74d" fill-opacity="0.22" stroke="#ffd54f" stroke-width="3" stroke-opacity="0.45" filter="url(#amb2)"/>
+        <ellipse cx="1040" cy="504" rx="140" ry="56" fill="none" stroke="#ff9800" stroke-width="4" stroke-opacity="0.38" filter="url(#amb2)"/>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-anamorphic-rose-neon",
+    name: { en: "Neon Rose & Violet Anamorphic Lens Streak", vi: "Tia lóe ngang hồng tím neon hiện đại" },
+    tags: {
+      en: ["anamorphic", "neon", "rose", "violet", "cyber"],
+      vi: ["tia lóe", "hồng tím", "neon", "điện ảnh", "ban đêm"],
+    },
+    collections: ["cute", "vintage"],
+    blend: "screen",
+    seed: 306,
+    width: 1400,
+    height: 1050,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="rnc" cx="62%" cy="38%" r="40%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="18%" stop-color="#ffb2e6" stop-opacity="0.84"/>
+            <stop offset="50%" stop-color="#9c27b0" stop-opacity="0.36"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="rnbar" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="16%" stop-color="#7c4dff" stop-opacity="0.52"/>
+            <stop offset="62%" stop-color="#ffffff" stop-opacity="0.96"/>
+            <stop offset="88%" stop-color="#ff4081" stop-opacity="0.58"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="rnb1"><feGaussianBlur stdDeviation="16"/></filter>
+          <filter id="rnb2"><feGaussianBlur stdDeviation="3.5"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#rnc)"/>
+        <ellipse cx="700" cy="399" rx="680" ry="34" fill="url(#rnbar)" filter="url(#rnb1)"/>
+        <ellipse cx="700" cy="399" rx="660" ry="6.5" fill="url(#rnbar)" filter="url(#rnb2)"/>
+        <ellipse cx="420" cy="399" rx="96" ry="42" fill="#e040fb" fill-opacity="0.22" stroke="#ff80ab" stroke-width="3" stroke-opacity="0.45" filter="url(#rnb2)"/>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-sunset-corner-burst",
+    name: { en: "Blazing Sunset Corner Starburst Lens Flare", vi: "Nắng hoàng hôn bùng sáng góc trái kèm tia sao" },
+    tags: {
+      en: ["sunset", "starburst", "corner flare", "warm", "sun"],
+      vi: ["hoàng hôn", "tia sao", "quầng nắng", "góc trái", "rực rỡ"],
+    },
+    collections: ["summer", "vintage"],
+    blend: "screen",
+    seed: 307,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const sx = 85, sy = 95;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="scb" cx="8%" cy="7%" r="68%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+            <stop offset="16%" stop-color="#ffe58f" stop-opacity="0.92"/>
+            <stop offset="42%" stop-color="#ff6d1f" stop-opacity="0.54"/>
+            <stop offset="75%" stop-color="#9e1900" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="scblur"><feGaussianBlur stdDeviation="4"/></filter>
+          <filter id="gblur"><feGaussianBlur stdDeviation="8"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#scb)"/>
+        <g filter="url(#scblur)">${starNeedles(sx, sy, 16, 620, 280, 7, 8, "#fff2c2", 0.78)}</g>
+        <g filter="url(#gblur)">
+          ${ghostChainSvg(sx, sy, 980, 1280, [
+            { t: 0.32, r: 54, col: "#ffd166", op: 0.34, sides: 6 },
+            { t: 0.52, r: 112, col: "#ff7b29", op: 0.28, sides: 6, ring: true, sw: 5 },
+            { t: 0.74, r: 68, col: "#64dfdf", op: 0.28, sides: 6 },
+            { t: 0.92, r: 148, col: "#ffb703", op: 0.24, sides: 6, ring: true, sw: 6 },
+          ])}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-morning-peach-corner",
+    name: { en: "Dreamy Morning Peach & Champagne Corner Glow", vi: "Quầng nắng sớm hồng đào dịu góc phải" },
+    tags: {
+      en: ["morning", "peach", "champagne", "soft flare", "wedding"],
+      vi: ["nắng sớm", "hồng đào", "dịu dàng", "lãng mạn", "góc phải"],
+    },
+    collections: ["wedding", "cute", "summer"],
+    blend: "screen",
+    seed: 308,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const sx = w - 95, sy = 110;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="mp1" cx="92%" cy="8%" r="66%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="20%" stop-color="#ffe4d6" stop-opacity="0.88"/>
+            <stop offset="48%" stop-color="#ff9ebb" stop-opacity="0.46"/>
+            <stop offset="80%" stop-color="#d46a92" stop-opacity="0.14"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="mpb"><feGaussianBlur stdDeviation="9"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#mp1)"/>
+        <g filter="url(#mpb)">
+          <circle cx="720" cy="440" r="88" fill="#ffd6e0" fill-opacity="0.24" stroke="#ffacc5" stroke-width="3" stroke-opacity="0.42"/>
+          <circle cx="520" cy="690" r="142" fill="#fff0c2" fill-opacity="0.16" stroke="#ffe099" stroke-width="4" stroke-opacity="0.36"/>
+          <circle cx="310" cy="960" r="96" fill="#ffc2d4" fill-opacity="0.24" stroke="#ff9ebb" stroke-width="3" stroke-opacity="0.38"/>
+          <circle cx="170" cy="1150" r="175" fill="none" stroke="#ffd6a5" stroke-width="5" stroke-opacity="0.28"/>
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-rainbow-prism-arc",
+    name: { en: "Spectral Rainbow Diffraction Arc Lens Flare", vi: "Cung tròn cầu vồng tán sắc quang học" },
+    tags: {
+      en: ["rainbow", "prism arc", "diffraction", "spectrum", "flare"],
+      vi: ["cầu vồng", "cung tròn", "tán sắc", "quang học", "lăng kính"],
+    },
+    collections: ["summer", "cute"],
+    blend: "screen",
+    seed: 309,
+    width: 1200,
+    height: 1200,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="parc" cx="18%" cy="18%" r="72%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.96"/>
+            <stop offset="14%" stop-color="#fff3b0" stop-opacity="0.72"/>
+            <stop offset="35%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="66%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="71%" stop-color="#ff3b56" stop-opacity="0.48"/>
+            <stop offset="75%" stop-color="#ffaa2b" stop-opacity="0.54"/>
+            <stop offset="79%" stop-color="#ffee4a" stop-opacity="0.56"/>
+            <stop offset="83%" stop-color="#38e884" stop-opacity="0.50"/>
+            <stop offset="87%" stop-color="#36a2ff" stop-opacity="0.52"/>
+            <stop offset="91%" stop-color="#a64dff" stop-opacity="0.46"/>
+            <stop offset="96%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="pb"><feGaussianBlur stdDeviation="8"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#parc)" filter="url(#pb)"/>
+        <g filter="url(#pb)">${starNeedles(216, 216, 8, 220, 110, 4, 22, "#ffffff", 0.85)}</g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-crystal-diamond-star",
+    name: { en: "Eight-Point Crystal Diamond Starburst Flare", vi: "Tia sao kim cương tám cánh kèm vòng sáng" },
+    tags: {
+      en: ["starburst", "diamond", "crystal", "eight point", "flare"],
+      vi: ["tia sao", "kim cương", "tám cánh", "lấp lánh", "quầng sáng"],
+    },
+    collections: ["wedding", "christmas", "cute"],
+    blend: "screen",
+    seed: 310,
+    width: 1200,
+    height: 1200,
+    render: async (outPath, w, h) => {
+      const cx = 340, cy = 320;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="dcore" cx="28.3%" cy="26.6%" r="36%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+            <stop offset="18%" stop-color="#e8f4ff" stop-opacity="0.86"/>
+            <stop offset="48%" stop-color="#94b8ff" stop-opacity="0.32"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="dring" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="76%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="85%" stop-color="#ffd180" stop-opacity="0.42"/>
+            <stop offset="92%" stop-color="#b388ff" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="db"><feGaussianBlur stdDeviation="3"/></filter>
+          <filter id="db2"><feGaussianBlur stdDeviation="7"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <circle cx="${cx}" cy="${cy}" r="250" fill="url(#dring)" filter="url(#db2)"/>
+        <rect width="${w}" height="${h}" fill="url(#dcore)"/>
+        <g filter="url(#db)">${starNeedles(cx, cy, 8, 420, 210, 6, 0, "#ffffff", 0.92)}</g>
+        <g filter="url(#db2)">
+          ${ghostChainSvg(cx, cy, 980, 960, [
+            { t: 0.42, r: 58, col: "#82b1ff", op: 0.32, sides: 8 },
+            { t: 0.72, r: 96, col: "#ea80fc", op: 0.28, sides: 8, ring: true, sw: 4 },
+            { t: 0.98, r: 64, col: "#ffd180", op: 0.30, sides: 8 },
+          ])}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-vintage-amber-ring",
+    name: { en: "Single-Coated Vintage Amber Ring Lens Flare", vi: "Vòng quầng sáng hổ phách ống kính cổ điển" },
+    tags: {
+      en: ["amber ring", "vintage lens", "warm", "flare", "retro"],
+      vi: ["vòng sáng", "hổ phách", "ống kính cổ", "hoài niệm", "ấm áp"],
+    },
+    collections: ["vintage"],
+    blend: "screen",
+    seed: 311,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="var1" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffaa33" stop-opacity="0.08"/>
+            <stop offset="70%" stop-color="#ff8811" stop-opacity="0.12"/>
+            <stop offset="86%" stop-color="#ffb84d" stop-opacity="0.62"/>
+            <stop offset="94%" stop-color="#ff5500" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="vaspot" cx="76%" cy="22%" r="38%">
+            <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.96"/>
+            <stop offset="28%" stop-color="#ff9e2c" stop-opacity="0.64"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="vab"><feGaussianBlur stdDeviation="8"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <circle cx="540" cy="680" r="460" fill="url(#var1)" filter="url(#vab)"/>
+        <rect width="${w}" height="${h}" fill="url(#vaspot)"/>
+        <g filter="url(#vab)">
+          <circle cx="420" cy="860" r="78" fill="#ffb74d" fill-opacity="0.30"/>
+          <circle cx="260" cy="1090" r="124" fill="#ff8a00" fill-opacity="0.22" stroke="#ffd180" stroke-width="4" stroke-opacity="0.42"/>
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-emerald-green-coating",
+    name: { en: "Emerald Green Multi-Coating Lens Reflection", vi: "Phản xạ lớp tráng phủ xanh ngọc lục bảo" },
+    tags: {
+      en: ["emerald", "green coating", "lens reflection", "optical", "flare"],
+      vi: ["xanh ngọc", "tráng phủ", "phản xạ", "thấu kính", "điện ảnh"],
+    },
+    collections: ["vintage", "summer"],
+    blend: "screen",
+    seed: 312,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const sx = 210, sy = 240, tx = 920, ty = 1180;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="egc" cx="19%" cy="17%" r="38%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.96"/>
+            <stop offset="22%" stop-color="#b9f6ca" stop-opacity="0.78"/>
+            <stop offset="55%" stop-color="#00c853" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="egb"><feGaussianBlur stdDeviation="7"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#egc)"/>
+        <g filter="url(#egb)">
+          <line x1="-40" y1="80" x2="1160" y2="1040" stroke="#69f0ae" stroke-width="8" stroke-opacity="0.38"/>
+          ${ghostChainSvg(sx, sy, tx, ty, [
+            { t: 0.24, r: 54, col: "#69f0ae", op: 0.38, sides: 7 },
+            { t: 0.44, r: 98, col: "#00e676", op: 0.30, sides: 7, ring: true, sw: 4 },
+            { t: 0.65, r: 68, col: "#1de9b6", op: 0.34, sides: 7 },
+            { t: 0.84, r: 128, col: "#a7ffeb", op: 0.25, sides: 7, ring: true, sw: 5 },
+            { t: 1.02, r: 82, col: "#ffd740", op: 0.28, sides: 7 },
+          ])}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-magenta-violet-dream",
+    name: { en: "Twilight Magenta & Lavender Optical Flare", vi: "Quầng lóe tím hồng mộng mơ chiều tà" },
+    tags: {
+      en: ["magenta", "violet", "lavender", "twilight", "flare"],
+      vi: ["tím hồng", "chiều tà", "mộng mơ", "quầng sáng", "lãng mạn"],
+    },
+    collections: ["cute", "wedding", "vintage"],
+    blend: "screen",
+    seed: 313,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const sx = 890, sy = 230, tx = 180, ty = 1190;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="mvd" cx="80%" cy="16%" r="52%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.96"/>
+            <stop offset="20%" stop-color="#ffd1f7" stop-opacity="0.84"/>
+            <stop offset="52%" stop-color="#d500f9" stop-opacity="0.38"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="mvb"><feGaussianBlur stdDeviation="8"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#mvd)"/>
+        <g filter="url(#mvb)">
+          ${ghostChainSvg(sx, sy, tx, ty, [
+            { t: 0.26, r: 58, col: "#ff80ab", op: 0.36, sides: 6 },
+            { t: 0.48, r: 106, col: "#ea80fc", op: 0.30, sides: 6, ring: true, sw: 4 },
+            { t: 0.70, r: 72, col: "#b388ff", op: 0.34, sides: 6 },
+            { t: 0.92, r: 144, col: "#ff4081", op: 0.26, sides: 6, ring: true, sw: 5 },
+          ])}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-top-edge-sun-wash",
+    name: { en: "Top Edge Blazing Sun Wash & Vertical Ghosts", vi: "Ánh mặt trời tràn viền đỉnh kèm bóng thấu kính dọc" },
+    tags: {
+      en: ["top sun", "sun wash", "backlit", "vertical flare", "golden"],
+      vi: ["ngược sáng", "tràn viền", "đỉnh ảnh", "nắng vàng", "thấu kính"],
+    },
+    collections: ["summer", "wedding", "vintage"],
+    blend: "screen",
+    seed: 314,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const cx = Math.round(w * 0.5);
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="tsw" cx="50%" cy="0%" r="62%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+            <stop offset="22%" stop-color="#ffe89e" stop-opacity="0.90"/>
+            <stop offset="54%" stop-color="#ff8c24" stop-opacity="0.44"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="tsb"><feGaussianBlur stdDeviation="8"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#tsw)"/>
+        <g filter="url(#tsb)">
+          ${ghostChainSvg(cx, 20, cx, 1320, [
+            { t: 0.30, r: 64, col: "#ffe082", op: 0.34, sides: 8 },
+            { t: 0.50, r: 118, col: "#ff9e40", op: 0.28, sides: 8, ring: true, sw: 4 },
+            { t: 0.70, r: 56, col: "#64ffda", op: 0.28, sides: 8 },
+            { t: 0.88, r: 154, col: "#ffd54f", op: 0.24, sides: 8, ring: true, sw: 5 },
+          ])}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-bottom-golden-haze",
+    name: { en: "Bottom Edge Rising Golden Horizon Flare", vi: "Quầng sáng ngược nắng ấm tràn từ cạnh dưới" },
+    tags: {
+      en: ["bottom flare", "horizon", "golden haze", "warm", "backlit"],
+      vi: ["cạnh dưới", "chân trời", "ngược nắng", "vàng ấm", "quầng sáng"],
+    },
+    collections: ["summer", "vintage"],
+    blend: "screen",
+    seed: 315,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="bgh" cx="52%" cy="98%" r="64%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="22%" stop-color="#ffdf85" stop-opacity="0.88"/>
+            <stop offset="55%" stop-color="#ff6f1e" stop-opacity="0.46"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="bgb"><feGaussianBlur stdDeviation="9"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#bgh)"/>
+        <g filter="url(#bgb)">
+          <circle cx="550" cy="960" r="95" fill="#ffd166" fill-opacity="0.28" stroke="#ffe599" stroke-width="3" stroke-opacity="0.42"/>
+          <circle cx="530" cy="680" r="145" fill="none" stroke="#ff9f43" stroke-width="5" stroke-opacity="0.34"/>
+          <circle cx="515" cy="410" r="76" fill="#72efdd" fill-opacity="0.24"/>
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-diagonal-cross-star",
+    name: { en: "Golden X-Cross Star Filter Diffraction Trio", vi: "Bộ ba tia sao chữ X ánh vàng kim lấp lánh" },
+    tags: {
+      en: ["star filter", "cross screen", "golden", "sparkle", "flare"],
+      vi: ["kính lọc sao", "chữ X", "vàng kim", "lấp lánh", "tia sáng"],
+    },
+    collections: ["christmas", "wedding", "tet"],
+    blend: "screen",
+    seed: 316,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="xg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="25%" stop-color="#ffe58f" stop-opacity="0.78"/>
+            <stop offset="65%" stop-color="#ff9922" stop-opacity="0.26"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="xb"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <circle cx="290" cy="340" r="210" fill="url(#xg)"/>
+        <circle cx="820" cy="580" r="160" fill="url(#xg)"/>
+        <circle cx="410" cy="1020" r="185" fill="url(#xg)"/>
+        <g filter="url(#xb)">
+          ${starNeedles(290, 340, 4, 380, 380, 6, 45, "#fff8e1", 0.9)}
+          ${starNeedles(290, 340, 4, 170, 170, 4, 0, "#ffd54f", 0.75)}
+          ${starNeedles(820, 580, 4, 290, 290, 5, 45, "#fff8e1", 0.88)}
+          ${starNeedles(410, 1020, 4, 320, 320, 5, 45, "#fff8e1", 0.88)}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-double-sun-reflection",
+    name: { en: "Twin Sun Filter Reflection & Intersecting Rings", vi: "Phản xạ kép mặt trời và hai vòng sáng giao nhau" },
+    tags: {
+      en: ["double sun", "twin reflection", "rings", "optical", "flare"],
+      vi: ["phản xạ kép", "vòng giao nhau", "mặt trời", "thấu kính", "nắng ấm"],
+    },
+    collections: ["summer", "vintage"],
+    blend: "screen",
+    seed: 317,
+    width: 1200,
+    height: 1200,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="ds1" cx="26%" cy="28%" r="36%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="22%" stop-color="#ffe494" stop-opacity="0.84"/>
+            <stop offset="58%" stop-color="#ff7e29" stop-opacity="0.32"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="ds2" cx="44%" cy="46%" r="26%">
+            <stop offset="0%" stop-color="#fff4c4" stop-opacity="0.88"/>
+            <stop offset="35%" stop-color="#ff9933" stop-opacity="0.48"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="dsb"><feGaussianBlur stdDeviation="6"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#ds1)"/>
+        <rect width="${w}" height="${h}" fill="url(#ds2)"/>
+        <g filter="url(#dsb)">
+          <circle cx="530" cy="550" r="280" fill="none" stroke="#ffbe55" stroke-width="5" stroke-opacity="0.48"/>
+          <circle cx="760" cy="780" r="240" fill="none" stroke="#64dfdf" stroke-width="4" stroke-opacity="0.42"/>
+          <circle cx="910" cy="920" r="85" fill="#ff9f43" fill-opacity="0.28"/>
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-soft-pastel-iridescent",
+    name: { en: "Soft Pastel Iridescent Pearl Lens Veil", vi: "Quầng khúc xạ ngũ sắc pastel dịu nhẹ" },
+    tags: {
+      en: ["iridescent", "pastel", "pearl", "dreamy", "flare"],
+      vi: ["ngũ sắc", "pastel", "dịu nhẹ", "mộng mơ", "khúc xạ"],
+    },
+    collections: ["cute", "wedding"],
+    blend: "screen",
+    seed: 318,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="ip1" cx="20%" cy="24%" r="58%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.92"/>
+            <stop offset="28%" stop-color="#ffd6e8" stop-opacity="0.68"/>
+            <stop offset="56%" stop-color="#c8b6ff" stop-opacity="0.42"/>
+            <stop offset="82%" stop-color="#9bf6ff" stop-opacity="0.26"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="ip2" cx="78%" cy="76%" r="52%">
+            <stop offset="0%" stop-color="#fdffb6" stop-opacity="0.64"/>
+            <stop offset="45%" stop-color="#ffc6ff" stop-opacity="0.38"/>
+            <stop offset="78%" stop-color="#a0c4ff" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="ipb"><feGaussianBlur stdDeviation="10"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#ip1)"/>
+        <rect width="${w}" height="${h}" fill="url(#ip2)"/>
+        <g filter="url(#ipb)">
+          <circle cx="560" cy="680" r="260" fill="none" stroke="#ffccf9" stroke-width="6" stroke-opacity="0.38"/>
+          <circle cx="560" cy="680" r="272" fill="none" stroke="#a0e7e5" stroke-width="5" stroke-opacity="0.34"/>
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-golden-dust-halo",
+    name: { en: "Sunlit Golden Halo Ring with Floating Micro Orbs", vi: "Vòng hào quang nắng vàng điểm hạt bụi sáng" },
+    tags: {
+      en: ["golden halo", "micro orbs", "sunlit", "dust flare", "warm"],
+      vi: ["hào quang", "hạt sáng", "nắng vàng", "vòng sáng", "lung linh"],
+    },
+    collections: ["summer", "vintage", "wedding"],
+    blend: "screen",
+    seed: 319,
+    width: 1200,
+    height: 1200,
+    render: async (outPath, w, h, seed) => {
+      const rng = mulberry32(seed);
+      let orbs = "";
+      for (let i = 0; i < 28; i++) {
+        const angle = rng() * Math.PI * 2;
+        const dist = 310 + (rng() - 0.5) * 180;
+        const ox = Math.round(600 + Math.cos(angle) * dist);
+        const oy = Math.round(600 + Math.sin(angle) * dist);
+        const r = Math.round(10 + rng() * 36);
+        const op = (0.18 + rng() * 0.42).toFixed(2);
+        orbs += `<circle cx="${ox}" cy="${oy}" r="${r}" fill="#ffe599" fill-opacity="${op}" stroke="#fff3cc" stroke-width="1.5" stroke-opacity="${op}"/>`;
+      }
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="gdh" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="48%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="58%" stop-color="#ffaa33" stop-opacity="0.48"/>
+            <stop offset="64%" stop-color="#fff0b3" stop-opacity="0.68"/>
+            <stop offset="72%" stop-color="#ff6611" stop-opacity="0.34"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="gdb"><feGaussianBlur stdDeviation="6"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <circle cx="600" cy="600" r="540" fill="url(#gdh)" filter="url(#gdb)"/>
+        <g filter="url(#gdb)">${orbs}</g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+  {
+    id: "ov-flare-cinema-edge-veil",
+    name: { en: "Curved Backlit Lens Edge Veil & Warm Ghosts", vi: "Màn sương lóe sáng viền ống kính ngược nắng" },
+    tags: {
+      en: ["edge veil", "lens glare", "backlit", "cinema", "warm"],
+      vi: ["viền ống kính", "ngược nắng", "màn sáng", "điện ảnh", "ấm áp"],
+    },
+    collections: ["vintage", "summer"],
+    blend: "screen",
+    seed: 320,
+    width: 1120,
+    height: 1400,
+    render: async (outPath, w, h) => {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <defs>
+          <radialGradient id="cev" cx="-12%" cy="42%" r="72%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+            <stop offset="24%" stop-color="#ffdf94" stop-opacity="0.82"/>
+            <stop offset="48%" stop-color="#ff7828" stop-opacity="0.45"/>
+            <stop offset="68%" stop-color="#58b8ff" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="cevb"><feGaussianBlur stdDeviation="8"/></filter>
+        </defs>
+        <rect width="${w}" height="${h}" fill="#000000"/>
+        <rect width="${w}" height="${h}" fill="url(#cev)"/>
+        <g filter="url(#cevb)">
+          ${ghostChainSvg(20, 588, 1020, 820, [
+            { t: 0.34, r: 64, col: "#ffd180", op: 0.32, sides: 6 },
+            { t: 0.58, r: 116, col: "#ff9e40", op: 0.26, sides: 6, ring: true, sw: 4 },
+            { t: 0.82, r: 78, col: "#80d8ff", op: 0.28, sides: 6 },
+          ])}
+        </g>
+      </svg>`;
+      await renderSvgToPng(svg, outPath, w, h);
+    },
+  },
+];
+
+async function buildPack(packId, generatedSpecs, packMeta = null) {
   const packDir = path.join(ASSETS, "overlay", packId);
   const srcDir = path.join(packDir, "src");
   mkdirSync(srcDir, { recursive: true });
 
   const manifestPath = path.join(packDir, "manifest.json");
-  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  let manifest;
+  if (existsSync(manifestPath)) {
+    manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  } else {
+    manifest = {
+      id: packId,
+      kind: "overlay",
+      ...packMeta,
+      items: [],
+    };
+  }
 
   // Ensure existing kept items have a source copy in src/ so process.mjs can run cleanly.
   const keptIds = new Set(["ov-amber-street-bokeh", "ov-crumpled-paper-creases", "ov-scrunched-kraft-folds", "ov-linen-watermark-grain"]);
@@ -1239,6 +2115,14 @@ async function buildPack(packId, generatedSpecs) {
   writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
 }
 
+await buildPack("lens-flares", FLARE_ITEMS, {
+  name: {
+    en: "Optical Lens Flares & Glows",
+    vi: "Lóe ống kính & Quầng sáng quang học",
+  },
+  collections: ["vintage", "summer", "wedding", "cute"],
+  order: 8,
+});
 await buildPack("light-effects", LIGHT_ITEMS);
 await buildPack("film-paper-grain", PAPER_ITEMS);
-console.log("Done generating 29 procedural overlays (+ 4 kept = 33 total).");
+console.log("Done generating 49 procedural overlays (+ 4 kept = 53 total).");
