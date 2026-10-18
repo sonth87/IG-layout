@@ -15,6 +15,8 @@ Trạng thái:
 | G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | **Đã merge sau khi lọc** — 42 / 46 chất liệu, 4 / 22 lớp phủ (2026-10-18) |
 | G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Xong (chờ duyệt) |
 | G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | **Đã duyệt, đã merge** (2026-10-18) |
+| G8 — Lớp phủ (làm lại, ~30) | `gemini/g8-overlays` | Chưa giao |
+| G9 — Sticker lễ hội & Việt Nam (~80) | `gemini/g9-festive` | Chưa giao |
 
 ---
 
@@ -286,6 +288,72 @@ Việc G7 — Nghiên cứu đầu vào cho M21 (filter, hiệu ứng tĩnh, bú
 Đọc mục "G7" trong docs/ai/gemini-tasks.md, D-105 trong docs/discussions/decisions.md, src/lib/color/params.ts, src/lib/color/filters.ts, src/lib/color/processor.ts (để biết filter hiện có và các thông số đang hỗ trợ).
 Viết docs/discussions/<YYYY-MM-DD>-m21-nghien-cuu.md bằng tiếng Việt gồm 4 phần như mô tả ở G7: (1) ≥ 12 nhóm filter × 8–12 filter với thông số theo params.ts (thông số mới liệt kê riêng; LUT nguồn mở ghi giấy phép) — có thể xuất kèm assets/research/m21/filters.json; (2) danh sách hiệu ứng tĩnh với cách làm, thông số, độ nặng trên điện thoại, tham khảo + giấy phép; (3) bút vẽ / viết tay; (4) tham khảo cách các app chỉnh ảnh / collage khác tổ chức các công cụ này. Kết thúc bằng bảng tóm tắt và đề xuất thứ tự làm.
 Phạm vi: docs/discussions/<ngày>-m21-nghien-cuu.md, assets/research/m21/**, bảng trạng thái trong docs/ai/gemini-tasks.md.
+```
+
+---
+
+## Quy tắc kiểm tra bằng mắt (bắt buộc từ đợt 3)
+
+`validate.mjs` chỉ kiểm **định dạng**, không kiểm **nội dung**. Đợt 2 có rất nhiều mục sai nội dung lọt qua. Từ G8:
+1. Sau `process.mjs`, mở `review.html` của gói, xem **trên nền ca rô**: nền chưa tách lộ ra ngay.
+2. Với mỗi mục, ghi vào báo cáo **một dòng mô tả thứ thật sự nhìn thấy trong ảnh** (không chép tên file / tiêu đề nguồn). Nếu mô tả không khớp tên mục thì bỏ mục đó.
+3. Loại ngay: ảnh còn hộp / nhãn / ghim / thước đo / **thẻ màu chuẩn** của bảo tàng; ảnh chụp màn hình; tiền giấy; người thật nhận diện được; tranh tôn giáo; chữ viết tay chiếm phần lớn; nền chưa tách (với sticker).
+
+---
+
+## G8 — Lớp phủ (làm lại, ~30)
+
+- **Mục tiêu:** khoảng 30 lớp phủ **thật sự là lớp phủ**: chỉ có ánh sáng / hạt / vết / nếp, **không có vật thể** nào nhận ra được.
+- **Phạm vi:** `assets/overlay/**`, `public/packs/overlay/**`, `public/packs/catalog.json`. Giữ 4 mục đang có (`film-paper-grain`, `light-effects`).
+- **Loại cần:**
+  - **Nền đen, `blend: screen`:** rò sáng phim (cam / đỏ / hồng), vệt sáng chéo, lens flare mềm, bokeh tròn mờ (chỉ đốm sáng, không thấy cây / đèn / người), bụi và xước phim (chấm / vạch trắng), hạt phim.
+  - **Nền trắng, `blend: multiply`:** giấy nhăn, nếp gấp, vết cà phê / trà, mép cháy, giấy cũ ố, vân giấy dó.
+- **Nguồn:** ưu tiên ảnh **tự tạo** bằng script (Gemini viết script sinh vệt sáng / hạt / bụi bằng canvas / sharp: CC0, ghi provider "IG Layout") **hoặc** CC0 / CC-BY rõ ràng (Wikimedia, Openverse, ambientCG cho giấy nhăn). Kiểm tra từng ảnh: không có vật thể.
+- **Xong khi:** ≥ 30 lớp phủ (tính cả 4 cũ), đúng `blend`, đã xem trên `review.html`, báo cáo có dòng mô tả từng mục.
+
+**Prompt:**
+```
+Việc G8 — Lớp phủ (làm lại). Nhánh: gemini/g8-overlays, tạo từ origin/main MỚI NHẤT.
+
+LÀM TRONG THƯ MỤC RIÊNG (bắt buộc):
+  git fetch origin && git worktree add ../IG-layout-gemini-g8 -b gemini/g8-overlays origin/main
+  cd ../IG-layout-gemini-g8 && pnpm install
+Mọi lệnh chạy trong ../IG-layout-gemini-g8. Không làm trong thư mục chính của repo.
+
+Đọc mục "Quy tắc kiểm tra bằng mắt" và "G8" trong docs/ai/gemini-tasks.md, và ghi chú duyệt đợt 2 (vì sao 18/22 lớp phủ cũ bị loại).
+Làm ~30 lớp phủ (giữ 4 mục đang có): nền đen + blend screen (rò sáng, vệt sáng, flare mềm, bokeh chỉ có đốm sáng, bụi / xước / hạt phim) và nền trắng + blend multiply (giấy nhăn, nếp gấp, vết cà phê / trà, giấy cũ ố). TUYỆT ĐỐI không có vật thể nhận ra được (cây, đèn, người, nhà, chữ, màn hình, tiền…).
+Ưu tiên tự sinh bằng script (scripts/assets/gen-overlays.mjs, dùng sharp / canvas, seed cố định, provider "IG Layout", license CC0-1.0, url trỏ tới file script trên GitHub); phần còn lại lấy CC0 / CC-BY rõ ràng.
+Chạy process.mjs → mở review.html, xem từng mục → validate.mjs (OK) → build-catalog.mjs. Báo cáo: bảng mục → MÔ TẢ THỨ NHÌN THẤY → blend → nguồn → giấy phép.
+Phạm vi: assets/overlay/**, public/packs/overlay/**, public/packs/catalog.json, scripts/assets/gen-overlays.mjs, bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh, không merge.
+```
+
+---
+
+## G9 — Sticker lễ hội & Việt Nam (~80)
+
+- **Mục tiêu:** bù gói `festive-holidays` đã bị bỏ, và làm giàu nội dung Việt Nam.
+- **Phạm vi:** `assets/sticker/**` (gói mới), `public/packs/sticker/**`, `public/packs/catalog.json`.
+- **Gói:**
+  - `tet` (~20): hoa mai, hoa đào, câu đối / chữ Phúc (hình vẽ, không phải ảnh chụp), bao lì xì, pháo, bánh chưng, mâm ngũ quả, đèn lồng đỏ, con giáp. Gắn `collections: ["tet", "vietnam"]`.
+  - `mid-autumn` (~15): đèn ông sao, đèn cá chép, bánh trung thu, mặt trăng, thỏ ngọc, chú Cuội vẽ. `["midAutumn", "vietnam"]`.
+  - `christmas` (~20): cây thông, chuông, quà, kẹo gậy, ông già Noel **vẽ minh hoạ**, người tuyết, vòng nguyệt quế, bông tuyết. `["christmas"]`.
+  - `celebrations` (~25): bóng bay, bánh sinh nhật, nến, pháo giấy, ruy băng, nhẫn cưới, hoa cưới, mũ tốt nghiệp. `["birthday", "wedding", "graduation"]` theo mục.
+- **Nguồn:** hình minh hoạ **rời** (một vật, nền tách sạch): tranh / thiệp cổ PD đã cắt riêng vật, bộ minh hoạ CC0 / CC-BY / CC-BY-NC (ví dụ bộ vẽ tay trên Wikimedia, Openverse lọc illustration, OpenMoji (CC-BY-SA) nếu cần kiểu phẳng — **trừ** Fluent Emoji vì app đã có). Không lấy cả tấm bưu thiếp.
+- **Xong khi:** ≥ 80 mục sạch, xem từng mục trên nền ca rô, báo cáo có dòng mô tả từng mục.
+
+**Prompt:**
+```
+Việc G9 — Sticker lễ hội & Việt Nam. Nhánh: gemini/g9-festive, tạo từ origin/main MỚI NHẤT.
+
+LÀM TRONG THƯ MỤC RIÊNG (bắt buộc):
+  git fetch origin && git worktree add ../IG-layout-gemini-g9 -b gemini/g9-festive origin/main
+  cd ../IG-layout-gemini-g9 && pnpm install
+Mọi lệnh chạy trong ../IG-layout-gemini-g9.
+
+Đọc mục "Quy tắc kiểm tra bằng mắt" và "G9" trong docs/ai/gemini-tasks.md, cùng ghi chú duyệt G2 (vì sao gói festive-holidays cũ bị bỏ).
+Làm 4 gói: tet (~20), mid-autumn (~15), christmas (~20), celebrations (~25). Mỗi sticker là MỘT vật rời, nền tách sạch, không lấy cả tấm bưu thiếp, không ảnh người thật, không tranh tôn giáo, không trùng Fluent Emoji. Gắn collections đúng (tet / midAutumn / christmas / birthday / wedding / graduation / vietnam). Tên VI tự nhiên, tags EN / VI ≥ 3 mỗi thứ tiếng.
+Chạy process.mjs → mở review.html, xem từng mục trên nền ca rô, loại mục xấu → validate.mjs (OK) → build-catalog.mjs. Báo cáo: bảng mục → MÔ TẢ THỨ NHÌN THẤY → nguồn → giấy phép; liệt kê mục NC / custom.
+Phạm vi: assets/sticker/<4 gói mới>/**, public/packs/sticker/<4 gói mới>/**, public/packs/catalog.json, bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh, không merge.
 ```
 
 ---
