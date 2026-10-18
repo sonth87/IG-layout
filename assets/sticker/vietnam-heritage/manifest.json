@@ -1,0 +1,516 @@
+{
+  "id": "vietnam-heritage",
+  "kind": "sticker",
+  "name": {
+    "en": "Vietnamese Heritage",
+    "vi": "Di sản Việt Nam"
+  },
+  "collections": [
+    "tet",
+    "midAutumn",
+    "vintage"
+  ],
+  "order": 110,
+  "items": [
+    {
+      "id": "vn-dong-ho-ga-dan",
+      "name": {
+        "en": "Đông Hồ Folk Painting: Rooster & Hen Family",
+        "vi": "Tranh Đông Hồ: Gà đàn sum vầy"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "dong ho",
+          "folk art",
+          "rooster"
+        ],
+        "vi": [
+          "tranh đông hồ",
+          "gà đàn",
+          "tết",
+          "dân gian"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rooster_and_hen,_Dong_Ho_picture,_paper_-_Vietnam_National_Museum_of_Fine_Arts_-_Hanoi,_Vietnam_-_DSC05287.JPG",
+        "author": "Daderot",
+        "title": "Rooster and hen, Dong Ho picture, paper - Vietnam National Museum of Fine Arts - Hanoi, Vietnam - DSC05287",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 764
+    },
+    {
+      "id": "vn-dong-ho-dam-cuoi-chuot-museum",
+      "name": {
+        "en": "Đông Hồ Folk Painting: The Mice's Wedding",
+        "vi": "Tranh Đông Hồ: Đám cưới chuột"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "dong ho",
+          "mice wedding",
+          "tet"
+        ],
+        "vi": [
+          "tranh đông hồ",
+          "đám cưới chuột",
+          "tranh tết",
+          "dân gian"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Mice%27s_wedding,_Dong_Ho_picture,_paper_-_Vietnam_National_Museum_of_Fine_Arts_-_Hanoi,_Vietnam_-_DSC05290.JPG",
+        "author": "Daderot",
+        "title": "Mice's wedding, Dong Ho picture, paper - Vietnam National Museum of Fine Arts - Hanoi, Vietnam - DSC05290",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 706
+    },
+    {
+      "id": "vn-dong-ho-chuot-ruoc-den",
+      "name": {
+        "en": "Đông Hồ Folk Painting: Mice Lantern Procession",
+        "vi": "Tranh Đông Hồ: Chuột rước đèn Trung thu"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "dong ho",
+          "lantern",
+          "mid-autumn"
+        ],
+        "vi": [
+          "tranh đông hồ",
+          "rước đèn",
+          "trung thu",
+          "dân gian"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Chu%E1%BB%99t_r%C6%B0%E1%BB%9Bc_%C4%91%C3%A8n.JPG",
+        "author": "Wikimedia Commons",
+        "title": "Chuột rước đèn",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 747
+    },
+    {
+      "id": "vn-dong-ho-dau-vat",
+      "name": {
+        "en": "Đông Hồ Folk Painting: Village Wrestling Festival",
+        "vi": "Tranh Đông Hồ: Đấu vật hội làng ngày xuân"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "dong ho",
+          "wrestling",
+          "festival"
+        ],
+        "vi": [
+          "tranh đông hồ",
+          "đấu vật",
+          "hội làng",
+          "ngày tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%C4%90%E1%BA%A5u_v%E1%BA%ADt.JPG",
+        "author": "Wikimedia Commons",
+        "title": "Đấu vật",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 688,
+      "process": {
+        "bgMode": "flood",
+        "tolerance": 8,
+        "trim": true
+      }
+    },
+    {
+      "id": "vn-dong-ho-phu-dong",
+      "name": {
+        "en": "Đông Hồ Folk Painting: Saint Gióng (Phù Đổng)",
+        "vi": "Tranh Đông Hồ: Phù Đổng Thiên Vương"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "dong ho",
+          "saint giong",
+          "legend"
+        ],
+        "vi": [
+          "tranh đông hồ",
+          "thánh gióng",
+          "lịch sử",
+          "dân gian"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Tranh_%C4%90%C3%B4ng_H%E1%BB%93_v%E1%BA%BD_Ph%C3%B9_%C4%90%E1%BB%95ng_Thi%C3%AAn_V%C6%B0%C6%A1ng.jpg",
+        "author": "Vietnamese artist",
+        "title": "Tranh Đông Hồ vẽ Phù Đổng Thiên Vương",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 726
+    },
+    {
+      "id": "vn-dong-ho-ba-trieu",
+      "name": {
+        "en": "Đông Hồ Folk Painting: Lady Triệu Riding Elephant",
+        "vi": "Tranh Đông Hồ: Bà Triệu cưỡi voi"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "dong ho",
+          "elephant",
+          "heroine"
+        ],
+        "vi": [
+          "tranh đông hồ",
+          "bà triệu",
+          "cưỡi voi",
+          "anh hùng"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Ba_trieu_cuoi_voi.jpg",
+        "author": "Nghệ nhân tranh Đông Hồ",
+        "title": "Ba trieu cuoi voi",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 705,
+      "height": 1024
+    },
+    {
+      "id": "vn-dong-ho-ngo-quyen",
+      "name": {
+        "en": "Đông Hồ Folk Painting: Battle of Bạch Đằng River",
+        "vi": "Tranh Đông Hồ: Ngô Quyền chiến thắng Bạch Đằng"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "dong ho",
+          "bach dang",
+          "history"
+        ],
+        "vi": [
+          "tranh đông hồ",
+          "ngô quyền",
+          "bạch đằng",
+          "lịch sử"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Ng%C3%B4_Quy%E1%BB%81n_%C4%91%E1%BA%A1i_ph%C3%A1_qu%C3%A2n_Nam_H%C3%A1n_tr%C3%AAn_s%C3%B4ng_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng.jpg",
+        "author": "Unknown artisan from the village of Dong Ho.",
+        "title": "Ngô Quyền đại phá quân Nam Hán trên sông Bạch Đằng",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 735
+    },
+    {
+      "id": "vn-hang-trong-ngu-ho",
+      "name": {
+        "en": "Hàng Trống Painting: Five Sacred Tigers (Ngũ Hổ)",
+        "vi": "Tranh Hàng Trống: Ngũ Hổ uy phong"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "hang trong",
+          "five tigers",
+          "tet"
+        ],
+        "vi": [
+          "tranh hàng trống",
+          "ngũ hổ",
+          "tết",
+          "cổ truyền"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Five_tigers,_Hang_Trong_painting,_Hanoi,_paper,_view_1_-_Vietnam_National_Museum_of_Fine_Arts_-_Hanoi,_Vietnam_-_DSC05281.JPG",
+        "author": "Daderot",
+        "title": "Five tigers, Hang Trong painting, Hanoi, paper, view 1 - Vietnam National Museum of Fine Arts - Hanoi, Vietnam - DSC05281",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 846,
+      "height": 1024
+    },
+    {
+      "id": "vn-lacquer-tu-quy",
+      "name": {
+        "en": "Vietnamese Lacquer Engraving: Four Seasons",
+        "vi": "Tranh khắc sơn mài Việt Nam: Tứ quý"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "lacquer",
+          "four seasons",
+          "art"
+        ],
+        "vi": [
+          "sơn mài",
+          "tứ quý",
+          "mỹ thuật",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Four_seasons,_lacquer_engraving_-_Vietnam_National_Museum_of_Fine_Arts_-_Hanoi,_Vietnam_-_DSC05121.JPG",
+        "author": "Daderot",
+        "title": "Four seasons, lacquer engraving - Vietnam National Museum of Fine Arts - Hanoi, Vietnam - DSC05121",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 770
+    },
+    {
+      "id": "vn-ceramic-blue-dish-1400s",
+      "name": {
+        "en": "15th-Century Vietnamese Blue & White Ceramic Dish",
+        "vi": "Đĩa gốm hoa lam Việt Nam thế kỷ 15"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "ceramic",
+          "blue and white",
+          "antique"
+        ],
+        "vi": [
+          "gốm chu đậu",
+          "gốm hoa lam",
+          "cổ vật",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Large_dish_with_arabesque_design,_Vietnam,_1400s_AD,_ceramic,_underglaze_blue_-_Tokyo_National_Museum_-_Tokyo,_Japan_-_DSC08810.jpg",
+        "author": "Daderot",
+        "title": "Large dish with arabesque design, Vietnam, 1400s AD, ceramic, underglaze blue - Tokyo National Museum - Tokyo, Japan - DSC08810",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1021,
+      "height": 1024
+    },
+    {
+      "id": "vn-ceramic-pot-1500s",
+      "name": {
+        "en": "16th-Century Vietnamese Glazed Ceramic Jar",
+        "vi": "Bình gốm men cổ Việt Nam thế kỷ 16"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "ceramic",
+          "jar",
+          "heritage"
+        ],
+        "vi": [
+          "bình gốm",
+          "gốm cổ",
+          "di sản",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Pot_Vietnam_XVIe_si%C3%A8cle.jpg",
+        "author": "Laurence Rougier",
+        "title": "Pot Vietnam XVIe siècle",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 782
+    },
+    {
+      "id": "vn-hue-royal-scroll",
+      "name": {
+        "en": "Antique Silk Painting of Imperial Huế Court",
+        "vi": "Tranh lụa cổ vẽ triều đình Huế"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "hue",
+          "silk painting",
+          "imperial"
+        ],
+        "vi": [
+          "cố đô huế",
+          "tranh lụa",
+          "cung đình",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Tranh_l%E1%BB%A5a_v%E1%BA%BD_quang_c%E1%BA%A3nh_tri%E1%BB%81u_%C4%91%C3%ACnh_Hu%E1%BA%BF.jpg",
+        "author": "Họa tượng cục",
+        "title": "Tranh lụa vẽ quang cảnh triều đình Huế",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 646,
+      "height": 1024,
+      "process": {
+        "bgMode": "flood",
+        "tolerance": 8,
+        "trim": true
+      }
+    },
+    {
+      "id": "vn-champa-apsara-dancer",
+      "name": {
+        "en": "Champa Sandstone Relief: Scarf Dancer",
+        "vi": "Phù điêu vũ nữ Chăm Pa cổ"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "champa",
+          "sculpture",
+          "dancer"
+        ],
+        "vi": [
+          "chăm pa",
+          "vũ nữ",
+          "điêu khắc",
+          "di sản"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:(Toulouse)_Danseur_%C3%A0_l%27%C3%A9charpe_-_Royaume_de_Champa_(Vietnam)_-_Mus%C3%A9e_Labit.jpg",
+        "author": "Didier Descouens",
+        "title": "(Toulouse) Danseur à l'écharpe - Royaume de Champa (Vietnam) - Musée Labit",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 529,
+      "height": 1024
+    },
+    {
+      "id": "vn-champa-offering-bearer",
+      "name": {
+        "en": "Champa Sandstone Sculpture: Offering Bearer",
+        "vi": "Tượng đá Chăm Pa dâng lễ vật"
+      },
+      "tags": {
+        "en": [
+          "vietnam",
+          "champa",
+          "sandstone",
+          "heritage"
+        ],
+        "vi": [
+          "tượng chăm",
+          "điêu khắc",
+          "cổ vật",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "tet",
+        "midAutumn"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:(Toulouse)_Orant_(Porteur_d%27offrande)_-_Royaume_de_Champa_(Vietnam)_-_Mus%C3%A9e_Labit.jpg",
+        "author": "Didier Descouens",
+        "title": "(Toulouse) Orant (Porteur d'offrande) - Royaume de Champa (Vietnam) - Musée Labit",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 595,
+      "height": 1024
+    }
+  ]
+}

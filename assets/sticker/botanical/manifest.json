@@ -1,0 +1,715 @@
+{
+  "id": "botanical",
+  "kind": "sticker",
+  "name": {
+    "en": "Vintage Botanical",
+    "vi": "Hoa lá vẽ cổ"
+  },
+  "collections": [
+    "vintage",
+    "journal"
+  ],
+  "order": 40,
+  "items": [
+    {
+      "id": "rose-redoute-bouquet",
+      "name": {
+        "en": "Redouté Botanical Bouquet of Country Flowers",
+        "vi": "Bó hoa đồng nội vẽ màu nước Redouté"
+      },
+      "tags": {
+        "en": [
+          "flower",
+          "bouquet",
+          "botanical",
+          "redoute"
+        ],
+        "vi": [
+          "bó hoa",
+          "hoa đồng nội",
+          "thực vật",
+          "màu nước"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Redoute_flowers01.jpg",
+        "author": "Pierre-Joseph Redouté",
+        "title": "Redoute flowers01",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 767,
+      "height": 1024
+    },
+    {
+      "id": "rose-inermis-redoute",
+      "name": {
+        "en": "Pink Thornless Rose (Rosa Inermis)",
+        "vi": "Nhánh hoa hồng phấn không gai cổ điển"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "pink",
+          "botanical",
+          "redoute"
+        ],
+        "vi": [
+          "hoa hồng",
+          "hồng phấn",
+          "hoa vẽ cổ",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Redoute-rosa_inermis.jpg",
+        "author": "Pierre-Joseph Redouté",
+        "title": "Redoute-rosa inermis",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 704,
+      "height": 1024
+    },
+    {
+      "id": "rose-gallica-gigantea",
+      "name": {
+        "en": "Giant French Rose (Rosa Gallica)",
+        "vi": "Đóa hồng Pháp cánh lớn (Rosa Gallica)"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "french rose",
+          "botanical",
+          "pink"
+        ],
+        "vi": [
+          "hoa hồng",
+          "hồng pháp",
+          "hoa lá",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Redoute_-_Rosa_gallica_flore_giganteo.jpg",
+        "author": "Pierre-Joseph Redouté",
+        "title": "Redoute - Rosa gallica flore giganteo",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 669,
+      "height": 1024
+    },
+    {
+      "id": "rose-gallica-pontiana",
+      "name": {
+        "en": "Crimson Pontiana Rose Botanical Illustration",
+        "vi": "Cành hồng nhung đỏ thẫm cổ điển"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "crimson",
+          "red",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "hồng nhung",
+          "đỏ thẫm",
+          "hoa cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Redoute_-_Rosa_gallica_pontiana.jpg",
+        "author": "Pierre-Joseph Redouté",
+        "title": "Redoute - Rosa gallica pontiana",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 715,
+      "height": 1024
+    },
+    {
+      "id": "rose-centifolia-foliacea",
+      "name": {
+        "en": "Hundred-Petaled Cabbage Rose (Rosa Centifolia)",
+        "vi": "Hoa hồng trăm cánh (Rosa Centifolia)"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "centifolia",
+          "petals",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "trăm cánh",
+          "màu nước",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Redoute_-_Rosa_centifolia_foliacea.jpg",
+        "author": "Pierre-Joseph Redouté",
+        "title": "Redoute - Rosa centifolia foliacea",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 728,
+      "height": 1024
+    },
+    {
+      "id": "rose-gallica-regalis",
+      "name": {
+        "en": "Royal Gallica Rose Botanical Plate",
+        "vi": "Nhánh hồng hoàng gia (Rosa Regalis)"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "royal",
+          "botanical",
+          "vintage"
+        ],
+        "vi": [
+          "hoa hồng",
+          "hoàng gia",
+          "tranh thực vật",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Redoute_-_Rosa_gallica_regalis.jpg",
+        "author": "Pierre-Joseph Redouté",
+        "title": "Redoute - Rosa gallica regalis",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 698,
+      "height": 1024
+    },
+    {
+      "id": "rose-purpuro-violacea",
+      "name": {
+        "en": "Purple-Violet Velvet Rose Illustration",
+        "vi": "Hoa hồng tím nhung cổ điển"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "purple",
+          "violet",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "hồng tím",
+          "hoa vẽ cổ",
+          "thực vật"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Redoute_-_Rosa_gallica_purpuro-violacea_magna.jpg",
+        "author": "Pierre-Joseph Redouté",
+        "title": "Redoute - Rosa gallica purpuro-violacea magna",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 619,
+      "height": 1024
+    },
+    {
+      "id": "rose-alba-regalis",
+      "name": {
+        "en": "White Royal Rose (Rosa Alba Regalis)",
+        "vi": "Hoa hồng bạch hoàng gia (Rosa Alba)"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "white rose",
+          "botanical",
+          "alba"
+        ],
+        "vi": [
+          "hồng bạch",
+          "hoa hồng trắng",
+          "tinh khôi",
+          "hoa cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rosa_alba_Regalis_001.JPG",
+        "author": "Georges Jansoone (JoJan) - artwork by Pierre-Joseph Redouté",
+        "title": "Rosa alba Regalis 001",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 828,
+      "height": 1024
+    },
+    {
+      "id": "rose-centifolia-bloom",
+      "name": {
+        "en": "Blush Pink Centifolia Rose & Buds",
+        "vi": "Đóa hồng phấn nở rộ kèm nụ"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "buds",
+          "blush",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "nụ hoa",
+          "hồng phấn",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rosa_centifolia_101.JPG",
+        "author": "Georges Jansoone (JoJan) - artwork by Pierre-Joseph Redouté",
+        "title": "Rosa centifolia 101",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 904,
+      "height": 1024
+    },
+    {
+      "id": "rose-anemonoides",
+      "name": {
+        "en": "Anemone-Flowered Pink Rose",
+        "vi": "Cành hồng cánh đơn dịu dàng"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "single petal",
+          "pink",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "cánh đơn",
+          "dịu dàng",
+          "hoa lá"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rosa_Centifolia_Anemonoides_001.JPG",
+        "author": "Georges Jansoone (JoJan) - artwork by Pierre-Joseph Redouté",
+        "title": "Rosa Centifolia Anemonoides 001",
+        "license": "CC-BY-3.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 878,
+      "height": 1024
+    },
+    {
+      "id": "rose-anglica-rubra",
+      "name": {
+        "en": "English Ruby Red Rose (Rosa Anglica)",
+        "vi": "Hoa hồng đỏ nước Anh cổ điển"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "english rose",
+          "ruby",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "hồng anh",
+          "màu đỏ",
+          "thực vật"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rosa_centifolia_Anglica_rubra_001.JPG",
+        "author": "Georges Jansoone (JoJan) - artwork by Pierre-Joseph Redouté",
+        "title": "Rosa centifolia Anglica rubra 001",
+        "license": "CC-BY-3.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 791,
+      "height": 1024
+    },
+    {
+      "id": "rose-burgundiaca",
+      "name": {
+        "en": " Petite Burgundy Pompon Rose",
+        "vi": "Nhánh hồng tiểu muội Burgundy"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "burgundy",
+          "pompon",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "hồng nhỏ",
+          "nhánh hoa",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rosa_Centifolia_Burgundiaca_001.JPG",
+        "author": "Georges Jansoone (JoJan) - artwork by Pierre-Joseph Redouté",
+        "title": "Rosa Centifolia Burgundiaca 001",
+        "license": "CC-BY-3.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 845,
+      "height": 1024
+    },
+    {
+      "id": "rose-damascena-aurora",
+      "name": {
+        "en": "Damask Aurora Rose Botanical Branch",
+        "vi": "Cành hồng Damask ánh ban mai"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "damask",
+          "aurora",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "ban mai",
+          "hoa vẽ tay",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rosa_Damascena_aurora_001.JPG",
+        "author": "Georges Jansoone (JoJan) - artwork by Pierre-Joseph Redouté",
+        "title": "Rosa Damascena aurora 001",
+        "license": "CC-BY-3.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 807,
+      "height": 1024
+    },
+    {
+      "id": "rose-damascena-celsiana",
+      "name": {
+        "en": "Pale Blush Celsiana Damask Rose",
+        "vi": "Chùm hoa hồng phấn nhạt Celsiana"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "pale pink",
+          "cluster",
+          "botanical"
+        ],
+        "vi": [
+          "chùm hoa",
+          "hồng nhạt",
+          "hoa cổ",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rosa_Damascena_Celsiana_001.JPG",
+        "author": "Georges Jansoone (JoJan) - artwork by Pierre-Joseph Redouté",
+        "title": "Rosa Damascena Celsiana 001",
+        "license": "CC-BY-3.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 866,
+      "height": 1024
+    },
+    {
+      "id": "rose-eglanteria-luteola",
+      "name": {
+        "en": "Golden Yellow Briar Rose (Rosa Eglanteria)",
+        "vi": "Nhánh hoa hồng vàng rực rỡ"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "yellow rose",
+          "golden",
+          "botanical"
+        ],
+        "vi": [
+          "hồng vàng",
+          "hoa hồng",
+          "rực rỡ",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rosa_Eglanteria_Luteola_001.JPG",
+        "author": "Georges Jansoone (JoJan) - artwork by Pierre-Joseph Redouté",
+        "title": "Rosa Eglanteria Luteola 001",
+        "license": "CC-BY-3.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 837,
+      "height": 1024
+    },
+    {
+      "id": "rose-evratina",
+      "name": {
+        "en": "Clustered Rose Evratina Botanical Study",
+        "vi": "Cành hoa hồng chùm Evratina"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "cluster",
+          "pink",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng chùm",
+          "cành hoa",
+          "màu nước",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Rosa_evratina_001.JPG",
+        "author": "Georges Jansoone (JoJan) - artwork by Pierre-Joseph Redouté",
+        "title": "Rosa evratina 001",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 837,
+      "height": 1024
+    },
+    {
+      "id": "rose-bifera-macrocarpa",
+      "name": {
+        "en": "Redouté Rose Hip & Fruit Branch",
+        "vi": "Nhánh quả tầm xuân đỏ cổ điển"
+      },
+      "tags": {
+        "en": [
+          "rose hip",
+          "berry",
+          "branch",
+          "botanical"
+        ],
+        "vi": [
+          "tầm xuân",
+          "quả đỏ",
+          "nhánh lá",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Pierre-Joseph_Redout%C3%A9_-_Rosa_Bifera_Macrocarpa_-_WGA19030.jpg",
+        "author": "Pierre-Joseph Redouté",
+        "title": "Rosa bifera macrocarpa, La Quatre Saisons Lelieur",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 706,
+      "height": 1024
+    },
+    {
+      "id": "rose-kamtschatica",
+      "name": {
+        "en": " Wild Kamchatka Rose Botanical Illustration",
+        "vi": "Hoa hồng dại Kamchatka"
+      },
+      "tags": {
+        "en": [
+          "wild rose",
+          "pink",
+          "leaves",
+          "botanical"
+        ],
+        "vi": [
+          "hồng dại",
+          "hoa rừng",
+          "thực vật",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Chapuy,_after_Pierre-_Joseph_Redout%C3%A9_-_Kamtschatka_Rose_(Rosa_Kamtschatica),_from_Redout%C3%A9,_%22_Les_Roses%22,_Paris,_1817%E2%80%931824)_-_Google_Art_Project.jpg",
+        "author": "Chapuy, after Pierre- Joseph Redouté 19th century – By (French) Details on Google Art Project",
+        "title": "Kamtschatka Rose (Rosa Kamtschatica), from Redouté, \" Les Roses\", Paris, 1817–1824)title QS:P1476,en:\"Kamtschatka Rose (Rosa Kamtschatica), ",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 835,
+      "height": 1024
+    },
+    {
+      "id": "rose-hudsoniana",
+      "name": {
+        "en": "Willow-Leaved Hudson Rose (Cleveland Museum)",
+        "vi": "Nhánh hồng lá liễu thanh mảnh"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "willow leaf",
+          "museum",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "lá mảnh",
+          "bảo tàng",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Henry_Joseph_Redout%C3%A9_-_Les_Roses-_Rosa_Hudsoniana_Salicifolia_-_1965.292_-_Cleveland_Museum_of_Art.jpg",
+        "author": "Henry Joseph Redouté",
+        "title": "Les Roses: Rosa Hudsoniana Salicifolia",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 749,
+      "height": 1024
+    },
+    {
+      "id": "rose-indica-redoute",
+      "name": {
+        "en": "Blushing Bengal Rose (Rosa Indica)",
+        "vi": "Đóa hồng phương Đông (Rosa Indica)"
+      },
+      "tags": {
+        "en": [
+          "rose",
+          "bengal rose",
+          "pink",
+          "botanical"
+        ],
+        "vi": [
+          "hoa hồng",
+          "phương đông",
+          "màu nước",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Henry_Joseph_Redout%C3%A9_-_Les_Roses-_Rosa_indica_-_1955.473_-_Cleveland_Museum_of_Art.jpg",
+        "author": "Henry Joseph Redouté",
+        "title": "Les Roses: Rosa indica",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 619,
+      "height": 1024
+    }
+  ]
+}

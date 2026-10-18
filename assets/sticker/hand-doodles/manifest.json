@@ -1,0 +1,716 @@
+{
+  "id": "hand-doodles",
+  "kind": "sticker",
+  "name": {
+    "en": "Hand-Drawn Doodles",
+    "vi": "Doodle vẽ tay"
+  },
+  "collections": [
+    "handDrawn",
+    "cute",
+    "journal"
+  ],
+  "order": 80,
+  "items": [
+    {
+      "id": "doodle-reading",
+      "name": {
+        "en": "Reading a Book Doodle",
+        "vi": "Ngồi đọc sách chăm chú"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "reading",
+          "book",
+          "sketch"
+        ],
+        "vi": [
+          "vẽ tay",
+          "đọc sách",
+          "doodle",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Reading a Book Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 892,
+      "height": 1024
+    },
+    {
+      "id": "doodle-roller-skating",
+      "name": {
+        "en": "Roller Skating Doodle",
+        "vi": "Trượt patin vui nhộn"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "skating",
+          "fun",
+          "active"
+        ],
+        "vi": [
+          "vẽ tay",
+          "trượt patin",
+          "năng động",
+          "vui vẻ"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Roller Skating Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 782
+    },
+    {
+      "id": "doodle-plant-lover",
+      "name": {
+        "en": "Holding House Plant Doodle",
+        "vi": "Ôm chậu cây xanh nhỏ"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "plant",
+          "green",
+          "nature"
+        ],
+        "vi": [
+          "vẽ tay",
+          "chậu cây",
+          "yêu cây",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Holding House Plant Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 963
+    },
+    {
+      "id": "doodle-sitting-reading",
+      "name": {
+        "en": "Quietly Reflecting with Book",
+        "vi": "Ngồi suy tư bên trang sách"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "sitting",
+          "book",
+          "calm"
+        ],
+        "vi": [
+          "vẽ tay",
+          "đọc sách",
+          "bình yên",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Quietly Reflecting with Book",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 823
+    },
+    {
+      "id": "doodle-running",
+      "name": {
+        "en": "Carefree Running Doodle",
+        "vi": "Chạy bộ tràn đầy năng lượng"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "running",
+          "sport",
+          "joy"
+        ],
+        "vi": [
+          "vẽ tay",
+          "chạy bộ",
+          "năng lượng",
+          "vui nhộn"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Carefree Running Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 697
+    },
+    {
+      "id": "doodle-groovy-walk",
+      "name": {
+        "en": "Groovy Strolling Character",
+        "vi": "Dạo bước phong cách retro"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "groovy",
+          "walk",
+          "retro"
+        ],
+        "vi": [
+          "vẽ tay",
+          "dạo phố",
+          "cá tính",
+          "doodle"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Groovy Strolling Character",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 846
+    },
+    {
+      "id": "doodle-ballet-leap",
+      "name": {
+        "en": "Graceful Ballet Leap Doodle",
+        "vi": "Điệu nhảy ba-lê bay bổng"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "ballet",
+          "dance",
+          "jump"
+        ],
+        "vi": [
+          "vẽ tay",
+          "nhảy múa",
+          "bay bổng",
+          "nghệ thuật"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Graceful Ballet Leap Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 900
+    },
+    {
+      "id": "doodle-meditating",
+      "name": {
+        "en": "Zen Meditation Pose Doodle",
+        "vi": "Ngồi thiền tĩnh tâm"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "meditation",
+          "zen",
+          "peace"
+        ],
+        "vi": [
+          "vẽ tay",
+          "ngồi thiền",
+          "tĩnh tâm",
+          "thư giãn"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Zen Meditation Pose Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 800
+    },
+    {
+      "id": "doodle-dog-jump",
+      "name": {
+        "en": "Playing with Jumping Dog",
+        "vi": "Vui đùa cùng cún cưng"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "dog",
+          "pet",
+          "play"
+        ],
+        "vi": [
+          "vẽ tay",
+          "cún cưng",
+          "thú cưng",
+          "vui đùa"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Playing with Jumping Dog",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 837
+    },
+    {
+      "id": "doodle-jumping-joy",
+      "name": {
+        "en": "Jumping for Joy Doodle",
+        "vi": "Nhảy lên vì sung sướng"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "jump",
+          "happy",
+          "celebrate"
+        ],
+        "vi": [
+          "vẽ tay",
+          "nhảy cao",
+          "hạnh phúc",
+          "ăn mừng"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Jumping for Joy Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 840
+    },
+    {
+      "id": "doodle-giant-coffee",
+      "name": {
+        "en": "Hugging Giant Coffee Cup",
+        "vi": "Ôm trọn tách cà phê lớn"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "coffee",
+          "cafe",
+          "morning"
+        ],
+        "vi": [
+          "vẽ tay",
+          "cà phê",
+          "ghiền cà phê",
+          "buổi sáng"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Hugging Giant Coffee Cup",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 804
+    },
+    {
+      "id": "doodle-reading-floor",
+      "name": {
+        "en": "Cozy Floor Reading with Plant",
+        "vi": "Nằm đọc sách cạnh chậu cây"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "cozy",
+          "reading",
+          "home"
+        ],
+        "vi": [
+          "vẽ tay",
+          "ở nhà",
+          "đọc sách",
+          "chill"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Cozy Floor Reading with Plant",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 656
+    },
+    {
+      "id": "doodle-peace-selfie",
+      "name": {
+        "en": "Peace Sign Selfie Doodle",
+        "vi": "Chụp ảnh selfie giơ tay chữ V"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "selfie",
+          "photo",
+          "peace"
+        ],
+        "vi": [
+          "vẽ tay",
+          "chụp ảnh",
+          "selfie",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Peace Sign Selfie Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 735,
+      "height": 1024
+    },
+    {
+      "id": "doodle-music-dancing",
+      "name": {
+        "en": "Dancing with Headphones Doodle",
+        "vi": "Đeo tai nghe nhún nhảy theo nhạc"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "music",
+          "dancing",
+          "headphones"
+        ],
+        "vi": [
+          "vẽ tay",
+          "nghe nhạc",
+          "nhảy múa",
+          "yêu đời"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Dancing with Headphones Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 874
+    },
+    {
+      "id": "doodle-floating",
+      "name": {
+        "en": "Dreamy Floating in Air Doodle",
+        "vi": "Lơ lửng giữa tầng mây"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "float",
+          "dream",
+          "relax"
+        ],
+        "vi": [
+          "vẽ tay",
+          "mộng mơ",
+          "lơ lửng",
+          "thư giãn"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Dreamy Floating in Air Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 746
+    },
+    {
+      "id": "doodle-strolling",
+      "name": {
+        "en": "Cheerful Morning Stroll Doodle",
+        "vi": "Thong thả dạo phố cuối tuần"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "stroll",
+          "walk",
+          "smile"
+        ],
+        "vi": [
+          "vẽ tay",
+          "dạo phố",
+          "cuối tuần",
+          "vui vẻ"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Cheerful Morning Stroll Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 993
+    },
+    {
+      "id": "doodle-swinging",
+      "name": {
+        "en": "Carefree Giant Swing Doodle",
+        "vi": "Đánh đu giữa khoảng không"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "swing",
+          "playful",
+          "breeze"
+        ],
+        "vi": [
+          "vẽ tay",
+          "xích đu",
+          "tuổi thơ",
+          "tự do"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Carefree Giant Swing Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 965
+    },
+    {
+      "id": "doodle-chilling",
+      "name": {
+        "en": "Sitting & Chilling Doodle",
+        "vi": "Ngồi nghỉ ngơi thư thái"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "chill",
+          "relax",
+          "cool"
+        ],
+        "vi": [
+          "vẽ tay",
+          "nghỉ ngơi",
+          "thư thái",
+          "chill"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Sitting & Chilling Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 673
+    },
+    {
+      "id": "doodle-petting-dog",
+      "name": {
+        "en": "Cuddling Puppy Doodle",
+        "vi": "Vuốt ve chú chó nhỏ"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "puppy",
+          "dog",
+          "love"
+        ],
+        "vi": [
+          "vẽ tay",
+          "chó con",
+          "âu yếm",
+          "thú cưng"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Cuddling Puppy Doodle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1013,
+      "height": 1024
+    },
+    {
+      "id": "doodle-giant-ice-cream",
+      "name": {
+        "en": "Giant Cherry Ice Cream Cone",
+        "vi": "Ôm cây kem ốc quế khổng lồ"
+      },
+      "tags": {
+        "en": [
+          "doodle",
+          "ice cream",
+          "sweet",
+          "summer"
+        ],
+        "vi": [
+          "vẽ tay",
+          "kem ốc quế",
+          "ngọt ngào",
+          "mùa hè"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "Open Doodles",
+        "url": "https://www.opendoodles.com/",
+        "author": "Pablo Stanley",
+        "title": "Giant Cherry Ice Cream Cone",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 906,
+      "height": 1024
+    }
+  ]
+}

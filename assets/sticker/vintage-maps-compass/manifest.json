@@ -1,0 +1,646 @@
+{
+  "id": "vintage-maps-compass",
+  "kind": "sticker",
+  "name": {
+    "en": "Maps, Compasses & Timepieces",
+    "vi": "Bản đồ, La bàn & Đồng hồ cổ"
+  },
+  "collections": [
+    "vintage",
+    "travel",
+    "journal"
+  ],
+  "order": 70,
+  "items": [
+    {
+      "id": "compass-rose-1595",
+      "name": {
+        "en": "Nautical Compass Rose (1595)",
+        "vi": "Hoa la bàn hàng hải cổ điển (1595)"
+      },
+      "tags": {
+        "en": [
+          "compass",
+          "compass rose",
+          "nautical",
+          "travel"
+        ],
+        "vi": [
+          "la bàn",
+          "hoa la bàn",
+          "hàng hải",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Compass_rose_1595.svg",
+        "author": "Lordoftheloch",
+        "title": "Compass rose 1595",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 851,
+      "height": 910
+    },
+    {
+      "id": "compass-rose-1607",
+      "name": {
+        "en": "Ornate Cartographic Compass Rose (1607)",
+        "vi": "Hoa la bàn bản đồ cổ (1607)"
+      },
+      "tags": {
+        "en": [
+          "compass",
+          "map",
+          "cartography",
+          "vintage"
+        ],
+        "vi": [
+          "la bàn",
+          "bản đồ cổ",
+          "phương hướng",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Compass_rose_1607.svg",
+        "author": "Lordoftheloch",
+        "title": "Compass rose 1607",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 822,
+      "height": 1024
+    },
+    {
+      "id": "compass-bowditch-1916",
+      "name": {
+        "en": "Bowditch Mariner's 32-Point Compass Dial (1916)",
+        "vi": "Vòng la bàn 32 hướng hàng hải (1916)"
+      },
+      "tags": {
+        "en": [
+          "compass",
+          "mariner",
+          "dial",
+          "navigation"
+        ],
+        "vi": [
+          "vòng la bàn",
+          "hàng hải",
+          "điều hướng",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Bowditch1916p15CompassRose.png",
+        "author": "United States Hydrographic Office",
+        "title": "Bowditch1916p15CompassRose",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1022,
+      "height": 1024
+    },
+    {
+      "id": "compass-fleuron-1740",
+      "name": {
+        "en": "Eighteenth-Century Geography Compass Emblem",
+        "vi": "Biểu tượng địa lý & la bàn thế kỷ 18"
+      },
+      "tags": {
+        "en": [
+          "compass",
+          "geography",
+          "engraving",
+          "vintage"
+        ],
+        "vi": [
+          "la bàn",
+          "địa lý",
+          "khắc gỗ",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_system_of_geography-_or,_a_new_and_accurate_description_of_the_earth_in_all_its_empires,_kingdoms_and_states_Fleuron_T096688-4.png",
+        "author": "Moll, Herman",
+        "title": "A system of geography- or, a new and accurate description of the earth in all its empires, kingdoms and states Fleuron T096688-4",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 982,
+      "height": 1024
+    },
+    {
+      "id": "compass-globe-fleuron",
+      "name": {
+        "en": "Antique Armillary Sphere & Globe Engraving",
+        "vi": "Tranh khắc quả địa cầu & hỗn thiên nghi"
+      },
+      "tags": {
+        "en": [
+          "globe",
+          "sphere",
+          "astronomy",
+          "vintage"
+        ],
+        "vi": [
+          "địa cầu",
+          "thiên văn",
+          "khắc cổ",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_system_of_geography-_or,_a_new_and_accurate_description_of_the_earth_in_all_its_empires,_kingdoms_and_states_Fleuron_T096688-7.png",
+        "author": "Moll, Herman",
+        "title": "A system of geography- or, a new and accurate description of the earth in all its empires, kingdoms and states Fleuron T096688-7",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 946,
+      "height": 1024
+    },
+    {
+      "id": "compass-card-vintage",
+      "name": {
+        "en": "Classic Star Mariner Compass Card",
+        "vi": "Ngôi sao phương hướng la bàn cổ"
+      },
+      "tags": {
+        "en": [
+          "compass",
+          "star",
+          "north",
+          "travel"
+        ],
+        "vi": [
+          "ngôi sao",
+          "la bàn",
+          "bắc nam",
+          "hành trình"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Compass_card_(mn).png",
+        "author": "Compass_card_(de).svg: User:Madden derivative work: Munkhzaya (talk)",
+        "title": "Compass card (mn)",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1014,
+      "height": 1018
+    },
+    {
+      "id": "compass-juan-de-la-cosa-1500",
+      "name": {
+        "en": "Juan de la Cosa Portolan Map Compass (1500)",
+        "vi": "La bàn hải đồ cổ Juan de la Cosa (1500)"
+      },
+      "tags": {
+        "en": [
+          "compass",
+          "portolan",
+          "map",
+          "1500"
+        ],
+        "vi": [
+          "hải đồ",
+          "la bàn cổ",
+          "khám phá",
+          "1500"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1500_map_by_Juan_de_la_Cosa_Compass_rose.jpg",
+        "author": "Juan de la Cosa",
+        "title": "Called Map of Juan de la Cosa .",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "compass-cantino-1502",
+      "name": {
+        "en": "Cantino Planisphere Renaissance Compass Rose",
+        "vi": "Hoa la bàn thời Phục hưng Cantino"
+      },
+      "tags": {
+        "en": [
+          "compass",
+          "renaissance",
+          "star",
+          "map"
+        ],
+        "vi": [
+          "la bàn",
+          "phục hưng",
+          "hải trình",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Compass_rose_Cantino.svg",
+        "author": "Alvesgaspar",
+        "title": "Compass rose Cantino",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 925,
+      "height": 1024
+    },
+    {
+      "id": "astrolabe-oxford-mhs-37530",
+      "name": {
+        "en": "Brass Planispheric Astrolabe (Oxford Museum)",
+        "vi": "Đĩa thiên văn bằng đồng thau cổ"
+      },
+      "tags": {
+        "en": [
+          "astrolabe",
+          "brass",
+          "astronomy",
+          "antique"
+        ],
+        "vi": [
+          "thiên văn",
+          "đồng thau",
+          "cổ vật",
+          "khoa học"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:MHS_37530_Astrolabe.jpg",
+        "author": "Wikimedia Commons",
+        "title": "MHS 37530 Astrolabe",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 707,
+      "height": 1024
+    },
+    {
+      "id": "astrolabe-gothic-mhs-47674",
+      "name": {
+        "en": "Late Gothic Filigree Brass Astrolabe",
+        "vi": "Đĩa tinh bàn chạm lọng phong cách Gothic"
+      },
+      "tags": {
+        "en": [
+          "astrolabe",
+          "gothic",
+          "filigree",
+          "brass"
+        ],
+        "vi": [
+          "tinh bàn",
+          "chạm lọng",
+          "gothic",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:MHS_47674_Late_Gothic_Astrolabe.jpg",
+        "author": "Wikimedia Commons",
+        "title": "MHS 47674 Late Gothic Astrolabe",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 913,
+      "height": 1024
+    },
+    {
+      "id": "astrolabe-geographical-mhs-44359",
+      "name": {
+        "en": "Engraved Geographical Brass Astrolabe",
+        "vi": "La bàn thiên văn khắc bản đồ cổ"
+      },
+      "tags": {
+        "en": [
+          "astrolabe",
+          "map",
+          "brass",
+          "vintage"
+        ],
+        "vi": [
+          "thiên văn",
+          "bản đồ",
+          "đồng cổ",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:MHS_44359_Geographical_Astrolabe.jpg",
+        "author": "Wikimedia Commons",
+        "title": "MHS 44359 Geographical Astrolabe",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 818,
+      "height": 1024
+    },
+    {
+      "id": "astrolabe-oxford-mhs-58805",
+      "name": {
+        "en": "The Golden Oxford Astrolabe Dial",
+        "vi": "Đồng hồ thiên văn Oxford mạ vàng"
+      },
+      "tags": {
+        "en": [
+          "astrolabe",
+          "golden",
+          "dial",
+          "oxford"
+        ],
+        "vi": [
+          "đồng hồ cổ",
+          "thiên văn",
+          "mạ vàng",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:MHS_58805_The_Oxford_Astrolabe.jpg",
+        "author": "Wikimedia Commons",
+        "title": "MHS 58805 The Oxford Astrolabe",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 843,
+      "height": 1024
+    },
+    {
+      "id": "astrolabe-star-mhs-40330",
+      "name": {
+        "en": "Star-Pointer Brass Astrolabe Rete",
+        "vi": "Vòng sao thiên văn cổ điển"
+      },
+      "tags": {
+        "en": [
+          "astrolabe",
+          "stars",
+          "zodiac",
+          "antique"
+        ],
+        "vi": [
+          "vòng sao",
+          "hoàng đạo",
+          "cổ vật",
+          "thiên văn"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:MHS_40330_Astrolabe.jpg",
+        "author": "Wikimedia Commons",
+        "title": "MHS 40330 Astrolabe",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 759,
+      "height": 1024
+    },
+    {
+      "id": "astrolabe-wellcome-front",
+      "name": {
+        "en": "Complete Brass Astrolabe with Rule (Wellcome)",
+        "vi": "Chiếc tinh bàn đồng nguyên bản"
+      },
+      "tags": {
+        "en": [
+          "astrolabe",
+          "instrument",
+          "navigation",
+          "vintage"
+        ],
+        "vi": [
+          "tinh bàn",
+          "dụng cụ cổ",
+          "hàng hải",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Astrolabe_when_components_are_together_showing_the_front_Wellcome_M0017323.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Astrolabe when components are together showing the front",
+        "license": "CC-BY-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 864,
+      "height": 1024
+    },
+    {
+      "id": "watch-walters-hunting-case",
+      "name": {
+        "en": "Enamel & Gold Pocket Watch (Walters Art Museum)",
+        "vi": "Đồng hồ bỏ túi tráng men vàng cổ điển"
+      },
+      "tags": {
+        "en": [
+          "pocket watch",
+          "watch",
+          "gold",
+          "vintage"
+        ],
+        "vi": [
+          "đồng hồ bỏ túi",
+          "mạ vàng",
+          "thời gian",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Mathey_Peytieu_-_Ladies_Hunting_Case_Watch_-_Walters_58287_-_Back.jpg",
+        "author": "Movement: Mathey Peytieu Anonymous (Swiss artist)Unknown author",
+        "title": "Ladies Hunting Case Watch",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 755,
+      "height": 1024
+    },
+    {
+      "id": "watch-fusee-verge",
+      "name": {
+        "en": "Antique Open-Face Roman Numeral Pocket Watch",
+        "vi": "Đồng hồ quả quýt số La Mã cổ"
+      },
+      "tags": {
+        "en": [
+          "pocket watch",
+          "roman numerals",
+          "clock",
+          "vintage"
+        ],
+        "vi": [
+          "đồng hồ quả quýt",
+          "số la mã",
+          "thời gian",
+          "hoài cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Spindeluhr_fusee_verge_watch_fabris_02.jpg",
+        "author": "Sergio Fabris",
+        "title": "Spindeluhr fusee verge watch fabris 02",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1016,
+      "height": 1024
+    },
+    {
+      "id": "watch-archer-alexander",
+      "name": {
+        "en": "Historic Gold Chain Pocket Watch",
+        "vi": "Đồng hồ quả quýt vàng thế kỷ 19"
+      },
+      "tags": {
+        "en": [
+          "pocket watch",
+          "gold watch",
+          "heirloom",
+          "vintage"
+        ],
+        "vi": [
+          "đồng hồ cổ",
+          "quả quýt",
+          "kỷ vật",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Pocket_watch_presented_to_Christopher_Rhodes_Eliot_by_Archer_Alexander.jpg",
+        "author": "Santiago James Moore French",
+        "title": "Pocket watch presented to Christopher Rhodes Eliot by Archer Alexander",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 728,
+      "height": 1024
+    },
+    {
+      "id": "watch-revolutionary-decimal",
+      "name": {
+        "en": "French Revolutionary Decimal Dial Watch",
+        "vi": "Đồng hồ mặt sứ trắng cổ điển Pháp"
+      },
+      "tags": {
+        "en": [
+          "pocket watch",
+          "french",
+          "dial",
+          "antique"
+        ],
+        "vi": [
+          "đồng hồ pháp",
+          "mặt sứ",
+          "cổ điển",
+          "thời gian"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Montre_revolutionnaire-IMG_4629-black.jpg",
+        "author": "Ludo29 &amp; Rama",
+        "title": "Montre revolutionnaire-IMG 4629-black",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 843,
+      "height": 1024
+    }
+  ]
+}
