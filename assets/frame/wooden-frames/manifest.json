@@ -12,54 +12,6 @@
   "order": 20,
   "items": [
     {
-      "id": "wood-renaissance-cassetta-19",
-      "name": {
-        "en": "Italian Renaissance Walnut Cassetta Frame (The Met)",
-        "vi": "Khung gỗ óc chó Cassetta thời Phục Hưng"
-      },
-      "tags": {
-        "en": [
-          "frame",
-          "wood",
-          "renaissance",
-          "cassetta",
-          "walnut"
-        ],
-        "vi": [
-          "khung gỗ",
-          "phục hưng",
-          "gỗ óc chó",
-          "cổ điển"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "windows": [
-        {
-          "x": 0.22,
-          "y": 0.21,
-          "w": 0.56,
-          "h": 0.58
-        }
-      ],
-      "process": {
-        "removeBg": true,
-        "tolerance": 28
-      },
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Cassetta_frame_MET_86AP_FRTS19R2M.jpg",
-        "author": "Wikimedia Commons",
-        "title": "Cassetta frame MET 86AP FRTS19R2M.jpg",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1280,
-      "height": 1560
-    },
-    {
       "id": "wood-reverse-molding-78",
       "name": {
         "en": "Deep Profile Dark Wood Reverse Frame (The Met)",
@@ -85,10 +37,10 @@
       ],
       "windows": [
         {
-          "x": 0.24,
-          "y": 0.23,
-          "w": 0.52,
-          "h": 0.54
+          "x": 0.1177,
+          "y": 0.1281,
+          "w": 0.7734,
+          "h": 0.7706
         }
       ],
       "process": {
@@ -133,10 +85,10 @@
       ],
       "windows": [
         {
-          "x": 0.24,
-          "y": 0.23,
-          "w": 0.52,
-          "h": 0.54
+          "x": 0.2441,
+          "y": 0.2331,
+          "w": 0.5118,
+          "h": 0.5913
         }
       ],
       "process": {
@@ -181,10 +133,10 @@
       ],
       "windows": [
         {
-          "x": 0.22,
-          "y": 0.21,
-          "w": 0.56,
-          "h": 0.58
+          "x": 0.2047,
+          "y": 0.2068,
+          "w": 0.582,
+          "h": 0.598
         }
       ],
       "process": {
@@ -228,10 +180,11 @@
       ],
       "windows": [
         {
-          "x": 0.22,
-          "y": 0.21,
-          "w": 0.56,
-          "h": 0.58
+          "x": 0.187,
+          "y": 0.19,
+          "w": 0.6377,
+          "h": 0.6219,
+          "shape": "ellipse"
         }
       ],
       "process": {
@@ -276,10 +229,10 @@
       ],
       "windows": [
         {
-          "x": 0.16,
-          "y": 0.15,
-          "w": 0.68,
-          "h": 0.7
+          "x": 0.1563,
+          "y": 0.1434,
+          "w": 0.6961,
+          "h": 0.7022
         }
       ],
       "process": {
@@ -296,54 +249,6 @@
       },
       "width": 1280,
       "height": 1464
-    },
-    {
-      "id": "wood-ebonized-ripple-221",
-      "name": {
-        "en": "Dutch Ripple-Molded Wooden Frame (The Met)",
-        "vi": "Khung gỗ gợn sóng kiểu Hà Lan thế kỷ 17"
-      },
-      "tags": {
-        "en": [
-          "frame",
-          "dutch",
-          "ripple",
-          "wood",
-          "antique"
-        ],
-        "vi": [
-          "khung hà lan",
-          "vân sóng",
-          "gỗ cổ",
-          "nghệ thuật"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "windows": [
-        {
-          "x": 0.22,
-          "y": 0.21,
-          "w": 0.56,
-          "h": 0.58
-        }
-      ],
-      "process": {
-        "removeBg": true,
-        "tolerance": 28
-      },
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Gilt_ripple_frame_MET_86X_221r1.jpg",
-        "author": "Wikimedia Commons",
-        "title": "Gilt ripple frame MET 86X 221r1.jpg",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1280,
-      "height": 1038
     },
     {
       "id": "wood-sansovino-carved-2152",
@@ -372,10 +277,10 @@
       ],
       "windows": [
         {
-          "x": 0.25,
-          "y": 0.24,
-          "w": 0.5,
-          "h": 0.52
+          "x": 0.1586,
+          "y": 0.2121,
+          "w": 0.6922,
+          "h": 0.6305
         }
       ],
       "process": {

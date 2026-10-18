@@ -294,53 +294,6 @@
       },
       "width": 1019,
       "height": 1600
-    },
-    {
-      "id": "ornament-yale-decorative-border",
-      "name": {
-        "en": "Georgian Watercolor Floral Garland Frame (Yale)",
-        "vi": "Khung vòng hoa màu nước thế kỷ 18"
-      },
-      "tags": {
-        "en": [
-          "ornament",
-          "watercolor",
-          "garland",
-          "georgian"
-        ],
-        "vi": [
-          "vòng hoa",
-          "màu nước",
-          "thế kỷ 18",
-          "lãng mạn"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "journal"
-      ],
-      "windows": [
-        {
-          "x": 0.21,
-          "y": 0.2,
-          "w": 0.58,
-          "h": 0.6
-        }
-      ],
-      "process": {
-        "removeBg": true,
-        "tolerance": 18
-      },
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:James_Bruce_-_Decorative_Border_For_Title_Page_-_B1977.14.8790_-_Yale_Center_for_British_Art.jpg",
-        "author": "James Bruce",
-        "title": "James Bruce - Decorative Border For Title Page - B1977.14.8790 - Yale Center for British Art.jpg",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1280,
-      "height": 1097
     }
   ]
 }
