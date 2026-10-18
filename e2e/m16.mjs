@@ -84,7 +84,7 @@ const tr = await page.evaluate(() => {
   const t = window.__igEditor.getState().canvas.layer.getStage().findOne("Transformer");
   return { resize: t.resizeEnabled(), rotate: t.rotateEnabled() };
 });
-check(!tr.resize && !tr.rotate, "an empty cell of a block has no handles of its own (it follows the block)");
+check(tr.resize && tr.rotate, "an empty cell has its own handles like any element (D-113)");
 
 console.log("Order (§1.3): 1 photo → K");
 await tapCentre(K);

@@ -75,7 +75,7 @@ check(Math.abs(c0.x - g) < 0.01 && Math.abs(c0.width - (540 - g - g / 2)) < 0.01
 check(cells(st).every((e) => e.slot && e.mask === "rounded"), "cells are slots with rounded corners");
 await shot(page, "3-grid");
 
-console.log("3. Drag inside a cell pans the photo");
+console.log("3. Drag a selected cell moves the cell (D-113)");
 await tapEl(c0);
 check((await page.evaluate(() => window.__igEditor.getState().selectedId)) === block.id, "first tap selects the block");
 await tapEl(c0);
@@ -89,8 +89,8 @@ await page.mouse.move(start.x + 40, start.y + 40, { steps: 8 });
 await page.mouse.up();
 st = await S();
 const c0b = cells(st)[0];
-check(c0b.x === c0.x && c0b.y === c0.y, "frame did not move");
-check(c0b.crop.x !== c0.crop.x || c0b.crop.y !== c0.crop.y, `crop moved (${c0.crop.x.toFixed(0)} → ${c0b.crop.x.toFixed(0)})`);
+check(c0b.x > c0.x && c0b.y > c0.y, "the cell moved");
+check(c0b.crop.x === c0.crop.x && c0b.crop.y === c0.crop.y, "its picture did not move inside it");
 
 console.log("4. Swap two cells");
 const a0 = cells(st)[0].assetId;

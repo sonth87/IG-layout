@@ -24,7 +24,7 @@ import {
   newId,
 } from "@/lib/project/types";
 import { useSettings } from "./settings";
-import { blockIds, copyUnit, isLayout, moveUnit, syncLayout, units } from "@/lib/project/blocks";
+import { blockIds, cellFromFrame, copyUnit, isLayout, moveUnit, syncLayout } from "@/lib/project/blocks";
 import { createProjectRecord, loadProject, requestPersistence, saveAssets } from "@/lib/storage/projects";
 
 // History follows the "confirm then record" model (D-12, D-17): only `commit`
@@ -182,7 +182,19 @@ export const useEditor = create<EditorState>()((set, get) => {
   /** After a change to `id`: if it is a layout block, its cells follow (M14). */
   function synced(d: ProjectDoc, id: string) {
     const el = d.elements.find((e) => e.id === id);
-    return isLayout(el) ? syncLayout(d, id, (a) => get().assets[a]) : d;
+    if (isLayout(el)) return syncLayout(d, id, (a) => get().assets[a]);
+    // A cell moved / resized / turned by hand (D-113): its block remembers where it is now.
+    const block = el?.parentId ? d.elements.find((e) => e.id === el.parentId) : undefined;
+    if (el && isLayout(block)) {
+      const at = cellFromFrame(block, el);
+      const cell = block.cells.find((c) => c.id === el.id);
+      if (!cell) return d;
+      const same = Math.abs(cell.x - at.x) < 1e-6 && Math.abs(cell.y - at.y) < 1e-6 && Math.abs(cell.w - at.w) < 1e-6 && Math.abs(cell.h - at.h) < 1e-6 && Math.abs((cell.rotation ?? 0) - (at.rotation ?? 0)) < 1e-6;
+      if (same) return d;
+      const cells = block.cells.map((c) => (c.id === el.id ? { id: c.id, ...at } : c));
+      return updateEl(d, block.id, { cells, custom: true });
+    }
+    return d;
   }
 
   function commit(update: (doc: ProjectDoc) => ProjectDoc) {
@@ -399,14 +411,15 @@ export const useEditor = create<EditorState>()((set, get) => {
       commit((d) => {
         const el = d.elements.find((e) => e.id === id);
         if (!el) return d;
-        // A photo in a cell is copied out as a free photo, above its block (M14).
+        // A cell is copied as another cell of its block, a little offset (D-113).
         if (el.parentId) {
-          const copy = { ...el, id: copyId, x: el.x + 40, y: el.y + 40, slot: false } as CanvasElement;
-          delete copy.parentId;
-          const list = units(d);
-          const at = list.findIndex((u) => u[0].id === el.parentId);
-          list.splice(at + 1, 0, [copy]);
-          return { ...d, elements: list.flat() };
+          const block = d.elements.find((e) => e.id === el.parentId);
+          if (!isLayout(block)) return d;
+          const copy = { ...el, id: copyId, x: el.x + 40, y: el.y + 40 } as CanvasElement;
+          const at = d.elements.findIndex((e) => e.id === id);
+          const elements = [...d.elements.slice(0, at + 1), copy, ...d.elements.slice(at + 1)];
+          const cells = [...block.cells, { id: copyId, ...cellFromFrame(block, copy) }];
+          return { ...d, elements: elements.map((e) => (e.id === block.id ? { ...block, cells, custom: true } : e)) };
         }
         const r = copyUnit(d, id, 40);
         if (!r) return d;

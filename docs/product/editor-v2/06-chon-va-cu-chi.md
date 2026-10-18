@@ -80,3 +80,11 @@ Mục **Chọn nhiều** có trong menu ⋯ của thanh nổi và trong menu ⋯
 6. Chạm vùng trống → bỏ chọn; chụm tiếp → canvas phóng.
 7. Phần tử khoá: chọn được, kéo không động; ảnh bên trong cũng đứng yên (D-101).
 8. Không còn tình huống "định phóng canvas nhưng lại phóng ảnh" trong bất kỳ trạng thái nào.
+
+## Cập nhật D-113 (2026-10-18) — ô là phần tử bình thường
+
+- Chạm lần 1 chọn **khối**, chạm lần 2 chọn **ô** (như cũ).
+- Ô đang chọn: **kéo = dời ô** trong khối; có tay nắm góc / cạnh để đổi cỡ và nút xoay, như mọi phần tử. Ô vẫn thuộc khối: kéo / xoay / đổi cỡ khối thì ô đi theo.
+- Dời / phóng **ảnh bên trong ô**: **chụm 2 ngón** trên ô, hoặc nút **Cắt** (cắt ngay trên canvas).
+- Ô của **khung từ thư viện** (cửa sổ cố định theo ảnh khung): giữ như cũ — kéo = dời ảnh, không có tay nắm.
+- **Bố cục / Điều chỉnh** của khối xếp lại mọi ô theo mẫu; nếu các ô đã được chỉnh tay thì app báo một dòng.

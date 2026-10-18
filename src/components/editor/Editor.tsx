@@ -6,7 +6,7 @@ import { LayoutPicker } from "@/components/layout/LayoutPicker";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { newText } from "@/lib/elements/create";
 import { canvasSize, slideAt, slideRect } from "@/lib/project/layout";
-import { type ImageAsset, isImage } from "@/lib/project/types";
+import { fixedCell, type ImageAsset, isImage } from "@/lib/project/types";
 import { flushSave, useSaveStatus } from "@/store/autosave";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { WEB_FONTS } from "@/lib/text/webfonts";
@@ -378,6 +378,12 @@ export function Editor({ onClose }: { onClose: () => void }) {
     }
   }, [selectedId]);
 
+  /** Layout / Adjust of a block lay its cells out again: say so if they were placed by hand (D-113). */
+  function openBlockTool(next: Tool) {
+    if (selected?.type === "layout" && selected.custom) showNotice(t("block.resetCells"));
+    openTool(next);
+  }
+
   function openTool(next: Tool) {
     if (DRAFT_TOOLS.includes(next)) store.beginDraft();
     setTool(next);
@@ -629,10 +635,12 @@ export function Editor({ onClose }: { onClose: () => void }) {
     // Toolbar of the selected kind of element (editor-v2/07 §5): slides sideways, ✕ deselects.
     const id = selected.id;
     const inBlock = !!selected.parentId;
-    const position = !inBlock && <ToolButton key={t("editor.position")} label={t("editor.position")} icon="move" onClick={() => openTool("position")} />;
+    // Cells are ordinary elements (D-113), except a pack frame's windows.
+    const fixedSlot = inBlock && fixedCell(selected, doc.elements);
+    const position = !fixedSlot && <ToolButton key={t("editor.position")} label={t("editor.position")} icon="move" onClick={() => openTool("position")} />;
     const tail = [
-      !inBlock && <ToolButton key={selected.locked ? t("editor.unlock") : t("editor.lock")} label={selected.locked ? t("editor.unlock") : t("editor.lock")} icon={selected.locked ? "unlock" : "lock"} onClick={() => store.toggleLock(id)} />,
-      !inBlock && <ToolButton key={t("editor.duplicate")} label={t("editor.duplicate")} icon="duplicate" onClick={() => store.duplicateElement(id)} />,
+      !fixedSlot && <ToolButton key={selected.locked ? t("editor.unlock") : t("editor.lock")} label={selected.locked ? t("editor.unlock") : t("editor.lock")} icon={selected.locked ? "unlock" : "lock"} onClick={() => store.toggleLock(id)} />,
+      !fixedSlot && <ToolButton key={t("editor.duplicate")} label={t("editor.duplicate")} icon="duplicate" onClick={() => store.duplicateElement(id)} />,
       <ToolButton key={t("common.delete")} label={t("common.delete")} icon="trash" onClick={() => store.removeElement(id)} danger />,
     ];
     let tools: React.ReactNode;
@@ -689,8 +697,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
       tools = selected.art
         ? [position, <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />, ...tail]
         : [
-            <ToolButton key="layout" label={t("block.layout")} icon="layout" onClick={() => openTool("blockLayout")} />,
-            <ToolButton key="adjust" label={t("block.adjust")} icon="adjust" onClick={() => openTool("blockAdjust")} />,
+            <ToolButton key="layout" label={t("block.layout")} icon="layout" onClick={() => openBlockTool("blockLayout")} />,
+            <ToolButton key="adjust" label={t("block.adjust")} icon="adjust" onClick={() => openBlockTool("blockAdjust")} />,
             position,
             ...tail,
           ];

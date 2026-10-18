@@ -135,7 +135,8 @@ const blk = st.doc.elements.find((e) => e.type === "layout");
 let tr = await handles(blk.id);
 check(tr.nodes[0] === blk.id && tr.resize && tr.rotate, "the layout block resizes and turns like any element");
 tr = await handles(st.doc.elements.find((e) => e.parentId === blk.id).id);
-check(tr.nodes[0] === "__whole-picture" && tr.resize && !tr.rotate, "a cell photo: box around the whole picture, corners zoom, no turning");
+const cellId = st.doc.elements.find((e) => e.parentId === blk.id).id;
+check(tr.nodes[0] === cellId && tr.resize && tr.rotate, "a cell photo: its own handles, resizes and turns like any element (D-113)");
 
 console.log("UX-02 re-layout keeps text");
 await page.getByRole("button", { name: "Done" }).click();

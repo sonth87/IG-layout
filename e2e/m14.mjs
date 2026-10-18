@@ -160,31 +160,16 @@ check(Math.abs(b2.rotation) > 30, `the block turned (${b2.rotation.toFixed(1)}°
 check(cellsOf(st, b2).every((c) => near(c.rotation, b2.rotation, 0.1)), "the cells turned with it");
 await store("updateElement", block.id, { rotation: 0 });
 
-console.log("Photo in a cell: box around the whole picture (editor-v2/07 §1)");
+console.log("Photo in a cell: an ordinary element (D-113)");
 st = await S();
-// The narrowest picture, so its handles are on screen (the panorama's are not).
-const assets = await page.evaluate(() => window.__igEditor.getState().assets);
-const photo = cellsOf(st, blockOf(st))
-  .filter((c) => c.assetId)
-  .sort((a, b) => assets[a.assetId].width / assets[a.assetId].height - assets[b.assetId].width / assets[b.assetId].height)[0];
+const photo = cellsOf(st, blockOf(st)).find((c) => c.assetId);
 await store("select", photo.id);
 await page.waitForTimeout(250);
 const tr = await page.evaluate(() => {
-  const stage = window.__igEditor.getState().canvas.layer.getStage();
-  const t = stage.findOne("Transformer");
-  const n = t.nodes()[0];
-  return { id: n?.id(), w: n?.width(), h: n?.height(), rotate: t.rotateEnabled() };
+  const t = window.__igEditor.getState().canvas.layer.getStage().findOne("Transformer");
+  return { id: t.nodes()[0]?.id(), resize: t.resizeEnabled(), rotate: t.rotateEnabled() };
 });
-const asset = await page.evaluate((id) => window.__igEditor.getState().assets[id], photo.assetId);
-const z = photo.width / photo.crop.width;
-check(tr.id === "__whole-picture" && near(tr.w, asset.width * z, 2) && near(tr.h, asset.height * z, 2), `the box is the whole picture (${tr.w?.toFixed(0)} × ${tr.h?.toFixed(0)})`);
-check(!tr.rotate, "no turn handle on a photo inside a cell");
-a = await anchor("bottom-right");
-await drag(a, { x: a.x + 40, y: a.y + 40 });
-await page.mouse.up();
-st = await S();
-const photo2 = st.doc.elements.find((e) => e.id === photo.id);
-check(photo2.crop.width < photo.crop.width - 1 && near(photo2.x, photo.x) && near(photo2.width, photo.width), "corner handle zooms the photo inside, the cell stays");
+check(tr.id === photo.id && tr.resize && tr.rotate, "its own handles: resize and turn");
 
 console.log("Equal-size ruler (editor-v2/07 §4)");
 await store("select", null);

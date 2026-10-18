@@ -1,5 +1,5 @@
 import { respaced } from "@/lib/templates/blockLayout";
-import { isLayout, refitCrop, syncLayout } from "./blocks";
+import { cellFromFrame, isLayout, refitCrop, syncLayout } from "./blocks";
 import { innerFrame, rotatedBounds } from "./geometry";
 import { slideOfElement, slideRect } from "./layout";
 import { type CanvasElement, isImage, type ProjectDoc } from "./types";
@@ -21,11 +21,19 @@ export function patchElement(doc: ProjectDoc, id: string, patch: Partial<CanvasE
     if (size && Math.abs(a.width / a.height - b.width / b.height) > 1e-3) after = { ...after, crop: refitCrop(before.crop, b.width / b.height, size) };
   }
   // A block's spacing changed (Adjust sheet): its cells are laid out again.
-  if (isLayout(after) && ("gap" in patch || "padding" in patch || "width" in patch || "height" in patch)) {
+  // Cells placed by hand (D-113) keep their places when only the block's size changes.
+  const spacing = "gap" in patch || "padding" in patch;
+  if (isLayout(after) && (spacing || (!after.custom && ("width" in patch || "height" in patch)))) {
     const cells = respaced(after);
-    if (cells) after = { ...after, cells };
+    if (cells) after = { ...after, cells, custom: undefined };
   }
-  const next = { ...doc, elements: doc.elements.map((e) => (e.id === id ? after : e)) };
+  let next = { ...doc, elements: doc.elements.map((e) => (e.id === id ? after : e)) };
+  // A cell placed through the sheet (D-113): its block remembers where it is now.
+  const block = after.parentId ? next.elements.find((e) => e.id === after.parentId) : undefined;
+  if (isLayout(block) && ("x" in patch || "y" in patch || "width" in patch || "height" in patch || "rotation" in patch)) {
+    const at = cellFromFrame(block, after);
+    next = { ...next, elements: next.elements.map((e) => (e.id === block.id ? { ...block, custom: true, cells: block.cells.map((c) => (c.id === id ? { id, ...at } : c)) } : e)) };
+  }
   return isLayout(after) ? syncLayout(next, id, assetSize) : next;
 }
 

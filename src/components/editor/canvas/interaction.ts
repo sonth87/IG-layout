@@ -1,6 +1,6 @@
 "use client";
 
-import { type CanvasElement, pansInside } from "@/lib/project/types";
+import { type CanvasElement, zoomsInside } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 
 // Selection / drag rules shared by every canvas element (M8, UX-01, UX-10):
@@ -24,7 +24,7 @@ export function useElementInteraction(el: CanvasElement) {
   const selected = useEditor((s) => s.selectedId === el.id);
   const select = useEditor((s) => s.select);
   // Locked photos still pan inside their frame (the frame itself never moves).
-  const draggable = (!el.locked || pansInside(el)) && (selected || !isTouchUI);
+  const draggable = (!el.locked || zoomsInside(el)) && (selected || !isTouchUI);
 
   function onSelect() {
     const current = useEditor.getState().selectedId;

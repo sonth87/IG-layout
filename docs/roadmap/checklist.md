@@ -455,3 +455,10 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Chụm 2 ngón: phóng quanh điểm giữa hai ngón (giữ cố định điểm neo suốt lần chụm, ngón tay kéo được trong lúc chụm); trục nào canvas đang vừa màn hình thì phóng quanh tâm canvas — không chạy tới chạy lui
 - [x] Vị trí cuộn và vị trí canvas áp **cùng một khung hình** (layout effect), không trễ một nhịp → các thành phần không dịch trái / phải theo nhịp phóng; mỗi khung hình chỉ cập nhật một lần dù sự kiện chạm đến dồn dập (e2e zoom-smooth.mjs)
 - [ ] Chủ dự án thử lại trên điện thoại
+
+### Ô của layout / lưới là phần tử bình thường (D-113, 2026-10-18)
+- [x] Chọn ô (chạm lần 2) → tay nắm đổi cỡ / xoay; **kéo = dời ô**; khối nhớ vị trí mới của ô (kéo / xoay / đổi cỡ khối thì ô đi theo đúng chỗ)
+- [x] Ảnh trong ô: chụm 2 ngón hoặc nút Cắt để dời / phóng
+- [x] Thanh công cụ của ô có thêm Vị trí, Khoá, Nhân bản (bản sao là một ô mới của khối)
+- [x] Bố cục / Điều chỉnh xếp lại ô theo mẫu (báo trước nếu đã chỉnh tay); ô thêm bằng Nhân bản giữ nguyên chỗ; đổi cỡ cả khối không làm mất ô đã chỉnh tay
+- [x] Ô của khung từ thư viện vẫn cố định theo cửa sổ khung (kéo = dời ảnh) — e2e slots.mjs
