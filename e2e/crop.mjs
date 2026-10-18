@@ -58,6 +58,9 @@ await page.evaluate((id) => window.__igEditor.getState().select(id), free.id);
 await page.waitForTimeout(200);
 const scale0 = (await toPage(0, 0)).scale;
 
+const toolNames = await page.getByRole("region", { name: "Tools" }).getByRole("button").evaluateAll((els) => els.map((e) => e.getAttribute("aria-label") || e.innerText.trim()));
+check(!toolNames.includes("Animate"), "Animate hidden for now (owner, 2026-10-18)");
+
 console.log("Opens on the canvas");
 await page.getByRole("button", { name: "Crop", exact: true }).click();
 await page.waitForTimeout(500);

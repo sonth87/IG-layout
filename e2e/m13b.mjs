@@ -16,6 +16,8 @@ const shot = (p, n) => p.screenshot({ path: path.join(out, `m13b-${n}.png`) });
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
 await skipTips(context);
+// Animate is hidden for now (owner, 2026-10-18): the labs switch shows it.
+await context.addInitScript(() => localStorage.setItem("ig-layout:labs-animate", "1"));
 const page = await context.newPage();
 const errors = [];
 page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
