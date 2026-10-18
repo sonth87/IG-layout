@@ -159,42 +159,6 @@
       "height": 1024
     },
     {
-      "id": "paper-creased-aged-05",
-      "name": {
-        "en": "Heavily Creased Craft Paper",
-        "vi": "Giấy thủ công vò nhăn"
-      },
-      "tags": {
-        "en": [
-          "paper",
-          "creased",
-          "crumpled",
-          "vintage"
-        ],
-        "vi": [
-          "giấy vò",
-          "nhăn",
-          "cổ điển",
-          "thủ công"
-        ]
-      },
-      "collections": [
-        "journal",
-        "vintage"
-      ],
-      "tile": true,
-      "source": {
-        "provider": "ambientCG",
-        "url": "https://ambientcg.com/view?id=Paper005",
-        "author": "Lennart Demes (ambientCG)",
-        "title": "Paper005 Albedo Map",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1024,
-      "height": 1024
-    },
-    {
       "id": "paper-warm-kraft-06",
       "name": {
         "en": "Warm Beige Kraft Paper",

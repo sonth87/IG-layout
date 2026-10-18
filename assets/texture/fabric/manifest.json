@@ -13,42 +13,6 @@
   "order": 20,
   "items": [
     {
-      "id": "fabric-rough-linen",
-      "name": {
-        "en": "Natural Rough Woven Linen",
-        "vi": "Vải lanh dệt thô tự nhiên"
-      },
-      "tags": {
-        "en": [
-          "fabric",
-          "linen",
-          "woven",
-          "natural"
-        ],
-        "vi": [
-          "vải lanh",
-          "dệt thô",
-          "tự nhiên",
-          "mộc"
-        ]
-      },
-      "collections": [
-        "journal",
-        "vintage"
-      ],
-      "tile": true,
-      "source": {
-        "provider": "Poly Haven",
-        "url": "https://polyhaven.com/a/rough_linen",
-        "author": "colormass",
-        "title": "Rough Linen",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1022,
-      "height": 1024
-    },
-    {
       "id": "fabric-burlap-hessian",
       "name": {
         "en": "Rustic Jute Burlap Sackcloth",
@@ -158,43 +122,6 @@
       },
       "width": 979,
       "height": 1024
-    },
-    {
-      "id": "fabric-waffle-cotton",
-      "name": {
-        "en": "Soft Waffle Piqué Cotton",
-        "vi": "Vải cotton dệt tổ ong"
-      },
-      "tags": {
-        "en": [
-          "fabric",
-          "cotton",
-          "waffle",
-          "soft",
-          "minimal"
-        ],
-        "vi": [
-          "vải cotton",
-          "tổ ong",
-          "mềm mại",
-          "tối giản"
-        ]
-      },
-      "collections": [
-        "journal",
-        "vintage"
-      ],
-      "tile": true,
-      "source": {
-        "provider": "Poly Haven",
-        "url": "https://polyhaven.com/a/waffle_pique_cotton",
-        "author": "colormass",
-        "title": "Waffle Pique Cotton",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1024,
-      "height": 1010
     },
     {
       "id": "fabric-wool-boucle",

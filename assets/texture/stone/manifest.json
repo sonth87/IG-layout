@@ -193,43 +193,6 @@
       "height": 1024
     },
     {
-      "id": "stone-beige-stucco-wall",
-      "name": {
-        "en": "Mediterranean Beige Stucco Plaster",
-        "vi": "Tường vữa màu kem Địa Trung Hải"
-      },
-      "tags": {
-        "en": [
-          "stone",
-          "plaster",
-          "stucco",
-          "beige",
-          "wall"
-        ],
-        "vi": [
-          "tường vữa",
-          "màu be",
-          "tối giản",
-          "ấm áp"
-        ]
-      },
-      "collections": [
-        "minimal",
-        "vintage"
-      ],
-      "tile": true,
-      "source": {
-        "provider": "Poly Haven",
-        "url": "https://polyhaven.com/a/beige_wall_001",
-        "author": "Dimitrios Savva",
-        "title": "Beige Wall 001",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 1024,
-      "height": 1024
-    },
-    {
       "id": "stone-brushed-concrete",
       "name": {
         "en": "Architectural Brushed Grey Concrete",
