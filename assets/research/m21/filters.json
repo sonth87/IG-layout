@@ -1,0 +1,3640 @@
+{
+  "version": 1,
+  "milestone": "M21",
+  "generatedAt": "2026-10-18",
+  "compatibleWith": "src/lib/color/params.ts",
+  "groupCount": 12,
+  "filterCount": 120,
+  "proposedNewUniforms": [
+    {
+      "key": "curves",
+      "type": "{ master?: [number, number][]; r?: [number, number][]; g?: [number, number][]; b?: [number, number][] }",
+      "description": "1D LUT (256x1 RGBA texture) nội suy Monotone Cubic Hermite từ các điểm neo đường cong tone (0..1)"
+    },
+    {
+      "key": "midtones",
+      "type": "[number, number, number]",
+      "description": "Mở rộng split-toning 2 vùng hiện tại thành cân bằng màu 3 vùng (Shadows / Midtones / Highlights)"
+    },
+    {
+      "key": "halation",
+      "type": "{ radius: number; strength: number; threshold: number; color?: [number, number, number] }",
+      "description": "Quầng sáng đỏ cam lan từ vùng cháy sáng đặc trưng của phim điện ảnh bỏ lớp chống loá (CineStill 800T)"
+    },
+    {
+      "key": "hsl",
+      "type": "Record<'red'|'orange'|'yellow'|'green'|'aqua'|'blue'|'purple'|'magenta', { hue?: number; saturation?: number; luminance?: number }>",
+      "description": "Tinh chỉnh chọn lọc 8 dải màu (đặc biệt hữu ích cho nhóm Chân dung & Làn da và Phong cảnh)"
+    },
+    {
+      "key": "lut",
+      "type": "{ url: string; size: 32 | 64; strength: number }",
+      "description": "Hald CLUT / 3D LUT dạng dải ảnh 2D PNG nén Lossless WebP dùng nội suy trilinear trong WebGL"
+    }
+  ],
+  "openSourceLutSources": [
+    {
+      "name": "RawTherapee Film Simulation Collection (HaldCLUT)",
+      "url": "https://rawpedia.rawtherapee.com/Film_Simulation",
+      "license": "CC-BY-SA-4.0",
+      "notes": "Bộ hơn 300 Hald CLUT mô phỏng phim Kodak, Fuji, Agfa, Ilford; có thể giảm bậc xuống 32x32x32 (~15–35 KB/file WebP lossless)"
+    },
+    {
+      "name": "G'MIC Film Emulation CLUTs",
+      "url": "https://gmic.eu/film_emulation/",
+      "license": "CeCILL / CC-BY-SA-4.0",
+      "notes": "Bao gồm nhóm Analog, Vintage, Instant, B&W đã chuẩn hoá không gian màu sRGB"
+    },
+    {
+      "name": "OpenDRT / ACES LMT Preset Curves",
+      "url": "https://github.com/jedypod/open-display-transform",
+      "license": "MIT",
+      "notes": "Tham khảo đường cong S-curve điện ảnh và ma trận nén vùng sáng không làm bệt màu da"
+    }
+  ],
+  "groups": [
+    {
+      "id": "film-analog",
+      "name": "Phim nhựa (Analog Film)",
+      "nameEn": "Analog Film",
+      "description": "Mô phỏng màu phim âm bản và dương bản cổ điển (Kodak, Fujifilm, Agfa, Cinestill)",
+      "filters": [
+        {
+          "id": "portra-400",
+          "name": "Portra 400",
+          "description": "Màu da ấm mịn, vùng sáng dịu, tương phản vừa phải kiểu phim chân dung chuyên nghiệp",
+          "adjust": {
+            "exposure": 4,
+            "contrast": -6,
+            "highlights": -18,
+            "shadows": 14,
+            "saturation": -6,
+            "vibrance": 14,
+            "temperature": 12,
+            "tint": 4,
+            "grain": 14,
+            "fade": 8
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.5,
+              0.54
+            ],
+            "highlights": [
+              0.62,
+              0.56,
+              0.44
+            ],
+            "strength": 0.22
+          },
+          "proposed": {
+            "curves": {
+              "master": [
+                [
+                  0,
+                  0.03
+                ],
+                [
+                  0.25,
+                  0.23
+                ],
+                [
+                  0.75,
+                  0.78
+                ],
+                [
+                  1,
+                  0.97
+                ]
+              ]
+            },
+            "lutRef": "RawTherapee Film Simulation: Kodak Portra 400 NC (CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "portra-160",
+          "name": "Portra 160",
+          "description": "Phim ban ngày hạt mịn, màu sắc trung tính dịu nhẹ, giữ chi tiết vùng sáng cao",
+          "adjust": {
+            "exposure": 3,
+            "contrast": -10,
+            "highlights": -22,
+            "shadows": 12,
+            "saturation": -10,
+            "vibrance": 10,
+            "temperature": 8,
+            "tint": 3,
+            "grain": 8,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.5,
+              0.52
+            ],
+            "highlights": [
+              0.58,
+              0.54,
+              0.46
+            ],
+            "strength": 0.18
+          },
+          "proposed": {
+            "lutRef": "RawTherapee Film Simulation: Kodak Portra 160 NC (CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "portra-800",
+          "name": "Portra 800",
+          "description": "Phim độ nhạy sáng cao, độ bão hoà ấm, hạt phim rõ và tương phản sâu hơn",
+          "adjust": {
+            "exposure": 5,
+            "contrast": 8,
+            "highlights": -14,
+            "shadows": 10,
+            "saturation": 8,
+            "vibrance": 16,
+            "temperature": 18,
+            "tint": 6,
+            "grain": 26,
+            "fade": 6,
+            "vignette": 12
+          },
+          "split": {
+            "shadows": [
+              0.44,
+              0.48,
+              0.56
+            ],
+            "highlights": [
+              0.66,
+              0.56,
+              0.4
+            ],
+            "strength": 0.28
+          },
+          "proposed": {
+            "halation": {
+              "radius": 8,
+              "strength": 0.18,
+              "threshold": 0.85
+            }
+          }
+        },
+        {
+          "id": "gold-200",
+          "name": "Gold 200",
+          "description": "Tông vàng mật ong rực rỡ của phim gia đình thập niên 90",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 10,
+            "highlights": -10,
+            "shadows": 8,
+            "saturation": 12,
+            "vibrance": 16,
+            "temperature": 28,
+            "tint": 4,
+            "grain": 18,
+            "fade": 10,
+            "vignette": 10
+          },
+          "split": {
+            "shadows": [
+              0.54,
+              0.46,
+              0.38
+            ],
+            "highlights": [
+              0.7,
+              0.58,
+              0.36
+            ],
+            "strength": 0.32
+          },
+          "proposed": {
+            "lutRef": "G'MIC Film Emulation: Kodak Gold 200 (CeCILL / CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "ultramax-400",
+          "name": "Ultramax 400",
+          "description": "Tương phản khoẻ, xanh dương và vàng nổi bật, thích hợp chụp đường phố",
+          "adjust": {
+            "contrast": 14,
+            "highlights": -12,
+            "shadows": 6,
+            "saturation": 18,
+            "vibrance": 14,
+            "temperature": 14,
+            "tint": -2,
+            "grain": 22,
+            "fade": 6,
+            "sharpen": 8
+          },
+          "split": {
+            "shadows": [
+              0.38,
+              0.46,
+              0.62
+            ],
+            "highlights": [
+              0.66,
+              0.58,
+              0.38
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "ektar-100",
+          "name": "Ektar 100",
+          "description": "Hạt siêu mịn, độ bão hoà cao, đỏ và xanh da trời sâu",
+          "adjust": {
+            "contrast": 18,
+            "highlights": -14,
+            "shadows": -6,
+            "saturation": 24,
+            "vibrance": 18,
+            "temperature": 10,
+            "tint": 6,
+            "grain": 6,
+            "sharpen": 12
+          },
+          "split": {
+            "shadows": [
+              0.4,
+              0.46,
+              0.58
+            ],
+            "highlights": [
+              0.64,
+              0.52,
+              0.42
+            ],
+            "strength": 0.24
+          },
+          "proposed": {
+            "lutRef": "RawTherapee Film Simulation: Kodak Ektar 100 (CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "superia-400",
+          "name": "Superia 400",
+          "description": "Ám xanh lá nhẹ vùng tối và tím hồng vùng da đặc trưng phim Nhật",
+          "adjust": {
+            "contrast": 8,
+            "highlights": -12,
+            "shadows": 10,
+            "saturation": 6,
+            "vibrance": 12,
+            "temperature": -6,
+            "tint": 8,
+            "grain": 20,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.36,
+              0.56,
+              0.46
+            ],
+            "highlights": [
+              0.6,
+              0.5,
+              0.56
+            ],
+            "strength": 0.3
+          },
+          "proposed": {
+            "lutRef": "RawTherapee Film Simulation: Fuji Superia 400 (CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "pro-400h",
+          "name": "Pro 400H",
+          "description": "Màu pastel trong trẻo, xanh ngọc dịu và vùng sáng mềm mại",
+          "adjust": {
+            "exposure": 6,
+            "contrast": -8,
+            "highlights": -20,
+            "shadows": 18,
+            "saturation": -8,
+            "vibrance": 12,
+            "temperature": -4,
+            "tint": -6,
+            "grain": 12,
+            "fade": 12
+          },
+          "split": {
+            "shadows": [
+              0.42,
+              0.54,
+              0.54
+            ],
+            "highlights": [
+              0.56,
+              0.58,
+              0.52
+            ],
+            "strength": 0.24
+          },
+          "proposed": {
+            "lutRef": "RawTherapee Film Simulation: Fuji Pro 400H (CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "cinestill-800t",
+          "name": "CineStill 800T",
+          "description": "Phim điện ảnh chụp đêm ánh đèn tungsten, lạnh xanh ngọc kèm quầng sáng đỏ cam",
+          "adjust": {
+            "contrast": 16,
+            "highlights": 8,
+            "shadows": -6,
+            "saturation": 10,
+            "vibrance": 20,
+            "temperature": -28,
+            "tint": 6,
+            "grain": 24,
+            "vignette": 20
+          },
+          "split": {
+            "shadows": [
+              0.28,
+              0.48,
+              0.64
+            ],
+            "highlights": [
+              0.72,
+              0.44,
+              0.34
+            ],
+            "strength": 0.38
+          },
+          "proposed": {
+            "halation": {
+              "radius": 14,
+              "strength": 0.42,
+              "threshold": 0.78,
+              "color": [
+                1,
+                0.28,
+                0.16
+              ]
+            }
+          }
+        },
+        {
+          "id": "agfa-vista-200",
+          "name": "Agfa Vista 200",
+          "description": "Sắc đỏ ấm áp, xanh lá trầm và tương phản gãy gọn kiểu phim châu Âu",
+          "adjust": {
+            "contrast": 14,
+            "highlights": -10,
+            "shadows": 4,
+            "saturation": 14,
+            "vibrance": 10,
+            "temperature": 12,
+            "tint": 8,
+            "grain": 18,
+            "fade": 8
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.5,
+              0.42
+            ],
+            "highlights": [
+              0.66,
+              0.52,
+              0.44
+            ],
+            "strength": 0.26
+          },
+          "proposed": {
+            "lutRef": "RawTherapee Film Simulation: Agfa Precisa / Vista (CC-BY-SA-4.0)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "retro-vintage",
+      "name": "Hoài cổ (Retro & Vintage)",
+      "nameEn": "Retro & Vintage",
+      "description": "Màu ảnh in cũ, máy chụp lấy liền, bưu thiếp phai màu và tạp chí thập niên 60–90",
+      "filters": [
+        {
+          "id": "kodachrome-64",
+          "name": "Kodachrome 64",
+          "description": "Phim dương bản huyền thoại với sắc đỏ vàng ấm và vùng tối sâu",
+          "adjust": {
+            "contrast": 20,
+            "highlights": -14,
+            "shadows": -8,
+            "saturation": 10,
+            "vibrance": 16,
+            "temperature": 18,
+            "tint": 6,
+            "grain": 16,
+            "fade": 6,
+            "vignette": 16
+          },
+          "split": {
+            "shadows": [
+              0.42,
+              0.42,
+              0.52
+            ],
+            "highlights": [
+              0.68,
+              0.56,
+              0.38
+            ],
+            "strength": 0.3
+          },
+          "proposed": {
+            "lutRef": "RawTherapee Film Simulation: Kodachrome 64 (CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "polaroid-sx70",
+          "name": "SX-70",
+          "description": "Ảnh lấy liền thập niên 70 với nền kem vàng, đen nâng cao và viền tối",
+          "adjust": {
+            "brightness": 4,
+            "contrast": -12,
+            "highlights": -16,
+            "shadows": 20,
+            "saturation": -18,
+            "temperature": 22,
+            "tint": 8,
+            "grain": 22,
+            "fade": 28,
+            "vignette": 24
+          },
+          "split": {
+            "shadows": [
+              0.38,
+              0.48,
+              0.56
+            ],
+            "highlights": [
+              0.7,
+              0.62,
+              0.42
+            ],
+            "strength": 0.36
+          }
+        },
+        {
+          "id": "vhs-1988",
+          "name": "VHS 1988",
+          "description": "Màu băng từ thập niên 80 hơi nhòe nhẹ, lệch tím hồng và phai đen",
+          "adjust": {
+            "contrast": -8,
+            "highlights": -10,
+            "shadows": 16,
+            "saturation": -12,
+            "vibrance": 14,
+            "temperature": -8,
+            "tint": 18,
+            "hue": 6,
+            "grain": 32,
+            "fade": 24,
+            "blur": 4
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.38,
+              0.62
+            ],
+            "highlights": [
+              0.62,
+              0.54,
+              0.58
+            ],
+            "strength": 0.32
+          }
+        },
+        {
+          "id": "faded-album",
+          "name": "Album Cũ",
+          "description": "Ảnh in giấy cất lâu trong cuốn album gia đình, ngả vàng nâu nhẹ",
+          "adjust": {
+            "brightness": 6,
+            "contrast": -18,
+            "highlights": -20,
+            "shadows": 24,
+            "saturation": -32,
+            "temperature": 26,
+            "tint": 10,
+            "grain": 20,
+            "fade": 34,
+            "vignette": 18
+          },
+          "split": {
+            "shadows": [
+              0.54,
+              0.46,
+              0.38
+            ],
+            "highlights": [
+              0.68,
+              0.6,
+              0.46
+            ],
+            "strength": 0.34
+          }
+        },
+        {
+          "id": "lomography-xpro",
+          "name": "Lomo X-Pro",
+          "description": "Tráng chéo C-41/E-6 tạo tương phản gắt, xanh lục - vàng rực và tối góc đậm",
+          "adjust": {
+            "contrast": 28,
+            "highlights": -8,
+            "shadows": -12,
+            "saturation": 22,
+            "temperature": 16,
+            "tint": -18,
+            "grain": 26,
+            "fade": 8,
+            "vignette": 36
+          },
+          "split": {
+            "shadows": [
+              0.3,
+              0.56,
+              0.44
+            ],
+            "highlights": [
+              0.72,
+              0.64,
+              0.32
+            ],
+            "strength": 0.42
+          }
+        },
+        {
+          "id": "disposable-cam",
+          "name": "Máy Dùng 1 Lần",
+          "description": "Ánh đèn flash gắt ở trung tâm, viền tối, hạt thô và ám xanh lá vùng tối",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 12,
+            "highlights": 10,
+            "shadows": 8,
+            "saturation": 6,
+            "temperature": 6,
+            "tint": -8,
+            "grain": 30,
+            "fade": 16,
+            "vignette": 28
+          },
+          "split": {
+            "shadows": [
+              0.36,
+              0.54,
+              0.44
+            ],
+            "highlights": [
+              0.64,
+              0.6,
+              0.48
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "sunbleached-70s",
+          "name": "Nắng Phai 70s",
+          "description": "Ảnh bưu thiếp phơi nắng phai bớt sắc xanh, phủ lớp sương cam ấm",
+          "adjust": {
+            "exposure": 6,
+            "contrast": -14,
+            "highlights": -12,
+            "shadows": 18,
+            "saturation": -22,
+            "temperature": 32,
+            "tint": 12,
+            "grain": 18,
+            "fade": 26
+          },
+          "split": {
+            "shadows": [
+              0.58,
+              0.44,
+              0.38
+            ],
+            "highlights": [
+              0.72,
+              0.58,
+              0.42
+            ],
+            "strength": 0.36
+          }
+        },
+        {
+          "id": "super-8-reel",
+          "name": "Cuộn Super 8",
+          "description": "Tông màu cuộn phim nhựa 8mm gia đình với sắc hổ phách và hạt dày",
+          "adjust": {
+            "contrast": 10,
+            "highlights": -16,
+            "shadows": 6,
+            "saturation": -14,
+            "temperature": 30,
+            "tint": 8,
+            "grain": 34,
+            "fade": 18,
+            "vignette": 30
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.42,
+              0.34
+            ],
+            "highlights": [
+              0.7,
+              0.56,
+              0.36
+            ],
+            "strength": 0.38
+          }
+        },
+        {
+          "id": "thrift-magazine",
+          "name": "Tạp Chí Cũ",
+          "description": "Màu in offset trên giấy báo ngả vàng, độ bão hoà thấp và hạt giấy mịn",
+          "adjust": {
+            "contrast": -6,
+            "highlights": -18,
+            "shadows": 14,
+            "saturation": -26,
+            "vibrance": 8,
+            "temperature": 20,
+            "tint": 4,
+            "grain": 24,
+            "fade": 20
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.46,
+              0.44
+            ],
+            "highlights": [
+              0.64,
+              0.58,
+              0.44
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "sepia-postcard",
+          "name": "Bưu Thiếp Nâu",
+          "description": "Ảnh bưu thiếp đầu thế kỷ 20 pha giữa màu nguyên bản rất nhạt và lớp tráng nâu",
+          "adjust": {
+            "contrast": -4,
+            "highlights": -14,
+            "shadows": 12,
+            "saturation": -45,
+            "temperature": 28,
+            "tint": 8,
+            "grain": 22,
+            "fade": 22,
+            "vignette": 20
+          },
+          "mono": 0.55,
+          "monoTint": [
+            1.06,
+            0.96,
+            0.8
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cinematic",
+      "name": "Điện ảnh (Cinematic)",
+      "nameEn": "Cinematic",
+      "description": "Bảng màu phim chiếu rạp, từ bom tấn Hollywood đến phim nghệ thuật châu Á và châu Âu",
+      "filters": [
+        {
+          "id": "wong-kar-wai",
+          "name": "Trùng Khánh",
+          "description": "Xanh lục bảo đậm vùng tối và vàng cam ấm vùng sáng lấy cảm hứng điện ảnh Hồng Kông thập niên 90",
+          "adjust": {
+            "contrast": 22,
+            "highlights": -8,
+            "shadows": -10,
+            "saturation": 12,
+            "vibrance": 18,
+            "temperature": 10,
+            "tint": -16,
+            "grain": 28,
+            "fade": 10,
+            "vignette": 26
+          },
+          "split": {
+            "shadows": [
+              0.24,
+              0.56,
+              0.42
+            ],
+            "highlights": [
+              0.74,
+              0.58,
+              0.3
+            ],
+            "strength": 0.44
+          },
+          "proposed": {
+            "halation": {
+              "radius": 12,
+              "strength": 0.35,
+              "threshold": 0.8
+            }
+          }
+        },
+        {
+          "id": "amelie-paris",
+          "name": "Montmartre",
+          "description": "Sự kết hợp rực rỡ giữa xanh lá cây ấm và đỏ cam cổ tích kiểu Pháp",
+          "adjust": {
+            "contrast": 16,
+            "highlights": -12,
+            "shadows": 6,
+            "saturation": 20,
+            "vibrance": 14,
+            "temperature": 24,
+            "tint": -10,
+            "grain": 14,
+            "vignette": 18
+          },
+          "split": {
+            "shadows": [
+              0.34,
+              0.54,
+              0.36
+            ],
+            "highlights": [
+              0.7,
+              0.56,
+              0.34
+            ],
+            "strength": 0.38
+          }
+        },
+        {
+          "id": "nordic-thriller",
+          "name": "Bắc Âu Lạnh",
+          "description": "Tông xanh xám đá phiến, độ bão hoà thấp, tương phản sắc lạnh",
+          "adjust": {
+            "exposure": -4,
+            "contrast": 20,
+            "highlights": -16,
+            "shadows": -8,
+            "saturation": -30,
+            "vibrance": -8,
+            "temperature": -24,
+            "tint": -6,
+            "grain": 16,
+            "fade": 8,
+            "vignette": 20
+          },
+          "split": {
+            "shadows": [
+              0.34,
+              0.46,
+              0.56
+            ],
+            "highlights": [
+              0.48,
+              0.54,
+              0.58
+            ],
+            "strength": 0.32
+          }
+        },
+        {
+          "id": "bleach-bypass",
+          "name": "Bỏ Tẩy Bạc",
+          "description": "Kỹ thuật giữ bạc trên phim tạo độ tương phản rất gắt, màu sắc trầm đục và hạt gai góc",
+          "adjust": {
+            "contrast": 34,
+            "highlights": -10,
+            "shadows": -16,
+            "saturation": -42,
+            "vibrance": -10,
+            "grain": 28,
+            "sharpen": 16,
+            "vignette": 22
+          },
+          "mono": 0.35,
+          "monoTint": [
+            0.96,
+            1,
+            1.04
+          ]
+        },
+        {
+          "id": "wes-pastel",
+          "name": "Đối Xứng Hồng Vàng",
+          "description": "Bảng màu vàng mù tạt, hồng phấn và xanh bạc hà sáng sủa, ít tương phản vùng tối",
+          "adjust": {
+            "exposure": 6,
+            "contrast": -6,
+            "highlights": -14,
+            "shadows": 22,
+            "saturation": 14,
+            "vibrance": 20,
+            "temperature": 18,
+            "tint": 10,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.52,
+              0.56
+            ],
+            "highlights": [
+              0.7,
+              0.58,
+              0.44
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "dune-amber",
+          "name": "Cát Sa Mạc",
+          "description": "Tông vàng đồng - nâu cát thống nhất, bầu trời dịu và bóng đổ sâu",
+          "adjust": {
+            "contrast": 18,
+            "highlights": -18,
+            "shadows": -6,
+            "saturation": -16,
+            "vibrance": 8,
+            "temperature": 32,
+            "tint": 4,
+            "grain": 14,
+            "fade": 8,
+            "vignette": 16
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.42,
+              0.34
+            ],
+            "highlights": [
+              0.68,
+              0.56,
+              0.38
+            ],
+            "strength": 0.4
+          }
+        },
+        {
+          "id": "fincher-green",
+          "name": "Đêm Mưa Vàng Xanh",
+          "description": "Ánh đèn đường vàng lục trầm u tối và bóng đổ lạnh sắc nét",
+          "adjust": {
+            "exposure": -6,
+            "contrast": 24,
+            "highlights": -14,
+            "shadows": -12,
+            "saturation": -20,
+            "temperature": -8,
+            "tint": -16,
+            "grain": 18,
+            "vignette": 24
+          },
+          "split": {
+            "shadows": [
+              0.3,
+              0.46,
+              0.48
+            ],
+            "highlights": [
+              0.62,
+              0.6,
+              0.38
+            ],
+            "strength": 0.36
+          }
+        },
+        {
+          "id": "moonlight-indigo",
+          "name": "Trăng Xanh Chàm",
+          "description": "Đêm nhiệt đới với vùng tối xanh chàm sâu thẳm và ánh đèn phản chiếu tím dịu",
+          "adjust": {
+            "contrast": 20,
+            "highlights": -10,
+            "shadows": 6,
+            "saturation": 8,
+            "vibrance": 18,
+            "temperature": -26,
+            "tint": 12,
+            "grain": 16,
+            "vignette": 20
+          },
+          "split": {
+            "shadows": [
+              0.28,
+              0.38,
+              0.68
+            ],
+            "highlights": [
+              0.56,
+              0.5,
+              0.64
+            ],
+            "strength": 0.38
+          }
+        },
+        {
+          "id": "indie-a24",
+          "name": "Phim Độc Lập",
+          "description": "Tương phản mềm, nâng đen vừa phải, sắc màu tự nhiên hơi trầm và giàu chất phim 35mm",
+          "adjust": {
+            "contrast": 6,
+            "highlights": -20,
+            "shadows": 14,
+            "saturation": -12,
+            "vibrance": 10,
+            "temperature": 6,
+            "tint": 2,
+            "grain": 20,
+            "fade": 14,
+            "vignette": 14
+          },
+          "split": {
+            "shadows": [
+              0.42,
+              0.48,
+              0.54
+            ],
+            "highlights": [
+              0.6,
+              0.56,
+              0.46
+            ],
+            "strength": 0.24
+          }
+        },
+        {
+          "id": "blockbuster-35mm",
+          "name": "Rạp Chiếu 35mm",
+          "description": "Tương phản cân bằng giữa xanh lam lạnh ở bóng râm và cam ấm trên da",
+          "adjust": {
+            "contrast": 22,
+            "highlights": -12,
+            "shadows": 4,
+            "saturation": 6,
+            "vibrance": 18,
+            "temperature": -4,
+            "grain": 14,
+            "sharpen": 10,
+            "vignette": 16
+          },
+          "split": {
+            "shadows": [
+              0.26,
+              0.48,
+              0.66
+            ],
+            "highlights": [
+              0.72,
+              0.54,
+              0.34
+            ],
+            "strength": 0.36
+          }
+        }
+      ]
+    },
+    {
+      "id": "portrait-skin",
+      "name": "Chân dung & Làn da (Portrait & Skin)",
+      "nameEn": "Portrait & Skin",
+      "description": "Tối ưu sắc độ da hồng hào, mịn màng, giữ chi tiết tóc và mắt tự nhiên",
+      "filters": [
+        {
+          "id": "peach-glow",
+          "name": "Đào Hồng Hào",
+          "description": "Nâng sáng nhẹ và phủ sắc hồng đào tươi tắn cho ảnh chân dung ban ngày",
+          "adjust": {
+            "exposure": 5,
+            "brightness": 4,
+            "contrast": -8,
+            "highlights": -14,
+            "shadows": 16,
+            "saturation": -4,
+            "vibrance": 14,
+            "temperature": 10,
+            "tint": 10,
+            "fade": 6
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.46,
+              0.48
+            ],
+            "highlights": [
+              0.64,
+              0.54,
+              0.5
+            ],
+            "strength": 0.22
+          },
+          "proposed": {
+            "hsl": {
+              "orange": {
+                "saturation": -6,
+                "luminance": 8
+              },
+              "red": {
+                "hue": 4,
+                "luminance": 4
+              }
+            }
+          }
+        },
+        {
+          "id": "porcelain-clear",
+          "name": "Sứ Trong Trẻo",
+          "description": "Làm dịu sắc vàng gắt trên da, tạo vẻ trắng hồng trong suốt kiểu studio Hàn Quốc",
+          "adjust": {
+            "exposure": 7,
+            "contrast": -6,
+            "highlights": -16,
+            "shadows": 18,
+            "saturation": -10,
+            "vibrance": 12,
+            "temperature": -6,
+            "tint": 8
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.48,
+              0.54
+            ],
+            "highlights": [
+              0.58,
+              0.54,
+              0.56
+            ],
+            "strength": 0.18
+          },
+          "proposed": {
+            "hsl": {
+              "orange": {
+                "saturation": -12,
+                "luminance": 12
+              },
+              "yellow": {
+                "saturation": -18,
+                "luminance": 10
+              }
+            }
+          }
+        },
+        {
+          "id": "golden-hour-skin",
+          "name": "Nắng Chiều Dịu",
+          "description": "Phủ ánh nắng chiều ấm áp lên tóc và gò má mà không làm da bị đỏ gắt",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 4,
+            "highlights": -16,
+            "shadows": 14,
+            "saturation": 4,
+            "vibrance": 14,
+            "temperature": 20,
+            "tint": 4,
+            "fade": 6
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.44,
+              0.42
+            ],
+            "highlights": [
+              0.68,
+              0.56,
+              0.4
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "studio-keylight",
+          "name": "Đèn Studio",
+          "description": "Tương phản rõ nét, nền sạch, màu da trung tính chuẩn tạp chí thời trang",
+          "adjust": {
+            "exposure": 3,
+            "contrast": 14,
+            "highlights": -12,
+            "shadows": 6,
+            "saturation": -6,
+            "vibrance": 10,
+            "temperature": 2,
+            "tint": 2,
+            "sharpen": 12
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.5,
+              0.52
+            ],
+            "highlights": [
+              0.56,
+              0.54,
+              0.5
+            ],
+            "strength": 0.14
+          }
+        },
+        {
+          "id": "velvet-matte",
+          "name": "Nhung Mờ",
+          "description": "Hạ nhẹ vùng sáng, nâng đen mịn như nhung cho chân dung tâm trạng trong nhà",
+          "adjust": {
+            "contrast": -6,
+            "highlights": -22,
+            "shadows": 20,
+            "saturation": -12,
+            "vibrance": 8,
+            "temperature": 8,
+            "tint": 6,
+            "grain": 10,
+            "fade": 18,
+            "vignette": 12
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.46,
+              0.52
+            ],
+            "highlights": [
+              0.62,
+              0.56,
+              0.48
+            ],
+            "strength": 0.22
+          }
+        },
+        {
+          "id": "rosewater",
+          "name": "Nước Hoa Hồng",
+          "description": "Sắc hồng phấn dịu nhẹ kết hợp độ tương phản mềm mại cho ảnh selfie và cận mặt",
+          "adjust": {
+            "exposure": 4,
+            "contrast": -10,
+            "highlights": -14,
+            "shadows": 14,
+            "saturation": -8,
+            "vibrance": 12,
+            "temperature": 4,
+            "tint": 14,
+            "fade": 8
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.46,
+              0.52
+            ],
+            "highlights": [
+              0.64,
+              0.52,
+              0.56
+            ],
+            "strength": 0.24
+          }
+        },
+        {
+          "id": "sun-kissed-bronze",
+          "name": "Nâu Nắng",
+          "description": "Tôn làn da rám nắng khoẻ khoắn với ánh đồng ấm và tương phản sâu",
+          "adjust": {
+            "contrast": 12,
+            "highlights": -10,
+            "shadows": 8,
+            "saturation": 8,
+            "vibrance": 14,
+            "temperature": 22,
+            "tint": 4,
+            "sharpen": 8,
+            "vignette": 10
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.44,
+              0.38
+            ],
+            "highlights": [
+              0.68,
+              0.54,
+              0.38
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "window-daylight",
+          "name": "Bên Khung Cửa",
+          "description": "Ánh sáng tự nhiên dịu từ cửa sổ, bóng râm mát nhẹ và vùng sáng trong",
+          "adjust": {
+            "exposure": 5,
+            "contrast": 4,
+            "highlights": -18,
+            "shadows": 16,
+            "saturation": -6,
+            "vibrance": 12,
+            "temperature": -4,
+            "tint": 4
+          },
+          "split": {
+            "shadows": [
+              0.44,
+              0.5,
+              0.56
+            ],
+            "highlights": [
+              0.58,
+              0.56,
+              0.5
+            ],
+            "strength": 0.2
+          }
+        },
+        {
+          "id": "film-portrait-warm",
+          "name": "Chân Dung Phim Ấm",
+          "description": "Hạt phim mịn, sắc da cam kem dịu nhẹ và vùng tối hơi ngả nâu",
+          "adjust": {
+            "exposure": 3,
+            "contrast": 4,
+            "highlights": -16,
+            "shadows": 12,
+            "saturation": -8,
+            "vibrance": 14,
+            "temperature": 14,
+            "tint": 6,
+            "grain": 14,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.46,
+              0.44
+            ],
+            "highlights": [
+              0.64,
+              0.56,
+              0.44
+            ],
+            "strength": 0.24
+          }
+        },
+        {
+          "id": "editorial-chic",
+          "name": "Bìa Tạp Chí",
+          "description": "Giảm bão hoà tổng thể nhưng giữ thần thái mắt và môi sắc sảo",
+          "adjust": {
+            "contrast": 18,
+            "highlights": -14,
+            "shadows": -4,
+            "saturation": -24,
+            "vibrance": 16,
+            "temperature": 4,
+            "tint": 4,
+            "grain": 8,
+            "sharpen": 14,
+            "vignette": 14
+          },
+          "split": {
+            "shadows": [
+              0.44,
+              0.48,
+              0.52
+            ],
+            "highlights": [
+              0.6,
+              0.54,
+              0.46
+            ],
+            "strength": 0.22
+          }
+        }
+      ]
+    },
+    {
+      "id": "food-cafe",
+      "name": "Ẩm thực & Quán cà phê (Food & Cafe)",
+      "nameEn": "Food & Cafe",
+      "description": "Làm nổi bật độ tươi ngon của món ăn, lớp bọt cà phê ấm và không gian quán",
+      "filters": [
+        {
+          "id": "espresso-roast",
+          "name": "Cà Phê Rang",
+          "description": "Tông nâu hạt dẻ ấm, bóng đổ sâu và lớp kem sữa nổi khối cho ảnh quán cà phê",
+          "adjust": {
+            "contrast": 16,
+            "highlights": -14,
+            "shadows": 6,
+            "saturation": -8,
+            "vibrance": 14,
+            "temperature": 22,
+            "tint": 6,
+            "grain": 10,
+            "fade": 8,
+            "sharpen": 12,
+            "vignette": 16
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.44,
+              0.36
+            ],
+            "highlights": [
+              0.66,
+              0.58,
+              0.44
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "matcha-latte",
+          "name": "Trà Xanh Sữa",
+          "description": "Tôn sắc xanh trà xanh tươi mát trên nền trắng kem dịu nhẹ",
+          "adjust": {
+            "exposure": 6,
+            "contrast": 4,
+            "highlights": -12,
+            "shadows": 16,
+            "saturation": 6,
+            "vibrance": 16,
+            "temperature": 4,
+            "tint": -10,
+            "sharpen": 10
+          },
+          "split": {
+            "shadows": [
+              0.42,
+              0.54,
+              0.44
+            ],
+            "highlights": [
+              0.6,
+              0.6,
+              0.5
+            ],
+            "strength": 0.22
+          }
+        },
+        {
+          "id": "croissant-butter",
+          "name": "Bánh Nướng Bơ",
+          "description": "Vàng bơ giòn rụm, ấm áp và sắc nét cho các món bánh ngọt, tiệm bánh",
+          "adjust": {
+            "exposure": 5,
+            "contrast": 12,
+            "highlights": -10,
+            "shadows": 12,
+            "saturation": 14,
+            "vibrance": 18,
+            "temperature": 26,
+            "tint": 4,
+            "sharpen": 16
+          },
+          "split": {
+            "shadows": [
+              0.54,
+              0.46,
+              0.38
+            ],
+            "highlights": [
+              0.7,
+              0.6,
+              0.4
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "bistro-candle",
+          "name": "Bữa Tối Ánh Nến",
+          "description": "Không gian nhà hàng buổi tối ấm cúng với ánh đèn vàng hổ phách và viền tối",
+          "adjust": {
+            "exposure": -2,
+            "contrast": 18,
+            "highlights": -8,
+            "shadows": 8,
+            "saturation": 8,
+            "vibrance": 16,
+            "temperature": 32,
+            "tint": 8,
+            "grain": 12,
+            "vignette": 22
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.4,
+              0.34
+            ],
+            "highlights": [
+              0.74,
+              0.56,
+              0.34
+            ],
+            "strength": 0.36
+          }
+        },
+        {
+          "id": "citrus-salad",
+          "name": "Rau Quả Tươi",
+          "description": "Sáng trong, tăng độ rực của màu xanh lá, cam và đỏ cho món salad, trái cây",
+          "adjust": {
+            "exposure": 6,
+            "brightness": 4,
+            "contrast": 10,
+            "highlights": -10,
+            "shadows": 14,
+            "saturation": 16,
+            "vibrance": 24,
+            "temperature": 4,
+            "tint": -4,
+            "sharpen": 14
+          }
+        },
+        {
+          "id": "ramen-steam",
+          "name": "Quán Đêm",
+          "description": "Tương phản đậm đà, sắc nước dùng vàng cam hấp dẫn và độ nét chi tiết cao",
+          "adjust": {
+            "contrast": 20,
+            "highlights": -12,
+            "shadows": 4,
+            "saturation": 14,
+            "vibrance": 20,
+            "temperature": 18,
+            "tint": 4,
+            "sharpen": 18,
+            "vignette": 18
+          },
+          "split": {
+            "shadows": [
+              0.4,
+              0.46,
+              0.52
+            ],
+            "highlights": [
+              0.7,
+              0.56,
+              0.36
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "minimal-table",
+          "name": "Bàn Ăn Tối Giản",
+          "description": "Nền khăn trải bàn trắng sáng sạch, giảm ám vàng, màu món ăn thanh lịch",
+          "adjust": {
+            "exposure": 8,
+            "contrast": 6,
+            "highlights": -14,
+            "shadows": 18,
+            "saturation": -8,
+            "vibrance": 14,
+            "temperature": -4,
+            "tint": 2,
+            "sharpen": 10
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.5,
+              0.54
+            ],
+            "highlights": [
+              0.56,
+              0.56,
+              0.54
+            ],
+            "strength": 0.16
+          }
+        },
+        {
+          "id": "street-skewers",
+          "name": "Ẩm Thực Đường Phố",
+          "description": "Sắc đỏ cam nướng than rực rỡ, tương phản mạnh và bắt mắt",
+          "adjust": {
+            "contrast": 18,
+            "highlights": -8,
+            "shadows": 6,
+            "saturation": 20,
+            "vibrance": 22,
+            "temperature": 20,
+            "tint": 8,
+            "sharpen": 16,
+            "vignette": 12
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.42,
+              0.48
+            ],
+            "highlights": [
+              0.72,
+              0.54,
+              0.36
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "berry-tart",
+          "name": "Bánh Dâu Đỏ",
+          "description": "Tôn sắc đỏ mọng của dâu tây, mâm xôi và sô-cô-la",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 12,
+            "highlights": -12,
+            "shadows": 10,
+            "saturation": 12,
+            "vibrance": 20,
+            "temperature": 8,
+            "tint": 14,
+            "sharpen": 12
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.42,
+              0.48
+            ],
+            "highlights": [
+              0.66,
+              0.52,
+              0.52
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "wooden-tray",
+          "name": "Khay Gỗ Mộc",
+          "description": "Màu nâu gỗ trầm ấm, giảm chói sáng, mang lại cảm giác thủ công mộc mạc",
+          "adjust": {
+            "contrast": 8,
+            "highlights": -18,
+            "shadows": 14,
+            "saturation": -10,
+            "vibrance": 12,
+            "temperature": 18,
+            "tint": 4,
+            "grain": 8,
+            "fade": 10,
+            "sharpen": 10
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.46,
+              0.4
+            ],
+            "highlights": [
+              0.64,
+              0.56,
+              0.44
+            ],
+            "strength": 0.24
+          }
+        }
+      ]
+    },
+    {
+      "id": "landscape-nature",
+      "name": "Phong cảnh & Thiên nhiên (Landscape & Nature)",
+      "nameEn": "Landscape & Nature",
+      "description": "Tối ưu bầu trời, biển cả, rừng cây, sương mù núi cao và bình minh",
+      "filters": [
+        {
+          "id": "alpine-pine",
+          "name": "Rừng Thông Sương",
+          "description": "Xanh lá thông trầm lạnh, sương mù dịu ở vùng sáng và tương phản sâu",
+          "adjust": {
+            "contrast": 14,
+            "highlights": -18,
+            "shadows": 8,
+            "saturation": -14,
+            "vibrance": 16,
+            "temperature": -12,
+            "tint": -12,
+            "fade": 10,
+            "vignette": 14
+          },
+          "split": {
+            "shadows": [
+              0.32,
+              0.52,
+              0.46
+            ],
+            "highlights": [
+              0.54,
+              0.58,
+              0.56
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "pacific-turquoise",
+          "name": "Biển Ngọc Bích",
+          "description": "Nước biển xanh ngọc trong vắt kết hợp cát vàng ấm áp dưới nắng",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 12,
+            "highlights": -14,
+            "shadows": 12,
+            "saturation": 14,
+            "vibrance": 24,
+            "temperature": 6,
+            "tint": -8,
+            "hue": -6,
+            "sharpen": 12
+          },
+          "split": {
+            "shadows": [
+              0.28,
+              0.56,
+              0.62
+            ],
+            "highlights": [
+              0.66,
+              0.6,
+              0.44
+            ],
+            "strength": 0.32
+          }
+        },
+        {
+          "id": "autumn-maple",
+          "name": "Rừng Thu Lá Đỏ",
+          "description": "Chuyển sắc lá xanh sang vàng đồng và đỏ phong rực rỡ",
+          "adjust": {
+            "contrast": 14,
+            "highlights": -12,
+            "shadows": 8,
+            "saturation": 16,
+            "vibrance": 20,
+            "temperature": 28,
+            "tint": 10,
+            "hue": 8,
+            "sharpen": 10,
+            "vignette": 12
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.42,
+              0.36
+            ],
+            "highlights": [
+              0.72,
+              0.54,
+              0.36
+            ],
+            "strength": 0.34
+          }
+        },
+        {
+          "id": "misty-highland",
+          "name": "Đồi Sương Sớm",
+          "description": "Tạo lớp sương mờ bồng bềnh trên thung lũng với sắc xanh lam dịu",
+          "adjust": {
+            "exposure": 4,
+            "contrast": -12,
+            "highlights": -20,
+            "shadows": 22,
+            "saturation": -18,
+            "vibrance": 10,
+            "temperature": -14,
+            "tint": -4,
+            "fade": 22
+          },
+          "split": {
+            "shadows": [
+              0.4,
+              0.5,
+              0.58
+            ],
+            "highlights": [
+              0.56,
+              0.6,
+              0.64
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "desert-canyon",
+          "name": "Hẻm Núi Đỏ",
+          "description": "Tôn sắc đất nung, đá sa thạch đỏ cam và bầu trời xanh thẳm",
+          "adjust": {
+            "contrast": 20,
+            "highlights": -16,
+            "shadows": 4,
+            "saturation": 18,
+            "vibrance": 20,
+            "temperature": 24,
+            "tint": 8,
+            "sharpen": 16,
+            "vignette": 14
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.4,
+              0.44
+            ],
+            "highlights": [
+              0.72,
+              0.52,
+              0.36
+            ],
+            "strength": 0.32
+          }
+        },
+        {
+          "id": "tropical-monsoon",
+          "name": "Rừng Nhiệt Đới",
+          "description": "Tán cây xanh mướt sau cơn mưa rào, độ tương phản và độ nét lá cây cao",
+          "adjust": {
+            "contrast": 16,
+            "highlights": -14,
+            "shadows": 10,
+            "saturation": 14,
+            "vibrance": 24,
+            "temperature": -6,
+            "tint": -16,
+            "sharpen": 14,
+            "vignette": 12
+          },
+          "split": {
+            "shadows": [
+              0.28,
+              0.56,
+              0.42
+            ],
+            "highlights": [
+              0.56,
+              0.62,
+              0.48
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "sunset-afterglow",
+          "name": "Ráng Chiều Tím",
+          "description": "Khoảnh khắc mặt trời vừa lặn với bầu trời chuyển từ cam hồng sang tím thẫm",
+          "adjust": {
+            "contrast": 14,
+            "highlights": -12,
+            "shadows": 10,
+            "saturation": 18,
+            "vibrance": 22,
+            "temperature": 16,
+            "tint": 22,
+            "vignette": 14
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.36,
+              0.62
+            ],
+            "highlights": [
+              0.74,
+              0.5,
+              0.48
+            ],
+            "strength": 0.38
+          }
+        },
+        {
+          "id": "glacier-blue",
+          "name": "Băng Hà",
+          "description": "Sắc trắng tinh khiết và xanh băng giá cho cảnh núi tuyết, hồ nước mùa đông",
+          "adjust": {
+            "exposure": 6,
+            "contrast": 14,
+            "highlights": -10,
+            "shadows": 12,
+            "saturation": -12,
+            "vibrance": 18,
+            "temperature": -28,
+            "tint": -6,
+            "sharpen": 14
+          },
+          "split": {
+            "shadows": [
+              0.32,
+              0.48,
+              0.66
+            ],
+            "highlights": [
+              0.52,
+              0.6,
+              0.68
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "golden-meadow",
+          "name": "Đồng Cỏ Nắng",
+          "description": "Ánh nắng trải dài trên cánh đồng lúa và cỏ dại với tông vàng ấm áp",
+          "adjust": {
+            "exposure": 5,
+            "contrast": 8,
+            "highlights": -14,
+            "shadows": 14,
+            "saturation": 10,
+            "vibrance": 18,
+            "temperature": 24,
+            "tint": -2,
+            "fade": 8
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.5,
+              0.38
+            ],
+            "highlights": [
+              0.7,
+              0.62,
+              0.38
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "blue-hour-harbor",
+          "name": "Giờ Xanh Bến Cảng",
+          "description": "Bầu trời xanh chàm lúc chạng vạng tương phản với ánh đèn vàng ven bờ",
+          "adjust": {
+            "contrast": 18,
+            "highlights": -10,
+            "shadows": 8,
+            "saturation": 12,
+            "vibrance": 20,
+            "temperature": -20,
+            "tint": 6,
+            "vignette": 16
+          },
+          "split": {
+            "shadows": [
+              0.28,
+              0.42,
+              0.68
+            ],
+            "highlights": [
+              0.68,
+              0.56,
+              0.38
+            ],
+            "strength": 0.36
+          }
+        }
+      ]
+    },
+    {
+      "id": "monochrome-bw",
+      "name": "Đen trắng nghệ thuật (Monochrome & B&W)",
+      "nameEn": "Monochrome & B&W",
+      "description": "Phim đen trắng cổ điển, phòng tối tráng bạc, selenium và báo ảnh đường phố",
+      "filters": [
+        {
+          "id": "tri-x-400",
+          "name": "Tri-X 400",
+          "description": "Phim đen trắng phóng sự huyền thoại với tương phản mạnh và hạt bạc đanh chắc",
+          "adjust": {
+            "contrast": 28,
+            "highlights": -10,
+            "shadows": -8,
+            "grain": 28,
+            "fade": 4,
+            "sharpen": 12,
+            "vignette": 18
+          },
+          "mono": 1,
+          "proposed": {
+            "curves": {
+              "master": [
+                [
+                  0,
+                  0.02
+                ],
+                [
+                  0.22,
+                  0.16
+                ],
+                [
+                  0.78,
+                  0.84
+                ],
+                [
+                  1,
+                  0.98
+                ]
+              ]
+            },
+            "lutRef": "RawTherapee Film Simulation: Kodak Tri-X 400 (CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "ilford-hp5",
+          "name": "HP5 Plus",
+          "description": "Dải chuyển xám rộng, giữ chi tiết vùng tối và vùng sáng mềm mại",
+          "adjust": {
+            "contrast": 12,
+            "highlights": -16,
+            "shadows": 14,
+            "grain": 20,
+            "fade": 10,
+            "vignette": 10
+          },
+          "mono": 1,
+          "proposed": {
+            "lutRef": "RawTherapee Film Simulation: Ilford HP5 Plus 400 (CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "ilford-delta-3200",
+          "name": "Delta 3200",
+          "description": "Phim đêm hạt rất lớn, vùng tối mờ sương và tương phản kịch tính",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 32,
+            "highlights": -6,
+            "shadows": 6,
+            "grain": 46,
+            "fade": 14,
+            "vignette": 24
+          },
+          "mono": 1
+        },
+        {
+          "id": "acros-100",
+          "name": "Acros 100",
+          "description": "Đen trắng siêu mịn, sắc đen sâu thẳm và độ nét chi tiết kiến trúc hoàn hảo",
+          "adjust": {
+            "contrast": 22,
+            "highlights": -14,
+            "shadows": -10,
+            "grain": 6,
+            "sharpen": 18,
+            "vignette": 12
+          },
+          "mono": 1,
+          "proposed": {
+            "lutRef": "RawTherapee Film Simulation: Fuji Neopan Acros 100 (CC-BY-SA-4.0)"
+          }
+        },
+        {
+          "id": "selenium-tone",
+          "name": "Tráng Selenium",
+          "description": "Ảnh rọi giấy tráng dung dịch Selenium tạo sắc tím lạnh sang trọng ở vùng tối",
+          "adjust": {
+            "contrast": 20,
+            "highlights": -12,
+            "shadows": 4,
+            "grain": 14,
+            "fade": 6,
+            "vignette": 16
+          },
+          "mono": 1,
+          "monoTint": [
+            0.96,
+            0.94,
+            1.06
+          ]
+        },
+        {
+          "id": "platinum-palladium",
+          "name": "Bạch Kim Cổ",
+          "description": "Kỹ thuật in bạch kim thế kỷ 19 với dải trung gian ấm áp, mịn màng",
+          "adjust": {
+            "contrast": 8,
+            "highlights": -18,
+            "shadows": 16,
+            "grain": 12,
+            "fade": 12,
+            "vignette": 14
+          },
+          "mono": 1,
+          "monoTint": [
+            1.04,
+            1,
+            0.92
+          ]
+        },
+        {
+          "id": "wet-plate-collodion",
+          "name": "Kính Ướt Cổ",
+          "description": "Mô phỏng ảnh chụp trên tấm thiếc/kính ướt với viền tối đậm và tương phản cổ điển",
+          "adjust": {
+            "contrast": 26,
+            "highlights": 8,
+            "shadows": -12,
+            "grain": 26,
+            "fade": 16,
+            "vignette": 42
+          },
+          "mono": 1,
+          "monoTint": [
+            1.05,
+            0.98,
+            0.86
+          ]
+        },
+        {
+          "id": "newspaper-press",
+          "name": "Báo In Xưa",
+          "description": "Độ tương phản trung bình, đen xám chì và hạt giấy báo rõ",
+          "adjust": {
+            "contrast": -6,
+            "highlights": -16,
+            "shadows": 20,
+            "grain": 32,
+            "fade": 28
+          },
+          "mono": 1,
+          "monoTint": [
+            1.02,
+            1,
+            0.94
+          ]
+        },
+        {
+          "id": "high-key-mono",
+          "name": "Đen Trắng Sáng",
+          "description": "Nền trắng sáng rực, bóng đổ thanh thoát cho ảnh chân dung và kiến trúc tối giản",
+          "adjust": {
+            "exposure": 12,
+            "brightness": 8,
+            "contrast": 16,
+            "highlights": 6,
+            "shadows": 20,
+            "grain": 8
+          },
+          "mono": 1
+        },
+        {
+          "id": "charcoal-sketch-tone",
+          "name": "Than Chì Trầm",
+          "description": "Vùng tối đặc quánh, chỉ giữ lại các vệt sáng nhấn mạnh hình khối",
+          "adjust": {
+            "exposure": -8,
+            "contrast": 38,
+            "highlights": -6,
+            "shadows": -20,
+            "grain": 22,
+            "sharpen": 16,
+            "vignette": 28
+          },
+          "mono": 1
+        }
+      ]
+    },
+    {
+      "id": "pastel-airy",
+      "name": "Pastel & Trong trẻo (Pastel & Airy)",
+      "nameEn": "Pastel & Airy",
+      "description": "Tông màu kẹo ngọt, mộng mơ, sáng nhẹ và dịu mắt cho nhật ký đời thường",
+      "filters": [
+        {
+          "id": "cotton-candy",
+          "name": "Kẹo Bông Gòn",
+          "description": "Hồng phấn và xanh da trời nhạt hoà quyện trên nền sáng mịn",
+          "adjust": {
+            "exposure": 8,
+            "contrast": -14,
+            "highlights": -16,
+            "shadows": 24,
+            "saturation": -8,
+            "vibrance": 16,
+            "temperature": 6,
+            "tint": 16,
+            "fade": 14
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.5,
+              0.62
+            ],
+            "highlights": [
+              0.66,
+              0.52,
+              0.6
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "lavender-milk",
+          "name": "Sữa Oải Hương",
+          "description": "Phủ lớp sương tím oải hương dịu nhẹ và nâng vùng tối mềm mại",
+          "adjust": {
+            "exposure": 6,
+            "contrast": -12,
+            "highlights": -18,
+            "shadows": 22,
+            "saturation": -12,
+            "vibrance": 12,
+            "temperature": -8,
+            "tint": 18,
+            "fade": 16
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.44,
+              0.62
+            ],
+            "highlights": [
+              0.6,
+              0.54,
+              0.64
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "mint-macaron",
+          "name": "Bạc Hà Kem",
+          "description": "Sắc xanh bạc hà mát lành phối cùng vùng sáng kem vani",
+          "adjust": {
+            "exposure": 7,
+            "contrast": -10,
+            "highlights": -16,
+            "shadows": 20,
+            "saturation": -10,
+            "vibrance": 16,
+            "temperature": -10,
+            "tint": -12,
+            "fade": 12
+          },
+          "split": {
+            "shadows": [
+              0.4,
+              0.56,
+              0.52
+            ],
+            "highlights": [
+              0.6,
+              0.6,
+              0.52
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "buttercream",
+          "name": "Kem Bơ Nhạt",
+          "description": "Trắng ngà ấm áp, giảm độ gắt của mọi màu đậm để tổng thể hài hoà",
+          "adjust": {
+            "exposure": 8,
+            "contrast": -16,
+            "highlights": -20,
+            "shadows": 24,
+            "saturation": -18,
+            "vibrance": 8,
+            "temperature": 16,
+            "tint": 4,
+            "fade": 16
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.5,
+              0.46
+            ],
+            "highlights": [
+              0.64,
+              0.6,
+              0.48
+            ],
+            "strength": 0.24
+          }
+        },
+        {
+          "id": "peachy-cloud",
+          "name": "Mây Đào",
+          "description": "Ánh cam đào phớt nhẹ trên vùng sáng với độ tương phản êm ái",
+          "adjust": {
+            "exposure": 7,
+            "contrast": -12,
+            "highlights": -14,
+            "shadows": 20,
+            "saturation": -6,
+            "vibrance": 14,
+            "temperature": 18,
+            "tint": 12,
+            "fade": 12
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.46,
+              0.5
+            ],
+            "highlights": [
+              0.68,
+              0.56,
+              0.48
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "baby-blue-sky",
+          "name": "Trời Xanh Phấn",
+          "description": "Làm dịu màu xanh da trời thành sắc xanh phấn trong veo",
+          "adjust": {
+            "exposure": 8,
+            "contrast": -10,
+            "highlights": -18,
+            "shadows": 20,
+            "saturation": -8,
+            "vibrance": 18,
+            "temperature": -14,
+            "tint": -4,
+            "hue": -4,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.42,
+              0.52,
+              0.62
+            ],
+            "highlights": [
+              0.56,
+              0.6,
+              0.64
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "linen-daydream",
+          "name": "Vải Lanh Trắng",
+          "description": "Màu be xám thanh lịch, sáng sủa cho ảnh trang trí phòng và phụ kiện",
+          "adjust": {
+            "exposure": 6,
+            "contrast": -8,
+            "highlights": -18,
+            "shadows": 18,
+            "saturation": -24,
+            "vibrance": 6,
+            "temperature": 10,
+            "tint": 4,
+            "fade": 12
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.48,
+              0.46
+            ],
+            "highlights": [
+              0.6,
+              0.58,
+              0.52
+            ],
+            "strength": 0.2
+          }
+        },
+        {
+          "id": "sakura-breeze",
+          "name": "Gió Hoa Anh Đào",
+          "description": "Sắc hồng trắng tinh khôi, làm bừng sáng các tán hoa và bầu trời mùa xuân",
+          "adjust": {
+            "exposure": 9,
+            "contrast": -10,
+            "highlights": -14,
+            "shadows": 22,
+            "saturation": -6,
+            "vibrance": 16,
+            "temperature": 4,
+            "tint": 18,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.46,
+              0.54
+            ],
+            "highlights": [
+              0.66,
+              0.54,
+              0.58
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "pistachio-ice",
+          "name": "Kem Hạt Dẻ Cười",
+          "description": "Xanh lục nhạt pha kem ấm, hợp với ảnh cây cối trong nhà và quán nhỏ",
+          "adjust": {
+            "exposure": 6,
+            "contrast": -12,
+            "highlights": -16,
+            "shadows": 20,
+            "saturation": -12,
+            "vibrance": 14,
+            "temperature": 8,
+            "tint": -14,
+            "fade": 14
+          },
+          "split": {
+            "shadows": [
+              0.44,
+              0.54,
+              0.44
+            ],
+            "highlights": [
+              0.62,
+              0.6,
+              0.48
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "soft-prism",
+          "name": "Lăng Kính Dịu",
+          "description": "Hơi mờ mơ màng kèm sắc tím - hồng phấn nhẹ như chụp qua lăng kính",
+          "adjust": {
+            "exposure": 7,
+            "contrast": -14,
+            "highlights": -10,
+            "shadows": 22,
+            "saturation": -4,
+            "vibrance": 18,
+            "temperature": 6,
+            "tint": 14,
+            "fade": 16,
+            "blur": 2
+          },
+          "split": {
+            "shadows": [
+              0.44,
+              0.48,
+              0.64
+            ],
+            "highlights": [
+              0.66,
+              0.54,
+              0.58
+            ],
+            "strength": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "warm-golden",
+      "name": "Ấm áp & Hoàng hôn (Warm & Golden)",
+      "nameEn": "Warm & Golden",
+      "description": "Ánh nắng mật ong, đất nung, hổ phách và buổi chiều tà rực rỡ",
+      "filters": [
+        {
+          "id": "amber-honey",
+          "name": "Mật Ong Hổ Phách",
+          "description": "Phủ sắc vàng mật ong ngọt ngào và bóng đổ nâu ấm",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 10,
+            "highlights": -12,
+            "shadows": 12,
+            "saturation": 8,
+            "vibrance": 16,
+            "temperature": 28,
+            "tint": 6,
+            "fade": 8
+          },
+          "split": {
+            "shadows": [
+              0.54,
+              0.44,
+              0.34
+            ],
+            "highlights": [
+              0.72,
+              0.58,
+              0.36
+            ],
+            "strength": 0.34
+          }
+        },
+        {
+          "id": "terracotta-sun",
+          "name": "Đất Nung Nắng",
+          "description": "Sắc cam đất Địa Trung Hải ấm áp, hợp với tường gạch, gốm và nắng chiều",
+          "adjust": {
+            "contrast": 14,
+            "highlights": -14,
+            "shadows": 8,
+            "saturation": 10,
+            "vibrance": 18,
+            "temperature": 30,
+            "tint": 12,
+            "fade": 6,
+            "vignette": 12
+          },
+          "split": {
+            "shadows": [
+              0.56,
+              0.42,
+              0.36
+            ],
+            "highlights": [
+              0.72,
+              0.54,
+              0.38
+            ],
+            "strength": 0.36
+          }
+        },
+        {
+          "id": "tuscan-afternoon",
+          "name": "Chiều Tuscany",
+          "description": "Ánh nắng vàng dịu trải trên đồi ô-liu với sắc xanh lá ngả vàng",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 8,
+            "highlights": -16,
+            "shadows": 14,
+            "saturation": 6,
+            "vibrance": 14,
+            "temperature": 24,
+            "tint": 2,
+            "hue": 6,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.48,
+              0.38
+            ],
+            "highlights": [
+              0.68,
+              0.6,
+              0.4
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "cinnamon-spice",
+          "name": "Quế Hồi Ấm",
+          "description": "Tông nâu đỏ quế hồi trầm ấm, thích hợp cho ảnh mùa thu và đồ gỗ",
+          "adjust": {
+            "contrast": 16,
+            "highlights": -16,
+            "shadows": 4,
+            "saturation": -4,
+            "vibrance": 14,
+            "temperature": 26,
+            "tint": 10,
+            "grain": 12,
+            "fade": 10,
+            "vignette": 18
+          },
+          "split": {
+            "shadows": [
+              0.54,
+              0.4,
+              0.34
+            ],
+            "highlights": [
+              0.68,
+              0.54,
+              0.38
+            ],
+            "strength": 0.36
+          }
+        },
+        {
+          "id": "marigold-flare",
+          "name": "Vệt Nắng Cúc Vạn Thọ",
+          "description": "Nắng ngược sáng rực rỡ với lớp sương vàng cam ở vùng tối",
+          "adjust": {
+            "exposure": 6,
+            "contrast": -6,
+            "highlights": -8,
+            "shadows": 20,
+            "saturation": 12,
+            "vibrance": 16,
+            "temperature": 32,
+            "tint": 8,
+            "fade": 20
+          },
+          "split": {
+            "shadows": [
+              0.6,
+              0.46,
+              0.34
+            ],
+            "highlights": [
+              0.74,
+              0.6,
+              0.36
+            ],
+            "strength": 0.38
+          }
+        },
+        {
+          "id": "caramel-latte",
+          "name": "Caramel Dịu",
+          "description": "Màu nâu kem caramel nhẹ nhàng, giảm bớt sắc xanh lạnh",
+          "adjust": {
+            "exposure": 3,
+            "contrast": 4,
+            "highlights": -18,
+            "shadows": 14,
+            "saturation": -14,
+            "vibrance": 10,
+            "temperature": 22,
+            "tint": 6,
+            "fade": 12
+          },
+          "split": {
+            "shadows": [
+              0.52,
+              0.46,
+              0.4
+            ],
+            "highlights": [
+              0.66,
+              0.58,
+              0.44
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "copper-dusk",
+          "name": "Chạng Vạng Đồng Đỏ",
+          "description": "Ánh kim đồng đỏ lúc hoàng hôn kết hợp bóng râm tím trầm",
+          "adjust": {
+            "contrast": 18,
+            "highlights": -12,
+            "shadows": 6,
+            "saturation": 10,
+            "vibrance": 18,
+            "temperature": 24,
+            "tint": 16,
+            "vignette": 16
+          },
+          "split": {
+            "shadows": [
+              0.48,
+              0.38,
+              0.52
+            ],
+            "highlights": [
+              0.74,
+              0.52,
+              0.38
+            ],
+            "strength": 0.36
+          }
+        },
+        {
+          "id": "vinyl-lounge",
+          "name": "Phòng Đĩa Than",
+          "description": "Ánh đèn dây tóc ấm cúng trong phòng nghe nhạc với hạt phim nhẹ",
+          "adjust": {
+            "exposure": -2,
+            "contrast": 12,
+            "highlights": -14,
+            "shadows": 10,
+            "saturation": -8,
+            "vibrance": 12,
+            "temperature": 28,
+            "tint": 6,
+            "grain": 18,
+            "fade": 14,
+            "vignette": 22
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.42,
+              0.36
+            ],
+            "highlights": [
+              0.7,
+              0.58,
+              0.38
+            ],
+            "strength": 0.34
+          }
+        },
+        {
+          "id": "apricot-sunbeam",
+          "name": "Nắng Sớm Mơ Vàng",
+          "description": "Nắng sớm trong trẻo mang sắc vàng mơ tươi tắn, tràn đầy năng lượng",
+          "adjust": {
+            "exposure": 6,
+            "contrast": 6,
+            "highlights": -12,
+            "shadows": 16,
+            "saturation": 8,
+            "vibrance": 18,
+            "temperature": 20,
+            "tint": 6
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.46,
+              0.42
+            ],
+            "highlights": [
+              0.68,
+              0.58,
+              0.42
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "sahara-mirage",
+          "name": "Nắng Cháy",
+          "description": "Nhiệt độ màu cực ấm, vùng sáng chói nhẹ và độ tương phản cao",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 20,
+            "highlights": 4,
+            "shadows": 4,
+            "saturation": 14,
+            "vibrance": 16,
+            "temperature": 38,
+            "tint": 8,
+            "grain": 14,
+            "vignette": 14
+          },
+          "split": {
+            "shadows": [
+              0.56,
+              0.42,
+              0.32
+            ],
+            "highlights": [
+              0.76,
+              0.6,
+              0.34
+            ],
+            "strength": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "neon-cyber",
+      "name": "Đô thị đêm & Neon (Night & Neon)",
+      "nameEn": "Night & Neon",
+      "description": "Bảng hiệu neon rực rỡ, đường phố đêm mưa, lễ hội âm nhạc và ánh sáng LED",
+      "filters": [
+        {
+          "id": "shibuya-crossing",
+          "name": "Ngã Tư Đêm",
+          "description": "Làm nổi bật biển quảng cáo xanh ngọc và hồng tím giữa lòng thành phố đêm",
+          "adjust": {
+            "contrast": 24,
+            "highlights": 6,
+            "shadows": -6,
+            "saturation": 20,
+            "vibrance": 28,
+            "temperature": -16,
+            "tint": 16,
+            "sharpen": 12,
+            "vignette": 20
+          },
+          "split": {
+            "shadows": [
+              0.24,
+              0.46,
+              0.68
+            ],
+            "highlights": [
+              0.72,
+              0.42,
+              0.64
+            ],
+            "strength": 0.38
+          }
+        },
+        {
+          "id": "violet-club",
+          "name": "Ánh Đèn Tím",
+          "description": "Không gian sân khấu và phòng nhạc với ánh đèn LED tím chàm chủ đạo",
+          "adjust": {
+            "contrast": 20,
+            "highlights": 4,
+            "shadows": -4,
+            "saturation": 18,
+            "vibrance": 24,
+            "temperature": -20,
+            "tint": 32,
+            "hue": -8,
+            "vignette": 22
+          },
+          "split": {
+            "shadows": [
+              0.34,
+              0.26,
+              0.68
+            ],
+            "highlights": [
+              0.68,
+              0.42,
+              0.72
+            ],
+            "strength": 0.42
+          }
+        },
+        {
+          "id": "acid-lime",
+          "name": "Xanh Điện Tử",
+          "description": "Phối màu xanh chanh phát sáng và bóng tối xanh đen cá tính",
+          "adjust": {
+            "contrast": 26,
+            "highlights": 6,
+            "shadows": -10,
+            "saturation": 16,
+            "vibrance": 24,
+            "temperature": -10,
+            "tint": -28,
+            "hue": -12,
+            "vignette": 20
+          },
+          "split": {
+            "shadows": [
+              0.18,
+              0.36,
+              0.44
+            ],
+            "highlights": [
+              0.56,
+              0.76,
+              0.32
+            ],
+            "strength": 0.4
+          }
+        },
+        {
+          "id": "rainy-asphalt",
+          "name": "Nhựa Đường Đêm Mưa",
+          "description": "Tăng độ phản chiếu trên mặt đường ướt với sắc xanh thép lạnh và đèn vàng cam",
+          "adjust": {
+            "exposure": -4,
+            "contrast": 28,
+            "highlights": 10,
+            "shadows": -8,
+            "saturation": 8,
+            "vibrance": 20,
+            "temperature": -18,
+            "tint": 4,
+            "sharpen": 16,
+            "vignette": 24
+          },
+          "split": {
+            "shadows": [
+              0.24,
+              0.42,
+              0.62
+            ],
+            "highlights": [
+              0.72,
+              0.56,
+              0.38
+            ],
+            "strength": 0.36
+          }
+        },
+        {
+          "id": "magenta-arcade",
+          "name": "Tiệm Game Điện Tử",
+          "description": "Hồng cánh sen và xanh lam điện tử lấy cảm hứng từ máy thùng thập niên 80",
+          "adjust": {
+            "contrast": 22,
+            "highlights": 8,
+            "shadows": 4,
+            "saturation": 26,
+            "vibrance": 24,
+            "temperature": -12,
+            "tint": 28,
+            "grain": 16,
+            "vignette": 18
+          },
+          "split": {
+            "shadows": [
+              0.26,
+              0.34,
+              0.72
+            ],
+            "highlights": [
+              0.78,
+              0.36,
+              0.62
+            ],
+            "strength": 0.44
+          }
+        },
+        {
+          "id": "sodium-vapor",
+          "name": "Đèn Đường Cao Áp",
+          "description": "Ánh đèn đường natri vàng cam rực giữa bóng đêm xanh thẫm",
+          "adjust": {
+            "contrast": 20,
+            "highlights": 6,
+            "shadows": -6,
+            "saturation": 12,
+            "vibrance": 18,
+            "temperature": 22,
+            "tint": -6,
+            "grain": 20,
+            "vignette": 24
+          },
+          "split": {
+            "shadows": [
+              0.22,
+              0.38,
+              0.52
+            ],
+            "highlights": [
+              0.76,
+              0.56,
+              0.28
+            ],
+            "strength": 0.42
+          }
+        },
+        {
+          "id": "hologram-ice",
+          "name": "Băng Bảy Sắc",
+          "description": "Sắc xanh băng giá pha hồng tím lấp lánh cho ảnh thời trang đường phố",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 16,
+            "highlights": 10,
+            "shadows": 12,
+            "saturation": 14,
+            "vibrance": 26,
+            "temperature": -24,
+            "tint": 18,
+            "hue": -6
+          },
+          "split": {
+            "shadows": [
+              0.3,
+              0.54,
+              0.68
+            ],
+            "highlights": [
+              0.68,
+              0.5,
+              0.72
+            ],
+            "strength": 0.36
+          }
+        },
+        {
+          "id": "crimson-noir",
+          "name": "Đêm Đỏ Thẫm",
+          "description": "Bóng tối đen sâu với điểm nhấn ánh đèn đỏ thẫm đầy kịch tính",
+          "adjust": {
+            "exposure": -6,
+            "contrast": 30,
+            "highlights": -4,
+            "shadows": -12,
+            "saturation": 10,
+            "vibrance": 20,
+            "temperature": 8,
+            "tint": 24,
+            "grain": 18,
+            "vignette": 28
+          },
+          "split": {
+            "shadows": [
+              0.28,
+              0.22,
+              0.32
+            ],
+            "highlights": [
+              0.76,
+              0.34,
+              0.36
+            ],
+            "strength": 0.44
+          }
+        },
+        {
+          "id": "sunset-synth",
+          "name": "Hoàng Hôn Điện Tử",
+          "description": "Chuyển sắc từ cam đỏ rực ở vùng sáng sang tím lam sâu ở vùng tối",
+          "adjust": {
+            "contrast": 22,
+            "highlights": 4,
+            "shadows": 6,
+            "saturation": 24,
+            "vibrance": 22,
+            "temperature": 8,
+            "tint": 24,
+            "fade": 8,
+            "vignette": 18
+          },
+          "split": {
+            "shadows": [
+              0.34,
+              0.24,
+              0.68
+            ],
+            "highlights": [
+              0.78,
+              0.48,
+              0.36
+            ],
+            "strength": 0.44
+          }
+        },
+        {
+          "id": "bioluminescent",
+          "name": "Huỳnh Quang Biển",
+          "description": "Tông xanh lục lam phát sáng huyền ảo trên nền tối sâu",
+          "adjust": {
+            "exposure": -4,
+            "contrast": 24,
+            "highlights": 8,
+            "shadows": -8,
+            "saturation": 18,
+            "vibrance": 28,
+            "temperature": -28,
+            "tint": -16,
+            "vignette": 22
+          },
+          "split": {
+            "shadows": [
+              0.16,
+              0.34,
+              0.54
+            ],
+            "highlights": [
+              0.32,
+              0.74,
+              0.68
+            ],
+            "strength": 0.42
+          }
+        }
+      ]
+    },
+    {
+      "id": "seasonal",
+      "name": "Bốn mùa & Lễ hội (Seasonal & Festive)",
+      "nameEn": "Seasonal & Festive",
+      "description": "Không khí đặc trưng của Xuân, Hạ, Thu, Đông, Tết cổ truyền và mùa lễ hội cuối năm",
+      "filters": [
+        {
+          "id": "tet-blossom",
+          "name": "Nắng Xuân Tết",
+          "description": "Làm bừng sáng sắc đỏ câu đối, vàng hoa mai và hồng đào ngày Tết",
+          "adjust": {
+            "exposure": 5,
+            "contrast": 12,
+            "highlights": -10,
+            "shadows": 12,
+            "saturation": 16,
+            "vibrance": 22,
+            "temperature": 16,
+            "tint": 10,
+            "sharpen": 10
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.44,
+              0.42
+            ],
+            "highlights": [
+              0.7,
+              0.56,
+              0.44
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "spring-meadow",
+          "name": "Chồi Non Mùa Xuân",
+          "description": "Sắc xanh non tươi mới, ánh sáng trong trẻo và dịu nhẹ",
+          "adjust": {
+            "exposure": 6,
+            "contrast": 4,
+            "highlights": -14,
+            "shadows": 16,
+            "saturation": 8,
+            "vibrance": 20,
+            "temperature": 4,
+            "tint": -10
+          },
+          "split": {
+            "shadows": [
+              0.4,
+              0.54,
+              0.46
+            ],
+            "highlights": [
+              0.62,
+              0.62,
+              0.48
+            ],
+            "strength": 0.24
+          }
+        },
+        {
+          "id": "midsummer-noon",
+          "name": "Trưa Hè Rực Rỡ",
+          "description": "Nắng hè vàng tươi, bầu trời xanh biếc và tương phản sống động",
+          "adjust": {
+            "exposure": 4,
+            "contrast": 16,
+            "highlights": -10,
+            "shadows": 8,
+            "saturation": 18,
+            "vibrance": 22,
+            "temperature": 14,
+            "tint": -2,
+            "sharpen": 12
+          },
+          "split": {
+            "shadows": [
+              0.34,
+              0.5,
+              0.62
+            ],
+            "highlights": [
+              0.7,
+              0.6,
+              0.38
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "summer-cicada",
+          "name": "Hè Phố Thị",
+          "description": "Tông xanh ngọc - vàng nắng gợi nhớ những bộ phim mùa hè học đường",
+          "adjust": {
+            "exposure": 6,
+            "contrast": 8,
+            "highlights": -16,
+            "shadows": 14,
+            "saturation": 10,
+            "vibrance": 18,
+            "temperature": -4,
+            "tint": -8,
+            "grain": 10,
+            "fade": 8
+          },
+          "split": {
+            "shadows": [
+              0.36,
+              0.54,
+              0.56
+            ],
+            "highlights": [
+              0.66,
+              0.62,
+              0.44
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "mid-autumn-lantern",
+          "name": "Đêm Rằm Trung Thu",
+          "description": "Ánh đèn lồng đỏ cam ấm áp và lung linh trong đêm hội trăng rằm",
+          "adjust": {
+            "contrast": 18,
+            "highlights": -6,
+            "shadows": 8,
+            "saturation": 16,
+            "vibrance": 20,
+            "temperature": 28,
+            "tint": 12,
+            "vignette": 20
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.36,
+              0.48
+            ],
+            "highlights": [
+              0.74,
+              0.56,
+              0.34
+            ],
+            "strength": 0.38
+          }
+        },
+        {
+          "id": "harvest-october",
+          "name": "Thu Vàng Tháng Mười",
+          "description": "Sắc vàng lúa chín và nắng hanh hao dịu dàng của mùa thu",
+          "adjust": {
+            "exposure": 3,
+            "contrast": 10,
+            "highlights": -14,
+            "shadows": 12,
+            "saturation": 6,
+            "vibrance": 16,
+            "temperature": 22,
+            "tint": 6,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.44,
+              0.38
+            ],
+            "highlights": [
+              0.68,
+              0.58,
+              0.4
+            ],
+            "strength": 0.3
+          }
+        },
+        {
+          "id": "november-rain",
+          "name": "Mưa Cuối Thu",
+          "description": "Trầm lắng với tông nâu xám và xanh rêu nhẹ ngoài hiên mưa",
+          "adjust": {
+            "exposure": -2,
+            "contrast": 8,
+            "highlights": -18,
+            "shadows": 10,
+            "saturation": -20,
+            "vibrance": 8,
+            "temperature": -6,
+            "tint": -4,
+            "grain": 14,
+            "fade": 16,
+            "vignette": 16
+          },
+          "split": {
+            "shadows": [
+              0.42,
+              0.48,
+              0.5
+            ],
+            "highlights": [
+              0.58,
+              0.56,
+              0.5
+            ],
+            "strength": 0.24
+          }
+        },
+        {
+          "id": "cozy-december",
+          "name": "Giáng Sinh Ấm",
+          "description": "Tôn sắc đỏ thông Noel, xanh lá thông trầm và ánh đèn vàng ấm cúng",
+          "adjust": {
+            "contrast": 14,
+            "highlights": -10,
+            "shadows": 10,
+            "saturation": 10,
+            "vibrance": 18,
+            "temperature": 18,
+            "tint": 6,
+            "grain": 12,
+            "fade": 8,
+            "vignette": 18
+          },
+          "split": {
+            "shadows": [
+              0.34,
+              0.5,
+              0.42
+            ],
+            "highlights": [
+              0.7,
+              0.54,
+              0.38
+            ],
+            "strength": 0.32
+          }
+        },
+        {
+          "id": "first-snow",
+          "name": "Tuyết Đầu Mùa",
+          "description": "Sáng trong, hơi lạnh xanh lam nhưng giữ gương mặt hồng hào tự nhiên",
+          "adjust": {
+            "exposure": 8,
+            "contrast": 6,
+            "highlights": -12,
+            "shadows": 18,
+            "saturation": -10,
+            "vibrance": 14,
+            "temperature": -16,
+            "tint": 6,
+            "fade": 8
+          },
+          "split": {
+            "shadows": [
+              0.4,
+              0.48,
+              0.6
+            ],
+            "highlights": [
+              0.58,
+              0.58,
+              0.62
+            ],
+            "strength": 0.24
+          }
+        },
+        {
+          "id": "new-year-sparkle",
+          "name": "Pháo Hoa Giao Thừa",
+          "description": "Tương phản lấp lánh với sắc vàng kim Champagne và bóng đêm sâu",
+          "adjust": {
+            "contrast": 22,
+            "highlights": 8,
+            "shadows": -4,
+            "saturation": 12,
+            "vibrance": 20,
+            "temperature": 14,
+            "tint": 8,
+            "sharpen": 12,
+            "vignette": 20
+          },
+          "split": {
+            "shadows": [
+              0.32,
+              0.38,
+              0.54
+            ],
+            "highlights": [
+              0.74,
+              0.62,
+              0.42
+            ],
+            "strength": 0.36
+          }
+        }
+      ]
+    },
+    {
+      "id": "east-asian-jp-kr",
+      "name": "Phong cách Hàn / Nhật (KR & JP Aesthetic)",
+      "nameEn": "KR & JP Aesthetic",
+      "description": "Tông màu tạp chí lối sống Tokyo, quán cà phê Seoul, biển Kamakura và phim ảnh Đông Á",
+      "filters": [
+        {
+          "id": "kamakura-sea",
+          "name": "Biển Kamakura",
+          "description": "Sắc xanh lam ngọc trong vắt, dư sáng nhẹ kiểu ảnh phim Nhật Bản mùa hè",
+          "adjust": {
+            "exposure": 8,
+            "contrast": -8,
+            "highlights": -16,
+            "shadows": 22,
+            "saturation": -4,
+            "vibrance": 18,
+            "temperature": -14,
+            "tint": -8,
+            "grain": 10,
+            "fade": 12
+          },
+          "split": {
+            "shadows": [
+              0.36,
+              0.54,
+              0.6
+            ],
+            "highlights": [
+              0.58,
+              0.62,
+              0.58
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "seoul-minimal-cafe",
+          "name": "Quán Nhỏ Seoul",
+          "description": "Tông kem be lạnh, giảm bão hoà màu gắt, cực kỳ sạch sẽ và hiện đại",
+          "adjust": {
+            "exposure": 6,
+            "contrast": -6,
+            "highlights": -18,
+            "shadows": 18,
+            "saturation": -22,
+            "vibrance": 8,
+            "temperature": -4,
+            "tint": 4,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.46,
+              0.48,
+              0.52
+            ],
+            "highlights": [
+              0.6,
+              0.58,
+              0.54
+            ],
+            "strength": 0.2
+          }
+        },
+        {
+          "id": "rinko-airy",
+          "name": "Nắng Sớm Tokyo",
+          "description": "Dư sáng đầy chất thơ, màu sắc nhẹ bẫng như sương sớm và ánh cầu vồng",
+          "adjust": {
+            "exposure": 10,
+            "brightness": 4,
+            "contrast": -16,
+            "highlights": -12,
+            "shadows": 26,
+            "saturation": -12,
+            "vibrance": 16,
+            "temperature": -6,
+            "tint": 6,
+            "fade": 18
+          },
+          "split": {
+            "shadows": [
+              0.42,
+              0.52,
+              0.58
+            ],
+            "highlights": [
+              0.62,
+              0.58,
+              0.56
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "hongdae-street",
+          "name": "Phố Trẻ Hongdae",
+          "description": "Tương phản rõ nét, xanh coban và xám bê tông hiện đại cho ảnh phối đồ (OOTD)",
+          "adjust": {
+            "contrast": 16,
+            "highlights": -14,
+            "shadows": 6,
+            "saturation": -14,
+            "vibrance": 16,
+            "temperature": -10,
+            "tint": 2,
+            "sharpen": 14,
+            "vignette": 10
+          },
+          "split": {
+            "shadows": [
+              0.38,
+              0.46,
+              0.58
+            ],
+            "highlights": [
+              0.58,
+              0.56,
+              0.54
+            ],
+            "strength": 0.24
+          }
+        },
+        {
+          "id": "jeju-tangerine",
+          "name": "Đảo Quýt Jeju",
+          "description": "Sự kết hợp tươi mát giữa xanh lá biển đảo và sắc cam quýt ngọt ngào",
+          "adjust": {
+            "exposure": 6,
+            "contrast": 8,
+            "highlights": -14,
+            "shadows": 16,
+            "saturation": 10,
+            "vibrance": 20,
+            "temperature": 12,
+            "tint": -4,
+            "fade": 8
+          },
+          "split": {
+            "shadows": [
+              0.38,
+              0.52,
+              0.48
+            ],
+            "highlights": [
+              0.68,
+              0.58,
+              0.42
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "arashiyama-bamboo",
+          "name": "Rừng Trúc Kyoto",
+          "description": "Xanh rêu trầm tĩnh, ánh sáng dịu nhẹ và uyển chuyển kiểu cổ đô",
+          "adjust": {
+            "contrast": 10,
+            "highlights": -18,
+            "shadows": 12,
+            "saturation": -12,
+            "vibrance": 14,
+            "temperature": -8,
+            "tint": -14,
+            "grain": 10,
+            "fade": 12
+          },
+          "split": {
+            "shadows": [
+              0.34,
+              0.52,
+              0.44
+            ],
+            "highlights": [
+              0.58,
+              0.6,
+              0.5
+            ],
+            "strength": 0.28
+          }
+        },
+        {
+          "id": "kdrama-snow-melody",
+          "name": "Bản Tình Ca Đông",
+          "description": "Ánh sáng dịu ngọt, hơi ấm hồng trên má giữa khung cảnh mùa đông",
+          "adjust": {
+            "exposure": 6,
+            "contrast": -4,
+            "highlights": -16,
+            "shadows": 18,
+            "saturation": -8,
+            "vibrance": 14,
+            "temperature": 4,
+            "tint": 12,
+            "fade": 10
+          },
+          "split": {
+            "shadows": [
+              0.44,
+              0.46,
+              0.56
+            ],
+            "highlights": [
+              0.64,
+              0.56,
+              0.54
+            ],
+            "strength": 0.26
+          }
+        },
+        {
+          "id": "showa-kissaten",
+          "name": "Quán Cà Phê Showa",
+          "description": "Gỗ nâu sẫm, ghế nhung đỏ và ánh đèn vàng hoài niệm thời kỳ Showa",
+          "adjust": {
+            "contrast": 14,
+            "highlights": -16,
+            "shadows": 8,
+            "saturation": -8,
+            "vibrance": 12,
+            "temperature": 24,
+            "tint": 8,
+            "grain": 18,
+            "fade": 14,
+            "vignette": 20
+          },
+          "split": {
+            "shadows": [
+              0.5,
+              0.42,
+              0.36
+            ],
+            "highlights": [
+              0.68,
+              0.56,
+              0.4
+            ],
+            "strength": 0.34
+          }
+        },
+        {
+          "id": "seongsu-industrial",
+          "name": "Xưởng Cũ Seongsu",
+          "description": "Tông gạch đỏ trầm và bê tông xám lạnh cho không gian triển lãm nghệ thuật",
+          "adjust": {
+            "contrast": 18,
+            "highlights": -16,
+            "shadows": 4,
+            "saturation": -18,
+            "vibrance": 12,
+            "temperature": 4,
+            "tint": 4,
+            "grain": 12,
+            "fade": 8,
+            "sharpen": 12
+          },
+          "split": {
+            "shadows": [
+              0.42,
+              0.46,
+              0.5
+            ],
+            "highlights": [
+              0.6,
+              0.54,
+              0.48
+            ],
+            "strength": 0.24
+          }
+        },
+        {
+          "id": "okinawa-breeze",
+          "name": "Nắng Gió Okinawa",
+          "description": "Xanh ngọc lam rực rỡ, nắng trắng sáng và hạt phim mịn",
+          "adjust": {
+            "exposure": 7,
+            "contrast": 6,
+            "highlights": -14,
+            "shadows": 16,
+            "saturation": 12,
+            "vibrance": 22,
+            "temperature": -8,
+            "tint": -10,
+            "grain": 8,
+            "fade": 6
+          },
+          "split": {
+            "shadows": [
+              0.32,
+              0.56,
+              0.58
+            ],
+            "highlights": [
+              0.62,
+              0.62,
+              0.52
+            ],
+            "strength": 0.28
+          }
+        }
+      ]
+    }
+  ]
+}

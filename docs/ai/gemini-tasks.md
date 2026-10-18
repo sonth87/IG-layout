@@ -8,13 +8,13 @@ Trạng thái:
 
 | Việc | Nhánh | Trạng thái |
 |---|---|---|
-| G6 — Câu xem trước phông, chữ mẫu widget | `gemini/g6-text` | Chưa giao |
-| G1 — Script xử lý ảnh + trang duyệt | `gemini/g1-process` | Chưa giao |
-| G5 — Phông (~150) | `gemini/g5-fonts` | Chưa giao |
-| G2 — Sticker đợt 1 (~200) | `gemini/g2-stickers` | Chưa giao (cần G1) |
-| G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | Chưa giao (cần G1) |
-| G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Chưa giao (cần G1) |
-| G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | Chưa giao |
+| G6 — Câu xem trước phông, chữ mẫu widget | `gemini/g6-text` | Đã xong (125 VI, 125 EN, 35 JA/KO/ZH; 27 widget) |
+| G1 — Script xử lý ảnh + trang duyệt | `gemini/g1-process` | Đã xong (`process.mjs`, `review.mjs`, gói mẫu 5 tem) |
+| G5 — Phông (~150) | `gemini/g5-fonts` | Đã xong (195 phông / 11 gói, 127 phông hỗ trợ tiếng Việt) |
+| G2 — Sticker đợt 1 (~200) | `gemini/g2-stickers` | Đã xong (212 sticker / 12 gói) |
+| G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | Đã xong (46 chất liệu `tile: true` / 6 gói + 22 lớp phủ / 2 gói) |
+| G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Đã xong (44 khung / 6 gói + 32 mép giấy xé) |
+| G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | Đã xong (120 filter / 12 nhóm, 20 hiệu ứng tĩnh, 9 loại bút) |
 
 ---
 
