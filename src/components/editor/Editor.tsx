@@ -69,6 +69,17 @@ const MIN_SLIDE_PX = 120;
  */
 const DOCK_RESERVE = 100;
 
+/**
+ * Animate is hidden for now (owner, 2026-10-18: still images don't need it). Motion already
+ * in projects still plays. The hidden switch `ig-layout:labs-animate` = "1" shows it (tests).
+ */
+const SHOW_ANIMATE = typeof window !== "undefined" && (() => {
+  try {
+    return localStorage.getItem("ig-layout:labs-animate") === "1";
+  } catch {
+    return false;
+  }
+})();
 const MAX_ZOOM = 4;
 
 type Tool =
@@ -487,7 +498,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     const list: Action<MoreKey>[] = [];
     if (selected.type === "image") {
       if (selected.assetId) list.push({ key: "replace", label: t("editor.replace"), icon: "replace" });
-      if (selectedIsVideo) list.unshift({ key: "crop", label: t("editor.crop"), icon: "crop" }, { key: "animate", label: t("editor.animate"), icon: "motion" });
+      if (selectedIsVideo) list.unshift({ key: "crop", label: t("editor.crop"), icon: "crop" }, ...(SHOW_ANIMATE ? [{ key: "animate" as const, label: t("editor.animate"), icon: "motion" as const }] : []));
       else if (selected.assetId) list.push({ key: "removeBg", label: t("removeBg.title"), icon: "sparkles" });
       if (selected.slot) list.push({ key: "swap", label: t("editor.swap"), icon: "swap" });
       if (selected.frame === "none") list.push({ key: "mask", label: t("editor.mask"), icon: "mask" });
@@ -611,7 +622,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <ToolButton key={t("video.sound")} label={t("video.sound")} icon="volume" onClick={() => openTool("sound")} />,
         <ToolButton key={t("editor.filters")} label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />,
         <ToolButton key={t("editor.adjust")} label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />,
-        <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        SHOW_ANIMATE && <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
         position,
         <ToolButton key={t("editor.crop")} label={t("editor.crop")} icon="crop" onClick={() => openTool("crop")} />,
         <ToolButton key={t("editor.style")} label={t("editor.style")} icon="style" onClick={() => openTool("style")} />,
@@ -636,7 +647,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
             if (a) void saveLibrary("sticker", a.blob, a.width, a.height, a.name).then(() => showNotice(t("lib.saved")));
           }}
         />,
-        <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        SHOW_ANIMATE && <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
         selected.slot && <ToolButton key={t("editor.swap")} label={t("editor.swap")} icon="swap" onClick={() => store.startSwap(id)} />,
         selected.frame === "none" && !inBlock && <ToolButton key={t("editor.mask")} label={t("editor.mask")} icon="mask" onClick={() => openTool("mask")} />,
         tail[0],
@@ -661,7 +672,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <ToolButton key="align" label={t("type.align")} icon="alignLeft" onClick={() => typeText(id, "align")} />,
         position,
         <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />,
-        <ToolButton key="animate" label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        SHOW_ANIMATE && <ToolButton key="animate" label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
         ...tail,
       ];
     else
@@ -670,7 +681,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         selected.type !== "drawing" &&
           <ToolButton key={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} label={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} icon="palette" onClick={() => openTool("fill")} />,
         position,
-        <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        SHOW_ANIMATE && <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
         ...tail,
       ];
     bottom = sheet(
