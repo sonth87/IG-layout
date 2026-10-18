@@ -75,7 +75,7 @@ Sheet Vị trí của ảnh giống mục 1 của [08](08-cac-sheet-chinh-sua.md
 - **Ảnh** — có khung riêng (viền mảnh) với **tay nắm góc và cạnh để phóng to / thu nhỏ** (giữ tỉ lệ ảnh, điểm đối diện đứng yên). **Kéo ở bất kỳ đâu** — trong hay ngoài khung nhìn — là **di chuyển ảnh**. **Chụm hai ngón** để phóng quanh điểm giữa hai ngón.
 - **Ảnh luôn phủ kín khung nhìn**: thu nhỏ / kéo / xoay tới đâu cũng không để lộ khoảng trống — ảnh dừng ở mép (hoặc tự phóng lên tối thiểu cần thiết khi xoay).
 
-**Thanh Cắt** (dưới canvas, không phải màn tối riêng): ✕ (huỷ) · tên · ✓ (áp dụng, một bước hoàn tác); thanh trượt **Xoay** (−45° … 45°, xoay phẳng); [đợt 2] **Dọc / Ngang** — **xoay 3D** quanh trục X / Y qua tâm ảnh (phối cảnh, như app Ảnh của iPhone); dòng **Tỉ lệ khung** (Tự do, Gốc, 1:1, 2:3, 3:4, 4:3, 4:5, 9:16, 16:9 — đổi kích thước khung nhìn, giữ tâm); nút **Xoay 90°, Lật ngang, Lật dọc, Đặt lại**.
+**Thanh Cắt** (dưới canvas, không phải màn tối riêng): ✕ (huỷ) · tên · ✓ (áp dụng, một bước hoàn tác); thanh trượt **Xoay** (−45° … 45°, xoay phẳng); [đợt 2] **Dọc / Ngang** — **xoay 3D** quanh trục X / Y qua tâm ảnh (phối cảnh, như app Ảnh của iPhone); dòng **Tỉ lệ khung** (Tự do, Gốc, 1:1, 2:3, 3:4, 4:3, 4:5, 9:16, 16:9 — đổi kích thước khung nhìn, giữ tâm); nút **Xoay 90°, Lật ngang, Lật dọc, Đặt lại** (Đặt lại: khung nhìn về **đúng kích thước lúc mở Cắt**, tỉ lệ về Tự do, ảnh về giữa, hết xoay / nghiêng / lật [CDA 2026-10-18]).
 
 **Ảnh trong ô / trong khung trang trí / khung từ thư viện**: khung nhìn chính là ô / cửa sổ — **không đổi kích thước** (không có tay nắm khung, không có dòng tỉ lệ); chỉ dời, phóng, xoay ảnh bên trong.
 

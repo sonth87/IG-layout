@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { clampView, cropWindow, minZoom } from "@/lib/project/cropView";
 import { useEditor, useViewDoc } from "@/store/editor";
@@ -25,6 +26,8 @@ export function CropPanel({ elementId, ratio, onRatio, onClose }: { elementId: s
   const el = found?.type === "image" ? found : undefined;
   const asset = useEditor((s) => (el?.assetId ? s.assets[el.assetId] : undefined));
   const { applyDraft, cancelDraft, patchDraft } = useEditor.getState();
+  /** The window when Crop opened: Reset goes back to it (not to the last ratio picked). */
+  const [opening] = useState(() => (el ? { x: el.x, y: el.y, width: el.width, height: el.height } : null));
   if (!el || !asset) return null;
   const pic = picSize(asset);
   const resizable = windowResizable(el);
@@ -49,9 +52,11 @@ export function CropPanel({ elementId, ratio, onRatio, onClose }: { elementId: s
     writeView(el, asset, view, { width: w, height: h, x: el.x + (el.width - w) / 2, y: el.y + (el.height - h) / 2 });
   };
   const reset = () => {
-    const win = cropWindow(el);
+    onRatio("free");
+    const frame = resizable && opening ? opening : undefined;
+    const win = cropWindow(frame ? { ...el, ...frame } : el);
     patchDraft(el.id, { flipX: false, flipY: false });
-    writeView({ ...el, flipX: false, flipY: false }, asset, clampView({ z: minZoom(0, win, pic), theta: 0, px: 0, py: 0 }, win, pic), undefined, { x: 0, y: 0 });
+    writeView({ ...el, flipX: false, flipY: false }, asset, clampView({ z: minZoom(0, win, pic), theta: 0, px: 0, py: 0 }, win, pic), frame, { x: 0, y: 0 });
   };
   const button = "flex h-14 flex-1 flex-col items-center justify-center gap-1 text-[11px]";
   const pill = (active: boolean) => `h-9 shrink-0 rounded-full px-3 text-[13px] ${active ? "bg-text font-bold text-bg" : "border border-border"}`;
