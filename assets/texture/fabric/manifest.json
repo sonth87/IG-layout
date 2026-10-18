@@ -1,0 +1,310 @@
+{
+  "id": "fabric",
+  "kind": "texture",
+  "name": {
+    "en": "Linen & Fabrics",
+    "vi": "Vải vóc & Dệt may"
+  },
+  "collections": [
+    "journal",
+    "vintage",
+    "minimal"
+  ],
+  "order": 20,
+  "items": [
+    {
+      "id": "fabric-rough-linen",
+      "name": {
+        "en": "Natural Rough Woven Linen",
+        "vi": "Vải lanh dệt thô tự nhiên"
+      },
+      "tags": {
+        "en": [
+          "fabric",
+          "linen",
+          "woven",
+          "natural"
+        ],
+        "vi": [
+          "vải lanh",
+          "dệt thô",
+          "tự nhiên",
+          "mộc"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/rough_linen",
+        "author": "colormass",
+        "title": "Rough Linen",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1022,
+      "height": 1024
+    },
+    {
+      "id": "fabric-burlap-hessian",
+      "name": {
+        "en": "Rustic Jute Burlap Sackcloth",
+        "vi": "Vải bố đay thô mộc"
+      },
+      "tags": {
+        "en": [
+          "fabric",
+          "burlap",
+          "jute",
+          "hessian",
+          "rustic"
+        ],
+        "vi": [
+          "vải bố",
+          "vải đay",
+          "thô mộc",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/hessian_230",
+        "author": "colormass",
+        "title": "Hessian 230",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1018
+    },
+    {
+      "id": "fabric-indigo-denim",
+      "name": {
+        "en": "Classic Indigo Denim Twill",
+        "vi": "Vải jean (Denim) xanh chàm"
+      },
+      "tags": {
+        "en": [
+          "fabric",
+          "denim",
+          "jeans",
+          "indigo",
+          "twill"
+        ],
+        "vi": [
+          "vải bò",
+          "vải jean",
+          "xanh chàm",
+          "dệt chéo"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/denim_fabric",
+        "author": "Rob Tuytel",
+        "title": "Denim Fabric",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "fabric-gingham-check",
+      "name": {
+        "en": "Picnic Gingham Checkered Cloth",
+        "vi": "Vải kẻ caro Gingham dã ngoại"
+      },
+      "tags": {
+        "en": [
+          "fabric",
+          "gingham",
+          "checkered",
+          "plaid",
+          "cute"
+        ],
+        "vi": [
+          "vải caro",
+          "kẻ ô",
+          "dã ngoại",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/gingham_check",
+        "author": "colormass",
+        "title": "Gingham Check",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 979,
+      "height": 1024
+    },
+    {
+      "id": "fabric-waffle-cotton",
+      "name": {
+        "en": "Soft Waffle Piqué Cotton",
+        "vi": "Vải cotton dệt tổ ong"
+      },
+      "tags": {
+        "en": [
+          "fabric",
+          "cotton",
+          "waffle",
+          "soft",
+          "minimal"
+        ],
+        "vi": [
+          "vải cotton",
+          "tổ ong",
+          "mềm mại",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/waffle_pique_cotton",
+        "author": "colormass",
+        "title": "Waffle Pique Cotton",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1010
+    },
+    {
+      "id": "fabric-wool-boucle",
+      "name": {
+        "en": "Cozy Cream Wool Bouclé",
+        "vi": "Vải dạ len xù ấm áp"
+      },
+      "tags": {
+        "en": [
+          "fabric",
+          "wool",
+          "boucle",
+          "knitted",
+          "winter"
+        ],
+        "vi": [
+          "vải len",
+          "vải dạ",
+          "mùa đông",
+          "ấm áp"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/wool_boucle",
+        "author": "colormass",
+        "title": "Wool Boucle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 826,
+      "height": 1024
+    },
+    {
+      "id": "fabric-ribbed-corduroy",
+      "name": {
+        "en": "Vintage Ribbed Corduroy",
+        "vi": "Vải nhung tăm cổ điển"
+      },
+      "tags": {
+        "en": [
+          "fabric",
+          "corduroy",
+          "ribbed",
+          "vintage"
+        ],
+        "vi": [
+          "nhung tăm",
+          "vải nhung",
+          "cổ điển",
+          "ấm"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/ribbed_corduroy",
+        "author": "colormass",
+        "title": "Ribbed Corduroy",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1023,
+      "height": 1024
+    },
+    {
+      "id": "fabric-tatami-weave",
+      "name": {
+        "en": "Woven Japanese Tatami Straw Mat",
+        "vi": "Chiếu cói Tatami Nhật Bản"
+      },
+      "tags": {
+        "en": [
+          "fabric",
+          "tatami",
+          "straw",
+          "woven",
+          "japan"
+        ],
+        "vi": [
+          "chiếu cói",
+          "tatami",
+          "nhật bản",
+          "dệt cói"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/tatami_mat",
+        "author": "Charlotte Baglioni",
+        "title": "Tatami Mat",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    }
+  ]
+}

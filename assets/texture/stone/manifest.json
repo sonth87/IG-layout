@@ -1,0 +1,306 @@
+{
+  "id": "stone",
+  "kind": "texture",
+  "name": {
+    "en": "Stone, Marble & Concrete",
+    "vi": "Đá, Cẩm thạch & Bê tông"
+  },
+  "collections": [
+    "minimal",
+    "vintage"
+  ],
+  "order": 40,
+  "items": [
+    {
+      "id": "stone-carrara-marble-06",
+      "name": {
+        "en": "White Carrara Marble Veins",
+        "vi": "Đá cẩm thạch trắng vân mây"
+      },
+      "tags": {
+        "en": [
+          "stone",
+          "marble",
+          "white",
+          "minimal",
+          "luxury"
+        ],
+        "vi": [
+          "đá cẩm thạch",
+          "vân mây",
+          "trắng",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "minimal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Marble006",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Marble006 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "stone-warm-marble-12",
+      "name": {
+        "en": "Warm Cream & Gold Veined Marble",
+        "vi": "Đá cẩm thạch kem ánh vàng"
+      },
+      "tags": {
+        "en": [
+          "stone",
+          "marble",
+          "cream",
+          "warm"
+        ],
+        "vi": [
+          "đá hoa cương",
+          "cẩm thạch",
+          "vàng kem",
+          "sang trọng"
+        ]
+      },
+      "collections": [
+        "minimal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Marble012",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Marble012 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "stone-venetian-terrazzo-01",
+      "name": {
+        "en": "Speckled Venetian Terrazzo",
+        "vi": "Đá mài Terrazzo hạt màu"
+      },
+      "tags": {
+        "en": [
+          "stone",
+          "terrazzo",
+          "speckled",
+          "modern"
+        ],
+        "vi": [
+          "đá mài",
+          "terrazzo",
+          "hiện đại",
+          "hạt đá"
+        ]
+      },
+      "collections": [
+        "minimal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Terrazzo001",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Terrazzo001 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "stone-pastel-terrazzo-05",
+      "name": {
+        "en": "Light Neutral Terrazzo Slab",
+        "vi": "Đá mài Terrazzo sáng tối giản"
+      },
+      "tags": {
+        "en": [
+          "stone",
+          "terrazzo",
+          "light",
+          "minimal"
+        ],
+        "vi": [
+          "đá mài",
+          "nền sáng",
+          "tối giản",
+          "hiện đại"
+        ]
+      },
+      "collections": [
+        "minimal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Terrazzo005",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Terrazzo005 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "stone-roman-travertine-04",
+      "name": {
+        "en": "Warm Porous Roman Travertine",
+        "vi": "Đá Travertine vàng cổ điển"
+      },
+      "tags": {
+        "en": [
+          "stone",
+          "travertine",
+          "limestone",
+          "warm"
+        ],
+        "vi": [
+          "đá tự nhiên",
+          "vàng ấm",
+          "cổ điển",
+          "kiến trúc"
+        ]
+      },
+      "collections": [
+        "minimal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "ambientCG",
+        "url": "https://ambientcg.com/view?id=Travertine004",
+        "author": "Lennart Demes (ambientCG)",
+        "title": "Travertine004 Albedo Map",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "stone-beige-stucco-wall",
+      "name": {
+        "en": "Mediterranean Beige Stucco Plaster",
+        "vi": "Tường vữa màu kem Địa Trung Hải"
+      },
+      "tags": {
+        "en": [
+          "stone",
+          "plaster",
+          "stucco",
+          "beige",
+          "wall"
+        ],
+        "vi": [
+          "tường vữa",
+          "màu be",
+          "tối giản",
+          "ấm áp"
+        ]
+      },
+      "collections": [
+        "minimal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/beige_wall_001",
+        "author": "Dimitrios Savva",
+        "title": "Beige Wall 001",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "stone-brushed-concrete",
+      "name": {
+        "en": "Architectural Brushed Grey Concrete",
+        "vi": "Bê tông xám mài xước"
+      },
+      "tags": {
+        "en": [
+          "stone",
+          "concrete",
+          "grey",
+          "industrial",
+          "minimal"
+        ],
+        "vi": [
+          "bê tông",
+          "xám",
+          "tối giản",
+          "hiện đại"
+        ]
+      },
+      "collections": [
+        "minimal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/brushed_concrete",
+        "author": "Dario Barresi",
+        "title": "Brushed Concrete ",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "stone-white-sandstone",
+      "name": {
+        "en": "Fine Pale Sandstone Surface",
+        "vi": "Đá sa thạch trắng ngà"
+      },
+      "tags": {
+        "en": [
+          "stone",
+          "sandstone",
+          "pale",
+          "natural"
+        ],
+        "vi": [
+          "đá sa thạch",
+          "trắng ngà",
+          "tự nhiên",
+          "mộc"
+        ]
+      },
+      "collections": [
+        "minimal",
+        "vintage"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/white_sandstone_blocks_02",
+        "author": "Rob Tuytel",
+        "title": "White Sandstone Blocks 02",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    }
+  ]
+}

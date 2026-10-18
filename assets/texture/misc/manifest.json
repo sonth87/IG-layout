@@ -1,0 +1,232 @@
+{
+  "id": "misc",
+  "kind": "texture",
+  "name": {
+    "en": "Leather, Metal & Ceramic",
+    "vi": "Da thuộc, Kim loại & Gốm"
+  },
+  "collections": [
+    "vintage",
+    "minimal"
+  ],
+  "order": 60,
+  "items": [
+    {
+      "id": "misc-vintage-brown-leather",
+      "name": {
+        "en": "Supple Vintage Saddle Brown Leather",
+        "vi": "Da thuộc nâu cổ điển"
+      },
+      "tags": {
+        "en": [
+          "leather",
+          "brown",
+          "vintage",
+          "journal"
+        ],
+        "vi": [
+          "da thuộc",
+          "da nâu",
+          "sổ da",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/brown_leather",
+        "author": "Rob Tuytel",
+        "title": "Brown Leather",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "misc-cream-white-leather",
+      "name": {
+        "en": "Pebbled Cream White Leather",
+        "vi": "Da thuộc trắng kem vân nổi"
+      },
+      "tags": {
+        "en": [
+          "leather",
+          "white",
+          "cream",
+          "minimal"
+        ],
+        "vi": [
+          "da trắng",
+          "vân da",
+          "tối giản",
+          "sang trọng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/leather_white",
+        "author": "Rob Tuytel",
+        "title": "Leather White",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "misc-corrugated-zinc-iron",
+      "name": {
+        "en": "Industrial Corrugated Metal Sheet",
+        "vi": "Tôn kim loại gợn sóng"
+      },
+      "tags": {
+        "en": [
+          "metal",
+          "iron",
+          "corrugated",
+          "industrial"
+        ],
+        "vi": [
+          "kim loại",
+          "tôn sóng",
+          "công nghiệp",
+          "cá tính"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/corrugated_iron",
+        "author": "Jenelle van Heerden",
+        "title": "Corrugated Iron",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "misc-patina-green-rust",
+      "name": {
+        "en": "Weathered Patina Green & Rust Metal",
+        "vi": "Kim loại phủ rỉ đồng xanh cổ"
+      },
+      "tags": {
+        "en": [
+          "metal",
+          "rust",
+          "patina",
+          "grunge",
+          "vintage"
+        ],
+        "vi": [
+          "rỉ sét",
+          "đồng xanh",
+          "bụi bặm",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/green_metal_rust",
+        "author": "Rob Tuytel",
+        "title": "Green Metal Rust",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "misc-checkered-ceramic-tiles",
+      "name": {
+        "en": "Classic Glazed Ceramic Mosaic Tiles",
+        "vi": "Gạch men lát nền cổ điển"
+      },
+      "tags": {
+        "en": [
+          "ceramic",
+          "tiles",
+          "mosaic",
+          "pattern"
+        ],
+        "vi": [
+          "gạch men",
+          "gạch bông",
+          "lát nền",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/floor_tiles_08",
+        "author": "Rob Tuytel",
+        "title": "Floor Tiles 08",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "misc-terracotta-clay-tiles",
+      "name": {
+        "en": "Warm Terracotta Clay Tiles",
+        "vi": "Gốm đất nung đỏ ấm"
+      },
+      "tags": {
+        "en": [
+          "ceramic",
+          "terracotta",
+          "clay",
+          "warm"
+        ],
+        "vi": [
+          "đất nung",
+          "gốm đỏ",
+          "truyền thống",
+          "ấm áp"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "Poly Haven",
+        "url": "https://polyhaven.com/a/clay_roof_tiles",
+        "author": "Amal Kumar",
+        "title": "Clay Roof Tiles",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1024
+    }
+  ]
+}
