@@ -13,7 +13,6 @@ import { STICKER_KINDS } from "./stickers.mjs";
 const KINDS = { ...FRAME_KINDS, ...STICKER_KINDS };
 
 const [cmd, kind, countArg, firstArg] = process.argv.slice(2);
-const PHOTO = path.join(ROOT, "e2e", "fixtures", "portrait.jpg");
 
 /** The art with a photo under its windows (what the user will see). */
 async function preview(f, size = 520) {
@@ -22,7 +21,8 @@ async function preview(f, size = 520) {
   for (const w of f.windows ?? []) {
     const bw = Math.max(1, Math.round(w.w * f.width));
     const bh = Math.max(1, Math.round(w.h * f.height));
-    let photo = await sharp(PHOTO).resize(bw, bh, { fit: "cover" }).png().toBuffer();
+    // The window as an empty cell looks in the app: plain warm grey (not a test photo).
+    let photo = await sharp({ create: { width: bw, height: bh, channels: 4, background: { r: 217, g: 213, b: 205, alpha: 1 } } }).png().toBuffer();
     if (w.points) {
       const pts = [];
       for (let i = 0; i < w.points.length; i += 2) pts.push(`${(w.points[i] * bw).toFixed(1)},${(w.points[i + 1] * bh).toFixed(1)}`);
