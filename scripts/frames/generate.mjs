@@ -29,7 +29,11 @@ async function preview(f, size = 520) {
       const mask = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${bw}" height="${bh}"><polygon points="${pts.join(" ")}" fill="#fff"/></svg>`);
       photo = await sharp(photo).composite([{ input: mask, blend: "dest-in" }]).png().toBuffer();
     }
-    layers.push({ input: photo, left: Math.round(w.x * f.width), top: Math.round(w.y * f.height) });
+    if (w.rotation) {
+      const turned = await sharp(photo).rotate(w.rotation, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+      const m = await sharp(turned).metadata();
+      layers.push({ input: turned, left: Math.round(w.x * f.width + bw / 2 - m.width / 2), top: Math.round(w.y * f.height + bh / 2 - m.height / 2) });
+    } else layers.push({ input: photo, left: Math.round(w.x * f.width), top: Math.round(w.y * f.height) });
   }
   layers.push({ input: art, left: 0, top: 0 });
   const comp = await sharp({ create: { width: f.width, height: f.height, channels: 4, background: { r: 233, g: 230, b: 224, alpha: 1 } } }).composite(layers).png().toBuffer();
@@ -69,6 +73,19 @@ if (cmd === "explore") {
   }
   if (kind === "scrap") {
     return { name: info.grid ? { en: "Torn grid paper", vi: "Mẩu giấy ô ly xé" } : { en: "Torn notebook paper", vi: "Mẩu giấy vở xé" }, tags: { en: ["paper", "torn", "notebook", "scrap", info.grid ? "grid" : "lined"], vi: ["giấy", "xé", "giấy vở", "mẩu giấy", info.grid ? "ô ly" : "kẻ dòng"] } };
+  }
+  if (kind === "stamp") return { name: { en: "Postage stamp", vi: "Con tem" }, tags: { en: ["stamp", "postage", "perforated", "mail", ...(info.mark ? ["postmark"] : [])], vi: ["tem", "tem thư", "bưu chính", "răng cưa", ...(info.mark ? ["dấu bưu điện"] : [])] } };
+  if (kind === "pictureFrame") {
+    const Wd = { oak: ["Oak", "gỗ sồi"], walnut: ["Walnut", "gỗ óc chó"], white: ["White", "trắng"], black: ["Black", "đen"], gold: ["Gold", "vàng"], natural: ["Natural wood", "gỗ mộc"] }[info.wood];
+    return { name: { en: `${Wd[0]} picture frame${info.mat ? " with mat" : ""}`, vi: `Khung tranh ${Wd[1]}${info.mat ? " có viền giấy" : ""}` }, tags: { en: ["picture frame", "frame", "wood", Wd[0].toLowerCase()], vi: ["khung tranh", "khung ảnh", "gỗ", Wd[1]] } };
+  }
+  if (kind === "photoCorners") {
+    const P = { kraft: ["kraft", "kraft"], black: ["black", "đen"], cream: ["cream", "kem"], white: ["white", "trắng"], sage: ["sage", "xanh xám"] }[info.page];
+    return { name: { en: `Album page, ${P[0]}`, vi: `Trang album ${P[1]}` }, tags: { en: ["album", "photo corners", "scrapbook", P[0]], vi: ["album", "góc dán ảnh", "scrapbook", P[1]] } };
+  }
+  if (kind === "envelope") {
+    const C = { kraft: ["kraft", "kraft"], white: ["white", "trắng"], pink: ["pink", "hồng"], blue: ["blue", "xanh dương"], sage: ["sage", "xanh xám"], red: ["red", "đỏ"] }[info.color];
+    return { name: { en: `Envelope, ${C[0]}`, vi: `Phong bì ${C[1]}` }, tags: { en: ["envelope", "letter", "mail", C[0]], vi: ["phong bì", "thư", "lá thư", C[1]] } };
   }
   if (kind === "tornCollage") {
     const L = { "2v": ["2 pieces side by side", "2 mảnh ngang"], "2h": ["2 pieces stacked", "2 mảnh dọc"], "3v": ["3 strips", "3 dải đứng"], "3h": ["3 rows", "3 dải ngang"], 4: ["4 pieces", "4 mảnh"], "1+2": ["1 + 2 pieces", "1 + 2 mảnh"] }[info.layout];

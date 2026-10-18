@@ -362,6 +362,156 @@
         29,
         30
       ]
+    },
+    {
+      "id": "gen-stamps",
+      "kind": "stamp",
+      "prefix": "stamp",
+      "order": 14,
+      "name": {
+        "en": "Stamps",
+        "vi": "Con tem"
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "id": "gen-picture-frames",
+      "kind": "pictureFrame",
+      "prefix": "picture-frame",
+      "order": 15,
+      "name": {
+        "en": "Picture frames",
+        "vi": "Khung tranh"
+      },
+      "collections": [
+        "vintage",
+        "minimal"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "id": "gen-album",
+      "kind": "photoCorners",
+      "prefix": "album",
+      "order": 16,
+      "name": {
+        "en": "Album pages",
+        "vi": "Trang album"
+      },
+      "collections": [
+        "journal",
+        "vintage"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "id": "gen-envelopes",
+      "kind": "envelope",
+      "prefix": "envelope",
+      "order": 17,
+      "name": {
+        "en": "Envelopes",
+        "vi": "Phong bì"
+      },
+      "collections": [
+        "love",
+        "journal",
+        "vintage"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
     }
   ]
 }

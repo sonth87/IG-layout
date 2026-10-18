@@ -1,0 +1,815 @@
+{
+  "id": "gen-album",
+  "kind": "frame",
+  "name": {
+    "en": "Album pages",
+    "vi": "Trang album"
+  },
+  "collections": [
+    "journal",
+    "vintage"
+  ],
+  "order": 16,
+  "items": [
+    {
+      "id": "album-1",
+      "name": {
+        "en": "Album page, kraft",
+        "vi": "Trang album kraft"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "kraft"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #1",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-1",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 880,
+      "windows": [
+        {
+          "x": 0.14,
+          "y": 0.1719,
+          "w": 0.7199,
+          "h": 0.6563,
+          "rotation": 2.34
+        }
+      ]
+    },
+    {
+      "id": "album-2",
+      "name": {
+        "en": "Album page, black",
+        "vi": "Trang album đen"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "black"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #2",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-2",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 747,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1579,
+          "y": 0.1092,
+          "w": 0.6838,
+          "h": 0.7816,
+          "rotation": 1.88
+        }
+      ]
+    },
+    {
+      "id": "album-3",
+      "name": {
+        "en": "Album page, kraft 2",
+        "vi": "Trang album kraft 2"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "kraft"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #3",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-3",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 747,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1372,
+          "y": 0.0949,
+          "w": 0.7251,
+          "h": 0.8102,
+          "rotation": 1.32
+        }
+      ]
+    },
+    {
+      "id": "album-4",
+      "name": {
+        "en": "Album page, black 2",
+        "vi": "Trang album đen 2"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "black"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #4",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-4",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 747,
+      "windows": [
+        {
+          "x": 0.0951,
+          "y": 0.1375,
+          "w": 0.8098,
+          "h": 0.7245,
+          "rotation": -1.33
+        }
+      ]
+    },
+    {
+      "id": "album-5",
+      "name": {
+        "en": "Album page, white",
+        "vi": "Trang album trắng"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "white"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #5",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-5",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 747,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1617,
+          "y": 0.1118,
+          "w": 0.6762,
+          "h": 0.7763,
+          "rotation": -2.07
+        }
+      ]
+    },
+    {
+      "id": "album-6",
+      "name": {
+        "en": "Album page, kraft 3",
+        "vi": "Trang album kraft 3"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "kraft"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #6",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-6",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 880,
+      "windows": [
+        {
+          "x": 0.1112,
+          "y": 0.1365,
+          "w": 0.7776,
+          "h": 0.7271,
+          "rotation": 0.21
+        }
+      ]
+    },
+    {
+      "id": "album-7",
+      "name": {
+        "en": "Album page, kraft 4",
+        "vi": "Trang album kraft 4"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "kraft"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #7",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-7",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 880,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.159,
+          "y": 0.1296,
+          "w": 0.6819,
+          "h": 0.7408,
+          "rotation": 0.11
+        }
+      ]
+    },
+    {
+      "id": "album-8",
+      "name": {
+        "en": "Album page, white 2",
+        "vi": "Trang album trắng 2"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "white"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #8",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-8",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 880,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1589,
+          "y": 0.1295,
+          "w": 0.6822,
+          "h": 0.741,
+          "rotation": 0.43
+        }
+      ]
+    },
+    {
+      "id": "album-9",
+      "name": {
+        "en": "Album page, sage",
+        "vi": "Trang album xanh xám"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "sage"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "xanh xám"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #9",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-9",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1584,
+          "y": 0.1584,
+          "w": 0.6832,
+          "h": 0.6832,
+          "rotation": 1.12
+        }
+      ]
+    },
+    {
+      "id": "album-10",
+      "name": {
+        "en": "Album page, sage 2",
+        "vi": "Trang album xanh xám 2"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "sage"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "xanh xám"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #10",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-10",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 880,
+      "windows": [
+        {
+          "x": 0.1334,
+          "y": 0.1637,
+          "w": 0.7332,
+          "h": 0.6725,
+          "rotation": -0.21
+        }
+      ]
+    },
+    {
+      "id": "album-11",
+      "name": {
+        "en": "Album page, cream",
+        "vi": "Trang album kem"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "cream"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kem"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #11",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-11",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 880,
+      "windows": [
+        {
+          "x": 0.1256,
+          "y": 0.1541,
+          "w": 0.7489,
+          "h": 0.6918,
+          "rotation": 1.75
+        }
+      ]
+    },
+    {
+      "id": "album-12",
+      "name": {
+        "en": "Album page, kraft 5",
+        "vi": "Trang album kraft 5"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "kraft"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #12",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-12",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.164,
+          "y": 0.164,
+          "w": 0.6721,
+          "h": 0.6721,
+          "rotation": -1.74
+        }
+      ]
+    },
+    {
+      "id": "album-13",
+      "name": {
+        "en": "Album page, black 3",
+        "vi": "Trang album đen 3"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "black"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #13",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-13",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 880,
+      "windows": [
+        {
+          "x": 0.1055,
+          "y": 0.1295,
+          "w": 0.789,
+          "h": 0.7411,
+          "rotation": -2.32
+        }
+      ]
+    },
+    {
+      "id": "album-14",
+      "name": {
+        "en": "Album page, cream 2",
+        "vi": "Trang album kem 2"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "cream"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kem"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #14",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-14",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 830,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1455,
+          "y": 0.1118,
+          "w": 0.709,
+          "h": 0.7764,
+          "rotation": -1.53
+        }
+      ]
+    },
+    {
+      "id": "album-15",
+      "name": {
+        "en": "Album page, cream 3",
+        "vi": "Trang album kem 3"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "cream"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kem"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #15",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-15",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.141,
+          "y": 0.141,
+          "w": 0.7179,
+          "h": 0.7179,
+          "rotation": -1.39
+        }
+      ]
+    },
+    {
+      "id": "album-16",
+      "name": {
+        "en": "Album page, kraft 6",
+        "vi": "Trang album kraft 6"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "kraft"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #16",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-16",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1080,
+      "height": 880,
+      "windows": [
+        {
+          "x": 0.1181,
+          "y": 0.1449,
+          "w": 0.7638,
+          "h": 0.7102,
+          "rotation": -0.8
+        }
+      ]
+    },
+    {
+      "id": "album-17",
+      "name": {
+        "en": "Album page, kraft 7",
+        "vi": "Trang album kraft 7"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "kraft"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #17",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-17",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 747,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1413,
+          "y": 0.0977,
+          "w": 0.717,
+          "h": 0.8046,
+          "rotation": -2.06
+        }
+      ]
+    },
+    {
+      "id": "album-18",
+      "name": {
+        "en": "Album page, white 3",
+        "vi": "Trang album trắng 3"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "white"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #18",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-18",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 830,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1385,
+          "y": 0.1064,
+          "w": 0.723,
+          "h": 0.7871,
+          "rotation": 1.52
+        }
+      ]
+    },
+    {
+      "id": "album-19",
+      "name": {
+        "en": "Album page, black 4",
+        "vi": "Trang album đen 4"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "black"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #19",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-19",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 880,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1617,
+          "y": 0.1317,
+          "w": 0.6766,
+          "h": 0.7365,
+          "rotation": 2.43
+        }
+      ]
+    },
+    {
+      "id": "album-20",
+      "name": {
+        "en": "Album page, black 5",
+        "vi": "Trang album đen 5"
+      },
+      "tags": {
+        "en": [
+          "album",
+          "photo corners",
+          "scrapbook",
+          "black"
+        ],
+        "vi": [
+          "album",
+          "góc dán ảnh",
+          "scrapbook",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "photoCorners #20",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#photoCorners-20",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 747,
+      "height": 1080,
+      "windows": [
+        {
+          "x": 0.1467,
+          "y": 0.1015,
+          "w": 0.7062,
+          "h": 0.7971,
+          "rotation": -0.36
+        }
+      ]
+    }
+  ]
+}

@@ -33,7 +33,7 @@ await page.waitForTimeout(800);
 console.log("Generated frame groups");
 await frames();
 await page.getByRole("region", { name: "Torn photos", exact: true }).waitFor({ timeout: 15000 }).catch(() => {});
-for (const g of ["Torn photos", "Torn photo collages", "Torn photos on paper", "Film strips", "Instant photos"]) check(await page.getByRole("region", { name: g, exact: true }).isVisible(), `group ${g}`);
+for (const g of ["Torn photos", "Torn photo collages", "Torn photos on paper", "Film strips", "Instant photos", "Stamps", "Picture frames", "Album pages", "Envelopes"]) check(await page.getByRole("region", { name: g, exact: true }).isVisible(), `group ${g}`);
 await page.screenshot({ path: path.join(OUT, "m20e-sheet.png") });
 
 console.log("A torn photo: the photo follows the tear");
@@ -69,7 +69,17 @@ check(pieces.length === 4 && pieces.every((c) => c.maskPoints?.length > 40), "fo
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.screenshot({ path: path.join(OUT, "m20e-collage.png") });
 
+console.log("An album page: the photo turns with the page");
+await frames();
+await page.getByRole("region", { name: "Album pages", exact: true }).getByRole("button").first().click();
+await page.waitForTimeout(800);
+doc = await S();
+const album = doc.elements.findLast((e) => e.type === "layout" && e.art);
+const pc = doc.elements.find((e) => e.parentId === album.id);
+check(album.cells[0].rotation !== undefined && Math.abs(pc.rotation - album.cells[0].rotation) < 0.01, `cell turned like the page (${pc.rotation.toFixed(2)}°)`);
+
 console.log("Generated stickers and doodles");
+await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.getByRole("button", { name: "Stickers", exact: true }).click();
 for (const g of ["Doodles", "Washi tape", "Sticky notes", "Paper scraps"]) check(await page.getByRole("region", { name: g, exact: true }).isVisible(), `group ${g}`);
 await page.getByRole("region", { name: "Doodles" }).getByRole("button", { name: "Curved arrow" }).click();
