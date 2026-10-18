@@ -78,7 +78,8 @@ await page.waitForTimeout(300);
 
 console.log("Select a cell: it has handles like any element");
 const c0 = cells[0];
-let p = await toPage(c0.x + c0.width / 2, c0.y + c0.height * 0.3);
+// Off the "+" (its touch area is ~22 screen px around it).
+let p = await toPage(c0.x + c0.width * 0.15, c0.y + c0.height * 0.85);
 console.log("   before tap selected:", (await S()).selected === block.id ? "block" : (await S()).selected, "point", p);
 await page.mouse.click(p.x, p.y); // block already selected → the cell
 await page.waitForTimeout(250);
@@ -91,9 +92,15 @@ const tr = await page.evaluate(() => {
 });
 check(tr.n[0] === c0.id && tr.resize && tr.rotate, "handles to resize and turn the cell");
 
-// Tapping an empty cell also offers "Fill frame": close it.
-const fillSheet = page.getByRole("region", { name: "Fill frame" });
-if (await fillSheet.count()) await fillSheet.getByRole("button", { name: "Close", exact: true }).click();
+// Off its "+", tapping an empty cell only selects it (owner, 2026-10-18).
+check((await page.getByRole("region", { name: "Fill frame" }).count()) === 0, "an empty cell tapped off its “+”: selected, no Fill frame sheet");
+// On its "+": selected and the sheet opens.
+const plus = await toPage(cells[1].x + cells[1].width / 2, cells[1].y + cells[1].height / 2);
+await page.mouse.click(plus.x, plus.y);
+await page.waitForTimeout(300);
+check((await S()).selected === cells[1].id && (await page.getByRole("region", { name: "Fill frame" }).isVisible()), "on its “+”: selected and Fill frame opens");
+await page.getByRole("region", { name: "Fill frame" }).getByRole("button", { name: "Close", exact: true }).click();
+await page.evaluate((id) => window.__igEditor.getState().select(id), c0.id);
 await page.waitForTimeout(200);
 
 console.log("Drag = move the cell");

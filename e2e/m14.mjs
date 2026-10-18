@@ -87,7 +87,7 @@ check((await S()).selected === full[0].id, "rule 3: tapping again goes into that
 await tapAt(full[1]);
 check((await S()).selected === full[1].id, "rule 5: another cell of the same block is selected directly");
 await tapAt(empty, empty.width * 0.35, 0);
-check((await S()).selected === block.id, "rule 6: beside the + of an empty cell → the block");
+check((await S()).selected === empty.id && (await page.getByRole("region", { name: "Fill frame" }).count()) === 0, "rule 6 (2026-10-18): beside the + of an empty cell → that cell only, no sheet");
 await tapAt(empty);
 const fillSheet = page.getByRole("region", { name: "Fill frame" });
 check((await fillSheet.isVisible()) && (await S()).selected === empty.id, "rule 6: on the + → that cell is selected and “Fill frame” opens");

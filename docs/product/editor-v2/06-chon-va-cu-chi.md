@@ -88,3 +88,4 @@ Mục **Chọn nhiều** có trong menu ⋯ của thanh nổi và trong menu ⋯
 - Dời / phóng **ảnh bên trong ô**: **chụm 2 ngón** trên ô, hoặc nút **Cắt** (cắt ngay trên canvas).
 - Ô của **khung từ thư viện** (cửa sổ cố định theo ảnh khung): giữ như cũ — kéo = dời ảnh, không có tay nắm.
 - **Bố cục / Điều chỉnh** của khối xếp lại mọi ô theo mẫu; nếu các ô đã được chỉnh tay thì app báo một dòng.
+- **Ô trống** (2026-10-18): chạm **đúng dấu + tròn** → chọn ô **và** mở "Lấp đầy khung"; chạm **chỗ khác trên ô** → **chỉ chọn ô**.
