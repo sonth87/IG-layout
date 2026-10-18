@@ -23,8 +23,9 @@ export function tapResult(doc: Pick<ProjectDoc, "elements">, selectedId: string 
   if (selectedId === el.id) return el.type === "text" ? { select: el.id, action: "editText" } : { select: el.id };
   const selected = selectedId ? doc.elements.find((e) => e.id === selectedId) : undefined;
   if (el.parentId && (selectedId === el.parentId || selected?.parentId === el.parentId)) {
-    // Inside the selected block: a photo is selectable; an empty cell (not its "+") is still the block.
-    return { select: el.type === "image" && el.assetId ? el.id : el.parentId };
+    // Inside the selected block a cell is selectable, empty or not; only its "+" also opens
+    // "Fill frame" (owner, 2026-10-18; cells are ordinary elements, D-113).
+    return { select: el.id };
   }
   return { select: outermost(doc, el).id };
 }
