@@ -1,0 +1,1032 @@
+{
+  "id": "celebrations",
+  "kind": "sticker",
+  "name": {
+    "en": "Birthday, Wedding & Graduation",
+    "vi": "Sinh Nhật, Đám Cưới & Tốt Nghiệp"
+  },
+  "collections": [
+    "birthday",
+    "wedding",
+    "graduation"
+  ],
+  "order": 145,
+  "items": [
+    {
+      "id": "cel-red-party-balloon",
+      "name": {
+        "en": "Floating Red Party Balloon",
+        "vi": "Quả bóng bay màu đỏ buộc dây"
+      },
+      "tags": {
+        "en": [
+          "balloon",
+          "party",
+          "red",
+          "birthday"
+        ],
+        "vi": [
+          "bóng bay",
+          "bong bóng",
+          "sinh nhật",
+          "bữa tiệc"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F388/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F388 — Floating Red Party Balloon",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 798,
+      "height": 952
+    },
+    {
+      "id": "cel-birthday-cake-candles",
+      "name": {
+        "en": "Two-Tier Frosted Birthday Cake with Lit Candles",
+        "vi": "Bánh kem hai tầng cắm nến sinh nhật"
+      },
+      "tags": {
+        "en": [
+          "birthday cake",
+          "candles",
+          "party",
+          "sweet"
+        ],
+        "vi": [
+          "bánh sinh nhật",
+          "bánh kem",
+          "thổi nến",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#cel-birthday-cake-candles",
+        "author": "IG Layout Illustration",
+        "title": "Two-Tier Frosted Birthday Cake with Lit Candles",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 738,
+      "height": 822
+    },
+    {
+      "id": "cel-frosted-cupcake",
+      "name": {
+        "en": "Pink Swirl Birthday Cupcake",
+        "vi": "Bánh cupcake kem hồng rắc cốm"
+      },
+      "tags": {
+        "en": [
+          "cupcake",
+          "muffin",
+          "sweet",
+          "birthday"
+        ],
+        "vi": [
+          "bánh cupcake",
+          "bánh ngọt",
+          "kem hồng",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F9C1/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F9C1 — Pink Swirl Birthday Cupcake",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 765,
+      "height": 964
+    },
+    {
+      "id": "cel-strawberry-cake-slice",
+      "name": {
+        "en": "Strawberry Shortcake Party Slice",
+        "vi": "Miếng bánh kem dâu tây tươi"
+      },
+      "tags": {
+        "en": [
+          "shortcake",
+          "cake slice",
+          "strawberry",
+          "birthday"
+        ],
+        "vi": [
+          "miếng bánh kem",
+          "bánh dâu",
+          "sinh nhật",
+          "ngọt ngào"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "wedding"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F370/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F370 — Strawberry Shortcake Party Slice",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 964,
+      "height": 865
+    },
+    {
+      "id": "cel-party-popper-confetti",
+      "name": {
+        "en": "Bursting Confetti Party Popper",
+        "vi": "Ống pháo giấy bắn hoa chúc mừng"
+      },
+      "tags": {
+        "en": [
+          "party popper",
+          "confetti",
+          "celebration",
+          "birthday"
+        ],
+        "vi": [
+          "pháo giấy",
+          "hoa giấy",
+          "chúc mừng",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "graduation",
+        "wedding"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F389/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F389 — Bursting Confetti Party Popper",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 857,
+      "height": 891
+    },
+    {
+      "id": "cel-confetti-ball-open",
+      "name": {
+        "en": "Festive Open Confetti Ball",
+        "vi": "Quả cầu hoa giấy chúc mừng"
+      },
+      "tags": {
+        "en": [
+          "confetti ball",
+          "streamers",
+          "party",
+          "celebration"
+        ],
+        "vi": [
+          "quả cầu hoa",
+          "ruy băng",
+          "bữa tiệc",
+          "chúc mừng"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F38A/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F38A — Festive Open Confetti Ball",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 986,
+      "height": 760
+    },
+    {
+      "id": "cel-pink-ribbon-bow",
+      "name": {
+        "en": "Red Satin Gift Ribbon Bow",
+        "vi": "Chiếc nơ ruy băng đỏ thắt hai cánh"
+      },
+      "tags": {
+        "en": [
+          "ribbon",
+          "bow",
+          "red",
+          "gift"
+        ],
+        "vi": [
+          "nơ đỏ",
+          "ruy băng",
+          "quà tặng",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "wedding",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F380/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F380 — Red Satin Gift Ribbon Bow",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 895,
+      "height": 762
+    },
+    {
+      "id": "cel-diamond-wedding-ring",
+      "name": {
+        "en": "Sparkling Diamond Engagement Ring",
+        "vi": "Nhẫn cưới đính kim cương lấp lánh"
+      },
+      "tags": {
+        "en": [
+          "wedding ring",
+          "diamond",
+          "engagement",
+          "bride"
+        ],
+        "vi": [
+          "nhẫn cưới",
+          "nhẫn kim cương",
+          "cầu hôn",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "love"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F48D/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F48D — Sparkling Diamond Engagement Ring",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 640,
+      "height": 769
+    },
+    {
+      "id": "cel-bridal-flower-bouquet",
+      "name": {
+        "en": "Colorful Bridal & Celebration Flower Bouquet",
+        "vi": "Bó hoa tươi rực rỡ chúc mừng"
+      },
+      "tags": {
+        "en": [
+          "bouquet",
+          "flowers",
+          "bridal",
+          "wedding"
+        ],
+        "vi": [
+          "bó hoa",
+          "hoa cưới",
+          "hoa chúc mừng",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "birthday",
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F490/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F490 — Colorful Bridal & Celebration Flower Bouquet",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 728,
+      "height": 944
+    },
+    {
+      "id": "cel-graduation-mortarboard",
+      "name": {
+        "en": "Black Graduation Mortarboard Cap",
+        "vi": "Mũ tốt nghiệp cử nhân tua rua vàng"
+      },
+      "tags": {
+        "en": [
+          "graduation cap",
+          "mortarboard",
+          "degree",
+          "school"
+        ],
+        "vi": [
+          "mũ tốt nghiệp",
+          "cử nhân",
+          "ra trường",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation",
+        "school"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F393/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F393 — Black Graduation Mortarboard Cap",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 996,
+      "height": 453
+    },
+    {
+      "id": "cel-diploma-paper-scroll",
+      "name": {
+        "en": "Unrolled Graduation Diploma Scroll",
+        "vi": "Cuộn giấy văn bằng vinh danh"
+      },
+      "tags": {
+        "en": [
+          "diploma",
+          "scroll",
+          "certificate",
+          "graduation"
+        ],
+        "vi": [
+          "bằng khen",
+          "văn bằng",
+          "chứng nhận",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F4DC/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F4DC — Unrolled Graduation Diploma Scroll",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 784,
+      "height": 783
+    },
+    {
+      "id": "cel-clinking-champagne-glasses",
+      "name": {
+        "en": "Clinking Champagne Toast Flutes",
+        "vi": "Hai ly sâm panh cụng nhau chúc mừng"
+      },
+      "tags": {
+        "en": [
+          "champagne",
+          "toast",
+          "glasses",
+          "wedding"
+        ],
+        "vi": [
+          "ly sâm panh",
+          "cụng ly",
+          "tiệc cưới",
+          "chúc mừng"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "birthday",
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F942/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F942 — Clinking Champagne Toast Flutes",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1024,
+      "height": 1020
+    },
+    {
+      "id": "cel-popping-champagne-bottle",
+      "name": {
+        "en": "Popping Cork Champagne Bottle",
+        "vi": "Chai sâm panh bật nút khai tiệc"
+      },
+      "tags": {
+        "en": [
+          "champagne bottle",
+          "cork",
+          "party",
+          "celebration"
+        ],
+        "vi": [
+          "chai sâm panh",
+          "khai tiệc",
+          "ăn mừng",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "birthday",
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F37E/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F37E — Popping Cork Champagne Bottle",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 951,
+      "height": 949
+    },
+    {
+      "id": "cel-golden-royal-crown",
+      "name": {
+        "en": "Jeweled Golden Birthday Crown",
+        "vi": "Vương miện vàng đính ngọc sinh nhật"
+      },
+      "tags": {
+        "en": [
+          "crown",
+          "golden",
+          "queen",
+          "birthday"
+        ],
+        "vi": [
+          "vương miện",
+          "công chúa",
+          "sinh nhật",
+          "kỷ niệm"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F451/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F451 — Jeweled Golden Birthday Crown",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 996,
+      "height": 766
+    },
+    {
+      "id": "cel-heart-box-ribbon",
+      "name": {
+        "en": "Red Heart Wrapped with Yellow Ribbon",
+        "vi": "Trái tim đỏ thắt nơ vàng"
+      },
+      "tags": {
+        "en": [
+          "heart",
+          "ribbon",
+          "wedding",
+          "love"
+        ],
+        "vi": [
+          "trái tim",
+          "nơ vàng",
+          "tình yêu",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "love",
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F49D/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F49D — Red Heart Wrapped with Yellow Ribbon",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 805,
+      "height": 730
+    },
+    {
+      "id": "cel-love-letter-envelope",
+      "name": {
+        "en": "Wedding Invitation Envelope with Heart Seal",
+        "vi": "Phong thư thiệp hồng dán tim đỏ"
+      },
+      "tags": {
+        "en": [
+          "love letter",
+          "invitation",
+          "envelope",
+          "wedding"
+        ],
+        "vi": [
+          "thiệp cưới",
+          "bức thư",
+          "trái tim",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "love"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F48C/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F48C — Wedding Invitation Envelope with Heart Seal",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 996,
+      "height": 661
+    },
+    {
+      "id": "cel-golden-winner-trophy",
+      "name": {
+        "en": "Golden Achievement Trophy Cup",
+        "vi": "Cúp vàng vinh danh thành tích"
+      },
+      "tags": {
+        "en": [
+          "trophy",
+          "award",
+          "achievement",
+          "graduation"
+        ],
+        "vi": [
+          "cúp vàng",
+          "thành tích",
+          "vinh danh",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F3C6/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F3C6 — Golden Achievement Trophy Cup",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 748,
+      "height": 749
+    },
+    {
+      "id": "cel-gold-star-medal",
+      "name": {
+        "en": "Gold Honor Star Medal with Ribbon",
+        "vi": "Huy chương vàng ngôi sao xuất sắc"
+      },
+      "tags": {
+        "en": [
+          "medal",
+          "honor",
+          "star",
+          "graduation"
+        ],
+        "vi": [
+          "huy chương",
+          "khen thưởng",
+          "ngôi sao",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F3C5/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F3C5 — Gold Honor Star Medal with Ribbon",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 740,
+      "height": 996
+    },
+    {
+      "id": "cel-red-romance-rose",
+      "name": {
+        "en": "Blooming Red Wedding Rose",
+        "vi": "Bông hoa hồng đỏ thắm lãng mạn"
+      },
+      "tags": {
+        "en": [
+          "red rose",
+          "flower",
+          "romance",
+          "wedding"
+        ],
+        "vi": [
+          "hoa hồng",
+          "lãng mạn",
+          "tình yêu",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "love",
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F339/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F339 — Blooming Red Wedding Rose",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 683,
+      "height": 782
+    },
+    {
+      "id": "cel-pink-spring-tulip",
+      "name": {
+        "en": "Orange Celebration Tulip Stem",
+        "vi": "Nhành hoa tulip cam chúc mừng"
+      },
+      "tags": {
+        "en": [
+          "tulip",
+          "orange flower",
+          "bouquet",
+          "graduation"
+        ],
+        "vi": [
+          "hoa tulip",
+          "hoa cam",
+          "tặng hoa",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "graduation",
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F337/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F337 — Orange Celebration Tulip Stem",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 696,
+      "height": 699
+    },
+    {
+      "id": "cel-plush-teddy-bear",
+      "name": {
+        "en": "Cute Brown Birthday Teddy Bear",
+        "vi": "Chú gấu bông nâu quà tặng sinh nhật"
+      },
+      "tags": {
+        "en": [
+          "teddy bear",
+          "plush",
+          "gift",
+          "birthday"
+        ],
+        "vi": [
+          "gấu bông",
+          "quà sinh nhật",
+          "dễ thương",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "graduation",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "OpenMoji",
+        "url": "https://openmoji.org/library/emoji-1F9F8/",
+        "author": "OpenMoji Project (HfG Schwäbisch Gmünd)",
+        "title": "OpenMoji 1F9F8 — Cute Brown Birthday Teddy Bear",
+        "license": "CC-BY-SA-4.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 790,
+      "height": 874
+    },
+    {
+      "id": "cel-pastel-balloon-bunch",
+      "name": {
+        "en": "Trio of Pastel Party Balloons",
+        "vi": "Chùm ba quả bóng bay màu pastel"
+      },
+      "tags": {
+        "en": [
+          "balloons",
+          "pastel",
+          "bunch",
+          "birthday"
+        ],
+        "vi": [
+          "chùm bóng bay",
+          "bong bóng",
+          "pastel",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "wedding"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#cel-pastel-balloon-bunch",
+        "author": "IG Layout Illustration",
+        "title": "Trio of Pastel Party Balloons",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 716,
+      "height": 832
+    },
+    {
+      "id": "cel-bunting-flag-garland",
+      "name": {
+        "en": "Colorful Triangle Party Bunting Banner",
+        "vi": "Dây cờ tam giác nhiều màu trang trí tiệc"
+      },
+      "tags": {
+        "en": [
+          "bunting",
+          "garland",
+          "flags",
+          "party"
+        ],
+        "vi": [
+          "dây cờ",
+          "cờ tam giác",
+          "trang trí tiệc",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#cel-bunting-flag-garland",
+        "author": "IG Layout Illustration",
+        "title": "Colorful Triangle Party Bunting Banner",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 908,
+      "height": 442
+    },
+    {
+      "id": "cel-interlocked-gold-rings",
+      "name": {
+        "en": "Interlocked Golden Wedding Rings",
+        "vi": "Cặp nhẫn cưới vàng kim lồng đôi"
+      },
+      "tags": {
+        "en": [
+          "wedding rings",
+          "gold bands",
+          "marriage",
+          "wedding"
+        ],
+        "vi": [
+          "cặp nhẫn cưới",
+          "nhẫn đôi",
+          "hôn lễ",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "love"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#cel-interlocked-gold-rings",
+        "author": "IG Layout Illustration",
+        "title": "Interlocked Golden Wedding Rings",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 720,
+      "height": 606
+    },
+    {
+      "id": "cel-rolled-diploma-red-ribbon",
+      "name": {
+        "en": "Rolled Graduation Diploma Tied with Red Bow",
+        "vi": "Cuộn bằng tốt nghiệp thắt nơ đỏ"
+      },
+      "tags": {
+        "en": [
+          "diploma",
+          "scroll",
+          "red ribbon",
+          "graduation"
+        ],
+        "vi": [
+          "bằng tốt nghiệp",
+          "cuộn bằng",
+          "nơ đỏ",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#cel-rolled-diploma-red-ribbon",
+        "author": "IG Layout Illustration",
+        "title": "Rolled Graduation Diploma Tied with Red Bow",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 735,
+      "height": 537
+    },
+    {
+      "id": "cel-striped-birthday-candles",
+      "name": {
+        "en": "Three Striped Lit Birthday Cake Candles",
+        "vi": "Bộ ba cây nến sinh nhật kẻ sọc đang cháy"
+      },
+      "tags": {
+        "en": [
+          "birthday candles",
+          "flames",
+          "wish",
+          "birthday"
+        ],
+        "vi": [
+          "nến sinh nhật",
+          "thổi nến",
+          "cầu ước",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker#cel-striped-birthday-candles",
+        "author": "IG Layout Illustration",
+        "title": "Three Striped Lit Birthday Cake Candles",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 574,
+      "height": 750
+    }
+  ]
+}
