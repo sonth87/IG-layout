@@ -8,8 +8,13 @@ Trạng thái:
 
 | Việc | Nhánh | Trạng thái |
 |---|---|---|
+<<<<<<< HEAD
 | G6 — Câu xem trước phông, chữ mẫu widget | `gemini/g6-text` | Chưa giao |
 | G1 — Script xử lý ảnh + trang duyệt | `gemini/g1-process` | Xong (chờ duyệt) |
+=======
+| G6 — Câu xem trước phông, chữ mẫu widget | `gemini/g6-text` | Xong (chờ duyệt) |
+| G1 — Script xử lý ảnh + trang duyệt | `gemini/g1-process` | Chưa giao |
+>>>>>>> origin/gemini/g6-text
 | G5 — Phông (~150) | `gemini/g5-fonts` | Chưa giao |
 | G2 — Sticker đợt 1 (~200) | `gemini/g2-stickers` | Chưa giao (cần G1) |
 | G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | Chưa giao (cần G1) |
