@@ -1,0 +1,406 @@
+{
+  "id": "vintage-photo-mounts",
+  "kind": "frame",
+  "name": {
+    "en": "Cabinet Cards & Antique Photo Mounts",
+    "vi": "Khung ảnh cổ & Bìa ảnh xưa"
+  },
+  "collections": [
+    "vintage",
+    "film",
+    "journal"
+  ],
+  "order": 30,
+  "items": [
+    {
+      "id": "mount-rijksmuseum-velvet-211",
+      "name": {
+        "en": "19th-Century Velvet & Brass Daguerreotype Case (Rijksmuseum)",
+        "vi": "Hộp ảnh nhung & viền đồng thế kỷ 19"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "daguerreotype",
+          "velvet",
+          "brass",
+          "antique"
+        ],
+        "vi": [
+          "khung ảnh cổ",
+          "viền đồng",
+          "nhung đỏ",
+          "hoài cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "film"
+      ],
+      "windows": [
+        {
+          "x": 0.22,
+          "y": 0.19,
+          "w": 0.56,
+          "h": 0.62,
+          "r": 0.08
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 26
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Portret_in_lijst,_RP-F-F17211.jpg",
+        "author": "Rijksmuseum",
+        "title": "Portret in lijst, RP-F-F17211.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1195,
+      "height": 1600
+    },
+    {
+      "id": "mount-rijksmuseum-oval-214",
+      "name": {
+        "en": "Victorian Gilt Brass Oval Photo Mount (Rijksmuseum)",
+        "vi": "Khung ảnh đồng chạm nổi lòng bầu dục"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "oval",
+          "brass",
+          "victorian",
+          "photo"
+        ],
+        "vi": [
+          "khung bầu dục",
+          "viền đồng",
+          "ảnh xưa",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "film"
+      ],
+      "windows": [
+        {
+          "x": 0.24,
+          "y": 0.2,
+          "w": 0.52,
+          "h": 0.6,
+          "r": 0.22
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 26
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Portret_in_lijst,_RP-F-F17214.jpg",
+        "author": "Rijksmuseum",
+        "title": "Portret in lijst, RP-F-F17214.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1210,
+      "height": 1600
+    },
+    {
+      "id": "mount-rijksmuseum-passepartout-227",
+      "name": {
+        "en": "Antique Cream Passepartout Photo Mat (Rijksmuseum)",
+        "vi": "Bìa lót ảnh Passepartout giấy kem cổ"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "mat",
+          "passepartout",
+          "cream",
+          "photo"
+        ],
+        "vi": [
+          "bìa lót ảnh",
+          "giấy kem",
+          "khung ảnh",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "film"
+      ],
+      "windows": [
+        {
+          "x": 0.23,
+          "y": 0.21,
+          "w": 0.54,
+          "h": 0.58
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 24
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Portret_in_lijst,_RP-F-F17227.jpg",
+        "author": "Rijksmuseum",
+        "title": "Portret in lijst, RP-F-F17227.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1189,
+      "height": 1600
+    },
+    {
+      "id": "mount-rijksmuseum-arch-229",
+      "name": {
+        "en": "Tall Arched Carte-de-Visite Studio Mount (Rijksmuseum)",
+        "vi": "Bìa ảnh Carte-de-Visite vòm cao thế kỷ 19"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "carte de visite",
+          "arched",
+          "studio"
+        ],
+        "vi": [
+          "bìa ảnh",
+          "khung vòm",
+          "tiệm ảnh xưa",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "film"
+      ],
+      "windows": [
+        {
+          "x": 0.2,
+          "y": 0.16,
+          "w": 0.6,
+          "h": 0.66,
+          "r": 0.06
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 24
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Portret_in_lijst,_RP-F-F17229.jpg",
+        "author": "Rijksmuseum",
+        "title": "Portret in lijst, RP-F-F17229.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 958,
+      "height": 1600
+    },
+    {
+      "id": "mount-rijksmuseum-gold-bevel-232",
+      "name": {
+        "en": "Deep Beveled Gold-Leaf Photo Case (Rijksmuseum)",
+        "vi": "Khung hộp ảnh vát cạnh mạ vàng cổ"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "beveled",
+          "gold",
+          "case",
+          "vintage"
+        ],
+        "vi": [
+          "hộp ảnh cổ",
+          "vát cạnh",
+          "mạ vàng",
+          "kỷ niệm"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "film"
+      ],
+      "windows": [
+        {
+          "x": 0.24,
+          "y": 0.22,
+          "w": 0.52,
+          "h": 0.56,
+          "r": 0.05
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 24
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Portret_in_lijst,_RP-F-F17232.jpg",
+        "author": "Rijksmuseum",
+        "title": "Portret in lijst, RP-F-F17232.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1539
+    },
+    {
+      "id": "mount-cabinet-card-schwerin",
+      "name": {
+        "en": "1909 Embossed Studio Carte-de-Visite Card Mount",
+        "vi": "Bìa ảnh tiệm chụp dập nổi năm 1909"
+      },
+      "tags": {
+        "en": [
+          "cabinet card",
+          "carte de visite",
+          "1909",
+          "mount"
+        ],
+        "vi": [
+          "bìa ảnh cổ",
+          "tiệm ảnh",
+          "dập nổi",
+          "nhật ký"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "film"
+      ],
+      "windows": [
+        {
+          "x": 0.14,
+          "y": 0.1,
+          "w": 0.72,
+          "h": 0.72
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 22
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Dr._Alfred_Ernst_Schwerin,_M.D._(1846-1920)_carte_de_visite_dated_1909.png",
+        "author": "Anonymous Unknown author",
+        "title": "Dr. Alfred Ernst Schwerin, M.D. (1846-1920) carte de visite dated 1909.png",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1115,
+      "height": 1600
+    },
+    {
+      "id": "mount-cabinet-card-kapiolani",
+      "name": {
+        "en": "Victorian Gold-Bordered Cabinet Card Mount",
+        "vi": "Bìa ảnh Cabinet Card viền vàng cổ điển"
+      },
+      "tags": {
+        "en": [
+          "cabinet card",
+          "gold border",
+          "studio",
+          "vintage"
+        ],
+        "vi": [
+          "cabinet card",
+          "viền vàng",
+          "ảnh kỷ niệm",
+          "hoài cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "film"
+      ],
+      "windows": [
+        {
+          "x": 0.09,
+          "y": 0.06,
+          "w": 0.82,
+          "h": 0.8
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 20
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Queen_Kapiolani,_cabinet_card_photograph_by_Walery,_PBA_Galleries.jpg",
+        "author": "Walery",
+        "title": "Queen Kapiolani, cabinet card photograph by Walery, PBA Galleries.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1072,
+      "height": 1600
+    },
+    {
+      "id": "mount-dual-studio-adler-1910",
+      "name": {
+        "en": "1910 Double-Window Cabinet Card Spread",
+        "vi": "Bìa ảnh đôi tiệm chụp cổ năm 1910 (2 ô ảnh)"
+      },
+      "tags": {
+        "en": [
+          "cabinet card",
+          "double",
+          "two photos",
+          "collage"
+        ],
+        "vi": [
+          "khung đôi",
+          "hai ảnh",
+          "bìa ảnh xưa",
+          "ghép ảnh"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "film"
+      ],
+      "windows": [
+        {
+          "x": 0.06,
+          "y": 0.08,
+          "w": 0.4,
+          "h": 0.74
+        },
+        {
+          "x": 0.54,
+          "y": 0.08,
+          "w": 0.4,
+          "h": 0.74
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 20
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:1910_circa_Wilhelm_Adler_Kabinettfotografie_kleines_M%C3%A4dchen_und_kleiner_Junge_mit_Spitzenkragen,_Bildseite_und_Revers.jpg",
+        "author": "Wilhelm Adler",
+        "title": "1910 circa Wilhelm Adler Kabinettfotografie kleines Mädchen und kleiner Junge mit Spitzenkragen, Bildseite und Revers.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1118
+    }
+  ]
+}

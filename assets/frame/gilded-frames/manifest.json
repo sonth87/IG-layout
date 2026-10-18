@@ -1,0 +1,396 @@
+{
+  "id": "gilded-frames",
+  "kind": "frame",
+  "name": {
+    "en": "Antique Gilded Picture Frames",
+    "vi": "Khung tranh mạ vàng cổ điển"
+  },
+  "collections": [
+    "vintage",
+    "wedding"
+  ],
+  "order": 10,
+  "items": [
+    {
+      "id": "gilded-louis-xiv-carved",
+      "name": {
+        "en": "French Louis XIV Carved & Gilded Frame (The Met)",
+        "vi": "Khung tranh mạ vàng chạm khắc kiểu Louis XIV"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "gilded",
+          "gold",
+          "louis xiv",
+          "baroque"
+        ],
+        "vi": [
+          "khung tranh",
+          "mạ vàng",
+          "cổ điển",
+          "chạm khắc"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "wedding"
+      ],
+      "windows": [
+        {
+          "x": 0.22,
+          "y": 0.21,
+          "w": 0.56,
+          "h": 0.58
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Louis_XIV_style_frame_MET_SF-1975-1-2350.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Louis XIV style frame MET SF-1975-1-2350.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1521
+    },
+    {
+      "id": "gilded-louis-xv-regency",
+      "name": {
+        "en": "French Regency Gilded Scrollwork Frame (The Met)",
+        "vi": "Khung tranh mạ vàng hoa văn Louis XV"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "gilded",
+          "gold",
+          "rococo",
+          "ornate"
+        ],
+        "vi": [
+          "khung mạ vàng",
+          "hoa văn",
+          "hoàng gia",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "wedding"
+      ],
+      "windows": [
+        {
+          "x": 0.23,
+          "y": 0.22,
+          "w": 0.54,
+          "h": 0.56
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Louis_XV_Regency_style_frame_MET_SF-1975-1-2247.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Louis XV Regency style frame MET SF-1975-1-2247.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1460
+    },
+    {
+      "id": "gilded-louis-xv-copy",
+      "name": {
+        "en": "Ornate Rococo Leaf-Corner Gilded Frame (The Met)",
+        "vi": "Khung mạ vàng góc chạm lá Rococo"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "gold",
+          "rococo",
+          "vintage",
+          "museum"
+        ],
+        "vi": [
+          "khung tranh",
+          "vàng cổ",
+          "bảo tàng",
+          "sang trọng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "wedding"
+      ],
+      "windows": [
+        {
+          "x": 0.23,
+          "y": 0.22,
+          "w": 0.54,
+          "h": 0.56
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:19th_century_copy_of_Louis_XV_style_frame_MET_SF-1975-1-2357.jpg",
+        "author": "Wikimedia Commons",
+        "title": "19th century copy of Louis XV style frame MET SF-1975-1-2357.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1559
+    },
+    {
+      "id": "gilded-single-swept-lehman",
+      "name": {
+        "en": "Baroque Swept Gilded Gallery Frame (The Met)",
+        "vi": "Khung tranh lượn sóng mạ vàng Baroque"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "swept",
+          "gilded",
+          "baroque",
+          "gallery"
+        ],
+        "vi": [
+          "khung lượn sóng",
+          "mạ vàng",
+          "triển lãm",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "wedding"
+      ],
+      "windows": [
+        {
+          "x": 0.21,
+          "y": 0.2,
+          "w": 0.58,
+          "h": 0.6
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Single_swept_frame_MET_sf-rlc-1975-1-2234-01.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Single swept frame MET sf-rlc-1975-1-2234-01.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1251,
+      "height": 1600
+    },
+    {
+      "id": "gilded-salvator-rosa",
+      "name": {
+        "en": "Italian Salvator Rosa Gilded Molding Frame (The Met)",
+        "vi": "Khung tranh mạ vàng kiểu Ý Salvator Rosa"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "italian",
+          "gilded",
+          "classic",
+          "museum"
+        ],
+        "vi": [
+          "khung ý",
+          "mạ vàng",
+          "thanh lịch",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "wedding"
+      ],
+      "windows": [
+        {
+          "x": 0.2,
+          "y": 0.19,
+          "w": 0.6,
+          "h": 0.62
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Salvator_Rosa_frame_MET_86U_155R2M.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Salvator Rosa frame MET 86U 155R2M.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 971
+    },
+    {
+      "id": "gilded-neoclassical-molding",
+      "name": {
+        "en": "Neoclassical Beaded Giltwood Frame (The Met)",
+        "vi": "Khung gỗ thếp vàng chuỗi hạt Tân cổ điển"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "neoclassical",
+          "giltwood",
+          "beaded"
+        ],
+        "vi": [
+          "tân cổ điển",
+          "thếp vàng",
+          "khung ảnh",
+          "trang nhã"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "wedding"
+      ],
+      "windows": [
+        {
+          "x": 0.2,
+          "y": 0.19,
+          "w": 0.6,
+          "h": 0.62
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Neoclassical_frame_MET_86W_196R2.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Neoclassical frame MET 86W 196R2.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 895
+    },
+    {
+      "id": "gilded-queen-anne-corner",
+      "name": {
+        "en": "English Queen Anne Gilt Corner Frame (The Met)",
+        "vi": "Khung tranh mạ vàng kiểu Anh Queen Anne"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "queen anne",
+          "english",
+          "gilded"
+        ],
+        "vi": [
+          "khung tranh cổ",
+          "mạ vàng",
+          "phong cách anh",
+          "cưới"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "wedding"
+      ],
+      "windows": [
+        {
+          "x": 0.21,
+          "y": 0.2,
+          "w": 0.58,
+          "h": 0.6
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Queen_Anne_frame_MET_86AP_358R3M.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Queen Anne frame MET 86AP 358R3M.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1337,
+      "height": 1600
+    },
+    {
+      "id": "gilded-canaletto-venetian",
+      "name": {
+        "en": "Venetian Canaletto-Style Gilded Frame (The Met)",
+        "vi": "Khung tranh mạ vàng Venice kiểu Canaletto"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "venetian",
+          "canaletto",
+          "gold"
+        ],
+        "vi": [
+          "khung venice",
+          "mạ vàng",
+          "nghệ thuật",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "wedding"
+      ],
+      "windows": [
+        {
+          "x": 0.21,
+          "y": 0.2,
+          "w": 0.58,
+          "h": 0.6
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Canaletto-style_frame_MET_86M_127R2M.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Canaletto-style frame MET 86M 127R2M.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1591
+    }
+  ]
+}

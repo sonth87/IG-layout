@@ -1,0 +1,397 @@
+{
+  "id": "wooden-frames",
+  "kind": "frame",
+  "name": {
+    "en": "Carved Wooden & Mirror Frames",
+    "vi": "Khung gỗ chạm & Khung gương cổ"
+  },
+  "collections": [
+    "vintage",
+    "journal"
+  ],
+  "order": 20,
+  "items": [
+    {
+      "id": "wood-renaissance-cassetta-19",
+      "name": {
+        "en": "Italian Renaissance Walnut Cassetta Frame (The Met)",
+        "vi": "Khung gỗ óc chó Cassetta thời Phục Hưng"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "wood",
+          "renaissance",
+          "cassetta",
+          "walnut"
+        ],
+        "vi": [
+          "khung gỗ",
+          "phục hưng",
+          "gỗ óc chó",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.22,
+          "y": 0.21,
+          "w": 0.56,
+          "h": 0.58
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Cassetta_frame_MET_86AP_FRTS19R2M.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Cassetta frame MET 86AP FRTS19R2M.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1560
+    },
+    {
+      "id": "wood-reverse-molding-78",
+      "name": {
+        "en": "Deep Profile Dark Wood Reverse Frame (The Met)",
+        "vi": "Khung gỗ sẫm vát sâu cổ điển"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "dark wood",
+          "molding",
+          "museum"
+        ],
+        "vi": [
+          "khung gỗ trầm",
+          "vát sâu",
+          "trưng bày",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.24,
+          "y": 0.23,
+          "w": 0.52,
+          "h": 0.54
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Reverse_frame_MET_86G_078r2m.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Reverse frame MET 86G 078r2m.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1359,
+      "height": 1600
+    },
+    {
+      "id": "wood-cassetta-mirror-204",
+      "name": {
+        "en": "Antique Carved Wooden Mirror Frame (The Met)",
+        "vi": "Khung gương gỗ chạm cổ điển"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "mirror",
+          "wood",
+          "carved",
+          "antique"
+        ],
+        "vi": [
+          "khung gương",
+          "gỗ chạm",
+          "cổ vật",
+          "trang trí"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.24,
+          "y": 0.23,
+          "w": 0.52,
+          "h": 0.54
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Reverse_cassetta_mirror_frame_MET_86W_204r4m.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Reverse cassetta mirror frame MET 86W 204r4m.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1225,
+      "height": 1600
+    },
+    {
+      "id": "wood-ovolo-carved-277",
+      "name": {
+        "en": "Carved Ovolo Freeze Wooden Frame (The Met)",
+        "vi": "Khung gỗ chạm nổi diềm Ovolo"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "carved",
+          "wood",
+          "ovolo",
+          "vintage"
+        ],
+        "vi": [
+          "khung gỗ chạm",
+          "hoa văn nổi",
+          "cổ điển",
+          "sang trọng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.22,
+          "y": 0.21,
+          "w": 0.56,
+          "h": 0.58
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Ovolo_frame_MET_86AE_277r3.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Ovolo frame MET 86AE 277r3.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1204
+    },
+    {
+      "id": "wood-reverse-ogee-212",
+      "name": {
+        "en": "Polished Walnut Reverse Ogee Frame (The Met)",
+        "vi": "Khung gỗ bóng viền lượn Ogee"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "walnut",
+          "ogee",
+          "wood"
+        ],
+        "vi": [
+          "khung gỗ",
+          "viền lượn",
+          "mộc mạc",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.22,
+          "y": 0.21,
+          "w": 0.56,
+          "h": 0.58
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Reverse_ogee_frame_MET_86W_212R3.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Reverse ogee frame MET 86W 212R3.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1278,
+      "height": 1600
+    },
+    {
+      "id": "wood-astragal-molding-111",
+      "name": {
+        "en": "Slender Astragal Wood & Gilt Frame (The Met)",
+        "vi": "Khung gỗ viền mảnh chỉ vàng"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "slender",
+          "wood",
+          "astragal",
+          "minimal"
+        ],
+        "vi": [
+          "khung mảnh",
+          "viền gỗ",
+          "chỉ vàng",
+          "tinh tế"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.16,
+          "y": 0.15,
+          "w": 0.68,
+          "h": 0.7
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Astragal_frame_MET_86M_111r2m.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Astragal frame MET 86M 111r2m.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1464
+    },
+    {
+      "id": "wood-ebonized-ripple-221",
+      "name": {
+        "en": "Dutch Ripple-Molded Wooden Frame (The Met)",
+        "vi": "Khung gỗ gợn sóng kiểu Hà Lan thế kỷ 17"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "dutch",
+          "ripple",
+          "wood",
+          "antique"
+        ],
+        "vi": [
+          "khung hà lan",
+          "vân sóng",
+          "gỗ cổ",
+          "nghệ thuật"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.22,
+          "y": 0.21,
+          "w": 0.56,
+          "h": 0.58
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Gilt_ripple_frame_MET_86X_221r1.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Gilt ripple frame MET 86X 221r1.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1038
+    },
+    {
+      "id": "wood-sansovino-carved-2152",
+      "name": {
+        "en": "Venetian Sansovino Carved Scroll Frame (The Met)",
+        "vi": "Khung gỗ chạm cuộn kiểu Sansovino"
+      },
+      "tags": {
+        "en": [
+          "frame",
+          "sansovino",
+          "carved",
+          "scroll",
+          "wood"
+        ],
+        "vi": [
+          "khung chạm lộng",
+          "gỗ cổ",
+          "hoa văn cuộn",
+          "bảo tàng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.25,
+          "y": 0.24,
+          "w": 0.5,
+          "h": 0.52
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 28
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Sansovino-style_frame_MET_SF-1975-1-2152.jpg",
+        "author": "Wikimedia Commons",
+        "title": "Sansovino-style frame MET SF-1975-1-2152.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1023
+    }
+  ]
+}

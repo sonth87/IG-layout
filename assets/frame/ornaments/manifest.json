@@ -1,0 +1,346 @@
+{
+  "id": "ornaments",
+  "kind": "frame",
+  "name": {
+    "en": "Book Borders & Engraved Ornaments",
+    "vi": "Khung hoa văn sách cổ"
+  },
+  "collections": [
+    "vintage",
+    "journal"
+  ],
+  "order": 50,
+  "items": [
+    {
+      "id": "ornament-holbein-philosophers",
+      "name": {
+        "en": "Hans Holbein Renaissance Woodcut Book Border",
+        "vi": "Khung khắc gỗ Phục Hưng của Hans Holbein"
+      },
+      "tags": {
+        "en": [
+          "ornament",
+          "border",
+          "woodcut",
+          "renaissance",
+          "book"
+        ],
+        "vi": [
+          "khung hoa văn",
+          "khắc gỗ",
+          "sách cổ",
+          "phục hưng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.25,
+          "y": 0.24,
+          "w": 0.5,
+          "h": 0.48
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 18
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Title_Page_Border_with_Greek_and_Roman_Philosophers,_by_Hans_Holbein_the_Younger.jpg",
+        "author": "Hans Holbein the Younger",
+        "title": "Title Page Border with Greek and Roman Philosophers, by Hans Holbein the Younger.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1091,
+      "height": 1600
+    },
+    {
+      "id": "ornament-aesop-fables-jacobs",
+      "name": {
+        "en": "Aesop's Fables Illustrated Animal Vine Border",
+        "vi": "Khung dây leo muông thú truyện ngụ ngôn Aesop"
+      },
+      "tags": {
+        "en": [
+          "ornament",
+          "aesop",
+          "vine",
+          "illustrated",
+          "border"
+        ],
+        "vi": [
+          "dây leo",
+          "ngụ ngôn",
+          "minh hoạ cổ",
+          "khung sách"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.22,
+          "y": 0.2,
+          "w": 0.56,
+          "h": 0.58
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 18
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Title_with_border_from_The_Fables_of_%C3%86sop_(Jacobs).png",
+        "author": "Joseph Jacobs / Richard Heighway",
+        "title": "Title with border from The Fables of Æsop (Jacobs).png",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1059,
+      "height": 1600
+    },
+    {
+      "id": "ornament-met-engraved-border",
+      "name": {
+        "en": "Baroque Engraved Heraldic Title Border (The Met)",
+        "vi": "Khung bản khắc đồng hoa văn Baroque (The Met)"
+      },
+      "tags": {
+        "en": [
+          "ornament",
+          "engraving",
+          "baroque",
+          "met"
+        ],
+        "vi": [
+          "bản khắc đồng",
+          "hoa văn cổ",
+          "trang trọng",
+          "sách xưa"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.23,
+          "y": 0.22,
+          "w": 0.54,
+          "h": 0.54
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 18
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Title-Page_Border_MET_DP835710.jpg",
+        "author": "Daniel Hopfer / Silvan Otmar",
+        "title": "Title-Page Border MET DP835710.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1107,
+      "height": 1600
+    },
+    {
+      "id": "ornament-owen-jones-illuminated",
+      "name": {
+        "en": "Owen Jones Victorian Polychrome Illuminated Border",
+        "vi": "Khung hoa văn mạ màu phong cách Victoria (Owen Jones)"
+      },
+      "tags": {
+        "en": [
+          "ornament",
+          "illuminated",
+          "floral",
+          "victorian"
+        ],
+        "vi": [
+          "hoa văn màu",
+          "thủ bản",
+          "victoria",
+          "rực rỡ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.24,
+          "y": 0.22,
+          "w": 0.52,
+          "h": 0.56
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 18
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:The_Sermon_on_the_Mount_(Owen_Jones;_title_page).png",
+        "author": "Owen Jones",
+        "title": "The Sermon on the Mount (Owen Jones; title page).png",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1048,
+      "height": 1588
+    },
+    {
+      "id": "ornament-plato-republic-border",
+      "name": {
+        "en": "Classical Greek Scroll & Garland Book Frame",
+        "vi": "Khung diềm hoa văn cổ điển Hy Lạp"
+      },
+      "tags": {
+        "en": [
+          "ornament",
+          "classical",
+          "greek",
+          "bookplate"
+        ],
+        "vi": [
+          "cổ điển",
+          "hy lạp",
+          "viền sách",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.2,
+          "y": 0.18,
+          "w": 0.6,
+          "h": 0.64
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 18
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Republic_-_Plato_(Jowett)_-_title_page_border.png",
+        "author": "Unknown artist Plato (Author) Benjamin Jowett (translator)",
+        "title": "Republic - Plato (Jowett) - title page border.png",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1074,
+      "height": 1600
+    },
+    {
+      "id": "ornament-picture-show-sassoon",
+      "name": {
+        "en": "1919 Fine Line Architectural Cartouche Border",
+        "vi": "Khung viền nét mảnh nghệ thuật năm 1919"
+      },
+      "tags": {
+        "en": [
+          "ornament",
+          "cartouche",
+          "fine line",
+          "1919"
+        ],
+        "vi": [
+          "viền mảnh",
+          "hoa văn",
+          "sách thơ",
+          "1919"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.2,
+          "y": 0.18,
+          "w": 0.6,
+          "h": 0.64
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 18
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Title_page_border_from_%27Picture_Show%27_by_Siegfried_Sassoon_(1919).png",
+        "author": "Wikimedia Commons",
+        "title": "Title page border from 'Picture Show' by Siegfried Sassoon (1919).png",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1019,
+      "height": 1600
+    },
+    {
+      "id": "ornament-yale-decorative-border",
+      "name": {
+        "en": "Georgian Watercolor Floral Garland Frame (Yale)",
+        "vi": "Khung vòng hoa màu nước thế kỷ 18"
+      },
+      "tags": {
+        "en": [
+          "ornament",
+          "watercolor",
+          "garland",
+          "georgian"
+        ],
+        "vi": [
+          "vòng hoa",
+          "màu nước",
+          "thế kỷ 18",
+          "lãng mạn"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "windows": [
+        {
+          "x": 0.21,
+          "y": 0.2,
+          "w": 0.58,
+          "h": 0.6
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 18
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:James_Bruce_-_Decorative_Border_For_Title_Page_-_B1977.14.8790_-_Yale_Center_for_British_Art.jpg",
+        "author": "James Bruce",
+        "title": "James Bruce - Decorative Border For Title Page - B1977.14.8790 - Yale Center for British Art.jpg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1097
+    }
+  ]
+}

@@ -1,0 +1,351 @@
+{
+  "id": "postcards",
+  "kind": "frame",
+  "name": {
+    "en": "Vintage Postcard Frames",
+    "vi": "Khung bưu thiếp cổ"
+  },
+  "collections": [
+    "vintage",
+    "travel",
+    "journal"
+  ],
+  "order": 40,
+  "items": [
+    {
+      "id": "postcard-frame-xmas-dpla",
+      "name": {
+        "en": "Festive Holly & Ribbon Postcard Frame",
+        "vi": "Khung bưu thiếp Giáng sinh ruy băng & lá thông"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "christmas",
+          "border",
+          "vintage"
+        ],
+        "vi": [
+          "khung bưu thiếp",
+          "giáng sinh",
+          "noel",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "windows": [
+        {
+          "x": 0.14,
+          "y": 0.16,
+          "w": 0.72,
+          "h": 0.68
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 14
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%22A_merry_Christmas.%22_-_DPLA_-_6db1f61ebbc0136d2434b17034c5f48f.jpg",
+        "author": "Wikimedia Commons",
+        "title": "\"A merry Christmas.\" - DPLA - 6db1f61ebbc0136d2434b17034c5f48f.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 809
+    },
+    {
+      "id": "postcard-frame-bonn-1899",
+      "name": {
+        "en": "1899 Gruss aus Bonn Lithograph Postcard Frame",
+        "vi": "Khung bưu thiếp du lịch châu Âu năm 1899"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "travel",
+          "1899",
+          "europe"
+        ],
+        "vi": [
+          "bưu thiếp",
+          "du lịch",
+          "châu âu",
+          "1899"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "windows": [
+        {
+          "x": 0.1,
+          "y": 0.12,
+          "w": 0.58,
+          "h": 0.64
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 14
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Bonn_1280.jpg",
+        "author": "Wolfgang Sauber",
+        "title": "Bonn 1280.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1217,
+      "height": 1265
+    },
+    {
+      "id": "postcard-frame-merrie-1908",
+      "name": {
+        "en": "1908 Edwardian Greeting Postcard Window",
+        "vi": "Khung bưu thiếp chúc mừng năm 1908"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "edwardian",
+          "greeting",
+          "1908"
+        ],
+        "vi": [
+          "bưu thiếp cổ",
+          "lời chúc",
+          "kỷ niệm",
+          "1908"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "windows": [
+        {
+          "x": 0.15,
+          "y": 0.18,
+          "w": 0.7,
+          "h": 0.62
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 14
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:%22Give_this_to_the_youngest_boy_who_sells_papers_in_Sydney%22_;_A_Merrie_Xmas_and_a_Happy_New_Year,_Nellie_Melba,_1908-1909_(11656909426).jpg",
+        "author": "publisher unknown, original drawing by Frank Harland",
+        "title": "\"Give this to the youngest boy who sells papers in Sydney\" ; A Merrie Xmas and a Happy New Year, Nellie Melba, 1908-1909 (11656909426).jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1055,
+      "height": 1600
+    },
+    {
+      "id": "postcard-frame-new-year-734",
+      "name": {
+        "en": "Embossed Floral New Year Postcard Frame",
+        "vi": "Khung bưu thiếp hoa nổi mừng Năm mới"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "new year",
+          "floral",
+          "embossed"
+        ],
+        "vi": [
+          "bưu thiếp hoa",
+          "năm mới",
+          "tết",
+          "dập nổi"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "windows": [
+        {
+          "x": 0.16,
+          "y": 0.18,
+          "w": 0.68,
+          "h": 0.64
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 12
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_happy_new_year_LCCN2007684734.jpg",
+        "author": "Miscellaneous Items in High Demand, PPOC, Library of Congress",
+        "title": "A happy new year LCCN2007684734.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 849
+    },
+    {
+      "id": "postcard-frame-new-year-736",
+      "name": {
+        "en": "Vertical Bell & Garland Postcard Frame",
+        "vi": "Khung bưu thiếp dọc vòng hoa mừng xuân"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "vertical",
+          "garland",
+          "festive"
+        ],
+        "vi": [
+          "bưu thiếp dọc",
+          "vòng hoa",
+          "mùa xuân",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "windows": [
+        {
+          "x": 0.16,
+          "y": 0.22,
+          "w": 0.68,
+          "h": 0.58
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 12
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:A_happy_new_year_LCCN2007684736.jpg",
+        "author": "Miscellaneous Items in High Demand, PPOC, Library of Congress",
+        "title": "A happy new year LCCN2007684736.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1062,
+      "height": 1600
+    },
+    {
+      "id": "postcard-frame-dual-1902",
+      "name": {
+        "en": "1902 Twin-Panel Story Postcard Frame",
+        "vi": "Khung bưu thiếp 2 ô ảnh kể chuyện (1902)"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "twin",
+          "two photos",
+          "1902"
+        ],
+        "vi": [
+          "bưu thiếp đôi",
+          "hai ô ảnh",
+          "kể chuyện",
+          "1902"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "windows": [
+        {
+          "x": 0.08,
+          "y": 0.14,
+          "w": 0.4,
+          "h": 0.66
+        },
+        {
+          "x": 0.52,
+          "y": 0.14,
+          "w": 0.4,
+          "h": 0.66
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 12
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:AK_-_Frohe_Weihnachten_-_1902_B.jpg",
+        "author": "Unknown authorUnknown author",
+        "title": "AK - Frohe Weihnachten - 1902 B.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1018
+    },
+    {
+      "id": "postcard-frame-pinecone-1905",
+      "name": {
+        "en": "1905 Evergreen & Pinecone Border Postcard",
+        "vi": "Khung bưu thiếp viền lá thông & quả thông (1905)"
+      },
+      "tags": {
+        "en": [
+          "postcard",
+          "pinecone",
+          "border",
+          "1905"
+        ],
+        "vi": [
+          "viền lá thông",
+          "quả thông",
+          "bưu thiếp",
+          "mùa đông"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "windows": [
+        {
+          "x": 0.15,
+          "y": 0.18,
+          "w": 0.7,
+          "h": 0.62
+        }
+      ],
+      "process": {
+        "removeBg": true,
+        "tolerance": 12
+      },
+      "source": {
+        "provider": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:AK_-_Fr%C3%B6hliche_Weihnachten_-_Tannenzapfen_-_1905.jpg",
+        "author": "Unknown authorUnknown author",
+        "title": "AK - Fröhliche Weihnachten - Tannenzapfen - 1905.jpg",
+        "license": "PDM",
+        "retrieved": "2026-10-18"
+      },
+      "width": 1280,
+      "height": 1014
+    }
+  ]
+}
