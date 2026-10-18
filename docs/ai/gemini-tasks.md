@@ -8,19 +8,10 @@ Trạng thái:
 
 | Việc | Nhánh | Trạng thái |
 |---|---|---|
-<<<<<<< HEAD
-| G6 — Câu xem trước phông, chữ mẫu widget | `gemini/g6-text` | Chưa giao |
-| G1 — Script xử lý ảnh + trang duyệt | `gemini/g1-process` | Xong (chờ duyệt) |
-=======
-| G6 — Câu xem trước phông, chữ mẫu widget | `gemini/g6-text` | Xong (chờ duyệt) |
-| G1 — Script xử lý ảnh + trang duyệt | `gemini/g1-process` | Chưa giao |
-<<<<<<< HEAD
->>>>>>> origin/gemini/g6-text
-| G5 — Phông (~150) | `gemini/g5-fonts` | Chưa giao |
-=======
-| G5 — Phông (~150) | `gemini/g5-fonts` | Xong (chờ Claude duyệt) |
->>>>>>> origin/gemini/g5-fonts
-| G2 — Sticker đợt 1 (~200) | `gemini/g2-stickers` | Chưa giao (cần G1) |
+| G6 — Câu xem trước phông, chữ mẫu widget | `gemini/g6-text` | **Đã duyệt, đã merge** (2026-10-18) |
+| G1 — Script xử lý ảnh + trang duyệt | `gemini/g1-process` | **Đã duyệt, đã merge** (2026-10-18) |
+| G5 — Phông (~150) | `gemini/g5-fonts` | **Đã duyệt, đã merge** — 195 phông (2026-10-18) |
+| G2 — Sticker đợt 1 (~200) | `gemini/g2-stickers` | **Cần sửa** — xem ghi chú 2026-10-18 |
 | G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | Chưa giao (cần G1) |
 | G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Chưa giao (cần G1) |
 | G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | Chưa giao |
@@ -306,6 +297,23 @@ Phạm vi: docs/discussions/<ngày>-m21-nghien-cuu.md, assets/research/m21/**, b
 3. Nếu ổn thì merge vào `main`. Nếu chưa ổn thì ghi việc cần sửa vào mục của việc đó (dưới đây), rồi chủ dự án chuyển lại cho Gemini.
 
 ### Ghi chú nhận việc
+
+- **2026-10-18 — Quy tắc mới: làm trong thư mục riêng.** Gemini và Claude đang dùng chung một thư mục làm việc; một file nháp của G6 đã lọt vào commit của Claude. Từ nay Gemini làm trong **git worktree riêng**: `git worktree add ../IG-layout-gemini -b gemini/<việc> origin/main` rồi chỉ làm trong `../IG-layout-gemini` (cài `pnpm install` ở đó, hoặc symlink `node_modules`). Không checkout nhánh khác trong thư mục chính.
+- **2026-10-18 — Duyệt G6:** đạt. Câu tự nhiên, đủ dấu, đủ số lượng; 27 widget có chữ mẫu VI / EN.
+- **2026-10-18 — Duyệt G1:** đạt. Tách nền dùng lại ormbg chạy trên máy + flood-fill cho tem / nhãn; có README.
+- **2026-10-18 — Duyệt G5:** đạt. 195 phông, hiển thị đúng dấu tiếng Việt ở các phông khai báo `vietnamese`; CJK ≤ 5 MB / phông. Lưu ý: gói `fantasy` toàn phông **chỉ Latin** (không gõ được tiếng Việt) — đợt sau tìm thêm phông kỳ ảo / cổ điển **có tiếng Việt**.
+- **2026-10-18 — Duyệt G2: cần sửa** (giấy phép OK, `validate` OK; chất lượng hình chưa đạt ở nhiều gói):
+  - **Bỏ gói `everyday-objects`** (19 mục): là Fluent Emoji — app đã có sẵn bộ emoji này.
+  - **`butterflies-insects`**: ~8 mục là ảnh mẫu bảo tàng còn **hộp, nhãn, ghim, nền giấy** (vd. thứ 3, 5, 6, 9, 10, 13, 14, 17 trong gói) → bỏ hoặc tìm ảnh đã tách sạch (tranh vẽ côn trùng cổ dễ tách hơn ảnh chụp).
+  - **`festive-holidays`**: nhiều bưu thiếp **bị tách nền thành bóng mờ** (chữ viết tay, tem dính lại), có ảnh **chân dung người thật** (cấm theo quy tắc) và tranh tôn giáo (Moses) không hợp → làm lại: chọn hình minh hoạ lễ hội rời (cây thông, chuông, quà, ông già Noel vẽ, đèn lồng…), không lấy cả tấm bưu thiếp.
+  - **`vietnam-heritage`**: ảnh hiện vật bảo tàng **chưa tách nền** (tượng Chăm nền nâu, bình gốm trong tủ kính, hai mục bóng mờ) → bỏ; giữ tranh Đông Hồ (tốt).
+  - **`vintage-postcards`** thực chất là **dấu sáp** → đổi tên gói cho đúng; bỏ các mục còn dính giấy / nền trắng loang (vd. thứ 4, 9, 17, 18).
+  - **`vintage-labels`**: một nửa mép bị nham nhở / quầng sau khi tách nền (vd. 1, 3, 9, 11, 12) → với nhãn / poster stamp là hình chữ nhật, **không tách nền bằng AI**, chỉ cắt thẳng (`process.removeBg: false`) hoặc dùng flood-fill.
+  - **`vintage-stamps`**: 5 tem "postage due" hồng (10, 2, 30, 50, 5) gần như giống nhau → giữ 2.
+  - **`vintage-maps-compass`**: bỏ mục la bàn chữ Kirin (9) và đồng hồ quả quýt còn vệt nền đen (15).
+  - **`japanese-ukiyoe`**: một số bản tách nền bị mờ nhạt (4, 5, 8) → giữ nguyên tranh hình chữ nhật thay vì tách nền.
+  - **Tốt, giữ nguyên:** `botanical`, `hand-doodles`, `birds-animals` (đều một loạt tranh chim ruồi — đợt sau thêm loài khác).
+  - Sau khi sửa: chạy lại `process.mjs`, xem `review.html` từng gói, `validate.mjs`, `build-catalog.mjs`; mục tiêu vẫn ~200 mục **sạch**.
 
 - **2026-10-18 — đổi nhỏ định dạng `windows`** (Claude): trường `path` (chuỗi SVG) được thay bằng `points` — đa giác `[x0, y0, x1, y1…]` toạ độ 0–1 theo hộp của cửa sổ (xem asset-catalog §3). Khung chữ nhật / bầu dục không cần trường này.
 - **Khung tự sinh** của Claude nằm ở các gói `assets/frame/gen-*` (đừng sửa tay — sinh lại bằng `scripts/frames/generate.mjs build`). `public/packs/catalog.json` là file sinh tự động: nếu bị xung đột khi merge thì chạy lại `build-catalog.mjs`.
