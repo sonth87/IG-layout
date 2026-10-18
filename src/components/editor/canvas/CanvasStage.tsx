@@ -8,7 +8,7 @@ import { snap, snapTargets } from "@/lib/project/snap";
 import { canvasSize, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
 import { scaleExtras } from "@/lib/elements/resize";
 import { strokePath } from "@/lib/elements/shapes";
-import { type CanvasElement, type ImageAsset, type ImageElement, type LayoutElement, pansInside, type Rect as Box, slideSize } from "@/lib/project/types";
+import { type CanvasElement, fixedCell, type ImageAsset, type ImageElement, type LayoutElement, pansInside, type Rect as Box, slideSize, zoomsInside } from "@/lib/project/types";
 import { liveCrops } from "@/lib/project/liveCrop";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { panCrop, wholePicture } from "@/lib/project/blocks";
@@ -75,9 +75,9 @@ function SelectionTransformer(props: {
   const { selected: el, viewScale } = props;
   const trRef = useRef<Konva.Transformer>(null);
   const elements = useViewDoc()?.elements;
-  const whole = !!el && pansInside(el);
-  // A cell of a layout block follows its block: no handles of its own (M14 / M16).
-  const fixed = !!el && (el.locked || !!el.parentId) && !whole;
+  const whole = !!el && pansInside(el, elements);
+  // Cells are ordinary elements (D-113); a pack frame's windows stay where the art says.
+  const fixed = !!el && (el.locked || fixedCell(el, elements)) && !whole;
   const isText = el?.type === "text";
   // Pack frames keep the shape of their art (M20 C4): corners only.
   const isArt = el?.type === "layout" && !!el.art;
@@ -420,7 +420,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       if (e.touches.length >= 2 || useEditor.getState().drawing) return true;
       const s = useEditor.getState();
       const el = (s.draft ?? s.doc)?.elements.find((x) => x.id === s.selectedId);
-      return !!el && (!el.locked || pansInside(el));
+      return !!el && (!el.locked || zoomsInside(el));
     };
     let gesture = false;
     const onStart = (e: TouchEvent) => {
@@ -568,7 +568,8 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       pinch.current = { kind: "zoom", ...info };
       return;
     }
-    if (sel.type === "image" && pansInside(sel)) {
+    // Two fingers on a photo in a cell / window zoom the picture inside (D-113).
+    if (sel.type === "image" && zoomsInside(sel)) {
       pinch.current = { kind: "crop", el: sel, ...info };
       return;
     }
@@ -635,11 +636,11 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       g.moved = true;
       const sel = selected;
       if (!sel) g.mode = "canvas";
-      else if (sel.type === "image" && pansInside(sel)) {
+      else if (sel.type === "image" && pansInside(sel, doc?.elements)) {
         g.mode = "pan";
         g.el = sel;
         g.crop = sel.crop;
-      } else if (sel.locked || sel.parentId) g.mode = "none";
+      } else if (sel.locked || fixedCell(sel, doc?.elements)) g.mode = "none";
       else {
         const node = e.target.getStage()?.findOne(`#${sel.id}`);
         g.mode = node ? "move" : "none";
@@ -724,7 +725,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     const proxy = proxyRef.current;
     const st = useEditor.getState();
     const el = (st.draft ?? st.doc)?.elements.find((x) => x.id === st.selectedId);
-    if (!proxy || el?.type !== "image" || !pansInside(el)) return;
+    if (!proxy || el?.type !== "image" || !pansInside(el, doc?.elements)) return;
     const asset = st.assets[el.assetId!];
     if (!asset) return;
     const w = wholePicture(el, liveCrops.get(el.id) ?? el.crop, asset);
@@ -1032,7 +1033,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       <Layer>
         <Group ref={guidesRef} listening={false} />
         <Group ref={rulerRef} name="rulers" listening={false} />
-        {selected?.type === "image" && pansInside(selected) && (
+        {selected?.type === "image" && pansInside(selected, doc.elements) && (
           // Stands for the whole picture of the selected framed photo (box + zoom handles).
           <Rect ref={proxyRef} id={PROXY_ID} listening={false} {...wholeAttrs(selected)} />
         )}

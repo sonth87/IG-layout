@@ -52,7 +52,7 @@ function withAlpha(hex: string, alpha: number) {
 export function ImageNode({ element: el }: Props) {
   const asset = useEditor((s) => (el.assetId ? s.assets[el.assetId] : undefined));
   const updateElement = useEditor((s) => s.updateElement);
-  const showWhole = useEditor((s) => s.selectedId === el.id && !s.exporting && pansInside(el) && !s.drawing);
+  const showWhole = useEditor((s) => s.selectedId === el.id && !s.exporting && pansInside(el, (s.draft ?? s.doc)?.elements) && !s.drawing && !s.cropping);
   const isVideo = !!asset?.video;
   // Videos (M13): the poster stands in until the player has a frame.
   const original = useHtmlImage(isVideo ? asset?.video?.posterUrl : asset?.url);

@@ -123,6 +123,7 @@ export const vi: Record<MessageKey, string> = {
   "block.radius": "Bo góc",
   "block.fill": "Màu nền",
   "block.none": "Không",
+  "block.resetCells": "Các ô đã chỉnh tay sẽ được xếp lại theo mẫu khi bạn đổi bố cục / khoảng cách",
   "block.outside": "{count} ảnh được đặt ngoài lưới.",
   "block.legacy": "Chọn một kiểu bố cục trước để chỉnh khoảng cách.",
   "style.shadowOpacity": "Độ đậm",

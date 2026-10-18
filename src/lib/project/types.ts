@@ -291,6 +291,8 @@ export interface LayoutElement extends ElementBase {
    * cells — the photos show through the windows and never cover the frame.
    */
   art?: { assetId: string; catalogId: string };
+  /** Its cells were moved / resized by hand (D-113): Layout / Adjust will lay them out again. */
+  custom?: boolean;
 }
 
 export interface LayoutCell {
@@ -315,12 +317,29 @@ export function isImage(el: CanvasElement | undefined): el is ImageElement {
  * and locked photos such as a background: the frame stays, the view inside can change).
  */
 /**
- * A drag / pinch on this photo moves the picture inside its frame: photos in grid cells.
+ * A pinch on this photo zooms the picture inside its frame: photos in cells / windows.
  * Locked means locked (owner, 2026-10-17, replaces D-85): nothing moves, only the "+" of
  * an empty frame still adds a photo.
  */
-export function pansInside(el: CanvasElement | undefined): boolean {
+export function zoomsInside(el: CanvasElement | undefined): boolean {
   return isImage(el) && !!el.assetId && el.slot && !el.locked;
+}
+
+/** A cell whose window is fixed by its block: a pack frame's window (D-113). */
+export function fixedCell(el: CanvasElement | undefined, elements: readonly CanvasElement[] | undefined): boolean {
+  if (!el?.parentId) return false;
+  const block = elements?.find((e) => e.id === el.parentId);
+  return block?.type === "layout" && !!block.art;
+}
+
+/**
+ * A one-finger drag on this photo moves the picture inside its frame (instead of moving
+ * the photo): only windows fixed by their block — pack frames — and legacy loose cells.
+ * Cells of layout blocks are ordinary elements and move (D-113).
+ */
+export function pansInside(el: CanvasElement | undefined, elements?: readonly CanvasElement[]): boolean {
+  if (!zoomsInside(el)) return false;
+  return el!.parentId ? fixedCell(el, elements) : true;
 }
 
 /** Background music of the project (M13.4). Times in seconds of the track. */

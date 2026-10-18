@@ -53,7 +53,7 @@ check(["Layout", "Adjust", "Position", "Lock", "Duplicate", "Delete"].every((n) 
 const photo = st.doc.elements.find((e) => e.parentId === block.id && e.assetId);
 await select(photo.id);
 names = await toolNames();
-check(["Replace", "Crop", "Style", "Adjust", "Filters", "Clear", "Delete"].every((n) => names.includes(n)) && !names.includes("Position"), `photo in a cell: ${names.join(" · ")}`);
+check(["Replace", "Crop", "Style", "Adjust", "Filters", "Position", "Duplicate", "Clear", "Delete"].every((n) => names.includes(n)), `photo in a cell (an ordinary element, D-113): ${names.join(" · ")}`);
 const scroller = tools.locator(".overflow-x-auto");
 check(await scroller.evaluate((e) => e.scrollWidth > e.clientWidth), "the bar slides sideways when the tools don't fit");
 check(await page.getByRole("button", { name: "Done" }).isVisible(), "✕ to deselect");

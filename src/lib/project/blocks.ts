@@ -43,6 +43,18 @@ export function cellFrames(block: Pick<LayoutElement, "x" | "y" | "width" | "hei
   );
 }
 
+/**
+ * The inverse of cellFrames: where a cell frame (canvas px, its own rotation) sits in its
+ * block, relative to the block (D-113: a cell moved / resized / turned by hand).
+ */
+export function cellFromFrame(block: Pick<LayoutElement, "x" | "y" | "width" | "height" | "rotation">, f: { x: number; y: number; width: number; height: number; rotation: number }) {
+  const o = rot(f.x + f.width / 2 - (block.x + block.width / 2), f.y + f.height / 2 - (block.y + block.height / 2), -block.rotation);
+  const w = f.width / block.width;
+  const h = f.height / block.height;
+  const rotation = ((f.rotation - block.rotation + 540) % 360) - 180;
+  return { x: o.x / block.width + 0.5 - w / 2, y: o.y / block.height + 0.5 - h / 2, w, h, ...(Math.abs(rotation) > 1e-6 ? { rotation } : {}) };
+}
+
 /** Crop with a new aspect (width / height), same centre and about the same zoom, kept inside the image. */
 export function refitCrop(crop: Rect, aspect: number, image: { width: number; height: number }): Rect {
   const area = crop.width * crop.height;

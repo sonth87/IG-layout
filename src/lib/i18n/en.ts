@@ -124,6 +124,7 @@ export const en = {
   "block.radius": "Corners",
   "block.fill": "Background",
   "block.none": "None",
+  "block.resetCells": "Cells you moved by hand are laid out again when you change the layout / spacing",
   "block.outside": "{count} photo(s) placed outside the grid.",
   "block.legacy": "Pick a layout first to change the spacing.",
   "style.shadowOpacity": "Opacity",

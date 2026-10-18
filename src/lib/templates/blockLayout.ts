@@ -10,9 +10,10 @@ type AssetSize = (id: string) => { width: number; height: number } | undefined;
 /** Cells of `block` re-computed from its split, gap and padding; same ids, same order. */
 export function respaced(block: LayoutElement): LayoutElement["cells"] | null {
   const def = block.layout ? slideLayoutById(block.layout) : undefined;
-  if (!def || def.cells.length !== block.cells.length) return null;
+  if (!def || block.cells.length < def.cells.length) return null;
   const rects = slideCells(def, block.width / block.height, block.gap ?? (def.kind === "grid" ? GRID_LINE : 0), block.padding ?? 0);
-  return block.cells.map((c, i) => ({ id: c.id, x: rects[i].x, y: rects[i].y, w: rects[i].w, h: rects[i].h, ...(rects[i].style.rotation ? { rotation: rects[i].style.rotation } : {}) }));
+  // The pattern's cells first; cells added by hand (D-113) keep their places.
+  return block.cells.map((c, i) => (i < rects.length ? { id: c.id, x: rects[i].x, y: rects[i].y, w: rects[i].w, h: rects[i].h, ...(rects[i].style.rotation ? { rotation: rects[i].style.rotation } : {}) } : c));
 }
 
 /**
@@ -27,7 +28,7 @@ export function relayout(doc: ProjectDoc, blockId: string, layoutId: string, ass
   const kids = block.cells.map((c) => doc.elements.find((e) => e.id === c.id)).filter((e): e is ImageElement => !!e && isImage(e));
   const photos = kids.filter((k) => k.assetId);
   const empties = kids.filter((k) => !k.assetId);
-  const next: LayoutElement = { ...block, layout: layoutId, gap: block.gap ?? (def.kind === "grid" ? GRID_LINE : 0), padding: block.padding ?? 0 };
+  const next: LayoutElement = { ...block, layout: layoutId, gap: block.gap ?? (def.kind === "grid" ? GRID_LINE : 0), padding: block.padding ?? 0, custom: undefined };
   const rects = slideCells(def, block.width / block.height, next.gap, next.padding);
   const children: ImageElement[] = rects.map((r) => {
     const reused = photos.shift() ?? empties.shift();
