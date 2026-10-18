@@ -48,13 +48,13 @@
       ]
     },
     {
-      "id": "gen-torn-paper",
-      "kind": "tornPaper",
-      "prefix": "torn-paper",
+      "id": "gen-torn-collage",
+      "kind": "tornCollage",
+      "prefix": "torn-collage",
       "order": 11,
       "name": {
-        "en": "Torn paper",
-        "vi": "Giấy xé"
+        "en": "Torn photo collages",
+        "vi": "Ảnh xé ghép"
       },
       "collections": [
         "tornPaper",
@@ -84,19 +84,47 @@
         21,
         22,
         23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30,
-        31,
-        32,
-        33,
-        34,
-        35,
-        36
+        24
+      ]
+    },
+    {
+      "id": "gen-torn-backed",
+      "kind": "tornBacked",
+      "prefix": "torn-backed",
+      "order": 12,
+      "name": {
+        "en": "Torn photos on paper",
+        "vi": "Ảnh xé trên giấy"
+      },
+      "collections": [
+        "tornPaper",
+        "journal"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
       ]
     },
     {
@@ -187,6 +215,152 @@
         30,
         31,
         32
+      ]
+    },
+    {
+      "id": "gen-washi",
+      "catalog": "sticker",
+      "kind": "washi",
+      "prefix": "washi",
+      "order": 20,
+      "name": {
+        "en": "Washi tape",
+        "vi": "Băng dính washi"
+      },
+      "collections": [
+        "journal",
+        "cute"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ]
+    },
+    {
+      "id": "gen-notes",
+      "catalog": "sticker",
+      "kind": "note",
+      "prefix": "note",
+      "order": 21,
+      "name": {
+        "en": "Sticky notes",
+        "vi": "Giấy note"
+      },
+      "collections": [
+        "journal",
+        "school"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "id": "gen-paper-scraps",
+      "catalog": "sticker",
+      "kind": "scrap",
+      "prefix": "scrap",
+      "order": 22,
+      "name": {
+        "en": "Paper scraps",
+        "vi": "Mẩu giấy xé"
+      },
+      "collections": [
+        "journal",
+        "tornPaper",
+        "school"
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
       ]
     }
   ]

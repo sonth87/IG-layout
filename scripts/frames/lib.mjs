@@ -203,6 +203,7 @@ export function grain(id, { freq = 0.9, strength = 0.12, seed = 1, warm = false 
 
 /** Window points normalised to their own box, and the box normalised to the art. */
 export function windowOf(pts, W, H) {
+  pts = pts.map(([x, y]) => [Math.min(W, Math.max(0, x)), Math.min(H, Math.max(0, y))]);
   const b = bbox(pts);
   const points = pts.flatMap((p) => [+((p[0] - b.x) / b.w).toFixed(4), +((p[1] - b.y) / b.h).toFixed(4)]);
   return { x: +(b.x / W).toFixed(4), y: +(b.y / H).toFixed(4), w: +(b.w / W).toFixed(4), h: +(b.h / H).toFixed(4), points };

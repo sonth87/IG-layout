@@ -7,7 +7,10 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 import { ASSETS, PACKS, ROOT } from "../assets/common.mjs";
-import { KINDS } from "./kinds.mjs";
+import { KINDS as FRAME_KINDS } from "./kinds.mjs";
+import { STICKER_KINDS } from "./stickers.mjs";
+
+const KINDS = { ...FRAME_KINDS, ...STICKER_KINDS };
 
 const [cmd, kind, countArg, firstArg] = process.argv.slice(2);
 const PHOTO = path.join(ROOT, "e2e", "fixtures", "portrait.jpg");
@@ -16,7 +19,7 @@ const PHOTO = path.join(ROOT, "e2e", "fixtures", "portrait.jpg");
 async function preview(f, size = 520) {
   const art = await sharp(Buffer.from(f.svg)).png().toBuffer();
   const layers = [];
-  for (const w of f.windows) {
+  for (const w of f.windows ?? []) {
     const bw = Math.max(1, Math.round(w.w * f.width));
     const bh = Math.max(1, Math.round(w.h * f.height));
     let photo = await sharp(PHOTO).resize(bw, bh, { fit: "cover" }).png().toBuffer();
@@ -56,7 +59,26 @@ if (cmd === "explore") {
     const PAPER = { kraft: ["Kraft", "kraft"], white: ["White", "trắng"], cream: ["Cream", "kem"], pink: ["Pink", "hồng"], blue: ["Blue", "xanh dương"], mint: ["Mint", "xanh bạc hà"], black: ["Black", "đen"], newsprint: ["Newsprint", "giấy báo"], yellow: ["Yellow", "vàng"] };
     const FILM = { black: ["black", "đen"], brown: ["brown", "nâu"], amber: ["negative", "âm bản"], grey: ["grey", "xám"] };
     const BORDER = { white: ["white", "trắng"], cream: ["cream", "kem"], black: ["black", "đen"], pink: ["pink", "hồng"], blue: ["blue", "xanh dương"], sage: ["sage", "xanh xám"] };
-    if (kind === "tornPhoto") {
+    if (kind === "washi") {
+    const P = { solid: ["plain", "trơn"], stripes: ["striped", "kẻ sọc"], dots: ["dotted", "chấm bi"], grid: ["grid", "kẻ ô"], gingham: ["gingham", "caro"], diagonal: ["diagonal", "sọc chéo"], dash: ["dashed", "nét đứt"], waves: ["wavy", "lượn sóng"], hearts: ["hearts", "trái tim"], stars: ["stars", "ngôi sao"] }[info.pattern];
+    return { name: { en: `Washi tape, ${P[0]}`, vi: `Băng dính ${P[1]}` }, tags: { en: ["washi", "tape", "masking tape", P[0]], vi: ["băng dính", "washi", "băng keo", P[1]] } };
+  }
+  if (kind === "note") {
+    const C = { yellow: ["yellow", "vàng"], pink: ["pink", "hồng"], blue: ["blue", "xanh dương"], green: ["green", "xanh lá"], orange: ["orange", "cam"], purple: ["purple", "tím"], white: ["white", "trắng"] }[info.color];
+    return { name: { en: `Sticky note, ${C[0]}`, vi: `Giấy note ${C[1]}` }, tags: { en: ["sticky note", "note", "memo", "post-it", C[0]], vi: ["giấy note", "giấy nhớ", "ghi chú", C[1]] } };
+  }
+  if (kind === "scrap") {
+    return { name: info.grid ? { en: "Torn grid paper", vi: "Mẩu giấy ô ly xé" } : { en: "Torn notebook paper", vi: "Mẩu giấy vở xé" }, tags: { en: ["paper", "torn", "notebook", "scrap", info.grid ? "grid" : "lined"], vi: ["giấy", "xé", "giấy vở", "mẩu giấy", info.grid ? "ô ly" : "kẻ dòng"] } };
+  }
+  if (kind === "tornCollage") {
+    const L = { "2v": ["2 pieces side by side", "2 mảnh ngang"], "2h": ["2 pieces stacked", "2 mảnh dọc"], "3v": ["3 strips", "3 dải đứng"], "3h": ["3 rows", "3 dải ngang"], 4: ["4 pieces", "4 mảnh"], "1+2": ["1 + 2 pieces", "1 + 2 mảnh"] }[info.layout];
+    return { name: { en: `Torn collage, ${L[0]}`, vi: `Ảnh xé ghép ${L[1]}` }, tags: { en: ["torn", "collage", "ripped", "photos", "story"], vi: ["xé", "ảnh xé", "ghép", "nhiều ảnh"] } };
+  }
+  if (kind === "tornBacked") {
+    const PAPER = { kraft: ["kraft", "kraft"], white: ["white", "trắng"], cream: ["cream", "kem"], pink: ["pink", "hồng"], blue: ["blue", "xanh dương"], mint: ["mint", "xanh bạc hà"], black: ["black", "đen"], newsprint: ["newsprint", "giấy báo"], yellow: ["yellow", "vàng"] }[info.paper];
+    return { name: { en: `Torn photo on ${PAPER[0]} paper`, vi: `Ảnh xé trên giấy ${PAPER[1]}` }, tags: { en: ["torn", "photo", "paper", PAPER[0]], vi: ["xé", "ảnh xé", "giấy", PAPER[1]] } };
+  }
+  if (kind === "tornPhoto") {
       const [en, vi] = RATIO[info.ratio] ?? ["", ""];
       return { name: { en: `Torn photo, ${en}`, vi: `Ảnh xé ${vi}` }, tags: { en: ["torn", "paper", "ripped", "photo", en], vi: ["xé", "giấy xé", "ảnh xé", vi] } };
     }
@@ -87,14 +109,15 @@ if (cmd === "explore") {
   const today = new Date().toISOString().slice(0, 10);
   for (const pack of picks.packs) {
     const make = KINDS[pack.kind];
-    const out = path.join(PACKS, "frame", pack.id);
+    const catalogKind = pack.catalog ?? "frame";
+    const out = path.join(PACKS, catalogKind, pack.id);
     mkdirSync(out, { recursive: true });
     const items = [];
     for (const seed of pack.seeds) {
       const f = make(seed);
       const auto = describe(pack.kind, f.info);
       const it = { id: `${pack.prefix}-${seed}`, seed, name: unique(auto.name), tags: auto.tags };
-      const long = 1400;
+      const long = catalogKind === "sticker" ? 1024 : 1400;
       const k = Math.min(1, long / Math.max(f.width, f.height));
       const width = Math.round(f.width * k);
       const height = Math.round(f.height * k);
@@ -109,13 +132,13 @@ if (cmd === "explore") {
         source: { provider: "IG Layout", author: "sonth87", title: `${pack.kind} #${it.seed}`, url: `https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#${pack.kind}-${it.seed}`, license: "CC0-1.0", retrieved: today },
         width,
         height,
-        windows: f.windows,
+        ...(f.windows ? { windows: f.windows } : {}),
       });
     }
-    const dir = path.join(ASSETS, "frame", pack.id);
+    const dir = path.join(ASSETS, catalogKind, pack.id);
     mkdirSync(dir, { recursive: true });
-    writeFileSync(path.join(dir, "manifest.json"), JSON.stringify({ id: pack.id, kind: "frame", name: pack.name, collections: pack.collections, order: pack.order, items }, null, 2) + "\n");
-    console.log(`${pack.id}: ${items.length} frames`);
+    writeFileSync(path.join(dir, "manifest.json"), JSON.stringify({ id: pack.id, kind: catalogKind, name: pack.name, collections: pack.collections, order: pack.order, items }, null, 2) + "\n");
+    console.log(`${pack.id}: ${items.length} items`);
   }
 } else {
   console.log("usage: generate.mjs explore <kind> <count> [firstSeed] | build");

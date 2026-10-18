@@ -255,6 +255,7 @@ export const vi: Record<MessageKey, string> = {
   "lib.backgrounds": "Nền",
   "lib.noCollections": "Chưa có bộ nào — tải lại khi có mạng",
   "lib.search": "Tìm kiếm",
+  "lib.doodles": "Nét vẽ tay",
   "lib.offline": "Chưa tải được — kiểm tra kết nối mạng rồi thử lại",
   "lib.featured": "Nổi bật",
   "lib.overlays": "Ánh sáng & chất liệu",

@@ -256,6 +256,7 @@ export const en = {
   "lib.backgrounds": "Backgrounds",
   "lib.noCollections": "No collections yet — reload when online",
   "lib.search": "Search",
+  "lib.doodles": "Doodles",
   "lib.offline": "Couldn’t download it — check your connection and try again",
   "lib.featured": "Featured",
   "lib.overlays": "Light & texture",

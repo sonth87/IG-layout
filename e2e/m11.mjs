@@ -80,7 +80,7 @@ await page.getByRole("button", { name: "Done" }).click();
 console.log("S13 stickers");
 await page.getByRole("button", { name: "Stickers", exact: true }).click(); // Sticker library (M19)
 await shot(page, "3-stickers");
-await page.getByRole("button", { name: "Washi tape" }).click();
+await page.getByRole("button", { name: "Washi tape", exact: true }).click();
 st = await S();
 const tape = last(st, "icon");
 check(tape?.icon === "tape" && tape.width / tape.height > 3, `washi tape added at its own shape (${Math.round(tape.width)}×${Math.round(tape.height)})`);
