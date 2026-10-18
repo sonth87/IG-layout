@@ -177,6 +177,9 @@ export interface ImageElement extends ElementBase {
   crop: Rect;
   /** Degrees; rotates the image inside the frame (auto-zoomed to keep it covered). */
   straighten: number;
+  /** 3D tilt of the picture in its frame (D-111 part 2), degrees around the frame's horizontal (x) and vertical (y) axes; seen in perspective. */
+  tiltX?: number;
+  tiltY?: number;
   flipX: boolean;
   flipY: boolean;
   mask: MaskShape;

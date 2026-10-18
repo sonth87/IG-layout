@@ -20,6 +20,8 @@ import { processFrame } from "@/lib/color/processor";
 const VIDEO_PREVIEW_MAX = 1080;
 import { kenBurnsCrop, motionClock } from "@/lib/motion/motion";
 import { liveCrops } from "@/lib/project/liveCrop";
+import { screenToPicture, tilted, toView } from "@/lib/project/cropView";
+import { warpInto } from "@/lib/image/warp";
 import { useProcessedImage } from "./useProcessedImage";
 
 interface Props {
@@ -73,6 +75,9 @@ export function ImageNode({ element: el }: Props) {
   const compareThis = useEditor((s) => s.compare && s.selectedId === el.id);
   const exporting = useEditor((s) => s.exporting);
   const image = useProcessedImage(original, el, { original: compareThis, full: exporting });
+  /** Canvas the tilted picture is drawn into (D-111 part 2), and a counter for new video frames. */
+  const warpOut = useRef<HTMLCanvasElement | null>(null);
+  const warpStamp = useRef(0);
   // Colour on video frames (M13.3): processed each draw into reused canvases.
   const preset = filterById(el.filter?.id)?.preset;
   const videoParams = useMemo(
@@ -167,7 +172,7 @@ export function ImageNode({ element: el }: Props) {
       // Crop is in source pixels; the processed photo copy may be smaller (videos: same size).
       const k = isVideo ? (source === original ? original.width / (asset?.width || original.width) : videoScale) : image!.width / original.width;
       const s = straightenScale(iw, ih, el.straighten);
-      if (showWhole && asset && !el.straighten) {
+      if (showWhole && asset && !el.straighten && !el.tiltX && !el.tiltY) {
         // The whole picture, faint, outside the clip (editor-v2/07 §1): drawn on the
         // un-clipped context below, then the frame's part on top as usual.
         c.restore();
@@ -184,12 +189,31 @@ export function ImageNode({ element: el }: Props) {
         traceMask(c, mask, iw, ih, radius, 0, points);
         c.clip();
       }
-      c.save();
-      c.translate(iw / 2, ih / 2);
-      c.rotate((el.straighten * Math.PI) / 180);
-      c.scale(s * (el.flipX ? -1 : 1), s * (el.flipY ? -1 : 1));
-      c.drawImage(source, crop.x * k, crop.y * k, crop.width * k, crop.height * k, -iw / 2, -ih / 2, iw, ih);
-      c.restore();
+      const tilt = { x: el.tiltX ?? 0, y: el.tiltY ?? 0 };
+      let drawn = false;
+      if (tilted(tilt) && asset) {
+        // 3D tilt (D-111 part 2): the frame's pixels looked up through a homography (WebGL).
+        const res = Math.min(2048 / Math.max(iw, ih), shape.getAbsoluteScale().x * ctx.canvas.getPixelRatio());
+        const out = (warpOut.current ??= document.createElement("canvas"));
+        out.width = Math.max(1, Math.round(iw * res));
+        out.height = Math.max(1, Math.round(ih * res));
+        const win = { width: iw, height: ih };
+        const pic = { width: asset.width, height: asset.height };
+        const view = toView({ crop, straighten: el.straighten, flipX: el.flipX, flipY: el.flipY }, win, pic);
+        const map = screenToPicture(view, el, win, pic, tilt, { x: -iw / 2, y: -ih / 2, width: iw, height: ih }, { width: out.width, height: out.height });
+        if (warpInto(out, source as TexImageSource, pic, map, isVideo ? ++warpStamp.current : 0)) {
+          c.drawImage(out, 0, 0, iw, ih);
+          drawn = true;
+        }
+      }
+      if (!drawn) {
+        c.save();
+        c.translate(iw / 2, ih / 2);
+        c.rotate((el.straighten * Math.PI) / 180);
+        c.scale(s * (el.flipX ? -1 : 1), s * (el.flipY ? -1 : 1));
+        c.drawImage(source, crop.x * k, crop.y * k, crop.width * k, crop.height * k, -iw / 2, -ih / 2, iw, ih);
+        c.restore();
+      }
       const vignette = compareThis ? 0 : (el.adjust?.vignette ?? 0) / 100;
       if (vignette > 0) {
         const r = Math.hypot(iw, ih) / 2;

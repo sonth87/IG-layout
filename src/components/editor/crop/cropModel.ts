@@ -1,4 +1,4 @@
-import { clampView, covers, cropWindow, fromView, pictureCorners, rotatePoint, toView, type CropView, type Size } from "@/lib/project/cropView";
+import { clampView, covers, cropWindow, fromView, pictureCorners, rotatePoint, toView, type CropView, type Size, type Tilt } from "@/lib/project/cropView";
 import type { ImageAsset, ImageElement } from "@/lib/project/types";
 import { updateEl, useEditor } from "@/store/editor";
 
@@ -24,18 +24,22 @@ export function windowResizable(el: ImageElement) {
   return !el.parentId && !el.slot && (el.frame ?? "none") === "none";
 }
 
+export const tiltOf = (el: Pick<ImageElement, "tiltX" | "tiltY">): Tilt => ({ x: el.tiltX ?? 0, y: el.tiltY ?? 0 });
+
 export function viewOf(el: ImageElement, asset: ImageAsset) {
   const win = cropWindow(el);
   return { win, view: toView(el, win, picSize(asset)) };
 }
 
-/** Writes a view (and optionally a new window) back into the draft. */
-export function writeView(el: ImageElement, asset: ImageAsset, view: CropView, frame?: { width: number; height: number; x: number; y: number }) {
+/** Writes a view (and optionally a new window / tilt) back into the draft, covering the window. */
+export function writeView(el: ImageElement, asset: ImageAsset, view: CropView, frame?: { width: number; height: number; x: number; y: number }, tilt?: Tilt) {
   const geom = frame ? { ...el, ...frame } : el;
   const win = cropWindow(geom);
-  const v = clampView(view, win, picSize(asset));
+  const t = tilt ?? tiltOf(el);
+  const v = clampView(view, win, picSize(asset), t);
   const stored = fromView(v, el, win, picSize(asset));
-  useEditor.getState().updateDraft((d) => updateEl(d, el.id, { ...stored, ...(frame ?? {}) }));
+  const tiltPatch = tilt ? { tiltX: tilt.x, tiltY: tilt.y } : {};
+  useEditor.getState().updateDraft((d) => updateEl(d, el.id, { ...stored, ...(frame ?? {}), ...tiltPatch }));
 }
 
 /** Canvas point → the window's own axes (origin at the window centre). */
@@ -113,13 +117,14 @@ export function resizeWindow(start: { el: ImageElement; view: CropView; pic: Siz
     const win = { width: r - l, height: b - tp };
     return { win, o, v: { ...view, px: view.px - o.x, py: view.py - o.y } };
   };
+  const tilt = tiltOf(el);
   let t = 1;
-  if (!covers(at(1).v, at(1).win, pic)) {
+  if (!covers(at(1).v, at(1).win, pic, tilt)) {
     let lo = 0;
     let hi = 1;
     for (let i = 0; i < 14; i++) {
       const mid = (lo + hi) / 2;
-      if (covers(at(mid).v, at(mid).win, pic)) lo = mid;
+      if (covers(at(mid).v, at(mid).win, pic, tilt)) lo = mid;
       else hi = mid;
     }
     t = lo;

@@ -344,6 +344,8 @@ export const vi: Record<MessageKey, string> = {
   "mask.blob": "Tự do",
 
   "crop.ratio": "Tỉ lệ khung",
+  "crop.tiltX": "Dọc",
+  "crop.tiltY": "Ngang",
   "crop.free": "Tự do",
   "crop.frame": "Theo khung",
   "crop.original": "Gốc",
