@@ -75,6 +75,9 @@ interface EditorState {
   setMusic: (music: Music | null, asset?: ImageAsset) => void;
   /** Freehand drawing in progress (M11): strokes in canvas pixels, not in the doc yet. */
   drawing: { color: string; size: number; strokes: number[][] } | null;
+  /** Image being cropped on the canvas (D-111): the stage hands its gestures to the crop layer. */
+  cropping: string | null;
+  setCropping: (id: string | null) => void;
   startDrawing: () => void;
   setDrawing: (patch: Partial<{ color: string; size: number }>) => void;
   addStroke: (points: number[]) => void;
@@ -159,6 +162,7 @@ const EMPTY = {
   currentSlide: 0,
   canvas: null,
   drawing: null,
+  cropping: null,
 } satisfies Partial<EditorState>;
 
 /** The doc to display: the tool draft while a tool is open, else the committed doc. */
@@ -295,6 +299,7 @@ export const useEditor = create<EditorState>()((set, get) => {
       });
     },
 
+    setCropping: (id) => set({ cropping: id }),
     startDrawing: () => set({ drawing: { color: "#1d1c1a", size: 12, strokes: [] }, selectedId: null }),
     setDrawing: (patch) => set((s) => (s.drawing ? { drawing: { ...s.drawing, ...patch } } : {})),
     addStroke: (points) => set((s) => (s.drawing ? { drawing: { ...s.drawing, strokes: [...s.drawing.strokes, points] } } : {})),
