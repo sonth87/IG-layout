@@ -92,8 +92,8 @@ await shot(page, "1-mask-style");
 
 console.log("5. Crop 1:1 + straighten");
 await page.getByRole("button", { name: "Crop" }).click();
-await page.getByRole("button", { name: "1:1" }).click();
-await page.getByRole("slider").fill("10");
+await page.getByRole("radio", { name: "1:1" }).click();
+await page.getByRole("slider", { name: "Straighten" }).fill("10");
 await shot(page, "2-crop");
 await page.getByLabel("Apply").click();
 st = await state();

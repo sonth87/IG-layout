@@ -344,6 +344,7 @@ export const en = {
   "mask.hexagon": "Hexagon",
   "mask.blob": "Blob",
 
+  "crop.ratio": "Window ratio",
   "crop.free": "Free",
   "crop.frame": "Frame",
   "crop.original": "Original",

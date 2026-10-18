@@ -69,8 +69,8 @@ check(p.filter?.id === "classic" && p.adjust.exposure === 30 && st.past === past
 
 console.log("Crop (§6)");
 await page.getByRole("button", { name: "Crop", exact: true }).click();
-await page.getByRole("button", { name: "4:5", exact: true }).click();
-await page.getByRole("slider").fill("10");
+await page.getByRole("radio", { name: "4:5", exact: true }).click();
+await page.getByRole("slider", { name: "Straighten" }).fill("10");
 await page.getByLabel("Apply").click();
 st = await S();
 p = st.doc.elements.find((e) => e.id === photo.id);

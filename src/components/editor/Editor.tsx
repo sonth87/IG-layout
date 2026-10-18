@@ -27,7 +27,9 @@ import { BlockAdjustTool, BlockLayoutTool } from "./tools/BlockTools";
 import { FillFrameSheet } from "./FillFrameSheet";
 import { fillTargets, MAX_FREE_PHOTOS } from "@/lib/project/fill";
 import { SlideControls } from "./SlideControls";
-import { CropTool } from "./tools/CropTool";
+import { CropGestures } from "./crop/CropGestures";
+import { rotatedBounds } from "@/lib/project/geometry";
+import { CropPanel, ratioAspect, type RatioKey } from "./crop/CropPanel";
 import { DrawTool } from "./tools/DrawTool";
 import { SoundTool } from "./tools/SoundTool";
 import { TrimTool } from "./tools/TrimTool";
@@ -293,6 +295,38 @@ export function Editor({ onClose }: { onClose: () => void }) {
     .map((id) => assets[id])
     .filter((a): a is ImageAsset => !!a);
 
+  // Cropping on the canvas (D-111): the crop layer takes the gestures; the view zooms to the
+  // photo (with room around it for the rest of the picture) and comes back afterwards.
+  const cropId = tool === "crop" && selected?.type === "image" ? selected.id : null;
+  const cropSaved = useRef<{ zoom: number | null; left: number; top: number } | null>(null);
+  useEffect(() => {
+    store.setCropping(cropId);
+    const area = areaRef.current;
+    if (!area || !ready) return;
+    const el = cropId ? doc.elements.find((e) => e.id === cropId) : undefined;
+    if (el) {
+      cropSaved.current ??= { zoom: userZoom, left: area.scrollLeft, top: area.scrollTop };
+      const b = rotatedBounds(el);
+      const z = Math.max(minZoom, Math.min(MAX_ZOOM, (areaSize.width * 0.62) / (b.width * baseScale), (areaSize.height * 0.62) / (b.height * baseScale)));
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- zoom follows the tool being opened
+      setEasing(null);
+      setUserZoom(z);
+      requestAnimationFrame(() => {
+        const sc = baseScale * z;
+        const o = originFor(sc);
+        area.scrollTo({ left: o.x + (b.x + b.width / 2) * sc - area.clientWidth / 2, top: o.y + (b.y + b.height / 2) * sc - area.clientHeight / 2 });
+      });
+    } else if (cropSaved.current) {
+      const saved = cropSaved.current;
+      cropSaved.current = null;
+      setUserZoom(saved.zoom);
+      requestAnimationFrame(() => area.scrollTo({ left: saved.left, top: saved.top }));
+    }
+    // Only when cropping starts / stops, or the space above the bar changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cropId, ready, areaSize.width, areaSize.height]);
+  const [cropRatio, setCropRatio] = useState<RatioKey>("free");
+
   /** Scrolls the canvas area so a point (export px) is centred, if it isn't visible. */
   function reveal(x: number, y: number, force = false) {
     const area = areaRef.current;
@@ -532,6 +566,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         {typingMode === "align" && <TextAlignPanel elementId={editingText} />}
       </div>
     );
+  else if (tool === "crop" && selected) bottom = <CropPanel elementId={selected.id} ratio={cropRatio} onRatio={setCropRatio} onClose={close} />;
   else if (tool === "blockLayout" && selected)
     bottom = <BlockLayoutTool elementId={selected.id} onClose={close} onOutside={(n) => showNotice(t("block.outside", { count: n }))} />;
   else if (tool === "blockAdjust" && selected) bottom = <BlockAdjustTool elementId={selected.id} onClose={close} />;
@@ -737,6 +772,9 @@ export function Editor({ onClose }: { onClose: () => void }) {
                   }}
                   onFit={fitAll}
                 />
+                {cropId && (
+                  <CropGestures id={cropId} aspect={ratioAspect(cropRatio, selected?.type === "image" && selected.assetId ? assets[selected.assetId] : undefined)} />
+                )}
                 {!sheetOpen && !editingText && <FloatingMenu scrollRef={areaRef} onMore={() => setTool("more")} />}
                 {editingText && (
                   <InlineText elementId={editingText} origin={origin} viewScale={viewScale} scrollRef={areaRef} active={typingMode === "type"} />
@@ -960,7 +998,6 @@ export function Editor({ onClose }: { onClose: () => void }) {
         />
       )}
       {tool === "layers" && <LayersSheet onClose={close} />}
-      {tool === "crop" && selected && <CropTool elementId={selected.id} onClose={close} />}
       {tool === "trim" && selected && <TrimTool elementId={selected.id} onClose={close} />}
       {tool === "library" && <LibrarySheet kind={library} onClose={close} onNotice={showNotice} />}
       {tool === "preview" && <PreviewScreen onClose={close} />}

@@ -15,6 +15,7 @@ import { panCrop, wholePicture } from "@/lib/project/blocks";
 import { endFollow, type Follow, follow, startFollow } from "./followers";
 import { LayoutNode } from "./LayoutNode";
 import { FrameArtNode } from "./FrameArtNode";
+import { CropLayer } from "../crop/CropLayer";
 import { elementOf, tapResult } from "./selection";
 import { useSettings } from "@/store/settings";
 import { useEditor, useViewDoc } from "@/store/editor";
@@ -383,6 +384,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   const guidesRef = useRef<Konva.Group>(null);
   const rulerRef = useRef<Konva.Group>(null);
   const drawing = useEditor((s) => s.drawing);
+  const cropping = useEditor((s) => s.cropping);
   const addStroke = useEditor((s) => s.addStroke);
   /** Stroke being drawn (M11): drawn live into a Konva line, saved on release. */
   const liveRef = useRef<Konva.Shape>(null);
@@ -499,8 +501,9 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   // The native pinch listeners call this render's handlers. They are function
   // declarations further down (hoisted), only called after this render has finished.
   useLayoutEffect(() => {
+    // Cropping (D-111): the crop layer owns every gesture, the canvas doesn't zoom.
     // eslint-disable-next-line react-hooks/immutability
-    touchRef.current = { move: onTouchMove, end: onTouchEnd };
+    touchRef.current = cropping ? null : { move: onTouchMove, end: onTouchEnd };
   });
 
   if (!doc) return null;
@@ -938,7 +941,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     >
       {/* Content layer: exactly what gets exported. */}
       {/* The stage also covers the margins around the canvas: clip to the canvas. */}
-      <Layer ref={contentLayerRef} clipX={0} clipY={0} clipWidth={width} clipHeight={height} listening={!drawing}>
+      <Layer ref={contentLayerRef} clipX={0} clipY={0} clipWidth={width} clipHeight={height} listening={!drawing && !cropping}>
         <BackgroundNode background={doc.background} width={width} height={height} />
         {doc.elements.map((el) => {
           const hooks = { onDragMove, onDragEnd };
@@ -1055,7 +1058,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
           />
         )}
         <SelectionTransformer
-          selected={selected}
+          selected={cropping ? undefined : selected}
           viewScale={viewScale}
           onRotate={showAngle}
           onRuler={showRuler}
@@ -1068,6 +1071,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
           <Text text="" fill="#ffffff" fontSize={14} fontStyle="700" padding={7} offsetX={0} />
         </Label>
       </Layer>
+      {cropping && <CropLayer id={cropping} viewScale={viewScale} />}
     </Stage>
   );
 }

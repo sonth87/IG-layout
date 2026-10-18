@@ -343,6 +343,7 @@ export const vi: Record<MessageKey, string> = {
   "mask.hexagon": "Lục giác",
   "mask.blob": "Tự do",
 
+  "crop.ratio": "Tỉ lệ khung",
   "crop.free": "Tự do",
   "crop.frame": "Theo khung",
   "crop.original": "Gốc",
