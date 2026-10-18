@@ -145,6 +145,45 @@ await page.getByRole("region", { name: "Crop" }).getByLabel("Apply").click();
 st = await S();
 check(st.past === past0 + 1 && el(st, free.id).straighten === 8, "✓: one step");
 
+console.log("3D tilt (part 2)");
+await page.evaluate((id) => window.__igEditor.getState().select(id), free.id);
+await page.waitForTimeout(200);
+await page.getByRole("button", { name: "Crop", exact: true }).click();
+await page.waitForTimeout(400);
+e0 = el(await S(), free.id);
+await page.getByRole("slider", { name: "Vertical" }).fill("18");
+await page.getByRole("slider", { name: "Horizontal" }).fill("-12");
+await page.waitForTimeout(300);
+e1 = el(await S(), free.id);
+check(e1.tiltX === 18 && e1.tiltY === -12, "tilt saved");
+check(e1.crop.width < e0.crop.width, `zoomed up to stay covered (${e0.crop.width.toFixed(0)} → ${e1.crop.width.toFixed(0)})`);
+await page.screenshot({ path: path.join(OUT, "crop-tilt.png") });
+// Drag far: it stops at the edge (checked below: no gap at the window corners).
+a = await toPage(e1.x + e1.width / 2, e1.y + e1.height / 2);
+await drag(a, { x: a.x + 600, y: a.y + 600 });
+
+await page.getByRole("region", { name: "Crop" }).getByLabel("Apply").click();
+await page.waitForTimeout(400);
+await page.screenshot({ path: path.join(OUT, "crop-tilt-applied.png") });
+// The drawn photo has no gap: sample the window corners on the content layer.
+const gaps = await page.evaluate((id) => {
+  const s = window.__igEditor.getState();
+  const e = s.doc.elements.find((x) => x.id === id);
+  const layer = s.canvas.layer;
+  const canvas = layer.getCanvas()._canvas;
+  const st = layer.getStage();
+  const ratio = canvas.width / st.width();
+  const bg = [];
+  for (const [fx, fy] of [[0.03, 0.03], [0.97, 0.03], [0.97, 0.97], [0.03, 0.97]]) {
+    const x = (st.x() + (e.x + e.width * fx) * st.scaleX()) * ratio;
+    const y = (st.y() + (e.y + e.height * fy) * st.scaleY()) * ratio;
+    const d = canvas.getContext("2d").getImageData(Math.round(x), Math.round(y), 1, 1).data;
+    bg.push(d[3]);
+  }
+  return bg;
+}, free.id);
+check(gaps.every((a) => a > 200), `no gap at the window corners after tilting (alpha ${gaps.join(", ")})`);
+
 console.log("A cell keeps its window");
 const cell = st.doc.elements.find((e) => e.type === "image" && e.parentId && e.assetId);
 if (cell) {

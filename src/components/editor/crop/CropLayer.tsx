@@ -1,10 +1,12 @@
 "use client";
 
+import { useRef } from "react";
 import { Group, Layer, Shape } from "react-konva";
-import { cropWindow, toView } from "@/lib/project/cropView";
+import { warpInto } from "@/lib/image/warp";
+import { cropWindow, project, screenToPicture, tilted, toView } from "@/lib/project/cropView";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useHtmlImage } from "../canvas/useHtmlImage";
-import { picSize, pictureHandles, windowHandles, windowResizable } from "./cropModel";
+import { picSize, pictureHandles, tiltOf, windowHandles, windowResizable } from "./cropModel";
 
 const ACCENT = "#f2b84b";
 
@@ -20,7 +22,10 @@ export function CropLayer({ id, viewScale }: { id: string; viewScale: number }) 
   const el = found?.type === "image" ? found : undefined;
   const asset = useEditor((s) => (el?.assetId ? s.assets[el.assetId] : undefined));
   const image = useHtmlImage(asset?.video ? asset.video.posterUrl : asset?.url);
+  const warpOut = useRef<HTMLCanvasElement | null>(null);
   if (!el || !asset) return null;
+  const tilt = tiltOf(el);
+  const isTilted = tilted(tilt);
   const win = cropWindow(el);
   const pic = picSize(asset);
   const view = toView(el, win, pic);
@@ -38,6 +43,17 @@ export function CropLayer({ id, viewScale }: { id: string; viewScale: number }) 
               const hh = win.height / 2;
               const drawPicture = () => {
                 if (!image) return;
+                if (isTilted) {
+                  // The tilted picture: drawn through its homography over a region around the window.
+                  const ext = { x: -win.width * 2, y: -win.height * 2, width: win.width * 4, height: win.height * 4 };
+                  const res = Math.min(2048 / Math.max(ext.width, ext.height), viewScale * (window.devicePixelRatio || 1));
+                  const out = (warpOut.current ??= document.createElement("canvas"));
+                  out.width = Math.max(1, Math.round(ext.width * res));
+                  out.height = Math.max(1, Math.round(ext.height * res));
+                  const map = screenToPicture(view, el, win, pic, tilt, ext, { width: out.width, height: out.height });
+                  if (warpInto(out, image, pic, map)) c.drawImage(out, ext.x, ext.y, ext.width, ext.height);
+                  return;
+                }
                 c.save();
                 c.translate(view.px, view.py);
                 c.rotate((view.theta * Math.PI) / 180);
@@ -77,7 +93,7 @@ export function CropLayer({ id, viewScale }: { id: string; viewScale: number }) 
               c.restore();
 
               // The picture's outline and zoom handles.
-              const hs = pictureHandles(view, pic);
+              const hs = pictureHandles(view, pic).map((p) => project(p, tilt, win));
               c.strokeStyle = ACCENT;
               c.lineWidth = 1.5 * px;
               c.beginPath();

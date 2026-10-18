@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import { clampView, cropWindow, type CropView, type Size } from "@/lib/project/cropView";
+import { clampView, cropWindow, unproject, type CropView, type Size } from "@/lib/project/cropView";
 import type { ImageElement } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
-import { cropTarget, oppositeHandle, picSize, pictureHandles, resizeWindow, toWindow, viewOf, windowHandles, windowResizable, writeView } from "./cropModel";
+import { cropTarget, oppositeHandle, picSize, pictureHandles, resizeWindow, tiltOf, toWindow, viewOf, windowHandles, windowResizable, writeView } from "./cropModel";
 
 // Gestures while cropping (D-111), on a layer over the stage so nothing else (scrolling,
 // selecting, the canvas pinch) reacts:
@@ -54,19 +54,23 @@ export function CropGestures({ id, aspect }: { id: string; aspect: number | null
     const { win, view } = viewOf(t.el, t.asset);
     const pic = picSize(t.asset);
     const scale = useEditor.getState().canvas?.layer.getStage()?.scaleX() ?? 1;
+    // The picture lives on its (tilted) plane: its gestures are measured there.
+    const flat = (q: { x: number; y: number }) => unproject(toWindow(t.el, q), tiltOf(t.el), win);
     if (pts.length >= 2) {
-      const a = toWindow(t.el, pts[0]);
-      const b = toWindow(t.el, pts[1]);
+      const a = flat(pts[0]);
+      const b = flat(pts[1]);
       state.current = { start: { el: t.el, view, win, pic, p: a }, mode: { kind: "pinch", d0: Math.hypot(b.x - a.x, b.y - a.y) || 1, c0: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 } } };
       return;
     }
     const p = toWindow(t.el, pts[0]);
+    const pf = flat(pts[0]);
     const tol = GRAB / scale;
-    const start = { el: t.el, view, win, pic, p };
+    const start = { el: t.el, view, win, pic, p: pf };
     const near = (h: { x: number; y: number }) => Math.hypot(h.x - p.x, h.y - p.y);
     const wh = windowResizable(t.el) ? windowHandles(win).filter((h) => near(h) < tol).sort((a, b) => near(a) - near(b))[0] : undefined;
     const hs = pictureHandles(view, pic);
-    const order = hs.map((h, i) => ({ h, i })).filter(({ h }) => near(h) < tol).sort((a, b) => near(a.h) - near(b.h));
+    const nearFlat = (h: { x: number; y: number }) => Math.hypot(h.x - pf.x, h.y - pf.y);
+    const order = hs.map((h, i) => ({ h, i })).filter(({ h }) => nearFlat(h) < tol).sort((a, b) => nearFlat(a.h) - nearFlat(b.h));
     const ph = order[0] ? { handle: order[0].h, anchor: hs[oppositeHandle(order[0].i)] } : undefined;
     if (wh && ph) return (state.current = { start, mode: { kind: "either", window: { sx: wh.sx, sy: wh.sy }, picture: ph } });
     if (wh) return (state.current = { start, mode: { kind: "window", sx: wh.sx, sy: wh.sy } });
@@ -78,20 +82,22 @@ export function CropGestures({ id, aspect }: { id: string; aspect: number | null
     const s = state.current;
     const t = cropTarget(id);
     if (!s || !t) return;
-    const pts = [...pointers.current.values()].map((p) => toWindow(s.start.el, p));
     const { start } = s;
+    const screen = [...pointers.current.values()].map((p) => toWindow(start.el, p));
+    const pts = screen.map((p) => unproject(p, tiltOf(start.el), start.win));
     let mode = s.mode;
     if (mode.kind === "either") {
       // Outwards (away from the window's middle) the window can't grow past the picture: zoom it.
       const dx = pts[0].x - start.p.x;
       const dy = pts[0].y - start.p.y;
+      // (on the plane; close enough to the screen direction for the in / out choice)
       if (Math.hypot(dx, dy) * (useEditor.getState().canvas?.layer.getStage()?.scaleX() ?? 1) < 4) return;
       const out = dx * mode.window.sx * start.win.width + dy * mode.window.sy * start.win.height > 0;
       mode = out ? { kind: "picture", ...mode.picture } : { kind: "window", ...mode.window };
       s.mode = mode;
     }
     if (mode.kind === "window") {
-      const r = resizeWindow(start, mode, pts[0], aspect);
+      const r = resizeWindow(start, mode, screen[0], aspect);
       return writeView(t.el, t.asset, r.view, r.frame);
     }
     let v: CropView = start.view;
@@ -105,7 +111,7 @@ export function CropGestures({ id, aspect }: { id: string; aspect: number | null
       const c = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
       v = { ...v, z: v.z * k, px: c.x + (v.px - mode.c0.x) * k, py: c.y + (v.py - mode.c0.y) * k };
     }
-    writeView(t.el, t.asset, clampView(v, cropWindow(t.el), start.pic));
+    writeView(t.el, t.asset, clampView(v, cropWindow(t.el), start.pic, tiltOf(t.el)));
   }
 
   return (

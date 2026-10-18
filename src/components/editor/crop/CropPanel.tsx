@@ -5,7 +5,7 @@ import { clampView, cropWindow, minZoom } from "@/lib/project/cropView";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { Slider, ToolSheet } from "../tools/controls";
-import { picSize, viewOf, windowResizable, writeView } from "./cropModel";
+import { picSize, tiltOf, viewOf, windowResizable, writeView } from "./cropModel";
 
 export type RatioKey = "free" | "original" | "1:1" | "2:3" | "3:4" | "4:3" | "4:5" | "9:16" | "16:9";
 const FIXED: Partial<Record<RatioKey, number>> = { "1:1": 1, "2:3": 2 / 3, "3:4": 3 / 4, "4:3": 4 / 3, "4:5": 4 / 5, "9:16": 9 / 16, "16:9": 16 / 9 };
@@ -33,6 +33,11 @@ export function CropPanel({ elementId, ratio, onRatio, onClose }: { elementId: s
     const { view } = viewOf(el, asset);
     writeView(el, asset, { ...view, theta: deg });
   };
+  /** 3D tilt (D-111 part 2): the picture zooms up as needed to keep covering the window. */
+  const tiltTo = (axis: "x" | "y", deg: number) => {
+    const { view } = viewOf(el, asset);
+    writeView(el, asset, view, undefined, { ...tiltOf(el), [axis]: deg });
+  };
   /** The window takes a shape, inside the current one, around the same centre. */
   const shape = (key: RatioKey) => {
     onRatio(key);
@@ -46,7 +51,7 @@ export function CropPanel({ elementId, ratio, onRatio, onClose }: { elementId: s
   const reset = () => {
     const win = cropWindow(el);
     patchDraft(el.id, { flipX: false, flipY: false });
-    writeView({ ...el, flipX: false, flipY: false }, asset, clampView({ z: minZoom(0, win, pic), theta: 0, px: 0, py: 0 }, win, pic));
+    writeView({ ...el, flipX: false, flipY: false }, asset, clampView({ z: minZoom(0, win, pic), theta: 0, px: 0, py: 0 }, win, pic), undefined, { x: 0, y: 0 });
   };
   const button = "flex h-14 flex-1 flex-col items-center justify-center gap-1 text-[11px]";
   const pill = (active: boolean) => `h-9 shrink-0 rounded-full px-3 text-[13px] ${active ? "bg-text font-bold text-bg" : "border border-border"}`;
@@ -64,6 +69,8 @@ export function CropPanel({ elementId, ratio, onRatio, onClose }: { elementId: s
       }}
     >
       <Slider label={t("tool.straighten")} value={el.straighten} min={-45} max={45} step={0.5} defaultValue={0} format={(v) => `${v}°`} onChange={turn} />
+      <Slider label={t("crop.tiltX")} value={el.tiltX ?? 0} min={-25} max={25} step={0.5} defaultValue={0} format={(v) => `${v}°`} onChange={(v) => tiltTo("x", v)} />
+      <Slider label={t("crop.tiltY")} value={el.tiltY ?? 0} min={-25} max={25} step={0.5} defaultValue={0} format={(v) => `${v}°`} onChange={(v) => tiltTo("y", v)} />
       {resizable && (
         <div role="radiogroup" aria-label={t("crop.ratio")} className="no-scrollbar flex gap-2 overflow-x-auto py-1.5">
           {RATIOS.map((r) => (

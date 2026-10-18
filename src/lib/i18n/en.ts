@@ -345,6 +345,8 @@ export const en = {
   "mask.blob": "Blob",
 
   "crop.ratio": "Window ratio",
+  "crop.tiltX": "Vertical",
+  "crop.tiltY": "Horizontal",
   "crop.free": "Free",
   "crop.frame": "Frame",
   "crop.original": "Original",
