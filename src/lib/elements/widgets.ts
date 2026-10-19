@@ -13,7 +13,7 @@ import { drawClock, CLOCK_VARIANTS } from "./widgetClock";
 import { activityRings, chatLook, checklistLook, coupon, emojiSlider, exifLook, habit, hashtagLook, likeCount, mentionLook, moodFaces, notificationLook, pollLook, priceLook, progressLook, questionLook, receiptLook, recipeLook, runSummary, searchLook, sleep, starsLook, stepsLook, water } from "./widgetLooksB";
 import { calendarLook, countdownLook, musicLook, quoteLook, weatherLook } from "./widgetLooksA";
 import { boardingPassLook, booking, flightRoute, luggageTag, passport, passportStamp } from "./widgetTravel";
-import { C, card, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
+import { airliner, C, card, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
 
 export const CARD_WIDGETS = [
   "clock",
@@ -1147,29 +1147,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     // Plane between the codes on a dotted path.
     const mid = w / 2;
     dashed(c, mid - 80, y + 42, mid + 80, pal.line, 3, [6, 8]);
-    c.save();
-    c.translate(mid, y + 42);
-    c.fillStyle = pal.ac;
-    c.beginPath();
-    c.moveTo(24, 0);
-    c.lineTo(-8, -6);
-    c.lineTo(-18, -24);
-    c.lineTo(-24, -24);
-    c.lineTo(-18, -5);
-    c.lineTo(-26, -4);
-    c.lineTo(-32, -12);
-    c.lineTo(-36, -12);
-    c.lineTo(-32, 0);
-    c.lineTo(-36, 12);
-    c.lineTo(-32, 12);
-    c.lineTo(-26, 4);
-    c.lineTo(-18, 5);
-    c.lineTo(-24, 24);
-    c.lineTo(-18, 24);
-    c.lineTo(-8, 6);
-    c.closePath();
-    c.fill();
-    c.restore();
+    airliner(c, mid, y + 42, 56, 0, pal.ac);
     y += 84;
     text(c, f.fromCity, P, y, { size: 22, weight: 500, color: pal.sub, lh: 30 / 22 }, 250);
     text(c, f.toCity, w - P, y, { size: 22, weight: 500, color: pal.sub, align: "right", lh: 30 / 22 }, 250);

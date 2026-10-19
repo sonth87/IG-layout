@@ -322,3 +322,38 @@ export function dateOf(f: F): Date {
 
 /** Whether the widget's texts are Vietnamese (draw functions do not get the locale). */
 export const isVi = (...s: (string | undefined)[]) => /[ăâđêôơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]|tháng|thứ|chủ nhật/i.test(s.join(" "));
+
+/**
+ * A passenger plane seen from above, nose to +x (owner, 2026-10-19: the old one looked like
+ * a fighter jet): long round-nosed body, gently swept wings with two engines, small tail.
+ */
+export function airliner(c: C, x: number, y: number, size: number, angle: number, color: string) {
+  c.save();
+  c.translate(x, y);
+  c.rotate(angle);
+  c.scale(size / 48, size / 48);
+  c.fillStyle = color;
+  c.beginPath();
+  // Body.
+  c.roundRect(-23, -3, 47, 6, 3);
+  for (const s of [-1, 1]) {
+    // Main wing.
+    c.moveTo(7, s * 2.5);
+    c.lineTo(-7, s * 23);
+    c.lineTo(-11.5, s * 23);
+    c.lineTo(-4, s * 2.5);
+    c.closePath();
+    // Tail wing.
+    c.moveTo(-15, s * 2);
+    c.lineTo(-21, s * 9.5);
+    c.lineTo(-24, s * 9.5);
+    c.lineTo(-21, s * 2);
+    c.closePath();
+  }
+  c.fill();
+  // Engines under the wings.
+  c.beginPath();
+  for (const s of [-1, 1]) c.roundRect(1.5, s * 9.5 - 1.8, 7.5, 3.6, 1.8);
+  c.fill();
+  c.restore();
+}

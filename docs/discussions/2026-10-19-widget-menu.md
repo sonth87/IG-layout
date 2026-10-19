@@ -304,3 +304,21 @@ Mỗi loại hiện đủ các kiểu.
 | Khác | **Công thức**: thẻ, thẻ kẻ dòng, tối giản. **Thông số máy ảnh**: dải phim, khung ngắm, một dòng |
 
 Chưa làm (để sau, nếu cần): mã quét, lời bài hát, vé tàu / xe.
+
+
+## Sửa: hình máy bay (2026-10-19)
+
+Chủ dự án: "icon máy bay đang dùng hình như là máy bay chiến đấu".
+
+Đổi thành **máy bay chở khách nhìn từ trên**:
+
+- thân dài, mũi tròn;
+- cánh vuốt nhẹ, mỗi bên một động cơ treo dưới cánh;
+- cánh đuôi nhỏ.
+
+Hình dùng chung (`airliner` trong `widgetKit.ts`) cho:
+
+- vé máy bay (mọi kiểu);
+- đường bay;
+- dấu hộ chiếu;
+- thẻ hành lý.

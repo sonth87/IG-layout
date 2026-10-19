@@ -1,6 +1,6 @@
 // Travel widgets (D-120): boarding pass, flight route (line, dotted map, globe, dark card),
 // booking confirmed, passport cover, passport stamp, luggage tag — each in several looks.
-import { type C, type F, type Pal, MONO, SANS, SERIF, card, dashed, fillRR, rr, text, textW, wrap, drawLines, linesH, type TextOpts } from "./widgetKit";
+import { type C, type F, type Pal, MONO, SANS, SERIF, airliner, card, dashed, fillRR, rr, text, textW, wrap, drawLines, linesH, type TextOpts } from "./widgetKit";
 
 type Size = { w: number; h: number };
 const P = 36;
@@ -74,34 +74,8 @@ function isLand(lat: number, lon: number) {
 
 // ---------------------------------------------------------------- shared bits
 
-/** A plane seen from above, nose to +x. */
-function plane(c: C, x: number, y: number, size: number, angle: number, color: string) {
-  c.save();
-  c.translate(x, y);
-  c.rotate(angle);
-  c.scale(size / 48, size / 48);
-  c.fillStyle = color;
-  c.beginPath();
-  c.moveTo(24, 0);
-  c.lineTo(-8, -6);
-  c.lineTo(-18, -24);
-  c.lineTo(-24, -24);
-  c.lineTo(-18, -5);
-  c.lineTo(-26, -4);
-  c.lineTo(-32, -12);
-  c.lineTo(-36, -12);
-  c.lineTo(-32, 0);
-  c.lineTo(-36, 12);
-  c.lineTo(-32, 12);
-  c.lineTo(-26, 4);
-  c.lineTo(-18, 5);
-  c.lineTo(-24, 24);
-  c.lineTo(-18, 24);
-  c.lineTo(-8, 6);
-  c.closePath();
-  c.fill();
-  c.restore();
-}
+/** A plane seen from above, nose to +x: the passenger plane of the kit. */
+const plane = airliner;
 
 /** A dashed arc from a to b bulging by `lift`, with the plane at its middle. */
 function route(c: C, a: { x: number; y: number }, b: { x: number; y: number }, lift: number, color: string, width: number, planeSize: number) {
