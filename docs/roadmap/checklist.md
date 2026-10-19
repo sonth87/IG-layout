@@ -492,4 +492,5 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] (Claude) Sheet Sticker: emoji 2 dòng + "+N" (mở danh sách chia tab); "Dùng gần đây" 1 dòng + "+N", sửa ảnh lỗi với emoji; mọi lớp phủ gộp vào "Light & texture"; nhóm "Nổi bật" lấy thêm mục gắn `featured`
 - [x] (Claude) Bộ sinh băng dính (60: washi hoạ tiết, băng trong có bọt khí, băng giấy, băng vải tưa, băng kraft, băng nhũ; đầu xé / cắt thẳng / cắt xéo / răng cưa; dài, rộng, cong, nếp nhăn) và giấy note (40: vuông / dọc / ngang / dải; kẻ dòng / ô / chấm; góc quăn / góc gấp / mép cong / xé từ tập; bóng khác nhau)
 - [x] (Claude) Thêm nhiều widget — 22 widget dạng thẻ (D-114): vẽ trên canvas, sửa chữ / kiểu Sáng·Tối·Màu / màu nhấn, cao tự theo nội dung; sheet chia nhóm Chữ · Mạng xã hội · Thông tin · Kỷ niệm (e2e widgets.mjs)
+- [x] Góp ý 19/10 (2): widget sửa được ngay khi chạm vào thẻ đang chọn (ngoài nút **Sửa widget** trên thanh công cụ); phần tử kéo ra ngoài canvas vẫn thấy (mờ), chỉ không có khi xuất (D-115, e2e widgets.mjs)
 - [ ] (Claude) M21 — bắt đầu từ 120 filter (G7)

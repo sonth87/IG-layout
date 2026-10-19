@@ -13,14 +13,19 @@ import type { CanvasElement, ProjectDoc } from "@/lib/project/types";
 
 export interface TapResult {
   select: string | null;
-  action?: "fill" | "editText";
+  action?: "fill" | "editText" | "editWidget";
 }
 
 export function tapResult(doc: Pick<ProjectDoc, "elements">, selectedId: string | null, hitId: string | null, onPlus: boolean): TapResult {
   const el = hitId ? doc.elements.find((e) => e.id === hitId) : undefined;
   if (!el) return { select: null };
   if (el.type === "image" && !el.assetId && onPlus && (el.parentId || el.fromLayout || selectedId === el.id)) return { select: el.id, action: "fill" };
-  if (selectedId === el.id) return el.type === "text" ? { select: el.id, action: "editText" } : { select: el.id };
+  if (selectedId === el.id) {
+    if (el.type === "text") return { select: el.id, action: "editText" };
+    // A card widget opens its edit sheet, like a text starts typing (D-114).
+    if (el.type === "icon" && el.widget) return { select: el.id, action: "editWidget" };
+    return { select: el.id };
+  }
   const selected = selectedId ? doc.elements.find((e) => e.id === selectedId) : undefined;
   if (el.parentId && (selectedId === el.parentId || selected?.parentId === el.parentId)) {
     // Inside the selected block a cell is selectable, empty or not; only its "+" also opens
