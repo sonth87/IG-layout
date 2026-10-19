@@ -20,7 +20,7 @@ export function useNodeHandlers(
   _hooks: DragHooks,
   onResize?: (scale: number) => Partial<CanvasElement>,
 ) {
-  const updateElement = useEditor((s) => s.updateElement);
+  const updateElement = useEditor((s) => s.updateLive);
   const w = el.width;
   const h = el.height;
 
