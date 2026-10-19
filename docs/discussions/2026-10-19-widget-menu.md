@@ -270,3 +270,37 @@ Hiểu như sau (chưa làm, chờ có đủ sticker, ví dụ bộ Du lịch):
   - **Màu** (cho sticker đơn sắc).
 - Watermark mặc định phủ cả slide, độ mờ thấp, có thể khoá.
 - **Tách ra**: biến cụm thành các sticker rời để chỉnh từng cái.
+
+
+## Đợt 2 — các loại còn lại: đã làm (D-121, D-122)
+
+Sheet Widget xếp theo loại:
+
+- Chữ
+- Đồng hồ
+- Lịch
+- Thời tiết
+- Du lịch
+- Mạng xã hội
+- Âm nhạc
+- Trích dẫn
+- Thể thao
+- Mua sắm
+- Việc cần làm
+- Khác
+
+Mỗi loại hiện đủ các kiểu.
+
+| Loại | Widget: kiểu (mới = widget thêm trong đợt này) |
+| --- | --- |
+| Lịch | **Ngày**: tờ lịch xé, viên, lịch để bàn, tháng (khoanh ngày), dải tuần, số lớn, dấu ngày máy phim. **Đếm ngược**: thẻ, số lớn, vòng, số lật, viên |
+| Thời tiết | thẻ, bầu trời (màu theo biểu tượng: nắng, mây, mưa, đêm, tuyết), kính mờ, số lớn, viên, biểu tượng lớn, nhiệt kế |
+| Mạng xã hội | **Bình chọn**: thanh, nút lớn, tối giản. **Hỏi đáp**: thẻ, bong bóng. **Thanh trượt emoji** (mới): thẻ, tối giản. **Chat**: bong bóng xanh, chuyển màu, xanh lá có hình nền. **Thông báo**: banner, màn hình khoá, thẻ phẳng. **Đếm tim & bình luận** (mới): bong bóng, viên. **Hashtag**: viên, chữ nền, nhãn dán. **@Nhắc tên**: viên, gạch chân. **Tìm kiếm**: thanh, trình duyệt. **Đánh giá sao**: thẻ, điểm lớn, chỉ sao |
+| Âm nhạc | trình phát, mini, đĩa than, băng cát-xét, mã quét, tối giản |
+| Trích dẫn | phiếu đọc sách, ngoặc kép lớn, máy đánh chữ, giấy note, bảng phấn, sách mở, một dòng |
+| Thể thao | **Bước chân**: vòng, thanh, số lớn. **Buổi chạy** (mới): thẻ có đường chạy, số lớn, tối giản. **Vòng hoạt động** (mới): thẻ, chỉ vòng. **Uống nước** (mới): cốc, giọt nước. **Giấc ngủ** (mới): đêm, thanh |
+| Mua sắm | **Hoá đơn**: giấy in nhiệt, nhà hàng, viết tay. **Giá**: thẻ treo, nhãn SALE, giá gạch. **Phiếu giảm giá** (mới): vé, thẻ |
+| Việc cần làm | **Danh sách việc**: thẻ, giấy kẻ dòng, giấy note, viết tay. **Theo dõi thói quen** (mới, 7 ngày tích / bỏ): tuần, chấm. **Tiến trình**: thanh, vòng, pin. **Tâm trạng**: thước, 5 khuôn mặt |
+| Khác | **Công thức**: thẻ, thẻ kẻ dòng, tối giản. **Thông số máy ảnh**: dải phim, khung ngắm, một dòng |
+
+Chưa làm (để sau, nếu cần): mã quét, lời bài hát, vé tàu / xe.
