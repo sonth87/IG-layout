@@ -1,6 +1,6 @@
 # 14 — Hiệu ứng (Effects)
 
-Trạng thái: **đang làm** — khung + đợt 1 (17) + đợt 2 (19) đã xong (D-123, D-124, 2026-10-19); còn đợt 3. Thuộc M21. Nghiên cứu kỹ thuật gốc ở [discussions/2026-10-18-m21-nghien-cuu.md](../../discussions/2026-10-18-m21-nghien-cuu.md) §2.
+Trạng thái: **đã làm đủ 48** — khung + đợt 1 (17) + đợt 2 (19) + đợt 3 (12) (D-123 → D-125, 2026-10-19). Còn: kéo tâm / mép trên canvas. Thuộc M21. Nghiên cứu kỹ thuật gốc ở [discussions/2026-10-18-m21-nghien-cuu.md](../../discussions/2026-10-18-m21-nghien-cuu.md) §2.
 
 > "cho thêm 1 mục, nhưng mà phải định nghĩa và có thêm nhiều effect và đưa ra rõ ràng nó là như thế nào, cấu hình ra sao, hiệu ứng thế nào, kết quả đạt được. ví dụ như hiệu ứng chảy có thể set để nó chảy theo hướng nào, mức độ chảy ra sao…"
 
@@ -865,3 +865,31 @@ Có nút Xáo.
   - tia có sọc theo góc và mờ dần trước mép.
 - **Phát sáng neon** giữ màu của phần tử, chỉ toả sáng phía sau (chế độ "Chỉ viền" thì thành ống neon).
 - **Cờ bay**: biên độ theo chiều dài tấm vải.
+
+
+## 12. Đợt 3: 12 hiệu ứng (D-125, 2026-10-19)
+
+| Hiệu ứng | Thông số | Ghi chú |
+| --- | --- | --- |
+| Vỡ mảnh | số mảnh, tách rời, xoay mảnh, viền cạnh, tâm vỡ, Xáo | mảnh nhỏ và dày gần tâm vỡ; khe nứt và viền sáng ở cạnh |
+| Pop art | số mảng màu, viền đen, chấm bi, bảng màu (giữ màu / hồng vàng / truyện tranh / bạc hà san hô / đêm) | |
+| Ký tự ASCII | cỡ ký tự, bộ ký tự (@#%*+:. / ▓▒░ / 01), màu (xanh terminal / giữ màu / đen trên giấy), nền | chỉ ảnh / sticker / hình |
+| Kính mờ | kiểu (mờ hạt / sọc dọc / sọc ngang / ô lưới), số sọc, khúc xạ, độ mờ, viền sáng, màu kính | chỉ ảnh / sticker / hình |
+| Màu nước loang | độ loang, viền đậm, vân giấy, chi tiết, Xáo | mép loang không đều, sắc tố đọng ở viền |
+| Mực tàu | đậm mực, số sắc độ, thấm xơ, giấy (dó ngà / trắng / trong suốt), con dấu đỏ | |
+| Phác thảo chì | độ đậm nét, gạch bóng (2 lớp chéo ở vùng tối), hướng gạch, màu chì (xám / than / màu gốc), nền giấy | chỉ ảnh / sticker / hình |
+| Sơn dầu | cỡ cọ, độ dày sơn, bóng sơn | lọc Kuwahara (bảng cộng dồn, nhanh) + sáng tối theo nét cọ |
+| Sáp màu / phấn | kiểu (sáp màu / phấn bảng / phấn tiên), độ sần, hướng tô, mép run, Xáo | |
+| Khói / sương | mật độ, cỡ cuộn, màu khói, hướng bốc, tan mép, Xáo | làn khói loe dần, mỏng dần; phần tử tan ở chỗ khói bốc |
+| Lửa viền | độ cao lửa (% cỡ phần tử), hướng, độ cuộn, lửa đỏ / xanh / tím, cường độ, Xáo | độ cao đổi từ px sang % để ảnh lớn cũng có lửa cao |
+| Băng giá | độ dày băng, nhánh giá, tuyết, màu (xanh băng / trắng), Xáo | vỏ băng ngoài viền, sương giá mọc vào trong, đốm tuyết |
+
+### Đo trên máy tính
+
+Ảnh 900 × 1100: mỗi lần áp 40–290 ms (Khói, Màu nước, Vỡ mảnh nặng nhất).
+
+### Đã chỉnh sau khi soát ảnh chụp
+
+- **Khói** ban đầu thành khối chữ nhật cứng: giờ là làn khói loe hai bên, xoắn, tan dần.
+- **Lửa** quá thấp trên phần tử lớn: độ cao đổi sang %.
+- **Màu nước** sạn hạt: giảm hạt giấy, tăng độ loang.
