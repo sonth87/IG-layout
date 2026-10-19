@@ -247,3 +247,26 @@ Chủ dự án: "travel thì có những cái như vé máy bay, đặt vé, h�
   - không dùng icon từ Freepik / Flaticon / Vecteezy / Shutterstock / Adobe / iStock / Canva…;
   - các bộ "free icons" trên những trang đó vẫn cấm;
   - nên dùng CC0 / MIT / OFL hoặc tự vẽ.
+
+
+## Ý tưởng để sau: widget "Cụm sticker" (chủ dự án, 2026-10-19)
+
+> "bổ sung thêm 1 số widget đặc thù như kiểu nó có thể tổng hợp các sticker vào, trộn lại để thành 1 cái gì đó, ví dụ như dạng water mark, hay theo như mấy cái hình vừa rồi… và có thể ngẫu nhiên nên sẽ có vẻ hay"
+
+Hiểu như sau (chưa làm, chờ có đủ sticker, ví dụ bộ Du lịch):
+
+- Một widget **gom nhiều sticker của một bộ** thành một bố cục. Ví dụ:
+  - vòng tròn sticker quanh một dòng chữ ("Let's Travel");
+  - rải ngẫu nhiên;
+  - viền quanh khung;
+  - dải ngang;
+  - **watermark**: lặp kín slide, mờ.
+- Công cụ riêng:
+  - **Xáo**: mỗi lần bấm ra một cách sắp và chọn sticker khác, ngẫu nhiên nhưng giữ được, không đổi khi mở lại;
+  - **Bộ**: chọn bộ sticker;
+  - **Bố cục**;
+  - **Mật độ / cỡ**;
+  - **Chữ giữa**: có / không, sửa chữ;
+  - **Màu** (cho sticker đơn sắc).
+- Watermark mặc định phủ cả slide, độ mờ thấp, có thể khoá.
+- **Tách ra**: biến cụm thành các sticker rời để chỉnh từng cái.

@@ -498,5 +498,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Widget có menu riêng (D-118): danh sách thêm / bớt (bình chọn 2–4…), thanh trượt, chọn biểu tượng, chọn ngày; chạm đúp mở Nội dung; sửa lỗi sheet tự bật lại và lỗi kéo khi đang mở sheet (e2e widgets.mjs)
 - [x] Widget đợt 2 — Đồng hồ: 19 kiểu (8 kim, 6 số, 5 chất liệu), nút Kiểu / Giờ (D-119, e2e widgets.mjs)
 - [x] Widget đợt 2 — Du lịch: 6 widget, 28 kiểu (D-120, e2e widgets.mjs)
+- [ ] (Để sau) Widget "Cụm sticker": gom sticker một bộ thành vòng quanh chữ / rải / viền / dải / watermark, nút Xáo ngẫu nhiên, Tách ra — xem discussions/2026-10-19-widget-menu.md
 - [ ] Widget đợt 2 — các loại khác theo nguyên tắc "một widget một việc, biến thể là kiểu nhìn": chờ duyệt danh sách
 - [ ] (Claude) M21 — bắt đầu từ 120 filter (G7)
