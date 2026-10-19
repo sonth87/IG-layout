@@ -85,9 +85,44 @@ st = await S();
 check(Math.abs(st.doc.elements.find((e) => e.id === list.id).height - h0) < 1, "undo restores the height");
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.getByRole("button", { name: "Layers" }).click();
-check(await page.getByText("Mini checklist").first().isVisible(), "listed as Mini checklist in Layers");
+check(await page.getByText("Mini checklist").first().waitFor({ timeout: 5000 }).then(() => true, () => false), "listed as Mini checklist in Layers");
 await page.keyboard.press("Escape");
 await page.waitForTimeout(300);
+
+const toPage = (x, y) =>
+  page.evaluate(
+    ([x, y]) => {
+      const st = window.__igEditor.getState().canvas.layer.getStage();
+      const r = st.container().getBoundingClientRect();
+      return { x: r.left + st.x() + x * st.scaleX(), y: r.top + st.y() + y * st.scaleY() };
+    },
+    [x, y],
+  );
+
+console.log("Tap on the selected widget opens its edit sheet");
+await page.evaluate((id) => window.__igEditor.getState().select(id), w.id);
+await page.waitForTimeout(300);
+let p = await toPage(w.x + w.width * 0.7, w.y + w.height * 0.7);
+await page.mouse.click(p.x, p.y);
+await page.waitForTimeout(400);
+check(await page.getByRole("region", { name: "Edit widget" }).isVisible(), "Edit widget sheet open");
+await page.getByRole("button", { name: "Cancel" }).click();
+await page.waitForTimeout(200);
+
+console.log("Hanging over the canvas edge: still seen and grabbable");
+st = await S();
+const wh = st.doc.elements.find((e) => e.id === w.id).height;
+// Half of it above the top edge (the margin above the canvas is on screen).
+await page.evaluate(([id, y]) => window.__igEditor.getState().updateElement(id, { x: 100, y }), [w.id, -wh / 2]);
+await page.evaluate(() => window.__igEditor.getState().select(null));
+await page.waitForTimeout(400);
+await page.screenshot({ path: path.join(OUT, "widgets-outside.png") });
+check(await page.evaluate(() => !window.__igEditor.getState().canvas.layer.clipWidth()), "content layer not clipped to the canvas");
+p = await toPage(100 + w.width / 2, -wh / 4);
+await page.mouse.click(p.x, p.y);
+await page.waitForTimeout(300);
+check((await S()).selectedId === w.id, "tapping the part outside selects it");
+await page.evaluate(() => window.__igEditor.getState().select(null));
 
 console.log("Drawn on the canvas");
 await page.evaluate(() => window.__igEditor.getState().select(null));

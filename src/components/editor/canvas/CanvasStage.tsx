@@ -372,9 +372,11 @@ interface Props {
   onPinchZoom?: (k: number, phase: "start" | "move" | "end", mid?: { x: number; y: number }) => void;
   /** Double tap where there is no element: back to "see every slide" (editor-v2/05 §2.4). */
   onFit?: () => void;
+  /** Tap on the selected card widget: open its edit sheet (D-114). */
+  onEditWidget?: (id: string) => void;
 }
 
-export default function CanvasStage({ viewScale, viewport, scrollRef, origin, contentLayerRef, showSafeZone = true, onPinchZoom, onFit }: Props) {
+export default function CanvasStage({ viewScale, viewport, scrollRef, origin, contentLayerRef, showSafeZone = true, onPinchZoom, onFit, onEditWidget }: Props) {
   const doc = useViewDoc();
   const selectedId = useEditor((s) => s.selectedId);
   const select = useEditor((s) => s.select);
@@ -716,6 +718,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     const res = tapResult(d, st.selectedId, hitId, onPlus);
     select(res.select);
     if (res.action === "editText" && res.select) setEditingText(res.select);
+    if (res.action === "editWidget" && res.select) onEditWidget?.(res.select);
     // Fill frame sheet for that cell (editor-v2/09 §1.1).
     if (res.action === "fill" && res.select) st.openFillFrame(res.select, "fill");
   }
@@ -941,8 +944,9 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       onPointerCancel={drawing ? onDrawUp : cancelGesture}
     >
       {/* Content layer: exactly what gets exported. */}
-      {/* The stage also covers the margins around the canvas: clip to the canvas. */}
-      <Layer ref={contentLayerRef} clipX={0} clipY={0} clipWidth={width} clipHeight={height} listening={!drawing && !cropping}>
+      {/* Not clipped: what hangs over the edge stays visible (faded by the veil below) and can
+          be dragged back; exports and thumbnails crop to the slides anyway. */}
+      <Layer ref={contentLayerRef} listening={!drawing && !cropping}>
         <BackgroundNode background={doc.background} width={width} height={height} />
         {doc.elements.map((el) => {
           const hooks = { onDragMove, onDragEnd };
@@ -959,6 +963,19 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       </Layer>
       {/* Slide boundaries, grid gaps, story safe zones, posting order — never exported. */}
       <Layer listening={false}>
+        {/* Outside the canvas: the canvas colour over what hangs out, so it shows faded (never exported). */}
+        <Shape
+          sceneFunc={(ctx: Konva.Context) => {
+            const c = ctx._context;
+            const big = 1e5;
+            c.beginPath();
+            c.rect(-big, -big, big * 2, big * 2);
+            c.rect(0, 0, width, height);
+            c.globalAlpha = 0.6;
+            c.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--canvas").trim() || "#e6e3dd";
+            c.fill("evenodd");
+          }}
+        />
         {doc.type === "grid" &&
           doc.grid?.gapCompensation &&
           rects.slice(1).map((r, i) => (

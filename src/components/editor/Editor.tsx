@@ -889,6 +889,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
                     }
                   }}
                   onFit={fitAll}
+                  onEditWidget={() => openTool("widget")}
                 />
                 {cropId && (
                   <CropGestures id={cropId} aspect={ratioAspect(cropRatio, selected?.type === "image" && selected.assetId ? assets[selected.assetId] : undefined)} />
