@@ -14,21 +14,20 @@
     {
       "id": "washi-1",
       "name": {
-        "en": "Washi tape, stars",
-        "vi": "Băng dính ngôi sao"
+        "en": "Cloth tape",
+        "vi": "Băng vải"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "stars"
+          "cloth tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "ngôi sao"
+          "băng vải"
         ]
       },
       "source": {
@@ -37,29 +36,28 @@
         "title": "washi #1",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-1",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 614,
-      "height": 90
+      "width": 301,
+      "height": 171
     },
     {
       "id": "washi-2",
       "name": {
-        "en": "Washi tape, stars 2",
-        "vi": "Băng dính ngôi sao 2"
+        "en": "Cloth tape 2",
+        "vi": "Băng vải 2"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "stars"
+          "cloth tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "ngôi sao"
+          "băng vải"
         ]
       },
       "source": {
@@ -68,29 +66,28 @@
         "title": "washi #2",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-2",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 652,
-      "height": 100
+      "width": 462,
+      "height": 161
     },
     {
       "id": "washi-3",
       "name": {
-        "en": "Washi tape, wavy",
-        "vi": "Băng dính lượn sóng"
+        "en": "Cloth tape 3",
+        "vi": "Băng vải 3"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "wavy"
+          "cloth tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "lượn sóng"
+          "băng vải"
         ]
       },
       "source": {
@@ -99,29 +96,28 @@
         "title": "washi #3",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-3",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 647,
-      "height": 91
+      "width": 319,
+      "height": 168
     },
     {
       "id": "washi-4",
       "name": {
-        "en": "Washi tape, stars 3",
-        "vi": "Băng dính ngôi sao 3"
+        "en": "Foil tape",
+        "vi": "Băng nhũ"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "stars"
+          "foil tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "ngôi sao"
+          "băng nhũ"
         ]
       },
       "source": {
@@ -130,29 +126,28 @@
         "title": "washi #4",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-4",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 721,
-      "height": 100
+      "width": 467,
+      "height": 126
     },
     {
       "id": "washi-5",
       "name": {
-        "en": "Washi tape, plain",
-        "vi": "Băng dính trơn"
+        "en": "Cloth tape 4",
+        "vi": "Băng vải 4"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "plain"
+          "cloth tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "trơn"
+          "băng vải"
         ]
       },
       "source": {
@@ -161,29 +156,28 @@
         "title": "washi #5",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-5",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 636,
-      "height": 113
+      "width": 686,
+      "height": 159
     },
     {
       "id": "washi-6",
       "name": {
-        "en": "Washi tape, grid",
-        "vi": "Băng dính kẻ ô"
+        "en": "Masking tape",
+        "vi": "Băng giấy"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "grid"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "kẻ ô"
+          "băng giấy"
         ]
       },
       "source": {
@@ -192,29 +186,30 @@
         "title": "washi #6",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-6",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 577,
-      "height": 90
+      "width": 301,
+      "height": 151
     },
     {
       "id": "washi-7",
       "name": {
-        "en": "Washi tape, dashed",
-        "vi": "Băng dính nét đứt"
+        "en": "Washi tape, wavy",
+        "vi": "Băng dính washi lượn sóng"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "dashed"
+          "washi tape",
+          "wavy"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "nét đứt"
+          "băng dính washi",
+          "lượn sóng"
         ]
       },
       "source": {
@@ -223,29 +218,28 @@
         "title": "washi #7",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-7",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 392,
-      "height": 92
+      "width": 331,
+      "height": 169
     },
     {
       "id": "washi-8",
       "name": {
-        "en": "Washi tape, gingham",
-        "vi": "Băng dính caro"
+        "en": "Washi tape",
+        "vi": "Băng dính washi"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "gingham"
+          "washi tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "caro"
+          "băng dính washi"
         ]
       },
       "source": {
@@ -254,29 +248,30 @@
         "title": "washi #8",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-8",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 444,
-      "height": 109
+      "width": 613,
+      "height": 131
     },
     {
       "id": "washi-9",
       "name": {
-        "en": "Washi tape, wavy 2",
-        "vi": "Băng dính lượn sóng 2"
+        "en": "Washi tape, diagonal",
+        "vi": "Băng dính washi sọc chéo"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "wavy"
+          "washi tape",
+          "diagonal"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "lượn sóng"
+          "băng dính washi",
+          "sọc chéo"
         ]
       },
       "source": {
@@ -285,29 +280,28 @@
         "title": "washi #9",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-9",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 460,
-      "height": 116
+      "width": 726,
+      "height": 122
     },
     {
       "id": "washi-10",
       "name": {
-        "en": "Washi tape, wavy 3",
-        "vi": "Băng dính lượn sóng 3"
+        "en": "Masking tape 2",
+        "vi": "Băng giấy 2"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "wavy"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "lượn sóng"
+          "băng giấy"
         ]
       },
       "source": {
@@ -316,29 +310,28 @@
         "title": "washi #10",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-10",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 569,
-      "height": 118
+      "width": 759,
+      "height": 153
     },
     {
       "id": "washi-11",
       "name": {
-        "en": "Washi tape, plain 2",
-        "vi": "Băng dính trơn 2"
+        "en": "Masking tape 3",
+        "vi": "Băng giấy 3"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "plain"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "trơn"
+          "băng giấy"
         ]
       },
       "source": {
@@ -347,29 +340,30 @@
         "title": "washi #11",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-11",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 572,
-      "height": 106
+      "width": 565,
+      "height": 148
     },
     {
       "id": "washi-12",
       "name": {
-        "en": "Washi tape, hearts",
-        "vi": "Băng dính trái tim"
+        "en": "Washi tape, diagonal 2",
+        "vi": "Băng dính washi sọc chéo 2"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "hearts"
+          "washi tape",
+          "diagonal"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "trái tim"
+          "băng dính washi",
+          "sọc chéo"
         ]
       },
       "source": {
@@ -378,29 +372,28 @@
         "title": "washi #12",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-12",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 492,
-      "height": 92
+      "width": 338,
+      "height": 146
     },
     {
       "id": "washi-13",
       "name": {
-        "en": "Washi tape, wavy 4",
-        "vi": "Băng dính lượn sóng 4"
+        "en": "Masking tape 4",
+        "vi": "Băng giấy 4"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "wavy"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "lượn sóng"
+          "băng giấy"
         ]
       },
       "source": {
@@ -409,29 +402,28 @@
         "title": "washi #13",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-13",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 592,
-      "height": 101
+      "width": 480,
+      "height": 118
     },
     {
       "id": "washi-14",
       "name": {
-        "en": "Washi tape, plain 3",
-        "vi": "Băng dính trơn 3"
+        "en": "Clear tape",
+        "vi": "Băng keo trong"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "plain"
+          "clear tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "trơn"
+          "băng keo trong"
         ]
       },
       "source": {
@@ -440,29 +432,30 @@
         "title": "washi #14",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-14",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 549,
-      "height": 103
+      "width": 476,
+      "height": 143
     },
     {
       "id": "washi-15",
       "name": {
-        "en": "Washi tape, dotted",
-        "vi": "Băng dính chấm bi"
+        "en": "Washi tape, grid",
+        "vi": "Băng dính washi kẻ ô"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "dotted"
+          "washi tape",
+          "grid"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "chấm bi"
+          "băng dính washi",
+          "kẻ ô"
         ]
       },
       "source": {
@@ -471,29 +464,28 @@
         "title": "washi #15",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-15",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 474,
-      "height": 102
+      "width": 502,
+      "height": 137
     },
     {
       "id": "washi-16",
       "name": {
-        "en": "Washi tape, hearts 2",
-        "vi": "Băng dính trái tim 2"
+        "en": "Cloth tape 5",
+        "vi": "Băng vải 5"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "hearts"
+          "cloth tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "trái tim"
+          "băng vải"
         ]
       },
       "source": {
@@ -502,29 +494,28 @@
         "title": "washi #16",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-16",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 615,
-      "height": 94
+      "width": 372,
+      "height": 180
     },
     {
       "id": "washi-17",
       "name": {
-        "en": "Washi tape, wavy 5",
-        "vi": "Băng dính lượn sóng 5"
+        "en": "Cloth tape 6",
+        "vi": "Băng vải 6"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "wavy"
+          "cloth tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "lượn sóng"
+          "băng vải"
         ]
       },
       "source": {
@@ -533,29 +524,28 @@
         "title": "washi #17",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-17",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 632,
-      "height": 96
+      "width": 396,
+      "height": 171
     },
     {
       "id": "washi-18",
       "name": {
-        "en": "Washi tape, hearts 3",
-        "vi": "Băng dính trái tim 3"
+        "en": "Clear tape 2",
+        "vi": "Băng keo trong 2"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "hearts"
+          "clear tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "trái tim"
+          "băng keo trong"
         ]
       },
       "source": {
@@ -564,29 +554,30 @@
         "title": "washi #18",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-18",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 531,
-      "height": 108
+      "width": 533,
+      "height": 143
     },
     {
       "id": "washi-19",
       "name": {
-        "en": "Washi tape, stars 4",
-        "vi": "Băng dính ngôi sao 4"
+        "en": "Washi tape, diagonal 3",
+        "vi": "Băng dính washi sọc chéo 3"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "stars"
+          "washi tape",
+          "diagonal"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "ngôi sao"
+          "băng dính washi",
+          "sọc chéo"
         ]
       },
       "source": {
@@ -595,29 +586,28 @@
         "title": "washi #19",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-19",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 409,
-      "height": 100
+      "width": 463,
+      "height": 139
     },
     {
       "id": "washi-20",
       "name": {
-        "en": "Washi tape, hearts 4",
-        "vi": "Băng dính trái tim 4"
+        "en": "Kraft tape",
+        "vi": "Băng keo giấy kraft"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "hearts"
+          "kraft tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "trái tim"
+          "băng keo giấy kraft"
         ]
       },
       "source": {
@@ -626,29 +616,28 @@
         "title": "washi #20",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-20",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 659,
-      "height": 102
+      "width": 493,
+      "height": 158
     },
     {
       "id": "washi-21",
       "name": {
-        "en": "Washi tape, striped",
-        "vi": "Băng dính kẻ sọc"
+        "en": "Clear tape 3",
+        "vi": "Băng keo trong 3"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "striped"
+          "clear tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "kẻ sọc"
+          "băng keo trong"
         ]
       },
       "source": {
@@ -657,29 +646,28 @@
         "title": "washi #21",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-21",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 544,
-      "height": 103
+      "width": 483,
+      "height": 130
     },
     {
       "id": "washi-22",
       "name": {
-        "en": "Washi tape, diagonal",
-        "vi": "Băng dính sọc chéo"
+        "en": "Masking tape 5",
+        "vi": "Băng giấy 5"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "diagonal"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "sọc chéo"
+          "băng giấy"
         ]
       },
       "source": {
@@ -688,28 +676,29 @@
         "title": "washi #22",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-22",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 612,
-      "height": 97
+      "width": 418,
+      "height": 127
     },
     {
       "id": "washi-23",
       "name": {
-        "en": "Washi tape, striped 2",
-        "vi": "Băng dính kẻ sọc 2"
+        "en": "Washi tape, striped",
+        "vi": "Băng dính washi kẻ sọc"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
+          "washi tape",
           "striped"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
+          "băng dính washi",
           "kẻ sọc"
         ]
       },
@@ -719,29 +708,30 @@
         "title": "washi #23",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-23",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 421,
-      "height": 92
+      "width": 334,
+      "height": 149
     },
     {
       "id": "washi-24",
       "name": {
-        "en": "Washi tape, dashed 2",
-        "vi": "Băng dính nét đứt 2"
+        "en": "Washi tape, gingham",
+        "vi": "Băng dính washi caro"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "dashed"
+          "washi tape",
+          "gingham"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "nét đứt"
+          "băng dính washi",
+          "caro"
         ]
       },
       "source": {
@@ -750,29 +740,28 @@
         "title": "washi #24",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-24",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 508,
-      "height": 119
+      "width": 782,
+      "height": 130
     },
     {
       "id": "washi-25",
       "name": {
-        "en": "Washi tape, diagonal 2",
-        "vi": "Băng dính sọc chéo 2"
+        "en": "Masking tape 6",
+        "vi": "Băng giấy 6"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "diagonal"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "sọc chéo"
+          "băng giấy"
         ]
       },
       "source": {
@@ -781,29 +770,28 @@
         "title": "washi #25",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-25",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 603,
-      "height": 115
+      "width": 715,
+      "height": 146
     },
     {
       "id": "washi-26",
       "name": {
-        "en": "Washi tape, striped 3",
-        "vi": "Băng dính kẻ sọc 3"
+        "en": "Masking tape 7",
+        "vi": "Băng giấy 7"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "striped"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "kẻ sọc"
+          "băng giấy"
         ]
       },
       "source": {
@@ -812,29 +800,28 @@
         "title": "washi #26",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-26",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 572,
-      "height": 112
+      "width": 672,
+      "height": 143
     },
     {
       "id": "washi-27",
       "name": {
-        "en": "Washi tape, dotted 2",
-        "vi": "Băng dính chấm bi 2"
+        "en": "Clear tape 4",
+        "vi": "Băng keo trong 4"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "dotted"
+          "clear tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "chấm bi"
+          "băng keo trong"
         ]
       },
       "source": {
@@ -843,29 +830,28 @@
         "title": "washi #27",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-27",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 533,
-      "height": 91
+      "width": 348,
+      "height": 115
     },
     {
       "id": "washi-28",
       "name": {
-        "en": "Washi tape, gingham 2",
-        "vi": "Băng dính caro 2"
+        "en": "Clear tape 5",
+        "vi": "Băng keo trong 5"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "gingham"
+          "clear tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "caro"
+          "băng keo trong"
         ]
       },
       "source": {
@@ -874,29 +860,30 @@
         "title": "washi #28",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-28",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 542,
-      "height": 111
+      "width": 566,
+      "height": 155
     },
     {
       "id": "washi-29",
       "name": {
-        "en": "Washi tape, gingham 3",
-        "vi": "Băng dính caro 3"
+        "en": "Washi tape, dotted",
+        "vi": "Băng dính washi chấm bi"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "gingham"
+          "washi tape",
+          "dotted"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "caro"
+          "băng dính washi",
+          "chấm bi"
         ]
       },
       "source": {
@@ -905,29 +892,28 @@
         "title": "washi #29",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-29",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 464,
-      "height": 95
+      "width": 375,
+      "height": 132
     },
     {
       "id": "washi-30",
       "name": {
-        "en": "Washi tape, plain 4",
-        "vi": "Băng dính trơn 4"
+        "en": "Kraft tape 2",
+        "vi": "Băng keo giấy kraft 2"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "plain"
+          "kraft tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "trơn"
+          "băng keo giấy kraft"
         ]
       },
       "source": {
@@ -936,29 +922,28 @@
         "title": "washi #30",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-30",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 698,
-      "height": 116
+      "width": 736,
+      "height": 153
     },
     {
       "id": "washi-31",
       "name": {
-        "en": "Washi tape, gingham 4",
-        "vi": "Băng dính caro 4"
+        "en": "Cloth tape 7",
+        "vi": "Băng vải 7"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "gingham"
+          "cloth tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "caro"
+          "băng vải"
         ]
       },
       "source": {
@@ -967,29 +952,28 @@
         "title": "washi #31",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-31",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 630,
-      "height": 115
+      "width": 718,
+      "height": 180
     },
     {
       "id": "washi-32",
       "name": {
-        "en": "Washi tape, grid 2",
-        "vi": "Băng dính kẻ ô 2"
+        "en": "Clear tape 6",
+        "vi": "Băng keo trong 6"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "grid"
+          "clear tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "kẻ ô"
+          "băng keo trong"
         ]
       },
       "source": {
@@ -998,29 +982,28 @@
         "title": "washi #32",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-32",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 528,
-      "height": 114
+      "width": 594,
+      "height": 128
     },
     {
       "id": "washi-33",
       "name": {
-        "en": "Washi tape, diagonal 3",
-        "vi": "Băng dính sọc chéo 3"
+        "en": "Masking tape 8",
+        "vi": "Băng giấy 8"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "diagonal"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "sọc chéo"
+          "băng giấy"
         ]
       },
       "source": {
@@ -1029,29 +1012,28 @@
         "title": "washi #33",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-33",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 586,
-      "height": 112
+      "width": 670,
+      "height": 149
     },
     {
       "id": "washi-34",
       "name": {
-        "en": "Washi tape, grid 3",
-        "vi": "Băng dính kẻ ô 3"
+        "en": "Masking tape 9",
+        "vi": "Băng giấy 9"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "grid"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "kẻ ô"
+          "băng giấy"
         ]
       },
       "source": {
@@ -1060,28 +1042,29 @@
         "title": "washi #34",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-34",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 606,
-      "height": 115
+      "width": 712,
+      "height": 120
     },
     {
       "id": "washi-35",
       "name": {
-        "en": "Washi tape, dotted 3",
-        "vi": "Băng dính chấm bi 3"
+        "en": "Washi tape, dotted 2",
+        "vi": "Băng dính washi chấm bi 2"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
+          "washi tape",
           "dotted"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
+          "băng dính washi",
           "chấm bi"
         ]
       },
@@ -1091,29 +1074,28 @@
         "title": "washi #35",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-35",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 391,
-      "height": 105
+      "width": 553,
+      "height": 154
     },
     {
       "id": "washi-36",
       "name": {
-        "en": "Washi tape, diagonal 4",
-        "vi": "Băng dính sọc chéo 4"
+        "en": "Foil tape 2",
+        "vi": "Băng nhũ 2"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "diagonal"
+          "foil tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "sọc chéo"
+          "băng nhũ"
         ]
       },
       "source": {
@@ -1122,29 +1104,28 @@
         "title": "washi #36",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-36",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 732,
-      "height": 118
+      "width": 771,
+      "height": 128
     },
     {
       "id": "washi-37",
       "name": {
-        "en": "Washi tape, diagonal 5",
-        "vi": "Băng dính sọc chéo 5"
+        "en": "Masking tape 10",
+        "vi": "Băng giấy 10"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "diagonal"
+          "masking tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "sọc chéo"
+          "băng giấy"
         ]
       },
       "source": {
@@ -1153,29 +1134,28 @@
         "title": "washi #37",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-37",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 574,
-      "height": 120
+      "width": 799,
+      "height": 115
     },
     {
       "id": "washi-38",
       "name": {
-        "en": "Washi tape, dotted 4",
-        "vi": "Băng dính chấm bi 4"
+        "en": "Cloth tape 8",
+        "vi": "Băng vải 8"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "dotted"
+          "cloth tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "chấm bi"
+          "băng vải"
         ]
       },
       "source": {
@@ -1184,29 +1164,30 @@
         "title": "washi #38",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-38",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 647,
-      "height": 115
+      "width": 724,
+      "height": 153
     },
     {
       "id": "washi-39",
       "name": {
-        "en": "Washi tape, dotted 5",
-        "vi": "Băng dính chấm bi 5"
+        "en": "Washi tape, dashed",
+        "vi": "Băng dính washi nét đứt"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "dotted"
+          "washi tape",
+          "dashed"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "chấm bi"
+          "băng dính washi",
+          "nét đứt"
         ]
       },
       "source": {
@@ -1215,29 +1196,28 @@
         "title": "washi #39",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-39",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 415,
-      "height": 113
+      "width": 676,
+      "height": 144
     },
     {
       "id": "washi-40",
       "name": {
-        "en": "Washi tape, gingham 5",
-        "vi": "Băng dính caro 5"
+        "en": "Cloth tape 9",
+        "vi": "Băng vải 9"
       },
       "tags": {
         "en": [
-          "washi",
           "tape",
+          "washi",
           "masking tape",
-          "gingham"
+          "cloth tape"
         ],
         "vi": [
           "băng dính",
-          "washi",
           "băng keo",
-          "caro"
+          "băng vải"
         ]
       },
       "source": {
@@ -1246,10 +1226,628 @@
         "title": "washi #40",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-40",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 618,
-      "height": 114
+      "width": 708,
+      "height": 151
+    },
+    {
+      "id": "washi-41",
+      "name": {
+        "en": "Kraft tape 3",
+        "vi": "Băng keo giấy kraft 3"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "kraft tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng keo giấy kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #41",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-41",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 554,
+      "height": 159
+    },
+    {
+      "id": "washi-42",
+      "name": {
+        "en": "Masking tape 11",
+        "vi": "Băng giấy 11"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "masking tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng giấy"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #42",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-42",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 524,
+      "height": 162
+    },
+    {
+      "id": "washi-43",
+      "name": {
+        "en": "Foil tape 3",
+        "vi": "Băng nhũ 3"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "foil tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng nhũ"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #43",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-43",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 438,
+      "height": 144
+    },
+    {
+      "id": "washi-44",
+      "name": {
+        "en": "Kraft tape 4",
+        "vi": "Băng keo giấy kraft 4"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "kraft tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng keo giấy kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #44",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-44",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 380,
+      "height": 142
+    },
+    {
+      "id": "washi-45",
+      "name": {
+        "en": "Washi tape, dotted 3",
+        "vi": "Băng dính washi chấm bi 3"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "washi tape",
+          "dotted"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng dính washi",
+          "chấm bi"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #45",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-45",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 757,
+      "height": 158
+    },
+    {
+      "id": "washi-46",
+      "name": {
+        "en": "Washi tape, dashed 2",
+        "vi": "Băng dính washi nét đứt 2"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "washi tape",
+          "dashed"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng dính washi",
+          "nét đứt"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #46",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-46",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 758,
+      "height": 139
+    },
+    {
+      "id": "washi-47",
+      "name": {
+        "en": "Cloth tape 10",
+        "vi": "Băng vải 10"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "cloth tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng vải"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #47",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-47",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 348,
+      "height": 169
+    },
+    {
+      "id": "washi-48",
+      "name": {
+        "en": "Kraft tape 5",
+        "vi": "Băng keo giấy kraft 5"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "kraft tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng keo giấy kraft"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #48",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-48",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 567,
+      "height": 148
+    },
+    {
+      "id": "washi-49",
+      "name": {
+        "en": "Washi tape, hearts",
+        "vi": "Băng dính washi trái tim"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "washi tape",
+          "hearts"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng dính washi",
+          "trái tim"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #49",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-49",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 603,
+      "height": 158
+    },
+    {
+      "id": "washi-50",
+      "name": {
+        "en": "Masking tape 12",
+        "vi": "Băng giấy 12"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "masking tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng giấy"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #50",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-50",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 355,
+      "height": 133
+    },
+    {
+      "id": "washi-51",
+      "name": {
+        "en": "Washi tape, wavy 2",
+        "vi": "Băng dính washi lượn sóng 2"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "washi tape",
+          "wavy"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng dính washi",
+          "lượn sóng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #51",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-51",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 336,
+      "height": 137
+    },
+    {
+      "id": "washi-52",
+      "name": {
+        "en": "Washi tape, dashed 3",
+        "vi": "Băng dính washi nét đứt 3"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "washi tape",
+          "dashed"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng dính washi",
+          "nét đứt"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #52",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-52",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 302,
+      "height": 138
+    },
+    {
+      "id": "washi-53",
+      "name": {
+        "en": "Washi tape, stars",
+        "vi": "Băng dính washi ngôi sao"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "washi tape",
+          "stars"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng dính washi",
+          "ngôi sao"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #53",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-53",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 710,
+      "height": 117
+    },
+    {
+      "id": "washi-54",
+      "name": {
+        "en": "Washi tape, dashed 4",
+        "vi": "Băng dính washi nét đứt 4"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "washi tape",
+          "dashed"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng dính washi",
+          "nét đứt"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #54",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-54",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 633,
+      "height": 132
+    },
+    {
+      "id": "washi-55",
+      "name": {
+        "en": "Clear tape 7",
+        "vi": "Băng keo trong 7"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "clear tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng keo trong"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #55",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-55",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 620,
+      "height": 154
+    },
+    {
+      "id": "washi-56",
+      "name": {
+        "en": "Washi tape, stars 2",
+        "vi": "Băng dính washi ngôi sao 2"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "washi tape",
+          "stars"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng dính washi",
+          "ngôi sao"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #56",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-56",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 532,
+      "height": 155
+    },
+    {
+      "id": "washi-57",
+      "name": {
+        "en": "Cloth tape 11",
+        "vi": "Băng vải 11"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "cloth tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng vải"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #57",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-57",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 401,
+      "height": 156
+    },
+    {
+      "id": "washi-58",
+      "name": {
+        "en": "Clear tape 8",
+        "vi": "Băng keo trong 8"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "clear tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng keo trong"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #58",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-58",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 548,
+      "height": 154
+    },
+    {
+      "id": "washi-59",
+      "name": {
+        "en": "Clear tape 9",
+        "vi": "Băng keo trong 9"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "clear tape"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng keo trong"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #59",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-59",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 536,
+      "height": 129
+    },
+    {
+      "id": "washi-60",
+      "name": {
+        "en": "Washi tape, dashed 5",
+        "vi": "Băng dính washi nét đứt 5"
+      },
+      "tags": {
+        "en": [
+          "tape",
+          "washi",
+          "masking tape",
+          "washi tape",
+          "dashed"
+        ],
+        "vi": [
+          "băng dính",
+          "băng keo",
+          "băng dính washi",
+          "nét đứt"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "washi #60",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#washi-60",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 397,
+      "height": 128
     }
   ]
 }

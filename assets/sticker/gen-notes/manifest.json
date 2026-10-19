@@ -14,8 +14,8 @@
     {
       "id": "note-1",
       "name": {
-        "en": "Sticky note, yellow",
-        "vi": "Giấy note vàng"
+        "en": "Sticky note, wide, orange",
+        "vi": "Giấy note ngang cam"
       },
       "tags": {
         "en": [
@@ -23,13 +23,13 @@
           "note",
           "memo",
           "post-it",
-          "yellow"
+          "orange"
         ],
         "vi": [
           "giấy note",
           "giấy nhớ",
           "ghi chú",
-          "vàng"
+          "cam"
         ]
       },
       "source": {
@@ -38,16 +38,16 @@
         "title": "note #1",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-1",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 510,
-      "height": 510
+      "width": 566,
+      "height": 368
     },
     {
       "id": "note-2",
       "name": {
-        "en": "Sticky note, blue",
-        "vi": "Giấy note xanh dương"
+        "en": "Sticky note, index strip, blue",
+        "vi": "Giấy note dải dọc xanh dương"
       },
       "tags": {
         "en": [
@@ -70,176 +70,16 @@
         "title": "note #2",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-2",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 519,
-      "height": 519
+      "width": 206,
+      "height": 551
     },
     {
       "id": "note-3",
       "name": {
-        "en": "Sticky note, yellow 2",
-        "vi": "Giấy note vàng 2"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "yellow"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "vàng"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
-        "title": "note #3",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-3",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 518,
-      "height": 518
-    },
-    {
-      "id": "note-4",
-      "name": {
-        "en": "Sticky note, blue 2",
-        "vi": "Giấy note xanh dương 2"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "blue"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "xanh dương"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
-        "title": "note #4",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-4",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 534,
-      "height": 534
-    },
-    {
-      "id": "note-5",
-      "name": {
-        "en": "Sticky note, purple",
-        "vi": "Giấy note tím"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "purple"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "tím"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
-        "title": "note #5",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-5",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 515,
-      "height": 515
-    },
-    {
-      "id": "note-6",
-      "name": {
-        "en": "Sticky note, yellow 3",
-        "vi": "Giấy note vàng 3"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "yellow"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "vàng"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
-        "title": "note #6",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-6",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 502,
-      "height": 502
-    },
-    {
-      "id": "note-7",
-      "name": {
-        "en": "Sticky note, yellow 4",
-        "vi": "Giấy note vàng 4"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "yellow"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "vàng"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
-        "title": "note #7",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-7",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 461,
-      "height": 461
-    },
-    {
-      "id": "note-8",
-      "name": {
-        "en": "Sticky note, orange",
-        "vi": "Giấy note cam"
+        "en": "Sticky note, index strip, orange",
+        "vi": "Giấy note dải dọc cam"
       },
       "tags": {
         "en": [
@@ -259,19 +99,83 @@
       "source": {
         "provider": "IG Layout",
         "author": "sonth87",
-        "title": "note #8",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-8",
+        "title": "note #3",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-3",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 473,
-      "height": 473
+      "width": 196,
+      "height": 517
     },
     {
-      "id": "note-9",
+      "id": "note-4",
       "name": {
-        "en": "Sticky note, purple 2",
-        "vi": "Giấy note tím 2"
+        "en": "Sticky note, index tab, pink",
+        "vi": "Giấy note dải ngang hồng"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "pink"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "hồng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #4",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-4",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 591,
+      "height": 198
+    },
+    {
+      "id": "note-5",
+      "name": {
+        "en": "Sticky note, index strip, pink",
+        "vi": "Giấy note dải dọc hồng"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "pink"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "hồng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #5",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-5",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 220,
+      "height": 605
+    },
+    {
+      "id": "note-6",
+      "name": {
+        "en": "Sticky note, wide, purple",
+        "vi": "Giấy note ngang tím"
       },
       "tags": {
         "en": [
@@ -291,19 +195,19 @@
       "source": {
         "provider": "IG Layout",
         "author": "sonth87",
-        "title": "note #9",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-9",
+        "title": "note #6",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-6",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 476,
-      "height": 476
+      "width": 566,
+      "height": 368
     },
     {
-      "id": "note-10",
+      "id": "note-7",
       "name": {
-        "en": "Sticky note, white",
-        "vi": "Giấy note trắng"
+        "en": "Sticky note, coral",
+        "vi": "Giấy note san hô"
       },
       "tags": {
         "en": [
@@ -311,95 +215,31 @@
           "note",
           "memo",
           "post-it",
-          "white"
+          "coral"
         ],
         "vi": [
           "giấy note",
           "giấy nhớ",
           "ghi chú",
-          "trắng"
+          "san hô"
         ]
       },
       "source": {
         "provider": "IG Layout",
         "author": "sonth87",
-        "title": "note #10",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-10",
+        "title": "note #7",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-7",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 500,
-      "height": 500
+      "width": 446,
+      "height": 446
     },
     {
-      "id": "note-11",
+      "id": "note-8",
       "name": {
-        "en": "Sticky note, green",
-        "vi": "Giấy note xanh lá"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "green"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "xanh lá"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
-        "title": "note #11",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-11",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 501,
-      "height": 501
-    },
-    {
-      "id": "note-12",
-      "name": {
-        "en": "Sticky note, yellow 5",
-        "vi": "Giấy note vàng 5"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "yellow"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "vàng"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
-        "title": "note #12",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-12",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 483,
-      "height": 483
-    },
-    {
-      "id": "note-13",
-      "name": {
-        "en": "Sticky note, blue 3",
-        "vi": "Giấy note xanh dương 3"
+        "en": "Sticky note, blue",
+        "vi": "Giấy note xanh dương"
       },
       "tags": {
         "en": [
@@ -419,80 +259,16 @@
       "source": {
         "provider": "IG Layout",
         "author": "sonth87",
-        "title": "note #13",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-13",
+        "title": "note #8",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-8",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 505,
-      "height": 505
+      "width": 503,
+      "height": 503
     },
     {
-      "id": "note-14",
-      "name": {
-        "en": "Sticky note, blue 4",
-        "vi": "Giấy note xanh dương 4"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "blue"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "xanh dương"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
-        "title": "note #14",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-14",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 496,
-      "height": 496
-    },
-    {
-      "id": "note-15",
-      "name": {
-        "en": "Sticky note, blue 5",
-        "vi": "Giấy note xanh dương 5"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "blue"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "xanh dương"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
-        "title": "note #15",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-15",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 479,
-      "height": 479
-    },
-    {
-      "id": "note-16",
+      "id": "note-9",
       "name": {
         "en": "Sticky note, pink",
         "vi": "Giấy note hồng"
@@ -515,19 +291,19 @@
       "source": {
         "provider": "IG Layout",
         "author": "sonth87",
-        "title": "note #16",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-16",
+        "title": "note #9",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-9",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 511,
-      "height": 511
+      "width": 525,
+      "height": 525
     },
     {
-      "id": "note-17",
+      "id": "note-10",
       "name": {
-        "en": "Sticky note, pink 2",
-        "vi": "Giấy note hồng 2"
+        "en": "Sticky note, wide, white",
+        "vi": "Giấy note ngang trắng"
       },
       "tags": {
         "en": [
@@ -535,13 +311,237 @@
           "note",
           "memo",
           "post-it",
-          "pink"
+          "white"
         ],
         "vi": [
           "giấy note",
           "giấy nhớ",
           "ghi chú",
-          "hồng"
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #10",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-10",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 690,
+      "height": 441
+    },
+    {
+      "id": "note-11",
+      "name": {
+        "en": "Sticky note, wide, purple 2",
+        "vi": "Giấy note ngang tím 2"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "purple"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "tím"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #11",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-11",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 638,
+      "height": 410
+    },
+    {
+      "id": "note-12",
+      "name": {
+        "en": "Sticky note, purple",
+        "vi": "Giấy note tím"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "purple"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "tím"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #12",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-12",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 448,
+      "height": 448
+    },
+    {
+      "id": "note-13",
+      "name": {
+        "en": "Sticky note, wide, yellow",
+        "vi": "Giấy note ngang vàng"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "yellow"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "vàng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #13",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-13",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 615,
+      "height": 397
+    },
+    {
+      "id": "note-14",
+      "name": {
+        "en": "Sticky note, tall, orange",
+        "vi": "Giấy note dọc cam"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "orange"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "cam"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #14",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-14",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 394,
+      "height": 583
+    },
+    {
+      "id": "note-15",
+      "name": {
+        "en": "Sticky note, green",
+        "vi": "Giấy note xanh lá"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "green"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "xanh lá"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #15",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-15",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 480,
+      "height": 480
+    },
+    {
+      "id": "note-16",
+      "name": {
+        "en": "Sticky note, wide, white 2",
+        "vi": "Giấy note ngang trắng 2"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "white"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #16",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-16",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 585,
+      "height": 380
+    },
+    {
+      "id": "note-17",
+      "name": {
+        "en": "Sticky note, index strip, orange 2",
+        "vi": "Giấy note dải dọc cam 2"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "orange"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "cam"
         ]
       },
       "source": {
@@ -550,16 +550,16 @@
         "title": "note #17",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-17",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 514,
-      "height": 514
+      "width": 201,
+      "height": 535
     },
     {
       "id": "note-18",
       "name": {
-        "en": "Sticky note, orange 2",
-        "vi": "Giấy note cam 2"
+        "en": "Sticky note, tall, orange 2",
+        "vi": "Giấy note dọc cam 2"
       },
       "tags": {
         "en": [
@@ -582,16 +582,16 @@
         "title": "note #18",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-18",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 492,
-      "height": 492
+      "width": 408,
+      "height": 605
     },
     {
       "id": "note-19",
       "name": {
-        "en": "Sticky note, blue 6",
-        "vi": "Giấy note xanh dương 6"
+        "en": "Sticky note, orange",
+        "vi": "Giấy note cam"
       },
       "tags": {
         "en": [
@@ -599,13 +599,13 @@
           "note",
           "memo",
           "post-it",
-          "blue"
+          "orange"
         ],
         "vi": [
           "giấy note",
           "giấy nhớ",
           "ghi chú",
-          "xanh dương"
+          "cam"
         ]
       },
       "source": {
@@ -614,16 +614,48 @@
         "title": "note #19",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-19",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 465,
-      "height": 465
+      "width": 473,
+      "height": 473
     },
     {
       "id": "note-20",
       "name": {
-        "en": "Sticky note, blue 7",
-        "vi": "Giấy note xanh dương 7"
+        "en": "Sticky note, index strip, purple",
+        "vi": "Giấy note dải dọc tím"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "purple"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "tím"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #20",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-20",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 208,
+      "height": 558
+    },
+    {
+      "id": "note-21",
+      "name": {
+        "en": "Sticky note, tall, blue",
+        "vi": "Giấy note dọc xanh dương"
       },
       "tags": {
         "en": [
@@ -643,51 +675,19 @@
       "source": {
         "provider": "IG Layout",
         "author": "sonth87",
-        "title": "note #20",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-20",
-        "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 520,
-      "height": 520
-    },
-    {
-      "id": "note-21",
-      "name": {
-        "en": "Sticky note, green 2",
-        "vi": "Giấy note xanh lá 2"
-      },
-      "tags": {
-        "en": [
-          "sticky note",
-          "note",
-          "memo",
-          "post-it",
-          "green"
-        ],
-        "vi": [
-          "giấy note",
-          "giấy nhớ",
-          "ghi chú",
-          "xanh lá"
-        ]
-      },
-      "source": {
-        "provider": "IG Layout",
-        "author": "sonth87",
         "title": "note #21",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-21",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 495,
-      "height": 495
+      "width": 396,
+      "height": 586
     },
     {
       "id": "note-22",
       "name": {
-        "en": "Sticky note, pink 3",
-        "vi": "Giấy note hồng 3"
+        "en": "Sticky note, wide, blue",
+        "vi": "Giấy note ngang xanh dương"
       },
       "tags": {
         "en": [
@@ -695,13 +695,13 @@
           "note",
           "memo",
           "post-it",
-          "pink"
+          "blue"
         ],
         "vi": [
           "giấy note",
           "giấy nhớ",
           "ghi chú",
-          "hồng"
+          "xanh dương"
         ]
       },
       "source": {
@@ -710,16 +710,144 @@
         "title": "note #22",
         "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-22",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 510,
-      "height": 510
+      "width": 598,
+      "height": 387
     },
     {
       "id": "note-23",
       "name": {
-        "en": "Sticky note, yellow 6",
-        "vi": "Giấy note vàng 6"
+        "en": "Sticky note, purple 2",
+        "vi": "Giấy note tím 2"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "purple"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "tím"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #23",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-23",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 447,
+      "height": 447
+    },
+    {
+      "id": "note-24",
+      "name": {
+        "en": "Sticky note, blue 2",
+        "vi": "Giấy note xanh dương 2"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "blue"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "xanh dương"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #24",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-24",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 536,
+      "height": 536
+    },
+    {
+      "id": "note-25",
+      "name": {
+        "en": "Sticky note, wide, purple 3",
+        "vi": "Giấy note ngang tím 3"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "purple"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "tím"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #25",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-25",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 678,
+      "height": 434
+    },
+    {
+      "id": "note-26",
+      "name": {
+        "en": "Sticky note, wide, orange 2",
+        "vi": "Giấy note ngang cam 2"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "orange"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "cam"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #26",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-26",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 666,
+      "height": 427
+    },
+    {
+      "id": "note-27",
+      "name": {
+        "en": "Sticky note, tall, yellow",
+        "vi": "Giấy note dọc vàng"
       },
       "tags": {
         "en": [
@@ -739,19 +867,19 @@
       "source": {
         "provider": "IG Layout",
         "author": "sonth87",
-        "title": "note #23",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-23",
+        "title": "note #27",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-27",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 467,
-      "height": 467
+      "width": 363,
+      "height": 533
     },
     {
-      "id": "note-24",
+      "id": "note-28",
       "name": {
-        "en": "Sticky note, white 2",
-        "vi": "Giấy note trắng 2"
+        "en": "Sticky note, tall, white",
+        "vi": "Giấy note dọc trắng"
       },
       "tags": {
         "en": [
@@ -771,13 +899,397 @@
       "source": {
         "provider": "IG Layout",
         "author": "sonth87",
-        "title": "note #24",
-        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-24",
+        "title": "note #28",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-28",
         "license": "CC0-1.0",
-        "retrieved": "2026-10-18"
+        "retrieved": "2026-10-19"
       },
-      "width": 487,
-      "height": 487
+      "width": 416,
+      "height": 618
+    },
+    {
+      "id": "note-29",
+      "name": {
+        "en": "Sticky note, blue 3",
+        "vi": "Giấy note xanh dương 3"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "blue"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "xanh dương"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #29",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-29",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 455,
+      "height": 455
+    },
+    {
+      "id": "note-30",
+      "name": {
+        "en": "Sticky note, index tab, green",
+        "vi": "Giấy note dải ngang xanh lá"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "green"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "xanh lá"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #30",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-30",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 661,
+      "height": 214
+    },
+    {
+      "id": "note-31",
+      "name": {
+        "en": "Sticky note, index strip, white",
+        "vi": "Giấy note dải dọc trắng"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "white"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #31",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-31",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 222,
+      "height": 612
+    },
+    {
+      "id": "note-32",
+      "name": {
+        "en": "Sticky note, tall, blue 2",
+        "vi": "Giấy note dọc xanh dương 2"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "blue"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "xanh dương"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #32",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-32",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 423,
+      "height": 629
+    },
+    {
+      "id": "note-33",
+      "name": {
+        "en": "Sticky note, wide, purple 4",
+        "vi": "Giấy note ngang tím 4"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "purple"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "tím"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #33",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-33",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 666,
+      "height": 427
+    },
+    {
+      "id": "note-34",
+      "name": {
+        "en": "Sticky note, wide, pink",
+        "vi": "Giấy note ngang hồng"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "pink"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "hồng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #34",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-34",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 677,
+      "height": 434
+    },
+    {
+      "id": "note-35",
+      "name": {
+        "en": "Sticky note, white",
+        "vi": "Giấy note trắng"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "white"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "trắng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #35",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-35",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 491,
+      "height": 491
+    },
+    {
+      "id": "note-36",
+      "name": {
+        "en": "Sticky note, index tab, blue",
+        "vi": "Giấy note dải ngang xanh dương"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "blue"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "xanh dương"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #36",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-36",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 671,
+      "height": 216
+    },
+    {
+      "id": "note-37",
+      "name": {
+        "en": "Sticky note, wide, yellow 2",
+        "vi": "Giấy note ngang vàng 2"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "yellow"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "vàng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #37",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-37",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 701,
+      "height": 448
+    },
+    {
+      "id": "note-38",
+      "name": {
+        "en": "Sticky note, index strip, yellow",
+        "vi": "Giấy note dải dọc vàng"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "yellow"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "vàng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #38",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-38",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 222,
+      "height": 614
+    },
+    {
+      "id": "note-39",
+      "name": {
+        "en": "Sticky note, orange 2",
+        "vi": "Giấy note cam 2"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "orange"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "cam"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #39",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-39",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 515,
+      "height": 515
+    },
+    {
+      "id": "note-40",
+      "name": {
+        "en": "Sticky note, wide, yellow 3",
+        "vi": "Giấy note ngang vàng 3"
+      },
+      "tags": {
+        "en": [
+          "sticky note",
+          "note",
+          "memo",
+          "post-it",
+          "yellow"
+        ],
+        "vi": [
+          "giấy note",
+          "giấy nhớ",
+          "ghi chú",
+          "vàng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "note #40",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#note-40",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 676,
+      "height": 433
     }
   ]
 }
