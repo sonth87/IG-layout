@@ -2,8 +2,8 @@
   "id": "japanese-ukiyoe",
   "kind": "sticker",
   "name": {
-    "en": "Japanese Ukiyo-e",
-    "vi": "Tranh khắc gỗ Nhật Bản"
+    "en": "Japan",
+    "vi": "Nhật Bản"
   },
   "collections": [
     "japan",
@@ -44,7 +44,7 @@
         "retrieved": "2026-10-18"
       },
       "width": 1024,
-      "height": 724
+      "height": 725
     },
     {
       "id": "ukiyoe-great-wave-cutout",
@@ -113,8 +113,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 520,
-      "height": 1024
+      "width": 507,
+      "height": 1002
     },
     {
       "id": "ukiyoe-quails-and-poppies",
@@ -148,8 +148,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 407,
-      "height": 1024
+      "width": 403,
+      "height": 1020
     },
     {
       "id": "ukiyoe-hiroshige-swallows",
@@ -183,8 +183,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 760,
-      "height": 1024
+      "width": 736,
+      "height": 1018
     },
     {
       "id": "ukiyoe-hiroshige-golden-pheasant",
@@ -218,7 +218,7 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 501,
+      "width": 503,
       "height": 1024
     },
     {
@@ -253,8 +253,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 534,
-      "height": 1024
+      "width": 532,
+      "height": 1022
     },
     {
       "id": "ukiyoe-hiroshige-plum-blossom",
@@ -288,7 +288,7 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 493,
+      "width": 492,
       "height": 1024
     },
     {
@@ -323,8 +323,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 411,
-      "height": 1024,
+      "width": 398,
+      "height": 1021,
       "process": {
         "bgMode": "flood",
         "tolerance": 8,
@@ -363,8 +363,8 @@
         "license": "PDM",
         "retrieved": "2026-10-18"
       },
-      "width": 417,
-      "height": 1024
+      "width": 395,
+      "height": 1022
     },
     {
       "id": "ukiyoe-hiroshige-rose-bird",
@@ -398,8 +398,8 @@
         "license": "PDM",
         "retrieved": "2026-10-18"
       },
-      "width": 395,
-      "height": 1024
+      "width": 391,
+      "height": 1022
     },
     {
       "id": "ukiyoe-wave-vertical-scroll",
@@ -435,6 +435,1583 @@
       },
       "width": 928,
       "height": 1024
+    },
+    {
+      "id": "jp-kamon-chrysanthemum",
+      "name": {
+        "en": "Imperial Sixteen-Petal Chrysanthemum Kamon Crest",
+        "vi": "Gia huy Kamon hoa cúc mười sáu cánh"
+      },
+      "tags": {
+        "en": [
+          "kamon",
+          "chrysanthemum",
+          "crest",
+          "japan",
+          "monochrome"
+        ],
+        "vi": [
+          "gia huy",
+          "kamon",
+          "hoa cúc",
+          "nhật bản",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Imperial Sixteen-Petal Chrysanthemum Kamon Crest",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 678,
+      "height": 678
+    },
+    {
+      "id": "jp-kamon-hollyhock-tokugawa",
+      "name": {
+        "en": "Three Hollyhock Leaves Kamon Crest",
+        "vi": "Gia huy Kamon ba lá thục quỳ tròn"
+      },
+      "tags": {
+        "en": [
+          "kamon",
+          "hollyhock",
+          "crest",
+          "japan",
+          "emblem"
+        ],
+        "vi": [
+          "gia huy",
+          "kamon",
+          "lá thục quỳ",
+          "nhật bản",
+          "đơn sắc"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Three Hollyhock Leaves Kamon Crest",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 730,
+      "height": 730
+    },
+    {
+      "id": "jp-kamon-sakura-crest",
+      "name": {
+        "en": "Monochrome Sakura Blossom Kamon Crest",
+        "vi": "Gia huy Kamon hoa anh đào năm cánh"
+      },
+      "tags": {
+        "en": [
+          "kamon",
+          "sakura",
+          "cherry blossom",
+          "japan",
+          "crest"
+        ],
+        "vi": [
+          "gia huy",
+          "kamon",
+          "hoa anh đào",
+          "nhật bản",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "floral",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Monochrome Sakura Blossom Kamon Crest",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 720,
+      "height": 720
+    },
+    {
+      "id": "jp-kamon-crane-circle",
+      "name": {
+        "en": "Circular Folding Wings Tsuru Crane Kamon",
+        "vi": "Gia huy Kamon cánh hạc vòng tròn"
+      },
+      "tags": {
+        "en": [
+          "kamon",
+          "crane",
+          "tsuru",
+          "japan",
+          "crest"
+        ],
+        "vi": [
+          "gia huy",
+          "kamon",
+          "chim hạc",
+          "nhật bản",
+          "truyền thống"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Circular Folding Wings Tsuru Crane Kamon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 678,
+      "height": 678
+    },
+    {
+      "id": "jp-kamon-mitsudomoe",
+      "name": {
+        "en": "Traditional Three Swirling Comma Mitsudomoe Crest",
+        "vi": "Gia huy Kamon xoáy tam thái cực Mitsudomoe"
+      },
+      "tags": {
+        "en": [
+          "kamon",
+          "mitsudomoe",
+          "swirl",
+          "japan",
+          "crest"
+        ],
+        "vi": [
+          "gia huy",
+          "mitsudomoe",
+          "xoáy tròn",
+          "nhật bản",
+          "cổ truyền"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Traditional Three Swirling Comma Mitsudomoe Crest",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 726,
+      "height": 726
+    },
+    {
+      "id": "jp-kamon-plum-blossom",
+      "name": {
+        "en": "Geometric Ume Plum Blossom Kamon Emblem",
+        "vi": "Gia huy Kamon hoa mơ Ume cổ điển"
+      },
+      "tags": {
+        "en": [
+          "kamon",
+          "ume",
+          "plum blossom",
+          "japan",
+          "crest"
+        ],
+        "vi": [
+          "gia huy",
+          "hoa mơ",
+          "ume",
+          "nhật bản",
+          "đơn sắc"
+        ]
+      },
+      "collections": [
+        "japan",
+        "floral",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Geometric Ume Plum Blossom Kamon Emblem",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 700,
+      "height": 683
+    },
+    {
+      "id": "jp-kamon-bamboo-crest",
+      "name": {
+        "en": "Ringed Bamboo Stalk & Leaves Kamon",
+        "vi": "Gia huy Kamon vòng trúc xanh"
+      },
+      "tags": {
+        "en": [
+          "kamon",
+          "bamboo",
+          "take",
+          "japan",
+          "crest"
+        ],
+        "vi": [
+          "gia huy",
+          "tre trúc",
+          "kamon",
+          "nhật bản",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "nature",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Ringed Bamboo Stalk & Leaves Kamon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 712,
+      "height": 712
+    },
+    {
+      "id": "jp-kamon-seigaiha-wave",
+      "name": {
+        "en": "Seigaiha Blue Ocean Wave Pattern Medallion",
+        "vi": "Huy hiệu hoạ tiết sóng biển Seigaiha"
+      },
+      "tags": {
+        "en": [
+          "seigaiha",
+          "wave pattern",
+          "kamon",
+          "japan",
+          "ocean"
+        ],
+        "vi": [
+          "sóng biển",
+          "seigaiha",
+          "hoạ tiết nhật",
+          "nhật bản",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Seigaiha Blue Ocean Wave Pattern Medallion",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 700,
+      "height": 700
+    },
+    {
+      "id": "jp-kamon-folding-fan",
+      "name": {
+        "en": "Monochrome Sensu Folding Fan Kamon Crest",
+        "vi": "Gia huy Kamon quạt xếp Sensu"
+      },
+      "tags": {
+        "en": [
+          "kamon",
+          "fan",
+          "sensu",
+          "japan",
+          "crest"
+        ],
+        "vi": [
+          "gia huy",
+          "quạt xếp",
+          "kamon",
+          "nhật bản",
+          "tối giản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "minimal",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Monochrome Sensu Folding Fan Kamon Crest",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 720,
+      "height": 720
+    },
+    {
+      "id": "jp-kamon-maple-triple",
+      "name": {
+        "en": "Triple Momiji Maple Leaf Kamon Emblem",
+        "vi": "Gia huy Kamon ba chiếc lá phong"
+      },
+      "tags": {
+        "en": [
+          "kamon",
+          "maple",
+          "momiji",
+          "japan",
+          "crest"
+        ],
+        "vi": [
+          "gia huy",
+          "lá phong",
+          "momiji",
+          "nhật bản",
+          "cổ truyền"
+        ]
+      },
+      "collections": [
+        "japan",
+        "autumn",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Triple Momiji Maple Leaf Kamon Emblem",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 720,
+      "height": 720
+    },
+    {
+      "id": "jp-daruma-red-doll",
+      "name": {
+        "en": "Red Lucky Wishing Daruma Doll",
+        "vi": "Búp bê Daruma đỏ cầu may Nhật Bản"
+      },
+      "tags": {
+        "en": [
+          "daruma",
+          "lucky doll",
+          "red",
+          "japan",
+          "wish"
+        ],
+        "vi": [
+          "búp bê daruma",
+          "cầu may",
+          "nhật bản",
+          "đỏ may mắn",
+          "truyền thống"
+        ]
+      },
+      "collections": [
+        "japan",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Red Lucky Wishing Daruma Doll",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 600,
+      "height": 648
+    },
+    {
+      "id": "jp-maneki-neko-lucky-cat",
+      "name": {
+        "en": "White Beckoning Maneki-Neko Lucky Cat",
+        "vi": "Mèo thần tài Maneki-neko vẫy tay chiêu lộc"
+      },
+      "tags": {
+        "en": [
+          "maneki neko",
+          "lucky cat",
+          "beckoning",
+          "japan",
+          "kobans"
+        ],
+        "vi": [
+          "mèo thần tài",
+          "maneki neko",
+          "chiêu tài",
+          "nhật bản",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "japan",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "White Beckoning Maneki-Neko Lucky Cat",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 516,
+      "height": 657
+    },
+    {
+      "id": "jp-red-torii-shrine-gate",
+      "name": {
+        "en": "Vermilion Shinto Shrine Torii Gate",
+        "vi": "Cổng thần đạo Torii đỏ son"
+      },
+      "tags": {
+        "en": [
+          "torii",
+          "shrine gate",
+          "shinto",
+          "japan",
+          "landmark"
+        ],
+        "vi": [
+          "cổng torii",
+          "đền thần đạo",
+          "nhật bản",
+          "du lịch",
+          "biểu tượng"
+        ]
+      },
+      "collections": [
+        "japan",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Vermilion Shinto Shrine Torii Gate",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 732,
+      "height": 636
+    },
+    {
+      "id": "jp-mount-fuji-red-sun",
+      "name": {
+        "en": "Snow-Capped Mount Fuji & Crimson Rising Sun",
+        "vi": "Núi Phú Sĩ phủ tuyết trắng và mặt trời đỏ"
+      },
+      "tags": {
+        "en": [
+          "mount fuji",
+          "rising sun",
+          "mountain",
+          "japan",
+          "ukiyoe"
+        ],
+        "vi": [
+          "núi phú sĩ",
+          "mặt trời mọc",
+          "nhật bản",
+          "biểu tượng",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "japan",
+        "travel",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Snow-Capped Mount Fuji & Crimson Rising Sun",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 714,
+      "height": 602
+    },
+    {
+      "id": "jp-great-wave-crest",
+      "name": {
+        "en": "Stylized Indigo Ukiyo-e Ocean Wave Crest",
+        "vi": "Ngọn sóng thần Ukiyo-e màu chàm bọt trắng"
+      },
+      "tags": {
+        "en": [
+          "great wave",
+          "ukiyoe",
+          "ocean",
+          "indigo",
+          "japan"
+        ],
+        "vi": [
+          "sóng thần",
+          "ukiyoe",
+          "biển xanh",
+          "nhật bản",
+          "nghệ thuật"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage",
+        "beach"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Stylized Indigo Ukiyo-e Ocean Wave Crest",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 714,
+      "height": 528
+    },
+    {
+      "id": "jp-golden-cloud-scroll",
+      "name": {
+        "en": "Traditional Golden Japanese Cloud Kumo Motif",
+        "vi": "Đám mây vàng Kumo uốn lượn cổ điển"
+      },
+      "tags": {
+        "en": [
+          "cloud",
+          "kumo",
+          "golden",
+          "japan",
+          "motif"
+        ],
+        "vi": [
+          "đám mây vàng",
+          "mây ngũ sắc",
+          "hoạ tiết",
+          "nhật bản",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Traditional Golden Japanese Cloud Kumo Motif",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 755,
+      "height": 349
+    },
+    {
+      "id": "jp-sakura-pink-blossom",
+      "name": {
+        "en": "Notched Five-Petal Pink Sakura Flower",
+        "vi": "Bông hoa anh đào Sakura hồng phấn"
+      },
+      "tags": {
+        "en": [
+          "sakura",
+          "cherry blossom",
+          "pink flower",
+          "japan",
+          "spring"
+        ],
+        "vi": [
+          "hoa anh đào",
+          "sakura",
+          "hồng phấn",
+          "mùa xuân",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "floral",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Notched Five-Petal Pink Sakura Flower",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 666,
+      "height": 651
+    },
+    {
+      "id": "jp-sakura-flowering-branch",
+      "name": {
+        "en": "Flowering Pink Sakura Cherry Blossom Branch",
+        "vi": "Cành hoa anh đào nở rộ mùa xuân"
+      },
+      "tags": {
+        "en": [
+          "sakura branch",
+          "cherry blossom",
+          "spring",
+          "japan",
+          "floral"
+        ],
+        "vi": [
+          "cành anh đào",
+          "sakura",
+          "mùa xuân",
+          "nhật bản",
+          "hoa lá"
+        ]
+      },
+      "collections": [
+        "japan",
+        "floral"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Flowering Pink Sakura Cherry Blossom Branch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 700,
+      "height": 551
+    },
+    {
+      "id": "jp-sensu-folding-fan",
+      "name": {
+        "en": "Painted Sakura Sensu Folding Hand Fan",
+        "vi": "Quạt xếp Sensu vẽ hoa anh đào"
+      },
+      "tags": {
+        "en": [
+          "sensu",
+          "folding fan",
+          "sakura",
+          "japan",
+          "traditional"
+        ],
+        "vi": [
+          "quạt xếp",
+          "sensu",
+          "hoa anh đào",
+          "nhật bản",
+          "truyền thống"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Painted Sakura Sensu Folding Hand Fan",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 698,
+      "height": 452
+    },
+    {
+      "id": "jp-uchiwa-festival-fan",
+      "name": {
+        "en": "Round Red Festival Uchiwa Paddle Fan",
+        "vi": "Quạt tròn Uchiwa lễ hội mùa hè"
+      },
+      "tags": {
+        "en": [
+          "uchiwa",
+          "paddle fan",
+          "festival",
+          "matsuri",
+          "japan"
+        ],
+        "vi": [
+          "quạt tròn",
+          "uchiwa",
+          "lễ hội hè",
+          "nhật bản",
+          "truyền thống"
+        ]
+      },
+      "collections": [
+        "japan",
+        "summer"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Round Red Festival Uchiwa Paddle Fan",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 554,
+      "height": 697
+    },
+    {
+      "id": "jp-red-chochin-lantern",
+      "name": {
+        "en": "Tall Red Paper Chochin Izakaya Lantern",
+        "vi": "Đèn lồng giấy đỏ Chochin phố đêm"
+      },
+      "tags": {
+        "en": [
+          "chochin",
+          "paper lantern",
+          "izakaya",
+          "red",
+          "japan"
+        ],
+        "vi": [
+          "đèn lồng đỏ",
+          "chochin",
+          "phố đêm",
+          "nhật bản",
+          "lễ hội"
+        ]
+      },
+      "collections": [
+        "japan",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Tall Red Paper Chochin Izakaya Lantern",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 438,
+      "height": 636
+    },
+    {
+      "id": "jp-origami-red-crane",
+      "name": {
+        "en": "Folded Red Paper Origami Peace Crane",
+        "vi": "Hạc giấy Origami đỏ xếp tay"
+      },
+      "tags": {
+        "en": [
+          "origami",
+          "paper crane",
+          "tsuru",
+          "japan",
+          "craft"
+        ],
+        "vi": [
+          "hạc giấy",
+          "origami",
+          "cầu ước",
+          "nhật bản",
+          "thủ công"
+        ]
+      },
+      "collections": [
+        "japan",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Folded Red Paper Origami Peace Crane",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 645,
+      "height": 396
+    },
+    {
+      "id": "jp-kitsune-fox-mask",
+      "name": {
+        "en": "White & Vermilion Kitsune Festival Fox Mask",
+        "vi": "Mặt nạ cáo Kitsune trắng vẽ vệt đỏ"
+      },
+      "tags": {
+        "en": [
+          "kitsune",
+          "fox mask",
+          "festival",
+          "shrine",
+          "japan"
+        ],
+        "vi": [
+          "mặt nạ cáo",
+          "kitsune",
+          "lễ hội",
+          "nhật bản",
+          "truyền thống"
+        ]
+      },
+      "collections": [
+        "japan",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "White & Vermilion Kitsune Festival Fox Mask",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 550,
+      "height": 638
+    },
+    {
+      "id": "jp-glass-furin-windchime",
+      "name": {
+        "en": "Summer Glass Furin Wind Chime with Paper Strip",
+        "vi": "Chuông gió thuỷ tinh Furin mùa hè"
+      },
+      "tags": {
+        "en": [
+          "furin",
+          "wind chime",
+          "summer",
+          "glass",
+          "japan"
+        ],
+        "vi": [
+          "chuông gió",
+          "furin",
+          "mùa hè",
+          "thuỷ tinh",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "summer",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Summer Glass Furin Wind Chime with Paper Strip",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 410,
+      "height": 705
+    },
+    {
+      "id": "jp-pine-bonsai-tray",
+      "name": {
+        "en": "Sculpted Green Pine Bonsai in Ceramic Tray",
+        "vi": "Chậu tùng Bonsai dáng cổ thụ"
+      },
+      "tags": {
+        "en": [
+          "bonsai",
+          "pine tree",
+          "zen",
+          "garden",
+          "japan"
+        ],
+        "vi": [
+          "cây bonsai",
+          "tùng la hán",
+          "thiền",
+          "nhật bản",
+          "cây cảnh"
+        ]
+      },
+      "collections": [
+        "japan",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Sculpted Green Pine Bonsai in Ceramic Tray",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 582,
+      "height": 655
+    },
+    {
+      "id": "jp-kohaku-koi-fish",
+      "name": {
+        "en": "Red & White Kohaku Koi Carp Swimming",
+        "vi": "Cá chép Koi đỏ trắng bơi lượn"
+      },
+      "tags": {
+        "en": [
+          "koi fish",
+          "carp",
+          "kohaku",
+          "pond",
+          "japan"
+        ],
+        "vi": [
+          "cá koi",
+          "cá chép nhật",
+          "đỏ trắng",
+          "may mắn",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Red & White Kohaku Koi Carp Swimming",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 513,
+      "height": 578
+    },
+    {
+      "id": "jp-wagasa-paper-umbrella",
+      "name": {
+        "en": "Red Oiled Paper Wagasa Parasol Umbrella",
+        "vi": "Chiếc ô giấy dầu đỏ Wagasa"
+      },
+      "tags": {
+        "en": [
+          "wagasa",
+          "paper umbrella",
+          "parasol",
+          "red",
+          "japan"
+        ],
+        "vi": [
+          "ô giấy dầu",
+          "wagasa",
+          "dù đỏ",
+          "cổ truyền",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Red Oiled Paper Wagasa Parasol Umbrella",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 714,
+      "height": 664
+    },
+    {
+      "id": "jp-omamori-lucky-charm",
+      "name": {
+        "en": "Brocade Silk Omamori Shrine Amulet",
+        "vi": "Bùa hộ mệnh Omamori gấm đỏ"
+      },
+      "tags": {
+        "en": [
+          "omamori",
+          "amulet",
+          "lucky charm",
+          "shrine",
+          "japan"
+        ],
+        "vi": [
+          "bùa omamori",
+          "bùa may mắn",
+          "cầu an",
+          "nhật bản",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "japan",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Brocade Silk Omamori Shrine Amulet",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 390,
+      "height": 646
+    },
+    {
+      "id": "jp-kokeshi-wooden-doll",
+      "name": {
+        "en": "Painted Wooden Kokeshi Folk Doll",
+        "vi": "Búp bê gỗ Kokeshi kimono hoa"
+      },
+      "tags": {
+        "en": [
+          "kokeshi",
+          "wooden doll",
+          "folk art",
+          "kimono",
+          "japan"
+        ],
+        "vi": [
+          "búp bê kokeshi",
+          "búp bê gỗ",
+          "kimono",
+          "dân gian",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "cute",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Painted Wooden Kokeshi Folk Doll",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 326,
+      "height": 655
+    },
+    {
+      "id": "jp-shiba-inu-portrait",
+      "name": {
+        "en": "Smiling Shiba Inu Dog with Karakusa Scarf",
+        "vi": "Chú chó Shiba Inu cười tươi quàng khăn xanh"
+      },
+      "tags": {
+        "en": [
+          "shiba inu",
+          "dog",
+          "akita",
+          "cute",
+          "japan"
+        ],
+        "vi": [
+          "chó shiba",
+          "shiba inu",
+          "thú cưng",
+          "dễ thương",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "pets",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Smiling Shiba Inu Dog with Karakusa Scarf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 500,
+      "height": 604
+    },
+    {
+      "id": "jp-wooden-geta-sandals",
+      "name": {
+        "en": "Pair of Traditional Wooden Geta Sandals",
+        "vi": "Đôi guốc gỗ Geta quai đỏ truyền thống"
+      },
+      "tags": {
+        "en": [
+          "geta",
+          "wooden sandals",
+          "footwear",
+          "kimono",
+          "japan"
+        ],
+        "vi": [
+          "guốc gỗ",
+          "geta",
+          "quai đỏ",
+          "truyền thống",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Pair of Traditional Wooden Geta Sandals",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 578,
+      "height": 514
+    },
+    {
+      "id": "jp-ramen-noodle-bowl",
+      "name": {
+        "en": "Hot Ramen Noodle Bowl with Narutomaki & Egg",
+        "vi": "Tô mì Ramen nóng hổi kèm trứng và chả cá"
+      },
+      "tags": {
+        "en": [
+          "ramen",
+          "noodle bowl",
+          "narutomaki",
+          "food",
+          "japan"
+        ],
+        "vi": [
+          "mì ramen",
+          "tô mì nhật",
+          "trứng lòng đào",
+          "ẩm thực nhật",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Hot Ramen Noodle Bowl with Narutomaki & Egg",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 684,
+      "height": 474
+    },
+    {
+      "id": "jp-nigiri-sushi-pair",
+      "name": {
+        "en": "Salmon & Tuna Nigiri Sushi Pair",
+        "vi": "Cặp sushi cá hồi và cá ngừ tươi"
+      },
+      "tags": {
+        "en": [
+          "sushi",
+          "nigiri",
+          "salmon",
+          "tuna",
+          "japan"
+        ],
+        "vi": [
+          "sushi",
+          "cá hồi",
+          "cá ngừ",
+          "ẩm thực nhật",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Salmon & Tuna Nigiri Sushi Pair",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 678,
+      "height": 270
+    },
+    {
+      "id": "jp-onigiri-rice-ball",
+      "name": {
+        "en": "Triangular Nori Seaweed Onigiri Rice Ball",
+        "vi": "Cơm nắm tam giác Onigiri bọc rong biển"
+      },
+      "tags": {
+        "en": [
+          "onigiri",
+          "rice ball",
+          "nori",
+          "snack",
+          "japan"
+        ],
+        "vi": [
+          "cơm nắm",
+          "onigiri",
+          "rong biển",
+          "dễ thương",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "food",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Triangular Nori Seaweed Onigiri Rice Ball",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 640,
+      "height": 600
+    },
+    {
+      "id": "jp-hanami-dango-skewer",
+      "name": {
+        "en": "Tri-Color Pink White Green Hanami Dango Skewer",
+        "vi": "Xiên bánh trôi Dango ba màu hồng trắng xanh"
+      },
+      "tags": {
+        "en": [
+          "dango",
+          "hanami",
+          "mochi",
+          "sweet",
+          "japan"
+        ],
+        "vi": [
+          "bánh dango",
+          "xiên bánh",
+          "ba màu",
+          "hoa anh đào",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "food",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Tri-Color Pink White Green Hanami Dango Skewer",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 610,
+      "height": 610
+    },
+    {
+      "id": "jp-taiyaki-fish-waffle",
+      "name": {
+        "en": "Golden Baked Fish-Shaped Taiyaki Cake",
+        "vi": "Bánh nướng hình cá Taiyaki vàng ươm"
+      },
+      "tags": {
+        "en": [
+          "taiyaki",
+          "fish cake",
+          "waffle",
+          "street food",
+          "japan"
+        ],
+        "vi": [
+          "bánh cá",
+          "taiyaki",
+          "bánh nướng",
+          "ẩm thực nhật",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "japan",
+        "food",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Baked Fish-Shaped Taiyaki Cake",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 664,
+      "height": 472
+    },
+    {
+      "id": "jp-matcha-tea-bowl",
+      "name": {
+        "en": "Ceramic Chawan Matcha Green Tea Bowl & Whisk",
+        "vi": "Bát trà xanh Matcha và chổi tre đánh trà"
+      },
+      "tags": {
+        "en": [
+          "matcha",
+          "green tea",
+          "chawan",
+          "tea ceremony",
+          "japan"
+        ],
+        "vi": [
+          "trà matcha",
+          "trà đạo",
+          "trà xanh",
+          "chổi tre",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "coffee",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Ceramic Chawan Matcha Green Tea Bowl & Whisk",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 666,
+      "height": 384
+    },
+    {
+      "id": "jp-sake-flask-cup",
+      "name": {
+        "en": "Ceramic Tokkuri Sake Bottle & Ochoko Cup",
+        "vi": "Bình rượu Sake gốm trắng và chén nhỏ"
+      },
+      "tags": {
+        "en": [
+          "sake",
+          "tokkuri",
+          "ceramic",
+          "drink",
+          "japan"
+        ],
+        "vi": [
+          "rượu sake",
+          "bình gốm",
+          "chén rượu",
+          "ẩm thực nhật",
+          "nhật bản"
+        ]
+      },
+      "collections": [
+        "japan",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Ceramic Tokkuri Sake Bottle & Ochoko Cup",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 574,
+      "height": 612
     }
   ]
 }

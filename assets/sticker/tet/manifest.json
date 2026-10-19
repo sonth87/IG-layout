@@ -791,6 +791,1253 @@
       },
       "width": 756,
       "height": 860
+    },
+    {
+      "id": "tet-zodiac-golden-mouse",
+      "name": {
+        "en": "Golden Zodiac Mouse Holding Coin",
+        "vi": "Chuột vàng cầm đồng tiền may mắn"
+      },
+      "tags": {
+        "en": [
+          "mouse",
+          "rat",
+          "zodiac",
+          "tet",
+          "coin"
+        ],
+        "vi": [
+          "con chuột",
+          "tuổi tý",
+          "con giáp",
+          "tết",
+          "đồng tiền"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Zodiac Mouse Holding Coin",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 566,
+      "height": 638
+    },
+    {
+      "id": "tet-zodiac-water-buffalo",
+      "name": {
+        "en": "Vietnamese Water Buffalo Zodiac",
+        "vi": "Trâu vàng chăm chỉ mùa xuân"
+      },
+      "tags": {
+        "en": [
+          "buffalo",
+          "ox",
+          "zodiac",
+          "tet",
+          "vietnam"
+        ],
+        "vi": [
+          "con trâu",
+          "tuổi sửu",
+          "con giáp",
+          "tết",
+          "nhà nông"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Vietnamese Water Buffalo Zodiac",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 598,
+      "height": 601
+    },
+    {
+      "id": "tet-zodiac-lucky-cat",
+      "name": {
+        "en": "Vietnamese Zodiac Cat with Red Collar",
+        "vi": "Mèo vàng đeo lục lạc đỏ Tết Mão"
+      },
+      "tags": {
+        "en": [
+          "cat",
+          "zodiac",
+          "mao",
+          "tet",
+          "lucky"
+        ],
+        "vi": [
+          "con mèo",
+          "tuổi mão",
+          "con giáp",
+          "tết",
+          "lục lạc"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Vietnamese Zodiac Cat with Red Collar",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 470,
+      "height": 622
+    },
+    {
+      "id": "tet-zodiac-emerald-snake",
+      "name": {
+        "en": "Coiled Emerald Zodiac Snake",
+        "vi": "Rắn lục ngọc cuộn mình đón xuân"
+      },
+      "tags": {
+        "en": [
+          "snake",
+          "zodiac",
+          "tet",
+          "emerald",
+          "spring"
+        ],
+        "vi": [
+          "con rắn",
+          "tuổi tỵ",
+          "con giáp",
+          "tết",
+          "ngọc bích"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Coiled Emerald Zodiac Snake",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 556,
+      "height": 671
+    },
+    {
+      "id": "tet-zodiac-mountain-goat",
+      "name": {
+        "en": "Golden Horned Zodiac Goat",
+        "vi": "Dê trắng sừng vàng cát tường"
+      },
+      "tags": {
+        "en": [
+          "goat",
+          "sheep",
+          "zodiac",
+          "tet",
+          "lucky"
+        ],
+        "vi": [
+          "con dê",
+          "tuổi mùi",
+          "con giáp",
+          "tết",
+          "cát tường"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Horned Zodiac Goat",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 622,
+      "height": 615
+    },
+    {
+      "id": "tet-zodiac-clever-monkey",
+      "name": {
+        "en": "Cheerful Zodiac Monkey Holding Peach",
+        "vi": "Khỉ con ôm đào tiên mừng thọ"
+      },
+      "tags": {
+        "en": [
+          "monkey",
+          "zodiac",
+          "peach",
+          "tet",
+          "clever"
+        ],
+        "vi": [
+          "con khỉ",
+          "tuổi thân",
+          "con giáp",
+          "đào tiên",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Cheerful Zodiac Monkey Holding Peach",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 578,
+      "height": 570
+    },
+    {
+      "id": "tet-zodiac-loyal-dog",
+      "name": {
+        "en": "Loyal Golden Zodiac Dog with Red Scarf",
+        "vi": "Chó vàng quàng khăn đỏ đón Tết"
+      },
+      "tags": {
+        "en": [
+          "dog",
+          "puppy",
+          "zodiac",
+          "tet",
+          "loyal"
+        ],
+        "vi": [
+          "con chó",
+          "tuổi tuất",
+          "con giáp",
+          "tết",
+          "may mắn"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Loyal Golden Zodiac Dog with Red Scarf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 530,
+      "height": 578
+    },
+    {
+      "id": "tet-zodiac-chubby-pig",
+      "name": {
+        "en": "Prosperous Chubby Pink Zodiac Pig",
+        "vi": "Heo hồng phú quý tròn trịa"
+      },
+      "tags": {
+        "en": [
+          "pig",
+          "boar",
+          "zodiac",
+          "tet",
+          "prosperous"
+        ],
+        "vi": [
+          "con heo",
+          "con lợn",
+          "tuổi hợi",
+          "con giáp",
+          "phú quý"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Prosperous Chubby Pink Zodiac Pig",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 514,
+      "height": 562
+    },
+    {
+      "id": "tet-chu-loc-diamond",
+      "name": {
+        "en": "Crimson Diamond Calligraphy Lộc Plaque",
+        "vi": "Liễn đỏ hình thoi chữ Lộc vàng kim"
+      },
+      "tags": {
+        "en": [
+          "loc",
+          "calligraphy",
+          "plaque",
+          "tet",
+          "prosperity"
+        ],
+        "vi": [
+          "chữ lộc",
+          "thư pháp",
+          "liễn đỏ",
+          "tài lộc",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Crimson Diamond Calligraphy Lộc Plaque",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 726,
+      "height": 798
+    },
+    {
+      "id": "tet-chu-tho-medallion",
+      "name": {
+        "en": "Golden Longevity Thọ Round Medallion",
+        "vi": "Khánh tròn chữ Thọ trường sinh vàng đỏ"
+      },
+      "tags": {
+        "en": [
+          "longevity",
+          "tho",
+          "medallion",
+          "tet",
+          "emblem"
+        ],
+        "vi": [
+          "chữ thọ",
+          "trường thọ",
+          "khánh tròn",
+          "tết",
+          "vàng đỏ"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Longevity Thọ Round Medallion",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 666,
+      "height": 666
+    },
+    {
+      "id": "tet-chu-an-scroll",
+      "name": {
+        "en": "Hanging Red Scroll with Peace Ornament",
+        "vi": "Tranh treo dọc chữ An bình yên"
+      },
+      "tags": {
+        "en": [
+          "scroll",
+          "peace",
+          "an",
+          "tet",
+          "hanging"
+        ],
+        "vi": [
+          "chữ an",
+          "bình an",
+          "tranh liễn",
+          "tết",
+          "mùa xuân"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Hanging Red Scroll with Peace Ornament",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 518,
+      "height": 685
+    },
+    {
+      "id": "tet-chu-tai-gold-coin",
+      "name": {
+        "en": "Ancient Bronze Coin with Red Ribbon",
+        "vi": "Đồng tiền cổ buộc dây đỏ chiêu tài"
+      },
+      "tags": {
+        "en": [
+          "coin",
+          "bronze",
+          "wealth",
+          "tet",
+          "lucky"
+        ],
+        "vi": [
+          "đồng tiền cổ",
+          "chiêu tài",
+          "dây đỏ",
+          "may mắn",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Ancient Bronze Coin with Red Ribbon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 572,
+      "height": 693
+    },
+    {
+      "id": "tet-spring-red-banner",
+      "name": {
+        "en": "Festive Horizontal Spring Ribbon Banner",
+        "vi": "Hoành phi đỏ viền vàng mừng xuân"
+      },
+      "tags": {
+        "en": [
+          "banner",
+          "ribbon",
+          "spring",
+          "tet",
+          "festive"
+        ],
+        "vi": [
+          "hoành phi",
+          "băng rôn",
+          "mừng xuân",
+          "đỏ vàng",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Festive Horizontal Spring Ribbon Banner",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 732,
+      "height": 312
+    },
+    {
+      "id": "tet-apricot-bonsai-pot",
+      "name": {
+        "en": "Blooming Yellow Apricot Bonsai Tree",
+        "vi": "Chậu mai vàng thế rồng nở rộ"
+      },
+      "tags": {
+        "en": [
+          "apricot",
+          "mai",
+          "bonsai",
+          "tet",
+          "yellow flower"
+        ],
+        "vi": [
+          "cây mai",
+          "chậu mai vàng",
+          "bonsai",
+          "tết miền nam",
+          "hoa mai"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "floral"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Blooming Yellow Apricot Bonsai Tree",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 542,
+      "height": 728
+    },
+    {
+      "id": "tet-peach-blossom-vase",
+      "name": {
+        "en": "Blue Porcelain Vase with Pink Peach Blossoms",
+        "vi": "Bình gốm xanh cắm cành đào bích"
+      },
+      "tags": {
+        "en": [
+          "peach blossom",
+          "vase",
+          "porcelain",
+          "tet",
+          "floral"
+        ],
+        "vi": [
+          "bình hoa đào",
+          "đào bích",
+          "gốm sứ",
+          "tết miền bắc",
+          "hoa xuân"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "floral"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Blue Porcelain Vase with Pink Peach Blossoms",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 556,
+      "height": 710
+    },
+    {
+      "id": "tet-marigold-pot-pair",
+      "name": {
+        "en": "Festive Yellow Chrysanthemum Pot",
+        "vi": "Chậu cúc mâm xôi vàng rực ngày Tết"
+      },
+      "tags": {
+        "en": [
+          "chrysanthemum",
+          "marigold",
+          "flower pot",
+          "tet",
+          "yellow"
+        ],
+        "vi": [
+          "cúc mâm xôi",
+          "chậu cúc vàng",
+          "hoa tết",
+          "mùa xuân",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "floral"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Festive Yellow Chrysanthemum Pot",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 564,
+      "height": 586
+    },
+    {
+      "id": "tet-pussy-willow-vase",
+      "name": {
+        "en": "Red Vase of Red Pussy Willow Branches",
+        "vi": "Bình nụ tầm xuân đỏ may mắn"
+      },
+      "tags": {
+        "en": [
+          "pussy willow",
+          "vase",
+          "branches",
+          "tet",
+          "red"
+        ],
+        "vi": [
+          "nụ tầm xuân",
+          "bình hoa tết",
+          "lộc xuân",
+          "đỏ thắm",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "floral"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Red Vase of Red Pussy Willow Branches",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 430,
+      "height": 700
+    },
+    {
+      "id": "tet-orchid-purple-branch",
+      "name": {
+        "en": "Purple Phalaenopsis Orchid Spray",
+        "vi": "Cành hoa lan hồ điệp tím sang trọng"
+      },
+      "tags": {
+        "en": [
+          "orchid",
+          "phalaenopsis",
+          "purple",
+          "tet",
+          "flower"
+        ],
+        "vi": [
+          "lan hồ điệp",
+          "hoa lan tím",
+          "hoa tết",
+          "sang trọng",
+          "mùa xuân"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "floral"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Purple Phalaenopsis Orchid Spray",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 604,
+      "height": 623
+    },
+    {
+      "id": "tet-narcissus-porcelain-bowl",
+      "name": {
+        "en": "White Narcissus Bulbs in Ceramic Bowl",
+        "vi": "Bát hoa thuỷ tiên trắng thanh tao"
+      },
+      "tags": {
+        "en": [
+          "narcissus",
+          "daffodil",
+          "bowl",
+          "tet",
+          "flower"
+        ],
+        "vi": [
+          "hoa thuỷ tiên",
+          "bát sứ",
+          "thanh tao",
+          "tết hà nội",
+          "hoa xuân"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "floral"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "White Narcissus Bulbs in Ceramic Bowl",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 558,
+      "height": 694
+    },
+    {
+      "id": "tet-mut-tet-hex-box",
+      "name": {
+        "en": "Hexagonal Candied Fruit Mứt Tết Tray",
+        "vi": "Khay mứt Tết lục giác sáu ngăn"
+      },
+      "tags": {
+        "en": [
+          "candied fruit",
+          "mut tet",
+          "tray",
+          "snacks",
+          "tet"
+        ],
+        "vi": [
+          "khay mứt tết",
+          "mứt dừa",
+          "mứt sen",
+          "bánh mứt",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Hexagonal Candied Fruit Mứt Tết Tray",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 620,
+      "height": 700
+    },
+    {
+      "id": "tet-roasted-watermelon-seeds",
+      "name": {
+        "en": "Bowl of Red Roasted Watermelon Seeds",
+        "vi": "Đĩa hạt dưa đỏ cắn ngày xuân"
+      },
+      "tags": {
+        "en": [
+          "watermelon seeds",
+          "hat dua",
+          "snack",
+          "tet",
+          "red"
+        ],
+        "vi": [
+          "hạt dưa",
+          "đĩa hạt dưa",
+          "nhâm nhi",
+          "ngày tết",
+          "đỏ may mắn"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Bowl of Red Roasted Watermelon Seeds",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 630,
+      "height": 406
+    },
+    {
+      "id": "tet-thit-kho-tau-bowl",
+      "name": {
+        "en": "Braised Pork Belly & Eggs Tết Bowl",
+        "vi": "Tô thịt kho tàu trứng vịt nước dừa"
+      },
+      "tags": {
+        "en": [
+          "braised pork",
+          "thit kho tau",
+          "eggs",
+          "tet food",
+          "vietnam"
+        ],
+        "vi": [
+          "thịt kho tàu",
+          "thịt kho hột vịt",
+          "món ăn tết",
+          "ẩm thực",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Braised Pork Belly & Eggs Tết Bowl",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 648,
+      "height": 422
+    },
+    {
+      "id": "tet-pickled-scallion-dish",
+      "name": {
+        "en": "Pickled Scallions & Dried Shrimp Dish",
+        "vi": "Đĩa củ kiệu tôm khô ngày Tết"
+      },
+      "tags": {
+        "en": [
+          "pickled scallions",
+          "cu kieu",
+          "dried shrimp",
+          "tet",
+          "food"
+        ],
+        "vi": [
+          "củ kiệu",
+          "tôm khô",
+          "dưa hành",
+          "món tết",
+          "ẩm thực"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Pickled Scallions & Dried Shrimp Dish",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 646,
+      "height": 374
+    },
+    {
+      "id": "tet-carved-watermelon-pair",
+      "name": {
+        "en": "Green Tết Watermelon with Lucky Red Sticker",
+        "vi": "Quả dưa hấu xanh dán giấy đỏ Tết"
+      },
+      "tags": {
+        "en": [
+          "watermelon",
+          "dua hau",
+          "fruit",
+          "tet",
+          "lucky"
+        ],
+        "vi": [
+          "dưa hấu tết",
+          "dưa hấu đỏ",
+          "mâm ngũ quả",
+          "trái cây",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Green Tết Watermelon with Lucky Red Sticker",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 600,
+      "height": 667
+    },
+    {
+      "id": "tet-red-folding-fan",
+      "name": {
+        "en": "Crimson Folding Paper Fan with Apricot Blossoms",
+        "vi": "Quạt giấy đỏ vẽ hoa mai vàng"
+      },
+      "tags": {
+        "en": [
+          "folding fan",
+          "red fan",
+          "apricot",
+          "tet",
+          "decor"
+        ],
+        "vi": [
+          "quạt giấy đỏ",
+          "quạt xếp",
+          "hoa mai",
+          "trang trí tết",
+          "mùa xuân"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Crimson Folding Paper Fan with Apricot Blossoms",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 471
+    },
+    {
+      "id": "tet-gold-pouch-lucky",
+      "name": {
+        "en": "Embroidered Red Silk Drawstring Money Pouch",
+        "vi": "Túi gấm đỏ đựng vàng tài lộc"
+      },
+      "tags": {
+        "en": [
+          "money pouch",
+          "lucky bag",
+          "gold",
+          "tet",
+          "wealth"
+        ],
+        "vi": [
+          "túi gấm",
+          "túi tiền",
+          "tài lộc",
+          "đỏ vàng",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Embroidered Red Silk Drawstring Money Pouch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 480,
+      "height": 528
+    },
+    {
+      "id": "tet-gold-ingot-sycee",
+      "name": {
+        "en": "Golden Boat Ingot Kim Nguyên Bảo",
+        "vi": "Thỏi vàng Kim Nguyên Bảo phát tài"
+      },
+      "tags": {
+        "en": [
+          "gold ingot",
+          "sycee",
+          "wealth",
+          "prosperity",
+          "tet"
+        ],
+        "vi": [
+          "thỏi vàng",
+          "kim nguyên bảo",
+          "phát tài",
+          "tài lộc",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Boat Ingot Kim Nguyên Bảo",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 664,
+      "height": 432
+    },
+    {
+      "id": "tet-festive-dragon-mask",
+      "name": {
+        "en": "Golden & Red Festive Dragon Dance Head",
+        "vi": "Đầu rồng vàng múa hội xuân"
+      },
+      "tags": {
+        "en": [
+          "dragon dance",
+          "festival",
+          "mask",
+          "tet",
+          "golden"
+        ],
+        "vi": [
+          "múa rồng",
+          "đầu rồng",
+          "lễ hội xuân",
+          "tết",
+          "vàng đỏ"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden & Red Festive Dragon Dance Head",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 594,
+      "height": 565
+    },
+    {
+      "id": "tet-red-festival-drum",
+      "name": {
+        "en": "Ceremonial Red Tết Drum on Stand",
+        "vi": "Trống hội xuân sơn son thếp vàng"
+      },
+      "tags": {
+        "en": [
+          "drum",
+          "festival",
+          "ceremonial",
+          "tet",
+          "red"
+        ],
+        "vi": [
+          "trống hội",
+          "trống xuân",
+          "lễ hội tết",
+          "sơn son",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Ceremonial Red Tết Drum on Stand",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 518,
+      "height": 639
+    },
+    {
+      "id": "tet-jade-chime-tassel",
+      "name": {
+        "en": "Auspicious Mystic Knot & Red Tassel",
+        "vi": "Nút thắt cát tường tua rua đỏ"
+      },
+      "tags": {
+        "en": [
+          "mystic knot",
+          "tassel",
+          "lucky charm",
+          "tet",
+          "red"
+        ],
+        "vi": [
+          "dây cát tường",
+          "nút thắt đỏ",
+          "tua rua",
+          "bình an",
+          "tết"
+        ]
+      },
+      "collections": [
+        "tet",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Auspicious Mystic Knot & Red Tassel",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 412,
+      "height": 746
     }
   ]
 }

@@ -1,0 +1,1673 @@
+{
+  "id": "autumn",
+  "kind": "sticker",
+  "name": {
+    "en": "Autumn",
+    "vi": "Mùa thu"
+  },
+  "collections": [
+    "autumn",
+    "nature"
+  ],
+  "order": 45,
+  "items": [
+    {
+      "id": "aut-red-maple-leaf",
+      "name": {
+        "en": "Crimson Five-Pointed Autumn Maple Leaf",
+        "vi": "Chiếc lá phong đỏ thẫm mùa thu"
+      },
+      "tags": {
+        "en": [
+          "maple leaf",
+          "crimson",
+          "red",
+          "autumn",
+          "foliage"
+        ],
+        "vi": [
+          "lá phong đỏ",
+          "mùa thu",
+          "lá rụng",
+          "thiên nhiên",
+          "lãng mạn"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Crimson Five-Pointed Autumn Maple Leaf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 606,
+      "height": 701
+    },
+    {
+      "id": "aut-orange-sugar-maple",
+      "name": {
+        "en": "Warm Orange Sugar Maple Leaf",
+        "vi": "Lá phong cam vàng nắng thu"
+      },
+      "tags": {
+        "en": [
+          "sugar maple",
+          "orange leaf",
+          "autumn",
+          "fall",
+          "nature"
+        ],
+        "vi": [
+          "lá phong cam",
+          "nắng thu",
+          "lá vàng",
+          "mùa thu",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Warm Orange Sugar Maple Leaf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 604,
+      "height": 693
+    },
+    {
+      "id": "aut-golden-ginkgo-leaf",
+      "name": {
+        "en": "Golden Fan-Shaped Ginkgo Biloba Leaf",
+        "vi": "Lá ngân hạnh Ginkgo hình quạt vàng óng"
+      },
+      "tags": {
+        "en": [
+          "ginkgo",
+          "golden leaf",
+          "fan leaf",
+          "autumn",
+          "japan"
+        ],
+        "vi": [
+          "lá ngân hạnh",
+          "ginkgo",
+          "lá rẻ quạt",
+          "vàng thu",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature",
+        "japan"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Fan-Shaped Ginkgo Biloba Leaf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 646,
+      "height": 649
+    },
+    {
+      "id": "aut-brown-oak-leaf",
+      "name": {
+        "en": "Lobed Russet Brown Autumn Oak Leaf",
+        "vi": "Lá sồi nâu đỏ viền lượn sóng"
+      },
+      "tags": {
+        "en": [
+          "oak leaf",
+          "brown",
+          "russet",
+          "autumn",
+          "woodland"
+        ],
+        "vi": [
+          "lá sồi",
+          "nâu đỏ",
+          "lá khô",
+          "rừng thu",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Lobed Russet Brown Autumn Oak Leaf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 381,
+      "height": 691
+    },
+    {
+      "id": "aut-yellow-birch-leaf",
+      "name": {
+        "en": "Bright Yellow Pointed Birch Leaf",
+        "vi": "Chiếc lá bạch dương vàng tươi"
+      },
+      "tags": {
+        "en": [
+          "birch leaf",
+          "yellow",
+          "foliage",
+          "autumn",
+          "nature"
+        ],
+        "vi": [
+          "lá bạch dương",
+          "lá vàng",
+          "mùa thu",
+          "rừng cây",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Bright Yellow Pointed Birch Leaf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 382,
+      "height": 690
+    },
+    {
+      "id": "aut-copper-beech-leaf",
+      "name": {
+        "en": "Copper Amber Veined Beech Leaf",
+        "vi": "Lá dẻ gai màu đồng ánh hổ phách"
+      },
+      "tags": {
+        "en": [
+          "beech leaf",
+          "copper",
+          "amber",
+          "autumn",
+          "leaf"
+        ],
+        "vi": [
+          "lá dẻ gai",
+          "màu đồng",
+          "lá thu",
+          "mùa thu",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Copper Amber Veined Beech Leaf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 436,
+      "height": 589
+    },
+    {
+      "id": "aut-falling-leaves-branch",
+      "name": {
+        "en": "Branch of Red, Orange & Gold Autumn Leaves",
+        "vi": "Cành lá thu ba màu đỏ cam vàng"
+      },
+      "tags": {
+        "en": [
+          "autumn branch",
+          "colorful leaves",
+          "fall",
+          "nature",
+          "foliage"
+        ],
+        "vi": [
+          "cành lá thu",
+          "lá đổi màu",
+          "đỏ cam vàng",
+          "mùa thu",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Branch of Red, Orange & Gold Autumn Leaves",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 678,
+      "height": 461
+    },
+    {
+      "id": "aut-autumn-leaf-wreath",
+      "name": {
+        "en": "Harvest Wreath of Autumn Leaves & Berries",
+        "vi": "Vòng nguyệt quế lá thu và quả mọng"
+      },
+      "tags": {
+        "en": [
+          "autumn wreath",
+          "harvest",
+          "berries",
+          "fall decor",
+          "leaves"
+        ],
+        "vi": [
+          "vòng lá thu",
+          "quả mọng",
+          "trang trí",
+          "mùa thu",
+          "ấm áp"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Harvest Wreath of Autumn Leaves & Berries",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 676,
+      "height": 676
+    },
+    {
+      "id": "aut-red-berry-twig",
+      "name": {
+        "en": "Woodland Red Rosehip Berry Twig",
+        "vi": "Nhánh quả tầm xuân đỏ mùa thu"
+      },
+      "tags": {
+        "en": [
+          "rosehip",
+          "red berries",
+          "twig",
+          "autumn",
+          "botanical"
+        ],
+        "vi": [
+          "quả mọng đỏ",
+          "nhánh cây",
+          "tầm xuân",
+          "mùa thu",
+          "hoa lá"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature",
+        "floral"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Woodland Red Rosehip Berry Twig",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 565,
+      "height": 564
+    },
+    {
+      "id": "aut-vintage-bare-twig",
+      "name": {
+        "en": "Botanical Dry Woodland Branch",
+        "vi": "Cành cây khô dáng cổ điển"
+      },
+      "tags": {
+        "en": [
+          "dry branch",
+          "twig",
+          "woodland",
+          "autumn",
+          "vintage"
+        ],
+        "vi": [
+          "cành khô",
+          "nhánh cây",
+          "tối giản",
+          "mùa thu",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "vintage",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Botanical Dry Woodland Branch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 632,
+      "height": 608
+    },
+    {
+      "id": "aut-acorn-oak-nut",
+      "name": {
+        "en": "Woodland Acorn with Textured Cap",
+        "vi": "Quả sồi rừng đội mũ nâu"
+      },
+      "tags": {
+        "en": [
+          "acorn",
+          "oak nut",
+          "woodland",
+          "autumn",
+          "forest"
+        ],
+        "vi": [
+          "quả sồi",
+          "hạt sồi",
+          "rừng thu",
+          "mùa thu",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Woodland Acorn with Textured Cap",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 504,
+      "height": 671
+    },
+    {
+      "id": "aut-twin-acorns-twig",
+      "name": {
+        "en": "Pair of Acorns & Oak Leaf on Branch",
+        "vi": "Chùm đôi quả sồi và chiếc lá xanh"
+      },
+      "tags": {
+        "en": [
+          "acorns",
+          "oak leaf",
+          "branch",
+          "autumn",
+          "botanical"
+        ],
+        "vi": [
+          "chùm quả sồi",
+          "lá sồi",
+          "cành cây",
+          "mùa thu",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Pair of Acorns & Oak Leaf on Branch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 606,
+      "height": 458
+    },
+    {
+      "id": "aut-red-spotted-mushroom",
+      "name": {
+        "en": "Red Polka-Dot Woodland Toadstool Mushroom",
+        "vi": "Cây nấm đỏ chấm trắng trong rừng thu"
+      },
+      "tags": {
+        "en": [
+          "mushroom",
+          "toadstool",
+          "red spotted",
+          "autumn",
+          "forest"
+        ],
+        "vi": [
+          "cây nấm",
+          "nấm đỏ",
+          "rừng thu",
+          "dễ thương",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Red Polka-Dot Woodland Toadstool Mushroom",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 646,
+      "height": 630
+    },
+    {
+      "id": "aut-chanterelle-mushroom-cluster",
+      "name": {
+        "en": "Golden Chanterelle Forest Mushroom Trio",
+        "vi": "Cụm ba cây nấm rừng màu vàng nghệ"
+      },
+      "tags": {
+        "en": [
+          "chanterelle",
+          "mushrooms",
+          "golden",
+          "forest",
+          "autumn"
+        ],
+        "vi": [
+          "nấm rừng",
+          "nấm vàng",
+          "thiên nhiên",
+          "mùa thu",
+          "ẩm thực"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Chanterelle Forest Mushroom Trio",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 636,
+      "height": 526
+    },
+    {
+      "id": "aut-porcini-boletus-mushroom",
+      "name": {
+        "en": "Plump Brown Cap Porcini Mushroom",
+        "vi": "Nấm thông mũ nâu tròn mập"
+      },
+      "tags": {
+        "en": [
+          "porcini",
+          "boletus",
+          "mushroom",
+          "brown",
+          "autumn"
+        ],
+        "vi": [
+          "nấm thông",
+          "mũ nâu",
+          "rừng thu",
+          "mùa thu",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Plump Brown Cap Porcini Mushroom",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 630,
+      "height": 630
+    },
+    {
+      "id": "aut-brown-pine-cone",
+      "name": {
+        "en": "Layered Brown Woodland Pine Cone",
+        "vi": "Quả thông khô xếp vảy nâu trầm"
+      },
+      "tags": {
+        "en": [
+          "pine cone",
+          "conifer",
+          "woodland",
+          "brown",
+          "autumn"
+        ],
+        "vi": [
+          "quả thông",
+          "trái thông khô",
+          "đà lạt",
+          "rừng thông",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature",
+        "christmas"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Layered Brown Woodland Pine Cone",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 438,
+      "height": 629
+    },
+    {
+      "id": "aut-roasted-chestnut",
+      "name": {
+        "en": "Glossy Brown Autumn Sweet Chestnut",
+        "vi": "Hạt dẻ rừng nâu bóng mùa thu"
+      },
+      "tags": {
+        "en": [
+          "chestnut",
+          "nut",
+          "roasted",
+          "autumn",
+          "harvest"
+        ],
+        "vi": [
+          "hạt dẻ",
+          "hạt dẻ nướng",
+          "mùa thu",
+          "ấm áp",
+          "ăn vặt"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "food",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Glossy Brown Autumn Sweet Chestnut",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 460,
+      "height": 614
+    },
+    {
+      "id": "aut-walnut-half-shell",
+      "name": {
+        "en": "Textured Golden Walnut Shell",
+        "vi": "Quả óc chó vỏ vân gỗ tự nhiên"
+      },
+      "tags": {
+        "en": [
+          "walnut",
+          "nut",
+          "harvest",
+          "autumn",
+          "food"
+        ],
+        "vi": [
+          "quả óc chó",
+          "hạt dinh dưỡng",
+          "mùa thu",
+          "thu hoạch",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Textured Golden Walnut Shell",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 516,
+      "height": 596
+    },
+    {
+      "id": "aut-harvest-golden-corn",
+      "name": {
+        "en": "Ear of Golden Harvest Corn with Husk",
+        "vi": "Bắp ngô vàng óng mùa thu hoạch"
+      },
+      "tags": {
+        "en": [
+          "corn",
+          "maize",
+          "harvest",
+          "golden",
+          "autumn"
+        ],
+        "vi": [
+          "bắp ngô",
+          "ngô vàng",
+          "mùa gặt",
+          "thu hoạch",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "food",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Ear of Golden Harvest Corn with Husk",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 470,
+      "height": 604
+    },
+    {
+      "id": "aut-golden-wheat-sheaf",
+      "name": {
+        "en": "Tied Bundle of Golden Harvest Wheat",
+        "vi": "Bó lúa mì vàng óng thắt nơ đỏ"
+      },
+      "tags": {
+        "en": [
+          "wheat sheaf",
+          "harvest",
+          "grain",
+          "golden",
+          "autumn"
+        ],
+        "vi": [
+          "bó lúa mì",
+          "mùa gặt",
+          "vàng óng",
+          "no ấm",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Tied Bundle of Golden Harvest Wheat",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 374,
+      "height": 670
+    },
+    {
+      "id": "aut-orange-harvest-pumpkin",
+      "name": {
+        "en": "Plump Ribbed Orange Harvest Pumpkin",
+        "vi": "Quả bí ngô cam tròn đầy đặn"
+      },
+      "tags": {
+        "en": [
+          "pumpkin",
+          "orange",
+          "harvest",
+          "autumn",
+          "halloween"
+        ],
+        "vi": [
+          "bí ngô",
+          "bí đỏ",
+          "mùa thu",
+          "thu hoạch",
+          "halloween"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "halloween",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Plump Ribbed Orange Harvest Pumpkin",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 646,
+      "height": 648
+    },
+    {
+      "id": "aut-white-ghost-pumpkin",
+      "name": {
+        "en": "Cream White Decorative Autumn Pumpkin",
+        "vi": "Quả bí ngô trắng kem trang trí bàn tiệc"
+      },
+      "tags": {
+        "en": [
+          "white pumpkin",
+          "cream",
+          "decor",
+          "autumn",
+          "minimal"
+        ],
+        "vi": [
+          "bí ngô trắng",
+          "trang trí thu",
+          "nhã nhặn",
+          "mùa thu",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Cream White Decorative Autumn Pumpkin",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 612,
+      "height": 596
+    },
+    {
+      "id": "aut-butternut-squash",
+      "name": {
+        "en": "Golden Pear-Shaped Butternut Squash",
+        "vi": "Quả bí hồ lô vàng ngọt bùi"
+      },
+      "tags": {
+        "en": [
+          "butternut squash",
+          "gourd",
+          "harvest",
+          "autumn",
+          "food"
+        ],
+        "vi": [
+          "bí hồ lô",
+          "bí bơ",
+          "nông sản",
+          "mùa thu",
+          "ẩm thực"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Pear-Shaped Butternut Squash",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 432,
+      "height": 671
+    },
+    {
+      "id": "aut-ripe-persimmon-fruit",
+      "name": {
+        "en": "Ripe Orange Autumn Persimmon with Calyx",
+        "vi": "Quả hồng chín đỏ mọng Đà Lạt"
+      },
+      "tags": {
+        "en": [
+          "persimmon",
+          "hong da lat",
+          "fruit",
+          "autumn",
+          "orange"
+        ],
+        "vi": [
+          "quả hồng",
+          "hồng chín",
+          "hồng đà lạt",
+          "mùa thu",
+          "trái cây"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "food",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Ripe Orange Autumn Persimmon with Calyx",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 546,
+      "height": 561
+    },
+    {
+      "id": "aut-crisp-red-apple",
+      "name": {
+        "en": "Orchard Red Autumn Apple with Green Leaf",
+        "vi": "Quả táo đỏ vườn thu đính lá xanh"
+      },
+      "tags": {
+        "en": [
+          "red apple",
+          "orchard",
+          "fruit",
+          "autumn",
+          "harvest"
+        ],
+        "vi": [
+          "quả táo đỏ",
+          "táo thu",
+          "trái cây",
+          "mùa thu",
+          "tươi ngon"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Orchard Red Autumn Apple with Green Leaf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 510,
+      "height": 626
+    },
+    {
+      "id": "aut-golden-autumn-pear",
+      "name": {
+        "en": "Golden Honey Autumn Pear",
+        "vi": "Quả lê vàng mật ngọt thanh"
+      },
+      "tags": {
+        "en": [
+          "pear",
+          "golden fruit",
+          "orchard",
+          "autumn",
+          "food"
+        ],
+        "vi": [
+          "quả lê",
+          "lê vàng",
+          "ngọt thanh",
+          "mùa thu",
+          "trái cây"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Honey Autumn Pear",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 426,
+      "height": 675
+    },
+    {
+      "id": "aut-ruby-pomegranate",
+      "name": {
+        "en": "Ruby Red Autumn Pomegranate with Crown",
+        "vi": "Quả lựu đỏ vương miện mùa thu"
+      },
+      "tags": {
+        "en": [
+          "pomegranate",
+          "ruby fruit",
+          "harvest",
+          "autumn",
+          "food"
+        ],
+        "vi": [
+          "quả lựu",
+          "lựu đỏ",
+          "trái cây mùa thu",
+          "mùa thu",
+          "ẩm thực"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Ruby Red Autumn Pomegranate with Crown",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 552,
+      "height": 655
+    },
+    {
+      "id": "aut-purple-autumn-grapes",
+      "name": {
+        "en": "Cluster of Ripe Purple Vineyard Grapes",
+        "vi": "Chùm nho tím chín mọng mùa thu"
+      },
+      "tags": {
+        "en": [
+          "grapes",
+          "vineyard",
+          "purple fruit",
+          "autumn",
+          "harvest"
+        ],
+        "vi": [
+          "chùm nho",
+          "nho tím",
+          "vườn nho",
+          "mùa thu",
+          "trái cây"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Cluster of Ripe Purple Vineyard Grapes",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 418,
+      "height": 616
+    },
+    {
+      "id": "aut-golden-chrysanthemum",
+      "name": {
+        "en": "Blooming Golden Autumn Chrysanthemum Flower",
+        "vi": "Đoá hoa cúc vàng nở rộ tiết thu"
+      },
+      "tags": {
+        "en": [
+          "chrysanthemum",
+          "golden flower",
+          "autumn",
+          "floral",
+          "vietnam"
+        ],
+        "vi": [
+          "hoa cúc thu",
+          "cúc vàng",
+          "hà nội mùa thu",
+          "hoa lá",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "floral",
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Blooming Golden Autumn Chrysanthemum Flower",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 626,
+      "height": 626
+    },
+    {
+      "id": "aut-terracotta-cosmos-flower",
+      "name": {
+        "en": "Terracotta Orange Autumn Cosmos Blossom",
+        "vi": "Bông hoa cúc cánh bướm màu cam đất"
+      },
+      "tags": {
+        "en": [
+          "cosmos",
+          "terracotta",
+          "flower",
+          "autumn",
+          "floral"
+        ],
+        "vi": [
+          "hoa cánh bướm",
+          "cam đất",
+          "hoa dại",
+          "mùa thu",
+          "lãng mạn"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "floral"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Terracotta Orange Autumn Cosmos Blossom",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 516,
+      "height": 672
+    },
+    {
+      "id": "aut-autumn-sunflower",
+      "name": {
+        "en": "Warm Golden Harvest Sunflower",
+        "vi": "Bông hoa hướng dương vàng rực nắng thu"
+      },
+      "tags": {
+        "en": [
+          "sunflower",
+          "golden",
+          "harvest",
+          "autumn",
+          "floral"
+        ],
+        "vi": [
+          "hoa hướng dương",
+          "nắng thu",
+          "vàng rực",
+          "hoa lá",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "floral",
+        "summer"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Warm Golden Harvest Sunflower",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 662,
+      "height": 678
+    },
+    {
+      "id": "aut-pampas-grass-plume",
+      "name": {
+        "en": "Fluffy Cream Pampas Reed Grass Plume",
+        "vi": "Bông cỏ lau trắng kem mềm mại"
+      },
+      "tags": {
+        "en": [
+          "pampas grass",
+          "reed",
+          "plume",
+          "autumn",
+          "minimal"
+        ],
+        "vi": [
+          "cỏ lau",
+          "bông lau",
+          "mùa thu",
+          "dịu dàng",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "nature",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Fluffy Cream Pampas Reed Grass Plume",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 373,
+      "height": 677
+    },
+    {
+      "id": "aut-squirrel-holding-acorn",
+      "name": {
+        "en": "Woodland Red Squirrel Holding Acorn",
+        "vi": "Chú sóc nâu đuôi xù ôm hạt dẻ"
+      },
+      "tags": {
+        "en": [
+          "squirrel",
+          "acorn",
+          "woodland",
+          "animal",
+          "autumn"
+        ],
+        "vi": [
+          "con sóc",
+          "sóc nâu",
+          "hạt dẻ",
+          "rừng thu",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "cute",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Woodland Red Squirrel Holding Acorn",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 571,
+      "height": 558
+    },
+    {
+      "id": "aut-hedgehog-autumn-leaf",
+      "name": {
+        "en": "Cute Woodland Hedgehog Carrying Red Leaf",
+        "vi": "Nhím nhỏ cõng chiếc lá phong đỏ"
+      },
+      "tags": {
+        "en": [
+          "hedgehog",
+          "woodland",
+          "cute animal",
+          "leaf",
+          "autumn"
+        ],
+        "vi": [
+          "con nhím",
+          "nhím nhỏ",
+          "lá phong",
+          "dễ thương",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "cute",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Cute Woodland Hedgehog Carrying Red Leaf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 637,
+      "height": 492
+    },
+    {
+      "id": "aut-sleeping-red-fox",
+      "name": {
+        "en": "Curled Sleeping Autumn Red Fox",
+        "vi": "Cáo đỏ cuộn tròn ngủ ấm áp"
+      },
+      "tags": {
+        "en": [
+          "red fox",
+          "sleeping",
+          "woodland",
+          "cute",
+          "autumn"
+        ],
+        "vi": [
+          "cáo đỏ",
+          "con cáo",
+          "cuộn tròn",
+          "ấm áp",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "cute",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Curled Sleeping Autumn Red Fox",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 565,
+      "height": 498
+    },
+    {
+      "id": "aut-spiced-cinnamon-tea",
+      "name": {
+        "en": "Warm Mug of Cinnamon Orange Spiced Tea",
+        "vi": "Cốc trà cam quế hồi ấm áp ngày thu"
+      },
+      "tags": {
+        "en": [
+          "cinnamon tea",
+          "spiced tea",
+          "mug",
+          "cozy",
+          "autumn"
+        ],
+        "vi": [
+          "trà cam quế",
+          "cốc trà nóng",
+          "ấm áp",
+          "mùa thu",
+          "đồ uống"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "coffee",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Warm Mug of Cinnamon Orange Spiced Tea",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 645,
+      "height": 553
+    },
+    {
+      "id": "aut-pumpkin-spice-latte",
+      "name": {
+        "en": "Whipped Cream Pumpkin Spice Latte Cup",
+        "vi": "Ly Latte bí ngô phủ kem tươi rắc quế"
+      },
+      "tags": {
+        "en": [
+          "pumpkin spice",
+          "latte",
+          "coffee",
+          "whipped cream",
+          "autumn"
+        ],
+        "vi": [
+          "latte bí ngô",
+          "cà phê thu",
+          "kem tươi",
+          "mùa thu",
+          "đồ uống"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "coffee",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Whipped Cream Pumpkin Spice Latte Cup",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 444,
+      "height": 612
+    },
+    {
+      "id": "aut-plaid-woolen-scarf",
+      "name": {
+        "en": "Warm Mustard & Rust Plaid Woolen Scarf",
+        "vi": "Khăn choàng len kẻ caro màu vàng đất"
+      },
+      "tags": {
+        "en": [
+          "woolen scarf",
+          "plaid",
+          "cozy",
+          "fashion",
+          "autumn"
+        ],
+        "vi": [
+          "khăn choàng len",
+          "khăn caro",
+          "ấm áp",
+          "thời trang thu",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Warm Mustard & Rust Plaid Woolen Scarf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 578,
+      "height": 553
+    },
+    {
+      "id": "aut-cozy-knit-sweater",
+      "name": {
+        "en": "Terracotta Cable-Knit Autumn Sweater",
+        "vi": "Chiếc áo len đan vặn thừng màu cam đất"
+      },
+      "tags": {
+        "en": [
+          "knit sweater",
+          "cardigan",
+          "cozy",
+          "terracotta",
+          "autumn"
+        ],
+        "vi": [
+          "áo len",
+          "đan len",
+          "cam đất",
+          "ấm áp",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Terracotta Cable-Knit Autumn Sweater",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 560
+    },
+    {
+      "id": "aut-amber-scented-candle",
+      "name": {
+        "en": "Glowing Amber Glass Jar Scented Candle",
+        "vi": "Hũ nến thơm thuỷ tinh màu hổ phách"
+      },
+      "tags": {
+        "en": [
+          "scented candle",
+          "amber jar",
+          "cozy",
+          "flame",
+          "autumn"
+        ],
+        "vi": [
+          "nến thơm",
+          "hũ nến",
+          "hổ phách",
+          "thư giãn",
+          "mùa thu"
+        ]
+      },
+      "collections": [
+        "autumn",
+        "minimal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Glowing Amber Glass Jar Scented Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 390,
+      "height": 634
+    }
+  ]
+}

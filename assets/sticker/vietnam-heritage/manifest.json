@@ -45,7 +45,7 @@
         "retrieved": "2026-10-18"
       },
       "width": 1024,
-      "height": 764
+      "height": 761
     },
     {
       "id": "vn-dong-ho-dam-cuoi-chuot-museum",
@@ -80,7 +80,7 @@
         "retrieved": "2026-10-18"
       },
       "width": 1024,
-      "height": 706
+      "height": 701
     },
     {
       "id": "vn-dong-ho-chuot-ruoc-den",
@@ -114,8 +114,8 @@
         "license": "PDM",
         "retrieved": "2026-10-18"
       },
-      "width": 1024,
-      "height": 747
+      "width": 1022,
+      "height": 744
     },
     {
       "id": "vn-dong-ho-dau-vat",
@@ -149,8 +149,8 @@
         "license": "PDM",
         "retrieved": "2026-10-18"
       },
-      "width": 1024,
-      "height": 688,
+      "width": 1023,
+      "height": 676,
       "process": {
         "bgMode": "flood",
         "tolerance": 8,
@@ -189,8 +189,8 @@
         "license": "PDM",
         "retrieved": "2026-10-18"
       },
-      "width": 1024,
-      "height": 726
+      "width": 1020,
+      "height": 710
     },
     {
       "id": "vn-dong-ho-ba-trieu",
@@ -224,8 +224,8 @@
         "license": "PDM",
         "retrieved": "2026-10-18"
       },
-      "width": 705,
-      "height": 1024
+      "width": 703,
+      "height": 1018
     },
     {
       "id": "vn-dong-ho-ngo-quyen",
@@ -259,8 +259,1368 @@
         "license": "PDM",
         "retrieved": "2026-10-18"
       },
-      "width": 1024,
+      "width": 1016,
       "height": 735
+    },
+    {
+      "id": "vn-one-pillar-pagoda",
+      "name": {
+        "en": "Hanoi One Pillar Pagoda Illustration",
+        "vi": "Chùa Một Cột Hà Nội trên hồ sen"
+      },
+      "tags": {
+        "en": [
+          "one pillar pagoda",
+          "hanoi",
+          "temple",
+          "vietnam",
+          "landmark"
+        ],
+        "vi": [
+          "chùa một cột",
+          "hà nội",
+          "di sản",
+          "kiến trúc cổ",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Hanoi One Pillar Pagoda Illustration",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 664,
+      "height": 595
+    },
+    {
+      "id": "vn-khue-van-cac-pavilion",
+      "name": {
+        "en": "Khue Van Cac Temple of Literature Emblem",
+        "vi": "Khuê Văn Các Văn Miếu Quốc Tử Giám"
+      },
+      "tags": {
+        "en": [
+          "khue van cac",
+          "temple of literature",
+          "hanoi",
+          "vietnam",
+          "pavilion"
+        ],
+        "vi": [
+          "khuê văn các",
+          "văn miếu",
+          "hà nội",
+          "biểu tượng",
+          "di sản"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Khue Van Cac Temple of Literature Emblem",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 648,
+      "height": 672
+    },
+    {
+      "id": "vn-hoi-an-bridge-pagoda",
+      "name": {
+        "en": "Hoi An Covered Bridge Pagoda",
+        "vi": "Chùa Cầu Hội An phố cổ"
+      },
+      "tags": {
+        "en": [
+          "hoi an",
+          "covered bridge",
+          "pagoda",
+          "vietnam",
+          "heritage"
+        ],
+        "vi": [
+          "chùa cầu",
+          "hội an",
+          "phố cổ",
+          "di sản",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Hoi An Covered Bridge Pagoda",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 732,
+      "height": 619
+    },
+    {
+      "id": "vn-turtle-tower-hanoi",
+      "name": {
+        "en": "Hoan Kiem Lake Turtle Tower",
+        "vi": "Tháp Rùa Hồ Gươm cổ kính"
+      },
+      "tags": {
+        "en": [
+          "turtle tower",
+          "hoan kiem",
+          "hanoi",
+          "vietnam",
+          "landmark"
+        ],
+        "vi": [
+          "tháp rùa",
+          "hồ gươm",
+          "hồ hoàn kiếm",
+          "hà nội",
+          "cổ kính"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Hoan Kiem Lake Turtle Tower",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 666,
+      "height": 707
+    },
+    {
+      "id": "vn-ngo-mon-hue-gate",
+      "name": {
+        "en": "Hue Imperial Citadel Ngo Mon Gate",
+        "vi": "Ngọ Môn Kinh thành Huế"
+      },
+      "tags": {
+        "en": [
+          "hue",
+          "imperial gate",
+          "ngo mon",
+          "vietnam",
+          "heritage"
+        ],
+        "vi": [
+          "ngọ môn",
+          "cố đô huế",
+          "kinh thành huế",
+          "di sản",
+          "kiến trúc"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Hue Imperial Citadel Ngo Mon Gate",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 698,
+      "height": 602
+    },
+    {
+      "id": "vn-communal-temple-roof",
+      "name": {
+        "en": "Curved Blade Vietnamese Village Temple Roof",
+        "vi": "Mái đình làng Việt mũi hài uốn cong"
+      },
+      "tags": {
+        "en": [
+          "temple roof",
+          "village",
+          "architecture",
+          "vietnam",
+          "heritage"
+        ],
+        "vi": [
+          "mái đình",
+          "đình làng",
+          "mũi hài",
+          "cổ truyền",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Curved Blade Vietnamese Village Temple Roof",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 748,
+      "height": 580
+    },
+    {
+      "id": "vn-ha-long-kissing-rocks",
+      "name": {
+        "en": "Ha Long Bay Fighting Cock Limestone Islets",
+        "vi": "Hòn Trống Mái vịnh Hạ Long"
+      },
+      "tags": {
+        "en": [
+          "ha long bay",
+          "islets",
+          "limestone",
+          "vietnam",
+          "travel"
+        ],
+        "vi": [
+          "hạ long",
+          "hòn trống mái",
+          "kỳ quan",
+          "du lịch",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Ha Long Bay Fighting Cock Limestone Islets",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 576
+    },
+    {
+      "id": "vn-golden-hands-bridge",
+      "name": {
+        "en": "Da Nang Golden Bridge Curved Walkway",
+        "vi": "Cầu Vàng Đà Nẵng nâng trên đôi bàn tay đá"
+      },
+      "tags": {
+        "en": [
+          "golden bridge",
+          "da nang",
+          "landmark",
+          "vietnam",
+          "travel"
+        ],
+        "vi": [
+          "cầu vàng",
+          "đà nẵng",
+          "du lịch",
+          "danh thắng",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Da Nang Golden Bridge Curved Walkway",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 772,
+      "height": 373
+    },
+    {
+      "id": "vn-non-la-conical-hat",
+      "name": {
+        "en": "Vietnamese Bamboo Conical Hat Nón Lá",
+        "vi": "Chiếc nón lá tre quai lụa hồng"
+      },
+      "tags": {
+        "en": [
+          "non la",
+          "conical hat",
+          "bamboo",
+          "vietnam",
+          "traditional"
+        ],
+        "vi": [
+          "nón lá",
+          "quai lụa",
+          "truyền thống",
+          "duyên dáng",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Vietnamese Bamboo Conical Hat Nón Lá",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 714,
+      "height": 537
+    },
+    {
+      "id": "vn-ao-dai-white-lotus",
+      "name": {
+        "en": "Traditional White Silk Áo Dài Dress",
+        "vi": "Tà áo dài lụa trắng điểm hoa sen"
+      },
+      "tags": {
+        "en": [
+          "ao dai",
+          "silk dress",
+          "traditional",
+          "vietnam",
+          "fashion"
+        ],
+        "vi": [
+          "áo dài",
+          "tà áo dài",
+          "hoa sen",
+          "truyền thống",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Traditional White Silk Áo Dài Dress",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 392,
+      "height": 656
+    },
+    {
+      "id": "vn-ao-tu-than-hat",
+      "name": {
+        "en": "Northern Quai Thao Flat Hat & Silk Ribbon",
+        "vi": "Nón quai thao Kinh Bắc quan họ"
+      },
+      "tags": {
+        "en": [
+          "quai thao",
+          "quan ho",
+          "hat",
+          "vietnam",
+          "folklore"
+        ],
+        "vi": [
+          "nón quai thao",
+          "quan họ",
+          "bắc ninh",
+          "dân ca",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Northern Quai Thao Flat Hat & Silk Ribbon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 397
+    },
+    {
+      "id": "vn-dong-son-bronze-drum",
+      "name": {
+        "en": "Dong Son Bronze Drum Sunburst Face",
+        "vi": "Mặt trống đồng Đông Sơn ngôi sao 14 cánh"
+      },
+      "tags": {
+        "en": [
+          "dong son",
+          "bronze drum",
+          "lac bird",
+          "vietnam",
+          "ancient"
+        ],
+        "vi": [
+          "trống đồng",
+          "đông sơn",
+          "ngọc lũ",
+          "di sản",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Dong Son Bronze Drum Sunburst Face",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 700,
+      "height": 700
+    },
+    {
+      "id": "vn-lac-bird-totem",
+      "name": {
+        "en": "Golden Dong Son Flying Lạc Bird Totem",
+        "vi": "Chim Lạc vàng tung cánh bay"
+      },
+      "tags": {
+        "en": [
+          "lac bird",
+          "dong son",
+          "totem",
+          "vietnam",
+          "golden"
+        ],
+        "vi": [
+          "chim lạc",
+          "văn lang",
+          "trống đồng",
+          "biểu tượng",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Dong Son Flying Lạc Bird Totem",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 714,
+      "height": 482
+    },
+    {
+      "id": "vn-dan-bau-monochord",
+      "name": {
+        "en": "Traditional Vietnamese Đàn Bầu Monochord",
+        "vi": "Cây đàn bầu độc huyền cầm"
+      },
+      "tags": {
+        "en": [
+          "dan bau",
+          "monochord",
+          "instrument",
+          "music",
+          "vietnam"
+        ],
+        "vi": [
+          "đàn bầu",
+          "độc huyền cầm",
+          "nhạc cụ dân tộc",
+          "âm nhạc",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "music"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Traditional Vietnamese Đàn Bầu Monochord",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 664,
+      "height": 533
+    },
+    {
+      "id": "vn-dan-nguyet-moon-lute",
+      "name": {
+        "en": "Vietnamese Moon-Shaped Lute Đàn Nguyệt",
+        "vi": "Đàn nguyệt cổ truyền dáng trăng tròn"
+      },
+      "tags": {
+        "en": [
+          "dan nguyet",
+          "moon lute",
+          "instrument",
+          "music",
+          "vietnam"
+        ],
+        "vi": [
+          "đàn nguyệt",
+          "đàn kìm",
+          "nhạc cụ",
+          "cổ truyền",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "music"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Vietnamese Moon-Shaped Lute Đàn Nguyệt",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 442,
+      "height": 714
+    },
+    {
+      "id": "vn-woven-bamboo-fan",
+      "name": {
+        "en": "Hand-Woven Bamboo Heart Leaf Fan",
+        "vi": "Quạt nan tre đan tay mộc mạc"
+      },
+      "tags": {
+        "en": [
+          "bamboo fan",
+          "woven",
+          "craft",
+          "vietnam",
+          "summer"
+        ],
+        "vi": [
+          "quạt nan",
+          "quạt tre",
+          "mộc mạc",
+          "làng nghề",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "summer"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Hand-Woven Bamboo Heart Leaf Fan",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 446,
+      "height": 645
+    },
+    {
+      "id": "vn-bamboo-shoulder-pole",
+      "name": {
+        "en": "Street Vendor Bamboo Shoulder Pole & Baskets",
+        "vi": "Đôi quang gánh thúng tre hàng rong"
+      },
+      "tags": {
+        "en": [
+          "shoulder pole",
+          "street vendor",
+          "baskets",
+          "vietnam",
+          "heritage"
+        ],
+        "vi": [
+          "quang gánh",
+          "hàng rong",
+          "thúng tre",
+          "thôn quê",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Street Vendor Bamboo Shoulder Pole & Baskets",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 704,
+      "height": 512
+    },
+    {
+      "id": "vn-cyclo-pedicab",
+      "name": {
+        "en": "Old Quarter Red Cushion Cyclo Pedicab",
+        "vi": "Xe xích lô dạo phố cổ Hà Nội"
+      },
+      "tags": {
+        "en": [
+          "cyclo",
+          "pedicab",
+          "old quarter",
+          "hanoi",
+          "vietnam"
+        ],
+        "vi": [
+          "xích lô",
+          "phố cổ",
+          "hà nội",
+          "du lịch",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Old Quarter Red Cushion Cyclo Pedicab",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 615,
+      "height": 519
+    },
+    {
+      "id": "vn-round-basket-boat",
+      "name": {
+        "en": "Coastal Woven Round Bamboo Basket Boat",
+        "vi": "Thuyền thúng tre làng chài miền biển"
+      },
+      "tags": {
+        "en": [
+          "basket boat",
+          "thuyen thung",
+          "coastal",
+          "vietnam",
+          "beach"
+        ],
+        "vi": [
+          "thuyền thúng",
+          "làng chài",
+          "miền biển",
+          "ngư dân",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "beach",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Coastal Woven Round Bamboo Basket Boat",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 684,
+      "height": 487
+    },
+    {
+      "id": "vn-mekong-wooden-sampan",
+      "name": {
+        "en": "Mekong River Wooden Painted Eyes Boat",
+        "vi": "Ghe gỗ miền Tây vẽ mắt thuyền"
+      },
+      "tags": {
+        "en": [
+          "sampan",
+          "mekong",
+          "wooden boat",
+          "vietnam",
+          "river"
+        ],
+        "vi": [
+          "ghe bầu",
+          "thuyền gỗ",
+          "miền tây",
+          "sông nước",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "travel"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Mekong River Wooden Painted Eyes Boat",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 748,
+      "height": 321
+    },
+    {
+      "id": "vn-hoi-an-silk-lanterns",
+      "name": {
+        "en": "Trio of Glowing Hoi An Silk Lanterns",
+        "vi": "Chùm đèn lồng lụa Hội An rực rỡ"
+      },
+      "tags": {
+        "en": [
+          "hoi an",
+          "silk lanterns",
+          "glowing",
+          "vietnam",
+          "festive"
+        ],
+        "vi": [
+          "đèn lồng hội an",
+          "đèn lụa",
+          "phố cổ",
+          "lung linh",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "tet",
+        "midAutumn"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Trio of Glowing Hoi An Silk Lanterns",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 628,
+      "height": 596
+    },
+    {
+      "id": "vn-water-puppet-teu",
+      "name": {
+        "en": "Chú Tễu Vietnamese Water Puppet Figure",
+        "vi": "Chú Tễu múa rối nước truyền thống"
+      },
+      "tags": {
+        "en": [
+          "water puppet",
+          "chu teu",
+          "folklore",
+          "vietnam",
+          "theater"
+        ],
+        "vi": [
+          "chú tễu",
+          "múa rối nước",
+          "dân gian",
+          "nghệ thuật",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Chú Tễu Vietnamese Water Puppet Figure",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 468,
+      "height": 587
+    },
+    {
+      "id": "vn-bat-trang-ceramic-vase",
+      "name": {
+        "en": "Blue & White Bát Tràng Lotus Ceramic Vase",
+        "vi": "Bình gốm Bát Tràng men lam vẽ hoa sen"
+      },
+      "tags": {
+        "en": [
+          "bat trang",
+          "ceramics",
+          "porcelain",
+          "lotus",
+          "vietnam"
+        ],
+        "vi": [
+          "gốm bát tràng",
+          "men lam",
+          "bình gốm",
+          "hoa sen",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "vintage"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Blue & White Bát Tràng Lotus Ceramic Vase",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 412,
+      "height": 638
+    },
+    {
+      "id": "vn-pink-lotus-bloom",
+      "name": {
+        "en": "Blooming Pink Vietnamese Lotus Flower",
+        "vi": "Đoá hoa sen hồng quốc hoa Việt Nam"
+      },
+      "tags": {
+        "en": [
+          "lotus",
+          "pink flower",
+          "national flower",
+          "vietnam",
+          "floral"
+        ],
+        "vi": [
+          "hoa sen",
+          "sen hồng",
+          "quốc hoa",
+          "thanh khiết",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "floral",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Blooming Pink Vietnamese Lotus Flower",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 584,
+      "height": 496
+    },
+    {
+      "id": "vn-lotus-leaf-dew",
+      "name": {
+        "en": "Green Lotus Leaf Pad with Morning Dewdrops",
+        "vi": "Lá sen xanh đọng giọt sương mai"
+      },
+      "tags": {
+        "en": [
+          "lotus leaf",
+          "dewdrop",
+          "pond",
+          "nature",
+          "vietnam"
+        ],
+        "vi": [
+          "lá sen",
+          "giọt sương",
+          "đầm sen",
+          "thiên nhiên",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Green Lotus Leaf Pad with Morning Dewdrops",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 664,
+      "height": 552
+    },
+    {
+      "id": "vn-pho-bo-noodle-bowl",
+      "name": {
+        "en": "Steaming Bowl of Vietnamese Beef Phở",
+        "vi": "Tô phở bò Hà Nội nóng hổi"
+      },
+      "tags": {
+        "en": [
+          "pho",
+          "beef noodle",
+          "soup",
+          "vietnam",
+          "food"
+        ],
+        "vi": [
+          "phở bò",
+          "tô phở",
+          "ẩm thực việt",
+          "hà nội",
+          "món ngon"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Steaming Bowl of Vietnamese Beef Phở",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 685,
+      "height": 587
+    },
+    {
+      "id": "vn-banh-mi-baguette",
+      "name": {
+        "en": "Crispy Saigon Bánh Mì Sandwich",
+        "vi": "Ổ bánh mì thịt nguội Sài Gòn giòn rụm"
+      },
+      "tags": {
+        "en": [
+          "banh mi",
+          "baguette",
+          "sandwich",
+          "saigon",
+          "food"
+        ],
+        "vi": [
+          "bánh mì",
+          "bánh mì sài gòn",
+          "ẩm thực đường phố",
+          "món việt",
+          "ăn sáng"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Crispy Saigon Bánh Mì Sandwich",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 666,
+      "height": 388
+    },
+    {
+      "id": "vn-ca-phe-phin-drip",
+      "name": {
+        "en": "Vietnamese Iced Milk Coffee with Metal Phin Filter",
+        "vi": "Ly cà phê phin sữa đá đậm đà"
+      },
+      "tags": {
+        "en": [
+          "ca phe phin",
+          "iced coffee",
+          "condensed milk",
+          "vietnam",
+          "coffee"
+        ],
+        "vi": [
+          "cà phê phin",
+          "cà phê sữa đá",
+          "bạc xỉu",
+          "sài gòn",
+          "đồ uống"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "coffee",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Vietnamese Iced Milk Coffee with Metal Phin Filter",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 472,
+      "height": 696
+    },
+    {
+      "id": "vn-goi-cuon-spring-rolls",
+      "name": {
+        "en": "Fresh Shrimp & Herb Rice Paper Spring Rolls",
+        "vi": "Cặp gỏi cuốn tôm thịt chấm tương"
+      },
+      "tags": {
+        "en": [
+          "spring rolls",
+          "goi cuon",
+          "shrimp",
+          "vietnam",
+          "food"
+        ],
+        "vi": [
+          "gỏi cuốn",
+          "tôm thịt",
+          "ẩm thực việt",
+          "món ngon",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Fresh Shrimp & Herb Rice Paper Spring Rolls",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 560,
+      "height": 470
+    },
+    {
+      "id": "vn-banh-xeo-crispy-crepe",
+      "name": {
+        "en": "Golden Crispy Vietnamese Bánh Xèo Crepe",
+        "vi": "Bánh xèo vàng giòn nhân tôm giá"
+      },
+      "tags": {
+        "en": [
+          "banh xeo",
+          "crispy crepe",
+          "turmeric",
+          "vietnam",
+          "food"
+        ],
+        "vi": [
+          "bánh xèo",
+          "vàng giòn",
+          "đặc sản",
+          "ẩm thực",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Golden Crispy Vietnamese Bánh Xèo Crepe",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 675,
+      "height": 515
+    },
+    {
+      "id": "vn-bun-dau-bamboo-tray",
+      "name": {
+        "en": "Bamboo Tray of Bún Đậu Mắm Tôm",
+        "vi": "Mẹt bún đậu mắm tôm lót lá chuối"
+      },
+      "tags": {
+        "en": [
+          "bun dau",
+          "bamboo tray",
+          "tofu",
+          "vietnam",
+          "food"
+        ],
+        "vi": [
+          "bún đậu mắm tôm",
+          "mẹt tre",
+          "lá chuối",
+          "hà nội",
+          "ẩm thực"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Bamboo Tray of Bún Đậu Mắm Tôm",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 682,
+      "height": 682
+    },
+    {
+      "id": "vn-che-ba-mau-glass",
+      "name": {
+        "en": "Three-Color Vietnamese Dessert Glass Chè Ba Màu",
+        "vi": "Ly chè ba màu đậu đỏ cốt dừa"
+      },
+      "tags": {
+        "en": [
+          "che ba mau",
+          "dessert",
+          "sweet soup",
+          "vietnam",
+          "food"
+        ],
+        "vi": [
+          "chè ba màu",
+          "cốt dừa",
+          "món tráng miệng",
+          "mùa hè",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "food",
+        "summer"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Three-Color Vietnamese Dessert Glass Chè Ba Màu",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 408,
+      "height": 671
+    },
+    {
+      "id": "vn-fresh-green-coconut",
+      "name": {
+        "en": "Fresh Bến Tre Green Coconut with Straw",
+        "vi": "Trái dừa xiêm xanh cắm ống hút"
+      },
+      "tags": {
+        "en": [
+          "coconut",
+          "dua xiem",
+          "drink",
+          "summer",
+          "vietnam"
+        ],
+        "vi": [
+          "dừa tươi",
+          "dừa xiêm",
+          "bến tre",
+          "giải khát",
+          "việt nam"
+        ]
+      },
+      "collections": [
+        "vietnam",
+        "summer",
+        "beach",
+        "food"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/assets/gen-g10-batch1.mjs",
+        "author": "IG Layout Vector Studio",
+        "title": "Fresh Bến Tre Green Coconut with Straw",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 520,
+      "height": 679
     }
   ]
 }
