@@ -8,6 +8,7 @@ import { fontInfo, fontWeight, loadFont } from "@/lib/text/fonts";
 import { useCatalog } from "@/lib/catalog/load";
 import { scaleExtras } from "@/lib/elements/resize";
 import { useEditor } from "@/store/editor";
+import { useFx } from "./useFx";
 import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
 
 /**
@@ -29,6 +30,7 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
   const fontKey = `${el.font}:${weight}`;
   const [loadedKey, setLoadedKey] = useState<string | null>(null);
   const props = useNodeHandlers(el, hooks, (scale) => scaleExtras(el, scale));
+  const fxRef = useFx<Konva.Group>(el, [loadedKey]);
 
   // Draw with a fallback until the web font is loaded, then switch (re-measures).
   useEffect(() => {
@@ -50,6 +52,7 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
   const pad = el.background?.padding ?? 0;
   return (
     <Group
+      ref={fxRef}
       {...props}
       opacity={typing ? 0 : props.opacity}
       onDblTap={() => setEditingText(el.id)}

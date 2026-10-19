@@ -10,6 +10,7 @@ import { libraryShape } from "@/lib/elements/shapes";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { isSticker, STICKERS } from "@/lib/elements/stickers";
 import { widgetName } from "@/lib/elements/widgets";
+import { EFFECT_BY_ID } from "@/lib/effects/catalog";
 import { units } from "@/lib/project/blocks";
 import { useSettings, useT } from "@/store/settings";
 
@@ -149,7 +150,7 @@ export function LayersSheet({ onClose }: { onClose: () => void }) {
   let photo = 0;
   // One row per top-level element: a layout block is one row, not one per cell (M14).
   const rows = units(doc)
-    .map(([el]) => ({ el, label: elementLabel(el, el.type === "image" ? ++photo : 0, t) }))
+    .map(([el]) => ({ el, label: elementLabel(el, el.type === "image" ? ++photo : 0, t) + (el.effect && EFFECT_BY_ID[el.effect.id] ? ` · ${EFFECT_BY_ID[el.effect.id].name[useSettings.getState().locale === "vi" ? 1 : 0]}` : "") }))
     .reverse();
   const last = rows.length - 1;
   const target = drag ? Math.max(0, Math.min(last, drag.row + Math.round(drag.dy / LAYER_ROW))) : -1;

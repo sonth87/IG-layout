@@ -501,4 +501,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] (Để sau) Widget "Cụm sticker": gom sticker một bộ thành vòng quanh chữ / rải / viền / dải / watermark, nút Xáo ngẫu nhiên, Tách ra — xem discussions/2026-10-19-widget-menu.md
 - [x] Widget đợt 2 — Lịch, Thời tiết, Trích dẫn, Âm nhạc (D-121); Mạng xã hội, Thể thao, Mua sắm, Việc cần làm, Khác + 8 widget mới (D-122); sheet xếp theo loại (e2e widgets.mjs)
 - [ ] (Claude) M21 — bắt đầu từ 120 filter (G7)
-- [ ] (Claude) M21 — chức năng **Hiệu ứng** riêng trên menu các phần tử hỗ trợ — đặc tả 48 hiệu ứng: product/editor-v2/14-hieu-ung.md (chờ duyệt)
+- [x] (Claude) M21 — chức năng **Hiệu ứng** (mỗi phần tử một hiệu ứng) + đợt 1: 17 hiệu ứng (D-123, e2e effects.mjs)
+- [ ] M21 — Hiệu ứng đợt 2 (Cờ bay, Gợn nước, Phối cảnh 3D, Mắt cá, Gương, Kính vạn hoa, Kéo vệt, Xé đôi, Gấp giấy, CRT / VHS, Dither, Riso, Dập nổi, Neon, Khối 3D, Tia sáng, Nhòe, Phóng tâm, Tilt-shift), kéo tâm trên canvas
+- [ ] M21 — Hiệu ứng đợt 3 (Vỡ mảnh, Pop art, ASCII, Kính mờ, Màu nước, Mực tàu, Chì, Sơn dầu, Sáp màu, Khói, Lửa, Băng giá)

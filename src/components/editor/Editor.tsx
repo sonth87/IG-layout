@@ -45,6 +45,7 @@ import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
 import { TextTool } from "./tools/TextTools";
 import { TextAlignPanel, TextFormatPanel } from "./tools/TextFormat";
 import { OpacityTool } from "./tools/OpacityTool";
+import { EffectTool } from "./tools/EffectTool";
 import { WidgetContentTool, WidgetDateTool, WidgetListTool, WidgetLookTool, WidgetPickTool, WidgetStyleTool, WidgetTimeTool, WidgetValueTool } from "./tools/WidgetTool";
 import { WIDGET_DATES, WIDGET_LISTS, WIDGET_PICKS, WIDGET_TIMES, WIDGET_VALUES, WIDGET_VARIANTS } from "@/lib/elements/widgets";
 import { InlineText } from "./InlineText";
@@ -123,11 +124,12 @@ type Tool =
   | "widgetPick"
   | "widgetDate"
   | "widgetStyle"
-  | "widgetTime";
+  | "widgetTime"
+  | "effect";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "effect"];
 /** Sheets about the selected element: they close (keeping their edits) when the selection changes (owner, 2026-10-19). */
-const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime"];
+const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "effect"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -728,6 +730,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "widgetDate" && selected) bottom = <WidgetDateTool elementId={selected.id} onClose={close} />;
   else if (tool === "widgetStyle" && selected) bottom = <WidgetStyleTool elementId={selected.id} onClose={close} />;
   else if (tool === "widgetTime" && selected) bottom = <WidgetTimeTool elementId={selected.id} onClose={close} />;
+  else if (tool === "effect" && selected) bottom = <EffectTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "draw") bottom = <DrawTool onClose={close} />;
   else if (tool === "music") bottom = <MusicTool onClose={close} />;
@@ -776,6 +779,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <ToolButton key={t("editor.style")} label={t("editor.style")} icon="style" onClick={() => openTool("style")} />,
         <ToolButton key={t("editor.adjust")} label={t("editor.adjust")} icon="adjust" onClick={() => openTool("adjust")} />,
         <ToolButton key={t("editor.filters")} label={t("editor.filters")} icon="filters" onClick={() => openTool("filters")} />,
+        !selectedIsVideo && <ToolButton key="effect" label={t("tool.effect")} icon="wand" onClick={() => openTool("effect")} />,
         <ToolButton key="bgTools" label={t("bg.title")} icon="sparkles" onClick={() => setTool("bgTools")} />,
         <ToolButton
           key="saveSticker"
@@ -810,6 +814,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <ToolButton key="edit" label={t("type.edit")} icon="pencil" onClick={() => typeText(id, "type")} />,
         <ToolButton key="format" label={t("type.format")} icon="text" onClick={() => typeText(id, "format")} />,
         <ToolButton key="align" label={t("type.align")} icon="alignLeft" onClick={() => typeText(id, "align")} />,
+        <ToolButton key="effect" label={t("tool.effect")} icon="wand" onClick={() => openTool("effect")} />,
         position,
         <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />,
         SHOW_ANIMATE && <ToolButton key="animate" label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
@@ -832,6 +837,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <ToolButton key="content" label={t("widget.content")} icon="pencil" onClick={() => openTool("widget")} />,
         <ToolButton key="look" label={t("widget.look")} icon="contrast" onClick={() => openTool("widgetLook")} />,
         <ToolButton key="color" label={t("tool.color")} icon="palette" onClick={() => openTool("fill")} />,
+        <ToolButton key="effect" label={t("tool.effect")} icon="wand" onClick={() => openTool("effect")} />,
         position,
         <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />,
         ...tail,
@@ -842,6 +848,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         // Emoji keep their own colours: opacity only (still in the Color tool).
         selected.type !== "drawing" &&
           <ToolButton key={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} label={selected.type === "icon" && selected.svg ? t("tool.opacity") : t("tool.color")} icon="palette" onClick={() => openTool("fill")} />,
+        <ToolButton key="effect" label={t("tool.effect")} icon="wand" onClick={() => openTool("effect")} />,
         position,
         SHOW_ANIMATE && <ToolButton key={t("editor.animate")} label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
         ...tail,
