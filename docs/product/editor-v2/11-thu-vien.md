@@ -106,6 +106,21 @@ Mục **Lưới** trong "Lớp mới" mở danh sách kiểu chia như sheet Sli
 
 Mọi widget sửa được chữ (chạm lại khi đang chọn để gõ) và đổi được màu [ĐX].
 
+**Widget dạng thẻ (D-114, 2026-10-19)** — 22 thẻ, chữ mẫu VI / EN từ G6 (`assets/text/widget-samples.json`):
+
+| Nhóm | Thẻ |
+| --- | --- |
+| Mạng xã hội | Bình chọn, Hộp câu hỏi, Đoạn chat hai người, Thông báo điện thoại, Cụm hashtag, @Nhắc tên, Thanh tìm kiếm, Đánh giá sao |
+| Thông tin | Thời tiết, Tờ lịch ngày, Đếm ngược, Bài hát đang nghe, Thanh tiến trình, Số bước chân, Thước đo tâm trạng, Danh sách việc |
+| Kỷ niệm | Vé máy bay, Hoá đơn kỷ niệm, Giá / khuyến mãi, Thông số máy ảnh, Công thức món ăn, Phiếu đọc sách |
+
+- Thêm vào giữa slide, rộng ~70 % slide (theo tỉ lệ riêng của thẻ), đang được chọn.
+- Thanh công cụ: **Sửa widget** · Màu · Vị trí · … Sheet Sửa widget: kiểu thẻ **Sáng / Tối / Màu** (Màu = cả thẻ mang màu nhấn, chữ trắng hoặc đen tuỳ độ sáng), một ô cho mỗi chữ (ô dài cho đoạn văn), bảng màu nhấn. ✕ huỷ, ✓ một bước hoàn tác.
+- Chiều cao thẻ đi theo nội dung (chữ dài xuống dòng → thẻ cao ra), giữ chiều rộng và mép trên.
+- Danh sách việc: mục bắt đầu bằng ☑ / ✓ / [x] là đã xong (ô tích + gạch ngang), ☐ là chưa. Đánh giá sao: số ★ / ☆ trong ô Sao. Bình chọn / tiến trình / tâm trạng: thanh theo số phần trăm. Bài hát: thanh chạy theo giờ đã phát / thời lượng.
+- Vẽ bằng phông hệ thống (giống giao diện điện thoại, luôn sẵn sàng khi xuất).
+- Sheet Widget: 5 widget chữ cũ ở nhóm **Chữ**; các nhóm thẻ hiện đủ, 2 cột, có tên dưới ảnh.
+
 ## 8. Brand Kit [QS] (IMG_3995)
 
 **Brand Kit** lưu các tài sản người dùng dùng lặp lại qua nhiều dự án, **lưu trên máy** [ĐX]:

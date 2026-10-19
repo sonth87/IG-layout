@@ -15,6 +15,8 @@ import {
 } from "@/lib/project/types";
 import { defaultShapeSize } from "./shapes";
 import { STICKERS } from "./stickers";
+import { newWidgetData, WIDGET_ACCENT, widgetSize, type CardWidgetKind } from "./widgets";
+import type { Locale } from "@/store/settings";
 
 // New elements, centered on a slide (M5).
 
@@ -113,4 +115,15 @@ export function newWidget(ratio: AspectRatio, slide: Rect, kind: WidgetKind, sam
   const el: TextElement = { ...base, ...look[kind] };
   const width = Math.min(W * 0.7, el.fontSize * Math.max(4, sample.length * 0.62) + (el.background?.padding ?? 0) * 2);
   return { ...el, width, x: slide.x + (slide.width - width) / 2, y: slide.y + slide.height * 0.4 };
+}
+
+/** A card widget (D-114): weather, calendar, poll… drawn from its texts; ~70% of the slide wide. */
+export function newCardWidget(ratio: AspectRatio, slide: Rect, kind: CardWidgetKind, locale: Locale): IconElement {
+  const widget = newWidgetData(kind, locale);
+  const color = WIDGET_ACCENT[kind];
+  const base = widgetSize(widget, color, locale);
+  const W = slideSize(ratio).width;
+  const width = Math.min(W * 0.78, W * (base.w / 640) * 0.7);
+  const height = (width * base.h) / base.w;
+  return { id: newId(), type: "icon", ...centered(ratio, slide, width, height), rotation: 0, opacity: 1, icon: `widget:${kind}`, color, widget };
 }

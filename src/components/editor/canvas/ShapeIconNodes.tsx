@@ -4,6 +4,7 @@ import type Konva from "konva";
 import { Image as KImage, Shape } from "react-konva";
 import { iconDataUrl } from "@/lib/elements/icons";
 import { drawShape, strokePath } from "@/lib/elements/shapes";
+import { drawWidget, type WidgetData } from "@/lib/elements/widgets";
 import type { DrawingElement, IconElement, ShapeElement } from "@/lib/project/types";
 import { useHtmlImage } from "./useHtmlImage";
 import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
@@ -16,6 +17,25 @@ export function ShapeNode({ element: el, hooks }: { element: ShapeElement; hooks
       width={el.width}
       height={el.height}
       sceneFunc={(ctx: Konva.Context) => drawShape(ctx._context, el.shape, el.width, el.height, el.fill)}
+      hitFunc={(ctx: Konva.Context, shape: Konva.Shape) => {
+        ctx.beginPath();
+        ctx.rect(0, 0, el.width, el.height);
+        ctx.closePath();
+        ctx.fillStrokeShape(shape);
+      }}
+    />
+  );
+}
+
+/** Card widgets (D-114): drawn on the canvas from their texts, scaled to the box. */
+export function WidgetNode({ element: el, widget, hooks }: { element: IconElement; widget: WidgetData; hooks: DragHooks }) {
+  const props = useNodeHandlers(el, hooks);
+  return (
+    <Shape
+      {...props}
+      width={el.width}
+      height={el.height}
+      sceneFunc={(ctx: Konva.Context) => drawWidget(ctx._context, widget, el.color, el.width)}
       hitFunc={(ctx: Konva.Context, shape: Konva.Shape) => {
         ctx.beginPath();
         ctx.rect(0, 0, el.width, el.height);

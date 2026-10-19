@@ -9,6 +9,7 @@ import type { CanvasElement, SHAPES } from "@/lib/project/types";
 import { libraryShape } from "@/lib/elements/shapes";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { isSticker, STICKERS } from "@/lib/elements/stickers";
+import { widgetName } from "@/lib/elements/widgets";
 import { units } from "@/lib/project/blocks";
 import { useSettings, useT } from "@/store/settings";
 
@@ -69,6 +70,7 @@ export function ActionSheet<K extends string>({
 function elementLabel(el: CanvasElement, index: number, t: ReturnType<typeof useT>) {
   if (el.type === "text") return `“${el.text.slice(0, 24)}${el.text.length > 24 ? "…" : ""}”`;
   if (el.type === "shape") return libraryShape(el.shape)?.name[useSettings.getState().locale] ?? t(`shape.${el.shape as (typeof SHAPES)[number]}`);
+  if (el.type === "icon" && el.widget) return widgetName(el.widget.kind, useSettings.getState().locale);
   if (el.type === "icon" && el.svg) return el.icon.replace(/^emoji:/, "").replace(/-/g, " ");
   if (el.type === "icon") return isSticker(el.icon) ? STICKERS[el.icon].name[useSettings.getState().locale] : t(`icon.${el.icon}` as "icon.heart");
   if (el.type === "drawing") return t("editor.kind.drawing");

@@ -6,7 +6,8 @@ import type { CatalogItem, CatalogKind } from "@/lib/catalog/types";
 import { COLLECTION_IDS, COLLECTIONS, type CollectionId, inSeason } from "@/lib/catalog/collections";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { iconDataUrl } from "@/lib/elements/icons";
-import { newEmoji, newFramedPhoto, newShape, newSticker, newWidget, newOverlay, WIDGETS } from "@/lib/elements/create";
+import { newCardWidget, newEmoji, newFramedPhoto, newShape, newSticker, newWidget, newOverlay, WIDGETS } from "@/lib/elements/create";
+import { WIDGET_GROUPS, widgetName, widgetThumb } from "@/lib/elements/widgets";
 import { drawOverlay, OVERLAY_KINDS, OVERLAYS, overlayBlob, type OverlayKind } from "@/lib/elements/overlays";
 import { SHAPE_GROUPS } from "@/lib/elements/shapeLibrary";
 import { drawShape, libraryShape } from "@/lib/elements/shapes";
@@ -70,15 +71,27 @@ interface Item {
 }
 
 /** One group: a title, 7 items and "+N" (or everything once opened). */
-function Group(props: { title: string; items: Item[]; full?: boolean | "titled"; limit?: number; onMore: () => void }) {
+function Group(props: { title: string; items: Item[]; full?: boolean | "titled"; limit?: number; wide?: boolean; onMore: () => void }) {
   const t = useT();
   const limit = props.limit ?? SHOWN;
-  const many = !props.full && props.items.length > limit + 1;
+  const many = !props.full && !props.wide && props.items.length > limit + 1;
   const shown = many ? props.items.slice(0, limit) : props.items;
   if (!props.items.length) return null;
   return (
     <section aria-label={props.title} className="pb-4">
       {props.full !== true && <h3 className="pb-2 text-[15px] font-bold">{props.title}</h3>}
+      {props.wide && (
+        // Card widgets (D-114): wide cards, two to a row, all shown, named underneath.
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {shown.map((it) => (
+            <button key={it.key} type="button" aria-label={it.label} title={it.label} onClick={() => void it.add()} className="flex flex-col items-stretch gap-1 rounded-[14px] bg-surface-2 p-2 transition-transform active:scale-95">
+              <span className="flex h-28 items-center justify-center overflow-hidden">{it.node}</span>
+              <span className="truncate text-center text-[11.5px] font-semibold text-muted">{it.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+      {!props.wide && (
       <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
         {shown.map((it) => (
           <button key={it.key} type="button" aria-label={it.label} title={it.label} onClick={() => void it.add()} className={TILE}>
@@ -91,6 +104,7 @@ function Group(props: { title: string; items: Item[]; full?: boolean | "titled";
           </button>
         )}
       </div>
+      )}
     </section>
   );
 }
@@ -236,7 +250,7 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
   const match = (label: string) => !q || label.toLowerCase().includes(q);
 
   // ── Groups of each library ───────────────────────────────────────────
-  const groups: { id: string; title: string; items: Item[]; limit?: number }[] = [];
+  const groups: { id: string; title: string; items: Item[]; limit?: number; wide?: boolean }[] = [];
   if (kind === "sticker") {
     const sticker = (k: string): Item => ({
       key: `s-${k}`,
@@ -354,7 +368,7 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
     };
     groups.push({
       id: "widgets",
-      title: t("lib.widgets"),
+      title: t("widget.group.text"),
       items: WIDGETS.map((w) => ({
         key: w,
         label: t(`widget.${w}`),
@@ -362,6 +376,20 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
         add: () => add(newWidget(doc.ratio, slide, w, t(`widget.sample.${w}`))),
       })),
     });
+    // Card widgets (D-114), drawn from their sample texts.
+    for (const g of WIDGET_GROUPS)
+      groups.push({
+        id: `widgets-${g.id}`,
+        title: t(`widget.group.${g.id}`),
+        wide: true,
+        items: g.kinds.map((k) => ({
+          key: k,
+          label: widgetName(k, locale),
+          // eslint-disable-next-line @next/next/no-img-element -- drawn on a canvas
+          node: <img src={widgetThumb(k, locale)} alt="" className="max-h-full max-w-full object-contain" />,
+          add: () => add(newCardWidget(doc.ratio, slide, k, locale)),
+        })),
+      });
   }
 
   const pick = (into: LibraryItem["kind"]) => {
@@ -437,7 +465,7 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
             )}
             {groups.map((g) => (
               // Grids are laid out in full: no "+N" to open (owner, 2026-10-17).
-              <Group key={g.id} title={g.title} items={g.items} limit={g.limit} full={kind === "grid" ? "titled" : undefined} onMore={() => setOpen(g.id)} />
+              <Group key={g.id} title={g.title} items={g.items} limit={g.limit} wide={g.wide} full={kind === "grid" ? "titled" : undefined} onMore={() => setOpen(g.id)} />
             ))}
             {kind === "sticker" && view === "type" && (
               <section aria-label={t("lib.emoji")} className="pb-4">
