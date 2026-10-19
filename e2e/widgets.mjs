@@ -87,7 +87,8 @@ st = await S();
 check(Math.abs(st.doc.elements.find((e) => e.id === list.id).height - h0) < 1, "undo restores the height");
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.getByRole("button", { name: "Layers" }).click();
-check(await page.getByText("Mini checklist").first().waitFor({ timeout: 10000 }).then(() => true, () => false), "listed as Mini checklist in Layers");
+// The row is named by its label (the text only shows until the thumbnail is drawn).
+check(await page.getByRole("button", { name: "Mini checklist", exact: true }).first().waitFor({ timeout: 10000 }).then(() => true, () => false), "listed as Mini checklist in Layers");
 await page.keyboard.press("Escape");
 await page.waitForTimeout(300);
 
