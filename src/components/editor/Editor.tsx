@@ -45,7 +45,8 @@ import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
 import { TextTool } from "./tools/TextTools";
 import { TextAlignPanel, TextFormatPanel } from "./tools/TextFormat";
 import { OpacityTool } from "./tools/OpacityTool";
-import { WidgetTool } from "./tools/WidgetTool";
+import { WidgetContentTool, WidgetDateTool, WidgetListTool, WidgetLookTool, WidgetPickTool, WidgetValueTool } from "./tools/WidgetTool";
+import { WIDGET_DATES, WIDGET_LISTS, WIDGET_PICKS, WIDGET_VALUES } from "@/lib/elements/widgets";
 import { InlineText } from "./InlineText";
 import { useImportPhotos } from "./useImportPhotos";
 import { useShortcuts } from "./useShortcuts";
@@ -115,9 +116,16 @@ type Tool =
   | "newLayer"
   | "ratio"
   | "preview"
-  | "widget";
+  | "widget"
+  | "widgetList"
+  | "widgetLook"
+  | "widgetValue"
+  | "widgetPick"
+  | "widgetDate";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate"];
+/** Sheets about the selected element: they close (keeping their edits) when the selection changes (owner, 2026-10-19). */
+const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -267,6 +275,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const pinchFrame = useRef(0);
   const playing = usePlayback((s) => s.playing);
   const snapOn = useSettings((s) => s.snap);
+  const locale = useSettings((s) => s.locale);
   /** Which library the "library" sheet shows (editor-v2/11). */
   const [library, setLibrary] = useState<LibraryKind>("sticker");
   const openLibrary = (kind: LibraryKind) => {
@@ -405,6 +414,23 @@ export function Editor({ onClose }: { onClose: () => void }) {
       seek(0);
     }
   }, [selectedId]);
+
+  // Tapping elsewhere (or another element) closes an element's sheet, keeping what was done;
+  // otherwise it came back the next time the element was selected.
+  const toolRef = useRef(tool);
+  useLayoutEffect(() => {
+    toolRef.current = tool;
+  });
+  useEffect(
+    () =>
+      useEditor.subscribe((s, prev) => {
+        const t = toolRef.current;
+        if (s.selectedId === prev.selectedId || !t || !ELEMENT_TOOLS.includes(t)) return;
+        if (s.draft) s.applyDraft();
+        setTool(null);
+      }),
+    [],
+  );
 
   /** Layout / Adjust of a block lay its cells out again: say so if they were placed by hand (D-113). */
   function openBlockTool(next: Tool) {
@@ -692,7 +718,12 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "style" && selected) bottom = <StyleTool elementId={selected.id} onClose={close} />;
   else if (tool === "text" && selected) bottom = <TextTool elementId={selected.id} onClose={close} />;
   else if (tool === "fill" && selected) bottom = <FillTool elementId={selected.id} onClose={close} />;
-  else if (tool === "widget" && selected) bottom = <WidgetTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widget" && selected) bottom = <WidgetContentTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widgetList" && selected) bottom = <WidgetListTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widgetLook" && selected) bottom = <WidgetLookTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widgetValue" && selected) bottom = <WidgetValueTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widgetPick" && selected) bottom = <WidgetPickTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widgetDate" && selected) bottom = <WidgetDateTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "draw") bottom = <DrawTool onClose={close} />;
   else if (tool === "music") bottom = <MusicTool onClose={close} />;
@@ -780,13 +811,26 @@ export function Editor({ onClose }: { onClose: () => void }) {
         SHOW_ANIMATE && <ToolButton key="animate" label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
         ...tail,
       ];
-    else if (selected.type === "icon" && selected.widget)
+    else if (selected.type === "icon" && selected.widget) {
+      // Its own toolbar (D-118): what this kind of widget has, then content, card, colour…
+      const k = selected.widget.kind;
+      const lang = (p: [string, string]) => p[locale === "vi" ? 1 : 0];
+      const list = WIDGET_LISTS[k];
+      const value = WIDGET_VALUES[k];
+      const pick = WIDGET_PICKS[k];
       tools = [
-        <ToolButton key="edit" label={t("widget.edit")} icon="pencil" onClick={() => openTool("widget")} />,
+        list && <ToolButton key="list" label={lang(list.label)} icon="listPlus" onClick={() => openTool("widgetList")} />,
+        value && <ToolButton key="value" label={lang(value.label)} icon="sliders" onClick={() => openTool("widgetValue")} />,
+        pick && <ToolButton key="pick" label={lang(pick.label)} icon="smilePlus" onClick={() => openTool("widgetPick")} />,
+        WIDGET_DATES.includes(k) && <ToolButton key="date" label={t("widget.date")} icon="calendar" onClick={() => openTool("widgetDate")} />,
+        <ToolButton key="content" label={t("widget.content")} icon="pencil" onClick={() => openTool("widget")} />,
+        <ToolButton key="look" label={t("widget.look")} icon="contrast" onClick={() => openTool("widgetLook")} />,
         <ToolButton key="color" label={t("tool.color")} icon="palette" onClick={() => openTool("fill")} />,
         position,
+        <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />,
         ...tail,
       ];
+    }
     else
       tools = [
         // Emoji keep their own colours: opacity only (still in the Color tool).

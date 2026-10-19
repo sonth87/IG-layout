@@ -115,10 +115,10 @@ Mọi widget sửa được chữ (chạm lại khi đang chọn để gõ) và 
 | Kỷ niệm | Vé máy bay, Hoá đơn kỷ niệm, Giá / khuyến mãi, Thông số máy ảnh, Công thức món ăn, Phiếu đọc sách |
 
 - Thêm vào giữa slide, rộng ~70 % slide (theo tỉ lệ riêng của thẻ), đang được chọn.
-- Chạm vào thẻ đang chọn (hoặc nút **Sửa widget**) mở sheet sửa.
-- Thanh công cụ: **Sửa widget** · Màu · Vị trí · … Sheet Sửa widget: kiểu thẻ **Sáng / Tối / Màu** (Màu = cả thẻ mang màu nhấn, chữ trắng hoặc đen tuỳ độ sáng), một ô cho mỗi chữ (ô dài cho đoạn văn), bảng màu nhấn. ✕ huỷ, ✓ một bước hoàn tác.
+- Một chạm chọn; **chạm đúp** mở Nội dung (D-118).
+- Thanh công cụ riêng (D-118): nút riêng của loại (danh sách thêm / bớt, thanh trượt, chọn biểu tượng, chọn ngày — xem discussions/2026-10-19-widget-menu.md) · **Nội dung** (một ô cho mỗi chữ) · **Kiểu thẻ** Sáng / Tối / Màu (Màu = cả thẻ mang màu nhấn, chữ trắng hoặc đen tuỳ độ sáng) · **Màu** · Vị trí · Độ mờ. Mỗi sheet ✕ huỷ, ✓ một bước hoàn tác.
 - Chiều cao thẻ đi theo nội dung (chữ dài xuống dòng → thẻ cao ra), giữ chiều rộng và mép trên.
-- Danh sách việc: mục bắt đầu bằng ☑ / ✓ / [x] là đã xong (ô tích + gạch ngang), ☐ là chưa. Đánh giá sao: số ★ / ☆ trong ô Sao. Bình chọn / tiến trình / tâm trạng: thanh theo số phần trăm. Bài hát: thanh chạy theo giờ đã phát / thời lượng.
+- Danh sách việc: ô tích xong (gạch ngang) / chưa. Đánh giá sao: 0–5 có nửa sao. Bình chọn / tiến trình / tâm trạng: thanh theo phần trăm. Bài hát: thanh chạy theo giờ đã phát / thời lượng. Phần trống thì ẩn.
 - Vẽ bằng phông hệ thống (giống giao diện điện thoại, luôn sẵn sàng khi xuất).
 - Sheet Widget: 5 widget chữ cũ ở nhóm **Chữ**; các nhóm thẻ hiện đủ, 2 cột, có tên dưới ảnh.
 

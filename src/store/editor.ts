@@ -97,6 +97,8 @@ interface EditorState {
   /** Values derived from rendering (e.g. text height): no history step. */
   setDerived: (id: string, patch: Partial<CanvasElement>) => void;
   updateElement: (id: string, patch: Partial<CanvasElement>) => void;
+  /** A move / resize on the canvas: committed, and also kept in an open tool's draft so the tool goes on working. */
+  updateLive: (id: string, patch: Partial<CanvasElement>) => void;
   duplicateElement: (id: string) => void;
   removeElement: (id: string) => void;
   moveLayer: (id: string, direction: "up" | "down") => void;
@@ -446,6 +448,12 @@ export const useEditor = create<EditorState>()((set, get) => {
       })),
 
     updateElement: (id, patch) => commit((d) => synced(updateEl(d, id, patch), id)),
+    updateLive: (id, patch) => {
+      const draft = get().draft;
+      commit((d) => synced(updateEl(d, id, patch), id));
+      // Dragging while a sheet is open (owner, 2026-10-19): the sheet's edits stay and go on.
+      if (draft) set({ draft: synced(updateEl(draft, id, patch), id) });
+    },
 
     duplicateElement: (id) => {
       let copyId = newId();

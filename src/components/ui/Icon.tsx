@@ -140,6 +140,40 @@ const PATHS = {
       <path d="m12.214 3.381 8.414 14.966a1 1 0 0 1-.167 1.199l-1.168 1.163a1 1 0 0 1-.706.291H6.351a1 1 0 0 1-.625-.219L3.25 18.8a1 1 0 0 1 .631-1.781l4.165.027" />
     </>
   ),
+  // Card widget tools (Lucide list-plus, sliders-horizontal, calendar, smile-plus, contrast).
+  listPlus: (
+    <>
+      <path d="M11 12H3" />
+      <path d="M16 6H3" />
+      <path d="M16 18H3" />
+      <path d="M18 9v6" />
+      <path d="M21 12h-6" />
+    </>
+  ),
+  sliders: (
+    <>
+      <path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4" />
+    </>
+  ),
+  calendar: (
+    <>
+      <path d="M8 2v4M16 2v4" />
+      <rect width="18" height="18" x="3" y="4" rx="2" />
+      <path d="M3 10h18" />
+    </>
+  ),
+  smilePlus: (
+    <>
+      <path d="M22 11v1a10 10 0 1 1-9-10" />
+      <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01M16 5h6M19 2v6" />
+    </>
+  ),
+  contrast: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 18a6 6 0 0 0 0-12v12z" />
+    </>
+  ),
   widgetPlus: (
     <>
       <path d="M12 3v17a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1H3" />

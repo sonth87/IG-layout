@@ -372,7 +372,7 @@ interface Props {
   onPinchZoom?: (k: number, phase: "start" | "move" | "end", mid?: { x: number; y: number }) => void;
   /** Double tap where there is no element: back to "see every slide" (editor-v2/05 §2.4). */
   onFit?: () => void;
-  /** Tap on the selected card widget: open its edit sheet (D-114). */
+  /** Double tap on a card widget: open its content sheet (D-118). */
   onEditWidget?: (id: string) => void;
 }
 
@@ -381,7 +381,8 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   const selectedId = useEditor((s) => s.selectedId);
   const select = useEditor((s) => s.select);
   const setCanvas = useEditor((s) => s.setCanvas);
-  const updateElement = useEditor((s) => s.updateElement);
+  // Moves / resizes keep an open sheet's draft (owner, 2026-10-19).
+  const updateElement = useEditor((s) => s.updateLive);
   /** Snapping guides are drawn straight into Konva: no React render per drag frame (F-01). */
   const guidesRef = useRef<Konva.Group>(null);
   const rulerRef = useRef<Konva.Group>(null);
@@ -396,6 +397,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
   const targets = useRef<{ xs: number[]; ys: number[] } | null>(null);
   const pinch = useRef<Pinch | null>(null);
   const lastEmptyTap = useRef(0);
+  const lastWidgetTap = useRef<{ id: string | null; time: number }>({ id: null, time: 0 });
   /** Latest pinch handlers, for the native listeners below. */
   const touchRef = useRef<{ move: (e: TouchEvent) => void; end: (e: TouchEvent) => void } | null>(null);
   const gesture = useRef<Gesture | null>(null);
@@ -718,7 +720,9 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
     const res = tapResult(d, st.selectedId, hitId, onPlus);
     select(res.select);
     if (res.action === "editText" && res.select) setEditingText(res.select);
-    if (res.action === "editWidget" && res.select) onEditWidget?.(res.select);
+    // A widget opens its content on a double tap only (owner, 2026-10-19): one tap just selects.
+    if (res.action === "editWidget" && res.select && lastWidgetTap.current.id === res.select && time - lastWidgetTap.current.time < 400) onEditWidget?.(res.select);
+    lastWidgetTap.current = { id: res.select, time };
     // Fill frame sheet for that cell (editor-v2/09 §1.1).
     if (res.action === "fill" && res.select) st.openFillFrame(res.select, "fill");
   }

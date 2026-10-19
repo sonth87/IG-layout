@@ -41,7 +41,157 @@ export type WidgetTheme = (typeof WIDGET_THEMES)[number];
 export interface WidgetData {
   kind: CardWidgetKind;
   fields: Record<string, string>;
+  /** Repeated parts, one record per row (poll options, checklist items…); see WIDGET_LISTS. */
+  lists?: Record<string, Record<string, string>[]>;
   theme: WidgetTheme;
+}
+
+/** A column of a list row: text, a percentage, done / not done, or which side a chat message is on. */
+export type ListColumn = { key: string; type: "text" | "percent" | "check" | "side"; label: [en: string, vi: string] };
+export interface ListSpec {
+  key: string;
+  label: [en: string, vi: string];
+  min: number;
+  max: number;
+  columns: ListColumn[];
+  /** Fields of the first widgets (fixed A / B, 1–3) it replaces. */
+  legacy: string[];
+}
+
+/** Widgets with rows to add / remove (owner, 2026-10-19). */
+export const WIDGET_LISTS: Partial<Record<CardWidgetKind, ListSpec>> = {
+  poll: {
+    key: "options",
+    label: ["Options", "Lựa chọn"],
+    min: 2,
+    max: 4,
+    columns: [
+      { key: "label", type: "text", label: ["Option", "Lựa chọn"] },
+      { key: "percent", type: "percent", label: ["%", "%"] },
+    ],
+    legacy: ["optionA", "percentA", "optionB", "percentB"],
+  },
+  checklist: {
+    key: "items",
+    label: ["Items", "Mục"],
+    min: 1,
+    max: 8,
+    columns: [
+      { key: "done", type: "check", label: ["Done", "Xong"] },
+      { key: "text", type: "text", label: ["Item", "Mục"] },
+    ],
+    legacy: ["item1", "item2", "item3"],
+  },
+  hashtagPill: { key: "tags", label: ["Tags", "Thẻ"], min: 1, max: 8, columns: [{ key: "text", type: "text", label: ["Tag", "Thẻ"] }], legacy: ["tag1", "tag2", "tag3"] },
+  receipt: { key: "lines", label: ["Lines", "Dòng"], min: 1, max: 8, columns: [{ key: "text", type: "text", label: ["Line", "Dòng"] }], legacy: ["line1", "line2", "line3"] },
+  chatConvo: {
+    key: "messages",
+    label: ["Messages", "Tin nhắn"],
+    min: 1,
+    max: 6,
+    columns: [
+      { key: "side", type: "side", label: ["Side", "Bên"] },
+      { key: "text", type: "text", label: ["Message", "Tin nhắn"] },
+    ],
+    legacy: ["incomingText", "outgoingText"],
+  },
+  recipeCard: { key: "ingredients", label: ["Ingredients", "Nguyên liệu"], min: 0, max: 10, columns: [{ key: "text", type: "text", label: ["Ingredient", "Nguyên liệu"] }], legacy: ["ingredients"] },
+};
+
+/** The rows of a widget; the first widgets kept them in fixed fields. */
+export function rowsOf(w: WidgetData): Record<string, Record<string, string>[]> {
+  const spec = WIDGET_LISTS[w.kind];
+  if (!spec || w.lists?.[spec.key]) return w.lists ?? {};
+  const f = w.fields;
+  const legacy: Record<string, Record<string, string>[]> = {
+    options: [
+      { label: f.optionA ?? "", percent: f.percentA ?? "" },
+      { label: f.optionB ?? "", percent: f.percentB ?? "" },
+    ],
+    items: [f.item1, f.item2, f.item3]
+      .filter((s) => s?.trim())
+      .map((s) => ({ done: /^\s*(☑|✅|✔|✓|\[x\])/i.test(s) ? "1" : "", text: s.replace(/^\s*(☑️?|✅|✔️?|✓|☐|□|\[x\]|\[ \])\s*/i, "") })),
+    tags: [f.tag1, f.tag2, f.tag3].filter((s) => s?.trim()).map((text) => ({ text })),
+    lines: [f.line1, f.line2, f.line3].filter((s) => s?.trim()).map((text) => ({ text })),
+    messages: [
+      ...(f.incomingText ? [{ side: "in", text: f.incomingText }] : []),
+      ...(f.outgoingText ? [{ side: "out", text: f.outgoingText }] : []),
+    ],
+    ingredients: (f.ingredients ?? "").split(/•|\n|;/).map((t) => t.trim()).filter(Boolean).map((text) => ({ text })),
+  };
+  return { ...w.lists, [spec.key]: legacy[spec.key] ?? [] };
+}
+
+/** Widgets with a slider (owner, 2026-10-19): which field, its range, and how it is written. */
+export const WIDGET_VALUES: Partial<Record<CardWidgetKind, { label: [string, string]; min: number; max: number; step: number }>> = {
+  starRating: { label: ["Stars", "Số sao"], min: 0, max: 5, step: 0.5 },
+  progressBar: { label: ["Level", "Mức"], min: 0, max: 100, step: 1 },
+  moodMeter: { label: ["Level", "Mức"], min: 0, max: 100, step: 1 },
+  nowPlaying: { label: ["Played", "Đã phát"], min: 0, max: 100, step: 1 },
+};
+
+/** The slider's value now. */
+export function widgetValue(w: WidgetData): number {
+  const f = w.fields;
+  if (w.kind === "starRating") return rating(f);
+  if (w.kind === "progressBar") return Math.round(pct(f.percentage) * 100);
+  if (w.kind === "moodMeter") return Math.round(pct(f.level) * 100);
+  const total = seconds(f.totalTime);
+  return total > 0 ? Math.round((seconds(f.currentTime) / total) * 100) : 0;
+}
+
+/** Fields the slider writes. */
+export function withValue(w: WidgetData, v: number): Record<string, string> {
+  const f = { ...w.fields };
+  if (w.kind === "starRating") {
+    f.rating = String(v);
+    f.score = `${v.toFixed(1)} / 5.0`;
+  } else if (w.kind === "progressBar") f.percentage = `${v}%`;
+  else if (w.kind === "moodMeter") f.level = `${v}%`;
+  else {
+    const t = Math.round((seconds(f.totalTime) || 225) * (v / 100));
+    f.currentTime = `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
+  }
+  return f;
+}
+
+/** Widgets with a quick pick of symbols. */
+export const WIDGET_PICKS: Partial<Record<CardWidgetKind, { field: string; label: [string, string]; options: string[] }>> = {
+  weather: { field: "icon", label: ["Weather", "Thời tiết"], options: ["☀️", "🌤️", "⛅", "☁️", "🌦️", "🌧️", "⛈️", "🌩️", "❄️", "🌨️", "🌫️", "🌬️", "🌈", "🌙", "🌕", "🔥"] },
+  moodMeter: { field: "emoji", label: ["Mood", "Cảm xúc"], options: ["😌", "😊", "😄", "🥰", "😍", "🤩", "😎", "🥳", "😴", "🤔", "😐", "😕", "😢", "😭", "😤", "🤯"] },
+};
+
+/** Widgets set from a date. */
+export const WIDGET_DATES: CardWidgetKind[] = ["calendarDate", "countdown"];
+
+/** Fields a picked date fills in (in the widget's language). */
+export function withDate(w: WidgetData, iso: string, locale: Locale): Record<string, string> {
+  const [y, m, d] = iso.split("-").map(Number);
+  const date = new Date(y, m - 1, d);
+  const f = { ...w.fields };
+  const tag = locale === "vi" ? "vi-VN" : "en-US";
+  if (w.kind === "calendarDate") {
+    f.month = locale === "vi" ? `THÁNG ${m}` : date.toLocaleDateString(tag, { month: "long" }).toUpperCase();
+    f.day = String(d);
+    const wd = date.toLocaleDateString(tag, { weekday: "long" });
+    f.weekday = wd.charAt(0).toUpperCase() + wd.slice(1);
+  } else {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const n = Math.round((date.getTime() - today.getTime()) / 86400000);
+    f.count = locale === "vi" ? (n >= 0 ? `Còn ${n}` : `${-n}`) : n >= 0 ? `D-${n}` : `D+${-n}`;
+    f.unit = locale === "vi" ? (n >= 0 ? "ngày nữa" : "ngày trước") : n >= 0 ? "days left" : "days ago";
+    f.targetDate = locale === "vi" ? `${String(d).padStart(2, "0")}.${String(m).padStart(2, "0")}.${y}` : `${y}.${String(m).padStart(2, "0")}.${String(d).padStart(2, "0")}`;
+    f.date = iso;
+  }
+  if (w.kind === "calendarDate") f.date = iso;
+  return f;
+}
+
+/** Fields typed in the Content sheet: not those replaced by a list / slider. */
+export function contentFields(kind: CardWidgetKind): string[] {
+  const skip = new Set([...(WIDGET_LISTS[kind]?.legacy ?? []), ...(kind === "starRating" ? ["stars"] : [])]);
+  return widgetFields(kind).filter((f) => !skip.has(f));
 }
 
 interface Spec {
@@ -89,7 +239,10 @@ export const WIDGET_ACCENT: Record<CardWidgetKind, string> = {
 const DARK_KINDS: CardWidgetKind[] = ["nowPlaying", "filmExif"];
 
 export function newWidgetData(kind: CardWidgetKind, locale: Locale): WidgetData {
-  return { kind, fields: { ...(SPECS.get(kind)?.samples[locale] ?? {}) }, theme: DARK_KINDS.includes(kind) ? "dark" : "light" };
+  const w: WidgetData = { kind, fields: { ...(SPECS.get(kind)?.samples[locale] ?? {}) }, theme: DARK_KINDS.includes(kind) ? "dark" : "light" };
+  // Rows as lists from the start.
+  const spec = WIDGET_LISTS[kind];
+  return spec ? { ...w, lists: { [spec.key]: rowsOf(w)[spec.key] } } : w;
 }
 
 /** Labels of the fields in the edit sheet. */
@@ -368,6 +521,14 @@ function star(c: C, cx: number, cy: number, r: number) {
   c.closePath();
 }
 
+/** Stars out of 5: the slider's value, else the ★ typed in the first widgets. */
+function rating(f: F) {
+  const r = parseFloat(f.rating ?? "");
+  if (Number.isFinite(r)) return Math.max(0, Math.min(5, r));
+  const full = (f.stars?.match(/★/g) ?? []).length;
+  return Math.min(5, full || 5);
+}
+
 const pct = (s: string | undefined) => {
   const n = parseFloat((s ?? "").replace(",", "."));
   return Number.isFinite(n) ? Math.max(0, Math.min(1, n / 100)) : 0;
@@ -378,7 +539,9 @@ const seconds = (s: string | undefined) => {
   return parts.every(Number.isFinite) ? parts.reduce((a, b) => a * 60 + b, 0) : 0;
 };
 
-type Draw = (c: C, f: F, pal: Pal, locale: Locale) => { w: number; h: number };
+/** Repeated parts (poll options, checklist items…): one record per row. */
+type Rows = Record<string, Record<string, string>[]>;
+type Draw = (c: C, f: F, pal: Pal, L: Rows) => { w: number; h: number };
 
 // Each kind measures its texts, draws its card at the right height, then its content.
 const KINDS: Record<CardWidgetKind, Draw> = {
@@ -496,40 +659,48 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     const w = 540;
     const title: TextOpts = { size: 32, weight: 700, color: pal.fg };
     const com: TextOpts = { size: 26, weight: 400, color: pal.sub, lh: 1.35 };
-    const titleL = wrap(c, f.title, title, w - P * 2, 2);
+    const titleL = f.title?.trim() ? wrap(c, f.title, title, w - P * 2, 2) : [];
     const comL = f.comment ? wrap(c, f.comment, com, w - P * 2, 4) : [];
     const h = P + 48 + 18 + linesH(titleL.length, title) + (comL.length ? 6 + linesH(comL.length, com) : 0) + P;
     card(c, w, h, pal, 36);
-    const s = f.stars ?? "";
-    const full = (s.match(/★/g) ?? []).length;
-    const empty = (s.match(/☆/g) ?? []).length;
-    if (full + empty > 0) {
-      for (let i = 0; i < Math.min(full + empty, 10); i++) {
-        star(c, P + 22 + i * 50, P + 24, 22);
-        c.fillStyle = i < full ? pal.ac : pal.line;
+    // Five stars filled to the rating (halves too).
+    const r = rating(f);
+    for (let i = 0; i < 5; i++) {
+      const cx = P + 22 + i * 50;
+      star(c, cx, P + 24, 22);
+      c.fillStyle = pal.line;
+      c.fill();
+      const part = Math.max(0, Math.min(1, r - i));
+      if (part > 0) {
+        c.save();
+        c.beginPath();
+        c.rect(cx - 23, P, 46 * part, 50);
+        c.clip();
+        star(c, cx, P + 24, 22);
+        c.fillStyle = pal.ac;
         c.fill();
+        c.restore();
       }
-    } else text(c, s, P, P, { size: 34, weight: 700, color: pal.ac, lh: 1.4 }, w / 2);
+    }
     text(c, f.score, w - P, P + 4, { size: 26, weight: 700, color: pal.fg, align: "right", lh: 1.5 });
     let y = P + 48 + 18;
     y += drawLines(c, titleL, P, y, title);
-    if (comL.length) drawLines(c, comL, P, y + 6, com);
+    if (comL.length) drawLines(c, comL, P, y + (titleL.length ? 6 : 0), com);
     return { w, h };
   },
 
-  poll(c, f, pal) {
+  poll(c, f, pal, L) {
     const w = 560;
     const q: TextOpts = { size: 34, weight: 700, color: pal.fg, align: "center", lh: 1.25 };
-    const qL = wrap(c, f.question, q, w - P * 2, 3);
+    // No question: no empty space for it (owner, 2026-10-19).
+    const qL = f.question?.trim() ? wrap(c, f.question, q, w - P * 2, 3) : [];
     const row = 76;
-    const h = P + linesH(qL.length, q) + 24 + row * 2 + 14 + P;
+    const opts = L.options ?? [];
+    const h = P + (qL.length ? linesH(qL.length, q) + 24 : 0) + opts.length * (row + 14) - 14 + P;
     card(c, w, h, pal, 36);
-    let y = P + drawLines(c, qL, w / 2, P, q) + 24;
+    let y = P + (qL.length ? drawLines(c, qL, w / 2, P, q) + 24 : 0);
     const bw = w - P * 2;
-    for (const [opt, per] of [
-      [f.optionA, f.percentA],
-      [f.optionB, f.percentB],
-    ]) {
+    for (const { label: opt, percent: per } of opts) {
       fillRR(c, P, y, bw, row, row / 2, pal.soft);
       const p = pct(per);
       if (p > 0) {
@@ -552,15 +723,25 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  chatConvo(c, f, pal) {
+  chatConvo(c, f, pal, L) {
     const w = 600;
     const msg: TextOpts = { size: 27, weight: 400, color: pal.fg, lh: 1.3 };
     const max = w * 0.68;
-    const inL = f.incomingText ? wrap(c, f.incomingText, msg, max - 44, 5) : [];
-    const outL = f.outgoingText ? wrap(c, f.outgoingText, msg, max - 44, 5) : [];
-    const bubble = (n: number) => (n ? linesH(n, msg) + 30 : 0);
-    const h = P + 60 + 24 + bubble(inL.length) + (inL.length && outL.length ? 12 : 0) + bubble(outL.length) + P;
+    const msgs = (L.messages ?? []).filter((m) => m.text?.trim()).map((m) => ({ out: m.side === "out", lines: wrap(c, m.text, msg, max - 44, 5) }));
+    const bubble = (n: number) => linesH(n, msg) + 30;
+    const head = !!(f.senderName?.trim() || f.timestamp?.trim());
+    const h = P + (head ? 60 + 24 : 0) + msgs.reduce((a, m) => a + bubble(m.lines.length) + 12, 0) - (msgs.length ? 12 : 0) + P;
     card(c, w, h, pal, 40);
+    let y = P + (head ? 60 + 24 : 0);
+    const widest = (lines: string[]) => Math.max(...lines.map((l) => textW(c, l, msg)));
+    for (const m of msgs) {
+      const bw = widest(m.lines) + 44;
+      const outBg = pal.theme === "color" ? pal.fg : pal.color;
+      fillRR(c, m.out ? w - P - bw : P, y, bw, bubble(m.lines.length), 26, m.out ? outBg : pal.soft);
+      drawLines(c, m.lines, (m.out ? w - P - bw : P) + 22, y + 15, m.out ? { ...msg, color: pal.theme === "color" ? pal.bg : pal.onAc } : msg);
+      y += bubble(m.lines.length) + 12;
+    }
+    if (!head) return { w, h };
     // Header: round avatar with the first letter, name, time.
     c.beginPath();
     c.arc(P + 30, P + 30, 30, 0, Math.PI * 2);
@@ -569,20 +750,6 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     text(c, Array.from(f.senderName ?? "?")[0]?.toUpperCase() ?? "?", P + 30, P + 30 - 17, { size: 28, weight: 700, color: pal.theme === "color" ? pal.fg : pal.onAc, align: "center", lh: 34 / 28 });
     text(c, f.senderName, P + 76, P + 2, { size: 26, weight: 700, color: pal.fg, lh: 1.25 }, w - P * 2 - 80);
     text(c, f.timestamp, P + 76, P + 34, { size: 20, weight: 500, color: pal.sub, lh: 1.2 }, w - P * 2 - 80);
-    let y = P + 60 + 24;
-    const widest = (lines: string[]) => Math.max(...lines.map((l) => textW(c, l, msg)));
-    if (inL.length) {
-      const bw = widest(inL) + 44;
-      fillRR(c, P, y, bw, bubble(inL.length), 26, pal.soft);
-      drawLines(c, inL, P + 22, y + 15, msg);
-      y += bubble(inL.length) + 12;
-    }
-    if (outL.length) {
-      const bw = widest(outL) + 44;
-      const bg = pal.theme === "color" ? pal.fg : pal.color;
-      fillRR(c, w - P - bw, y, bw, bubble(outL.length), 26, bg);
-      drawLines(c, outL, w - P - bw + 22, y + 15, { ...msg, color: pal.theme === "color" ? pal.bg : pal.onAc });
-    }
     return { w, h };
   },
 
@@ -678,9 +845,9 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  hashtagPill(c, f, pal) {
+  hashtagPill(c, f, pal, L) {
     const o: TextOpts = { size: 28, weight: 700, color: pal.theme === "color" ? pal.fg : pal.ac, lh: 56 / 28 };
-    const tags = [f.tag1, f.tag2, f.tag3].filter((s) => s?.trim());
+    const tags = (L.tags ?? []).map((t) => t.text).filter((s) => s?.trim());
     const pad = 26;
     const max = 640;
     const sizes = tags.map((s) => Math.min(max, textW(c, s, o) + pad * 2));
@@ -824,14 +991,14 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  recipeCard(c, f, pal) {
+  recipeCard(c, f, pal, L) {
     const w = 580;
     const bg = pal.theme === "light" ? "#fffaf0" : pal.bg;
     const dish: TextOpts = { size: 38, weight: 700, color: pal.fg, family: SERIF, lh: 1.2 };
     const ing: TextOpts = { size: 25, weight: 400, color: pal.fg, lh: 1.32 };
     const tip: TextOpts = { size: 23, weight: 400, color: pal.sub, italic: true, lh: 1.32 };
     const dishL = wrap(c, f.dishName, dish, w - P * 2, 2);
-    const items = (f.ingredients ?? "").split(/•|\n|;/).map((s) => s.trim()).filter(Boolean).slice(0, 8);
+    const items = (L.ingredients ?? []).map((i) => i.text?.trim()).filter(Boolean);
     const itemL = items.map((s) => wrap(c, s, ing, w - P * 2 - 30, 2));
     const tipL = f.tip ? wrap(c, `💡 ${f.tip}`, tip, w - P * 2 - 40, 3) : [];
     const itemsH = itemL.reduce((a, l) => a + linesH(l.length, ing) + 6, 0);
@@ -884,18 +1051,12 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  checklist(c, f, pal) {
+  checklist(c, f, pal, L) {
     const w = 540;
     const title: TextOpts = { size: 32, weight: 800, color: pal.fg, lh: 1.25 };
     const item: TextOpts = { size: 26, weight: 500, color: pal.fg, lh: 1.3 };
-    const titleL = f.title ? wrap(c, f.title, title, w - P * 2, 2) : [];
-    const items = [f.item1, f.item2, f.item3]
-      .filter((s) => s?.trim())
-      .map((s) => {
-        const done = /^\s*(☑|✅|✔|✓|\[x\])/i.test(s);
-        const label = s.replace(/^\s*(☑️?|✅|✔️?|✓|☐|□|\[x\]|\[ \])\s*/i, "");
-        return { done, lines: wrap(c, label, item, w - P * 2 - 54, 2) };
-      });
+    const titleL = f.title?.trim() ? wrap(c, f.title, title, w - P * 2, 2) : [];
+    const items = (L.items ?? []).filter((it) => it.text?.trim()).map((it) => ({ done: it.done === "1", lines: wrap(c, it.text, item, w - P * 2 - 54, 2) }));
     const rowH = (n: number) => Math.max(36, linesH(n, item));
     const h = P + (titleL.length ? linesH(titleL.length, title) + 18 : 0) + items.reduce((a, it) => a + rowH(it.lines.length) + 14, 0) - (items.length ? 14 : 0) + P;
     card(c, w, h, pal, 36);
@@ -1010,7 +1171,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  receipt(c, f, pal) {
+  receipt(c, f, pal, L) {
     const w = 480;
     const teeth = 14;
     const bg = pal.theme === "light" ? "#ffffff" : pal.theme === "dark" ? "#232323" : pal.bg;
@@ -1019,7 +1180,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     const ln: TextOpts = { size: 21, weight: 500, color: fg, family: MONO, lh: 1.35 };
     const tot: TextOpts = { size: 25, weight: 800, color: fg, family: MONO, align: "center", lh: 1.3 };
     const storeL = wrap(c, f.storeName, store, w - P * 2, 2);
-    const lines = [f.line1, f.line2, f.line3].filter((s) => s?.trim()).map((s) => wrap(c, s, ln, w - P * 2, 2));
+    const lines = (L.lines ?? []).map((l) => l.text).filter((s) => s?.trim()).map((s) => wrap(c, s, ln, w - P * 2, 2));
     const totL = f.total ? wrap(c, f.total, tot, w - P * 2, 2) : [];
     const linesHt = lines.reduce((a, l) => a + linesH(l.length, ln) + 6, 0);
     const h = teeth + 28 + linesH(storeL.length, store) + 20 + 2 + 20 + linesHt + 14 + 2 + 20 + linesH(totL.length, tot) + 24 + 56 + 28 + teeth;
@@ -1107,13 +1268,14 @@ const sizes = new Map<string, { w: number; h: number }>();
 
 /** Size of the card at its base scale (measured once per content). */
 export function widgetSize(w: WidgetData, color: string, locale: Locale = "vi") {
+  void locale; // the texts are already in the widget's language
   const key = JSON.stringify([w, color]);
   const hit = sizes.get(key);
   if (hit) return hit;
   scratch ??= document.createElement("canvas").getContext("2d");
   if (!scratch) return { w: 500, h: 300 };
   scratch.save();
-  const size = KINDS[w.kind](scratch, w.fields, palette(w.theme, color), locale);
+  const size = KINDS[w.kind](scratch, w.fields, palette(w.theme, color), rowsOf(w));
   scratch.restore();
   if (sizes.size > 400) sizes.clear();
   sizes.set(key, size);
@@ -1125,7 +1287,7 @@ export function drawWidget(c: C, w: WidgetData, color: string, width: number, lo
   const base = widgetSize(w, color, locale);
   c.save();
   c.scale(width / base.w, width / base.w);
-  KINDS[w.kind](c, w.fields, palette(w.theme, color), locale);
+  KINDS[w.kind](c, w.fields, palette(w.theme, color), rowsOf(w));
   c.restore();
 }
 
