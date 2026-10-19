@@ -118,8 +118,8 @@ export function newWidget(ratio: AspectRatio, slide: Rect, kind: WidgetKind, sam
 }
 
 /** A card widget (D-114): weather, calendar, poll… drawn from its texts; ~70% of the slide wide. */
-export function newCardWidget(ratio: AspectRatio, slide: Rect, kind: CardWidgetKind, locale: Locale): IconElement {
-  const widget = newWidgetData(kind, locale);
+export function newCardWidget(ratio: AspectRatio, slide: Rect, kind: CardWidgetKind, locale: Locale, variant?: string): IconElement {
+  const widget = newWidgetData(kind, locale, variant);
   const color = WIDGET_ACCENT[kind];
   const base = widgetSize(widget, color, locale);
   const W = slideSize(ratio).width;

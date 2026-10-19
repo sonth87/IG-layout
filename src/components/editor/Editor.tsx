@@ -45,8 +45,8 @@ import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
 import { TextTool } from "./tools/TextTools";
 import { TextAlignPanel, TextFormatPanel } from "./tools/TextFormat";
 import { OpacityTool } from "./tools/OpacityTool";
-import { WidgetContentTool, WidgetDateTool, WidgetListTool, WidgetLookTool, WidgetPickTool, WidgetValueTool } from "./tools/WidgetTool";
-import { WIDGET_DATES, WIDGET_LISTS, WIDGET_PICKS, WIDGET_VALUES } from "@/lib/elements/widgets";
+import { WidgetContentTool, WidgetDateTool, WidgetListTool, WidgetLookTool, WidgetPickTool, WidgetStyleTool, WidgetTimeTool, WidgetValueTool } from "./tools/WidgetTool";
+import { WIDGET_DATES, WIDGET_LISTS, WIDGET_PICKS, WIDGET_TIMES, WIDGET_VALUES, WIDGET_VARIANTS } from "@/lib/elements/widgets";
 import { InlineText } from "./InlineText";
 import { useImportPhotos } from "./useImportPhotos";
 import { useShortcuts } from "./useShortcuts";
@@ -121,11 +121,13 @@ type Tool =
   | "widgetLook"
   | "widgetValue"
   | "widgetPick"
-  | "widgetDate";
+  | "widgetDate"
+  | "widgetStyle"
+  | "widgetTime";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime"];
 /** Sheets about the selected element: they close (keeping their edits) when the selection changes (owner, 2026-10-19). */
-const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate"];
+const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -724,6 +726,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "widgetValue" && selected) bottom = <WidgetValueTool elementId={selected.id} onClose={close} />;
   else if (tool === "widgetPick" && selected) bottom = <WidgetPickTool elementId={selected.id} onClose={close} />;
   else if (tool === "widgetDate" && selected) bottom = <WidgetDateTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widgetStyle" && selected) bottom = <WidgetStyleTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widgetTime" && selected) bottom = <WidgetTimeTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "draw") bottom = <DrawTool onClose={close} />;
   else if (tool === "music") bottom = <MusicTool onClose={close} />;
@@ -819,6 +823,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
       const value = WIDGET_VALUES[k];
       const pick = WIDGET_PICKS[k];
       tools = [
+        WIDGET_VARIANTS[k] && <ToolButton key="style" label={t("widget.style")} icon="style" onClick={() => openTool("widgetStyle")} />,
+        WIDGET_TIMES.includes(k) && <ToolButton key="time" label={t("widget.time")} icon="clock" onClick={() => openTool("widgetTime")} />,
         list && <ToolButton key="list" label={lang(list.label)} icon="listPlus" onClick={() => openTool("widgetList")} />,
         value && <ToolButton key="value" label={lang(value.label)} icon="sliders" onClick={() => openTool("widgetValue")} />,
         pick && <ToolButton key="pick" label={lang(pick.label)} icon="smilePlus" onClick={() => openTool("widgetPick")} />,

@@ -122,22 +122,61 @@ Các phần không có chữ không để lại chỗ trống:
 
 Widget tạo trước đây (ô cố định A / B, 1–3) được đọc sang danh sách, không mất nội dung.
 
-## Đợt 2 — đề xuất loại và biến thể (chờ duyệt)
+## Đợt 2 — nguyên tắc (chủ dự án, 2026-10-19)
 
-Sheet Widget chia theo **loại**, mỗi loại một hàng các biến thể. Tổng khoảng 70 biến thể; † là cái đã có.
+> "cái gì có thể giải quyết bằng việc add thêm widget thì nên đưa ra như thế để tránh việc cover quá nhiều thứ trong 1 widget."
 
-| Loại | Biến thể |
+- **Một widget làm một việc.**
+  - Không gộp những thứ có thể có bằng cách thêm hoặc nhân bản một widget nữa.
+  - Ví dụ: hai múi giờ, đồng hồ kèm ngày, dự báo nhiều ngày.
+- **Biến thể = các kiểu nhìn khác nhau của cùng một thứ.**
+  - Ví dụ đồng hồ:
+    - **kim**: mặt tròn / vuông / méo / chảy; đánh dấu bằng đủ số / 12-3-6-9 / vạch / La Mã;
+    - **số**: thường, lật, kỹ thuật số…
+- Trên thanh công cụ có nút **Kiểu** để đổi qua lại giữa các biến thể của widget đó.
+  - Nội dung (giờ, chữ…) giữ nguyên.
+  - Kiểu thẻ Sáng / Tối / Màu theo mặc định của biến thể.
+
+## Đợt 2 — Đồng hồ: đã làm (D-119)
+
+14 kiểu, nút **Kiểu** và **Giờ** (chọn giờ):
+
+- **Kim**:
+  - Cổ điển (số 1–12, vạch phút, kim giây màu nhấn);
+  - 12 · 3 · 6 · 9;
+  - Vạch;
+  - La Mã (mặt kem, viền đồng);
+  - Vuông;
+  - Vuông vạch;
+  - Vẽ tay (viền méo, kim cong, chữ viết tay);
+  - **Chảy**: nửa trên nằm phẳng trên mặt bàn, nửa dưới buông xuống và chảy thành giọt, có bóng ở nếp gập.
+- **Số**:
+  - Số lớn (không thẻ, như màn hình khoá);
+  - Số lật;
+  - LED 7 đoạn (nghiêng nhẹ, phát sáng);
+  - LCD (màn xanh xám);
+  - Neon;
+  - Chấm pixel.
+
+Widget chữ "Đồng hồ lật" cũ không còn trong nhóm Chữ. Dự án cũ có nó vẫn giữ nguyên.
+
+## Đợt 2 — các loại khác (đề xuất lại theo nguyên tắc, chờ duyệt)
+
+Mỗi dòng là **một widget** (một việc), sau dấu `:` là **các kiểu** của nó. † là kiểu đã có.
+
+| Loại | Widget: các kiểu |
 | --- | --- |
-| Chữ | Nhãn†, Tin nhắn†, Địa điểm†, Tô sáng†, Ruy băng, Nhãn tròn, Chữ neon, Băng chữ máy đánh chữ |
-| Đồng hồ | Đồng hồ lật†, Số lớn kiểu màn hình khoá (giờ + ngày), Kim tròn, Kim tối giản, Số điện tử LED, Hai múi giờ, Báo thức, Bấm giờ |
-| Lịch | Tờ lịch†, Đếm ngược†, Lịch tháng, Dải tuần, Viên ngày (pill), "Save the date", Dấu ngày kiểu máy phim cam |
-| Thời tiết | Thẻ thời tiết†, Nhiệt độ lớn tối giản, Dự báo 5 ngày, Viên (icon + độ), Thẻ nền trời gradient, Mặt trời mọc / lặn |
-| Trích dẫn | Phiếu đọc sách†, Ngoặc kép lớn, Giấy máy đánh chữ, Kiểu bài đăng (avatar + chữ), Giấy note trích dẫn, Một dòng tối giản |
-| Mạng xã hội | Bình chọn†, Hộp câu hỏi†, Chat†, Thông báo†, Hashtag†, @Nhắc tên†, Tìm kiếm†, Đánh giá sao†, Đếm tim / bình luận, Nút theo dõi, Thanh trượt emoji, Liên kết |
-| Âm nhạc | Bài hát đang nghe†, Trình phát mini (viên), Đĩa than, Băng cát-xét, Danh sách phát, Lời bài hát, Sóng âm |
-| Thể thao | Số bước†, Ba vòng hoạt động, Tổng kết chạy (quãng đường / pace / thời gian), Nhịp tim, Uống nước, Giấc ngủ |
-| Du lịch | Vé máy bay†, Thông số máy ảnh†, Dấu hộ chiếu, Thẻ hành lý, Vé tàu, Thẻ ghim bản đồ, Bưu thiếp |
-| Hoá đơn | Hoá đơn†, Giá / khuyến mãi†, Phiếu giảm giá, Danh sách mua sắm, Chia tiền, Tóm tắt đơn hàng |
-| Việc cần làm | Danh sách việc†, Thanh tiến trình†, Tâm trạng†, Công thức†, Theo dõi thói quen (lưới), Mục tiêu, Lịch trình trong ngày |
+| Lịch | **Ngày**: tờ lịch xé†, viên ngày, lịch để bàn gấp, dấu ngày máy phim (cam), số ngày lớn tối giản, tờ lịch tháng khoanh ngày, dải tuần khoanh ngày. **Đếm ngược**: thẻ†, "D-14" lớn, vòng tiến độ, số lật, viên |
+| Thời tiết | **Thời tiết hiện tại**: thẻ†, nhiệt độ lớn tối giản, viên (biểu tượng + độ), nền trời đổi theo thời tiết, biểu tượng lớn, nhiệt kế |
+| Trích dẫn | **Câu trích**: phiếu đọc sách†, ngoặc kép lớn, giấy máy đánh chữ, giấy note, một dòng tối giản, bảng phấn, trang sách mở |
+| Mạng xã hội | **Bình chọn**: thanh†, hai nút lớn, tối giản. **Hộp câu hỏi**: thẻ†, bong bóng. **Chat**: bong bóng xanh†, bong bóng tròn kiểu khác, tối giản. **Thông báo**: banner†, kiểu màn hình khoá, kiểu Android. **Hashtag**: viên†, chữ nền, nhãn dán. **@Nhắc tên**: viên†, chữ có gạch chân. **Tìm kiếm**: thanh†, kiểu trình duyệt. **Đánh giá sao**: thẻ†, chỉ hàng sao, sao + số lớn. Mới: **Đếm tim / bình luận** (viên, bong bóng thông báo), **Thanh trượt emoji** |
+| Âm nhạc | **Bài hát đang nghe**: thẻ†, trình phát mini (viên), đĩa than, băng cát-xét, mã quét dạng sóng, tối giản |
+| Thể thao | **Số bước**: vòng†, thanh, số lớn. **Buổi chạy** (quãng đường · pace · thời gian): thẻ, tối giản, số lớn. **Vòng hoạt động** (3 vòng). **Uống nước**: cốc, giọt. **Giấc ngủ**: thanh, trăng |
+| Du lịch | **Vé máy bay**: thẻ†, vé giấy có cuống xé, vé điện thoại. **Dấu hộ chiếu**: tròn, chữ nhật, tam giác, mực đỏ / xanh. **Thẻ hành lý**. **Vé tàu / xe** |
+| Mua sắm | **Hoá đơn**: giấy nhiệt†, kiểu nhà hàng, viết tay. **Giá**: thẻ treo†, nhãn tròn SALE, giá gạch đơn giản. **Phiếu giảm giá**: vé răng cưa, thẻ |
+| Việc cần làm | **Danh sách việc**: thẻ†, giấy kẻ dòng, note vàng, viết tay. **Tiến trình**: thanh†, vòng, pin. **Tâm trạng**: thước†, 5 mặt chọn, nhiệt kế. **Theo dõi thói quen**: lưới tuần |
+| Ẩm thực | **Công thức**: thẻ†, giấy kẻ, thẻ tối giản |
+| Máy ảnh | **Thông số máy ảnh**: dải phim†, khung ngắm (HUD), dấu ngày cam |
+| Chữ | Nhãn†, Tin nhắn†, Địa điểm†, Tô sáng† (giữ là chữ) |
 
-Mỗi biến thể có menu riêng như Đợt 1: danh sách thêm / bớt, thanh trượt, chọn ngày… tuỳ loại.
+Sheet Widget xếp theo các loại này; mỗi widget hiện các kiểu của nó.

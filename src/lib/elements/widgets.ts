@@ -9,8 +9,11 @@
  */
 import data from "../../../assets/text/widget-samples.json";
 import type { Locale } from "@/store/settings";
+import { drawClock, CLOCK_VARIANTS } from "./widgetClock";
+import { C, card, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
 
 export const CARD_WIDGETS = [
+  "clock",
   "weather",
   "calendarDate",
   "countdown",
@@ -44,6 +47,8 @@ export interface WidgetData {
   /** Repeated parts, one record per row (poll options, checklist items…); see WIDGET_LISTS. */
   lists?: Record<string, Record<string, string>[]>;
   theme: WidgetTheme;
+  /** One of WIDGET_VARIANTS[kind]: the same widget, another look (D-119). */
+  variant?: string;
 }
 
 /** A column of a list row: text, a percentage, done / not done, or which side a chat message is on. */
@@ -202,9 +207,22 @@ interface Spec {
 }
 const SPECS = new Map((data.widgets as unknown as Spec[]).map((s) => [s.id, s]));
 
-export function widgetName(kind: CardWidgetKind, locale: Locale) {
-  return SPECS.get(kind)?.name[locale] ?? kind;
+export function widgetName(kind: CardWidgetKind, locale: Locale, variant?: string) {
+  const base = kind === "clock" ? (locale === "vi" ? "Đồng hồ" : "Clock") : (SPECS.get(kind)?.name[locale] ?? kind);
+  const v = variant && WIDGET_VARIANTS[kind]?.find((x) => x.id === variant);
+  return v ? `${base} · ${v.name[locale === "vi" ? 1 : 0]}` : base;
 }
+
+/** Looks of one widget (D-119): its library items, and the Style sheet. */
+export const WIDGET_VARIANTS: Partial<Record<CardWidgetKind, readonly { id: string; name: readonly [string, string]; theme: WidgetTheme }[]>> = {
+  clock: CLOCK_VARIANTS,
+};
+
+/** Samples the shared texts (G6) do not fit: an analogue clock reads best at 10:09. */
+const SAMPLE_OVERRIDES: Partial<Record<CardWidgetKind, Record<string, string>>> = { clock: { time: "10:09" } };
+
+/** Widgets set from a time. */
+export const WIDGET_TIMES: CardWidgetKind[] = ["clock"];
 
 export function widgetFields(kind: CardWidgetKind): string[] {
   return SPECS.get(kind)?.fields ?? [];
@@ -212,6 +230,7 @@ export function widgetFields(kind: CardWidgetKind): string[] {
 
 /** Starting colour of each kind (the Color tool changes it). */
 export const WIDGET_ACCENT: Record<CardWidgetKind, string> = {
+  clock: "#ff3b30",
   weather: "#2f80ed",
   calendarDate: "#ff3b30",
   countdown: "#ff2d55",
@@ -238,8 +257,10 @@ export const WIDGET_ACCENT: Record<CardWidgetKind, string> = {
 
 const DARK_KINDS: CardWidgetKind[] = ["nowPlaying", "filmExif"];
 
-export function newWidgetData(kind: CardWidgetKind, locale: Locale): WidgetData {
-  const w: WidgetData = { kind, fields: { ...(SPECS.get(kind)?.samples[locale] ?? {}) }, theme: DARK_KINDS.includes(kind) ? "dark" : "light" };
+export function newWidgetData(kind: CardWidgetKind, locale: Locale, variant?: string): WidgetData {
+  const v = WIDGET_VARIANTS[kind]?.find((x) => x.id === variant) ?? WIDGET_VARIANTS[kind]?.[0];
+  const fields = { ...(SPECS.get(kind)?.samples[locale] ?? {}), ...SAMPLE_OVERRIDES[kind] };
+  const w: WidgetData = { kind, fields, theme: v?.theme ?? (DARK_KINDS.includes(kind) ? "dark" : "light"), ...(v ? { variant: v.id } : {}) };
   // Rows as lists from the start.
   const spec = WIDGET_LISTS[kind];
   return spec ? { ...w, lists: { [spec.key]: rowsOf(w)[spec.key] } } : w;
@@ -247,6 +268,7 @@ export function newWidgetData(kind: CardWidgetKind, locale: Locale): WidgetData 
 
 /** Labels of the fields in the edit sheet. */
 const FIELD_LABELS: Record<string, [en: string, vi: string]> = {
+  time: ["Time", "Giờ"],
   icon: ["Icon", "Biểu tượng"],
   temperature: ["Temperature", "Nhiệt độ"],
   condition: ["Condition", "Thời tiết"],
@@ -339,212 +361,14 @@ export const LONG_FIELDS = new Set(["condition", "note", "comment", "question", 
 
 // ---------------------------------------------------------------- drawing
 
-type C = CanvasRenderingContext2D;
-type F = Record<string, string>;
-interface Pal {
-  bg: string;
-  fg: string;
-  sub: string;
-  line: string;
-  soft: string;
-  /** Accent on this background (white on a coloured card). */
-  ac: string;
-  /** The chosen colour itself. */
-  color: string;
-  /** Text on an accent fill. */
-  onAc: string;
-  theme: WidgetTheme;
-}
-
-const SANS = '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
-const SERIF = 'Georgia, "Times New Roman", "Noto Serif", serif';
-const MONO = 'ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace';
-const P = 36;
-
-function luminance(hex: string) {
-  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
-  if (!m) return 0.3;
-  const n = parseInt(m[1], 16);
-  return (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
-}
-
-function palette(theme: WidgetTheme, color: string): Pal {
-  const onAc = luminance(color) > 0.65 ? "#111111" : "#ffffff";
-  if (theme === "dark") return { bg: "#1c1c1e", fg: "#ffffff", sub: "#98989d", line: "#3a3a3c", soft: "#2c2c2e", ac: color, color, onAc, theme };
-  if (theme === "color") {
-    const lightCard = onAc === "#111111";
-    return {
-      bg: color,
-      fg: onAc,
-      sub: lightCard ? "rgba(0,0,0,0.55)" : "rgba(255,255,255,0.78)",
-      line: lightCard ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.3)",
-      soft: lightCard ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.2)",
-      ac: onAc,
-      color,
-      onAc: lightCard ? "#ffffff" : color,
-      theme,
-    };
-  }
-  return { bg: "#ffffff", fg: "#111111", sub: "#8e8e93", line: "#e5e5ea", soft: "#f2f2f7", ac: color, color, onAc, theme };
-}
-
-interface TextOpts {
-  size: number;
-  weight?: number;
-  color: string;
-  family?: string;
-  italic?: boolean;
-  align?: CanvasTextAlign;
-  /** Line height, times the size. */
-  lh?: number;
-  strike?: boolean;
-}
-
-function setFont(c: C, o: TextOpts) {
-  c.font = `${o.italic ? "italic " : ""}${o.weight ?? 400} ${o.size}px ${o.family ?? SANS}`;
-}
-
-/** Cut to `max` px with an ellipsis. */
-function clip(c: C, s: string, max: number) {
-  if (c.measureText(s).width <= max) return s;
-  const chars = Array.from(s);
-  while (chars.length && c.measureText(chars.join("") + "…").width > max) chars.pop();
-  return chars.join("").trimEnd() + "…";
-}
-
-/** Word-wrapped lines (long words break anywhere), at most `maxLines` (the last ends in "…"). */
-function wrap(c: C, s: string, o: TextOpts, max: number, maxLines = 4): string[] {
-  setFont(c, o);
-  const out: string[] = [];
-  for (const para of (s ?? "").split("\n")) {
-    let cur = "";
-    for (const word of para.split(/\s+/).filter(Boolean)) {
-      const next = cur ? `${cur} ${word}` : word;
-      if (c.measureText(next).width <= max) cur = next;
-      else if (!cur) {
-        // A word wider than the line: break it by characters.
-        let part = "";
-        for (const ch of Array.from(word)) {
-          if (c.measureText(part + ch).width > max && part) {
-            out.push(part);
-            part = ch;
-          } else part += ch;
-        }
-        cur = part;
-      } else {
-        out.push(cur);
-        cur = word;
-      }
-    }
-    out.push(cur);
-  }
-  const lines = out.length > 1 && out.every((l) => !l) ? [""] : out;
-  if (lines.length <= maxLines) return lines;
-  const kept = lines.slice(0, maxLines);
-  kept[maxLines - 1] = clip(c, `${kept[maxLines - 1]} ${lines[maxLines]}`, max);
-  return kept;
-}
-
-/** Height of wrapped lines. */
-const linesH = (n: number, o: TextOpts) => n * o.size * (o.lh ?? 1.3);
-
-/** Draws lines from the top `y`; returns the height used. */
-function drawLines(c: C, lines: string[], x: number, y: number, o: TextOpts) {
-  setFont(c, o);
-  c.fillStyle = o.color;
-  c.textAlign = o.align ?? "left";
-  c.textBaseline = "middle";
-  const lh = o.size * (o.lh ?? 1.3);
-  lines.forEach((l, i) => {
-    const cy = y + lh * i + lh / 2;
-    c.fillText(l, x, cy);
-    if (o.strike) {
-      const w = c.measureText(l).width;
-      const x0 = o.align === "center" ? x - w / 2 : o.align === "right" ? x - w : x;
-      c.fillRect(x0, cy - o.size * 0.06, w, Math.max(2, o.size * 0.07));
-    }
-  });
-  return lh * lines.length;
-}
-
-/** One line cut to `max`; returns its height. */
-function text(c: C, s: string, x: number, y: number, o: TextOpts, max = 10000) {
-  setFont(c, o);
-  return drawLines(c, [clip(c, s ?? "", max)], x, y, o);
-}
-
-function textW(c: C, s: string, o: TextOpts) {
-  setFont(c, o);
-  return c.measureText(s ?? "").width;
-}
-
-function rr(c: C, x: number, y: number, w: number, h: number, r: number) {
-  c.beginPath();
-  c.roundRect(x, y, w, h, Math.max(0, Math.min(r, w / 2, h / 2)));
-}
-
-function fillRR(c: C, x: number, y: number, w: number, h: number, r: number, fill: string | CanvasGradient) {
-  rr(c, x, y, w, h, r);
-  c.fillStyle = fill;
-  c.fill();
-}
-
-/** The card, with a soft shadow on light themes. */
-function card(c: C, w: number, h: number, pal: Pal, r = 36, bg = pal.bg) {
-  c.save();
-  c.shadowColor = pal.theme === "dark" ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0.16)";
-  c.shadowBlur = 28;
-  c.shadowOffsetY = 8;
-  fillRR(c, 0, 0, w, h, r, bg);
-  c.restore();
-}
-
-function dashed(c: C, x0: number, y: number, x1: number, color: string, width = 2, dash = [10, 8]) {
-  c.save();
-  c.strokeStyle = color;
-  c.lineWidth = width;
-  c.setLineDash(dash);
-  c.beginPath();
-  c.moveTo(x0, y);
-  c.lineTo(x1, y);
-  c.stroke();
-  c.restore();
-}
-
-function star(c: C, cx: number, cy: number, r: number) {
-  c.beginPath();
-  for (let i = 0; i < 10; i++) {
-    const a = -Math.PI / 2 + (i * Math.PI) / 5;
-    const rad = i % 2 === 0 ? r : r * 0.45;
-    c.lineTo(cx + Math.cos(a) * rad, cy + Math.sin(a) * rad);
-  }
-  c.closePath();
-}
-
-/** Stars out of 5: the slider's value, else the ★ typed in the first widgets. */
-function rating(f: F) {
-  const r = parseFloat(f.rating ?? "");
-  if (Number.isFinite(r)) return Math.max(0, Math.min(5, r));
-  const full = (f.stars?.match(/★/g) ?? []).length;
-  return Math.min(5, full || 5);
-}
-
-const pct = (s: string | undefined) => {
-  const n = parseFloat((s ?? "").replace(",", "."));
-  return Number.isFinite(n) ? Math.max(0, Math.min(1, n / 100)) : 0;
-};
-
-const seconds = (s: string | undefined) => {
-  const parts = (s ?? "").split(":").map((p) => parseInt(p, 10));
-  return parts.every(Number.isFinite) ? parts.reduce((a, b) => a * 60 + b, 0) : 0;
-};
-
 /** Repeated parts (poll options, checklist items…): one record per row. */
 type Rows = Record<string, Record<string, string>[]>;
-type Draw = (c: C, f: F, pal: Pal, L: Rows) => { w: number; h: number };
+type Draw = (c: C, f: F, pal: Pal, L: Rows, variant?: string) => { w: number; h: number };
 
 // Each kind measures its texts, draws its card at the right height, then its content.
 const KINDS: Record<CardWidgetKind, Draw> = {
+  clock: (c, f, pal, _L, v) => drawClock(c, f, pal, v ?? "classic"),
+
   weather(c, f, pal) {
     const w = 520;
     const cond: TextOpts = { size: 26, weight: 500, color: pal.sub };
@@ -1275,7 +1099,7 @@ export function widgetSize(w: WidgetData, color: string, locale: Locale = "vi") 
   scratch ??= document.createElement("canvas").getContext("2d");
   if (!scratch) return { w: 500, h: 300 };
   scratch.save();
-  const size = KINDS[w.kind](scratch, w.fields, palette(w.theme, color), rowsOf(w));
+  const size = KINDS[w.kind](scratch, w.fields, palette(w.theme, color), rowsOf(w), w.variant);
   scratch.restore();
   if (sizes.size > 400) sizes.clear();
   sizes.set(key, size);
@@ -1287,19 +1111,20 @@ export function drawWidget(c: C, w: WidgetData, color: string, width: number, lo
   const base = widgetSize(w, color, locale);
   c.save();
   c.scale(width / base.w, width / base.w);
-  KINDS[w.kind](c, w.fields, palette(w.theme, color), rowsOf(w));
+  KINDS[w.kind](c, w.fields, palette(w.theme, color), rowsOf(w), w.variant);
   c.restore();
 }
 
 const thumbs = new Map<string, string>();
 
 /** A small picture of a kind with its sample texts, for the library. */
-export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360) {
-  const key = `${kind}:${locale}:${width}`;
+export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360, variant?: string, from?: { data: WidgetData; color: string }) {
+  const key = JSON.stringify([kind, locale, width, variant, from]);
   const hit = thumbs.get(key);
   if (hit) return hit;
-  const data = newWidgetData(kind, locale);
-  const color = WIDGET_ACCENT[kind];
+  // `from`: the selected widget in another look (Style sheet).
+  const data = from ? { ...from.data, variant, theme: WIDGET_VARIANTS[kind]?.find((v) => v.id === variant)?.theme ?? from.data.theme } : newWidgetData(kind, locale, variant);
+  const color = from?.color ?? WIDGET_ACCENT[kind];
   const size = widgetSize(data, color, locale);
   // Room for the shadow around the card.
   const pad = 14;
@@ -1313,12 +1138,14 @@ export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360) {
   c.translate(pad, pad);
   drawWidget(c, data, color, size.w, locale);
   const url = canvas.toDataURL("image/png");
+  if (thumbs.size > 300) thumbs.clear();
   thumbs.set(key, url);
   return url;
 }
 
 /** How the library groups the kinds. */
-export const WIDGET_GROUPS: { id: "info" | "social" | "keepsake"; kinds: CardWidgetKind[] }[] = [
+export const WIDGET_GROUPS: { id: "clock" | "info" | "social" | "keepsake"; kinds: CardWidgetKind[] }[] = [
+  { id: "clock", kinds: ["clock"] },
   { id: "social", kinds: ["poll", "questionBox", "chatConvo", "phoneNotification", "hashtagPill", "mentionTag", "searchBar", "starRating"] },
   { id: "info", kinds: ["weather", "calendarDate", "countdown", "nowPlaying", "progressBar", "stepCounter", "moodMeter", "checklist"] },
   { id: "keepsake", kinds: ["boardingPass", "receipt", "priceTag", "filmExif", "recipeCard", "bookQuote"] },

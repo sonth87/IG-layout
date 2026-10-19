@@ -7,7 +7,7 @@ import { collectionOrder, COLLECTIONS, mainCollection } from "@/lib/catalog/coll
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { iconDataUrl } from "@/lib/elements/icons";
 import { newCardWidget, newEmoji, newFramedPhoto, newShape, newSticker, newWidget, newOverlay, WIDGETS } from "@/lib/elements/create";
-import { WIDGET_GROUPS, widgetName, widgetThumb } from "@/lib/elements/widgets";
+import { WIDGET_GROUPS, WIDGET_VARIANTS, widgetName, widgetThumb } from "@/lib/elements/widgets";
 import { drawOverlay, OVERLAY_KINDS, OVERLAYS, overlayBlob, type OverlayKind } from "@/lib/elements/overlays";
 import { SHAPE_GROUPS } from "@/lib/elements/shapeLibrary";
 import { drawShape, libraryShape } from "@/lib/elements/shapes";
@@ -371,7 +371,8 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
     groups.push({
       id: "widgets",
       title: t("widget.group.text"),
-      items: WIDGETS.map((w) => ({
+      // The flip clock is one of the Clock looks now (D-119); old projects keep theirs.
+      items: WIDGETS.filter((w) => w !== "clock").map((w) => ({
         key: w,
         label: t(`widget.${w}`),
         node: <span className={`truncate py-1 text-[11px] ${looks[w]}`}>{t(`widget.sample.${w}`)}</span>,
@@ -384,13 +385,16 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
         id: `widgets-${g.id}`,
         title: t(`widget.group.${g.id}`),
         wide: true,
-        items: g.kinds.map((k) => ({
-          key: k,
-          label: widgetName(k, locale),
-          // eslint-disable-next-line @next/next/no-img-element -- drawn on a canvas
-          node: <img src={widgetThumb(k, locale)} alt="" className="max-h-full max-w-full object-contain" />,
-          add: () => add(newCardWidget(doc.ratio, slide, k, locale)),
-        })),
+        // A widget with several looks shows each of them (D-119).
+        items: g.kinds.flatMap((k) =>
+          (WIDGET_VARIANTS[k]?.map((v) => v.id) ?? [undefined]).map((v) => ({
+            key: v ? `${k}-${v}` : k,
+            label: widgetName(k, locale, v),
+            // eslint-disable-next-line @next/next/no-img-element -- drawn on a canvas
+            node: <img src={widgetThumb(k, locale, 360, v)} alt="" className="max-h-full max-w-full object-contain" />,
+            add: () => add(newCardWidget(doc.ratio, slide, k, locale, v)),
+          })),
+        ),
       });
   }
 
