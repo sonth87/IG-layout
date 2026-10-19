@@ -18,6 +18,11 @@ export const CLOCK_VARIANTS = [
   { id: "lcd", name: ["LCD", "LCD"], theme: "light" },
   { id: "neon", name: ["Neon", "Neon"], theme: "color" },
   { id: "dots", name: ["Dot matrix", "Chấm pixel"], theme: "dark" },
+  { id: "embossed", name: ["Pressed in", "Số chìm"], theme: "light" },
+  { id: "wood", name: ["Wood", "Gỗ"], theme: "light" },
+  { id: "handwritten", name: ["Handwritten", "Viết tay"], theme: "dark" },
+  { id: "nixie", name: ["Nixie tubes", "Đèn nixie"], theme: "dark" },
+  { id: "chalk", name: ["Chalkboard", "Bảng phấn"], theme: "dark" },
 ] as const satisfies readonly { id: string; name: [string, string]; theme: "light" | "dark" | "color" }[];
 export type ClockVariant = (typeof CLOCK_VARIANTS)[number]["id"];
 
@@ -47,6 +52,16 @@ export function drawClock(c: C, f: F, pal: Pal, variant: string): { w: number; h
       return dots(c, t, pal);
     case "melting":
       return melting(c, t, pal);
+    case "embossed":
+      return embossed(c, t, pal);
+    case "wood":
+      return wood(c, t);
+    case "handwritten":
+      return handwritten(c, t, pal);
+    case "nixie":
+      return nixie(c, t, pal);
+    case "chalk":
+      return chalk(c, t);
     default:
       return analogue(c, t, pal, variant as ClockVariant);
   }
@@ -497,6 +512,227 @@ function dots(c: C, t: { h: number; m: number }, pal: Pal) {
         c.fill();
       }
     col += g[0].length + 1;
+  }
+  return { w, h };
+}
+
+// ---------------------------------------------------------------- materials (owner, 2026-10-19)
+
+/** Digits pressed into the card: dark edge above-left, light edge below-right. */
+function embossed(c: C, t: { h: number; m: number }, pal: Pal) {
+  const s = `${two(t.h)}:${two(t.m)}`;
+  const bg = pal.theme === "light" ? "#e9e6e1" : pal.theme === "dark" ? "#26262a" : pal.color;
+  const o = { size: 190, weight: 800, color: bg, align: "center" as const, lh: 1.1 };
+  const w = textW(c, s, o) + 110;
+  const h = 290;
+  c.save();
+  c.shadowColor = "rgba(0,0,0,0.25)";
+  c.shadowBlur = 24;
+  c.shadowOffsetY = 8;
+  fillRR(c, 0, 0, w, h, 44, bg);
+  c.restore();
+  const light = pal.theme === "dark" ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.85)";
+  const dark = pal.theme === "dark" ? "rgba(0,0,0,0.75)" : "rgba(0,0,0,0.28)";
+  text(c, s, w / 2 + 3, 40 + 3, { ...o, color: light });
+  text(c, s, w / 2 - 3, 40 - 3, { ...o, color: dark });
+  text(c, s, w / 2, 40, o);
+  // A faint shade inside the pressed digits.
+  c.save();
+  c.globalAlpha = 0.06;
+  text(c, s, w / 2, 40, { ...o, color: "#000000" });
+  c.restore();
+  return { w, h };
+}
+
+/** Wood grain, the same every time. */
+function grain(c: C, x: number, y: number, w: number, h: number, base: string, line: string) {
+  c.fillStyle = base;
+  c.fillRect(x, y, w, h);
+  c.strokeStyle = line;
+  for (let i = 0; i < 26; i++) {
+    const yy = y + (i + 0.5) * (h / 26);
+    c.lineWidth = 1 + (i % 3);
+    c.globalAlpha = 0.18 + (i % 4) * 0.05;
+    c.beginPath();
+    for (let xx = 0; xx <= w; xx += 8) {
+      const yo = Math.sin(xx / 47 + i * 1.7) * 4 + Math.sin(xx / 13 + i) * 1.2;
+      if (xx) c.lineTo(x + xx, yy + yo);
+      else c.moveTo(x + xx, yy + yo);
+    }
+    c.stroke();
+  }
+  c.globalAlpha = 1;
+}
+
+/** Wooden block with the digits carved in. */
+function wood(c: C, t: { h: number; m: number }) {
+  const s = `${two(t.h)}:${two(t.m)}`;
+  const o = { size: 180, weight: 700, color: "#4a2a12", align: "center" as const, lh: 1.1, family: '"Rockwell", "Georgia", ' + SERIF };
+  const w = textW(c, s, o) + 120;
+  const h = 280;
+  c.save();
+  c.shadowColor = "rgba(0,0,0,0.35)";
+  c.shadowBlur = 26;
+  c.shadowOffsetY = 12;
+  fillRR(c, 0, 0, w, h, 22, "#b07a45");
+  c.restore();
+  c.save();
+  rr(c, 0, 0, w, h, 22);
+  c.clip();
+  grain(c, 0, 0, w, h, "#b98149", "#6b3f1d");
+  // Rounded edge: light top, dark bottom.
+  const g = c.createLinearGradient(0, 0, 0, h);
+  g.addColorStop(0, "rgba(255,255,255,0.25)");
+  g.addColorStop(0.12, "rgba(255,255,255,0)");
+  g.addColorStop(0.85, "rgba(0,0,0,0)");
+  g.addColorStop(1, "rgba(0,0,0,0.3)");
+  c.fillStyle = g;
+  c.fillRect(0, 0, w, h);
+  c.restore();
+  // Carved: light lip below, dark inside.
+  text(c, s, w / 2, 48 + 3, { ...o, color: "rgba(255,230,190,0.55)" });
+  text(c, s, w / 2, 48, o);
+  return { w, h };
+}
+
+const MARKER = '"Marker Felt", "Chalkboard SE", "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive';
+
+/** Digits written with a marker, each a little tilted. No card: on the photo. */
+function handwritten(c: C, t: { h: number; m: number }, pal: Pal) {
+  const s = `${t.h}:${two(t.m)}`;
+  const color = pal.theme === "light" ? "#ffffff" : pal.theme === "dark" ? "#1a1a1a" : pal.color;
+  const o = { size: 190, weight: 400, color, align: "center" as const, lh: 1.1, family: MARKER };
+  const chars = [...s];
+  const ws = chars.map((ch) => textW(c, ch, o) * (ch === ":" ? 0.9 : 0.95));
+  const w = ws.reduce((a, b) => a + b, 0) + 60;
+  const h = 250;
+  let x = 30;
+  chars.forEach((ch, i) => {
+    c.save();
+    c.translate(x + ws[i] / 2, 125);
+    c.rotate([-0.06, 0.05, -0.02, 0.07, -0.05][i % 5]);
+    if (pal.theme === "light") {
+      c.shadowColor = "rgba(0,0,0,0.35)";
+      c.shadowBlur = 10;
+    }
+    text(c, ch, 0, -105 + (i % 2 ? 6 : -4), o);
+    c.restore();
+    x += ws[i];
+  });
+  // An underline stroke.
+  c.strokeStyle = color;
+  c.lineWidth = 7;
+  c.lineCap = "round";
+  c.beginPath();
+  c.moveTo(40, 226);
+  c.quadraticCurveTo(w / 2, 214, w - 40, 230);
+  c.stroke();
+  return { w, h };
+}
+
+/** Glass tubes with glowing orange digits and the unlit wire behind. */
+function nixie(c: C, t: { h: number; m: number }, pal: Pal) {
+  const tw = 130;
+  const th = 230;
+  const gap = 20;
+  const pad = 30;
+  const w = pad * 2 + tw * 4 + gap * 3 + 30;
+  const h = pad * 2 + th + 24;
+  const glow = pal.theme === "color" ? pal.color : "#ff8a1f";
+  c.save();
+  c.shadowColor = "rgba(0,0,0,0.4)";
+  c.shadowBlur = 24;
+  c.shadowOffsetY = 10;
+  fillRR(c, 0, 0, w, h, 26, "#1a1410");
+  c.restore();
+  // Wooden-ish base strip.
+  fillRR(c, 12, h - 34, w - 24, 22, 8, "#3a2a1c");
+  const ds = [...two(t.h), ...two(t.m)];
+  let x = pad;
+  ds.forEach((d, i) => {
+    // Tube.
+    const g = c.createLinearGradient(x, 0, x + tw, 0);
+    g.addColorStop(0, "rgba(255,255,255,0.10)");
+    g.addColorStop(0.3, "rgba(255,255,255,0.03)");
+    g.addColorStop(0.8, "rgba(255,255,255,0.02)");
+    g.addColorStop(1, "rgba(255,255,255,0.12)");
+    fillRR(c, x, pad, tw, th, tw / 2, "#120d0a");
+    fillRR(c, x, pad, tw, th, tw / 2, g);
+    // Wire mesh behind.
+    c.strokeStyle = "rgba(255,160,90,0.10)";
+    c.lineWidth = 1;
+    for (let k = 1; k < 8; k++) {
+      c.beginPath();
+      c.moveTo(x + (tw * k) / 8, pad + 30);
+      c.lineTo(x + (tw * k) / 8, pad + th - 30);
+      c.stroke();
+    }
+    // Ghost of another digit, then the lit one.
+    text(c, "8", x + tw / 2, pad + 22, { size: 170, weight: 300, color: "rgba(255,140,60,0.08)", align: "center", lh: 1.1 });
+    c.save();
+    c.shadowColor = glow;
+    for (const blur of [30, 12]) {
+      c.shadowBlur = blur;
+      text(c, d, x + tw / 2, pad + 22, { size: 170, weight: 300, color: glow, align: "center", lh: 1.1 });
+    }
+    c.restore();
+    text(c, d, x + tw / 2, pad + 22, { size: 170, weight: 300, color: "#ffe2b8", align: "center", lh: 1.1 });
+    x += tw + gap;
+    if (i === 1) {
+      for (const yy of [pad + th * 0.38, pad + th * 0.62]) {
+        c.save();
+        c.shadowColor = glow;
+        c.shadowBlur = 14;
+        c.beginPath();
+        c.arc(x + 5, yy, 7, 0, Math.PI * 2);
+        c.fillStyle = "#ffd29a";
+        c.fill();
+        c.restore();
+      }
+      x += 30;
+    }
+  });
+  return { w, h };
+}
+
+/** Chalk on a blackboard in a wooden frame. */
+function chalk(c: C, t: { h: number; m: number }) {
+  const s = `${t.h}:${two(t.m)}`;
+  const o = { size: 180, weight: 400, color: "#f4f1e8", align: "center" as const, lh: 1.1, family: MARKER };
+  const w = textW(c, s, o) + 140;
+  const h = 300;
+  c.save();
+  c.shadowColor = "rgba(0,0,0,0.35)";
+  c.shadowBlur = 24;
+  c.shadowOffsetY = 10;
+  fillRR(c, 0, 0, w, h, 14, "#8a5a2b");
+  c.restore();
+  c.save();
+  rr(c, 0, 0, w, h, 14);
+  c.clip();
+  grain(c, 0, 0, w, h, "#9a6633", "#5a3815");
+  c.restore();
+  fillRR(c, 22, 22, w - 44, h - 44, 6, "#24312b");
+  // Smudges of old chalk.
+  c.save();
+  c.globalAlpha = 0.07;
+  c.fillStyle = "#ffffff";
+  for (let i = 0; i < 6; i++) {
+    c.beginPath();
+    c.ellipse(60 + ((i * 97) % (w - 120)), 70 + ((i * 53) % (h - 140)), 60, 18, i, 0, Math.PI * 2);
+    c.fill();
+  }
+  c.restore();
+  // Chalky strokes: the text a few times, slightly shifted and thin.
+  for (const [dx, dy, a] of [
+    [0, 0, 0.9],
+    [1.5, -1, 0.5],
+    [-1.2, 1.4, 0.4],
+  ] as const) {
+    c.save();
+    c.globalAlpha = a;
+    text(c, s, w / 2 + dx, 56 + dy, o);
+    c.restore();
   }
   return { w, h };
 }
