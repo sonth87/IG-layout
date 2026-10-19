@@ -209,8 +209,34 @@ function SaveIndicator() {
   );
 }
 
+/**
+ * iPhone Safari: a two-finger pinch the page doesn't take can become Safari's own gesture
+ * (pinching in shows every tab). In the editor every pinch is ours: Safari's gesture events
+ * are cancelled, and so is any two-finger move, wherever the fingers are. One-finger
+ * gestures (scrolling, dragging, taps) are untouched; the canvas zoom uses touch / pointer
+ * events, not these. Owner, 2026-10-19.
+ */
+function useNoBrowserPinch() {
+  useEffect(() => {
+    const stop = (e: Event) => {
+      if (e.cancelable) e.preventDefault();
+    };
+    const twoFingers = (e: TouchEvent) => {
+      if (e.touches.length >= 2 && e.cancelable) e.preventDefault();
+    };
+    const opts = { passive: false } as const;
+    for (const type of ["gesturestart", "gesturechange", "gestureend"]) document.addEventListener(type, stop, opts);
+    document.addEventListener("touchmove", twoFingers, opts);
+    return () => {
+      for (const type of ["gesturestart", "gesturechange", "gestureend"]) document.removeEventListener(type, stop);
+      document.removeEventListener("touchmove", twoFingers);
+    };
+  }, []);
+}
+
 export function Editor({ onClose }: { onClose: () => void }) {
   const t = useT();
+  useNoBrowserPinch();
   const doc = useViewDoc()!;
   const selectedId = useEditor((s) => s.selectedId);
   const currentSlide = useEditor((s) => s.currentSlide);

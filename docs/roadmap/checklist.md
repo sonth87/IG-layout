@@ -469,3 +469,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Trang cũ sau một lần deploy không tải được code mới → tự tải lại một lần
 - [x] Cài đặt → **Kiểm tra bộ nhớ**: từng bước (dung lượng, phiên bản, mở, đọc, ghi) + sao chép báo cáo (e2e create-errors.mjs)
 - [ ] Chủ dự án: đóng mọi tab / cửa sổ app cũ, thử lại; nếu còn lỗi gửi báo cáo Kiểm tra bộ nhớ
+
+### iPhone Safari: chụm trong editor không mở màn hình tất cả tab (2026-10-19)
+- [x] Chỉ trong màn sửa / tạo (editor): chặn cử chỉ chụm riêng của Safari (`gesturechange` / `gestureend`) và mọi thao tác 2 ngón ở bất kỳ đâu trong editor; thao tác 1 ngón không đổi; màn khác không đổi (e2e ios-pinch.mjs)
+- [ ] Chủ dự án thử lại trên iPhone
