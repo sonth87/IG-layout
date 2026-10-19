@@ -496,6 +496,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Zoom canvas bằng con lăn chuột / trackpad trên máy tính, quanh con trỏ; Shift + lăn để cuộn ngang (D-116, e2e wheel-zoom.mjs)
 - [x] Xem theo Bộ: mỗi pack ở bộ chủ đề của nó, mục dịp lễ vào bộ dịp lễ, lớp phủ gom cuối; thứ tự theo mùa → quanh năm → dịp khác (D-117; đã thử với dữ liệu G10)
 - [x] Widget có menu riêng (D-118): danh sách thêm / bớt (bình chọn 2–4…), thanh trượt, chọn biểu tượng, chọn ngày; chạm đúp mở Nội dung; sửa lỗi sheet tự bật lại và lỗi kéo khi đang mở sheet (e2e widgets.mjs)
-- [x] Widget đợt 2 — Đồng hồ: 14 kiểu (8 kim, 6 số), nút Kiểu / Giờ (D-119, e2e widgets.mjs)
+- [x] Widget đợt 2 — Đồng hồ: 19 kiểu (8 kim, 6 số, 5 chất liệu), nút Kiểu / Giờ (D-119, e2e widgets.mjs)
 - [ ] Widget đợt 2 — các loại khác theo nguyên tắc "một widget một việc, biến thể là kiểu nhìn": chờ duyệt danh sách
 - [ ] (Claude) M21 — bắt đầu từ 120 filter (G7)

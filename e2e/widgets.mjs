@@ -208,10 +208,10 @@ await page.waitForTimeout(300);
 await page.screenshot({ path: path.join(OUT, "widgets-canvas2.png") });
 w = (await S()).doc.elements.find((e) => e.id === w.id);
 
-console.log("Clock (D-119): 14 looks, Style switches the look, Time sets the hands");
+console.log("Clock (D-119): 19 looks, Style switches the look, Time sets the hands");
 await widgets();
 const clocks = page.getByRole("region", { name: "Clock", exact: true }).getByRole("button");
-check((await clocks.count()) === 14, `14 clock looks (${await clocks.count()})`);
+check((await clocks.count()) === 19, `19 clock looks (${await clocks.count()})`);
 check((await page.getByRole("region", { name: "Text", exact: true }).getByRole("button", { name: "Flip clock" }).count()) === 0, "the old flip clock is not in Text any more");
 await page.getByRole("button", { name: "Clock · LED", exact: true }).click();
 await page.waitForTimeout(300);

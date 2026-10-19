@@ -139,7 +139,7 @@ Widget tạo trước đây (ô cố định A / B, 1–3) được đọc sang 
 
 ## Đợt 2 — Đồng hồ: đã làm (D-119)
 
-14 kiểu, nút **Kiểu** và **Giờ** (chọn giờ):
+Nút **Kiểu** và **Giờ** (chọn giờ). Các kiểu:
 
 - **Kim**:
   - Cổ điển (số 1–12, vạch phút, kim giây màu nhấn);
@@ -157,6 +157,22 @@ Widget tạo trước đây (ô cố định A / B, 1–3) được đọc sang 
   - LCD (màn xanh xám);
   - Neon;
   - Chấm pixel.
+- **Chất liệu / phong cách** (góp ý thêm 2026-10-19: "số glow, số chìm, bằng gỗ, viết tay…"):
+  - Số chìm (ấn vào mặt thẻ);
+  - Gỗ (khối gỗ có vân, số khắc);
+  - Viết tay (bút dạ, mỗi số nghiêng một chút, gạch chân);
+  - Đèn nixie (ống thuỷ tinh, số cam phát sáng);
+  - Bảng phấn (khung gỗ, chữ phấn).
+  - Số phát sáng: đã có ở Neon và LED.
+
+Tổng 19 kiểu.
+
+Các widget khác cũng nghĩ theo cả hai trục:
+
+- **hình dạng / cách trình bày**;
+- **chất liệu / phong cách**: phát sáng, chìm, gỗ, giấy, viết tay, phấn, kim loại, kính mờ, pixel…
+
+Chỉ chọn những kiểu hợp với widget đó.
 
 Widget chữ "Đồng hồ lật" cũ không còn trong nhóm Chữ. Dự án cũ có nó vẫn giữ nguyên.
 
