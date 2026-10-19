@@ -16,6 +16,7 @@ Trạng thái:
 | G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Xong (chờ duyệt) |
 | G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | **Đã duyệt, đã merge** (2026-10-18) |
 | G8 — Lớp phủ (làm lại, ~30) | `gemini/g8-overlays` | **Đã trên main** (merge theo yêu cầu chủ dự án); Claude duyệt sau: đạt, bỏ 1 mục — 52 lớp phủ (2026-10-19) |
+| G10 — Mở rộng thư viện đợt 4 (theo góp ý 19/10) | `gemini/g10-library` | Chưa giao |
 | G9 — Sticker lễ hội & Việt Nam (~80) | `gemini/g9-festive` | **Đã trên main** (merge theo yêu cầu chủ dự án); Claude duyệt sau: đạt — 83 sticker (2026-10-19) |
 
 ---
@@ -356,6 +357,51 @@ Mọi lệnh chạy trong ../IG-layout-gemini-g9.
 Làm 4 gói: tet (~20), mid-autumn (~15), christmas (~20), celebrations (~25). Mỗi sticker là MỘT vật rời, nền tách sạch, không lấy cả tấm bưu thiếp, không ảnh người thật, không tranh tôn giáo, không trùng Fluent Emoji. Gắn collections đúng (tet / midAutumn / christmas / birthday / wedding / graduation / vietnam). Tên VI tự nhiên, tags EN / VI ≥ 3 mỗi thứ tiếng.
 Chạy process.mjs → mở review.html, xem từng mục trên nền ca rô, loại mục xấu → validate.mjs (OK) → build-catalog.mjs. Báo cáo: bảng mục → MÔ TẢ THỨ NHÌN THẤY → nguồn → giấy phép; liệt kê mục NC / custom.
 Phạm vi: assets/sticker/<4 gói mới>/**, public/packs/sticker/<4 gói mới>/**, public/packs/catalog.json, bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh, không merge.
+```
+
+---
+
+## G10 — Mở rộng thư viện đợt 4 (góp ý của chủ dự án, 2026-10-19)
+
+**Mục tiêu:** thêm nhiều mục cho những nhóm người dùng hay dùng nhất, và đổi tên / mở rộng các gói đang quá hẹp. Tổng cộng khoảng **+500 mục**. Ưu tiên theo thứ tự bảng.
+
+| # | Gói (id giữ nguyên) | Hiện | Mục tiêu | Nội dung cần thêm |
+|---|---|---|---|---|
+| 1 | `tet` | 20 | ~50 | hoa mai / đào nhiều kiểu, câu đối, chữ Phúc / Lộc / Thọ (hình vẽ), lì xì, bánh chưng / tét, mứt, cây quất, đèn lồng, pháo, 12 con giáp |
+| 2 | `vietnam-heritage` | 7 | ~40 | tranh Đông Hồ / Hàng Trống (PD), áo dài, nón lá, xích lô, ghe, chùa / đình, trống đồng (hình vẽ), món ăn Việt |
+| 3 | `japanese-ukiyoe` → tên **"Nhật Bản"** | 12 | ~50 | ukiyo-e, **kamon** (gia huy, đơn sắc), hoạ tiết sóng / mây / hoa anh đào, daruma, mèo vẫy tay, quạt, đèn lồng, torii (minh hoạ PD / CC) |
+| 4 | **mới** `autumn` ("Mùa thu", collections `["autumn"]`) | 0 | ~40 | lá phong / lá khô nhiều màu, quả sồi, nấm, bí ngô, hạt dẻ, hoa cúc, cành khô — tranh thực vật cổ hoặc minh hoạ |
+| 5 | `christmas` | 21 | ~50 | cây thông, quà, chuông, kẹo, bông tuyết, tuần lộc, người tuyết, vòng nguyệt quế, đèn dây — cùng nét với OpenMoji hoặc minh hoạ cổ (tách rời từng vật) |
+| 6 | `celebrations` (sinh nhật…) | 26 | ~60 | bánh, nến số 0–9, bóng bay nhiều màu, mũ tiệc, pháo giấy, quà, banner "Happy Birthday" (hình vẽ), hoa |
+| 7 | `birds-animals` → tên **"Chim cổ"** | 18 | ~50 | **nhiều loài** (không chỉ chim ruồi): chim sẻ, vẹt, hồng hạc, cú, chim công, hạc… tranh vẽ cổ |
+| 8 | `butterflies-insects` → tên **"Động vật"** | 6 | ~60 | bướm, ong, chuồn chuồn, ve, bọ cánh cứng, ốc, cá, mèo, chó, thỏ, ếch… — **tranh vẽ / minh hoạ**, không ảnh mẫu bảo tàng có hộp / nhãn |
+| 9 | `hand-doodles` → tên **"Minh hoạ"** | 20 | ~60 | đồ hoạ, art, illustration: người, đồ vật, cây cối, hình trang trí — CC0 (Open Doodles, Open Peeps, Humaaans, Kenney…) |
+| 10 | `vintage-maps-compass` → tên **"Du lịch & đồ cổ"** | 16 | ~40 | máy ảnh cổ, vali, vé tàu / vé máy bay, quả địa cầu, bản đồ, đồng hồ, máy chữ, đèn dầu, xe đạp… |
+| 11 | **mới** `ink-stamps` ("Tem & dấu mực", collections `["vintage", "travel", "journal"]`) | 0 | ~40 | **một màu, dạng nét mực** như ảnh tham khảo `refs/scrl/IMG_3988.PNG`: dấu bưu điện tròn có chữ chạy quanh + ngày, đường gợn sóng huỷ tem, khung tem răng cưa có mệnh giá, dấu cao su chữ nhật / bầu dục ("PAR AVION", "POSTES", "AIR MAIL", "郵便局", "CORREOS"…), hoa văn nhỏ. Nét **màu đen trên nền trong suốt**, có độ sần như mực đóng dấu thật |
+| 12 | lớp phủ (`film-paper-grain`, `light-effects`, `lens-flares`) | 52 | ~90 | thêm bokeh, flare, rò sáng, hạt phim, bụi, giấy nhăn, nếp gấp, vết ố. App sẽ gộp mọi lớp phủ vào nhóm "Light & texture" — Gemini **không** đổi id gói |
+| 13 | chất liệu `paper` | 7 | ~30 | giấy trắng / ngà / kraft / giấy báo / giấy cũ ố / giấy dó / giấy nhăn / bìa — ảnh CC0 (ambientCG, Poly Haven) |
+| 14 | gắn **"featured"** | — | ~40 mục | chọn khoảng 40 mục **đẹp nhất, dùng được nhiều nhất** trong mọi gói sticker, thêm `"featured"` vào `collections` của chính mục đó (app hiện chúng ở nhóm "Nổi bật") |
+
+**Quy tắc riêng của G10:**
+- **Không đổi `id` của gói, không đổi `id` của mục, không chuyển mục sang gói khác** (dự án và mục "Dùng gần đây" của người dùng trỏ tới chúng). Đổi tên gói = chỉ sửa `name` trong manifest.
+- Gói mới (`autumn`, `ink-stamps`) theo đúng định dạng; tem mực (11) có thể **tự sinh bằng script** (SVG chữ chạy vòng, gợn sóng, răng cưa + mặt nạ nhiễu để ra độ sần mực; provider "IG Layout", CC0) — thường sạch và đẹp hơn ảnh quét.
+- Áp dụng đầy đủ **"Quy tắc kiểm tra bằng mắt"** ở trên: xem từng mục trên nền ca rô, báo cáo một dòng mô tả thứ nhìn thấy cho mỗi mục mới.
+- Không trùng Fluent Emoji / OpenMoji đã có; sticker là **một vật rời**, nền tách sạch.
+- Băng dính, giấy note, mẩu giấy là **bộ sinh của Claude** (`gen-*`) — **không** đụng vào.
+
+**Prompt:**
+```
+Việc G10 — Mở rộng thư viện đợt 4. Nhánh: gemini/g10-library, tạo từ origin/main MỚI NHẤT.
+
+LÀM TRONG THƯ MỤC RIÊNG:
+  git fetch origin && git worktree add ../IG-layout-gemini-g10 -b gemini/g10-library origin/main
+  cd ../IG-layout-gemini-g10 && pnpm install
+Mọi lệnh chạy trong ../IG-layout-gemini-g10.
+
+Đọc mục "Quy tắc kiểm tra bằng mắt" và "G10" trong docs/ai/gemini-tasks.md, xem ảnh tham khảo refs/scrl/IMG_3988.PNG (tem / dấu một màu dạng nét mực).
+Làm lần lượt 14 mục trong bảng G10 (ưu tiên từ trên xuống), tổng ~+500 mục. KHÔNG đổi id gói / id mục, không chuyển mục giữa các gói; đổi tên gói chỉ sửa "name". Gói mới: autumn, ink-stamps (có thể tự sinh bằng script SVG, CC0, provider "IG Layout"). Gắn "featured" cho ~40 mục đẹp nhất. Không đụng các gói gen-* (bộ sinh của Claude).
+Sau mỗi gói: process.mjs → mở review.html, xem từng mục trên nền ca rô, loại mục xấu → validate.mjs (OK) → build-catalog.mjs → commit. Báo cáo cuối: bảng gói → số mục trước / sau → nguồn → giấy phép, và một dòng MÔ TẢ THỨ NHÌN THẤY cho mỗi mục mới.
+Phạm vi: assets/**, public/packs/**, scripts/assets/** (script mới nếu cần), bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh gemini/g10-library; chỉ merge vào main khi chủ dự án bảo.
 ```
 
 ---
