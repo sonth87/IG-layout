@@ -57,8 +57,10 @@ const callouts = page.getByRole("region", { name: "Callouts" });
 check(await callouts.getByRole("button", { name: "2 more" }).isVisible(), "Callouts ends with “+2”");
 await page.screenshot({ path: path.join(OUT, "m19c-shapes.png") });
 await callouts.getByRole("button", { name: "2 more" }).click();
-check((await page.getByRole("region", { name: "Callouts" }).getByRole("button").count()) === 9, "the whole group (9)");
-await page.getByRole("button", { name: "Callouts" }).first().click(); // ‹ back
+// The sheet itself is titled "Callouts" now (pinned ‹ + title, D-129): the group is the inner region.
+check((await page.getByRole("region", { name: "Callouts" }).last().getByRole("button").count()) === 9, "the whole group (9)");
+check(await page.getByRole("heading", { name: "Callouts" }).isVisible(), "pinned title: the group's name");
+await page.getByRole("button", { name: "Back" }).last().click(); // ‹ back
 check(await page.getByRole("region", { name: "Basic" }).isVisible(), "‹ back to every group");
 await page.getByRole("button", { name: "Star", exact: true }).click();
 let st = await S();

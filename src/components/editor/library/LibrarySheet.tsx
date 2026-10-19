@@ -416,14 +416,14 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
   const opened = groups.find((g) => g.id === open);
 
   return (
-    <DragSheet title={titles[kind]} onClose={onClose}>
+    <DragSheet
+      title={emojiAll ? t("lib.emoji") : opened ? opened.title : titles[kind]}
+      onClose={onClose}
+      onBack={emojiAll ? () => setEmojiAll(false) : opened ? () => setOpen(null) : undefined}
+    >
       <div className="px-4 pt-1 pb-20">
         {emojiAll ? (
-          <>
-            <button type="button" onClick={() => setEmojiAll(false)} className="mb-2 flex h-9 items-center gap-1 text-[15px] font-bold">
-              <Icon name="back" size={20} />
-              {t("lib.emoji")}
-            </button>
+          <div key="emoji" className="sheet-push">
             <EmojiStickers
               query={q}
               onPick={(name, body) => {
@@ -431,15 +431,11 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
                 brand.used({ kind: "emoji", name, body });
               }}
             />
-          </>
+          </div>
         ) : opened ? (
-          <>
-            <button type="button" onClick={() => setOpen(null)} className="mb-2 flex h-9 items-center gap-1 text-[15px] font-bold">
-              <Icon name="back" size={20} />
-              {opened.title}
-            </button>
+          <div key={opened.id} className="sheet-push">
             <Group title={opened.title} items={opened.items} full onMore={() => {}} />
-          </>
+          </div>
         ) : kind === "brand" ? (
           <>
             <BrandRow title={t("lib.logos")} addLabel={t("lib.addLogo")} items={logos} onAdd={() => pick("logo")} onPick={addPicture} />

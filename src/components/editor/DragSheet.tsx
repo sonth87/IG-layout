@@ -12,7 +12,12 @@ import { useT } from "@/store/settings";
 const MID = 0.5;
 const FULL = 0.95;
 
-export function DragSheet(props: { title: string; onClose: () => void; children: React.ReactNode; header?: React.ReactNode }) {
+/**
+ * `onBack`: an inner screen is open (a group's "+N", all emoji): ‹ in the pinned header
+ * goes back, and `title` is that screen's (owner, 2026-10-20: back and title must not
+ * scroll away).
+ */
+export function DragSheet(props: { title: string; onClose: () => void; children: React.ReactNode; header?: React.ReactNode; onBack?: () => void }) {
   const t = useT();
   const [frac, setFrac] = useState(MID);
   const [dragging, setDragging] = useState(false);
@@ -87,10 +92,18 @@ export function DragSheet(props: { title: string; onClose: () => void; children:
       >
         <span className="h-1.5 w-10 rounded-full bg-border-2" />
       </div>
-      <div className="flex shrink-0 items-center justify-between px-5 pb-1">
-        <h2 className="text-[15px] font-bold">{props.title}</h2>
-        <button type="button" aria-label={t("common.close")} onClick={props.onClose} className="flex h-10 w-10 items-center justify-center">
-          <Icon name="close" />
+      {/* Pinned header like the colour sheet (D-129): round ‹ · title · round ✕. */}
+      <div className="flex shrink-0 items-center gap-2 px-4 pb-2">
+        <div className="w-11 shrink-0">
+          {props.onBack && (
+            <button type="button" aria-label={t("common.back")} onClick={props.onBack} className="flex h-11 w-11 items-center justify-center rounded-full bg-surface-2 active:scale-95">
+              <Icon name="back" size={22} />
+            </button>
+          )}
+        </div>
+        <h2 className="min-w-0 flex-1 truncate text-center text-[16px] font-bold">{props.title}</h2>
+        <button type="button" aria-label={t("common.close")} onClick={props.onClose} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-surface-2 active:scale-95">
+          <Icon name="close" size={22} />
         </button>
       </div>
       {props.header}

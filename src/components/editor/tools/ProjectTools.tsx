@@ -1,5 +1,6 @@
 "use client";
 
+import { SheetHeader } from "@/components/ui/SheetHeader";
 import { useEffect, useRef, useState } from "react";
 import { catalogAsset, loadCatalog, loadPack, packsOf, packUrl, useCatalog } from "@/lib/catalog/load";
 import { TEXTURE_KEYS, TEXTURES, textureTile } from "@/lib/elements/textures";
@@ -251,12 +252,7 @@ export function SlidesTool(props: { onClose: () => void; showSafeZone: boolean; 
 
   const shell = (title: string, children: React.ReactNode) => (
     <section aria-label={title} className="rounded-t-[20px] bg-surface px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-      <div className="flex items-center justify-between pb-3">
-        <h2 className="text-[15px] font-bold">{title}</h2>
-        <button type="button" onClick={props.onClose} className="h-8 rounded-[10px] border border-border px-3 text-[13px] font-semibold">
-          {t("common.done")}
-        </button>
-      </div>
+      <SheetHeader title={title} right={{ icon: "check", label: t("common.done"), onClick: props.onClose, accent: true }} />
       {children}
     </section>
   );

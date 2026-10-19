@@ -1,5 +1,6 @@
 "use client";
 
+import { SheetHeader } from "@/components/ui/SheetHeader";
 import { useRef } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { useT } from "@/store/settings";
@@ -27,12 +28,7 @@ export function FillFrameSheet({ max, replace, onFiles, onClose }: { max: number
         onClick={(e) => e.stopPropagation()}
         className="rounded-t-[22px] bg-surface px-5 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
       >
-        <div className="relative flex items-center justify-center pb-1">
-          <h2 className="text-[15px] font-bold">{t("fill.title")}</h2>
-          <button type="button" aria-label={t("common.close")} onClick={onClose} className="absolute right-0 flex h-10 w-10 items-center justify-center">
-            <Icon name="close" />
-          </button>
-        </div>
+        <SheetHeader title={t("fill.title")} right={{ icon: "close", label: t("common.close"), onClick: onClose }} />
         <p className="pb-4 text-center text-xs text-muted">{replace ? t("fill.replaceHint") : t("fill.hint", { count: max })}</p>
         <div className="flex justify-center gap-8">
           {options.map((o) => (

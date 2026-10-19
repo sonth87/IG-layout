@@ -1,5 +1,6 @@
 "use client";
 
+import { SheetHeader } from "@/components/ui/SheetHeader";
 import { DragSheet } from "./DragSheet";
 import type Konva from "konva";
 import { useEffect, useState } from "react";
@@ -41,11 +42,8 @@ export function ActionSheet<K extends string>({
         onClick={(e) => e.stopPropagation()}
         className="rounded-t-[22px] bg-surface px-3 pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]"
       >
-        <div className="flex items-center justify-between px-2 pb-2">
-          <h2 className="text-[15px] font-bold">{title}</h2>
-          <button type="button" aria-label={t("common.close")} onClick={onClose} className="flex h-10 w-10 items-center justify-center">
-            <Icon name="close" />
-          </button>
+        <div className="px-1">
+          <SheetHeader title={title} right={{ icon: "close", label: t("common.close"), onClick: onClose }} />
         </div>
         <div className="grid grid-cols-4 gap-1">
           {actions.map((a) => (
