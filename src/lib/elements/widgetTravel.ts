@@ -895,14 +895,14 @@ function tagLeather(c: C, f: F, pal: Pal): Size {
   rr(c, 50, 150, w - 100, 400, 16);
   c.stroke();
   const ink = "#2b2118";
-  text(c, f.toCode, w / 2, 178, { size: 96, weight: 800, color: ink, family: SERIF, align: "center", lh: 1.1 }, w - 140);
-  text(c, f.toCity, w / 2, 296, { size: 24, weight: 600, color: ink, family: SERIF, align: "center", lh: 1.2 }, w - 140);
+  text(c, f.toCode, w / 2, 178, { keep: true, size: 96, weight: 800, color: ink, family: SERIF, align: "center", lh: 1.1 }, w - 140);
+  text(c, f.toCity, w / 2, 296, { keep: true, size: 24, weight: 600, color: ink, family: SERIF, align: "center", lh: 1.2 }, w - 140);
   for (let i = 0; i < 3; i++) {
     c.fillStyle = "rgba(0,0,0,0.15)";
     c.fillRect(80, 380 + i * 52, w - 160, 2);
   }
-  text(c, f.name, w / 2, 338, { size: 28, weight: 400, color: ink, family: '"Bradley Hand", "Segoe Print", cursive', align: "center", lh: 1.4 }, w - 140);
-  text(c, f.flight, w / 2, 398, { size: 24, weight: 700, color: ink, family: MONO, align: "center", lh: 1.4 }, w - 140);
+  text(c, f.name, w / 2, 338, { keep: true, size: 28, weight: 400, color: ink, family: '"Bradley Hand", "Segoe Print", cursive', align: "center", lh: 1.4 }, w - 140);
+  text(c, f.flight, w / 2, 398, { keep: true, size: 24, weight: 700, color: ink, family: MONO, align: "center", lh: 1.4 }, w - 140);
   return { w, h };
 }
 

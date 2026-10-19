@@ -11,6 +11,7 @@ import {
   WIDGET_PICKS,
   WIDGET_THEMES,
   WIDGET_VALUES,
+  hasCard,
   WIDGET_ACCENT,
   WIDGET_VARIANTS,
   widgetSize,
@@ -24,7 +25,7 @@ import { useEditor, useViewDoc } from "@/store/editor";
 import { type Locale, useSettings, useT } from "@/store/settings";
 import { Slider, ToolSheet } from "./controls";
 import { ColorPicker } from "@/components/ui/color/ColorPicker";
-import { palette } from "@/lib/elements/widgetKit";
+import { contrastInk, palette } from "@/lib/elements/widgetKit";
 
 // Card widget sheets (D-114, D-118): each toolbar button of a widget opens one of these,
 // doing just that job. ✕ cancels, ✓ is one undo step.
@@ -278,21 +279,25 @@ export function WidgetColorTool({ elementId, onClose }: Props) {
   const t = useT();
   const w = useWidget(elementId);
   if (!w) return null;
-  const cardNow = w.widget.bg ?? palette(w.widget.theme, w.el.color).bg;
+  const pal = palette(w.widget.theme, w.el.color, w.widget.bg);
+  const cardNow = w.widget.bg ?? pal.bg;
   const setAccent = (color: string) => {
     const st = useEditor.getState();
     if (!st.draft) st.beginDraft();
     st.patchDraft(w.el.id, { color });
   };
+  // A new card colour: unless a text colour was picked, the texts turn black or white to stay readable.
+  const setCard = (bg: string) => w.change({ ...w.widget, bg, ...(w.widget.ink && !w.widget.inkAuto ? {} : { ink: contrastInk(bg), inkAuto: true }) });
   return (
     <Sheet title={t("tool.color")} onClose={onClose}>
       <div className="flex flex-col gap-1">
-        <ColorPicker value={cardNow} gradient label={t("color.card")} onChange={(bg) => w.change({ ...w.widget, bg })} />
+        {hasCard(w.widget) && <ColorPicker value={cardNow} gradient label={t("color.card")} onChange={setCard} />}
+        <ColorPicker value={w.widget.ink ?? pal.fg} label={t("color.text")} onChange={(ink) => w.change({ ...w.widget, ink, inkAuto: false })} />
         <ColorPicker value={w.el.color} label={t("color.accent")} onChange={setAccent} />
         <button
           type="button"
           onClick={() => {
-            w.change({ ...w.widget, bg: undefined });
+            w.change({ ...w.widget, bg: undefined, ink: undefined, inkAuto: undefined });
             setAccent(WIDGET_ACCENT[w.widget.kind]);
           }}
           className="mt-2 flex h-10 items-center gap-1.5 self-start rounded-full bg-black/5 px-4 text-[14px] font-semibold dark:bg-white/10"
