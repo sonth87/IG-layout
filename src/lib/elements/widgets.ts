@@ -10,10 +10,16 @@
 import data from "../../../assets/text/widget-samples.json";
 import type { Locale } from "@/store/settings";
 import { drawClock, CLOCK_VARIANTS } from "./widgetClock";
+import { boardingPassLook, booking, flightRoute, luggageTag, passport, passportStamp } from "./widgetTravel";
 import { C, card, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
 
 export const CARD_WIDGETS = [
   "clock",
+  "flightRoute",
+  "booking",
+  "passport",
+  "passportStamp",
+  "luggageTag",
   "weather",
   "calendarDate",
   "countdown",
@@ -205,10 +211,45 @@ interface Spec {
   fields: string[];
   samples: { en: Record<string, string>; vi: Record<string, string> };
 }
-const SPECS = new Map((data.widgets as unknown as Spec[]).map((s) => [s.id, s]));
+/** Widgets added after G6 (D-120), with their own samples. */
+const MORE_SPECS: Spec[] = [
+  {
+    id: "flightRoute",
+    name: { en: "Flight route", vi: "Đường bay" },
+    fields: ["fromCode", "fromCity", "toCode", "toCity", "note"],
+    samples: { en: { fromCode: "SGN", fromCity: "Ho Chi Minh City", toCode: "NRT", toCity: "Tokyo", note: "" }, vi: { fromCode: "SGN", fromCity: "TP. Hồ Chí Minh", toCode: "NRT", toCity: "Tokyo", note: "" } },
+  },
+  {
+    id: "booking",
+    name: { en: "Booking confirmed", vi: "Đặt vé thành công" },
+    fields: ["title", "route", "date", "code"],
+    samples: { en: { title: "Your trip is booked!", route: "SGN → DAD", date: "Sat, 24 Oct 2026", code: "Booking ref X7K2QP" }, vi: { title: "Đặt vé thành công!", route: "SGN → DAD", date: "Thứ bảy, 24/10/2026", code: "Mã đặt chỗ X7K2QP" } },
+  },
+  {
+    id: "passport",
+    name: { en: "Passport", vi: "Hộ chiếu" },
+    fields: ["country", "title"],
+    samples: { en: { country: "Wanderland", title: "Passport" }, vi: { country: "Việt Nam", title: "Hộ chiếu" } },
+  },
+  {
+    id: "passportStamp",
+    name: { en: "Passport stamp", vi: "Dấu hộ chiếu" },
+    fields: ["label", "place", "date"],
+    samples: { en: { label: "Arrival", place: "Da Nang", date: "24 OCT 2026" }, vi: { label: "Nhập cảnh", place: "Đà Nẵng", date: "24.10.2026" } },
+  },
+  {
+    id: "luggageTag",
+    name: { en: "Luggage tag", vi: "Thẻ hành lý" },
+    fields: ["toCode", "toCity", "flight", "name"],
+    samples: { en: { toCode: "DAD", toCity: "Da Nang", flight: "VN124", name: "Alex Nguyen" }, vi: { toCode: "DAD", toCity: "Đà Nẵng", flight: "VN124", name: "Nguyễn An" } },
+  },
+];
+const SPECS = new Map([...(data.widgets as unknown as Spec[]), ...MORE_SPECS].map((s) => [s.id, s]));
 
 export function widgetName(kind: CardWidgetKind, locale: Locale, variant?: string) {
   const base = kind === "clock" ? (locale === "vi" ? "Đồng hồ" : "Clock") : (SPECS.get(kind)?.name[locale] ?? kind);
+  // The first look keeps the plain name ("Boarding pass"), the others add theirs.
+  if (variant && variant === WIDGET_VARIANTS[kind]?.[0]?.id && kind !== "clock") return base;
   const v = variant && WIDGET_VARIANTS[kind]?.find((x) => x.id === variant);
   return v ? `${base} · ${v.name[locale === "vi" ? 1 : 0]}` : base;
 }
@@ -216,6 +257,47 @@ export function widgetName(kind: CardWidgetKind, locale: Locale, variant?: strin
 /** Looks of one widget (D-119): its library items, and the Style sheet. */
 export const WIDGET_VARIANTS: Partial<Record<CardWidgetKind, readonly { id: string; name: readonly [string, string]; theme: WidgetTheme }[]>> = {
   clock: CLOCK_VARIANTS,
+  // Travel (D-120).
+  boardingPass: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "stub", name: ["Paper with stub", "Vé giấy có cuống"], theme: "light" },
+    { id: "mobile", name: ["Phone pass", "Vé điện thoại"], theme: "light" },
+    { id: "minimal", name: ["Minimal", "Tối giản"], theme: "light" },
+  ],
+  flightRoute: [
+    { id: "line", name: ["Line", "Đường cong"], theme: "light" },
+    { id: "map", name: ["Dotted map", "Bản đồ chấm"], theme: "light" },
+    { id: "globe", name: ["Globe", "Quả địa cầu"], theme: "light" },
+    { id: "dark", name: ["Night card", "Thẻ đêm"], theme: "light" },
+    { id: "doodle", name: ["Doodle path", "Nét vẽ tay"], theme: "light" },
+    { id: "sticker", name: ["Sticker globe", "Địa cầu sticker"], theme: "light" },
+  ],
+  booking: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "toast", name: ["Notice", "Thông báo"], theme: "light" },
+    { id: "stamp", name: ["Stamp", "Dấu đóng"], theme: "light" },
+  ],
+  passport: [
+    { id: "gold", name: ["Gold letters", "Chữ vàng"], theme: "color" },
+    { id: "embossed", name: ["Pressed in", "Dập chìm"], theme: "color" },
+    { id: "worn", name: ["Worn", "Cũ sờn"], theme: "color" },
+  ],
+  passportStamp: [
+    { id: "round", name: ["Round", "Tròn"], theme: "color" },
+    { id: "rect", name: ["Rectangle", "Chữ nhật"], theme: "color" },
+    { id: "oval", name: ["Oval", "Bầu dục"], theme: "color" },
+    { id: "hex", name: ["Hexagon", "Lục giác"], theme: "color" },
+    { id: "plane", name: ["With a plane", "Có máy bay"], theme: "color" },
+    { id: "postage", name: ["Postage stamp", "Tem bưu chính"], theme: "color" },
+    { id: "triangle", name: ["Triangle", "Tam giác"], theme: "color" },
+    { id: "pin", name: ["Map pin", "Ghim định vị"], theme: "color" },
+    { id: "ticket", name: ["Ticket", "Vé"], theme: "color" },
+  ],
+  luggageTag: [
+    { id: "airport", name: ["Airport tag", "Thẻ sân bay"], theme: "light" },
+    { id: "leather", name: ["Leather", "Da"], theme: "light" },
+    { id: "kraft", name: ["Kraft paper", "Giấy kraft"], theme: "light" },
+  ],
 };
 
 /** Samples the shared texts (G6) do not fit: an analogue clock reads best at 10:09. */
@@ -231,6 +313,11 @@ export function widgetFields(kind: CardWidgetKind): string[] {
 /** Starting colour of each kind (the Color tool changes it). */
 export const WIDGET_ACCENT: Record<CardWidgetKind, string> = {
   clock: "#ff3b30",
+  flightRoute: "#2f80ed",
+  booking: "#2f80ed",
+  passport: "#1f3a68",
+  passportStamp: "#c0392b",
+  luggageTag: "#ff9500",
   weather: "#2f80ed",
   calendarDate: "#ff3b30",
   countdown: "#ff2d55",
@@ -269,6 +356,11 @@ export function newWidgetData(kind: CardWidgetKind, locale: Locale, variant?: st
 /** Labels of the fields in the edit sheet. */
 const FIELD_LABELS: Record<string, [en: string, vi: string]> = {
   time: ["Time", "Giờ"],
+  route: ["Route", "Hành trình"],
+  code: ["Code", "Mã"],
+  place: ["Place", "Nơi"],
+  name: ["Name", "Tên"],
+  country: ["Country", "Quốc gia"],
   icon: ["Icon", "Biểu tượng"],
   temperature: ["Temperature", "Nhiệt độ"],
   condition: ["Condition", "Thời tiết"],
@@ -368,6 +460,11 @@ type Draw = (c: C, f: F, pal: Pal, L: Rows, variant?: string) => { w: number; h:
 // Each kind measures its texts, draws its card at the right height, then its content.
 const KINDS: Record<CardWidgetKind, Draw> = {
   clock: (c, f, pal, _L, v) => drawClock(c, f, pal, v ?? "classic"),
+  flightRoute: (c, f, pal, _L, v) => flightRoute(c, f, pal, v ?? "line"),
+  booking: (c, f, pal, _L, v) => booking(c, f, pal, v ?? "card"),
+  passport: (c, f, pal, _L, v) => passport(c, f, pal, v ?? "gold"),
+  passportStamp: (c, f, pal, _L, v) => passportStamp(c, f, pal, v ?? "round"),
+  luggageTag: (c, f, pal, _L, v) => luggageTag(c, f, pal, v ?? "airport"),
 
   weather(c, f, pal) {
     const w = 520;
@@ -751,7 +848,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  boardingPass(c, f, pal) {
+  boardingPass(c, f, pal, _L, v) {
+    if (v && v !== "card") return boardingPassLook(c, f, pal, v, () => ({ w: 0, h: 0 }));
     const w = 660;
     const band = 72;
     const h = band + 28 + 84 + 30 + 34 + 26 + 30 + 34 + P;
@@ -1116,6 +1214,7 @@ export function drawWidget(c: C, w: WidgetData, color: string, width: number, lo
 }
 
 const thumbs = new Map<string, string>();
+const BARE_LOOKS = new Set(["clock:digital", "clock:handwritten", "boardingPass:minimal", "flightRoute:line", "flightRoute:globe", "flightRoute:doodle"]);
 
 /** A small picture of a kind with its sample texts, for the library. */
 export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360, variant?: string, from?: { data: WidgetData; color: string }) {
@@ -1135,6 +1234,16 @@ export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360, v
   const c = canvas.getContext("2d");
   if (!c) return "";
   c.scale(k, k);
+  // Looks without a card (white text on the photo) get a photo-like backdrop to be seen.
+  if (data.theme === "light" && BARE_LOOKS.has(`${kind}:${data.variant}`)) {
+    const g = c.createLinearGradient(0, 0, 0, size.h + pad * 2);
+    g.addColorStop(0, "#7d93ad");
+    g.addColorStop(1, "#46546a");
+    c.fillStyle = g;
+    c.beginPath();
+    c.roundRect(0, 0, size.w + pad * 2, size.h + pad * 2, 28);
+    c.fill();
+  }
   c.translate(pad, pad);
   drawWidget(c, data, color, size.w, locale);
   const url = canvas.toDataURL("image/png");
@@ -1144,9 +1253,10 @@ export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360, v
 }
 
 /** How the library groups the kinds. */
-export const WIDGET_GROUPS: { id: "clock" | "info" | "social" | "keepsake"; kinds: CardWidgetKind[] }[] = [
+export const WIDGET_GROUPS: { id: "clock" | "travel" | "info" | "social" | "keepsake"; kinds: CardWidgetKind[] }[] = [
   { id: "clock", kinds: ["clock"] },
+  { id: "travel", kinds: ["boardingPass", "flightRoute", "booking", "passport", "passportStamp", "luggageTag"] },
   { id: "social", kinds: ["poll", "questionBox", "chatConvo", "phoneNotification", "hashtagPill", "mentionTag", "searchBar", "starRating"] },
   { id: "info", kinds: ["weather", "calendarDate", "countdown", "nowPlaying", "progressBar", "stepCounter", "moodMeter", "checklist"] },
-  { id: "keepsake", kinds: ["boardingPass", "receipt", "priceTag", "filmExif", "recipeCard", "bookQuote"] },
+  { id: "keepsake", kinds: ["receipt", "priceTag", "filmExif", "recipeCard", "bookQuote"] },
 ];
