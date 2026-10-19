@@ -47,7 +47,7 @@ export function NewProjectSheet(props: { onClose: () => void; onSteps: (type: "g
   const create = (ratio: AspectRatio) => {
     const type = ratio === "9:16" ? "story" : "post";
     props.onClose();
-    void createProject({ type, ratio, slideCount: 1, name: name(type) });
+    createProject({ type, ratio, slideCount: 1, name: name(type) }).catch(() => {}); // failures are reported by createProject
   };
 
   const cards: [AspectRatio, string][] = [

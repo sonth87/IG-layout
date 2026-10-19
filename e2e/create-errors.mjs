@@ -64,15 +64,22 @@ console.log("An old tab holds the storage at an older version (blocked upgrade)"
   );
   const page = await context.newPage();
   let message = "";
+  let shown = 0;
   page.on("dialog", (d) => {
     message = d.message();
+    shown++;
     void d.accept();
   });
   await page.goto(URL_ARG);
   await page.getByRole("button", { name: "Travel journal" }).first().click();
   await page.getByRole("button", { name: "Use template" }).click();
-  await page.waitForTimeout(12000);
+  // Impatient taps while it waits: no extra attempts, the button says it is opening.
+  const busy = page.getByRole("button", { name: "Opening…" });
+  check(await busy.isDisabled(), "the button says “Opening…” and waits");
+  for (let i = 0; i < 4; i++) await busy.click({ force: true }).catch(() => {});
+  await page.waitForTimeout(14000);
   check(/old tab/.test(message) && /blocked/.test(message), `blocked by an old tab: said so (${message.split("\n").pop()})`);
+  check(shown === 1, `one message, not one per tap (${shown})`);
   await context.close();
 }
 

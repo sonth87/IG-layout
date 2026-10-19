@@ -185,14 +185,15 @@ function TemplateDetail({ tpl, onBack, onOpen, onUse }: { tpl: Template; onBack:
   const slides = d.type === "grid" ? 1 : slidesOf(tpl);
   const width = Math.min(w - 32, d.type === "story" ? 300 : 520);
   const similar = DESIGNS.filter((x) => x.id !== tpl.id && x.design?.category === d.category);
+  const creating = useEditor((s) => s.creating);
   return (
     <Pane
       title={t("home.template")}
       onBack={onBack}
       footer={
         <div className="mx-auto flex w-full max-w-2xl shrink-0 items-center gap-2 px-4 pt-2 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-          <button type="button" onClick={() => onUse(tpl)} className="flex h-14 flex-1 items-center justify-center rounded-full bg-accent text-[17px] font-bold text-on-accent">
-            {t("library.use")}
+          <button type="button" onClick={() => onUse(tpl)} disabled={creating} aria-busy={creating} className="flex h-14 flex-1 items-center justify-center rounded-full bg-accent text-[17px] font-bold text-on-accent disabled:opacity-60">
+            {creating ? t("library.opening") : t("library.use")}
           </button>
           <Heart id={tpl.id} className="h-14! w-14! bg-surface-2! text-text!" />
         </div>

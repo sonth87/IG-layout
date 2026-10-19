@@ -789,6 +789,7 @@ export const en = {
   "project.createBlocked": "An old tab of the app (or the installed app window) holds the storage at an older version (blocked). Close every tab / window of the app and open it again.",
   "project.createTimeout": "The browser storage doesn’t answer — the app may be open in another tab. Close the other tabs of the app and reload the page.",
   "project.createQuota": "The browser storage is full. Delete some old projects (Settings → Storage) and try again.",
+  "library.opening": "Opening…",
   "library.use": "Use template",
   "library.untitled": "Untitled",
   "onboarding.title": "Welcome",

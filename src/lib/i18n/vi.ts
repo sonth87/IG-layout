@@ -788,6 +788,7 @@ export const vi: Record<MessageKey, string> = {
   "project.createBlocked": "Một tab cũ của app (hoặc cửa sổ app đã cài) đang giữ bộ nhớ ở bản cũ (blocked). Đóng hết các tab / cửa sổ của app rồi mở lại.",
   "project.createTimeout": "Bộ nhớ của trình duyệt không phản hồi — có thể app đang mở ở một tab khác. Đóng các tab khác của app rồi tải lại trang.",
   "project.createQuota": "Bộ nhớ của trình duyệt đã đầy. Xoá bớt dự án cũ (Cài đặt → Dung lượng) rồi thử lại.",
+  "library.opening": "Đang mở…",
   "library.use": "Dùng template",
   "library.untitled": "Chưa đặt tên",
   "onboarding.title": "Chào mừng",
