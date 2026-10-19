@@ -1,6 +1,6 @@
 # 14 — Hiệu ứng (Effects)
 
-Trạng thái: **đặc tả để duyệt** (chủ dự án, 2026-10-19). Thuộc M21. Nghiên cứu kỹ thuật gốc ở [discussions/2026-10-18-m21-nghien-cuu.md](../../discussions/2026-10-18-m21-nghien-cuu.md) §2.
+Trạng thái: **đang làm** — khung chức năng + đợt 1 (17 hiệu ứng) đã xong (D-123, 2026-10-19). Thuộc M21. Nghiên cứu kỹ thuật gốc ở [discussions/2026-10-18-m21-nghien-cuu.md](../../discussions/2026-10-18-m21-nghien-cuu.md) §2.
 
 > "cho thêm 1 mục, nhưng mà phải định nghĩa và có thêm nhiều effect và đưa ra rõ ràng nó là như thế nào, cấu hình ra sao, hiệu ứng thế nào, kết quả đạt được. ví dụ như hiệu ứng chảy có thể set để nó chảy theo hướng nào, mức độ chảy ra sao…"
 
@@ -780,3 +780,43 @@ Nhiều hiệu ứng dùng chung các kiểu thông số sau. Ở mục 6 chỉ 
 1. Danh sách 48 hiệu ứng: cần thêm / bớt cái nào?
 2. Mỗi phần tử một hiệu ứng có đủ không, hay cần chồng 2–3 hiệu ứng ngay từ đầu?
 3. Làm Hiệu ứng trước hay 120 Filter trước?
+
+
+## 10. Đã làm (D-123, 2026-10-19)
+
+- **Mỗi phần tử một hiệu ứng** (chủ dự án chốt).
+- Nút **Hiệu ứng** (icon đũa phép) có trên thanh công cụ của:
+  - ảnh (trừ video);
+  - chữ;
+  - widget;
+  - sticker / emoji / icon;
+  - hình;
+  - nét vẽ.
+- Sheet gồm:
+  - 5 tab nhóm;
+  - ô **Không**;
+  - ảnh xem trước từng hiệu ứng trên chính phần tử;
+  - bảng thông số (thanh trượt, 8 hướng, lựa chọn, màu, bật / tắt);
+  - **Thêm** cho thông số phụ;
+  - **Xáo** 🎲 (hiệu ứng có phần ngẫu nhiên);
+  - **Đặt lại**;
+  - ✓ là một bước hoàn tác, ✕ huỷ.
+- Đợt 1, 17 hiệu ứng:
+  - **Biến dạng**: Chảy, Vắt qua mép, Xoáy, Phình / Co, Sóng uốn, Uốn cong;
+  - **Kỹ thuật số**: Glitch, Pixel, Tách màu RGB, Chấm báo in, Hai tông màu;
+  - **Ánh sáng & khối**: Đổ bóng dài, Bóng cứng lệch, Viền sticker, Phản chiếu;
+  - **Chất liệu**: Kim tuyến;
+  - **Chuyển động**: Bóng lặp.
+- Cách vẽ:
+  - phần tử có hiệu ứng được vẽ một lần vào bộ đệm có chừa lề (cho giọt chảy, bóng, phản chiếu tràn ra);
+  - hiệu ứng chạy trên điểm ảnh;
+  - canvas, xuất ảnh và danh sách lớp đều dùng bản này.
+  - Chỉ làm lại khi nội dung / cỡ / thông số đổi; kéo, xoay không làm lại.
+  - Tối đa khoảng 2,4 triệu điểm ảnh mỗi phần tử để điện thoại mượt.
+- **Chảy**:
+  - phần tử dẹt (dòng chữ) chảy theo cả bề rộng, số giọt tăng theo bề rộng;
+  - giọt đầu tròn;
+  - mặc định bắt đầu từ 70 % để con chữ giữ hình, chỉ chân chữ chảy.
+- Tâm (Xoáy, Phình) hiện chỉnh bằng thanh trượt **Tâm ngang / dọc** trong "Thêm". Kéo điểm trên canvas: làm sau.
+- Danh sách lớp ghi thêm "· tên hiệu ứng".
+- Chưa làm: các hiệu ứng đợt 2, đợt 3 (mục 8).

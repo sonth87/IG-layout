@@ -9,6 +9,7 @@ import { refitCrop } from "@/lib/project/blocks";
 import { traceMask } from "@/lib/project/masks";
 import { fixedCell, frameColor, type ImageElement, pansInside } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
+import { useFx } from "./useFx";
 import { useHtmlImage } from "./useHtmlImage";
 import { frameOverrides } from "@/lib/video/frames";
 import { attachVideo, defaultMedia, detachVideo } from "@/lib/video/playback";
@@ -80,6 +81,8 @@ export function ImageNode({ element: el }: Props) {
   const compareThis = useEditor((s) => s.compare && s.selectedId === el.id);
   const exporting = useEditor((s) => s.exporting);
   const image = useProcessedImage(original, el, { original: compareThis, full: exporting });
+  // Effects (editor-v2/14): not on videos (their frames keep changing).
+  const fxRef = useFx<Konva.Shape>(isVideo ? { ...el, effect: undefined } : el, [image, original, showWhole]);
   /** Canvas the tilted picture is drawn into (D-111 part 2), and a counter for new video frames. */
   const warpOut = useRef<HTMLCanvasElement | null>(null);
   const warpStamp = useRef(0);
@@ -279,6 +282,7 @@ export function ImageNode({ element: el }: Props) {
 
   return (
     <Shape
+      ref={fxRef}
       id={el.id}
       preventDefault={false}
       x={cx}

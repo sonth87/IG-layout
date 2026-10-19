@@ -123,6 +123,8 @@ interface ElementBase {
   fromLayout?: boolean;
   /** Inside a layout block (M14, editor-v2/02): the block's id. Geometry is driven by the block. */
   parentId?: string;
+  /** One effect (M21, editor-v2/14): melt, twirl, glitch, long shadow… */
+  effect?: ElementEffect;
 }
 
 export const ANIM_IN = ["fade", "slideUp", "slideDown", "slideLeft", "slideRight", "zoom", "pop", "typewriter"] as const;
@@ -309,6 +311,7 @@ export interface LayoutCell {
 }
 
 import type { WidgetData } from "@/lib/elements/widgets";
+import type { ElementEffect } from "@/lib/effects/catalog";
 
 export type CanvasElement = ImageElement | TextElement | ShapeElement | IconElement | DrawingElement | LayoutElement;
 
