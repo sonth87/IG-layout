@@ -52,18 +52,21 @@ check(w.type === "icon" && w.widget?.kind === "boardingPass" && st.selectedId ==
 check(w.width > 500 && w.height > 200 && w.width / w.height > 1.2 && w.width / w.height < 2.2, `at its own aspect (${Math.round(w.width)} × ${Math.round(w.height)})`);
 check(w.widget.fields.fromCode === "SGN", "sample texts (English locale)");
 
-console.log("Its own toolbar (D-118): Content, Card style… each ✓ one undo step");
+console.log("Its own toolbar (D-118): Content, Colour… each ✓ one undo step");
 const pastBefore = st.past.length;
 await page.getByRole("button", { name: "Content" }).click();
 await page.getByRole("textbox", { name: "From (code)" }).fill("HAN");
 await page.screenshot({ path: path.join(OUT, "widgets-edit.png") });
 await page.getByRole("button", { name: "Apply" }).click();
-await page.getByRole("button", { name: "Card style" }).click();
-await page.getByRole("radio", { name: "Dark" }).click();
+// Colour (2026-10-20): the card colour directly, no light / dark / colour step.
+await page.getByRole("button", { name: "Color", exact: true }).click();
+await page.getByRole("button", { name: "Card colour" }).click();
+await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "#1e88e5" }).click();
+await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: "Apply" }).click();
 st = await S();
 w = st.doc.elements.find((e) => e.id === w.id);
-check(w.widget.fields.fromCode === "HAN" && w.widget.theme === "dark", "texts and card style saved");
+check(w.widget.fields.fromCode === "HAN" && w.widget.bg === "#1e88e5", "texts and card colour saved");
 check(st.past.length === pastBefore + 2, "one undo step each");
 
 console.log("Height follows the texts");

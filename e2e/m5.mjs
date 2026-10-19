@@ -84,7 +84,10 @@ st = await S();
 const icon = last(st, "shape");
 check(icon?.shape === "heart" && st.selected === icon.id, "heart shape added and selected");
 await page.getByRole("button", { name: "Color", exact: true }).click();
-await page.getByRole("button", { name: "#f2b84b" }).click();
+// The compact colour control (2026-10-20): the swatch opens the colour panel.
+await page.getByRole("region", { name: "Color" }).getByRole("button", { name: "Color" }).click();
+await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "#f2b84b" }).click();
+await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "Done" }).click();
 await apply();
 st = await S();
 check(last(st, "shape").fill === "#f2b84b", "shape recolored");

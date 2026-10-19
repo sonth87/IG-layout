@@ -1,4 +1,5 @@
 // Drawing kit of the card widgets (D-114): palette, text, shapes. Shared by every kind.
+import { canvasPaint, isGradient, mainColor } from "@/lib/color/paint";
 import type { WidgetTheme } from "./widgets";
 
 export type C = CanvasRenderingContext2D;
@@ -16,6 +17,8 @@ export interface Pal {
   /** Text on an accent fill. */
   onAc: string;
   theme: WidgetTheme;
+  /** The card colour was picked by hand (owner, 2026-10-20). */
+  custom?: boolean;
 }
 
 export const SANS = '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
@@ -30,8 +33,34 @@ export function luminance(hex: string) {
   return (0.299 * ((n >> 16) & 255) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
 }
 
-export function palette(theme: WidgetTheme, color: string): Pal {
+/**
+ * Colours of a widget. `card`: a card colour picked by hand (solid or gradient): white and
+ * black give the light / dark looks; anything else colours the card, the text turns black
+ * or white to stay readable and the accent stays unless it would vanish on the card.
+ */
+export function palette(theme: WidgetTheme, color: string, card?: string): Pal {
   const onAc = luminance(color) > 0.65 ? "#111111" : "#ffffff";
+  if (card) {
+    const L = luminance(mainColor(card));
+    const flat = !isGradient(card);
+    if (flat && L >= 0.985) return { ...palette("light", color), bg: card, custom: true };
+    if (flat && L <= 0.07) return { ...palette("dark", color), bg: card, custom: true };
+    const lightCard = L > 0.6;
+    const fg = lightCard ? "#111111" : "#ffffff";
+    const accentShows = Math.abs(luminance(color) - L) > 0.22;
+    return {
+      bg: card,
+      fg,
+      sub: lightCard ? "rgba(0,0,0,0.55)" : "rgba(255,255,255,0.78)",
+      line: lightCard ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.3)",
+      soft: lightCard ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.2)",
+      ac: accentShows ? color : fg,
+      color,
+      onAc: accentShows ? onAc : lightCard ? "#ffffff" : "#111111",
+      theme: "color",
+      custom: true,
+    };
+  }
   if (theme === "dark") return { bg: "#1c1c1e", fg: "#ffffff", sub: "#98989d", line: "#3a3a3c", soft: "#2c2c2e", ac: color, color, onAc, theme };
   if (theme === "color") {
     const lightCard = onAc === "#111111";
@@ -147,7 +176,8 @@ export function rr(c: C, x: number, y: number, w: number, h: number, r: number) 
 
 export function fillRR(c: C, x: number, y: number, w: number, h: number, r: number, fill: string | CanvasGradient) {
   rr(c, x, y, w, h, r);
-  c.fillStyle = fill;
+  // A gradient card colour is spread over this box.
+  c.fillStyle = typeof fill === "string" ? canvasPaint(c, fill, x, y, w, h) : fill;
   c.fill();
 }
 

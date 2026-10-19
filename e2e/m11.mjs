@@ -85,7 +85,10 @@ st = await S();
 const tape = last(st, "icon");
 check(tape?.icon === "tape" && tape.width / tape.height > 3, `washi tape added at its own shape (${Math.round(tape.width)}×${Math.round(tape.height)})`);
 await page.getByRole("button", { name: "Color" }).click();
-await page.getByRole("button", { name: /#/ }).nth(3).click().catch(() => {});
+// The compact colour control (2026-10-20): the swatch opens the colour panel.
+await page.getByRole("region", { name: "Color" }).getByRole("button", { name: "Color" }).click();
+await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "#8e24aa" }).click();
+await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: "Apply", exact: true }).click();
 st = await S();
 check(last(st, "icon").color !== tape.color, "sticker colour can be changed");

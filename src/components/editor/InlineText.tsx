@@ -1,5 +1,6 @@
 "use client";
 
+import { mainColor } from "@/lib/color/paint";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { TextElement } from "@/lib/project/types";
 import { fontWeight, fontInfo } from "@/lib/text/fonts";
@@ -84,7 +85,7 @@ export function InlineText(props: {
         lineHeight: el.lineHeight,
         letterSpacing: el.letterSpacing * k,
         textAlign: el.align,
-        color: el.color,
+        color: mainColor(el.color),
         background: el.background?.color ?? "transparent",
         borderRadius: (el.background?.radius ?? 0) * k,
         opacity: el.opacity,

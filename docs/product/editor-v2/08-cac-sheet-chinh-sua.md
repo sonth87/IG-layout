@@ -74,3 +74,40 @@ Tham chiếu có nút **Điều chỉnh** trên thanh của khối nhưng video 
 5. Chọn một màu tuỳ chỉnh → màu xuất hiện trong "Đã lưu".
 6. Đổi kiểu chia khối 4 ô có 4 ảnh sang 2 ô → 2 ảnh vào ô, 2 ảnh thành ảnh tự do, có thông báo.
 7. Mở sheet Kiểu, chỉnh 5 lần, đóng → một lần hoàn tác trả về như trước khi mở.
+
+
+## Bổ sung 2026-10-20 (D-127): bộ chọn màu gọn
+
+Thay bảng màu cũ (ô màu tuỳ chỉnh + HEX + gần đây + 40 màu, chiếm 2–3 hàng).
+
+### Ô màu
+
+Mỗi chỗ chọn màu chỉ còn **một ô tròn** mang màu (hoặc gradient) đang chọn, kèm mã màu. Chạm vào thì mở **bảng màu** từ dưới lên.
+
+### Bảng màu
+
+**Thanh trên:** ô màu hiện tại · tab **Màu đơn / Gradient** · nút **ống hút** · nút **Xong**.
+
+Tab Gradient chỉ có ở chỗ vẽ được gradient: màu chữ, màu hình, màu thẻ widget.
+
+**Màu đơn:**
+
+- **Tuỳ chỉnh**: ô kéo độ sáng / đậm, thanh sắc màu, ô HEX.
+- **Đã lưu**:
+  - nút **+** lưu màu đang chọn;
+  - màu Brand Kit đứng đầu;
+  - **Sửa** để xoá màu đã lưu;
+  - màu "gần đây" cũ được chuyển sang đây.
+- **Mặc định**: 40 màu.
+
+**Gradient:**
+
+- **Tuỳ chỉnh gradient**: thẳng / toả tròn, góc, 2–4 điểm màu (chạm một điểm để sửa màu của nó).
+- **Đã lưu** (nút +).
+- **Mặc định**: 18 gradient.
+
+### Ống hút
+
+- Bảng màu, sheet, menu nổi, nút zoom tạm ẩn; nút **Huỷ** ở góc.
+- Chạm và kéo trên canvas: **kính lúp** tròn phía trên ngón tay phóng to các điểm ảnh quanh đó, ô giữa là điểm được chọn, kèm mã màu.
+- Thả tay: lấy màu đó, bảng màu hiện lại.

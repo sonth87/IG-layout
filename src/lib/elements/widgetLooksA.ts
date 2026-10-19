@@ -718,7 +718,7 @@ function musicVinyl(c: C, f: F, pal: Pal): Size {
 function musicCassette(c: C, f: F, pal: Pal): Size {
   const w = baseW(620);
   const h = 390;
-  const shell = pal.theme === "dark" ? "#2a2a2e" : pal.theme === "color" ? pal.color : "#e9e4da";
+  const shell = pal.theme === "dark" ? "#2a2a2e" : pal.theme === "color" ? pal.bg : "#e9e4da";
   lifted(c, () => fillRR(c, 0, 0, w, h, 26, shell), 24, 10, 0.3);
   // Screws.
   for (const [x, y] of [
@@ -780,7 +780,7 @@ function musicCassette(c: C, f: F, pal: Pal): Size {
 function musicCode(c: C, f: F, pal: Pal): Size {
   const w = baseW(620);
   const h = 200;
-  const bg = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#1c1c1e" : "#ffffff";
+  const bg = pal.theme === "color" ? pal.bg : pal.theme === "dark" ? "#1c1c1e" : "#ffffff";
   const ink = pal.theme === "color" ? pal.onAc === pal.color ? "#ffffff" : pal.fg : pal.theme === "dark" ? "#ffffff" : "#111111";
   card(c, w, 130, pal, 65, bg);
   c.beginPath();

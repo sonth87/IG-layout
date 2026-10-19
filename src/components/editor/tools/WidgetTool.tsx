@@ -11,6 +11,7 @@ import {
   WIDGET_PICKS,
   WIDGET_THEMES,
   WIDGET_VALUES,
+  WIDGET_ACCENT,
   WIDGET_VARIANTS,
   widgetSize,
   widgetThumb,
@@ -22,6 +23,8 @@ import {
 import { useEditor, useViewDoc } from "@/store/editor";
 import { type Locale, useSettings, useT } from "@/store/settings";
 import { Slider, ToolSheet } from "./controls";
+import { ColorPicker } from "@/components/ui/color/ColorPicker";
+import { palette } from "@/lib/elements/widgetKit";
 
 // Card widget sheets (D-114, D-118): each toolbar button of a widget opens one of these,
 // doing just that job. ✕ cancels, ✓ is one undo step.
@@ -262,6 +265,47 @@ export function WidgetTimeTool({ elementId, onClose }: Props) {
   return (
     <Sheet title={t("widget.time")} onClose={onClose}>
       <input type="time" aria-label={t("widget.time")} value={value} onChange={(e) => e.target.value && w.change({ ...w.widget, fields: { ...w.widget.fields, time: e.target.value } })} className={INPUT} />
+    </Sheet>
+  );
+}
+
+/**
+ * Colours of a widget (owner, 2026-10-20: "why go through light / dark / colour?"): the
+ * card colour (solid or gradient) and the accent, each one tap away; "Original colours"
+ * goes back to the look's own.
+ */
+export function WidgetColorTool({ elementId, onClose }: Props) {
+  const t = useT();
+  const w = useWidget(elementId);
+  if (!w) return null;
+  const cardNow = w.widget.bg ?? palette(w.widget.theme, w.el.color).bg;
+  const setAccent = (color: string) => {
+    const st = useEditor.getState();
+    if (!st.draft) st.beginDraft();
+    st.patchDraft(w.el.id, { color });
+  };
+  return (
+    <Sheet title={t("tool.color")} onClose={onClose}>
+      <div className="flex flex-col gap-1">
+        <div className="flex items-center justify-between">
+          <span className="text-[14px] font-semibold">{t("color.card")}</span>
+          <ColorPicker value={cardNow} gradient label={t("color.card")} onChange={(bg) => w.change({ ...w.widget, bg })} />
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-[14px] font-semibold">{t("color.accent")}</span>
+          <ColorPicker value={w.el.color} label={t("color.accent")} onChange={setAccent} />
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            w.change({ ...w.widget, bg: undefined });
+            setAccent(WIDGET_ACCENT[w.widget.kind]);
+          }}
+          className="mt-2 flex h-10 items-center gap-1.5 self-start rounded-full bg-black/5 px-4 text-[14px] font-semibold dark:bg-white/10"
+        >
+          <Icon name="reset" size={16} /> {t("color.reset")}
+        </button>
+      </div>
     </Sheet>
   );
 }

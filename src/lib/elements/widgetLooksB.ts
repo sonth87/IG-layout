@@ -1,4 +1,5 @@
 // More looks, and the new one-job widgets (D-122): social, fitness, shopping, to-do, more.
+import { mainColor } from "@/lib/color/paint";
 import {
   type C,
   type F,
@@ -235,7 +236,7 @@ export function hashtagLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
       fillRR(c, -tw / 2, -26, tw, 52, 12, i % 2 ? "#ffe066" : onColor(pal));
       text(c, t, 0, -23, { ...o, color: i % 2 ? "#111" : onColorText(pal), align: "center" }, tw - 20);
     } else {
-      fillRR(c, -tw / 2, -28, tw, 56, 4, pal.theme === "dark" ? "#111111" : pal.theme === "color" ? pal.color : "#ffffff");
+      fillRR(c, -tw / 2, -28, tw, 56, 4, pal.theme === "dark" ? "#111111" : pal.theme === "color" ? pal.bg : "#ffffff");
       text(c, t, 0, -24, { ...o, color: pal.theme === "light" ? "#111" : "#ffffff", align: "center" }, tw - 20);
     }
     c.restore();
@@ -265,7 +266,7 @@ export function mentionLook(c: C, f: F, pal: Pal): Size {
 export function searchLook(c: C, f: F, pal: Pal): Size {
   const w = baseW(700);
   const h = 200;
-  const chrome = pal.theme === "dark" ? "#2c2c2e" : pal.theme === "color" ? pal.color : "#e9e9ee";
+  const chrome = pal.theme === "dark" ? "#2c2c2e" : pal.theme === "color" ? pal.bg : "#e9e9ee";
   card(c, w, h, pal, 24, chrome);
   for (const [i, col] of ["#ff5f57", "#febc2e", "#28c840"].entries()) {
     c.beginPath();
@@ -680,7 +681,7 @@ export function sleep(c: C, f: F, pal: Pal, v: string): Size {
   const w = baseW(520);
   const h = 360;
   const g = c.createLinearGradient(0, 0, 0, h);
-  g.addColorStop(0, pal.theme === "color" ? pal.color : "#14163a");
+  g.addColorStop(0, pal.theme === "color" ? mainColor(pal.bg) : "#14163a");
   g.addColorStop(1, pal.theme === "color" ? "#111" : "#2b2f6b");
   lifted(c, () => fillRR(c, 0, 0, w, h, 40, "#14163a"), 24, 10, 0.3);
   fillRR(c, 0, 0, w, h, 40, g);
@@ -694,7 +695,7 @@ export function sleep(c: C, f: F, pal: Pal, v: string): Size {
   c.fill();
   c.beginPath();
   c.arc(w - 80, 74, 42, 0, Math.PI * 2);
-  c.fillStyle = pal.theme === "color" ? pal.color : "#171a42";
+  c.fillStyle = pal.theme === "color" ? mainColor(pal.bg) : "#171a42";
   c.fill();
   text(c, f.caption, P, P, { size: 24, weight: 700, color: "rgba(255,255,255,0.75)", lh: 1.3 }, w - 200);
   text(c, f.hours, P, 120, { size: 76, weight: 900, color: "#ffffff", lh: 1.1 }, w - P * 2);
@@ -800,7 +801,7 @@ export function priceLook(c: C, f: F, pal: Pal, v: string): Size {
 export function coupon(c: C, f: F, pal: Pal, v: string): Size {
   const w = baseW(640);
   const h = 260;
-  const fill = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#1c1c1e" : "#ffffff";
+  const fill = pal.theme === "color" ? pal.bg : pal.theme === "dark" ? "#1c1c1e" : "#ffffff";
   const ink = pal.theme === "color" ? pal.fg : pal.theme === "dark" ? "#ffffff" : "#111111";
   const ac = pal.theme === "color" ? pal.fg : pal.color;
   const stub = 220;

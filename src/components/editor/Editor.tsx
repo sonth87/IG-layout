@@ -46,7 +46,9 @@ import { TextTool } from "./tools/TextTools";
 import { TextAlignPanel, TextFormatPanel } from "./tools/TextFormat";
 import { OpacityTool } from "./tools/OpacityTool";
 import { EffectTool } from "./tools/EffectTool";
-import { WidgetContentTool, WidgetDateTool, WidgetListTool, WidgetLookTool, WidgetPickTool, WidgetStyleTool, WidgetTimeTool, WidgetValueTool } from "./tools/WidgetTool";
+import { EyeDropper } from "./EyeDropper";
+import { useEyedropper } from "@/components/ui/color/ColorPicker";
+import { WidgetColorTool, WidgetContentTool, WidgetDateTool, WidgetListTool, WidgetLookTool, WidgetPickTool, WidgetStyleTool, WidgetTimeTool, WidgetValueTool } from "./tools/WidgetTool";
 import { WIDGET_DATES, WIDGET_LISTS, WIDGET_PICKS, WIDGET_TIMES, WIDGET_VALUES, WIDGET_VARIANTS } from "@/lib/elements/widgets";
 import { InlineText } from "./InlineText";
 import { useImportPhotos } from "./useImportPhotos";
@@ -125,11 +127,12 @@ type Tool =
   | "widgetDate"
   | "widgetStyle"
   | "widgetTime"
+  | "widgetColor"
   | "effect";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "effect"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "widgetColor", "effect"];
 /** Sheets about the selected element: they close (keeping their edits) when the selection changes (owner, 2026-10-19). */
-const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "effect"];
+const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "widgetColor", "effect"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -280,6 +283,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   const playing = usePlayback((s) => s.playing);
   const snapOn = useSettings((s) => s.snap);
   const locale = useSettings((s) => s.locale);
+  const picking = useEyedropper((s) => s.active);
   /** Which library the "library" sheet shows (editor-v2/11). */
   const [library, setLibrary] = useState<LibraryKind>("sticker");
   const openLibrary = (kind: LibraryKind) => {
@@ -730,6 +734,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "widgetDate" && selected) bottom = <WidgetDateTool elementId={selected.id} onClose={close} />;
   else if (tool === "widgetStyle" && selected) bottom = <WidgetStyleTool elementId={selected.id} onClose={close} />;
   else if (tool === "widgetTime" && selected) bottom = <WidgetTimeTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widgetColor" && selected) bottom = <WidgetColorTool elementId={selected.id} onClose={close} />;
   else if (tool === "effect" && selected) bottom = <EffectTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "draw") bottom = <DrawTool onClose={close} />;
@@ -835,8 +840,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         pick && <ToolButton key="pick" label={lang(pick.label)} icon="smilePlus" onClick={() => openTool("widgetPick")} />,
         WIDGET_DATES.includes(k) && <ToolButton key="date" label={t("widget.date")} icon="calendar" onClick={() => openTool("widgetDate")} />,
         <ToolButton key="content" label={t("widget.content")} icon="pencil" onClick={() => openTool("widget")} />,
-        <ToolButton key="look" label={t("widget.look")} icon="contrast" onClick={() => openTool("widgetLook")} />,
-        <ToolButton key="color" label={t("tool.color")} icon="palette" onClick={() => openTool("fill")} />,
+        <ToolButton key="color" label={t("tool.color")} icon="palette" onClick={() => openTool("widgetColor")} />,
         <ToolButton key="effect" label={t("tool.effect")} icon="wand" onClick={() => openTool("effect")} />,
         position,
         <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />,
@@ -887,7 +891,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
     // data-fonts uses the text-font module so its @font-face CSS ships with the editor (M11).
     <main data-fonts={WEB_FONTS} className="flex h-dvh flex-col">
       {/* Floating round buttons over the canvas colour (editor-v2/05 §1): ‹ · title, ↶ ↷ ⋯, export. */}
-      <header className="flex items-center gap-2 bg-(--canvas) px-3 pt-2.5 pb-1.5">
+      <header className="flex items-center gap-2 bg-(--canvas) px-3 pt-2.5 pb-1.5" style={{ visibility: picking ? "hidden" : undefined }}>
         <button type="button" aria-label={t("common.back")} onClick={onBack} className={GLASS_ROUND}>
           <Icon name="back" />
         </button>
@@ -990,7 +994,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
                 {cropId && (
                   <CropGestures id={cropId} aspect={ratioAspect(cropRatio, selected?.type === "image" && selected.assetId ? assets[selected.assetId] : undefined)} />
                 )}
-                {!sheetOpen && !editingText && <FloatingMenu scrollRef={areaRef} onMore={() => setTool("more")} />}
+                {!sheetOpen && !editingText && !picking && <FloatingMenu scrollRef={areaRef} onMore={() => setTool("more")} />}
                 {editingText && (
                   <InlineText elementId={editingText} origin={origin} viewScale={viewScale} scrollRef={areaRef} active={typingMode === "type"} />
                 )}
@@ -1019,8 +1023,8 @@ export function Editor({ onClose }: { onClose: () => void }) {
           )}
         </div>
 
-        {/* Zoom (UX-06). Touch: pinch, with a pill to get back to fit; mouse: buttons. */}
-        {isTouchUI ? (
+        {/* Zoom (UX-06). Touch: pinch, with a pill to get back to fit; mouse: buttons. Hidden while picking a colour. */}
+        {picking ? null : isTouchUI ? (
           (cropId || Math.abs(zoom - fitZoom) > 0.01) && (
             <button
               type="button"
@@ -1131,7 +1135,9 @@ export function Editor({ onClose }: { onClose: () => void }) {
       )}
 
       {/* A content sheet (layers, elements, new slide) takes the toolbar's place and pushes the canvas up. */}
-      {!contentSheet && bottom}
+      {/* The eyedropper hides the sheets (kept in place so the canvas does not move). */}
+      {!contentSheet && <div style={{ visibility: picking ? "hidden" : undefined }}>{bottom}</div>}
+      <EyeDropper />
 
       {tool === "layout" && (
         <LayoutPicker
