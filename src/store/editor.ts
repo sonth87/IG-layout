@@ -78,6 +78,8 @@ interface EditorState {
   drawing: { color: string; size: number; strokes: number[][] } | null;
   /** Image being cropped on the canvas (D-111): the stage hands its gestures to the crop layer. */
   cropping: string | null;
+  /** A project is being created: further taps wait (owner, 2026-10-19: no stacked attempts / alerts). */
+  creating: boolean;
   setCropping: (id: string | null) => void;
   startDrawing: () => void;
   setDrawing: (patch: Partial<{ color: string; size: number }>) => void;
@@ -164,6 +166,7 @@ const EMPTY = {
   canvas: null,
   drawing: null,
   cropping: null,
+  creating: false,
 } satisfies Partial<EditorState>;
 
 /** The doc to display: the tool draft while a tool is open, else the committed doc. */
@@ -198,44 +201,8 @@ export const useEditor = create<EditorState>()((set, get) => {
     return d;
   }
 
-  function commit(update: (doc: ProjectDoc) => ProjectDoc) {
-    const { doc, past } = get();
-    if (!doc) return;
-    const next = update(doc);
-    if (next === doc) return;
-    set({ doc: next, draft: null, past: [...past, doc], future: [] });
-  }
-
-  function revokeAll() {
-    Object.values(get().assets).forEach((a) => {
-      URL.revokeObjectURL(a.url);
-      if (a.video) URL.revokeObjectURL(a.video.posterUrl);
-    });
-  }
-
-  function storeAssets(all: ImageAsset[]) {
-    const projectId = get().projectId;
-    const assets = all.filter((a) => !get().assets[a.id]);
-    if (!projectId || assets.length === 0) return;
-    set((s) => ({ assets: { ...s.assets, ...Object.fromEntries(assets.map((a) => [a.id, a])) } }));
-    void saveAssets(
-      assets.map(({ id, blob, width, height, name, video, audio }) => ({
-        id,
-        projectId,
-        blob,
-        width,
-        height,
-        name,
-        ...(video && { video: { duration: video.duration, hasAudio: video.hasAudio, poster: video.poster } }),
-        ...(audio && { audio }),
-      })),
-    );
-  }
-
-  return {
-    ...EMPTY,
-
-    createProject: async ({ type, ratio, slideCount, name, gapCompensation = true }) => {
+  /** Saves a new project and opens it (createProject guards against repeats). */
+  async function createProjectNow({ type, ratio, slideCount, name, gapCompensation }: { type: ProjectType; ratio: AspectRatio; slideCount: number; name: string; gapCompensation: boolean }) {
       const id = newId();
       const doc: ProjectDoc = {
         type,
@@ -276,6 +243,54 @@ export const useEditor = create<EditorState>()((set, get) => {
       revokeAll();
       set({ ...EMPTY, projectId: id, projectName: name, doc });
       void requestPersistence();
+  }
+
+  function commit(update: (doc: ProjectDoc) => ProjectDoc) {
+    const { doc, past } = get();
+    if (!doc) return;
+    const next = update(doc);
+    if (next === doc) return;
+    set({ doc: next, draft: null, past: [...past, doc], future: [] });
+  }
+
+  function revokeAll() {
+    Object.values(get().assets).forEach((a) => {
+      URL.revokeObjectURL(a.url);
+      if (a.video) URL.revokeObjectURL(a.video.posterUrl);
+    });
+  }
+
+  function storeAssets(all: ImageAsset[]) {
+    const projectId = get().projectId;
+    const assets = all.filter((a) => !get().assets[a.id]);
+    if (!projectId || assets.length === 0) return;
+    set((s) => ({ assets: { ...s.assets, ...Object.fromEntries(assets.map((a) => [a.id, a])) } }));
+    void saveAssets(
+      assets.map(({ id, blob, width, height, name, video, audio }) => ({
+        id,
+        projectId,
+        blob,
+        width,
+        height,
+        name,
+        ...(video && { video: { duration: video.duration, hasAudio: video.hasAudio, poster: video.poster } }),
+        ...(audio && { audio }),
+      })),
+    );
+  }
+
+  return {
+    ...EMPTY,
+
+    createProject: async ({ type, ratio, slideCount, name, gapCompensation = true }) => {
+      // One at a time: repeated taps while it is saving don't queue more attempts.
+      if (get().creating) throw new Error("busy");
+      set({ creating: true });
+      try {
+        await createProjectNow({ type, ratio, slideCount, name, gapCompensation });
+      } finally {
+        set({ creating: false });
+      }
     },
 
     createFromTemplate: async (tpl, name) => {
@@ -289,7 +304,6 @@ export const useEditor = create<EditorState>()((set, get) => {
       if (!doc) return;
       set({ doc: applyTemplate(doc, tpl, [], DEFAULT_OPTIONS, useSettings.getState().locale) });
     },
-
     openProject: async (id) => {
       const loaded = await loadProject(id);
       if (!loaded) return false;
