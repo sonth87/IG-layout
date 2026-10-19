@@ -501,3 +501,4 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] (Để sau) Widget "Cụm sticker": gom sticker một bộ thành vòng quanh chữ / rải / viền / dải / watermark, nút Xáo ngẫu nhiên, Tách ra — xem discussions/2026-10-19-widget-menu.md
 - [x] Widget đợt 2 — Lịch, Thời tiết, Trích dẫn, Âm nhạc (D-121); Mạng xã hội, Thể thao, Mua sắm, Việc cần làm, Khác + 8 widget mới (D-122); sheet xếp theo loại (e2e widgets.mjs)
 - [ ] (Claude) M21 — bắt đầu từ 120 filter (G7)
+- [ ] (Claude) M21 — chức năng **Hiệu ứng** riêng trên menu các phần tử hỗ trợ (đề xuất trong discussions/2026-10-18-m21-nghien-cuu.md §2.1c)
