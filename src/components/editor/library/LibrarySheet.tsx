@@ -70,10 +70,11 @@ interface Item {
 }
 
 /** One group: a title, 7 items and "+N" (or everything once opened). */
-function Group(props: { title: string; items: Item[]; full?: boolean | "titled"; onMore: () => void }) {
+function Group(props: { title: string; items: Item[]; full?: boolean | "titled"; limit?: number; onMore: () => void }) {
   const t = useT();
-  const many = !props.full && props.items.length > SHOWN + 1;
-  const shown = many ? props.items.slice(0, SHOWN) : props.items;
+  const limit = props.limit ?? SHOWN;
+  const many = !props.full && props.items.length > limit + 1;
+  const shown = many ? props.items.slice(0, limit) : props.items;
   if (!props.items.length) return null;
   return (
     <section aria-label={props.title} className="pb-4">
@@ -85,8 +86,8 @@ function Group(props: { title: string; items: Item[]; full?: boolean | "titled";
           </button>
         ))}
         {many && (
-          <button type="button" aria-label={t("lib.more", { count: props.items.length - SHOWN })} onClick={props.onMore} className={`${TILE} text-[15px] font-bold text-muted`}>
-            +{props.items.length - SHOWN}
+          <button type="button" aria-label={t("lib.more", { count: props.items.length - limit })} onClick={props.onMore} className={`${TILE} text-[15px] font-bold text-muted`}>
+            +{props.items.length - limit}
           </button>
         )}
       </div>
@@ -124,6 +125,8 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
   const { addElement, addAssetElement, select } = useEditor.getState();
   const brand = useBrand();
   const [open, setOpen] = useState<string | null>(null);
+  /** The whole emoji list (with its tabs) instead of the sheet's groups. */
+  const [emojiAll, setEmojiAll] = useState(false);
   const [query, setQuery] = useState("");
   const [mine, setMine] = useState<LibraryItem[]>([]);
   const [logos, setLogos] = useState<LibraryItem[]>([]);
@@ -233,7 +236,7 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
   const match = (label: string) => !q || label.toLowerCase().includes(q);
 
   // ── Groups of each library ───────────────────────────────────────────
-  const groups: { id: string; title: string; items: Item[] }[] = [];
+  const groups: { id: string; title: string; items: Item[]; limit?: number }[] = [];
   if (kind === "sticker") {
     const sticker = (k: string): Item => ({
       key: `s-${k}`,
@@ -248,6 +251,8 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
     groups.push({
       id: "recent",
       title: t("lib.recent"),
+      // One row, "+N" for the rest (owner, 2026-10-19).
+      limit: 3,
       items: brand.recent
         .map((r): Item | null =>
           r.kind === "pack"
@@ -259,8 +264,9 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
             : {
                 key: `e-${r.name}`,
                 label: r.name.replace(/-/g, " "),
+                // The stored body is the emoji's inner SVG: wrapped like the emoji grid does.
                 // eslint-disable-next-line @next/next/no-img-element -- emoji SVG
-                node: <img src={`data:image/svg+xml;utf8,${encodeURIComponent(r.body)}`} alt="" className="h-10 w-10" />,
+                node: <img src={iconDataUrl(r.name, "", 64, r.body)} alt="" className="h-10 w-10" />,
                 add: () => add(newEmoji(doc.ratio, slide, r.name, r.body)),
               },
         )
@@ -273,7 +279,9 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
         .filter((m) => match(m.name))
         .map((m) => ({ key: m.id, label: m.name, node: <MineThumb item={m} />, add: () => addPicture(m) })),
     });
-    groups.push({ id: "featured", title: t("lib.featured"), items: STICKER_KEYS.filter((k) => match(STICKERS[k].name[locale])).map(sticker) });
+    // Featured: our own stickers, then catalog items tagged "featured" (G10).
+    const featured = allItems(["sticker"]).filter(({ item }) => item.collections.includes("featured") && (!q || fold(item.search).includes(fold(q))));
+    groups.push({ id: "featured", title: t("lib.featured"), items: [...STICKER_KEYS.filter((k) => match(STICKERS[k].name[locale])).map(sticker), ...featured.map(({ item }) => packItem(item, "sticker"))] });
     groups.push({ id: "doodles", title: t("lib.doodles"), items: DOODLE_KEYS.filter((k) => match(STICKERS[k].name[locale])).map(sticker) });
     groups.push(...packGroups("sticker"));
     groups.push({
@@ -294,7 +302,8 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
         },
       })),
     });
-    groups.push(...packGroups("overlay"));
+    // Every overlay (light leaks, bokeh, flares, paper…) in this one group (owner, 2026-10-19).
+    groups[groups.length - 1].items.push(...packGroups("overlay").flatMap((g) => g.items));
     if (view === "set") groups.splice(0, groups.length, ...collectionGroups(["sticker", "overlay"]));
   } else if (kind === "shape") {
     for (const g of SHAPE_GROUPS)
@@ -375,7 +384,21 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
   return (
     <DragSheet title={titles[kind]} onClose={onClose}>
       <div className="px-4 pt-1 pb-20">
-        {opened ? (
+        {emojiAll ? (
+          <>
+            <button type="button" onClick={() => setEmojiAll(false)} className="mb-2 flex h-9 items-center gap-1 text-[15px] font-bold">
+              <Icon name="back" size={20} />
+              {t("lib.emoji")}
+            </button>
+            <EmojiStickers
+              query={q}
+              onPick={(name, body) => {
+                add(newEmoji(doc.ratio, slide, name, body));
+                brand.used({ kind: "emoji", name, body });
+              }}
+            />
+          </>
+        ) : opened ? (
           <>
             <button type="button" onClick={() => setOpen(null)} className="mb-2 flex h-9 items-center gap-1 text-[15px] font-bold">
               <Icon name="back" size={20} />
@@ -414,13 +437,14 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
             )}
             {groups.map((g) => (
               // Grids are laid out in full: no "+N" to open (owner, 2026-10-17).
-              <Group key={g.id} title={g.title} items={g.items} full={kind === "grid" ? "titled" : undefined} onMore={() => setOpen(g.id)} />
+              <Group key={g.id} title={g.title} items={g.items} limit={g.limit} full={kind === "grid" ? "titled" : undefined} onMore={() => setOpen(g.id)} />
             ))}
             {kind === "sticker" && view === "type" && (
-              <section className="pb-4">
+              <section aria-label={t("lib.emoji")} className="pb-4">
                 <h3 className="pb-2 text-[15px] font-bold">{t("lib.emoji")}</h3>
                 <EmojiStickers
                   query={q}
+                  compact={{ limit: 11, onMore: () => setEmojiAll(true), moreLabel: (n) => t("lib.more", { count: n }) }}
                   onPick={(name, body) => {
                     add(newEmoji(doc.ratio, slide, name, body));
                     brand.used({ kind: "emoji", name, body });
