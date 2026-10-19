@@ -23,7 +23,7 @@ import {
   type ProjectType,
   newId,
 } from "@/lib/project/types";
-import { useSettings } from "./settings";
+import { translate, useSettings } from "./settings";
 import { blockIds, cellFromFrame, copyUnit, isLayout, moveUnit, syncLayout } from "@/lib/project/blocks";
 import { createProjectRecord, loadProject, requestPersistence, saveAssets } from "@/lib/storage/projects";
 
@@ -245,7 +245,20 @@ export const useEditor = create<EditorState>()((set, get) => {
         ...(type === "grid" ? { grid: { rows: Math.ceil(slideCount / GRID_COLS), gapCompensation } } : {}),
       };
       const now = Date.now();
-      await createProjectRecord({ id, name, type, ratio, slideCount, createdAt: now, updatedAt: now, size: 0 }, doc);
+      try {
+        // Saving the new project must not hang or fail silently (owner, 2026-10-19): a full
+        // browser storage or another tab holding the database would otherwise just do nothing.
+        await Promise.race([
+          createProjectRecord({ id, name, type, ratio, slideCount, createdAt: now, updatedAt: now, size: 0 }, doc),
+          new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 8000)),
+        ]);
+      } catch (e) {
+        console.error(e);
+        const { locale } = useSettings.getState();
+        const why = e instanceof Error && e.message === "timeout" ? translate(locale, "project.createTimeout") : e instanceof Error && /quota/i.test(e.name + e.message) ? translate(locale, "project.createQuota") : e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+        window.alert(`${translate(locale, "project.createFailed")}\n\n${why}`);
+        throw e;
+      }
       revokeAll();
       set({ ...EMPTY, projectId: id, projectName: name, doc });
       void requestPersistence();
