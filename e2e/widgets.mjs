@@ -262,6 +262,24 @@ await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.waitForTimeout(400);
 await page.screenshot({ path: path.join(OUT, "widgets-travel.png") });
 
+console.log("New one-job widgets (D-122): habit week, coupon");
+await widgets();
+await page.getByRole("button", { name: "Habit tracker", exact: true }).click();
+await page.waitForTimeout(300);
+await page.getByRole("button", { name: "Days" }).click();
+check(await page.getByRole("button", { name: "Add", exact: true }).isDisabled(), "a week: no eighth day");
+check(await page.getByRole("button", { name: "Remove row 1" }).isDisabled(), "nor fewer than seven");
+await page.getByRole("checkbox", { name: "Done 5" }).click();
+await page.getByRole("button", { name: "Apply" }).click();
+const days = (await S()).doc.elements.at(-1).widget.lists.days;
+check(days.length === 7 && days[4].done === "1", "Friday ticked");
+await widgets();
+await page.getByRole("button", { name: "Coupon · Card", exact: true }).click();
+await page.waitForTimeout(300);
+const cp = (await S()).doc.elements.at(-1);
+check(cp.widget.kind === "coupon" && cp.widget.variant === "card" && cp.widget.fields.value === "-30%", "a coupon card");
+await page.evaluate(() => window.__igEditor.getState().select(null));
+
 console.log("Hanging over the canvas edge: still seen and grabbable");
 st = await S();
 const wh = st.doc.elements.find((e) => e.id === w.id).height;

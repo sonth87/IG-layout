@@ -10,6 +10,7 @@
 import data from "../../../assets/text/widget-samples.json";
 import type { Locale } from "@/store/settings";
 import { drawClock, CLOCK_VARIANTS } from "./widgetClock";
+import { activityRings, chatLook, checklistLook, coupon, emojiSlider, exifLook, habit, hashtagLook, likeCount, mentionLook, moodFaces, notificationLook, pollLook, priceLook, progressLook, questionLook, receiptLook, recipeLook, runSummary, searchLook, sleep, starsLook, stepsLook, water } from "./widgetLooksB";
 import { calendarLook, countdownLook, musicLook, quoteLook, weatherLook } from "./widgetLooksA";
 import { boardingPassLook, booking, flightRoute, luggageTag, passport, passportStamp } from "./widgetTravel";
 import { C, card, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
@@ -21,6 +22,14 @@ export const CARD_WIDGETS = [
   "passport",
   "passportStamp",
   "luggageTag",
+  "likeCount",
+  "emojiSlider",
+  "runSummary",
+  "activityRings",
+  "water",
+  "sleep",
+  "coupon",
+  "habit",
   "weather",
   "calendarDate",
   "countdown",
@@ -107,6 +116,17 @@ export const WIDGET_LISTS: Partial<Record<CardWidgetKind, ListSpec>> = {
     ],
     legacy: ["incomingText", "outgoingText"],
   },
+  habit: {
+    key: "days",
+    label: ["Days", "Các ngày"],
+    min: 7,
+    max: 7,
+    columns: [
+      { key: "done", type: "check", label: ["Done", "Xong"] },
+      { key: "text", type: "text", label: ["Day", "Ngày"] },
+    ],
+    legacy: [],
+  },
   recipeCard: { key: "ingredients", label: ["Ingredients", "Nguyên liệu"], min: 0, max: 10, columns: [{ key: "text", type: "text", label: ["Ingredient", "Nguyên liệu"] }], legacy: ["ingredients"] },
 };
 
@@ -140,6 +160,7 @@ export const WIDGET_VALUES: Partial<Record<CardWidgetKind, { label: [string, str
   progressBar: { label: ["Level", "Mức"], min: 0, max: 100, step: 1 },
   moodMeter: { label: ["Level", "Mức"], min: 0, max: 100, step: 1 },
   nowPlaying: { label: ["Played", "Đã phát"], min: 0, max: 100, step: 1 },
+  emojiSlider: { label: ["Level", "Mức"], min: 0, max: 100, step: 1 },
 };
 
 /** The slider's value now. */
@@ -147,7 +168,7 @@ export function widgetValue(w: WidgetData): number {
   const f = w.fields;
   if (w.kind === "starRating") return rating(f);
   if (w.kind === "progressBar") return Math.round(pct(f.percentage) * 100);
-  if (w.kind === "moodMeter") return Math.round(pct(f.level) * 100);
+  if (w.kind === "moodMeter" || w.kind === "emojiSlider") return Math.round(pct(f.level) * 100);
   const total = seconds(f.totalTime);
   return total > 0 ? Math.round((seconds(f.currentTime) / total) * 100) : 0;
 }
@@ -159,7 +180,7 @@ export function withValue(w: WidgetData, v: number): Record<string, string> {
     f.rating = String(v);
     f.score = `${v.toFixed(1)} / 5.0`;
   } else if (w.kind === "progressBar") f.percentage = `${v}%`;
-  else if (w.kind === "moodMeter") f.level = `${v}%`;
+  else if (w.kind === "moodMeter" || w.kind === "emojiSlider") f.level = `${v}%`;
   else {
     const t = Math.round((seconds(f.totalTime) || 225) * (v / 100));
     f.currentTime = `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
@@ -170,6 +191,7 @@ export function withValue(w: WidgetData, v: number): Record<string, string> {
 /** Widgets with a quick pick of symbols. */
 export const WIDGET_PICKS: Partial<Record<CardWidgetKind, { field: string; label: [string, string]; options: string[] }>> = {
   weather: { field: "icon", label: ["Weather", "Thời tiết"], options: ["☀️", "🌤️", "⛅", "☁️", "🌦️", "🌧️", "⛈️", "🌩️", "❄️", "🌨️", "🌫️", "🌬️", "🌈", "🌙", "🌕", "🔥"] },
+  emojiSlider: { field: "emoji", label: ["Emoji", "Emoji"], options: ["😍", "🥰", "🔥", "😂", "😮", "🤩", "😎", "💯", "❤️", "👏", "🙌", "✨", "🌸", "☕", "🍜", "✈️"] },
   moodMeter: { field: "emoji", label: ["Mood", "Cảm xúc"], options: ["😌", "😊", "😄", "🥰", "😍", "🤩", "😎", "🥳", "😴", "🤔", "😐", "😕", "😢", "😭", "😤", "🤯"] },
 };
 
@@ -244,6 +266,54 @@ const MORE_SPECS: Spec[] = [
     fields: ["toCode", "toCity", "flight", "name"],
     samples: { en: { toCode: "DAD", toCity: "Da Nang", flight: "VN124", name: "Alex Nguyen" }, vi: { toCode: "DAD", toCity: "Đà Nẵng", flight: "VN124", name: "Nguyễn An" } },
   },
+  {
+    id: "likeCount",
+    name: { en: "Likes & comments", vi: "Đếm tim & bình luận" },
+    fields: ["likes", "comments", "follows"],
+    samples: { en: { likes: "1.2K", comments: "86", follows: "24" }, vi: { likes: "1,2K", comments: "86", follows: "24" } },
+  },
+  {
+    id: "emojiSlider",
+    name: { en: "Emoji slider", vi: "Thanh trượt emoji" },
+    fields: ["question", "emoji", "level"],
+    samples: { en: { question: "How much do you love this view?", emoji: "😍", level: "80%" }, vi: { question: "Bạn thích khung cảnh này cỡ nào?", emoji: "😍", level: "80%" } },
+  },
+  {
+    id: "runSummary",
+    name: { en: "Run", vi: "Buổi chạy" },
+    fields: ["title", "distance", "pace", "time", "distanceLabel", "paceLabel", "timeLabel"],
+    samples: { en: { title: "Morning run", distance: "10.4 km", pace: "5'32\"", time: "57:36", distanceLabel: "Distance", paceLabel: "Pace", timeLabel: "Time" }, vi: { title: "Chạy buổi sáng", distance: "10,4 km", pace: "5'32\"", time: "57:36", distanceLabel: "Quãng đường", paceLabel: "Pace", timeLabel: "Thời gian" } },
+  },
+  {
+    id: "activityRings",
+    name: { en: "Activity rings", vi: "Vòng hoạt động" },
+    fields: ["move", "exercise", "stand", "moveLabel", "exerciseLabel", "standLabel"],
+    samples: { en: { move: "82%", exercise: "64%", stand: "92%", moveLabel: "Move", exerciseLabel: "Exercise", standLabel: "Stand" }, vi: { move: "82%", exercise: "64%", stand: "92%", moveLabel: "Vận động", exerciseLabel: "Tập luyện", standLabel: "Đứng" } },
+  },
+  {
+    id: "water",
+    name: { en: "Water", vi: "Uống nước" },
+    fields: ["count", "goal", "caption"],
+    samples: { en: { count: "6", goal: "8", caption: "Glasses of water" }, vi: { count: "6", goal: "8", caption: "Cốc nước hôm nay" } },
+  },
+  {
+    id: "sleep",
+    name: { en: "Sleep", vi: "Giấc ngủ" },
+    fields: ["hours", "bedtime", "wake", "caption"],
+    samples: { en: { hours: "7h 45m", bedtime: "23:15", wake: "07:00", caption: "Last night" }, vi: { hours: "7 giờ 45", bedtime: "23:15", wake: "07:00", caption: "Đêm qua" } },
+  },
+  {
+    id: "coupon",
+    name: { en: "Coupon", vi: "Phiếu giảm giá" },
+    fields: ["title", "value", "code", "expiry"],
+    samples: { en: { title: "Weekend treat", value: "-30%", code: "HELLO30", expiry: "Until 31 Oct" }, vi: { title: "Quà cuối tuần", value: "-30%", code: "XINCHAO30", expiry: "Hạn đến 31/10" } },
+  },
+  {
+    id: "habit",
+    name: { en: "Habit tracker", vi: "Theo dõi thói quen" },
+    fields: ["title"],
+    samples: { en: { title: "Read 20 pages" }, vi: { title: "Đọc 20 trang sách" } },
+  },
 ];
 const SPECS = new Map([...(data.widgets as unknown as Spec[]), ...MORE_SPECS].map((s) => [s.id, s]));
 
@@ -293,6 +363,117 @@ export const WIDGET_VARIANTS: Partial<Record<CardWidgetKind, readonly { id: stri
     { id: "triangle", name: ["Triangle", "Tam giác"], theme: "color" },
     { id: "pin", name: ["Map pin", "Ghim định vị"], theme: "color" },
     { id: "ticket", name: ["Ticket", "Vé"], theme: "color" },
+  ],
+  // Social, fitness, shopping, to-do, more (D-122).
+  poll: [
+    { id: "card", name: ["Bars", "Thanh"], theme: "light" },
+    { id: "buttons", name: ["Big buttons", "Nút lớn"], theme: "light" },
+    { id: "minimal", name: ["Minimal", "Tối giản"], theme: "light" },
+  ],
+  questionBox: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "bubble", name: ["Speech bubble", "Bong bóng"], theme: "light" },
+  ],
+  chatConvo: [
+    { id: "blue", name: ["Blue bubbles", "Bong bóng xanh"], theme: "light" },
+    { id: "gradient", name: ["Gradient bubbles", "Bong bóng chuyển màu"], theme: "light" },
+    { id: "green", name: ["Green bubbles", "Bong bóng xanh lá"], theme: "light" },
+  ],
+  phoneNotification: [
+    { id: "banner", name: ["Banner", "Banner"], theme: "light" },
+    { id: "lock", name: ["Lock screen", "Màn hình khoá"], theme: "light" },
+    { id: "flat", name: ["Flat card", "Thẻ phẳng"], theme: "light" },
+  ],
+  hashtagPill: [
+    { id: "pill", name: ["Pills", "Viên"], theme: "light" },
+    { id: "highlight", name: ["Highlighted", "Chữ nền"], theme: "light" },
+    { id: "sticker", name: ["Stickers", "Nhãn dán"], theme: "light" },
+  ],
+  mentionTag: [
+    { id: "pill", name: ["Pill", "Viên"], theme: "light" },
+    { id: "underline", name: ["Underlined", "Gạch chân"], theme: "light" },
+  ],
+  searchBar: [
+    { id: "bar", name: ["Bar", "Thanh"], theme: "light" },
+    { id: "browser", name: ["Browser", "Trình duyệt"], theme: "light" },
+  ],
+  starRating: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "big", name: ["Big score", "Điểm lớn"], theme: "light" },
+    { id: "stars", name: ["Stars only", "Chỉ sao"], theme: "light" },
+  ],
+  likeCount: [
+    { id: "bubble", name: ["Pop-up", "Bong bóng"], theme: "light" },
+    { id: "pill", name: ["Pill", "Viên"], theme: "light" },
+  ],
+  emojiSlider: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "minimal", name: ["Minimal", "Tối giản"], theme: "light" },
+  ],
+  stepCounter: [
+    { id: "ring", name: ["Ring", "Vòng"], theme: "light" },
+    { id: "bar", name: ["Bar", "Thanh"], theme: "light" },
+    { id: "big", name: ["Big number", "Số lớn"], theme: "light" },
+  ],
+  runSummary: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "big", name: ["Big number", "Số lớn"], theme: "light" },
+    { id: "minimal", name: ["Minimal", "Tối giản"], theme: "light" },
+  ],
+  activityRings: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "rings", name: ["Rings only", "Chỉ vòng"], theme: "light" },
+  ],
+  water: [
+    { id: "cups", name: ["Glasses", "Cốc"], theme: "light" },
+    { id: "drop", name: ["Drop", "Giọt nước"], theme: "light" },
+  ],
+  sleep: [
+    { id: "moon", name: ["Night", "Đêm"], theme: "light" },
+    { id: "bar", name: ["Bar", "Thanh"], theme: "light" },
+  ],
+  receipt: [
+    { id: "thermal", name: ["Till receipt", "Giấy in nhiệt"], theme: "light" },
+    { id: "restaurant", name: ["Restaurant bill", "Hoá đơn nhà hàng"], theme: "light" },
+    { id: "handwritten", name: ["Handwritten", "Viết tay"], theme: "light" },
+  ],
+  priceTag: [
+    { id: "tag", name: ["Tag", "Thẻ treo"], theme: "light" },
+    { id: "burst", name: ["Sale burst", "Nhãn SALE"], theme: "light" },
+    { id: "simple", name: ["Struck price", "Giá gạch"], theme: "light" },
+  ],
+  coupon: [
+    { id: "ticket", name: ["Ticket", "Vé"], theme: "light" },
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+  ],
+  checklist: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "lined", name: ["Lined paper", "Giấy kẻ dòng"], theme: "light" },
+    { id: "note", name: ["Sticky note", "Giấy note"], theme: "light" },
+    { id: "hand", name: ["Handwritten", "Viết tay"], theme: "light" },
+  ],
+  progressBar: [
+    { id: "bar", name: ["Bar", "Thanh"], theme: "light" },
+    { id: "ring", name: ["Ring", "Vòng"], theme: "light" },
+    { id: "battery", name: ["Battery", "Pin"], theme: "light" },
+  ],
+  moodMeter: [
+    { id: "meter", name: ["Meter", "Thước"], theme: "light" },
+    { id: "faces", name: ["Five faces", "5 khuôn mặt"], theme: "light" },
+  ],
+  habit: [
+    { id: "grid", name: ["Week", "Tuần"], theme: "light" },
+    { id: "dots", name: ["Dots", "Chấm"], theme: "light" },
+  ],
+  recipeCard: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "lined", name: ["Index card", "Thẻ kẻ dòng"], theme: "light" },
+    { id: "minimal", name: ["Minimal", "Tối giản"], theme: "light" },
+  ],
+  filmExif: [
+    { id: "strip", name: ["Film strip", "Dải phim"], theme: "dark" },
+    { id: "hud", name: ["Viewfinder", "Khung ngắm"], theme: "light" },
+    { id: "line", name: ["One line", "Một dòng"], theme: "light" },
   ],
   // Info (D-121).
   calendarDate: [
@@ -362,6 +543,14 @@ export const WIDGET_ACCENT: Record<CardWidgetKind, string> = {
   passport: "#1f3a68",
   passportStamp: "#c0392b",
   luggageTag: "#ff9500",
+  likeCount: "#ff3040",
+  emojiSlider: "#ff2d55",
+  runSummary: "#ff9f0a",
+  activityRings: "#fa114f",
+  water: "#2fa6ff",
+  sleep: "#5e5ce6",
+  coupon: "#ff3b30",
+  habit: "#34c759",
   weather: "#2f80ed",
   calendarDate: "#ff3b30",
   countdown: "#ff2d55",
@@ -393,6 +582,10 @@ export function newWidgetData(kind: CardWidgetKind, locale: Locale, variant?: st
   const fields = { ...(SPECS.get(kind)?.samples[locale] ?? {}), ...SAMPLE_OVERRIDES[kind] };
   const w: WidgetData = { kind, fields, theme: v?.theme ?? (DARK_KINDS.includes(kind) ? "dark" : "light"), ...(v ? { variant: v.id } : {}) };
   // Rows as lists from the start.
+  if (kind === "habit") {
+    const names = locale === "vi" ? ["T2", "T3", "T4", "T5", "T6", "T7", "CN"] : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    return { ...w, lists: { days: names.map((text, i) => ({ text, done: i < 4 || i === 5 ? "1" : "" })) } };
+  }
   const spec = WIDGET_LISTS[kind];
   return spec ? { ...w, lists: { [spec.key]: rowsOf(w)[spec.key] } } : w;
 }
@@ -400,6 +593,25 @@ export function newWidgetData(kind: CardWidgetKind, locale: Locale, variant?: st
 /** Labels of the fields in the edit sheet. */
 const FIELD_LABELS: Record<string, [en: string, vi: string]> = {
   time: ["Time", "Giờ"],
+  likes: ["Likes", "Lượt thích"],
+  comments: ["Comments", "Bình luận"],
+  follows: ["New followers", "Người theo dõi mới"],
+  pace: ["Pace", "Pace"],
+  distanceLabel: ["Distance label", "Nhãn quãng đường"],
+  paceLabel: ["Pace label", "Nhãn pace"],
+  timeLabel: ["Time label", "Nhãn thời gian"],
+  move: ["Move %", "Vận động %"],
+  exercise: ["Exercise %", "Tập luyện %"],
+  stand: ["Stand %", "Đứng %"],
+  moveLabel: ["Move label", "Nhãn vận động"],
+  exerciseLabel: ["Exercise label", "Nhãn tập luyện"],
+  standLabel: ["Stand label", "Nhãn đứng"],
+  goal: ["Goal", "Mục tiêu"],
+  hours: ["Slept", "Thời gian ngủ"],
+  bedtime: ["Bedtime", "Giờ ngủ"],
+  wake: ["Woke up", "Giờ dậy"],
+  value: ["Value", "Giá trị"],
+  expiry: ["Valid until", "Hạn dùng"],
   route: ["Route", "Hành trình"],
   code: ["Code", "Mã"],
   place: ["Place", "Nơi"],
@@ -509,6 +721,14 @@ const KINDS: Record<CardWidgetKind, Draw> = {
   passport: (c, f, pal, _L, v) => passport(c, f, pal, v ?? "gold"),
   passportStamp: (c, f, pal, _L, v) => passportStamp(c, f, pal, v ?? "round"),
   luggageTag: (c, f, pal, _L, v) => luggageTag(c, f, pal, v ?? "airport"),
+  likeCount: (c, f, pal, _L, v) => likeCount(c, f, pal, v ?? "bubble"),
+  emojiSlider: (c, f, pal, _L, v) => emojiSlider(c, f, pal, v ?? "card"),
+  runSummary: (c, f, pal, _L, v) => runSummary(c, f, pal, v ?? "card"),
+  activityRings: (c, f, pal, _L, v) => activityRings(c, f, pal, v ?? "card"),
+  water: (c, f, pal, _L, v) => water(c, f, pal, v ?? "cups"),
+  sleep: (c, f, pal, _L, v) => sleep(c, f, pal, v ?? "moon"),
+  coupon: (c, f, pal, _L, v) => coupon(c, f, pal, v ?? "ticket"),
+  habit: (c, f, pal, L, v) => habit(c, f, pal, L, v ?? "grid"),
 
   weather(c, f, pal, _L, v) {
     if (v && v !== "card") return weatherLook(c, f, pal, v);
@@ -624,7 +844,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  starRating(c, f, pal) {
+  starRating(c, f, pal, L, v) {
+    if (v && v !== "card") return starsLook(c, f, pal, v, rating(f));
     const w = 540;
     const title: TextOpts = { size: 32, weight: 700, color: pal.fg };
     const com: TextOpts = { size: 26, weight: 400, color: pal.sub, lh: 1.35 };
@@ -658,7 +879,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  poll(c, f, pal, L) {
+  poll(c, f, pal, L, v) {
+    if (v && v !== "card") return pollLook(c, f, pal, L, v);
     const w = 560;
     const q: TextOpts = { size: 34, weight: 700, color: pal.fg, align: "center", lh: 1.25 };
     // No question: no empty space for it (owner, 2026-10-19).
@@ -692,7 +914,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  chatConvo(c, f, pal, L) {
+  chatConvo(c, f, pal, L, v) {
+    if (v && v !== "blue") return chatLook(c, f, pal, L, v);
     const w = 600;
     const msg: TextOpts = { size: 27, weight: 400, color: pal.fg, lh: 1.3 };
     const max = w * 0.68;
@@ -722,7 +945,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  phoneNotification(c, f, pal) {
+  phoneNotification(c, f, pal, L, v) {
+    if (v && v !== "banner") return notificationLook(c, f, pal, v);
     const w = 660;
     const p = 28;
     const title: TextOpts = { size: 28, weight: 700, color: pal.fg, lh: 1.28 };
@@ -753,7 +977,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  questionBox(c, f, pal) {
+  questionBox(c, f, pal, L, v) {
+    if (v && v !== "card") return questionLook(c, f, pal);
     const w = 560;
     const head: TextOpts = { size: 28, weight: 700, color: pal.theme === "color" ? pal.fg : pal.onAc, align: "center", lh: 1.25 };
     const q: TextOpts = { size: 32, weight: 700, color: pal.fg, align: "center", lh: 1.28 };
@@ -787,7 +1012,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  priceTag(c, f, pal) {
+  priceTag(c, f, pal, L, v) {
+    if (v && v !== "tag") return priceLook(c, f, pal, v);
     const w = 500;
     const name: TextOpts = { size: 30, weight: 700, color: pal.fg, lh: 1.25 };
     const nameL = wrap(c, f.itemName, name, w - P * 2, 2);
@@ -814,7 +1040,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  hashtagPill(c, f, pal, L) {
+  hashtagPill(c, f, pal, L, v) {
+    if (v && v !== "pill") return hashtagLook(c, f, pal, L, v);
     const o: TextOpts = { size: 28, weight: 700, color: pal.theme === "color" ? pal.fg : pal.ac, lh: 56 / 28 };
     const tags = (L.tags ?? []).map((t) => t.text).filter((s) => s?.trim());
     const pad = 26;
@@ -854,7 +1081,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  mentionTag(c, f, pal) {
+  mentionTag(c, f, pal, L, v) {
+    if (v && v !== "pill") return mentionLook(c, f, pal);
     const handle: TextOpts = { size: 28, weight: 700, color: pal.fg, lh: 1.2 };
     const role: TextOpts = { size: 22, weight: 500, color: pal.sub, lh: 1.2 };
     const inner = Math.max(textW(c, f.handle, handle), f.role ? textW(c, f.role, role) : 0);
@@ -878,7 +1106,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  progressBar(c, f, pal) {
+  progressBar(c, f, pal, L, v) {
+    if (v && v !== "bar") return progressLook(c, f, pal, v);
     const w = 560;
     const st: TextOpts = { size: 24, weight: 500, color: pal.sub, lh: 1.3 };
     const stL = f.status ? wrap(c, f.status, st, w - P * 2, 2) : [];
@@ -961,7 +1190,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  recipeCard(c, f, pal, L) {
+  recipeCard(c, f, pal, L, v) {
+    if (v && v !== "card") return recipeLook(c, f, pal, L, v);
     const w = 580;
     const bg = pal.theme === "light" ? "#fffaf0" : pal.bg;
     const dish: TextOpts = { size: 38, weight: 700, color: pal.fg, family: SERIF, lh: 1.2 };
@@ -996,7 +1226,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  filmExif(c, f, pal) {
+  filmExif(c, f, pal, L, v) {
+    if (v && v !== "strip") return exifLook(c, f, pal, v);
     const w = 620;
     const strip = 30;
     const h = strip + 26 + 40 + 6 + 34 + 6 + 34 + 6 + 34 + 26 + strip;
@@ -1021,7 +1252,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  checklist(c, f, pal, L) {
+  checklist(c, f, pal, L, v) {
+    if (v && v !== "card") return checklistLook(c, f, pal, L, v);
     const w = 540;
     const title: TextOpts = { size: 32, weight: 800, color: pal.fg, lh: 1.25 };
     const item: TextOpts = { size: 26, weight: 500, color: pal.fg, lh: 1.3 };
@@ -1057,7 +1289,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  moodMeter(c, f, pal) {
+  moodMeter(c, f, pal, L, v) {
+    if (v && v !== "meter") return moodFaces(c, f, pal);
     const w = 540;
     const mood: TextOpts = { size: 32, weight: 700, color: pal.fg, lh: 1.25 };
     const moodL = wrap(c, f.moodText, mood, w - P * 2 - 118, 3);
@@ -1087,7 +1320,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  searchBar(c, f, pal) {
+  searchBar(c, f, pal, L, v) {
+    if (v && v !== "bar") return searchLook(c, f, pal);
     const w = 660;
     const bar = 88;
     const top = f.hint ? 40 : 0;
@@ -1142,7 +1376,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  receipt(c, f, pal, L) {
+  receipt(c, f, pal, L, v) {
+    if (v && v !== "thermal") return receiptLook(c, f, pal, L, v);
     const w = 480;
     const teeth = 14;
     const bg = pal.theme === "light" ? "#ffffff" : pal.theme === "dark" ? "#232323" : pal.bg;
@@ -1201,7 +1436,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  stepCounter(c, f, pal) {
+  stepCounter(c, f, pal, L, v) {
+    if (v && v !== "ring") return stepsLook(c, f, pal, v);
     const w = 540;
     const cap: TextOpts = { size: 25, weight: 500, color: pal.fg, lh: 1.32 };
     const capL = f.caption ? wrap(c, f.caption, cap, w - P * 2, 3) : [];
@@ -1263,7 +1499,7 @@ export function drawWidget(c: C, w: WidgetData, color: string, width: number, lo
 }
 
 const thumbs = new Map<string, string>();
-const BARE_LOOKS = new Set(["calendarDate:big", "countdown:big", "countdown:flip", "weather:big", "weather:icon", "weather:glass", "bookQuote:marks", "bookQuote:line", "nowPlaying:vinyl", "nowPlaying:code", "nowPlaying:minimal", "clock:digital", "clock:handwritten", "boardingPass:minimal", "flightRoute:line", "flightRoute:globe", "flightRoute:doodle"]);
+const BARE_LOOKS = new Set(["poll:minimal", "mentionTag:underline", "starRating:stars", "emojiSlider:minimal", "stepCounter:big", "runSummary:big", "runSummary:minimal", "activityRings:rings", "priceTag:simple", "checklist:hand", "habit:dots", "recipeCard:minimal", "filmExif:hud", "filmExif:line", "calendarDate:big", "countdown:big", "countdown:flip", "weather:big", "weather:icon", "weather:glass", "bookQuote:marks", "bookQuote:line", "nowPlaying:vinyl", "nowPlaying:code", "nowPlaying:minimal", "clock:digital", "clock:handwritten", "boardingPass:minimal", "flightRoute:line", "flightRoute:globe", "flightRoute:doodle"]);
 
 /** A small picture of a kind with its sample texts, for the library. */
 export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360, variant?: string, from?: { data: WidgetData; color: string }) {
@@ -1307,11 +1543,11 @@ export const WIDGET_GROUPS: { id: "clock" | "calendar" | "weather" | "travel" | 
   { id: "calendar", kinds: ["calendarDate", "countdown"] },
   { id: "weather", kinds: ["weather"] },
   { id: "travel", kinds: ["boardingPass", "flightRoute", "booking", "passport", "passportStamp", "luggageTag"] },
-  { id: "social", kinds: ["poll", "questionBox", "chatConvo", "phoneNotification", "hashtagPill", "mentionTag", "searchBar", "starRating"] },
+  { id: "social", kinds: ["poll", "questionBox", "emojiSlider", "chatConvo", "phoneNotification", "likeCount", "hashtagPill", "mentionTag", "searchBar", "starRating"] },
   { id: "music", kinds: ["nowPlaying"] },
   { id: "quote", kinds: ["bookQuote"] },
-  { id: "fitness", kinds: ["stepCounter"] },
-  { id: "shopping", kinds: ["receipt", "priceTag"] },
-  { id: "todo", kinds: ["checklist", "progressBar", "moodMeter"] },
+  { id: "fitness", kinds: ["stepCounter", "runSummary", "activityRings", "water", "sleep"] },
+  { id: "shopping", kinds: ["receipt", "priceTag", "coupon"] },
+  { id: "todo", kinds: ["checklist", "habit", "progressBar", "moodMeter"] },
   { id: "more", kinds: ["recipeCard", "filmExif"] },
 ];
