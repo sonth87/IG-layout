@@ -184,6 +184,61 @@ const PATHS = {
       <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
     </>
   ),
+  igGrid: (
+    <>
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M3 9h18" />
+      <path d="M3 15h18" />
+      <path d="M9 3v18" />
+      <path d="M15 3v18" />
+    </>
+  ),
+  igReels: (
+    <>
+      <path d="m12.296 3.464 3.02 3.956" />
+      <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3z" />
+      <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <path d="m6.18 5.276 3.1 3.899" />
+    </>
+  ),
+  igTagged: (
+    <>
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <circle cx="12" cy="10" r="3" />
+      <path d="M7 21v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2" />
+    </>
+  ),
+  igMenu: (
+    <>
+      <path d="M4 5h16" />
+      <path d="M4 12h16" />
+      <path d="M4 19h16" />
+    </>
+  ),
+  igNew: (
+    <>
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M8 12h8" />
+      <path d="M12 8v8" />
+    </>
+  ),
+  igClose: (
+    <>
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </>
+  ),
+  igLock: (
+    <>
+      <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </>
+  ),
+  igDown: (
+    <>
+      <path d="m6 9 6 6 6-6" />
+    </>
+  ),
   close: <path d="M18 6L6 18M6 6l12 12" />,
   insertLeft: (
     <>
