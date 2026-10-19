@@ -13,42 +13,6 @@
   "order": 10,
   "items": [
     {
-      "id": "ov-amber-street-bokeh",
-      "name": {
-        "en": "Amber Streetlight Bokeh Blur",
-        "vi": "Ánh đèn phố Bokeh màu hổ phách"
-      },
-      "tags": {
-        "en": [
-          "bokeh",
-          "amber",
-          "street",
-          "evening"
-        ],
-        "vi": [
-          "ánh đèn",
-          "bokeh",
-          "đêm phố",
-          "lãng mạn"
-        ]
-      },
-      "collections": [
-        "vintage",
-        "summer"
-      ],
-      "blend": "screen",
-      "source": {
-        "provider": "Wikimedia Commons",
-        "url": "https://commons.wikimedia.org/wiki/File:Bokeh_(47774880).jpeg",
-        "author": "Prithwiraj Ghosh Roy",
-        "title": "Bokeh (47774880).jpeg",
-        "license": "CC-BY-SA-4.0",
-        "retrieved": "2026-10-18"
-      },
-      "width": 933,
-      "height": 1400
-    },
-    {
       "id": "ov-film-burn-orange-left",
       "name": {
         "en": "Warm Orange Left Edge Film Burn",

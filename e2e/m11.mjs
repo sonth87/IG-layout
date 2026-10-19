@@ -116,7 +116,7 @@ const before = await page.evaluate(() => {
 });
 await page.getByRole("button", { name: "Stickers", exact: true }).click(); // light & texture overlays are in the sticker library
 await shot(page, "4-overlays");
-await page.getByRole("button", { name: "Light leak" }).click();
+await page.getByRole("button", { name: "Light leak", exact: true }).click();
 await page.waitForTimeout(800);
 st = await S();
 const leak = last(st, "image");

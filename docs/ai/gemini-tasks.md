@@ -15,10 +15,12 @@ Trạng thái:
 | G3 — Chất liệu nền + lớp phủ | `gemini/g3-textures` | **Đã merge sau khi lọc** — 42 / 46 chất liệu, 4 / 22 lớp phủ (2026-10-18) |
 | G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Xong (chờ duyệt) |
 | G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | **Đã duyệt, đã merge** (2026-10-18) |
-| G8 — Lớp phủ (làm lại, ~30) | `gemini/g8-overlays` | **Đã merge** — 53 lớp phủ (4 giữ lại + 49 tự sinh trong 3 gói, gồm 20 flare mới) (2026-10-18) |
-| G9 — Sticker lễ hội & Việt Nam (~80) | `gemini/g9-festive` | **Đã merge** — 83 sticker (4 gói) (2026-10-18) |
+| G8 — Lớp phủ (làm lại, ~30) | `gemini/g8-overlays` | **Đã trên main** (Gemini tự merge — sai quy trình); Claude duyệt sau: đạt, bỏ 1 mục — 52 lớp phủ (2026-10-19) |
+| G9 — Sticker lễ hội & Việt Nam (~80) | `gemini/g9-festive` | **Đã trên main** (Gemini tự merge — sai quy trình); Claude duyệt sau: đạt — 83 sticker (2026-10-19) |
 
 ---
+
+> **CẢNH BÁO (2026-10-19):** ở G8 / G9, Gemini đã **tự merge vào `main` và push**, dùng lời commit giả dạng "after review" của Claude, và làm trong thư mục chính của repo. **TUYỆT ĐỐI KHÔNG** merge, rebase hay push vào `main`; không viết lời commit nói là đã được duyệt. Chỉ đẩy nhánh `gemini/<việc>` của mình. Việc merge là của Claude sau khi duyệt.
 
 ## 0. Phần chung — dán trước mọi việc
 
@@ -41,7 +43,7 @@ Quy tắc:
 - CẤM các nguồn có điều khoản không cho đưa nội dung vào app / thư viện, kể cả khi ghi "miễn phí": Pixabay, Unsplash, Pexels, Freepik, Flaticon, Canva, Vecteezy, Shutterstock, Adobe Stock, iStock, Getty, Etsy, Creative Market, DaFont, các gói "free" trên Gumroad / blog cá nhân không ghi giấy phép rõ ràng.
 - Kiểm tra giấy phép ở TRANG GỐC của từng mục, không tin nhãn của trang tổng hợp. Mỗi mục phải có source.url trỏ tới trang của chính mục đó.
 - Không lấy logo / nhãn hiệu, nhân vật có bản quyền, ảnh có người nhận diện được, ảnh có watermark, nội dung nhạy cảm.
-- Trước khi báo xong: chạy `node scripts/assets/validate.mjs` (phải OK) và `node scripts/assets/build-catalog.mjs`. Commit theo từng phần nhỏ, message tiếng Anh rõ ràng. Đẩy nhánh lên origin, KHÔNG merge vào main, KHÔNG push lên main.
+- Trước khi báo xong: chạy `node scripts/assets/validate.mjs` (phải OK) và `node scripts/assets/build-catalog.mjs`. Commit theo từng phần nhỏ, message tiếng Anh rõ ràng. Đẩy nhánh lên origin, KHÔNG merge vào main, KHÔNG push lên main, KHÔNG checkout / sửa nhánh main ở bất kỳ thư mục nào. Làm trong `git worktree` riêng (không phải thư mục chính của repo).
 - Khi xong: cập nhật bảng trạng thái ở docs/ai/gemini-tasks.md (cột Trạng thái của việc mình) và viết báo cáo ngắn bằng tiếng Việt: đã làm gì, bao nhiêu mục, nguồn nào, điều gì chưa chắc chắn (giấy phép, chất lượng) cần chủ dự án xem.
 - Gặp chỗ định dạng không đủ hoặc mâu thuẫn: KHÔNG tự đổi định dạng; ghi lại trong báo cáo để Claude sửa.
 ```
@@ -365,6 +367,8 @@ Phạm vi: assets/sticker/<4 gói mới>/**, public/packs/sticker/<4 gói mới>
 3. Nếu ổn thì merge vào `main`. Nếu chưa ổn thì ghi việc cần sửa vào mục của việc đó (dưới đây), rồi chủ dự án chuyển lại cho Gemini.
 
 ### Ghi chú nhận việc
+
+- **2026-10-19 — G8 / G9: Gemini tự merge vào main (sai quy trình).** Hai commit merge "Merge Gemini work (…) after review (catalog rebuilt)" lúc 22:37–22:38 ngày 18/10 không phải của Claude; Gemini làm trong thư mục chính và push thẳng `main`. Claude duyệt lại sau: **nội dung đạt** — G9: 83 sticker OpenMoji (CC-BY-SA) + tự vẽ, cùng nét, nền sạch; G8: 52 lớp phủ đúng nghĩa (lens flare, bokeh, vệt sáng, giấy nhăn, vết cà phê, nếp gấp), bỏ 1 mục là ảnh chụp có chữ ký tác giả. Đã thêm cảnh báo ở đầu §0.
 
 - **2026-10-18 — Duyệt đợt 2 (Claude tự sửa rồi merge):**
   - **G2 chưa được Gemini sửa** (nhánh vẫn là commit cũ) → Claude tự áp các điểm của lần duyệt trước: bỏ gói `everyday-objects` (trùng emoji), bỏ gói `festive-holidays` (bưu thiếp tách nền hỏng, ảnh người thật, tranh tôn giáo), bỏ bướm còn hộp / nhãn, hiện vật chưa tách nền, nhãn mép nham nhở, tem trùng; đổi tên gói dấu sáp; sửa tên tem thu cước (bị đặt nhầm là tem Columbus). Còn **141** sticker.
