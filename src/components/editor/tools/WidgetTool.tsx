@@ -11,7 +11,9 @@ import {
   WIDGET_PICKS,
   WIDGET_THEMES,
   WIDGET_VALUES,
+  WIDGET_VARIANTS,
   widgetSize,
+  widgetThumb,
   widgetValue,
   withDate,
   withValue,
@@ -220,6 +222,46 @@ export function WidgetDateTool({ elementId, onClose }: Props) {
   return (
     <Sheet title={t("widget.date")} onClose={onClose}>
       <input type="date" aria-label={t("widget.date")} value={w.widget.fields.date ?? today} onChange={(e) => e.target.value && w.change({ ...w.widget, fields: withDate(w.widget, e.target.value, w.locale) })} className={INPUT} />
+    </Sheet>
+  );
+}
+
+/** Style: the same widget in its other looks (D-119), each drawn with this widget's texts. */
+export function WidgetStyleTool({ elementId, onClose }: Props) {
+  const t = useT();
+  const w = useWidget(elementId);
+  const looks = w && WIDGET_VARIANTS[w.widget.kind];
+  if (!w || !looks) return null;
+  return (
+    <Sheet title={t("widget.style")} onClose={onClose}>
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+        {looks.map((v) => {
+          const on = (w.widget.variant ?? looks[0].id) === v.id;
+          return (
+            <button key={v.id} type="button" aria-label={lang([v.name[0], v.name[1]], w.locale)} aria-pressed={on} onClick={() => w.change({ ...w.widget, variant: v.id, theme: v.theme })} className={`flex flex-col items-stretch gap-1 rounded-[14px] p-1.5 ${on ? "bg-accent/25 ring-2 ring-accent" : "bg-black/5 dark:bg-white/10"}`}>
+              <span className="flex h-20 items-center justify-center overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element -- drawn on a canvas */}
+                <img src={widgetThumb(w.widget.kind, w.locale, 220, v.id, { data: w.widget, color: w.el.color })} alt="" className="max-h-full max-w-full object-contain" />
+              </span>
+              <span className="truncate text-center text-[11px] font-semibold opacity-70">{lang([v.name[0], v.name[1]], w.locale)}</span>
+            </button>
+          );
+        })}
+      </div>
+    </Sheet>
+  );
+}
+
+/** Time of a clock. */
+export function WidgetTimeTool({ elementId, onClose }: Props) {
+  const t = useT();
+  const w = useWidget(elementId);
+  if (!w) return null;
+  const m = /(\d{1,2})\s*[:.h]\s*(\d{2})/.exec(w.widget.fields.time ?? "");
+  const value = m ? `${m[1].padStart(2, "0")}:${m[2]}` : "10:09";
+  return (
+    <Sheet title={t("widget.time")} onClose={onClose}>
+      <input type="time" aria-label={t("widget.time")} value={value} onChange={(e) => e.target.value && w.change({ ...w.widget, fields: { ...w.widget.fields, time: e.target.value } })} className={INPUT} />
     </Sheet>
   );
 }
