@@ -103,6 +103,35 @@ export function effectPad(e: ElementEffect, w: number, h: number): Pad {
       const grow = Math.max(0, num(p.grow)) / 100;
       return padToward(d, n * num(p.spacing), all(Math.max(w, h) * grow * 0.5 + 2));
     }
+    case "flag": {
+      const a = (num(p.wind, 50) / 100) * 0.08 * (p.edge === "top" ? h : w) + 2;
+      return p.edge === "top" ? { l: a, r: a, t: 0, b: 0 } : { l: 0, r: 0, t: a, b: a };
+    }
+    case "perspective": {
+      const q = tiltQuad(w, h, num(p.tiltX, 25), num(p.tiltY), num(p.depth, 50));
+      const xs = q.map((v) => v[0]);
+      const ys = q.map((v) => v[1]);
+      return { l: Math.max(0, -Math.min(...xs) - w / 2) + 2, r: Math.max(0, Math.max(...xs) - w / 2) + 2, t: Math.max(0, -Math.min(...ys) - h / 2) + 2, b: Math.max(0, Math.max(...ys) - h / 2) + 2 };
+    }
+    case "tear": {
+      const vert = p.way !== "h";
+      const g = (num(p.gap, 25) / 100) * 0.06 * (vert ? w : h) + 2;
+      const s2 = (num(p.shift, 20) / 100) * 0.04 * (vert ? h : w) + 2;
+      return vert ? { l: g, r: g, t: s2, b: s2 } : { l: s2, r: s2, t: g, b: g };
+    }
+    case "glow":
+      return all(num(p.radius, 20) * 2.2 + 4);
+    case "extrude":
+      return padToward(d, num(p.depth, 30) * 1.8 + 8, all(num(p.depth, 30) * 0.5 + 4));
+    case "rays":
+      return all(Math.max(w, h) * (num(p.length, 60) / 100) * 0.5 + 4);
+    case "motionBlur": {
+      // The trail is behind the movement.
+      const L = (num(p.length, 40) / 100) * 0.3 * Math.max(w, h) + 2;
+      return padToward(d + 180, L);
+    }
+    case "zoomBlur":
+      return all(Math.max(w, h) * (num(p.amount, 40) / 100) * 0.2 + 2);
     default:
       return all(2);
   }
@@ -293,44 +322,119 @@ function frame(c: FxCtx, deg: number) {
   return { D, N, tMin, L: Math.max(...ts) - tMin, sMin, S: Math.max(...ss) - sMin };
 }
 
+/**
+ * Melt (owner, 2026-10-19: "not like a cow's teats"): the lower part sags a little and
+ * unevenly, then drips run from its lowest edge — a thin stream with a flared root, ending
+ * in a round bead a bit wider than the stream, in the colour where it leaves, with a wet
+ * highlight. Lengths and widths differ.
+ */
 const melt: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
   const f = frame(c, num(c.p.dir, 90));
-  // A flat thing (a line of text) drips by its width too, not only its thin height.
-  const amt = (num(c.p.amount) / 100) * 1.5 * (Math.max(f.L, f.S * 0.35) / f.L);
-  const b = num(c.p.start) / 100;
-  const prof = drips(c, Math.round(num(c.p.drips, 4)), num(c.p.vary) / 100, num(c.p.thick) / 100, f.S / f.L);
-  const gloss = num(c.p.gloss) / 100;
-  warp(
-    img,
-    (x, y, o) => {
-      const t = x * f.D[0] + y * f.D[1];
-      const s = x * f.N[0] + y * f.N[1];
-      const u = (s - f.sMin) / f.S;
-      let tn = (t - f.tMin) / f.L;
-      if (tn > b) {
-        const dr = amt * prof.at(clamp(u, 0, 1));
-        tn = b + ((tn - b) * (1 - b)) / (1 - b + dr);
+  const scale = Math.max(f.L, f.S * 0.35);
+  const amt = num(c.p.amount, 55) / 100;
+  const b = num(c.p.start, 70) / 100;
+  const vary = num(c.p.vary, 60) / 100;
+  const thick = num(c.p.thick, 50) / 100;
+  const gloss = num(c.p.gloss, 30) / 100;
+  const rnd = rng(c.seed * 7919 + 5);
+  // 1. Uneven sag of the part past "starts at".
+  const waves = Array.from({ length: 4 }, () => ({ f: 1.5 + rnd() * 5, ph: rnd() * 6.28, a: 0.3 + rnd() * 0.7 }));
+  const sag = (u: number) => {
+    let v = 0.55 * Math.pow(Math.max(0, Math.sin(Math.PI * u)), 1.2);
+    for (const w of waves) v += 0.22 * w.a * Math.sin(w.f * u * Math.PI * 2 + w.ph);
+    return Math.max(0, v);
+  };
+  const sagAmt = (amt * 0.14 * scale) / f.L;
+  warp(img, (x, y, o) => {
+    const t = x * f.D[0] + y * f.D[1];
+    const s = x * f.N[0] + y * f.N[1];
+    const u = clamp((s - f.sMin) / f.S, 0, 1);
+    let tn = (t - f.tMin) / f.L;
+    if (tn > b) tn = b + ((tn - b) * (1 - b)) / (1 - b + sagAmt * sag(u));
+    const tt = f.tMin + tn * f.L;
+    o[0] = s * f.N[0] + tt * f.D[0];
+    o[1] = s * f.N[1] + tt * f.D[1];
+    return tn <= 1.0001;
+  });
+  // 2. Drips from the lowest solid point of their column.
+  const aspect = f.S / f.L;
+  const count = Math.round(num(c.p.drips, 4) * Math.max(1, aspect / 1.5));
+  const alphaAt = (x: number, y: number) => {
+    const xi = Math.round(x);
+    const yi = Math.round(y);
+    return xi < 0 || yi < 0 || xi >= W || yi >= H ? 0 : data[(yi * W + xi) * 4 + 3];
+  };
+  for (let i = 0; i < count; i++) {
+    const u = 0.05 + rnd() * 0.9;
+    const len = amt * scale * 1.15 * (0.2 + 0.8 * (1 - vary * rnd()));
+    const sw = Math.max(2, scale * (0.016 + thick * 0.04) * (0.65 + rnd() * 0.7));
+    const s0 = f.sMin + u * f.S;
+    // Search from beyond the far edge back towards the start.
+    let t0 = NaN;
+    for (let t = f.tMin + f.L * (1 + sagAmt * 1.6); t > f.tMin + f.L * b; t -= 1) {
+      if (alphaAt(s0 * f.N[0] + t * f.D[0], s0 * f.N[1] + t * f.D[1]) >= 150) {
+        t0 = t;
+        break;
       }
-      const tt = f.tMin + tn * f.L;
-      o[0] = s * f.N[0] + tt * f.D[0];
-      o[1] = s * f.N[1] + tt * f.D[1];
-      return tn <= 1.0001;
-    },
-    gloss > 0
-      ? (x, y, n, d) => {
-          if (d[n + 3] < 10) return;
-          const s = (x * f.N[0] + y * f.N[1] - f.sMin) / f.S;
-          const tn = (x * f.D[0] + y * f.D[1] - f.tMin) / f.L;
-          if (tn < b) return;
-          let hl = 0;
-          for (const dp of prof.list) hl = Math.max(hl, Math.exp(-(((s - dp.at + dp.wid * 0.35) / (dp.wid * 0.22)) ** 2)));
-          const k = gloss * 0.55 * hl * clamp((tn - b) * 4, 0, 1);
-          d[n] += (255 - d[n]) * k;
-          d[n + 1] += (255 - d[n + 1]) * k;
-          d[n + 2] += (255 - d[n + 2]) * k;
+    }
+    if (!Number.isFinite(t0) || len < sw) continue;
+    // Its colour: just inside the edge.
+    const cx = Math.round(s0 * f.N[0] + (t0 - 2) * f.D[0]);
+    const cy = Math.round(s0 * f.N[1] + (t0 - 2) * f.D[1]);
+    const ci = (clamp(cy, 0, H - 1) * W + clamp(cx, 0, W - 1)) * 4;
+    const col = [data[ci], data[ci + 1], data[ci + 2]];
+    const rb = sw * (0.62 + rnd() * 0.25);
+    const neck = sw / 2;
+    const tEnd = t0 + len;
+    const tBead = tEnd - rb;
+    // The drip's box, in canvas pixels.
+    const pts = [
+      [s0 - sw * 2.5, t0 - sw],
+      [s0 + sw * 2.5, t0 - sw],
+      [s0 - sw * 2.5, tEnd + 2],
+      [s0 + sw * 2.5, tEnd + 2],
+    ].map(([ss, tt]) => [ss * f.N[0] + tt * f.D[0], ss * f.N[1] + tt * f.D[1]]);
+    const xs = pts.map((p) => p[0]);
+    const ys = pts.map((p) => p[1]);
+    for (let y = Math.max(0, Math.floor(Math.min(...ys))); y <= Math.min(H - 1, Math.ceil(Math.max(...ys))); y++)
+      for (let x = Math.max(0, Math.floor(Math.min(...xs))); x <= Math.min(W - 1, Math.ceil(Math.max(...xs))); x++) {
+        const px = x + 0.5;
+        const py = y + 0.5;
+        const t = px * f.D[0] + py * f.D[1];
+        const ds = px * f.N[0] + py * f.N[1] - s0;
+        const tt = t - t0;
+        if (tt < -sw) continue;
+        // Stream: flared where it leaves the edge, thin, then the bead.
+        const r = neck * (0.92 + 0.08 * Math.sin(tt / (sw * 3))) + sw * 1.3 * Math.exp(-Math.max(0, tt) / (sw * 1.1));
+        let cov = 0;
+        let rel = 1;
+        if (t <= tBead) {
+          cov = clamp(r - Math.abs(ds) + 0.5, 0, 1);
+          rel = Math.abs(ds) / r;
         }
-      : undefined,
-  );
+        const db = Math.hypot(ds, t - tBead);
+        const cb = clamp(rb - db + 0.5, 0, 1);
+        if (cb > cov) {
+          cov = cb;
+          rel = db / rb;
+        }
+        if (cov <= 0) continue;
+        const n = (y * W + x) * 4;
+        // A round body: a little darker at the sides, a wet highlight on one side.
+        const body = 0.82 + 0.18 * (1 - rel * rel);
+        const hl = gloss * 0.7 * Math.exp(-((((ds / Math.max(1, t <= tBead ? r : rb)) + 0.4) / 0.18) ** 2)) * (t > t0 + sw ? 1 : 0.3);
+        const spec = gloss * 0.9 * Math.exp(-((Math.hypot(ds + rb * 0.32, t - tBead + rb * 0.3) / (rb * 0.22)) ** 2));
+        const a0 = data[n + 3] / 255;
+        const a = cov + a0 * (1 - cov);
+        for (let k = 0; k < 3; k++) {
+          let v = col[k] * body;
+          v += (255 - v) * Math.min(1, hl + spec);
+          data[n + k] = (v * cov + data[n + k] * a0 * (1 - cov)) / Math.max(1e-3, a);
+        }
+        data[n + 3] = a * 255;
+      }
+  }
 };
 
 const drape: Fx = (img, c) => {
@@ -823,49 +927,81 @@ const outlineFx: Fx = (img, c) => {
       }
 };
 
+/**
+ * Reflection, as on a mirror or on water (owner, 2026-10-19: ripples "like a water
+ * surface"). Ripples move the picture sideways, more the farther from the edge; "Natural
+ * water" breaks them up (several waves, uneven along the surface); light streaks and a
+ * soft smear finish the water look.
+ */
 const reflection: Fx = (img, c) => {
   const { width: W, height: H, data } = img;
   const top = data.slice();
   const pm = premul(top);
   const o = new Float32Array(4);
+  const acc = new Float32Array(4);
   const deg = Math.round(num(c.p.dir, 90));
   const len = num(c.p.length, 50) / 100;
   const a0 = num(c.p.alpha, 40) / 100;
   const gap = num(c.p.gap) * c.k;
-  const rip = (num(c.p.ripple) / 100) * 0.02 * c.w;
-  data.fill(0);
+  const rip = (num(c.p.ripple) / 100) * 0.06 * Math.max(c.w, c.h);
+  const nat = num(c.p.natural, 50) / 100;
+  const size = Math.max(1, (num(c.p.waveSize, 40) / 100) * 0.06 * Math.max(c.w, c.h));
+  const streaks = num(c.p.streaks) / 100;
+  const smear = (num(c.p.blur) / 100) * 0.02 * Math.max(c.w, c.h);
+  const rnd = rng(c.seed * 1013 + 7);
+  const waves = Array.from({ length: 4 }, (_, i) => ({ f: (1 + i * 0.73 + rnd() * 0.5) / size, ph: rnd() * 6.28, a: i === 0 ? 1 : nat * (0.7 - i * 0.12), across: nat * (0.004 + rnd() * 0.01) }));
   const vertical = deg === 90 || deg === 270;
   const span = (vertical ? c.h : c.w) * len;
+  // Position across the surface for the "across" part of the waves.
   for (let y = 0; y < H; y++)
     for (let x = 0; x < W; x++) {
-      let t: number; // distance past the element's edge
+      let t: number;
+      let across: number;
       let sx = x + 0.5;
       let sy = y + 0.5;
       if (deg === 90) {
         t = y + 0.5 - (c.y0 + c.h) - gap;
         sy = c.y0 + c.h - t;
-        sx += rip * Math.sin(t / Math.max(1, 3 * c.k));
+        across = x;
       } else if (deg === 270) {
         t = c.y0 - gap - (y + 0.5);
         sy = c.y0 + t;
-        sx += rip * Math.sin(t / Math.max(1, 3 * c.k));
+        across = x;
       } else if (deg === 0) {
         t = x + 0.5 - (c.x0 + c.w) - gap;
         sx = c.x0 + c.w - t;
-        sy += rip * Math.sin(t / Math.max(1, 3 * c.k));
+        across = y;
       } else {
         t = c.x0 - gap - (x + 0.5);
         sx = c.x0 + t;
-        sy += rip * Math.sin(t / Math.max(1, 3 * c.k));
+        across = y;
       }
       if (t < 0 || t > span) continue;
-      sample(pm, W, H, sx, sy, o);
-      const k = a0 * (1 - t / span);
-      o[0] *= k;
-      o[1] *= k;
-      o[2] *= k;
-      o[3] *= k;
-      put(data, (y * W + x) * 4, o);
+      // Waves: stronger farther out; natural water mixes several and lets them vary along the surface.
+      let wv = 0;
+      for (const w of waves) wv += w.a * Math.sin(t * w.f + w.ph + across * w.across + Math.sin(across * w.across * 0.7 + w.ph) * nat * 2);
+      const disp = rip * (0.25 + 0.75 * (t / span)) * wv;
+      if (vertical) sx += disp;
+      else sy += disp;
+      // Soft smear along the surface.
+      acc[0] = acc[1] = acc[2] = acc[3] = 0;
+      const taps = smear > 0.5 ? 5 : 1;
+      for (let i = 0; i < taps; i++) {
+        const off = taps === 1 ? 0 : (i / (taps - 1) - 0.5) * smear * 2 * (0.4 + t / span);
+        sample(pm, W, H, vertical ? sx + off : sx, vertical ? sy : sy + off, o);
+        acc[0] += o[0];
+        acc[1] += o[1];
+        acc[2] += o[2];
+        acc[3] += o[3];
+      }
+      const k = (a0 * (1 - t / span)) / taps;
+      // Light streaks across the water.
+      const glint = streaks > 0 ? 1 + streaks * 0.5 * Math.max(0, Math.sin(t * waves[0].f * 1.7 + waves[1].ph)) * (0.5 + 0.5 * Math.sin(across * 0.05 + t * 0.02)) : 1;
+      acc[0] = Math.min(acc[3], acc[0] * glint) * k;
+      acc[1] = Math.min(acc[3], acc[1] * glint) * k;
+      acc[2] = Math.min(acc[3], acc[2] * glint) * k;
+      acc[3] *= k;
+      put(data, (y * W + x) * 4, acc);
     }
   over(data, top);
 };
@@ -988,7 +1124,908 @@ const glitter: Fx = (img, c) => {
   }
 };
 
-const FX: Record<string, Fx> = { melt, drape, twirl, bulge, wave, arc, glitch, pixelate, rgbSplit, halftone, duotone, longShadow, offsetShadow, outline: outlineFx, reflection, glitter, echo };
+// ---------------------------------------------------------------- round 2 (editor-v2/14 §8)
+
+/** Blurs all four channels (premultiplied), box passes ≈ gaussian. */
+function blurRGBA(pm: Float32Array, W: number, H: number, r: number, passes = 2) {
+  const ch = new Float32Array(W * H);
+  for (let k = 0; k < 4; k++) {
+    for (let i = 0; i < W * H; i++) ch[i] = pm[i * 4 + k];
+    blurAlpha(ch, W, H, r, passes);
+    for (let i = 0; i < W * H; i++) pm[i * 4 + k] = ch[i];
+  }
+}
+
+function fromPremul(pm: Float32Array, d: Uint8ClampedArray) {
+  for (let i = 0; i < d.length; i += 4) {
+    const a = pm[i + 3];
+    if (a <= 0.01) {
+      d[i + 3] = 0;
+      continue;
+    }
+    d[i] = (pm[i] * 255) / a;
+    d[i + 1] = (pm[i + 1] * 255) / a;
+    d[i + 2] = (pm[i + 2] * 255) / a;
+    d[i + 3] = a;
+  }
+}
+
+const centreOf = (c: FxCtx) => [c.x0 + (num(c.p.cx, 50) / 100) * c.w, c.y0 + (num(c.p.cy, 50) / 100) * c.h];
+
+const flag: Fx = (img, c) => {
+  const n = num(c.p.folds, 3);
+  // Wave height follows the length of the cloth (a long banner waves more).
+  const A = (num(c.p.wind, 50) / 100) * 0.08 * (c.p.edge === "top" ? c.h : c.w) / Math.max(1, n / 2);
+  const shade = num(c.p.shade, 50) / 100;
+  const edge = c.p.edge ?? "left";
+  const wave = (q: number) => Math.sin(2 * Math.PI * n * q - 0.6);
+  warp(
+    img,
+    (x, y, o) => {
+      if (edge === "top") {
+        const q = clamp((y - c.y0) / c.h, 0, 1);
+        o[0] = x - A * q * wave(q);
+        o[1] = y;
+      } else {
+        const q = clamp(edge === "left" ? (x - c.x0) / c.w : (c.x0 + c.w - x) / c.w, 0, 1);
+        o[0] = x;
+        o[1] = y - A * q * wave(q);
+      }
+      return true;
+    },
+    shade > 0
+      ? (x, y, n4, d) => {
+          if (d[n4 + 3] < 5) return;
+          const q = clamp(edge === "top" ? (y - c.y0) / c.h : edge === "left" ? (x - c.x0) / c.w : (c.x0 + c.w - x) / c.w, 0, 1);
+          // Slope of the cloth: light on one side of each fold, shadow on the other.
+          const slope = Math.cos(2 * Math.PI * n * q - 0.6) * q;
+          const k = shade * 0.35 * slope;
+          for (let i = 0; i < 3; i++) d[n4 + i] = k > 0 ? d[n4 + i] + (255 - d[n4 + i]) * k : d[n4 + i] * (1 + k);
+        }
+      : undefined,
+  );
+};
+
+const ripple: Fx = (img, c) => {
+  const [cx, cy] = centreOf(c);
+  const size = Math.max(c.w, c.h);
+  const amp = (num(c.p.amp, 30) / 100) * 0.03 * size;
+  const lam = (num(c.p.spacing, 8) / 100) * size;
+  const decay = (num(c.p.decay, 50) / 100) * 4;
+  const ph = rad(num(c.p.phase));
+  const light = num(c.p.light, 20) / 100;
+  const at = (r: number) => Math.sin((2 * Math.PI * r) / lam - ph) * Math.exp((-r / size) * decay);
+  warp(
+    img,
+    (x, y, o) => {
+      const dx = x - cx;
+      const dy = y - cy;
+      const r = Math.hypot(dx, dy) || 1;
+      const d = amp * at(r);
+      o[0] = x + (dx / r) * d;
+      o[1] = y + (dy / r) * d;
+      return true;
+    },
+    light > 0
+      ? (x, y, n4, d) => {
+          if (d[n4 + 3] < 5) return;
+          const r = Math.hypot(x - cx, y - cy);
+          const k = light * 0.35 * Math.max(0, Math.cos((2 * Math.PI * r) / lam - ph)) * Math.exp((-r / size) * decay);
+          for (let i = 0; i < 3; i++) d[n4 + i] += (255 - d[n4 + i]) * k;
+        }
+      : undefined,
+  );
+};
+
+/** 3 × 3 matrix taking the four points `from` to `to` (projective). */
+function homography(from: number[][], to: number[][]) {
+  const A: number[][] = [];
+  for (let i = 0; i < 4; i++) {
+    const [x, y] = from[i];
+    const [u, v] = to[i];
+    A.push([x, y, 1, 0, 0, 0, -u * x, -u * y, u]);
+    A.push([0, 0, 0, x, y, 1, -v * x, -v * y, v]);
+  }
+  // Gaussian elimination on the 8 × 9 system.
+  for (let col = 0; col < 8; col++) {
+    let piv = col;
+    for (let r = col + 1; r < 8; r++) if (Math.abs(A[r][col]) > Math.abs(A[piv][col])) piv = r;
+    [A[col], A[piv]] = [A[piv], A[col]];
+    const p = A[col][col] || 1e-9;
+    for (let k = col; k < 9; k++) A[col][k] /= p;
+    for (let r = 0; r < 8; r++) {
+      if (r === col) continue;
+      const f = A[r][col];
+      for (let k = col; k < 9; k++) A[r][k] -= f * A[col][k];
+    }
+  }
+  return [A[0][8], A[1][8], A[2][8], A[3][8], A[4][8], A[5][8], A[6][8], A[7][8], 1];
+}
+
+/** Where the element's corners land when tilted (element units, origin at its centre). */
+function tiltQuad(w: number, h: number, tx: number, ty: number, depth: number) {
+  const ax = rad(tx);
+  const ay = rad(ty);
+  const d = Math.max(w, h) * (3.2 - depth * 0.025);
+  return [
+    [-w / 2, -h / 2],
+    [w / 2, -h / 2],
+    [w / 2, h / 2],
+    [-w / 2, h / 2],
+  ].map(([x, y]) => {
+    // Turn about x (tilt back), then about y.
+    const y1 = y * Math.cos(ax);
+    const z1 = y * Math.sin(ax);
+    const x2 = x * Math.cos(ay) + z1 * Math.sin(ay);
+    const z2 = -x * Math.sin(ay) + z1 * Math.cos(ay);
+    const k = d / (d + z2);
+    return [x2 * k, y1 * k];
+  });
+}
+
+const perspective: Fx = (img, c) => {
+  const q = tiltQuad(c.w, c.h, num(c.p.tiltX, 25), num(c.p.tiltY), num(c.p.depth, 50));
+  const cx = c.x0 + c.w / 2;
+  const cy = c.y0 + c.h / 2;
+  const dst = q.map(([x, y]) => [cx + x, cy + y]);
+  const src = [
+    [c.x0, c.y0],
+    [c.x0 + c.w, c.y0],
+    [c.x0 + c.w, c.y0 + c.h],
+    [c.x0, c.y0 + c.h],
+  ];
+  const m = homography(dst, src);
+  warp(img, (x, y, o) => {
+    const z = m[6] * x + m[7] * y + 1;
+    o[0] = (m[0] * x + m[1] * y + m[2]) / z;
+    o[1] = (m[3] * x + m[4] * y + m[5]) / z;
+    return o[0] >= c.x0 - 1 && o[0] <= c.x0 + c.w + 1 && o[1] >= c.y0 - 1 && o[1] <= c.y0 + c.h + 1;
+  });
+};
+
+const fisheye: Fx = (img, c) => {
+  const [cx, cy] = centreOf(c);
+  const R = Math.hypot(c.w, c.h) / 2;
+  const a = num(c.p.amount, 60) / 100;
+  const round = !!c.p.round;
+  const rc = Math.min(c.w, c.h) / 2;
+  warp(img, (x, y, o) => {
+    const dx = x - cx;
+    const dy = y - cy;
+    const r = Math.hypot(dx, dy);
+    if (round && r > rc) return false;
+    const rn = r / R;
+    const k = r > 0 ? (R * Math.pow(rn, 1 + a * 1.4)) / r : 1;
+    o[0] = cx + dx * k;
+    o[1] = cy + dy * k;
+    return true;
+  });
+};
+
+const mirror: Fx = (img, c) => {
+  const mode = String(c.p.mode ?? "lr");
+  const ax = c.x0 + (num(c.p.axis, 50) / 100) * c.w;
+  const ay = c.y0 + (num(c.p.axis, 50) / 100) * c.h;
+  warp(img, (x, y, o) => {
+    o[0] = x;
+    o[1] = y;
+    if ((mode === "lr" || mode === "quad") && x > ax) o[0] = 2 * ax - x;
+    if (mode === "rl" && x < ax) o[0] = 2 * ax - x;
+    if ((mode === "tb" || mode === "quad") && y > ay) o[1] = 2 * ay - y;
+    if (mode === "bt" && y < ay) o[1] = 2 * ay - y;
+    return true;
+  });
+};
+
+const kaleidoscope: Fx = (img, c) => {
+  const [cx, cy] = centreOf(c);
+  const n = Math.round(num(c.p.segments, 6));
+  const seg = (2 * Math.PI) / n;
+  const turn = rad(num(c.p.angle));
+  const zoom = num(c.p.zoom, 100) / 100;
+  const R = Math.min(c.w, c.h) / 2;
+  warp(img, (x, y, o) => {
+    const dx = x - cx;
+    const dy = y - cy;
+    const r = Math.hypot(dx, dy) / zoom;
+    let a = (((Math.atan2(dy, dx) - turn) % seg) + seg) % seg;
+    if (a > seg / 2) a = seg - a;
+    // Keep the slice inside the picture.
+    const rr = r % (R * 2);
+    o[0] = cx + Math.cos(a + turn) * rr;
+    o[1] = cy + Math.sin(a + turn) * rr;
+    return true;
+  });
+};
+
+const stretch: Fx = (img, c) => {
+  const f = frame(c, num(c.p.dir, 0));
+  const cut = num(c.p.cut, 60) / 100;
+  const wob = (num(c.p.wobble) / 100) * 0.02 * f.S;
+  warp(img, (x, y, o) => {
+    const t = x * f.D[0] + y * f.D[1];
+    let s = x * f.N[0] + y * f.N[1];
+    let tn = (t - f.tMin) / f.L;
+    if (tn > cut) {
+      s += wob * Math.sin((tn - cut) * 30) * (tn - cut) * 3;
+      tn = cut;
+    }
+    const tt = f.tMin + tn * f.L;
+    o[0] = s * f.N[0] + tt * f.D[0];
+    o[1] = s * f.N[1] + tt * f.D[1];
+    return true;
+  });
+};
+
+const tear: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const pm = premul(data.slice());
+  const o = new Float32Array(4);
+  const vert = c.p.way !== "h";
+  const rnd = rng(c.seed * 4241 + 9);
+  const at = num(c.p.at, 50) / 100;
+  const gap = (num(c.p.gap, 25) / 100) * 0.12 * (vert ? c.w : c.h);
+  const shift = (num(c.p.shift, 20) / 100) * 0.08 * (vert ? c.h : c.w);
+  const edgeW = (num(c.p.edge, 60) / 100) * 0.018 * Math.max(c.w, c.h);
+  const jag = (num(c.p.jag, 50) / 100) * 0.04 * (vert ? c.w : c.h);
+  // A ragged line: a few slow bends plus fine teeth.
+  const bends = Array.from({ length: 4 }, () => ({ f: 1 + rnd() * 4, p: rnd() * 6.28, a: rnd() }));
+  const teeth = Array.from({ length: 3 }, () => ({ f: 20 + rnd() * 50, p: rnd() * 6.28, a: rnd() }));
+  const cutAt = (q: number) => {
+    let v = 0;
+    for (const b of bends) v += b.a * Math.sin(q * b.f * 6.28 + b.p) * 0.6;
+    for (const t of teeth) v += t.a * Math.sin(q * t.f * 6.28 + t.p) * 0.25;
+    return v * jag;
+  };
+  const line = vert ? c.x0 + at * c.w : c.y0 + at * c.h;
+  const fiber = (q: number, d: number) => 0.5 + 0.5 * Math.sin(q * 400 + d * 0.7);
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const n4 = (y * W + x) * 4;
+      data[n4 + 3] = 0;
+      for (const side of [-1, 1]) {
+        // Undo this piece's move: half the gap apart, half the shift along the tear.
+        const sx = vert ? x + 0.5 - (side * gap) / 2 : x + 0.5 + (side * shift) / 2;
+        const sy = vert ? y + 0.5 + (side * shift) / 2 : y + 0.5 - (side * gap) / 2;
+        const q = vert ? (sy - c.y0) / c.h : (sx - c.x0) / c.w;
+        const cut = line + cutAt(q);
+        const across = vert ? sx - cut : sy - cut;
+        if (side * across < 0) continue;
+        sample(pm, W, H, sx, sy, o);
+        if (o[3] < 1) continue;
+        put(data, n4, o);
+        // Paper fibres along the torn edge.
+        const dEdge = Math.abs(across);
+        if (dEdge < edgeW * (0.6 + 0.6 * fiber(q, dEdge))) {
+          const k = clamp(1 - dEdge / (edgeW * 1.2), 0, 1);
+          for (let i = 0; i < 3; i++) data[n4 + i] += (250 - data[n4 + i]) * (0.55 + 0.45 * k);
+        }
+        break;
+      }
+    }
+};
+
+const fold: Fx = (img, c) => {
+  const d = img.data;
+  const W = img.width;
+  const cols = Math.round(num(c.p.cols, 2));
+  const rows = Math.round(num(c.p.rows, 1));
+  const depth = num(c.p.depth, 40) / 100;
+  const light = rad(num(c.p.dir, 225));
+  const lx = Math.cos(light);
+  const ly = Math.sin(light);
+  const wr = num(c.p.wrinkles) / 100;
+  const rnd = rng(c.seed * 1931 + 3);
+  const wrinkles = Array.from({ length: 6 }, () => ({ a: rnd() * Math.PI, f: 8 + rnd() * 20, p: rnd() * 6.28 }));
+  for (let y = 0; y < img.height; y++)
+    for (let x = 0; x < W; x++) {
+      const n = (y * W + x) * 4;
+      if (d[n + 3] < 5) continue;
+      const u = (x - c.x0) / c.w;
+      const v = (y - c.y0) / c.h;
+      // Each panel leans one way or the other: a slope in x (columns) and in y (rows).
+      const pu = (u * (cols + 1)) % 1;
+      const pv = (v * (rows + 1)) % 1;
+      const iu = Math.floor(u * (cols + 1));
+      const iv = Math.floor(v * (rows + 1));
+      const sx = cols ? (iu % 2 ? -1 : 1) : 0;
+      const sy = rows ? (iv % 2 ? -1 : 1) : 0;
+      let k = depth * 0.22 * (sx * lx + sy * ly);
+      // Sharp crease lines.
+      const creaseU = cols ? Math.min(pu, 1 - pu) * (cols + 1) * c.w : 1e9;
+      const creaseV = rows ? Math.min(pv, 1 - pv) * (rows + 1) * c.h : 1e9;
+      const cr = Math.min(creaseU, creaseV);
+      if (cr < 3 * c.k) k -= depth * 0.25 * (1 - cr / (3 * c.k));
+      if (wr > 0) for (const w of wrinkles) k += wr * 0.05 * Math.sin((u * Math.cos(w.a) + v * Math.sin(w.a)) * w.f + w.p);
+      for (let i = 0; i < 3; i++) d[n + i] = k > 0 ? d[n + i] + (255 - d[n + i]) * k : d[n + i] * (1 + k);
+    }
+};
+
+const crt: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const vhs = c.p.mode !== "crt";
+  const rnd = rng(c.seed * 7717 + 1);
+  const curve = (num(c.p.curve, 20) / 100) * 0.12;
+  const bleed = (num(c.p.bleed, 40) / 100) * 0.012 * c.w;
+  const noise = num(c.p.noise, 30) / 100;
+  const scan = num(c.p.scan, 40) / 100;
+  const band = num(c.p.band, 20) / 100;
+  const bandY = c.y0 + rnd() * c.h;
+  const bandH = c.h * 0.06;
+  const pm = premul(data.slice());
+  const o = new Float32Array(4);
+  const cx = c.x0 + c.w / 2;
+  const cy = c.y0 + c.h / 2;
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      let sx = x + 0.5;
+      let sy = y + 0.5;
+      if (curve > 0) {
+        const nx = (sx - cx) / (c.w / 2);
+        const ny = (sy - cy) / (c.h / 2);
+        const r2 = nx * nx + ny * ny;
+        sx = cx + nx * (1 + curve * r2) * (c.w / 2);
+        sy = cy + ny * (1 + curve * r2) * (c.h / 2);
+      }
+      const inBand = band > 0 && Math.abs(sy - bandY) < bandH;
+      if (inBand) sx += (rnd() - 0.3) * band * 0.04 * c.w;
+      // Colour bleeds sideways: red to one side, blue to the other.
+      sample(pm, W, H, sx - bleed, sy, o);
+      const ra = o[3];
+      const r = ra ? (o[0] / ra) * 255 : 0;
+      sample(pm, W, H, sx, sy, o);
+      const ga = o[3];
+      const g = ga ? (o[1] / ga) * 255 : 0;
+      const b0 = ga ? (o[2] / ga) * 255 : 0;
+      sample(pm, W, H, sx + bleed, sy, o);
+      const ba = o[3];
+      const b = ba ? (o[2] / ba) * 255 : b0;
+      const n4 = (y * W + x) * 4;
+      let a = Math.max(ra, ga, ba);
+      if (curve > 0 && (sx < c.x0 || sx > c.x0 + c.w || sy < c.y0 || sy > c.y0 + c.h)) a = 0;
+      let rr = r;
+      let gg = g;
+      let bb = b;
+      if (vhs) {
+        // Tape: a little washed out and warm.
+        const l = 0.3 * rr + 0.59 * gg + 0.11 * bb;
+        rr = l + (rr - l) * 0.8 + 8;
+        gg = l + (gg - l) * 0.8;
+        bb = l + (bb - l) * 0.8 - 6;
+      }
+      const lineDark = scan > 0 && Math.floor(y / Math.max(2, Math.round(c.k * 2))) % 2 ? 1 - scan * 0.4 : 1;
+      const nz = noise > 0 ? (rnd() - 0.5) * noise * 70 : 0;
+      const bz = inBand ? (rnd() - 0.5) * 120 * band : 0;
+      data[n4] = (rr + nz + bz) * lineDark;
+      data[n4 + 1] = (gg + nz + bz) * lineDark;
+      data[n4 + 2] = (bb + nz + bz) * lineDark;
+      data[n4 + 3] = a;
+    }
+  const osd = c.p.osd;
+  if (osd === "play" || osd === "rec") {
+    // Text on the screen, drawn with a canvas and laid on.
+    const cv = document.createElement("canvas");
+    cv.width = W;
+    cv.height = H;
+    const g2 = cv.getContext("2d");
+    if (!g2) return;
+    g2.putImageData(img, 0, 0);
+    const size = Math.max(10, c.h * 0.07);
+    g2.font = `700 ${size}px ui-monospace, Menlo, monospace`;
+    g2.textBaseline = "top";
+    g2.shadowColor = "rgba(0,0,0,0.6)";
+    g2.shadowBlur = size * 0.2;
+    if (osd === "play") {
+      g2.fillStyle = "#ffffff";
+      g2.fillText("PLAY ▶", c.x0 + c.w * 0.05, c.y0 + c.h * 0.05);
+    } else {
+      g2.fillStyle = "#ff3b30";
+      g2.beginPath();
+      g2.arc(c.x0 + c.w * 0.05 + size * 0.4, c.y0 + c.h * 0.05 + size * 0.5, size * 0.35, 0, Math.PI * 2);
+      g2.fill();
+      g2.fillStyle = "#ffffff";
+      g2.fillText("REC", c.x0 + c.w * 0.05 + size, c.y0 + c.h * 0.05);
+    }
+    const now = new Date();
+    g2.fillStyle = "#ffffff";
+    g2.fillText(`${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}   ${now.toLocaleDateString("en-US", { month: "short" }).toUpperCase()} ${now.getDate()} ${now.getFullYear()}`, c.x0 + c.w * 0.05, c.y0 + c.h * 0.88);
+    img.data.set(g2.getImageData(0, 0, W, H).data);
+  }
+};
+
+const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+
+const dither: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const s = Math.max(1, Math.round(num(c.p.size, 2) * c.k));
+  const ct = 1 + num(c.p.contrast) / 50;
+  const pal: number[][] =
+    c.p.palette === "gb"
+      ? [
+          [15, 56, 15],
+          [48, 98, 48],
+          [139, 172, 15],
+          [155, 188, 15],
+        ]
+      : c.p.palette === "two"
+        ? [hex(c.p.dark), hex(c.p.light)]
+        : [
+            [0, 0, 0],
+            [255, 255, 255],
+          ];
+  const gw = Math.ceil(W / s);
+  const gh = Math.ceil(H / s);
+  const lum = new Float32Array(gw * gh);
+  const al = new Float32Array(gw * gh);
+  for (let gy = 0; gy < gh; gy++)
+    for (let gx = 0; gx < gw; gx++) {
+      const n = (Math.min(H - 1, gy * s + (s >> 1)) * W + Math.min(W - 1, gx * s + (s >> 1))) * 4;
+      lum[gy * gw + gx] = clamp(((0.299 * data[n] + 0.587 * data[n + 1] + 0.114 * data[n + 2]) / 255 - 0.5) * ct + 0.5, 0, 1);
+      al[gy * gw + gx] = data[n + 3];
+    }
+  const levels = pal.length - 1;
+  const out = new Uint8Array(gw * gh);
+  if (c.p.kind === "bayer") {
+    for (let i = 0; i < gw * gh; i++) {
+      const gx = i % gw;
+      const gy = Math.floor(i / gw);
+      const th = (BAYER[(gy % 4) * 4 + (gx % 4)] + 0.5) / 16;
+      out[i] = clamp(Math.floor(lum[i] * levels + th), 0, levels);
+    }
+  } else {
+    for (let gy = 0; gy < gh; gy++)
+      for (let gx = 0; gx < gw; gx++) {
+        const i = gy * gw + gx;
+        const q = clamp(Math.round(lum[i] * levels), 0, levels);
+        out[i] = q;
+        const err = lum[i] - q / levels;
+        if (gx + 1 < gw) lum[i + 1] += (err * 7) / 16;
+        if (gy + 1 < gh) {
+          if (gx > 0) lum[i + gw - 1] += (err * 3) / 16;
+          lum[i + gw] += (err * 5) / 16;
+          if (gx + 1 < gw) lum[i + gw + 1] += err / 16;
+        }
+      }
+  }
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const i = Math.floor(y / s) * gw + Math.floor(x / s);
+      const n = (y * W + x) * 4;
+      const col = pal[out[i]];
+      data[n] = col[0];
+      data[n + 1] = col[1];
+      data[n + 2] = col[2];
+      data[n + 3] = al[i] > 127 ? 255 : 0;
+    }
+};
+
+const RISO: Record<string, string[]> = {
+  pinkBlue: ["#ff48b0", "#0078bf"],
+  pinkYellow: ["#ff48b0", "#ffe800"],
+  blueOrange: ["#0078bf", "#ff6c2f"],
+  greenRed: ["#00a95c", "#ff4c65"],
+  pink: ["#ff48b0"],
+};
+
+const riso: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const src = data.slice();
+  const inks = (RISO[String(c.p.inks)] ?? RISO.pinkBlue).map(hex);
+  const off = Math.round(num(c.p.offset, 4) * c.k);
+  const grain = num(c.p.grain, 40) / 100;
+  const screen = num(c.p.screen, 30) / 100;
+  const rnd = rng(c.seed * 3011 + 17);
+  const cell = Math.max(3, 4 * c.k);
+  const amount = (x: number, y: number, ink: number) => {
+    const xi = clamp(Math.round(x), 0, W - 1);
+    const yi = clamp(Math.round(y), 0, H - 1);
+    const n = (yi * W + xi) * 4;
+    if (src[n + 3] < 10) return 0;
+    const r = src[n] / 255;
+    const g = src[n + 1] / 255;
+    const b = src[n + 2] / 255;
+    const l = 0.3 * r + 0.59 * g + 0.11 * b;
+    // First ink: the darks; second: the warm / saturated parts.
+    return inks.length === 1 || ink === 0 ? 1 - l : clamp((r - b) * 0.8 + (1 - l) * 0.45, 0, 1);
+  };
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const n = (y * W + x) * 4;
+      const a = src[n + 3];
+      if (a < 10) {
+        data[n + 3] = 0;
+        continue;
+      }
+      let rr = 255;
+      let gg = 255;
+      let bb = 255;
+      inks.forEach((ink, i) => {
+        const dx = i === 0 ? 0 : off;
+        const dy = i === 0 ? 0 : -off * 0.6;
+        let cov = amount(x - dx, y - dy, i);
+        if (screen > 0) {
+          // Halftone dot of this ink.
+          const u = ((x + i * cell * 0.5) % cell) / cell - 0.5;
+          const v = ((y + i * cell * 0.3) % cell) / cell - 0.5;
+          const dot = Math.hypot(u, v) < Math.sqrt(cov) * 0.55 ? 1 : 0;
+          cov = cov * (1 - screen) + dot * screen;
+        }
+        if (grain > 0) cov *= 1 - grain * 0.6 * rnd();
+        rr *= 1 - cov * (1 - ink[0] / 255);
+        gg *= 1 - cov * (1 - ink[1] / 255);
+        bb *= 1 - cov * (1 - ink[2] / 255);
+      });
+      data[n] = rr;
+      data[n + 1] = gg;
+      data[n + 2] = bb;
+      data[n + 3] = a;
+    }
+};
+
+const emboss: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const h = new Float32Array(W * H);
+  for (let i = 0; i < W * H; i++) {
+    const n = i * 4;
+    const a = data[n + 3] / 255;
+    const l = (0.299 * data[n] + 0.587 * data[n + 1] + 0.114 * data[n + 2]) / 255;
+    h[i] = a * (0.7 + 0.3 * l);
+  }
+  blurAlpha(h, W, H, Math.max(1, (num(c.p.soft, 30) / 100) * 4 * c.k + 1), 2);
+  const depth = (num(c.p.depth, 40) / 100) * 6 * (c.p.kind === "press" ? -1 : 1);
+  const L = rad(num(c.p.dir, 225));
+  const lx = Math.cos(L);
+  const ly = Math.sin(L);
+  const mat = c.p.material;
+  const base: Record<string, number[]> = { paper: [244, 241, 234], gold: [212, 168, 70], silver: [192, 196, 204] };
+  for (let y = 1; y < H - 1; y++)
+    for (let x = 1; x < W - 1; x++) {
+      const i = y * W + x;
+      const n = i * 4;
+      if (data[n + 3] < 3) continue;
+      const gx = (h[i + 1] - h[i - 1]) * depth;
+      const gy = (h[i + W] - h[i - W]) * depth;
+      // Surface facing the light is brighter.
+      const shade = clamp(0.5 - (gx * lx + gy * ly) * 2.2, 0, 1);
+      const col = mat && mat !== "keep" ? base[String(mat)] : [data[n], data[n + 1], data[n + 2]];
+      const metal = mat === "gold" || mat === "silver" ? 1.25 : 1;
+      for (let k = 0; k < 3; k++) data[n + k] = clamp(col[k] * (0.55 + shade * 0.9 * metal), 0, 255);
+    }
+};
+
+const glow: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const top = data.slice();
+  const col = hex(c.p.color);
+  const R = num(c.p.radius, 20) * c.k;
+  const inten = num(c.p.intensity, 100) / 100;
+  const core = num(c.p.core, 40) / 100;
+  const tube = !!c.p.outline;
+  const flick = num(c.p.flicker) / 100;
+  const rnd = rng(c.seed * 9091 + 4);
+  const A = new Float32Array(W * H);
+  for (let i = 0; i < W * H; i++) A[i] = top[i * 4 + 3] / 255;
+  // Broken tube: a few dark gaps along the shape.
+  const gaps = flick > 0 ? Array.from({ length: Math.round(1 + flick * 4) }, () => ({ x: c.x0 + rnd() * c.w, wd: c.w * (0.02 + rnd() * 0.05) })) : [];
+  const off = (x: number) => gaps.some((g) => Math.abs(x - g.x) < g.wd / 2);
+  // The tube: only the rim of the shape.
+  let shape = A;
+  if (tube) {
+    const t = Math.max(1, Math.round(2.5 * c.k));
+    shape = new Float32Array(W * H);
+    for (let y = 0; y < H; y++)
+      for (let x = 0; x < W; x++) {
+        const i = y * W + x;
+        if (A[i] < 0.3) continue;
+        const inner = Math.min(A[y * W + Math.min(W - 1, x + t)], A[y * W + Math.max(0, x - t)], A[Math.min(H - 1, y + t) * W + x], A[Math.max(0, y - t) * W + x]);
+        shape[i] = Math.max(0, A[i] - inner);
+      }
+  }
+  if (gaps.length) for (let i = 0; i < W * H; i++) if (off(i % W)) shape[i] *= 0.15;
+  const near = Float32Array.from(shape);
+  const far = Float32Array.from(shape);
+  blurAlpha(near, W, H, R * 0.3, 2);
+  blurAlpha(far, W, H, R, 3);
+  for (let i = 0; i < W * H; i++) {
+    const n = i * 4;
+    const g = clamp((near[i] * 1.4 + far[i] * 1.1) * inten, 0, 1);
+    data[n] = col[0];
+    data[n + 1] = col[1];
+    data[n + 2] = col[2];
+    data[n + 3] = g * 255;
+  }
+  // The shape itself: lit, its centre close to white.
+  const lit = new Uint8ClampedArray(data.length);
+  for (let i = 0; i < W * H; i++) {
+    const n = i * 4;
+    const a = tube ? shape[i] : A[i] * (off(i % W) ? 0.35 : 1);
+    if (a <= 0) continue;
+    if (tube) {
+      // The tube: the glow colour, white-hot in the middle.
+      const mixC = 0.35 + core * 0.65;
+      for (let k = 0; k < 3; k++) lit[n + k] = col[k] * (1 - mixC) + 255 * mixC;
+    } else {
+      // The element keeps its colours, a little lit up by the white core.
+      const mixC = core * 0.3;
+      for (let k = 0; k < 3; k++) lit[n + k] = top[n + k] * (1 - mixC) + 255 * mixC;
+    }
+    lit[n + 3] = a * 255;
+  }
+  over(data, lit);
+};
+
+const extrude: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const top = data.slice();
+  const ang = rad(num(c.p.dir, 45));
+  const L = num(c.p.depth, 30) * c.k;
+  const side = hex(c.p.side);
+  const INF = 1e9;
+  const dist = new Float32Array(W * H);
+  for (let i = 0; i < W * H; i++) dist[i] = top[i * 4 + 3] > 100 ? 0 : INF;
+  const dx = Math.cos(ang);
+  const dy = Math.sin(ang);
+  for (let step = 1; step <= L; step *= 2) {
+    const sx = Math.round(dx * step);
+    const sy = Math.round(dy * step);
+    const prev = dist.slice();
+    for (let y = 0; y < H; y++) {
+      const yy = y - sy;
+      if (yy < 0 || yy >= H) continue;
+      for (let x = 0; x < W; x++) {
+        const xx = x - sx;
+        if (xx < 0 || xx >= W) continue;
+        const v = prev[yy * W + xx] + step;
+        if (v < dist[y * W + x]) dist[y * W + x] = v;
+      }
+    }
+  }
+  data.fill(0);
+  if (c.p.shadow !== false) {
+    const sh = new Float32Array(W * H);
+    const ox = Math.round(dx * L * 1.3);
+    const oy = Math.round(dy * L * 1.3);
+    for (let y = 0; y < H; y++)
+      for (let x = 0; x < W; x++) {
+        const xx = x - ox;
+        const yy = y - oy;
+        if (xx >= 0 && yy >= 0 && xx < W && yy < H) sh[y * W + x] = dist[yy * W + xx] <= L ? 1 : 0;
+      }
+    blurAlpha(sh, W, H, L * 0.4 + 2, 2);
+    for (let i = 0; i < W * H; i++) data[i * 4 + 3] = sh[i] * 90;
+  }
+  const body = new Uint8ClampedArray(data.length);
+  for (let i = 0; i < W * H; i++) {
+    const d = dist[i];
+    if (d === 0 || d > L) continue;
+    const n = i * 4;
+    const k = 0.95 - 0.45 * (d / L);
+    body[n] = side[0] * k;
+    body[n + 1] = side[1] * k;
+    body[n + 2] = side[2] * k;
+    body[n + 3] = 255;
+  }
+  over(data, body);
+  // Bevel: a bright rim on the edge facing away from the depth.
+  const bev = num(c.p.bevel, 2) * c.k;
+  if (bev > 0.5) {
+    const b = Math.round(bev);
+    for (let y = 0; y < H; y++)
+      for (let x = 0; x < W; x++) {
+        const n = (y * W + x) * 4;
+        if (top[n + 3] < 100) continue;
+        const xx = Math.round(x + dx * b);
+        const yy = Math.round(y + dy * b);
+        const outside = xx < 0 || yy < 0 || xx >= W || yy >= H || top[(yy * W + xx) * 4 + 3] < 100;
+        const xb = Math.round(x - dx * b);
+        const yb = Math.round(y - dy * b);
+        const rim = xb < 0 || yb < 0 || xb >= W || yb >= H || top[(yb * W + xb) * 4 + 3] < 100;
+        if (rim) for (let k = 0; k < 3; k++) top[n + k] += (255 - top[n + k]) * 0.35;
+        else if (outside) for (let k = 0; k < 3; k++) top[n + k] *= 0.8;
+      }
+  }
+  over(data, top);
+};
+
+const rays: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  let [cx, cy] = centreOf(c);
+  const len = num(c.p.length, 60) / 100;
+  const inten = num(c.p.intensity, 50) / 100;
+  const th = num(c.p.threshold, 60) / 100;
+  const tone = c.p.tone;
+  // Work at a quarter size: rays are soft anyway.
+  const s = 4;
+  const w = Math.ceil(W / s);
+  const h = Math.ceil(H / s);
+  const mask = new Float32Array(w * h * 3);
+  // A see-through element (text, sticker) shines by its shape; a photo by its bright parts.
+  let sumA = 0;
+  for (let i = 3; i < data.length; i += 16) sumA += data[i];
+  const byShape = sumA / (data.length / 16) < 200;
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      // The strongest pixel of the cell (thin letters must not slip through).
+      let n = (Math.min(H - 1, y * s) * W + Math.min(W - 1, x * s)) * 4;
+      for (let yy = y * s; yy < Math.min(H, y * s + s); yy++)
+        for (let xx = x * s; xx < Math.min(W, x * s + s); xx++) {
+          const m2 = (yy * W + xx) * 4;
+          if (data[m2 + 3] > data[n + 3]) n = m2;
+        }
+      const a = data[n + 3] / 255;
+      const l = (0.299 * data[n] + 0.587 * data[n + 1] + 0.114 * data[n + 2]) / 255;
+      const m = byShape ? a * (1 - th * 0.5) : a * clamp((l - th * 0.8) / 0.25, 0, 1);
+      const i = (y * w + x) * 3;
+      const col = tone === "white" ? [255, 255, 255] : tone === "warm" || (byShape && data[n] + data[n + 1] + data[n + 2] < 150) ? [255, 214, 140] : [data[n], data[n + 1], data[n + 2]];
+      mask[i] = col[0] * m;
+      mask[i + 1] = col[1] * m;
+      mask[i + 2] = col[2] * m;
+    }
+  // Default centre: the middle of what is drawn (a text's letters may sit to one side of its box).
+  if (num(c.p.cx, 50) === 50 && num(c.p.cy, 50) === 50) {
+    let sx = 0,
+      sy = 0,
+      sw = 0;
+    for (let y = 0; y < h; y++)
+      for (let x = 0; x < w; x++) {
+        const n = (Math.min(H - 1, y * s) * W + Math.min(W - 1, x * s)) * 4;
+        const a = data[n + 3];
+        sx += x * a;
+        sy += y * a;
+        sw += a;
+      }
+    if (sw > 0) {
+      cx = (sx / sw) * s;
+      cy = (sy / sw) * s;
+    }
+  }
+  const out = new Float32Array(w * h * 3);
+  const N = 36;
+  const decay = 0.9 + len * 0.08;
+  const ccx = cx / s;
+  const ccy = cy / s;
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      let wgt = 1;
+      let r = 0,
+        g = 0,
+        b = 0;
+      const stepX = ((x - ccx) / N) * (0.3 + len * 0.7);
+      const stepY = ((y - ccy) / N) * (0.3 + len * 0.7);
+      let px = x;
+      let py = y;
+      for (let i = 0; i < N; i++) {
+        px -= stepX;
+        py -= stepY;
+        const xi = Math.round(px);
+        const yi = Math.round(py);
+        if (xi < 0 || yi < 0 || xi >= w || yi >= h) break;
+        const k = (yi * w + xi) * 3;
+        r += mask[k] * wgt;
+        g += mask[k + 1] * wgt;
+        b += mask[k + 2] * wgt;
+        wgt *= decay;
+      }
+      const k = (y * w + x) * 3;
+      out[k] = r / N;
+      out[k + 1] = g / N;
+      out[k + 2] = b / N;
+    }
+  const top = data.slice();
+  // Separate rays: brightness varies with the angle round the source.
+  const streak = (a: number) => 0.45 + 0.55 * clamp(0.5 + 0.28 * Math.sin(a * 11 + 0.7) + 0.18 * Math.sin(a * 23 + 2.1) + 0.12 * Math.sin(a * 41 + 4.3), 0, 1);
+  // Fade out well before the edge of the room around the element.
+  const room = Math.max(1, Math.min(c.x0, c.y0, W - c.x0 - c.w, H - c.y0 - c.h));
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const k = (Math.min(h - 1, Math.floor(y / s)) * w + Math.min(w - 1, Math.floor(x / s))) * 3;
+      const n = (y * W + x) * 4;
+      const outside = Math.max(c.x0 - x, x - c.x0 - c.w, c.y0 - y, y - c.y0 - c.h, 0);
+      const fade = clamp(1 - outside / (room * 0.95), 0, 1) ** 1.5 * streak(Math.atan2(y - cy, x - cx));
+      const r = out[k] * inten * 4 * fade;
+      const g = out[k + 1] * inten * 4 * fade;
+      const b = out[k + 2] * inten * 4 * fade;
+      const a = clamp(Math.max(r, g, b) / 255, 0, 1);
+      data[n] = a > 0 ? r / a : 0;
+      data[n + 1] = a > 0 ? g / a : 0;
+      data[n + 2] = a > 0 ? b / a : 0;
+      data[n + 3] = a * 255;
+    }
+  over(data, top);
+  // Rays also brighten the element itself (screen).
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const n = (y * W + x) * 4;
+      if (top[n + 3] < 10) continue;
+      const k = (Math.min(h - 1, Math.floor(y / s)) * w + Math.min(w - 1, Math.floor(x / s))) * 3;
+      for (let i = 0; i < 3; i++) data[n + i] = 255 - ((255 - data[n + i]) * (255 - clamp(out[k + i] * inten, 0, 255))) / 255;
+    }
+};
+
+const motionBlur: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const pm = premul(data);
+  const o = new Float32Array(4);
+  const acc = new Float32Array(4);
+  const ang = rad(num(c.p.dir, 0));
+  const L = (num(c.p.length, 40) / 100) * 0.3 * Math.max(c.w, c.h);
+  const keep = num(c.p.keep, 50) / 100;
+  const N = Math.min(40, Math.max(4, Math.round(L / Math.max(1, c.k))));
+  const dx = Math.cos(ang);
+  const dy = Math.sin(ang);
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      acc[0] = acc[1] = acc[2] = acc[3] = 0;
+      // Trail behind the movement: samples from the past positions.
+      for (let i = 0; i < N; i++) {
+        const t = (i / (N - 1)) * L;
+        sample(pm, W, H, x + 0.5 + dx * t, y + 0.5 + dy * t, o);
+        const wgt = 1 - (i / N) * 0.6;
+        acc[0] += o[0] * wgt;
+        acc[1] += o[1] * wgt;
+        acc[2] += o[2] * wgt;
+        acc[3] += o[3] * wgt;
+      }
+      const norm = N * 0.7;
+      sample(pm, W, H, x + 0.5, y + 0.5, o);
+      for (let k = 0; k < 4; k++) acc[k] = (acc[k] / norm) * (1 - keep) + Math.max(o[k], (acc[k] / norm) * 0.3) * keep;
+      put(data, (y * W + x) * 4, acc);
+    }
+};
+
+const zoomBlur: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const pm = premul(data);
+  const o = new Float32Array(4);
+  const acc = new Float32Array(4);
+  const [cx, cy] = centreOf(c);
+  const amt = (num(c.p.amount, 40) / 100) * 0.35;
+  const sharp = (num(c.p.sharp, 30) / 100) * Math.min(c.w, c.h) * 0.5;
+  const N = 24;
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const r = Math.hypot(x - cx, y - cy);
+      const k = clamp((r - sharp) / Math.max(1, sharp), 0, 1) * amt;
+      acc[0] = acc[1] = acc[2] = acc[3] = 0;
+      for (let i = 0; i < N; i++) {
+        const s = 1 - (k * i) / N;
+        sample(pm, W, H, cx + (x + 0.5 - cx) * s, cy + (y + 0.5 - cy) * s, o);
+        acc[0] += o[0];
+        acc[1] += o[1];
+        acc[2] += o[2];
+        acc[3] += o[3];
+      }
+      for (let j = 0; j < 4; j++) acc[j] /= N;
+      put(data, (y * W + x) * 4, acc);
+    }
+};
+
+const tiltShift: Fx = (img, c) => {
+  const { width: W, height: H, data } = img;
+  const sharp = premul(data);
+  const blur = Float32Array.from(sharp);
+  blurRGBA(blur, W, H, (num(c.p.blur, 60) / 100) * 0.02 * Math.max(c.w, c.h) + 1, 2);
+  const at = c.y0 + (num(c.p.at, 50) / 100) * c.h;
+  const half = (num(c.p.width, 20) / 100) * c.h * 0.5;
+  const circle = c.p.kind === "circle";
+  const cx = c.x0 + c.w / 2;
+  const boost = num(c.p.boost, 30) / 100;
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const d = circle ? Math.hypot(x - cx, y - at) : Math.abs(y - at);
+      const k = clamp((d - half) / Math.max(1, half * 1.5), 0, 1);
+      const n = (y * W + x) * 4;
+      for (let j = 0; j < 4; j++) sharp[n + j] = sharp[n + j] * (1 - k) + blur[n + j] * k;
+    }
+  fromPremul(sharp, data);
+  if (boost > 0)
+    for (let i = 0; i < data.length; i += 4) {
+      const l = 0.3 * data[i] + 0.59 * data[i + 1] + 0.11 * data[i + 2];
+      for (let j = 0; j < 3; j++) data[i + j] = clamp(l + (data[i + j] - l) * (1 + boost * 0.6), 0, 255);
+    }
+};
+
+const FX: Record<string, Fx> = { flag, ripple, perspective, fisheye, mirror, kaleidoscope, stretch, tear, fold, crt, dither, riso, emboss, glow, extrude, rays, motionBlur, zoomBlur, tiltShift, melt, drape, twirl, bulge, wave, arc, glitch, pixelate, rgbSplit, halftone, duotone, longShadow, offsetShadow, outline: outlineFx, reflection, glitter, echo };
 
 /** Runs the element's effect on its picture (in place). */
 export function runEffect(img: ImageData, e: ElementEffect, box: { x0: number; y0: number; w: number; h: number; k: number }) {

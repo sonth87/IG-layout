@@ -1,6 +1,6 @@
 # 14 — Hiệu ứng (Effects)
 
-Trạng thái: **đang làm** — khung chức năng + đợt 1 (17 hiệu ứng) đã xong (D-123, 2026-10-19). Thuộc M21. Nghiên cứu kỹ thuật gốc ở [discussions/2026-10-18-m21-nghien-cuu.md](../../discussions/2026-10-18-m21-nghien-cuu.md) §2.
+Trạng thái: **đang làm** — khung + đợt 1 (17) + đợt 2 (19) đã xong (D-123, D-124, 2026-10-19); còn đợt 3. Thuộc M21. Nghiên cứu kỹ thuật gốc ở [discussions/2026-10-18-m21-nghien-cuu.md](../../discussions/2026-10-18-m21-nghien-cuu.md) §2.
 
 > "cho thêm 1 mục, nhưng mà phải định nghĩa và có thêm nhiều effect và đưa ra rõ ràng nó là như thế nào, cấu hình ra sao, hiệu ứng thế nào, kết quả đạt được. ví dụ như hiệu ứng chảy có thể set để nó chảy theo hướng nào, mức độ chảy ra sao…"
 
@@ -820,3 +820,48 @@ Nhiều hiệu ứng dùng chung các kiểu thông số sau. Ở mục 6 chỉ 
 - Tâm (Xoáy, Phình) hiện chỉnh bằng thanh trượt **Tâm ngang / dọc** trong "Thêm". Kéo điểm trên canvas: làm sau.
 - Danh sách lớp ghi thêm "· tên hiệu ứng".
 - Chưa làm: các hiệu ứng đợt 2, đợt 3 (mục 8).
+
+
+## 11. Góp ý sau đợt 1 và đợt 2 (D-124, 2026-10-19)
+
+### Chảy (chủ dự án: "trông như núm vú con bò sữa")
+
+Trước đây giọt là các "lưỡi" kéo dài, rộng gốc, đầu tròn. Giờ vẽ như sơn / kem chảy thật:
+
+- phần sau "Bắt đầu từ" chỉ **võng nhẹ và gợn không đều**;
+- từ điểm thấp nhất của mép, mỗi giọt là một **dòng mảnh**, chân loe nối vào thân, cuối là **hạt giọt tròn mọng** to hơn dòng;
+- giọt lấy màu tại chỗ nhỏ ra; thân hơi tối ở hai bên, có **vệt sáng ướt** và đốm bóng trên hạt (theo "Bóng loáng");
+- độ dài và độ rộng mỗi giọt khác nhau; Xáo đổi vị trí.
+
+### Phản chiếu (mặt nước tự nhiên)
+
+| Thông số | Khoảng | Mặc định | Tác dụng |
+| --- | --- | --- | --- |
+| Gợn nước | 0–100 | 0 | độ lệch ngang của gợn, xa mép thì mạnh hơn |
+| **Sóng tự nhiên** (mới) | 0–100 | 50 | 0 là gợn đều; cao là trộn nhiều sóng, gợn khác nhau dọc mặt nước, đứt quãng như mặt hồ |
+| **Cỡ sóng** (mới) | 0–100 | 40 | sóng dày hay thưa |
+| **Vệt sáng nước** (mới) | 0–100 | 0 | các dải sáng nằm ngang trên mặt nước |
+| **Nhòe nước** (mới) | 0–100 | 0 | nhòe dọc mặt nước, xa mép nhòe hơn |
+
+Có nút Xáo.
+
+### Đợt 2: 19 hiệu ứng
+
+| Nhóm | Hiệu ứng |
+| --- | --- |
+| Biến dạng | Cờ bay (mép buộc trái / phải / trên, gió, số nếp, bóng vải), Gợn nước (tâm, biên độ, khoảng vòng, tắt dần, ánh nước), Phối cảnh 3D (nghiêng dọc / ngang, độ sâu ống kính), Mắt cá (cắt tròn), Gương (trái → phải, phải → trái, trên → dưới, dưới → trên, 4 góc; vị trí trục), Kính vạn hoa (số cánh, góc, phóng, tâm), Kéo vệt (hướng, vị trí cắt, lệch vệt), Xé đôi (dọc / ngang, vị trí, khoảng hở, lệch, mép giấy xơ, răng cưa, Xáo), Gấp giấy (nếp dọc / ngang, độ sâu, hướng sáng, nhăn) |
+| Kỹ thuật số | CRT / VHS (vạch quét, loang màu, nhiễu, cong màn, dải nhiễu, chữ PLAY ▶ / ● REC kèm giờ), Dither 1-bit (đen trắng / 4 xanh lá cổ / 2 màu; khuếch tán / lưới Bayer; cỡ điểm) |
+| Ánh sáng & khối | Dập nổi / chìm (giữ màu / giấy trắng / vàng / bạc), Phát sáng neon (màu, độ toả, cường độ, lõi trắng, chỉ viền, chớp hỏng), Khối 3D (hướng, độ dày, màu mặt bên, vát cạnh, bóng đổ), Tia sáng (độ dài, cường độ, màu, ngưỡng sáng, tâm) |
+| Chất liệu | In lụa Riso (5 cặp mực, lệch in, hạt mực, trame) |
+| Chuyển động | Nhòe chuyển động (vệt phía sau hướng chạy, giữ nét), Phóng tâm (vùng nét giữa), Tilt-shift (dải / tròn, vị trí, độ rộng vùng nét, độ mờ, tăng màu) |
+
+### Ghi chú
+
+- **Kính vạn hoa** chỉ cho ảnh / sticker / hình.
+- **Tilt-shift** chỉ cho ảnh; xếp ở nhóm Chuyển động, không mở thêm tab Nhiếp ảnh.
+- **Tia sáng**:
+  - phần tử trong suốt (chữ, sticker) toả theo **hình dạng**, ảnh toả từ **vùng sáng**;
+  - tâm mặc định là **trọng tâm phần có nét** (chữ có thể nằm lệch trong khung);
+  - tia có sọc theo góc và mờ dần trước mép.
+- **Phát sáng neon** giữ màu của phần tử, chỉ toả sáng phía sau (chế độ "Chỉ viền" thì thành ống neon).
+- **Cờ bay**: biên độ theo chiều dài tấm vải.

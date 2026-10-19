@@ -31,7 +31,7 @@ export function EffectTool({ elementId, onClose }: { elementId: string; onClose:
     if (!node || !el) return {} as Record<string, string>;
     const plain = { ...el, effect: undefined };
     const out: Record<string, string> = { none: effectPreview(node, plain, null, 120) };
-    for (const e of EFFECTS.filter((x) => x.group === group)) {
+    for (const e of EFFECTS.filter((x) => x.group === group && (!x.only || x.only.includes(el.type as "image")))) {
       try {
         out[e.id] = effectPreview(node, plain, newEffect(e.id), 120);
       } catch {
@@ -44,6 +44,8 @@ export function EffectTool({ elementId, onClose }: { elementId: string; onClose:
   }, [plainKey, group, canvas]);
 
   if (!el) return null;
+  /** Effects this kind of element takes. */
+  const fits = (e: (typeof EFFECTS)[number]) => !e.only || e.only.includes(el.type as "image");
   const set = (effect: ElementEffect | undefined) => {
     const st = useEditor.getState();
     if (!st.draft) st.beginDraft();
@@ -140,7 +142,7 @@ export function EffectTool({ elementId, onClose }: { elementId: string; onClose:
         </div>
         <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
           {tile("none", t("effect.none"), !current, () => set(undefined))}
-          {EFFECTS.filter((e) => e.group === group).map((e) => tile(e.id, lang(e.name), current?.id === e.id, () => current?.id !== e.id && set(newEffect(e.id))))}
+          {EFFECTS.filter((e) => e.group === group && fits(e)).map((e) => tile(e.id, lang(e.name), current?.id === e.id, () => current?.id !== e.id && set(newEffect(e.id))))}
         </div>
         {spec && current && (
           <section aria-label={lang(spec.name)} className="mt-3 border-t border-black/5 pt-2 dark:border-white/10">
