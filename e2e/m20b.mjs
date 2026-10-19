@@ -39,7 +39,14 @@ await stickers();
 const group = page.getByRole("region", { name: "Test stickers" });
 await group.waitFor({ timeout: 5000 });
 check((await group.getByRole("button").count()) === 3, "the pack shows all its items once loaded");
-check(await page.getByRole("region", { name: "Test overlays" }).isVisible(), "an overlay pack too");
+{
+  const ltg = page.getByRole("region", { name: "Light & texture", exact: true });
+  const more = ltg.getByRole("button", { name: /more$/ });
+  const expanded = (await more.count()) > 0;
+  if (expanded) await more.click();
+  check((await page.getByRole("region", { name: "Light & texture", exact: true }).getByRole("button", { name: "Test leak" }).count()) === 1, "pack overlays join “Light & texture”");
+  if (expanded) await page.getByRole("button", { name: "Light & texture" }).first().click(); // ‹ back
+}
 await page.screenshot({ path: path.join(OUT, "m20b-packs.png") });
 
 console.log("Search");
@@ -62,7 +69,9 @@ await stickers();
 check(await page.getByRole("region", { name: "Recently used" }).getByRole("button", { name: "Flower" }).isVisible(), "it shows under “Recently used”");
 
 console.log("Add a pack overlay");
-await page.getByRole("region", { name: "Test overlays" }).getByRole("button", { name: "Test leak" }).click();
+const lt = page.getByRole("region", { name: "Light & texture", exact: true });
+if (!(await lt.getByRole("button", { name: "Test leak" }).isVisible())) await lt.getByRole("button", { name: /more$/ }).click();
+await page.getByRole("region", { name: "Light & texture", exact: true }).getByRole("button", { name: "Test leak" }).click();
 await page.waitForTimeout(600);
 st = await S();
 const ov = st.doc.elements.at(-1);

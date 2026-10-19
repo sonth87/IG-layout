@@ -22,7 +22,11 @@ function loadCategory(id: string) {
 const MAX_RESULTS = 80;
 const label = (name: string) => name.replace(/-/g, " ");
 
-export function EmojiStickers({ query, onPick }: { query: string; onPick: (name: string, body: string) => void }) {
+/**
+ * `compact`: a couple of rows of the first category and a "+N" tile that opens the whole
+ * list with its category tabs (owner, 2026-10-19). Searching always shows every match.
+ */
+export function EmojiStickers({ query, onPick, compact }: { query: string; onPick: (name: string, body: string) => void; compact?: { limit: number; onMore: () => void; moreLabel: (n: number) => string } }) {
   const [index, setIndex] = useState<EmojiIndex | null>(null);
   const [category, setCategory] = useState("smileys-emotion");
   const [loaded, setLoaded] = useState<Record<string, string>>({});
@@ -42,7 +46,10 @@ export function EmojiStickers({ query, onPick }: { query: string; onPick: (name:
     : q
       ? index.categories.flatMap((c) => c.names.filter((n) => label(n).includes(q)).map((n) => ({ n, c: c.id }))).slice(0, MAX_RESULTS)
       : (index.categories.find((c) => c.id === category)?.names ?? []).map((n) => ({ n, c: category }));
-  const needed = [...new Set(shown.map((s) => s.c))].join(",");
+  const total = index?.categories.reduce((n, c) => n + c.names.length, 0) ?? 0;
+  const short = !!compact && !q;
+  const visible = short ? shown.slice(0, compact!.limit) : shown;
+  const needed = [...new Set(visible.map((s) => s.c))].join(",");
 
   useEffect(() => {
     let alive = true;
@@ -57,7 +64,7 @@ export function EmojiStickers({ query, onPick }: { query: string; onPick: (name:
   if (!index) return null;
   return (
     <>
-      {!q && (
+      {!q && !short && (
         <div className="flex gap-1.5 overflow-x-auto pb-2">
           {index.categories.map((c) => (
             <button
@@ -73,7 +80,7 @@ export function EmojiStickers({ query, onPick }: { query: string; onPick: (name:
         </div>
       )}
       <div className="grid grid-cols-6 gap-1.5">
-        {shown.map(({ n }) => {
+        {visible.map(({ n }) => {
           const body = loaded[n];
           return (
             <button
@@ -90,6 +97,11 @@ export function EmojiStickers({ query, onPick }: { query: string; onPick: (name:
             </button>
           );
         })}
+        {short && total > visible.length && (
+          <button type="button" aria-label={compact!.moreLabel(total - visible.length)} onClick={compact!.onMore} className="flex h-12 items-center justify-center rounded-xl bg-surface-2 text-[13px] font-bold text-muted">
+            +{total - visible.length}
+          </button>
+        )}
       </div>
     </>
   );
