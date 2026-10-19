@@ -1,0 +1,1612 @@
+{
+  "id": "ink-stamps",
+  "kind": "sticker",
+  "name": {
+    "en": "Ink Stamps & Postmarks",
+    "vi": "Tem & dấu mực"
+  },
+  "collections": [
+    "vintage",
+    "travel",
+    "journal"
+  ],
+  "order": 15,
+  "items": [
+    {
+      "id": "stamp-circle-paris-postes",
+      "name": {
+        "en": "Paris Postes Circular Cancellation Postmark",
+        "vi": "Dấu bưu điện tròn Paris Postes 1928"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Paris Postes Circular Cancellation Postmark",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 622,
+      "height": 622
+    },
+    {
+      "id": "stamp-circle-hanoi-vietnam",
+      "name": {
+        "en": "Bưu Điện Hà Nội Việt Nam Circular Postmark",
+        "vi": "Dấu bưu điện tròn Hà Nội - Việt Nam"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Bưu Điện Hà Nội Việt Nam Circular Postmark",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 622,
+      "height": 622
+    },
+    {
+      "id": "stamp-circle-saigon-buudien",
+      "name": {
+        "en": "Sài Gòn Post Office Circular Ink Stamp",
+        "vi": "Dấu mực tròn Bưu Điện Sài Gòn"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Sài Gòn Post Office Circular Ink Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 622,
+      "height": 622
+    },
+    {
+      "id": "stamp-circle-tokyo-japan",
+      "name": {
+        "en": "Tokyo Imperial Post Circular Cancellation",
+        "vi": "Dấu bưu điện tròn Tokyo Nhật Bản (郵便局)"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Tokyo Imperial Post Circular Cancellation",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 622,
+      "height": 622
+    },
+    {
+      "id": "stamp-circle-london-royal-mail",
+      "name": {
+        "en": "London Royal Mail Double-Ring Postmark",
+        "vi": "Dấu bưu điện tròn đôi London Royal Mail"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "London Royal Mail Double-Ring Postmark",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 622,
+      "height": 621
+    },
+    {
+      "id": "stamp-circle-newyork-airmail",
+      "name": {
+        "en": "New York U.S. Air Mail Circular Postmark",
+        "vi": "Dấu bưu điện hàng không New York U.S.A."
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "New York U.S. Air Mail Circular Postmark",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 622,
+      "height": 623
+    },
+    {
+      "id": "stamp-circle-roma-italia",
+      "name": {
+        "en": "Poste Italiane Roma Circular Postmark",
+        "vi": "Dấu bưu điện tròn Roma Poste Italiane"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Poste Italiane Roma Circular Postmark",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 622,
+      "height": 621
+    },
+    {
+      "id": "stamp-circle-madrid-correos",
+      "name": {
+        "en": "Correos España Madrid Circular Postmark",
+        "vi": "Dấu bưu điện tròn Madrid Correos España"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Correos España Madrid Circular Postmark",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 623,
+      "height": 622
+    },
+    {
+      "id": "stamp-circle-lisboa-portugal",
+      "name": {
+        "en": "Correios Portugal Lisboa Circular Postmark",
+        "vi": "Dấu bưu điện tròn Lisboa Bồ Đào Nha"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Correios Portugal Lisboa Circular Postmark",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 622,
+      "height": 621
+    },
+    {
+      "id": "stamp-circle-mexico-postal",
+      "name": {
+        "en": "Servicio Postal Mexicano Circular Postmark",
+        "vi": "Dấu bưu điện tròn Servicio Postal México"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Servicio Postal Mexicano Circular Postmark",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 621,
+      "height": 622
+    },
+    {
+      "id": "stamp-wave-paris-louvre",
+      "name": {
+        "en": "Paris Louvre Postmark with Wavy Cancellation Lines",
+        "vi": "Dấu bưu điện Paris kèm 6 đường sóng huỷ tem"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Paris Louvre Postmark with Wavy Cancellation Lines",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 805,
+      "height": 450
+    },
+    {
+      "id": "stamp-wave-airmail-express",
+      "name": {
+        "en": "Air Mail Express Postmark with Wavy Lines",
+        "vi": "Dấu bưu điện Air Mail kèm đường sóng mực"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Air Mail Express Postmark with Wavy Lines",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 806,
+      "height": 449
+    },
+    {
+      "id": "stamp-wave-saigon-paravion",
+      "name": {
+        "en": "Sài Gòn Par Avion Postmark & Wavy Bars",
+        "vi": "Dấu bưu điện Sài Gòn Par Avion kèm vạch sóng"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Sài Gòn Par Avion Postmark & Wavy Bars",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 806,
+      "height": 449
+    },
+    {
+      "id": "stamp-wave-tokyo-kyoto",
+      "name": {
+        "en": "Kyoto Japan Postmark with Wavy Cancellation",
+        "vi": "Dấu bưu điện Kyoto Nhật Bản kèm đường sóng"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Kyoto Japan Postmark with Wavy Cancellation",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 805,
+      "height": 449
+    },
+    {
+      "id": "stamp-wave-lines-seven",
+      "name": {
+        "en": "Seven Parallel Wavy Postal Cancellation Lines",
+        "vi": "Dải 7 đường sóng mực huỷ tem bưu chính"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Seven Parallel Wavy Postal Cancellation Lines",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 741,
+      "height": 523
+    },
+    {
+      "id": "stamp-wave-bars-obliterator",
+      "name": {
+        "en": "Vintage Horizontal Bar & Slogan Obliterator",
+        "vi": "Dấu gạch ngang huỷ tem cổ điển"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Vintage Horizontal Bar & Slogan Obliterator",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 702,
+      "height": 420
+    },
+    {
+      "id": "stamp-perf-france-25c",
+      "name": {
+        "en": "Perforated Postage Stamp Frame France 0,25F",
+        "vi": "Tem bưu chính răng cưa République Française 0,25F"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Perforated Postage Stamp Frame France 0,25F",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 534,
+      "height": 664
+    },
+    {
+      "id": "stamp-perf-vietnam-50d",
+      "name": {
+        "en": "Perforated Postage Stamp Việt Nam 50 Đồng",
+        "vi": "Tem bưu chính răng cưa Việt Nam 50 Đồng"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Perforated Postage Stamp Việt Nam 50 Đồng",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 536,
+      "height": 665
+    },
+    {
+      "id": "stamp-perf-japan-10yen",
+      "name": {
+        "en": "Perforated Postage Stamp Nippon Japan 10 Yen",
+        "vi": "Tem bưu chính răng cưa Nhật Bản (日本郵便) 10¥"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Perforated Postage Stamp Nippon Japan 10 Yen",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 535,
+      "height": 664
+    },
+    {
+      "id": "stamp-perf-usa-5cents",
+      "name": {
+        "en": "Perforated Postage Stamp United States 5¢",
+        "vi": "Tem bưu chính răng cưa Hoa Kỳ 5 Cents"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Perforated Postage Stamp United States 5¢",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 534,
+      "height": 664
+    },
+    {
+      "id": "stamp-perf-italia-100lire",
+      "name": {
+        "en": "Perforated Postage Stamp Poste Italiane 100 Lire",
+        "vi": "Tem bưu chính răng cưa Ý Poste Italiane 100L"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Perforated Postage Stamp Poste Italiane 100 Lire",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 534,
+      "height": 664
+    },
+    {
+      "id": "stamp-perf-espana-1pta",
+      "name": {
+        "en": "Perforated Postage Stamp Correos España 1 Pta",
+        "vi": "Tem bưu chính răng cưa Tây Ban Nha 1 Peseta"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Perforated Postage Stamp Correos España 1 Pta",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 535,
+      "height": 665
+    },
+    {
+      "id": "stamp-perf-uk-2pence",
+      "name": {
+        "en": "Perforated Postage Stamp Great Britain 2d",
+        "vi": "Tem bưu chính răng cưa Vương Quốc Anh 2d"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Perforated Postage Stamp Great Britain 2d",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 536,
+      "height": 664
+    },
+    {
+      "id": "stamp-perf-portugal-50c",
+      "name": {
+        "en": "Perforated Postage Stamp Portugal Correios 50c",
+        "vi": "Tem bưu chính răng cưa Bồ Đào Nha 50 Centavos"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Perforated Postage Stamp Portugal Correios 50c",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 535,
+      "height": 665
+    },
+    {
+      "id": "stamp-perf-airmail-wide",
+      "name": {
+        "en": "Wide Perforated Air Mail Stamp with Biplane",
+        "vi": "Tem ngang răng cưa Air Mail hình máy bay cánh kép"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Wide Perforated Air Mail Stamp with Biplane",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 665,
+      "height": 476
+    },
+    {
+      "id": "stamp-perf-orient-express",
+      "name": {
+        "en": "Wide Perforated Stamp Orient Express Locomotive",
+        "vi": "Tem ngang răng cưa tàu tốc hành Orient Express"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Wide Perforated Stamp Orient Express Locomotive",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 666,
+      "height": 475
+    },
+    {
+      "id": "stamp-box-par-avion",
+      "name": {
+        "en": "Boxed PAR AVION / BY AIR MAIL Rubber Stamp",
+        "vi": "Dấu đóng khung chữ nhật PAR AVION / BY AIR MAIL"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Boxed PAR AVION / BY AIR MAIL Rubber Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 692,
+      "height": 387
+    },
+    {
+      "id": "stamp-box-registered-mail",
+      "name": {
+        "en": "Boxed REGISTERED / RECOMMANDÉ Postal Stamp",
+        "vi": "Dấu đóng khung RECOMMANDÉ - Thư bảo đảm"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Boxed REGISTERED / RECOMMANDÉ Postal Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 709,
+      "height": 426
+    },
+    {
+      "id": "stamp-box-via-airmail",
+      "name": {
+        "en": "Winged VIA AIR MAIL Express Ink Stamp",
+        "vi": "Dấu mực VIA AIR MAIL kèm đôi cánh cổ điển"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Winged VIA AIR MAIL Express Ink Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 700,
+      "height": 408
+    },
+    {
+      "id": "stamp-box-approved-authentic",
+      "name": {
+        "en": "Double-Border APPROVED & AUTHENTICATED Stamp",
+        "vi": "Dấu khung đôi APPROVED - Chứng thực nguyên bản"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Double-Border APPROVED & AUTHENTICATED Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 697,
+      "height": 398
+    },
+    {
+      "id": "stamp-box-fragile-handle",
+      "name": {
+        "en": "Vintage Stencil FRAGILE Special Delivery Stamp",
+        "vi": "Dấu kiện hàng FRAGILE - Chuyển phát đặc biệt"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Vintage Stencil FRAGILE Special Delivery Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 705,
+      "height": 417
+    },
+    {
+      "id": "stamp-box-porto-paye",
+      "name": {
+        "en": "Boxed PORT PAYÉ / POSTAGE PAID French Stamp",
+        "vi": "Dấu bưu chính Pháp PORT PAYÉ - Đã trả cước"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Boxed PORT PAYÉ / POSTAGE PAID French Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 700,
+      "height": 408
+    },
+    {
+      "id": "stamp-oval-hotel-grand-palace",
+      "name": {
+        "en": "Oval Grand Hotel de l'Europe Luggage Ink Stamp",
+        "vi": "Dấu mực bầu dục Grand Hôtel de l'Europe"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Oval Grand Hotel de l'Europe Luggage Ink Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 716,
+      "height": 486
+    },
+    {
+      "id": "stamp-oval-customs-douane",
+      "name": {
+        "en": "Oval Customs Inspection Douane Officielle Stamp",
+        "vi": "Dấu hải quan hình bầu dục Douane Contrôle"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Oval Customs Inspection Douane Officielle Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 715,
+      "height": 486
+    },
+    {
+      "id": "stamp-oval-biblioteca-archive",
+      "name": {
+        "en": "Oval Ex-Libris Royal Library Archive Stamp",
+        "vi": "Dấu thư viện cổ Ex-Libris Bibliothèque Royale"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Oval Ex-Libris Royal Library Archive Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 716,
+      "height": 486
+    },
+    {
+      "id": "stamp-triangle-airmail-avion",
+      "name": {
+        "en": "Triangular Par Avion Air Post Ink Stamp",
+        "vi": "Dấu bưu điện tam giác Par Avion cổ điển"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Triangular Par Avion Air Post Ink Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 643,
+      "height": 573
+    },
+    {
+      "id": "stamp-diamond-colonial-post",
+      "name": {
+        "en": "Diamond Lozenge Indochine Postes Ink Stamp",
+        "vi": "Dấu mực hình thoi Đông Dương Bưu Chính"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Diamond Lozenge Indochine Postes Ink Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 674
+    },
+    {
+      "id": "stamp-octagon-visa-immigration",
+      "name": {
+        "en": "Octagonal Immigration Visa Entry Ink Stamp",
+        "vi": "Dấu thị thực nhập cảnh hình bát giác cổ"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Octagonal Immigration Visa Entry Ink Stamp",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 634,
+      "height": 635
+    },
+    {
+      "id": "stamp-ornament-fleuron-scroll",
+      "name": {
+        "en": "Victorian Typographic Scrollwork Fleuron Divider",
+        "vi": "Hoa văn dây lá uốn lượn khắc mực cổ điển"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Victorian Typographic Scrollwork Fleuron Divider",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 672,
+      "height": 389
+    },
+    {
+      "id": "stamp-ornament-heraldic-crest",
+      "name": {
+        "en": "Vintage Post Horn & Laurel Wreath Emblem",
+        "vi": "Biểu tượng tù và bưu chính & vòng nguyệt quế nét mực"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Vintage Post Horn & Laurel Wreath Emblem",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 525,
+      "height": 425
+    },
+    {
+      "id": "stamp-ornament-pointing-hand",
+      "name": {
+        "en": "Victorian Manicule Pointing Hand Return to Sender",
+        "vi": "Bàn tay chỉ hướng cổ điển Return to Sender"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Victorian Manicule Pointing Hand Return to Sender",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 627,
+      "height": 327
+    },
+    {
+      "id": "stamp-ornament-crown-rosette",
+      "name": {
+        "en": "Ornate Engraved Rosette Seal & Flourish",
+        "vi": "Hoa thị khắc nét cổ điển & đường lượn thư pháp"
+      },
+      "tags": {
+        "en": [
+          "stamp",
+          "postmark",
+          "ink",
+          "vintage",
+          "postal"
+        ],
+        "vi": [
+          "tem thư",
+          "dấu bưu điện",
+          "dấu mực",
+          "cổ điển",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/ink-stamps",
+        "author": "IG Layout Studio",
+        "title": "Ornate Engraved Rosette Seal & Flourish",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 534,
+      "height": 533
+    }
+  ]
+}

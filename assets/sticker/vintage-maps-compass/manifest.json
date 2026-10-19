@@ -2,8 +2,8 @@
   "id": "vintage-maps-compass",
   "kind": "sticker",
   "name": {
-    "en": "Maps, Compasses & Timepieces",
-    "vi": "Bản đồ, La bàn & Đồng hồ cổ"
+    "en": "Travel & Vintage",
+    "vi": "Du lịch & đồ cổ"
   },
   "collections": [
     "vintage",
@@ -571,6 +571,850 @@
       },
       "width": 843,
       "height": 1024
+    },
+    {
+      "id": "travel-retro-rangefinder-camera",
+      "name": {
+        "en": "Vintage Silver & Leather Film Camera",
+        "vi": "Máy ảnh phim cơ cổ điển bọc da"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "film",
+          "vintage",
+          "photography"
+        ],
+        "vi": [
+          "máy ảnh cổ",
+          "máy phim",
+          "du lịch",
+          "nhiếp ảnh"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Vintage Silver & Leather Film Camera",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 564,
+      "height": 448
+    },
+    {
+      "id": "travel-leather-trunk-suitcase",
+      "name": {
+        "en": "Antique Strapped Leather Travel Suitcase",
+        "vi": "Vali da cổ điển đai đồng dán nhãn du lịch"
+      },
+      "tags": {
+        "en": [
+          "suitcase",
+          "luggage",
+          "leather",
+          "travel"
+        ],
+        "vi": [
+          "vali cổ",
+          "vali da",
+          "hành lý",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Antique Strapped Leather Travel Suitcase",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 606,
+      "height": 501
+    },
+    {
+      "id": "travel-vintage-train-ticket",
+      "name": {
+        "en": "Perforated Vintage Express Train Ticket",
+        "vi": "Vé tàu tốc hành cổ điển đục lỗ"
+      },
+      "tags": {
+        "en": [
+          "ticket",
+          "train",
+          "ephemera",
+          "travel"
+        ],
+        "vi": [
+          "vé tàu cổ",
+          "vé xe lửa",
+          "lưu niệm",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Perforated Vintage Express Train Ticket",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 642,
+      "height": 404
+    },
+    {
+      "id": "travel-airmail-boarding-pass",
+      "name": {
+        "en": "Vintage Par Avion Boarding Pass & Stub",
+        "vi": "Thẻ lên máy bay cổ điển viền xanh đỏ"
+      },
+      "tags": {
+        "en": [
+          "boarding pass",
+          "airmail",
+          "flight",
+          "ticket"
+        ],
+        "vi": [
+          "vé máy bay",
+          "hàng không",
+          "du lịch",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Vintage Par Avion Boarding Pass & Stub",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 652,
+      "height": 404
+    },
+    {
+      "id": "travel-terrestrial-desk-globe",
+      "name": {
+        "en": "Antique Brass Meridian Terrestrial Globe",
+        "vi": "Quả địa cầu cổ điển khung đồng khắc độ"
+      },
+      "tags": {
+        "en": [
+          "globe",
+          "world",
+          "geography",
+          "map"
+        ],
+        "vi": [
+          "quả địa cầu",
+          "bản đồ thế giới",
+          "địa lý",
+          "đồ cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Antique Brass Meridian Terrestrial Globe",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 500,
+      "height": 620
+    },
+    {
+      "id": "travel-rolled-treasure-map",
+      "name": {
+        "en": "Rolled Parchment Map Tied with Twine",
+        "vi": "Cuộn bản đồ giấy da cổ buộc dây gai"
+      },
+      "tags": {
+        "en": [
+          "map",
+          "parchment",
+          "scroll",
+          "treasure"
+        ],
+        "vi": [
+          "bản đồ cuộn",
+          "giấy da cổ",
+          "kho báu",
+          "phiêu lưu"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Rolled Parchment Map Tied with Twine",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 602,
+      "height": 312
+    },
+    {
+      "id": "travel-roman-pocket-watch",
+      "name": {
+        "en": "Gold Roman Numeral Pocket Watch & Chain",
+        "vi": "Đồng hồ quả quýt vàng số La Mã & dây xích"
+      },
+      "tags": {
+        "en": [
+          "pocket watch",
+          "timepiece",
+          "vintage",
+          "clock"
+        ],
+        "vi": [
+          "đồng hồ quả quýt",
+          "đồng hồ cổ",
+          "thời gian",
+          "vàng đồng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Gold Roman Numeral Pocket Watch & Chain",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 488,
+      "height": 600
+    },
+    {
+      "id": "travel-mechanical-typewriter",
+      "name": {
+        "en": "Vintage Mechanical Typewriter with Paper",
+        "vi": "Máy đánh chữ cơ khí cổ điển & trang thư"
+      },
+      "tags": {
+        "en": [
+          "typewriter",
+          "writer",
+          "vintage",
+          "journal"
+        ],
+        "vi": [
+          "máy đánh chữ",
+          "nhà văn",
+          "thư cổ",
+          "hoài cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Vintage Mechanical Typewriter with Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 628,
+      "height": 537
+    },
+    {
+      "id": "travel-brass-kerosene-lantern",
+      "name": {
+        "en": "Vintage Brass Hurricane Oil Lantern",
+        "vi": "Đèn bão dầu hoả bằng đồng thau cổ điển"
+      },
+      "tags": {
+        "en": [
+          "lantern",
+          "lamp",
+          "brass",
+          "camping"
+        ],
+        "vi": [
+          "đèn dầu cổ",
+          "đèn bão",
+          "đồng thau",
+          "phiêu lưu"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Vintage Brass Hurricane Oil Lantern",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 408,
+      "height": 620
+    },
+    {
+      "id": "travel-penny-farthing-bicycle",
+      "name": {
+        "en": "Victorian High-Wheel Penny-Farthing Bicycle",
+        "vi": "Xe đạp bánh cao cổ điển thời Victoria"
+      },
+      "tags": {
+        "en": [
+          "bicycle",
+          "penny farthing",
+          "victorian",
+          "vintage"
+        ],
+        "vi": [
+          "xe đạp cổ",
+          "bánh lớn",
+          "thời victoria",
+          "đồ cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Victorian High-Wheel Penny-Farthing Bicycle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 621,
+      "height": 517
+    },
+    {
+      "id": "travel-brass-field-binoculars",
+      "name": {
+        "en": "Antique Brass & Leather Field Binoculars",
+        "vi": "Ống nhòm đồng bọc da thám hiểm cổ điển"
+      },
+      "tags": {
+        "en": [
+          "binoculars",
+          "optics",
+          "safari",
+          "explorer"
+        ],
+        "vi": [
+          "ống nhòm cổ",
+          "thám hiểm",
+          "quan sát",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Antique Brass & Leather Field Binoculars",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 574,
+      "height": 493
+    },
+    {
+      "id": "travel-detective-magnifying-glass",
+      "name": {
+        "en": "Ornate Brass Detective Magnifying Glass",
+        "vi": "Kính lúp đồng thám tử cán gỗ cổ điển"
+      },
+      "tags": {
+        "en": [
+          "magnifying glass",
+          "lens",
+          "detective",
+          "vintage"
+        ],
+        "vi": [
+          "kính lúp cổ",
+          "thám tử",
+          "khám phá",
+          "đồ cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Ornate Brass Detective Magnifying Glass",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 484,
+      "height": 588
+    },
+    {
+      "id": "travel-transatlantic-steamship",
+      "name": {
+        "en": "Vintage Transatlantic Ocean Liner Steamship",
+        "vi": "Tàu thuỷ hơi nước vượt đại dương cổ điển"
+      },
+      "tags": {
+        "en": [
+          "steamship",
+          "ship",
+          "ocean liner",
+          "nautical"
+        ],
+        "vi": [
+          "tàu thuỷ cổ",
+          "tàu hơi nước",
+          "hàng hải",
+          "vượt biển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Vintage Transatlantic Ocean Liner Steamship",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 648,
+      "height": 474
+    },
+    {
+      "id": "travel-vintage-hot-air-balloon",
+      "name": {
+        "en": "Striped Victorian Hot Air Balloon",
+        "vi": "Khinh khí cầu sọc cổ điển bay giữa trời"
+      },
+      "tags": {
+        "en": [
+          "hot air balloon",
+          "flight",
+          "balloon",
+          "adventure"
+        ],
+        "vi": [
+          "khinh khí cầu",
+          "bay lượn",
+          "phiêu lưu",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Striped Victorian Hot Air Balloon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 426,
+      "height": 628
+    },
+    {
+      "id": "travel-steam-locomotive-train",
+      "name": {
+        "en": "Classic Black & Red Steam Locomotive",
+        "vi": "Đầu máy xe lửa hơi nước cổ điển"
+      },
+      "tags": {
+        "en": [
+          "locomotive",
+          "steam train",
+          "railway",
+          "travel"
+        ],
+        "vi": [
+          "đầu máy xe lửa",
+          "tàu hoả cổ",
+          "đường sắt",
+          "du lịch"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Classic Black & Red Steam Locomotive",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 601,
+      "height": 568
+    },
+    {
+      "id": "travel-ornate-skeleton-key",
+      "name": {
+        "en": "Antique Brass Ornate Skeleton Key",
+        "vi": "Chìa khoá đồng chạm khắc hoa văn cổ"
+      },
+      "tags": {
+        "en": [
+          "skeleton key",
+          "key",
+          "antique",
+          "brass"
+        ],
+        "vi": [
+          "chìa khoá cổ",
+          "đồng thau",
+          "bí ẩn",
+          "đồ cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Antique Brass Ornate Skeleton Key",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 428,
+      "height": 566
+    },
+    {
+      "id": "travel-brass-horn-gramophone",
+      "name": {
+        "en": "Antique Wooden Gramophone with Brass Horn",
+        "vi": "Máy hát đĩa than loa kèn đồng cổ điển"
+      },
+      "tags": {
+        "en": [
+          "gramophone",
+          "phonograph",
+          "music",
+          "antique"
+        ],
+        "vi": [
+          "máy hát loa kèn",
+          "máy đĩa than",
+          "nhạc cổ",
+          "đồ cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Antique Wooden Gramophone with Brass Horn",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 443,
+      "height": 564
+    },
+    {
+      "id": "travel-rotary-dial-telephone",
+      "name": {
+        "en": "Classic Vintage Black Rotary Telephone",
+        "vi": "Điện thoại quay số cổ điển thập niên cũ"
+      },
+      "tags": {
+        "en": [
+          "telephone",
+          "rotary phone",
+          "vintage",
+          "retro"
+        ],
+        "vi": [
+          "điện thoại bàn cổ",
+          "điện thoại quay số",
+          "hoài cổ",
+          "đồ cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Classic Vintage Black Rotary Telephone",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 564,
+      "height": 463
+    },
+    {
+      "id": "travel-brass-spyglass-telescope",
+      "name": {
+        "en": "Collapsible Mariner Brass Spyglass Telescope",
+        "vi": "Ống nhòm đơn hàng hải bằng đồng kéo dài"
+      },
+      "tags": {
+        "en": [
+          "spyglass",
+          "telescope",
+          "nautical",
+          "mariner"
+        ],
+        "vi": [
+          "ống nhòm hải tặc",
+          "kính viễn vọng",
+          "hàng hải",
+          "đồng cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Collapsible Mariner Brass Spyglass Telescope",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 585,
+      "height": 399
+    },
+    {
+      "id": "travel-fountain-pen-inkwell",
+      "name": {
+        "en": "Glass Inkwell & Vintage Gold Nib Fountain Pen",
+        "vi": "Lọ mực thuỷ tinh & bút máy ngòi vàng cổ điển"
+      },
+      "tags": {
+        "en": [
+          "fountain pen",
+          "inkwell",
+          "calligraphy",
+          "writing"
+        ],
+        "vi": [
+          "bút máy cổ",
+          "lọ mực",
+          "viết thư",
+          "thư pháp"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Glass Inkwell & Vintage Gold Nib Fountain Pen",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 490,
+      "height": 508
+    },
+    {
+      "id": "travel-wax-seal-stamper",
+      "name": {
+        "en": "Wooden Handle Brass Wax Seal Stamper & Red Wax",
+        "vi": "Con dấu đóng sáp cán gỗ & ấn sáp đỏ cổ"
+      },
+      "tags": {
+        "en": [
+          "wax seal",
+          "stamper",
+          "letter",
+          "antique"
+        ],
+        "vi": [
+          "con dấu sáp",
+          "đóng dấu thư",
+          "sáp đỏ",
+          "đồ cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Wooden Handle Brass Wax Seal Stamper & Red Wax",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 487,
+      "height": 597
+    },
+    {
+      "id": "travel-nautical-anchor-rope",
+      "name": {
+        "en": "Heavy Iron Mariner Anchor Entwined with Rope",
+        "vi": "Mỏ neo hàng hải cổ điển quấn dây thừng"
+      },
+      "tags": {
+        "en": [
+          "anchor",
+          "nautical",
+          "maritime",
+          "sailor"
+        ],
+        "vi": [
+          "mỏ neo",
+          "hàng hải",
+          "dây thừng",
+          "biển cả"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Heavy Iron Mariner Anchor Entwined with Rope",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 524,
+      "height": 598
+    },
+    {
+      "id": "travel-passport-booklet-stamps",
+      "name": {
+        "en": "Vintage Leather Passport Booklet & Boarding Ticket",
+        "vi": "Sổ hộ chiếu cổ điển ép nhũ vàng & vé du lịch"
+      },
+      "tags": {
+        "en": [
+          "passport",
+          "travel",
+          "visa",
+          "journey"
+        ],
+        "vi": [
+          "hộ chiếu",
+          "du lịch",
+          "xuất hành",
+          "hành trình"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Vintage Leather Passport Booklet & Boarding Ticket",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 510,
+      "height": 613
+    },
+    {
+      "id": "travel-vintage-camper-van",
+      "name": {
+        "en": "Classic Two-Tone Retro Camper Van",
+        "vi": "Xe cắm trại cổ điển hai tông màu du mục"
+      },
+      "tags": {
+        "en": [
+          "camper van",
+          "road trip",
+          "vanlife",
+          "retro"
+        ],
+        "vi": [
+          "xe cắm trại",
+          "du lịch bụi",
+          "xe cổ",
+          "hành trình"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/vintage-maps-compass",
+        "author": "IG Layout Studio",
+        "title": "Classic Two-Tone Retro Camper Van",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 628,
+      "height": 438
     }
   ]
 }

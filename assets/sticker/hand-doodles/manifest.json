@@ -2,8 +2,8 @@
   "id": "hand-doodles",
   "kind": "sticker",
   "name": {
-    "en": "Hand-Drawn Doodles",
-    "vi": "Doodle vẽ tay"
+    "en": "Illustrations",
+    "vi": "Minh hoạ"
   },
   "collections": [
     "handDrawn",
@@ -711,6 +711,1427 @@
       },
       "width": 906,
       "height": 1024
+    },
+    {
+      "id": "illus-girl-watering-plants",
+      "name": {
+        "en": "Girl Watering Houseplants Illustration",
+        "vi": "Cô gái tưới chậu cây xanh trong nhà"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "girl",
+          "plants",
+          "watering"
+        ],
+        "vi": [
+          "minh hoạ",
+          "cô gái",
+          "tưới cây",
+          "cây xanh"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "nature"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Girl Watering Houseplants Illustration",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 485,
+      "height": 540
+    },
+    {
+      "id": "illus-boy-headphones-music",
+      "name": {
+        "en": "Boy Listening to Music with Headphones",
+        "vi": "Chàng trai đeo tai nghe thưởng thức âm nhạc"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "music",
+          "headphones",
+          "boy"
+        ],
+        "vi": [
+          "minh hoạ",
+          "âm nhạc",
+          "tai nghe",
+          "chàng trai"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Boy Listening to Music with Headphones",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 392,
+      "height": 557
+    },
+    {
+      "id": "illus-girl-bicycle-flowers",
+      "name": {
+        "en": "Girl Riding Bicycle with Flower Basket",
+        "vi": "Cô gái đạp xe chở giỏ hoa tươi"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "bicycle",
+          "flowers",
+          "girl"
+        ],
+        "vi": [
+          "minh hoạ",
+          "xe đạp",
+          "giỏ hoa",
+          "cô gái"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Girl Riding Bicycle with Flower Basket",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 554,
+      "height": 480
+    },
+    {
+      "id": "illus-painter-palette-beret",
+      "name": {
+        "en": "Artist with Beret and Paint Palette",
+        "vi": "Hoạ sĩ đội mũ nồi cầm bảng pha màu"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "artist",
+          "palette",
+          "painting"
+        ],
+        "vi": [
+          "minh hoạ",
+          "hoạ sĩ",
+          "bảng màu",
+          "nghệ thuật"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Artist with Beret and Paint Palette",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 483,
+      "height": 481
+    },
+    {
+      "id": "illus-cozy-cat-window",
+      "name": {
+        "en": "Cat Sleeping on Sunny Window Sill",
+        "vi": "Mèo nhỏ nằm ngủ bên khung cửa sổ nắng"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "cat",
+          "window",
+          "cozy"
+        ],
+        "vi": [
+          "minh hoạ",
+          "mèo ngủ",
+          "cửa sổ",
+          "ấm áp"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Cat Sleeping on Sunny Window Sill",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 566,
+      "height": 596
+    },
+    {
+      "id": "illus-moka-pot-espresso",
+      "name": {
+        "en": "Classic Italian Moka Espresso Pot",
+        "vi": "Ấm pha cà phê Moka cổ điển Ý"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "coffee",
+          "moka pot",
+          "cafe"
+        ],
+        "vi": [
+          "minh hoạ",
+          "ấm pha cà phê",
+          "moka",
+          "cà phê"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Classic Italian Moka Espresso Pot",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 366,
+      "height": 594
+    },
+    {
+      "id": "illus-croissant-coffee-cup",
+      "name": {
+        "en": "Butter Croissant & Morning Latte Cup",
+        "vi": "Bánh sừng bò bơ & tách cà phê sáng"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "croissant",
+          "coffee",
+          "breakfast"
+        ],
+        "vi": [
+          "minh hoạ",
+          "bánh sừng bò",
+          "cà phê sáng",
+          "bữa sáng"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Butter Croissant & Morning Latte Cup",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 517,
+      "height": 396
+    },
+    {
+      "id": "illus-vinyl-record-player",
+      "name": {
+        "en": "Retro Turntable & Vinyl Record",
+        "vi": "Máy đĩa than cổ điển & đĩa nhạc vinyl"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "vinyl",
+          "turntable",
+          "music"
+        ],
+        "vi": [
+          "minh hoạ",
+          "máy đĩa than",
+          "đĩa vinyl",
+          "âm nhạc"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Retro Turntable & Vinyl Record",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 564,
+      "height": 484
+    },
+    {
+      "id": "illus-polaroid-instant-camera",
+      "name": {
+        "en": "Pastel Instant Polaroid Camera",
+        "vi": "Máy ảnh chụp lấy liền sắc màu pastel"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "camera",
+          "polaroid",
+          "photo"
+        ],
+        "vi": [
+          "minh hoạ",
+          "máy ảnh lấy liền",
+          "polaroid",
+          "chụp ảnh"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Pastel Instant Polaroid Camera",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 524,
+      "height": 573
+    },
+    {
+      "id": "illus-open-sketchbook-pencils",
+      "name": {
+        "en": "Open Sketchbook with Colored Pencils",
+        "vi": "Sổ ký hoạ mở rộng & bút chì màu"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "sketchbook",
+          "journal",
+          "drawing"
+        ],
+        "vi": [
+          "minh hoạ",
+          "sổ ký hoạ",
+          "vẽ tranh",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Open Sketchbook with Colored Pencils",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 586,
+      "height": 429
+    },
+    {
+      "id": "illus-monstera-ceramic-pot",
+      "name": {
+        "en": "Monstera Deliciosa in Terracotta Pot",
+        "vi": "Chậu cây trầu bà lá xẻ Monstera xanh mát"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "monstera",
+          "plant",
+          "botanical"
+        ],
+        "vi": [
+          "minh hoạ",
+          "cây trầu bà",
+          "monstera",
+          "cây cảnh"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "nature"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Monstera Deliciosa in Terracotta Pot",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 457,
+      "height": 627
+    },
+    {
+      "id": "illus-stack-vintage-books",
+      "name": {
+        "en": "Stack of Colorful Hardcover Books & Glasses",
+        "vi": "Chồng sách bìa cứng sắc màu & mắt kính"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "books",
+          "reading",
+          "glasses"
+        ],
+        "vi": [
+          "minh hoạ",
+          "chồng sách",
+          "đọc sách",
+          "mắt kính"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Stack of Colorful Hardcover Books & Glasses",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 522,
+      "height": 415
+    },
+    {
+      "id": "illus-matcha-boba-tea",
+      "name": {
+        "en": "Iced Matcha Bubble Milk Tea Cup",
+        "vi": "Ly trà sữa trân châu Matcha mát lạnh"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "boba",
+          "matcha",
+          "drink"
+        ],
+        "vi": [
+          "minh hoạ",
+          "trà sữa",
+          "trân châu",
+          "matcha"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Iced Matcha Bubble Milk Tea Cup",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 378,
+      "height": 622
+    },
+    {
+      "id": "illus-strawberry-shortcake-slice",
+      "name": {
+        "en": "Strawberry Shortcake Slice with Cream",
+        "vi": "Miếng bánh kem dâu tây tươi ngọt ngào"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "cake",
+          "strawberry",
+          "dessert"
+        ],
+        "vi": [
+          "minh hoạ",
+          "bánh kem",
+          "dâu tây",
+          "tráng miệng"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Strawberry Shortcake Slice with Cream",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 500,
+      "height": 456
+    },
+    {
+      "id": "illus-ceramic-vase-tulips",
+      "name": {
+        "en": "Ceramic Vase with Spring Tulips",
+        "vi": "Bình gốm nghệ thuật cắm hoa tulip xuân"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "vase",
+          "tulips",
+          "flowers"
+        ],
+        "vi": [
+          "minh hoạ",
+          "bình gốm",
+          "hoa tulip",
+          "mùa xuân"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "nature",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Ceramic Vase with Spring Tulips",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 384,
+      "height": 572
+    },
+    {
+      "id": "illus-retro-roller-skate",
+      "name": {
+        "en": "Retro Pastel Quad Roller Skate",
+        "vi": "Giày trượt patin 4 bánh phong cách retro"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "roller skate",
+          "retro",
+          "pastel"
+        ],
+        "vi": [
+          "minh hoạ",
+          "giày trượt patin",
+          "retro",
+          "năng động"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Retro Pastel Quad Roller Skate",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 446,
+      "height": 532
+    },
+    {
+      "id": "illus-acoustic-guitar-folk",
+      "name": {
+        "en": "Wooden Folk Acoustic Guitar",
+        "vi": "Đàn guitar gỗ mộc mạc du ca"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "guitar",
+          "music",
+          "acoustic"
+        ],
+        "vi": [
+          "minh hoạ",
+          "đàn guitar",
+          "âm nhạc",
+          "du ca"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Wooden Folk Acoustic Guitar",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 453,
+      "height": 603
+    },
+    {
+      "id": "illus-scented-candle-jar",
+      "name": {
+        "en": "Aromatherapy Glass Jar Scented Candle",
+        "vi": "Hũ nến thơm thư giãn ánh lửa ấm"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "candle",
+          "cozy",
+          "relax"
+        ],
+        "vi": [
+          "minh hoạ",
+          "nến thơm",
+          "thư giãn",
+          "ấm áp"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Aromatherapy Glass Jar Scented Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 366,
+      "height": 598
+    },
+    {
+      "id": "illus-sunny-fried-egg-toast",
+      "name": {
+        "en": "Sunny-Side Up Fried Egg on Toast",
+        "vi": "Bánh mì nướng ốp la trứng lòng đào"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "toast",
+          "egg",
+          "breakfast"
+        ],
+        "vi": [
+          "minh hoạ",
+          "bánh mì ốp la",
+          "trứng chiên",
+          "bữa sáng"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Sunny-Side Up Fried Egg on Toast",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 478,
+      "height": 528
+    },
+    {
+      "id": "illus-paint-tubes-brushes",
+      "name": {
+        "en": "Gouache Paint Tubes & Wooden Brushes",
+        "vi": "Tuýp màu vẽ gouache & cọ gỗ nghệ thuật"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "paint",
+          "art",
+          "brushes"
+        ],
+        "vi": [
+          "minh hoạ",
+          "màu vẽ",
+          "cọ vẽ",
+          "nghệ thuật"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Gouache Paint Tubes & Wooden Brushes",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 491,
+      "height": 491
+    },
+    {
+      "id": "illus-crescent-moon-clouds",
+      "name": {
+        "en": "Dreamy Golden Crescent Moon & Clouds",
+        "vi": "Trăng lưỡi liềm vàng & mây bồng bềnh"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "moon",
+          "clouds",
+          "dreamy"
+        ],
+        "vi": [
+          "minh hoạ",
+          "trăng lưỡi liềm",
+          "mây",
+          "mộng mơ"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "nature"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Dreamy Golden Crescent Moon & Clouds",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 526,
+      "height": 545
+    },
+    {
+      "id": "illus-sunburst-boho-arch",
+      "name": {
+        "en": "Boho Minimalist Terracotta Sun & Arch",
+        "vi": "Khung vòm Boho đất nung & mặt trời toả nắng"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "boho",
+          "arch",
+          "sun"
+        ],
+        "vi": [
+          "minh hoạ",
+          "phong cách boho",
+          "mặt trời",
+          "trừu tượng"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "nature",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Boho Minimalist Terracotta Sun & Arch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 444,
+      "height": 564
+    },
+    {
+      "id": "illus-picnic-wicker-basket",
+      "name": {
+        "en": "Wicker Picnic Basket with Checkered Cloth",
+        "vi": "Giỏ mây dã ngoại & khăn caro đỏ"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "picnic",
+          "basket",
+          "outdoor"
+        ],
+        "vi": [
+          "minh hoạ",
+          "giỏ dã ngoại",
+          "picnic",
+          "khăn caro"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "nature"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Wicker Picnic Basket with Checkered Cloth",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 520,
+      "height": 470
+    },
+    {
+      "id": "illus-watering-can-daisies",
+      "name": {
+        "en": "Mint Garden Watering Can with Daisies",
+        "vi": "Bình tưới cây xanh bạc hà cắm hoa cúc trắng"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "watering can",
+          "daisies",
+          "garden"
+        ],
+        "vi": [
+          "minh hoạ",
+          "bình tưới cây",
+          "hoa cúc họa mi",
+          "khu vườn"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "nature"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Mint Garden Watering Can with Daisies",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 567,
+      "height": 489
+    },
+    {
+      "id": "illus-envelope-love-letter",
+      "name": {
+        "en": "Wax-Sealed Love Letter & Floral Sprig",
+        "vi": "Phong thư tình gắn dấu sáp đỏ & nhánh hoa"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "letter",
+          "envelope",
+          "love"
+        ],
+        "vi": [
+          "minh hoạ",
+          "phong thư",
+          "thư tình",
+          "dấu sáp"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Wax-Sealed Love Letter & Floral Sprig",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 564,
+      "height": 394
+    },
+    {
+      "id": "illus-retro-cassette-mixtape",
+      "name": {
+        "en": "90s Retro Mixtape Audio Cassette",
+        "vi": "Băng cassette âm nhạc thập niên 90"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "cassette",
+          "mixtape",
+          "retro"
+        ],
+        "vi": [
+          "minh hoạ",
+          "băng cassette",
+          "âm nhạc",
+          "hoài cổ"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "vintage",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "90s Retro Mixtape Audio Cassette",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 586,
+      "height": 406
+    },
+    {
+      "id": "illus-strawberry-milk-carton",
+      "name": {
+        "en": "Kawaii Pink Strawberry Milk Carton",
+        "vi": "Hộp sữa dâu màu hồng pastel đáng yêu"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "strawberry milk",
+          "kawaii",
+          "cute"
+        ],
+        "vi": [
+          "minh hoạ",
+          "hộp sữa dâu",
+          "hồng pastel",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Kawaii Pink Strawberry Milk Carton",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 386,
+      "height": 590
+    },
+    {
+      "id": "illus-potted-cactus-bloom",
+      "name": {
+        "en": "Blooming Desert Cactus in Clay Pot",
+        "vi": "Chậu xương rồng nở hoa hồng xinh xắn"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "cactus",
+          "succulent",
+          "plant"
+        ],
+        "vi": [
+          "minh hoạ",
+          "xương rồng",
+          "chậu cây",
+          "nở hoa"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "nature"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Blooming Desert Cactus in Clay Pot",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 346,
+      "height": 575
+    },
+    {
+      "id": "illus-origami-paper-boat",
+      "name": {
+        "en": "Pastel Paper Boat Sailing on Waves",
+        "vi": "Thuyền giấy pastel lướt trên sóng nhỏ"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "paper boat",
+          "origami",
+          "waves"
+        ],
+        "vi": [
+          "minh hoạ",
+          "thuyền giấy",
+          "sóng nước",
+          "tuổi thơ"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "travel"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Pastel Paper Boat Sailing on Waves",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 586,
+      "height": 507
+    },
+    {
+      "id": "illus-hanging-ivy-planter",
+      "name": {
+        "en": "Macrame Hanging Planter with Trailing Ivy",
+        "vi": "Chậu cây dây thường xuân treo macrame"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "planter",
+          "ivy",
+          "macrame"
+        ],
+        "vi": [
+          "minh hoạ",
+          "chậu cây treo",
+          "macrame",
+          "dây thường xuân"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "nature"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Macrame Hanging Planter with Trailing Ivy",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 368,
+      "height": 615
+    },
+    {
+      "id": "illus-rainbow-pastel-stars",
+      "name": {
+        "en": "Pastel Rainbow Arch with Twinkling Stars",
+        "vi": "Cầu vồng pastel & những vì sao lấp lánh"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "rainbow",
+          "stars",
+          "pastel"
+        ],
+        "vi": [
+          "minh hoạ",
+          "cầu vồng",
+          "ngôi sao",
+          "pastel"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Pastel Rainbow Arch with Twinkling Stars",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 584,
+      "height": 396
+    },
+    {
+      "id": "illus-glass-teapot-chamomile",
+      "name": {
+        "en": "Glass Teapot Infusing Chamomile Flowers",
+        "vi": "Ấm trà thuỷ tinh ủ hoa cúc vàng dịu nhẹ"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "teapot",
+          "chamomile",
+          "tea"
+        ],
+        "vi": [
+          "minh hoạ",
+          "ấm trà",
+          "trà hoa cúc",
+          "thư giãn"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Glass Teapot Infusing Chamomile Flowers",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 581,
+      "height": 417
+    },
+    {
+      "id": "illus-fresh-baguette-tote",
+      "name": {
+        "en": "Canvas Tote Bag with Fresh Baguette & Greens",
+        "vi": "Túi vải canvas đựng bánh mì Pháp & hoa lá"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "tote bag",
+          "baguette",
+          "market"
+        ],
+        "vi": [
+          "minh hoạ",
+          "túi vải",
+          "bánh mì pháp",
+          "đi chợ"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Canvas Tote Bag with Fresh Baguette & Greens",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 434,
+      "height": 550
+    },
+    {
+      "id": "illus-desk-lamp-studying",
+      "name": {
+        "en": "Vintage Architect Desk Lamp Glowing",
+        "vi": "Đèn bàn học cổ điển toả ánh sáng vàng ấm"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "desk lamp",
+          "study",
+          "light"
+        ],
+        "vi": [
+          "minh hoạ",
+          "đèn bàn",
+          "học tập",
+          "ánh sáng ấm"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Vintage Architect Desk Lamp Glowing",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 500,
+      "height": 584
+    },
+    {
+      "id": "illus-sleeping-corgi-pillow",
+      "name": {
+        "en": "Sleeping Corgi Puppy on Cloud Pillow",
+        "vi": "Chú chó Corgi ngủ say trên gối mây mềm"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "corgi",
+          "dog",
+          "sleeping"
+        ],
+        "vi": [
+          "minh hoạ",
+          "chó corgi",
+          "ngủ ngon",
+          "dễ thương"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Sleeping Corgi Puppy on Cloud Pillow",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 564,
+      "height": 351
+    },
+    {
+      "id": "illus-cherry-blossom-teacup",
+      "name": {
+        "en": "Handcrafted Ceramic Cup of Sakura Tea",
+        "vi": "Tách gốm thủ công thưởng trà hoa anh đào"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "teacup",
+          "ceramic",
+          "tea"
+        ],
+        "vi": [
+          "minh hoạ",
+          "tách trà gốm",
+          "trà hoa",
+          "thủ công"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Handcrafted Ceramic Cup of Sakura Tea",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 396,
+      "height": 424
+    },
+    {
+      "id": "illus-watermelon-summer-popsicle",
+      "name": {
+        "en": "Watermelon Slice Ice Popsicle",
+        "vi": "Kem que dưa hấu mùa hè mát lạnh"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "watermelon",
+          "popsicle",
+          "summer"
+        ],
+        "vi": [
+          "minh hoạ",
+          "kem dưa hấu",
+          "mùa hè",
+          "mát lạnh"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Watermelon Slice Ice Popsicle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 466,
+      "height": 611
+    },
+    {
+      "id": "illus-cloud-rain-heart-drops",
+      "name": {
+        "en": "Fluffy Cloud Raining Pastel Hearts",
+        "vi": "Đám mây bồng bềnh mưa trái tim hồng"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "cloud",
+          "hearts",
+          "cute"
+        ],
+        "vi": [
+          "minh hoạ",
+          "đám mây",
+          "trái tim",
+          "đáng yêu"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Fluffy Cloud Raining Pastel Hearts",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 522,
+      "height": 451
+    },
+    {
+      "id": "illus-washi-tape-rolls",
+      "name": {
+        "en": "Stack of Patterned Washi Tape Rolls",
+        "vi": "Chồng cuộn băng dính trang trí Washi Tape"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "washi tape",
+          "stationery",
+          "journal"
+        ],
+        "vi": [
+          "minh hoạ",
+          "băng dính washi",
+          "văn phòng phẩm",
+          "sổ tay"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute",
+        "journal"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Stack of Patterned Washi Tape Rolls",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 416,
+      "height": 376
+    },
+    {
+      "id": "illus-shooting-star-sparkle",
+      "name": {
+        "en": "Magical Golden Shooting Star & Sparkles",
+        "vi": "Sao băng vàng lấp lánh mang điều ước"
+      },
+      "tags": {
+        "en": [
+          "illustration",
+          "shooting star",
+          "magic",
+          "wish"
+        ],
+        "vi": [
+          "minh hoạ",
+          "sao băng",
+          "điều ước",
+          "lấp lánh"
+        ]
+      },
+      "collections": [
+        "handDrawn",
+        "cute"
+      ],
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/hand-doodles",
+        "author": "IG Layout Studio",
+        "title": "Magical Golden Shooting Star & Sparkles",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 598,
+      "height": 534
     }
   ]
 }
