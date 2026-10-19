@@ -64,12 +64,16 @@ if (cmd === "explore") {
     const FILM = { black: ["black", "đen"], brown: ["brown", "nâu"], amber: ["negative", "âm bản"], grey: ["grey", "xám"] };
     const BORDER = { white: ["white", "trắng"], cream: ["cream", "kem"], black: ["black", "đen"], pink: ["pink", "hồng"], blue: ["blue", "xanh dương"], sage: ["sage", "xanh xám"] };
     if (kind === "washi") {
-    const P = { solid: ["plain", "trơn"], stripes: ["striped", "kẻ sọc"], dots: ["dotted", "chấm bi"], grid: ["grid", "kẻ ô"], gingham: ["gingham", "caro"], diagonal: ["diagonal", "sọc chéo"], dash: ["dashed", "nét đứt"], waves: ["wavy", "lượn sóng"], hearts: ["hearts", "trái tim"], stars: ["stars", "ngôi sao"] }[info.pattern];
-    return { name: { en: `Washi tape, ${P[0]}`, vi: `Băng dính ${P[1]}` }, tags: { en: ["washi", "tape", "masking tape", P[0]], vi: ["băng dính", "washi", "băng keo", P[1]] } };
+    const T = { washi: ["Washi tape", "Băng dính washi"], clear: ["Clear tape", "Băng keo trong"], masking: ["Masking tape", "Băng giấy"], cloth: ["Cloth tape", "Băng vải"], kraft: ["Kraft tape", "Băng keo giấy kraft"], foil: ["Foil tape", "Băng nhũ"] }[info.type];
+    const P = { solid: ["", ""], stripes: ["striped", "kẻ sọc"], dots: ["dotted", "chấm bi"], grid: ["grid", "kẻ ô"], gingham: ["gingham", "caro"], diagonal: ["diagonal", "sọc chéo"], dash: ["dashed", "nét đứt"], waves: ["wavy", "lượn sóng"], hearts: ["hearts", "trái tim"], stars: ["stars", "ngôi sao"] }[info.pattern];
+    const en = P[0] ? `${T[0]}, ${P[0]}` : T[0];
+    const vi = P[1] ? `${T[1]} ${P[1]}` : T[1];
+    return { name: { en, vi }, tags: { en: ["tape", "washi", "masking tape", T[0].toLowerCase(), ...(P[0] ? [P[0]] : [])], vi: ["băng dính", "băng keo", T[1].toLowerCase(), ...(P[1] ? [P[1]] : [])] } };
   }
   if (kind === "note") {
-    const C = { yellow: ["yellow", "vàng"], pink: ["pink", "hồng"], blue: ["blue", "xanh dương"], green: ["green", "xanh lá"], orange: ["orange", "cam"], purple: ["purple", "tím"], white: ["white", "trắng"] }[info.color];
-    return { name: { en: `Sticky note, ${C[0]}`, vi: `Giấy note ${C[1]}` }, tags: { en: ["sticky note", "note", "memo", "post-it", C[0]], vi: ["giấy note", "giấy nhớ", "ghi chú", C[1]] } };
+    const C = { yellow: ["yellow", "vàng"], pink: ["pink", "hồng"], blue: ["blue", "xanh dương"], green: ["green", "xanh lá"], orange: ["orange", "cam"], purple: ["purple", "tím"], white: ["white", "trắng"], mint: ["mint", "bạc hà"], coral: ["coral", "san hô"] }[info.color];
+    const S = { square: ["", ""], tall: [", tall", " dọc"], wide: [", wide", " ngang"], strip: [", index strip", " dải dọc"], "strip-wide": [", index tab", " dải ngang"] }[info.shape];
+    return { name: { en: `Sticky note${S[0]}, ${C[0]}`, vi: `Giấy note${S[1]} ${C[1]}` }, tags: { en: ["sticky note", "note", "memo", "post-it", C[0]], vi: ["giấy note", "giấy nhớ", "ghi chú", C[1]] } };
   }
   if (kind === "scrap") {
     return { name: info.grid ? { en: "Torn grid paper", vi: "Mẩu giấy ô ly xé" } : { en: "Torn notebook paper", vi: "Mẩu giấy vở xé" }, tags: { en: ["paper", "torn", "notebook", "scrap", info.grid ? "grid" : "lined"], vi: ["giấy", "xé", "giấy vở", "mẩu giấy", info.grid ? "ô ly" : "kẻ dòng"] } };

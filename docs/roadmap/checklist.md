@@ -490,6 +490,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] **G10** (Gemini): +~500 mục — Tết, Việt Nam, Nhật Bản, Mùa thu (mới), Giáng sinh, Sinh nhật, Chim cổ, Động vật (đổi tên từ Bướm & côn trùng), Minh hoạ (đổi tên từ Doodle), Du lịch & đồ cổ (đổi tên từ Bản đồ…), Tem & dấu mực (mới, một màu), lớp phủ, giấy, gắn "featured"
 - [x] (Claude) Xem trước Story / Hồ sơ giống Instagram (thanh tiến trình, avatar + skeleton, ⋯ ✕, ô trả lời; hồ sơ: số liệu, tiểu sử, nút, tin nổi bật, tab lưới / reels / gắn thẻ)
 - [x] (Claude) Sheet Sticker: emoji 2 dòng + "+N" (mở danh sách chia tab); "Dùng gần đây" 1 dòng + "+N", sửa ảnh lỗi với emoji; mọi lớp phủ gộp vào "Light & texture"; nhóm "Nổi bật" lấy thêm mục gắn `featured`
-- [ ] (Claude) Bộ sinh băng dính / giấy note phong phú hơn (dáng, vết cắt, kích thước, bọt khí, gấp, cong, bóng)
+- [x] (Claude) Bộ sinh băng dính (60: washi hoạ tiết, băng trong có bọt khí, băng giấy, băng vải tưa, băng kraft, băng nhũ; đầu xé / cắt thẳng / cắt xéo / răng cưa; dài, rộng, cong, nếp nhăn) và giấy note (40: vuông / dọc / ngang / dải; kẻ dòng / ô / chấm; góc quăn / góc gấp / mép cong / xé từ tập; bóng khác nhau)
 - [ ] (Claude) Thêm nhiều widget
 - [ ] (Claude) M21 — bắt đầu từ 120 filter (G7)
