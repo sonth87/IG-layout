@@ -71,7 +71,10 @@ await newProject("Post", ["p3.jpg", "p4.jpg"], async () => {
 await page.getByRole("button", { name: "Export" }).click();
 await page.getByText("2 images · JPEG").waitFor();
 check(await page.getByRole("tab", { name: "Carousel" }).isVisible(), "carousel tab");
-check((await page.getByRole("dialog").getByText("1 / 2").count()) === 1, "carousel counter 1 / 2");
+check((await page.getByRole("dialog").getByText("1/2", { exact: true }).count()) === 1, "carousel counter 1/2 (top right, like Instagram)");
+const post = page.getByRole("dialog").getByRole("article", { name: "Carousel" });
+check((await post.locator("button").count()) === 0, "the post's actions are pictures only (nothing to tap)");
+await page.screenshot({ path: path.join(out, "m7-ig-post.png") });
 await shot(page, "1-carousel");
 await page.getByRole("tab", { name: "Profile" }).click();
 check((await page.getByRole("img", { name: /^Post \d/ }).count()) === 1, "profile shows the cover (first image) as one post");
