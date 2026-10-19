@@ -80,7 +80,7 @@ export function TextFormatPanel({ elementId }: { elementId: string }) {
         </>
       )}
       {panel === "font" && <FontPicker el={el} patch={patch} />}
-      {panel === "color" && <Swatches value={el.color} onChange={(color) => patch({ color })} />}
+      {panel === "color" && <Swatches value={el.color} gradient onChange={(color) => patch({ color })} />}
       {panel === "size" && <Slider label={t("fmt.size")} value={Math.round(el.fontSize)} min={16} max={400} defaultValue={97} onChange={(v) => patch({ fontSize: v })} />}
       {panel === "spacing" && (
         <>

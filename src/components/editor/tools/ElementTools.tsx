@@ -223,7 +223,7 @@ export function FillTool({ elementId, onClose }: ToolProps) {
 
   return (
     <ToolSheet title={t("tool.color")} {...actions}>
-      {!fixedColors && <Swatches value={color} onChange={(c) => patch(found.type === "shape" ? { fill: c } : { color: c })} />}
+      {!fixedColors && <Swatches value={color} gradient={found.type === "shape"} onChange={(c) => patch(found.type === "shape" ? { fill: c } : { color: c })} />}
       <Slider
         label={t("tool.opacity")}
         value={Math.round(found.opacity * 100)}

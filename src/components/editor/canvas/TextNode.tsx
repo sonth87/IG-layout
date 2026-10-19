@@ -9,6 +9,7 @@ import { useCatalog } from "@/lib/catalog/load";
 import { scaleExtras } from "@/lib/elements/resize";
 import { useEditor } from "@/store/editor";
 import { useFx } from "./useFx";
+import { konvaPaint } from "@/lib/color/paint";
 import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
 
 /**
@@ -114,7 +115,7 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
         lineHeight={el.lineHeight}
         letterSpacing={el.letterSpacing}
         align={el.align}
-        fill={el.color}
+        {...konvaPaint(el.color, el.width, el.height)}
         stroke={el.stroke?.color}
         strokeWidth={el.stroke ? el.stroke.width * 2 : 0}
         fillAfterStrokeEnabled

@@ -1,3 +1,4 @@
+import { canvasPaint } from "@/lib/color/paint";
 import type { ShapeKind } from "@/lib/project/types";
 import { type LibraryShape, SHAPE_PATHS } from "./shapeLibrary";
 
@@ -9,7 +10,8 @@ function drawPath(c: CanvasRenderingContext2D, shape: LibraryShape, key: string,
   if (!p) paths.set(key, (p = new Path2D(shape.path)));
   c.save();
   c.scale(w / 100, h / 100);
-  c.fillStyle = fill;
+  // Already scaled to a 100 × 100 box.
+  c.fillStyle = canvasPaint(c, fill, 0, 0, 100, 100);
   c.fill(p, shape.evenOdd ? "evenodd" : "nonzero");
   c.restore();
 }
@@ -25,7 +27,7 @@ export function libraryShape(kind: string): LibraryShape | undefined {
 export function drawShape(c: CanvasRenderingContext2D, kind: ShapeKind, w: number, h: number, fill: string) {
   const lib = libraryShape(kind);
   if (lib) return drawPath(c, lib, kind, w, h, fill);
-  c.fillStyle = fill;
+  c.fillStyle = canvasPaint(c, fill, 0, 0, w, h);
   c.beginPath();
   switch (kind) {
     case "rect":

@@ -1,5 +1,6 @@
 // Travel widgets (D-120): boarding pass, flight route (line, dotted map, globe, dark card),
 // booking confirmed, passport cover, passport stamp, luggage tag — each in several looks.
+import { mainColor } from "@/lib/color/paint";
 import { type C, type F, type Pal, MONO, SANS, SERIF, airliner, baseW, card, dashed, fillRR, rr, text, textW, wrap, drawLines, linesH, type TextOpts } from "./widgetKit";
 
 type Size = { w: number; h: number };
@@ -391,7 +392,7 @@ function routeGlobe(c: C, f: F, pal: Pal): Size {
     const z = Math.sin(lat0) * Math.sin(la) + Math.cos(lat0) * Math.cos(la) * Math.cos(lo);
     return { x: cx + x * R, y: cy - y * R, front: z > 0 };
   };
-  const sea = pal.theme === "dark" ? "#14213d" : pal.theme === "color" ? pal.color : "#1f6fb2";
+  const sea = pal.theme === "dark" ? "#14213d" : pal.theme === "color" ? mainColor(pal.bg) : "#1f6fb2";
   const land = pal.theme === "dark" ? "#3d5a80" : pal.theme === "color" ? "rgba(255,255,255,0.55)" : "#8fd19e";
   c.save();
   c.shadowColor = "rgba(0,0,0,0.3)";
@@ -844,7 +845,7 @@ function tagAirport(c: C, f: F, pal: Pal): Size {
 function tagLeather(c: C, f: F, pal: Pal): Size {
   const w = baseW(420);
   const h = 640;
-  const leather = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#2a1d14" : "#8b4a22";
+  const leather = pal.theme === "color" ? mainColor(pal.bg) : pal.theme === "dark" ? "#2a1d14" : "#8b4a22";
   c.save();
   c.shadowColor = "rgba(0,0,0,0.35)";
   c.shadowBlur = 24;
@@ -909,7 +910,7 @@ function tagLeather(c: C, f: F, pal: Pal): Size {
 function tagKraft(c: C, f: F, pal: Pal): Size {
   const w = baseW(440);
   const h = 300;
-  const paper = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#5b4a36" : "#c9a273";
+  const paper = pal.theme === "color" ? mainColor(pal.bg) : pal.theme === "dark" ? "#5b4a36" : "#c9a273";
   const ink = pal.theme === "dark" ? "#f3e9d8" : "#2b2118";
   // String.
   c.strokeStyle = "#efe6d2";

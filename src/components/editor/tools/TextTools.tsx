@@ -109,7 +109,7 @@ export function TextTool({ elementId, onClose }: ToolProps) {
         </>
       )}
 
-      {tab === "color" && <Swatches value={el.color} onChange={(color) => patch({ color })} />}
+      {tab === "color" && <Swatches value={el.color} gradient onChange={(color) => patch({ color })} />}
 
       {tab === "effects" && (
         <>

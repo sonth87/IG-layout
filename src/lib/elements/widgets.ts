@@ -67,6 +67,8 @@ export interface WidgetData {
   variant?: string;
   /** Layout width when stretched sideways (base units; owner, 2026-10-20). */
   bw?: number;
+  /** Card colour picked by hand (solid or gradient); none = the look's own (owner, 2026-10-20). */
+  bg?: string;
 }
 
 /** A column of a list row: text, a percentage, done / not done, or which side a chat message is on. */
@@ -1463,7 +1465,7 @@ export function widgetSize(w: WidgetData, color: string, locale: Locale = "vi") 
   if (!scratch) return { w: 500, h: 300 };
   scratch.save();
   setWantWidth(w.bw ?? 0);
-  const size = KINDS[w.kind](scratch, w.fields, palette(w.theme, color), rowsOf(w), w.variant);
+  const size = KINDS[w.kind](scratch, w.fields, palette(w.theme, color, w.bg), rowsOf(w), w.variant);
   setWantWidth(0);
   scratch.restore();
   if (sizes.size > 400) sizes.clear();
@@ -1477,7 +1479,7 @@ export function drawWidget(c: C, w: WidgetData, color: string, width: number, lo
   c.save();
   c.scale(width / base.w, width / base.w);
   setWantWidth(w.bw ?? 0);
-  KINDS[w.kind](c, w.fields, palette(w.theme, color), rowsOf(w), w.variant);
+  KINDS[w.kind](c, w.fields, palette(w.theme, color, w.bg), rowsOf(w), w.variant);
   setWantWidth(0);
   c.restore();
 }
