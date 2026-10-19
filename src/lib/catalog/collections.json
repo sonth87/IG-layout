@@ -1,4 +1,8 @@
 {
+  "featured": {
+    "en": "Featured",
+    "vi": "Nổi bật"
+  },
   "tet": {
     "en": "Lunar New Year",
     "vi": "Tết",
@@ -36,6 +40,15 @@
       6,
       7,
       8
+    ]
+  },
+  "autumn": {
+    "en": "Autumn",
+    "vi": "Mùa thu",
+    "season": [
+      9,
+      10,
+      11
     ]
   },
   "backToSchool": {
