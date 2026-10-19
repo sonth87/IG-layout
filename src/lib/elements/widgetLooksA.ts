@@ -11,6 +11,7 @@ import {
   MARKER,
   TYPEWRITER,
   bare,
+  baseW,
   blackboard,
   card,
   chalkText,
@@ -71,7 +72,7 @@ function dayPill(c: C, f: F, pal: Pal): Size {
 
 /** A tent calendar on a desk: two rings, a header, the big day. */
 function dayDesk(c: C, f: F, pal: Pal): Size {
-  const w = 440;
+  const w = baseW(440);
   const h = 420;
   // Back leg.
   c.save();
@@ -222,7 +223,7 @@ function countBig(c: C, f: F, pal: Pal): Size {
 }
 
 function countRing(c: C, f: F, pal: Pal): Size {
-  const w = 440;
+  const w = baseW(440);
   const h = 520;
   const cx = w / 2;
   const cy = 210;
@@ -348,7 +349,7 @@ function skyOf(icon?: string): [string, string] {
 }
 
 function weatherSky(c: C, f: F): Size {
-  const w = 520;
+  const w = baseW(520);
   const h = 360;
   const [a, b] = skyOf(f.icon);
   const g = c.createLinearGradient(0, 0, 0, h);
@@ -365,7 +366,7 @@ function weatherSky(c: C, f: F): Size {
 
 /** A big weather symbol like a sticker, the temperature under it. */
 function weatherIcon(c: C, f: F, pal: Pal): Size {
-  const w = 360;
+  const w = baseW(360);
   const h = 360;
   const ink = bare(pal);
   text(c, f.icon, w / 2, 0, { size: 200, color: "#000", align: "center", lh: 1.15 });
@@ -378,7 +379,7 @@ function weatherIcon(c: C, f: F, pal: Pal): Size {
 
 /** A thermometer filled to the temperature (−10 to 40 °). */
 function weatherThermo(c: C, f: F, pal: Pal): Size {
-  const w = 420;
+  const w = baseW(420);
   const h = 520;
   card(c, w, h, pal, 40);
   const t = parseFloat((f.temperature ?? "").replace(",", "."));
@@ -412,7 +413,7 @@ function weatherThermo(c: C, f: F, pal: Pal): Size {
 
 /** Frosted glass on the photo: pale, see-through, a bright rim. */
 function weatherGlass(c: C, f: F): Size {
-  const w = 520;
+  const w = baseW(520);
   const h = 300;
   lifted(c, () => fillRR(c, 0, 0, w, h, 40, "rgba(255,255,255,0.22)"), 30, 10, 0.18);
   const g = c.createLinearGradient(0, 0, w, h);
@@ -455,7 +456,7 @@ export function quoteLook(c: C, f: F, pal: Pal, v: string): Size {
 }
 
 function quoteMarks(c: C, f: F, pal: Pal): Size {
-  const w = 620;
+  const w = baseW(620);
   const ink = bare(pal);
   const q: TextOpts = { size: 44, weight: 500, color: ink, family: SERIF, italic: true, align: "center", lh: 1.35 };
   const lines = wrap(c, f.thought, q, w - 60, 6);
@@ -469,7 +470,7 @@ function quoteMarks(c: C, f: F, pal: Pal): Size {
 }
 
 function quoteTypewriter(c: C, f: F): Size {
-  const w = 580;
+  const w = baseW(580);
   const q: TextOpts = { size: 30, weight: 400, color: "#2a2a2a", family: TYPEWRITER, lh: 1.5 };
   const lines = wrap(c, f.thought, q, w - 100, 8);
   const h = 70 + 40 + 20 + linesH(lines.length, q) + 30 + 30 + 60;
@@ -490,7 +491,7 @@ function quoteTypewriter(c: C, f: F): Size {
 }
 
 function quoteNote(c: C, f: F): Size {
-  const w = 500;
+  const w = baseW(500);
   const q: TextOpts = { size: 36, weight: 400, color: "#3b2f1e", family: HAND, lh: 1.35 };
   const lines = wrap(c, f.thought, q, w - 90, 7);
   const h = Math.max(460, 90 + linesH(lines.length, q) + 90);
@@ -518,7 +519,7 @@ function quoteNote(c: C, f: F): Size {
 function quoteLine(c: C, f: F, pal: Pal): Size {
   const ink = bare(pal);
   const q: TextOpts = { size: 36, weight: 400, color: ink, family: SERIF, italic: true, align: "center", lh: 1.35 };
-  const w = 720;
+  const w = baseW(720);
   const lines = wrap(c, f.thought, q, w, 3);
   const h = linesH(lines.length, q) + 70;
   onPhoto(c, pal, () => {
@@ -532,7 +533,7 @@ function quoteLine(c: C, f: F, pal: Pal): Size {
 }
 
 function quoteChalk(c: C, f: F): Size {
-  const w = 640;
+  const w = baseW(640);
   const q: TextOpts = { size: 40, weight: 400, color: "#f4f1e8", family: MARKER, align: "center", lh: 1.35 };
   const lines = wrap(c, f.thought, q, w - 120, 6);
   const h = 90 + linesH(lines.length, q) + 90;
@@ -544,7 +545,7 @@ function quoteChalk(c: C, f: F): Size {
 
 /** An open book: the quote on the right page. */
 function quoteBook(c: C, f: F): Size {
-  const w = 760;
+  const w = baseW(760);
   const q: TextOpts = { size: 28, weight: 400, color: "#2b2118", family: SERIF, lh: 1.45 };
   const page = w / 2 - 40;
   const lines = wrap(c, f.thought, q, page - 70, 8);
@@ -715,7 +716,7 @@ function musicVinyl(c: C, f: F, pal: Pal): Size {
 }
 
 function musicCassette(c: C, f: F, pal: Pal): Size {
-  const w = 620;
+  const w = baseW(620);
   const h = 390;
   const shell = pal.theme === "dark" ? "#2a2a2e" : pal.theme === "color" ? pal.color : "#e9e4da";
   lifted(c, () => fillRR(c, 0, 0, w, h, 26, shell), 24, 10, 0.3);
@@ -777,7 +778,7 @@ function musicCassette(c: C, f: F, pal: Pal): Size {
 
 /** A scan code: bars of different heights from the title, beside a round sound mark. */
 function musicCode(c: C, f: F, pal: Pal): Size {
-  const w = 620;
+  const w = baseW(620);
   const h = 200;
   const bg = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#1c1c1e" : "#ffffff";
   const ink = pal.theme === "color" ? pal.onAc === pal.color ? "#ffffff" : pal.fg : pal.theme === "dark" ? "#ffffff" : "#111111";
@@ -813,7 +814,7 @@ function musicCode(c: C, f: F, pal: Pal): Size {
 
 function musicMinimal(c: C, f: F, pal: Pal): Size {
   const ink = bare(pal);
-  const w = 600;
+  const w = baseW(600);
   const h = 170;
   onPhoto(c, pal, () => {
     text(c, `♪  ${f.songTitle ?? ""}`, 0, 0, { size: 40, weight: 800, color: ink, lh: 1.25 }, w);
