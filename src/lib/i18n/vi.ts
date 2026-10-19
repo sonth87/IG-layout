@@ -619,6 +619,7 @@ export const vi: Record<MessageKey, string> = {
   "about.role": "Người làm IG Layout",
   "about.app": "Về app",
   "about.body": "App miễn phí để làm bài đăng Instagram đẹp: carousel, lưới, story, chữ, sticker, video. Không cần đăng nhập, không quảng cáo; ảnh của bạn luôn ở trên máy bạn. Làm vì vui, phi thương mại.",
+  "thanks.openSource": "Giấy phép mã nguồn mở (thư viện, phông chữ, icon)",
   "thanks.title": "Cảm ơn",
   "thanks.hint": "Thư viện, phông chữ, hình ảnh và tác giả mà app dùng",
   "thanks.intro": "App được làm nên nhờ công sức chia sẻ của rất nhiều người. Cảm ơn các tác giả, bảo tàng, thư viện và cộng đồng mã nguồn mở dưới đây.",

@@ -52,3 +52,6 @@ public/emoji/
 /assets/**/src/
 /assets/**/review.html
 /assets/_review/
+
+# Generated at build (scripts/build-licenses.mjs)
+/public/licenses.txt

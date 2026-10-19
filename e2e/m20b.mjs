@@ -117,7 +117,9 @@ await page.getByLabel("Back").click();
 await page.getByRole("tab", { name: "Settings" }).click();
 await page.getByRole("button", { name: /^Thanks/ }).click();
 const assetsCredits = page.getByRole("region", { name: "Pictures in the libraries" });
-check((await assetsCredits.innerText()).includes("Test") && (await assetsCredits.innerText()).includes("CC0 1.0"), "pack credits with their licence");
+const creditText = await assetsCredits.innerText();
+check(creditText.includes("Test") && creditText.includes("CC BY 4.0"), "a source that must be credited, with its licence");
+check(!creditText.includes("Public domain source"), "public-domain / CC0 sources are not listed");
 
 console.log("console errors:", errors);
 console.log(failures === 0 && errors.length === 0 ? "ALL PASSED" : `${failures} FAILED, ${errors.length} console errors`);

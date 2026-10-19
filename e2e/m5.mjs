@@ -157,9 +157,12 @@ console.log("10. Thanks (credits) from Settings (M20 C6)");
 await page.getByLabel("Back").click();
 await page.getByRole("tab", { name: "Settings" }).click();
 await page.getByRole("button", { name: /^Thanks/ }).click();
-check(await page.getByRole("link", { name: "Lucide icons" }).isVisible(), "icons credited");
-check(await page.getByRole("region", { name: "Code libraries" }).getByRole("link", { name: "Konva · react-konva" }).isVisible(), "code libraries credited");
-check(/Google Fonts — \d+ fonts/.test(await page.getByRole("region", { name: "Fonts" }).innerText()), "fonts credited");
+// Only sources that must be credited are listed; the rest is in /licenses.txt (2026-10-19).
+check((await page.getByRole("region", { name: "Code libraries" }).count()) === 0, "no list of every dependency");
+const link = page.getByRole("link", { name: /Open-source licences/ });
+check((await link.getAttribute("href")) === "/licenses.txt", "a link to the open-source licences");
+const txt = await page.evaluate(() => fetch("/licenses.txt").then((r) => r.text()));
+check(/konva/.test(txt) && /lucide-static/.test(txt) && /Open Font License/.test(txt) && /Permission is hereby granted/.test(txt), "licences.txt carries the licence texts");
 await page.getByLabel("Back").click();
 
 console.log("11. About (M20 C6b)");
