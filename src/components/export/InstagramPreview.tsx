@@ -23,35 +23,74 @@ function Avatar() {
   return <span aria-hidden="true" className="h-7 w-7 rounded-full bg-gradient-to-br from-[#f2b84b] to-[#d9728a] p-[2px]"><span className="block h-full w-full rounded-full border-2 border-black bg-[#3a3c42]" /></span>;
 }
 
+/** A grey bar standing for text we don't have (a name, a caption…). */
+function Skeleton({ className }: { className: string }) {
+  return <span aria-hidden="true" className={`block rounded-full bg-surface-2 ${className}`} />;
+}
+
+/**
+ * A feed post as Instagram shows it (owner, 2026-10-19), so the result looks familiar:
+ * header (avatar, name / subtitle as skeleton bars, ⋯), the picture with "1/N" at the
+ * top right and the dots under it, the actions (like, comment, repost, share · save) faded
+ * and not tappable, a caption skeleton. Only the swipe is real.
+ */
 export function CarouselPreview({ urls, aspect }: { urls: string[]; aspect: number }) {
   const t = useT();
   const [index, setIndex] = useState(0);
+  const many = urls.length > 1;
+  const action = "text-text opacity-40";
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-black text-white">
-      <div className="flex items-center gap-2.5 px-3 py-2.5">
-        <Avatar />
-        <span className="text-[13px] font-semibold">{t("preview.account")}</span>
-        <span className="ml-auto rounded-full bg-black/60 px-2 py-0.5 text-xs">
-          {index + 1} / {urls.length}
+    <article aria-label={t("preview.carousel")} className="overflow-hidden rounded-2xl border border-border bg-bg text-text">
+      <header className="flex items-center gap-3 px-3 py-2.5">
+        <span aria-hidden="true" className="h-9 w-9 shrink-0 rounded-full bg-gradient-to-br from-[#f2b84b] to-[#d9728a] p-[2px]">
+          <span className="block h-full w-full rounded-full border-2 border-bg bg-surface-2" />
         </span>
+        <span className="flex flex-1 flex-col gap-1.5">
+          <Skeleton className="h-2.5 w-28" />
+          <Skeleton className="h-2 w-44" />
+        </span>
+        <span aria-hidden="true" className={action}>
+          <Icon name="igMore" size={22} />
+        </span>
+      </header>
+      <div className="relative">
+        <div
+          className="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none]"
+          onScroll={(e) => {
+            const el = e.currentTarget;
+            setIndex(Math.round(el.scrollLeft / el.clientWidth));
+          }}
+        >
+          {urls.map((u, i) => (
+            <Media key={u} src={u} alt={t("export.slide", { index: i + 1 })} className="w-full shrink-0 snap-center object-cover" style={{ aspectRatio: aspect }} />
+          ))}
+        </div>
+        {many && (
+          <span aria-label={t("preview.count", { index: index + 1, count: urls.length })} className="absolute top-3 right-3 rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium text-white tabular-nums">
+            {index + 1}/{urls.length}
+          </span>
+        )}
       </div>
-      <div
-        className="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none]"
-        onScroll={(e) => {
-          const el = e.currentTarget;
-          setIndex(Math.round(el.scrollLeft / el.clientWidth));
-        }}
-      >
-        {urls.map((u, i) => (
-          <Media key={u} src={u} alt={t("export.slide", { index: i + 1 })} className="w-full shrink-0 snap-center object-cover" style={{ aspectRatio: aspect }} />
-        ))}
+      <div className="relative flex items-center gap-4 px-3 pt-2.5 pb-1" aria-hidden="true">
+        <span className={action}><Icon name="igHeart" size={24} /></span>
+        <span className={action}><Icon name="igComment" size={24} /></span>
+        <span className={action}><Icon name="igRepost" size={24} /></span>
+        <span className={action}><Icon name="igSend" size={24} /></span>
+        <span className={`ml-auto ${action}`}><Icon name="igSave" size={24} /></span>
+        {many && (
+          // Dots under the picture, centred like Instagram's.
+          <span className="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-center gap-1">
+            {urls.map((u, i) => (
+              <span key={u} className={`h-1.5 w-1.5 rounded-full ${i === index ? "bg-[#4f8ef7]" : "bg-text/20"}`} />
+            ))}
+          </span>
+        )}
       </div>
-      <div className="flex items-center justify-center gap-1.5 py-2.5" aria-hidden="true">
-        {urls.map((u, i) => (
-          <span key={u} className={`h-1.5 w-1.5 rounded-full ${i === index ? "bg-[#4f8ef7]" : "bg-white/35"}`} />
-        ))}
+      <div className="flex flex-col gap-1.5 px-3 pt-2 pb-3.5" aria-hidden="true">
+        <Skeleton className="h-2.5 w-3/4" />
+        <Skeleton className="h-2 w-20" />
       </div>
-    </div>
+    </article>
   );
 }
 

@@ -683,6 +683,7 @@ export const vi: Record<MessageKey, string> = {
   "preview.profile": "Trang cá nhân",
   "preview.story": "Story",
   "preview.files": "Các file",
+  "preview.count": "Ảnh {index}/{count}",
   "preview.account": "tai_khoan_cua_ban",
   "preview.profileHint": "Trông thế nào trên trang cá nhân (ảnh thu nhỏ 3:4)",
   "preview.post": "Bài {index}",

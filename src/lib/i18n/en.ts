@@ -684,6 +684,7 @@ export const en = {
   "preview.profile": "Profile",
   "preview.story": "Story",
   "preview.files": "Files",
+  "preview.count": "Picture {index} of {count}",
   "preview.account": "your_account",
   "preview.profileHint": "How it looks on your profile (3:4 thumbnails)",
   "preview.post": "Post {index}",

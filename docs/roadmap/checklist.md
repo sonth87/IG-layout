@@ -478,3 +478,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Bỏ nút / màn **Bộ sưu tập** riêng (trùng với chế độ **Bộ** của sheet Sticker; dải tab ngang dài ra theo số bộ)
 - [x] Chế độ Bộ: **mỗi mục chỉ hiện một lần**, ở bộ chính của nó (bộ đầu tiên của gói)
 - [x] Icon Sticker → Lucide **Origami**, Widget → **Grid2x2Plus**; icon menu "+" (Lớp mới) và thanh công cụ to hơn
+
+### Xem trước giống bài đăng Instagram (2026-10-19)
+- [x] Header: avatar, tên / phụ đề dạng skeleton, ⋯; ảnh có nhãn **1/N** góc trên phải (khi nhiều hơn 1), chấm vị trí; tim · bình luận · đăng lại · chia sẻ · bookmark nhạt, không bấm được; chú thích / thời gian dạng skeleton; hợp cả nền sáng / tối
