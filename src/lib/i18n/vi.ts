@@ -336,6 +336,7 @@ export const vi: Record<MessageKey, string> = {
   "color.angle": "Góc",
   "color.stop": "Điểm màu",
   "color.addStop": "Thêm điểm màu",
+  "color.text": "Màu chữ",
   "color.card": "Màu thẻ",
   "color.accent": "Màu nhấn",
   "color.reset": "Màu gốc",

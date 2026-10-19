@@ -506,5 +506,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Góp ý 20/10: chữ kéo ngang được (tay nắm bên không ẩn, đẩy ra ngoài cạnh ngắn); widget kéo cạnh bên giãn bố cục (chữ giữ cỡ); hiệu ứng vẽ nhanh khi đang kéo thanh trượt (D-126, e2e stretch.mjs)
 - [x] Bộ chọn màu gọn (ô tròn → bảng Màu đơn / Gradient, Tuỳ chỉnh / Đã lưu / Mặc định), ống hút có kính lúp, widget chỉnh màu thẻ / màu nhấn trực tiếp (D-127, e2e colors.mjs)
 - [x] Mọi bottom sheet: thanh trên cố định kiểu bảng màu (‹ / ✕ tròn, tiêu đề giữa); màn "+N" của thư viện trượt vào với ‹ + tên nhóm (D-129)
+- [x] Widget: Màu chữ (tự đen / trắng theo màu thẻ, hoặc tự chọn); kiểu không thẻ / chất liệu riêng không có Màu thẻ (D-130, e2e colors.mjs)
 - [ ] Hiệu ứng: kéo tâm / mép trực tiếp trên canvas
 - [x] M21 — Hiệu ứng đợt 3 (12) — đủ 48 hiệu ứng (D-125, e2e effects.mjs)

@@ -276,7 +276,7 @@ export function searchLook(c: C, f: F, pal: Pal): Size {
   }
   // A tab.
   fillRR(c, 140, 14, 220, 44, 12, pal.theme === "dark" ? "#1c1c1e" : "#ffffff");
-  text(c, f.hint, 160, 22, { size: 18, weight: 600, color: pal.theme === "dark" ? "#ddd" : "#333", lh: 1.6 }, 180);
+  text(c, f.hint, 160, 22, { keep: true, size: 18, weight: 600, color: pal.theme === "dark" ? "#ddd" : "#333", lh: 1.6 }, 180);
   fillRR(c, 24, 84, w - 48, 86, 43, pal.theme === "dark" ? "#1c1c1e" : "#ffffff");
   c.strokeStyle = "#8e8e93";
   c.lineWidth = 4;
@@ -286,7 +286,7 @@ export function searchLook(c: C, f: F, pal: Pal): Size {
   c.moveTo(82, 133);
   c.lineTo(92, 143);
   c.stroke();
-  text(c, f.query, 112, 108, { size: 28, weight: 500, color: pal.theme === "dark" ? "#fff" : "#111", lh: 1.3 }, w - 160);
+  text(c, f.query, 112, 108, { keep: true, size: 28, weight: 500, color: pal.theme === "dark" ? "#fff" : "#111", lh: 1.3 }, w - 160);
   // Blinking cursor.
   const qx = 112 + Math.min(w - 170, textW(c, f.query, { size: 28, weight: 500, color: "" })) + 6;
   c.fillStyle = "#0a84ff";

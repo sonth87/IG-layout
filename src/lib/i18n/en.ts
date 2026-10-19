@@ -337,6 +337,7 @@ export const en = {
   "color.angle": "Angle",
   "color.stop": "Colour stop",
   "color.addStop": "Add a colour stop",
+  "color.text": "Text colour",
   "color.card": "Card colour",
   "color.accent": "Accent",
   "color.reset": "Original colours",

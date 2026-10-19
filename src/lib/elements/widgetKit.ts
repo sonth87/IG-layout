@@ -80,6 +80,8 @@ export function palette(theme: WidgetTheme, color: string, card?: string): Pal {
 }
 
 export interface TextOpts {
+  /** On its own fixed surface (a paper window, a white bar): never recoloured with the text colour. */
+  keep?: boolean;
   size: number;
   weight?: number;
   color: string;
@@ -142,7 +144,7 @@ export const linesH = (n: number, o: TextOpts) => n * o.size * (o.lh ?? 1.3);
 /** Draws lines from the top `y`; returns the height used. */
 export function drawLines(c: C, lines: string[], x: number, y: number, o: TextOpts) {
   setFont(c, o);
-  c.fillStyle = o.color;
+  c.fillStyle = o.keep ? o.color : inked(o.color);
   c.textAlign = o.align ?? "left";
   c.textBaseline = "middle";
   const lh = o.size * (o.lh ?? 1.3);
@@ -397,3 +399,46 @@ export function setWantWidth(w: number) {
 }
 /** A widget's base width: its own `d`, or wider / narrower when stretched (not below 60 %). */
 export const baseW = (d: number) => (want > 0 ? Math.max(d * 0.6, want) : d);
+
+
+// ---------------------------------------------------------------- text colour (owner, 2026-10-20)
+
+let ink: string | null = null;
+let inkMode: "auto" | "manual" = "auto";
+let inkPal: Pal | null = null;
+
+/**
+ * Text colour of the widget being drawn. "manual" (picked): every text takes it, but those
+ * on an accent / filled shape (drawn in the card or "on accent" colour). "auto" (after a
+ * new card colour): only texts that would vanish into the card take it.
+ */
+export function setInk(color: string | null | undefined, mode: "auto" | "manual" = "auto", pal: Pal | null = null) {
+  ink = color && /^#[0-9a-f]{6}/i.test(color) ? color.slice(0, 7) : null;
+  inkMode = mode;
+  inkPal = pal;
+}
+
+/** 0..1 brightness of "#rrggbb" or "rgb(a)(…)". */
+function lum(color: string) {
+  const m = /rgba?\(\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)/.exec(color);
+  if (m) return (0.299 * +m[1] + 0.587 * +m[2] + 0.114 * +m[3]) / 255;
+  return luminance(color.slice(0, 7));
+}
+
+function inked(color: string) {
+  if (!ink || !inkPal) return color;
+  const same = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
+  // Text on a filled shape (a pill in the accent, a button in the text colour): keep it.
+  if (same(color, inkPal.bg) || same(color, inkPal.onAc)) return color;
+  if (inkMode === "auto" && Math.abs(lum(color) - lum(mainColor(inkPal.bg))) > 0.38) return color;
+  const m = /rgba?\([^)]*,\s*([0-9.]+)\)$/.exec(color);
+  const a = m ? Math.max(0.5, parseFloat(m[1])) : 1;
+  if (a >= 1) return ink;
+  const n = parseInt(ink.slice(1), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+}
+
+/** Black or white, whichever reads better on a paint (solid or gradient). */
+export function contrastInk(paint: string) {
+  return luminance(mainColor(paint)) > 0.6 ? "#111111" : "#ffffff";
+}

@@ -13,7 +13,7 @@ import { drawClock, CLOCK_VARIANTS } from "./widgetClock";
 import { activityRings, chatLook, checklistLook, coupon, emojiSlider, exifLook, habit, hashtagLook, likeCount, mentionLook, moodFaces, notificationLook, pollLook, priceLook, progressLook, questionLook, receiptLook, recipeLook, runSummary, searchLook, sleep, starsLook, stepsLook, water } from "./widgetLooksB";
 import { calendarLook, countdownLook, musicLook, quoteLook, weatherLook } from "./widgetLooksA";
 import { boardingPassLook, booking, flightRoute, luggageTag, passport, passportStamp } from "./widgetTravel";
-import { airliner, baseW, C, card, setWantWidth, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
+import { airliner, baseW, C, card, setInk, setWantWidth, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
 
 export const CARD_WIDGETS = [
   "clock",
@@ -69,6 +69,10 @@ export interface WidgetData {
   bw?: number;
   /** Card colour picked by hand (solid or gradient); none = the look's own (owner, 2026-10-20). */
   bg?: string;
+  /** Colour of every text (owner, 2026-10-20). */
+  ink?: string;
+  /** `ink` was set for the card colour (black / white), not picked: it follows the card. */
+  inkAuto?: boolean;
 }
 
 /** A column of a list row: text, a percentage, done / not done, or which side a chat message is on. */
@@ -1465,8 +1469,11 @@ export function widgetSize(w: WidgetData, color: string, locale: Locale = "vi") 
   if (!scratch) return { w: 500, h: 300 };
   scratch.save();
   setWantWidth(w.bw ?? 0);
-  const size = KINDS[w.kind](scratch, w.fields, palette(w.theme, color, w.bg), rowsOf(w), w.variant);
+  const pal0 = palette(w.theme, color, w.bg);
+  setInk(w.ink, w.inkAuto ? "auto" : "manual", pal0);
+  const size = KINDS[w.kind](scratch, w.fields, pal0, rowsOf(w), w.variant);
   setWantWidth(0);
+  setInk(null);
   scratch.restore();
   if (sizes.size > 400) sizes.clear();
   sizes.set(key, size);
@@ -1479,13 +1486,17 @@ export function drawWidget(c: C, w: WidgetData, color: string, width: number, lo
   c.save();
   c.scale(width / base.w, width / base.w);
   setWantWidth(w.bw ?? 0);
-  KINDS[w.kind](c, w.fields, palette(w.theme, color, w.bg), rowsOf(w), w.variant);
+  const pal = palette(w.theme, color, w.bg);
+  setInk(w.ink, w.inkAuto ? "auto" : "manual", pal);
+  KINDS[w.kind](c, w.fields, pal, rowsOf(w), w.variant);
   setWantWidth(0);
+  setInk(null);
   c.restore();
 }
 
 const thumbs = new Map<string, string>();
-const BARE_LOOKS = new Set(["poll:minimal", "mentionTag:underline", "starRating:stars", "emojiSlider:minimal", "stepCounter:big", "runSummary:big", "runSummary:minimal", "activityRings:rings", "priceTag:simple", "checklist:hand", "habit:dots", "recipeCard:minimal", "filmExif:hud", "filmExif:line", "calendarDate:big", "countdown:big", "countdown:flip", "weather:big", "weather:icon", "weather:glass", "bookQuote:marks", "bookQuote:line", "nowPlaying:vinyl", "nowPlaying:code", "nowPlaying:minimal", "clock:digital", "clock:handwritten", "boardingPass:minimal", "flightRoute:line", "flightRoute:globe", "flightRoute:doodle"]);
+/** Looks without a card: the text sits on the photo (no card colour to pick). */
+export const BARE_LOOKS = new Set(["poll:minimal", "mentionTag:underline", "starRating:stars", "emojiSlider:minimal", "stepCounter:big", "runSummary:big", "runSummary:minimal", "activityRings:rings", "priceTag:simple", "checklist:hand", "habit:dots", "recipeCard:minimal", "filmExif:hud", "filmExif:line", "calendarDate:big", "countdown:big", "countdown:flip", "weather:big", "weather:icon", "weather:glass", "bookQuote:marks", "bookQuote:line", "nowPlaying:vinyl", "nowPlaying:code", "nowPlaying:minimal", "clock:digital", "clock:handwritten", "boardingPass:minimal", "flightRoute:line", "flightRoute:globe", "flightRoute:doodle"]);
 
 /** A small picture of a kind with its sample texts, for the library. */
 export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360, variant?: string, from?: { data: WidgetData; color: string }) {
@@ -1537,3 +1548,28 @@ export const WIDGET_GROUPS: { id: "clock" | "calendar" | "weather" | "travel" | 
   { id: "todo", kinds: ["checklist", "habit", "progressBar", "moodMeter"] },
   { id: "more", kinds: ["recipeCard", "filmExif"] },
 ];
+
+/** Whether this widget has a card (some looks put the text straight on the photo). */
+export function hasCard(w: WidgetData) {
+  const v = w.variant ?? WIDGET_VARIANTS[w.kind]?.[0]?.id;
+  return !BARE_LOOKS.has(`${w.kind}:${v}`) && !OWN_SURFACE.has(`${w.kind}:${v}`);
+}
+
+/** Looks with their own material (wood, chalkboard, glass tubes, ruled paper…): no card colour. */
+const OWN_SURFACE = new Set([
+  "clock:led", "clock:lcd", "clock:neon", "clock:nixie", "clock:chalk", "clock:wood", "clock:flip", "clock:roman",
+  "flightRoute:dark", "flightRoute:sticker", "passport:gold", "passport:embossed", "passport:worn",
+  "passportStamp:round", "passportStamp:rect", "passportStamp:oval", "passportStamp:hex", "passportStamp:plane", "passportStamp:postage", "passportStamp:triangle", "passportStamp:pin", "passportStamp:ticket",
+  "booking:stamp", "luggageTag:airport", "weather:sky", "weather:glass", "weather:icon",
+  "nowPlaying:vinyl", "nowPlaying:cassette", "receipt:restaurant", "receipt:handwritten",
+  "checklist:lined", "checklist:note", "recipeCard:lined", "bookQuote:typewriter", "bookQuote:note", "bookQuote:chalk", "bookQuote:book",
+  "activityRings:rings", "phoneNotification:lock", "calendarDate:filmStamp", "chatConvo:green",
+]);
+
+// For the end-to-end checks: every look, and a new widget's data.
+if (typeof window !== "undefined")
+  Object.assign(window, {
+    __widgetLooks: (): (string | undefined)[][] => CARD_WIDGETS.flatMap((k): (string | undefined)[][] => WIDGET_VARIANTS[k]?.map((v) => [k, v.id, `${k}:${v.id}`]) ?? [[k, undefined, k]]),
+    __widgetData: (k: CardWidgetKind, v?: string) => newWidgetData(k, "en", v),
+    __hasCard: (w: WidgetData) => hasCard(w),
+  });
