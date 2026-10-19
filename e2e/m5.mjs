@@ -87,7 +87,7 @@ await page.getByRole("button", { name: "Color", exact: true }).click();
 // The compact colour control (2026-10-20): the swatch opens the colour panel.
 await page.getByRole("region", { name: "Color" }).getByRole("button", { name: "Color" }).click();
 await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "#f2b84b" }).click();
-await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "Done" }).click();
+await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "Close" }).click();
 await apply();
 st = await S();
 check(last(st, "shape").fill === "#f2b84b", "shape recolored");

@@ -287,14 +287,8 @@ export function WidgetColorTool({ elementId, onClose }: Props) {
   return (
     <Sheet title={t("tool.color")} onClose={onClose}>
       <div className="flex flex-col gap-1">
-        <div className="flex items-center justify-between">
-          <span className="text-[14px] font-semibold">{t("color.card")}</span>
-          <ColorPicker value={cardNow} gradient label={t("color.card")} onChange={(bg) => w.change({ ...w.widget, bg })} />
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-[14px] font-semibold">{t("color.accent")}</span>
-          <ColorPicker value={w.el.color} label={t("color.accent")} onChange={setAccent} />
-        </div>
+        <ColorPicker value={cardNow} gradient label={t("color.card")} onChange={(bg) => w.change({ ...w.widget, bg })} />
+        <ColorPicker value={w.el.color} label={t("color.accent")} onChange={setAccent} />
         <button
           type="button"
           onClick={() => {
