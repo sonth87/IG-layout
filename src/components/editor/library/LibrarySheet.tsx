@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { catalogAsset, fold, loadCatalog, loadPack, packsOf, packUrl, useCatalog } from "@/lib/catalog/load";
 import type { CatalogItem, CatalogKind } from "@/lib/catalog/types";
-import { COLLECTION_IDS, COLLECTIONS, type CollectionId, inSeason } from "@/lib/catalog/collections";
+import { collectionOrder, COLLECTIONS, mainCollection } from "@/lib/catalog/collections";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { iconDataUrl } from "@/lib/elements/icons";
 import { newCardWidget, newEmoji, newFramedPhoto, newShape, newSticker, newWidget, newOverlay, WIDGETS } from "@/lib/elements/create";
@@ -114,7 +114,7 @@ const SHEET_PACKS: Partial<Record<LibraryKind, CatalogKind[]>> = { sticker: ["st
 
 /** Collections in library order: the ones in season first (M20 §9). */
 const MONTH = new Date().getMonth() + 1;
-const COLLECTION_ORDER: CollectionId[] = [...new Set([...inSeason(MONTH), ...COLLECTION_IDS])];
+const COLLECTION_ORDER = collectionOrder(MONTH);
 
 /** "By type" or "By collection" — remembered on this device. */
 const VIEW_KEY = "ig-layout:library-view";
@@ -229,15 +229,16 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
   });
   /** Every loaded item of these kinds, with the kind it came from. */
   const allItems = (kinds: CatalogKind[]) =>
-    kinds.flatMap((k) => packsOf(catalog, k).flatMap((p) => (packItems[p.id] ?? p.preview).map((item) => ({ item, kind: k }))));
+    kinds.flatMap((k) => packsOf(catalog, k).flatMap((p) => (packItems[p.id] ?? p.preview).map((item) => ({ item, kind: k, pack: p }))));
   /** Groups by collection instead of by pack ("Bộ" view). */
   const collectionGroups = (kinds: CatalogKind[]) => {
     const all = allItems(kinds).filter(({ item }) => !q || fold(item.search).includes(fold(q)));
-    // Each item once, under its main collection (its pack's first), owner 2026-10-19.
+    // Each item once, under its most specific collection (owner, 2026-10-19).
+    const main = new Map(all.map(({ item, pack }) => [item.id, mainCollection(item.collections, pack.collections, pack.id)]));
     return COLLECTION_ORDER.map((c) => ({
       id: `set-${c}`,
       title: COLLECTIONS[c][locale],
-      items: all.filter(({ item }) => item.collections[0] === c).map(({ item, kind: k }) => ({ ...packItem(item, k), key: `${c}-${item.id}` })),
+      items: all.filter(({ item }) => main.get(item.id) === c).map(({ item, kind: k }) => ({ ...packItem(item, k), key: `${c}-${item.id}` })),
     })).filter((g) => g.items.length > 0);
   };
   const packGroups = (packKind: CatalogKind) =>
@@ -318,7 +319,8 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
     });
     // Every overlay (light leaks, bokeh, flares, paper…) in this one group (owner, 2026-10-19).
     groups[groups.length - 1].items.push(...packGroups("overlay").flatMap((g) => g.items));
-    if (view === "set") groups.splice(0, groups.length, ...collectionGroups(["sticker", "overlay"]));
+    // "Bộ": the themes, each item once; Light & texture last — it is no theme (owner, 2026-10-19).
+    if (view === "set") groups.splice(0, groups.length, ...collectionGroups(["sticker"]), groups[groups.length - 1]);
   } else if (kind === "shape") {
     for (const g of SHAPE_GROUPS)
       groups.push({

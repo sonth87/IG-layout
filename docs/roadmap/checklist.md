@@ -494,4 +494,5 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] (Claude) Thêm nhiều widget — 22 widget dạng thẻ (D-114): vẽ trên canvas, sửa chữ / kiểu Sáng·Tối·Màu / màu nhấn, cao tự theo nội dung; sheet chia nhóm Chữ · Mạng xã hội · Thông tin · Kỷ niệm (e2e widgets.mjs)
 - [x] Góp ý 19/10 (2): widget sửa được ngay khi chạm vào thẻ đang chọn (ngoài nút **Sửa widget** trên thanh công cụ); phần tử kéo ra ngoài canvas vẫn thấy (mờ), chỉ không có khi xuất (D-115, e2e widgets.mjs)
 - [x] Zoom canvas bằng con lăn chuột / trackpad trên máy tính, quanh con trỏ; Shift + lăn để cuộn ngang (D-116, e2e wheel-zoom.mjs)
+- [x] Xem theo Bộ: mỗi pack ở bộ chủ đề của nó, mục dịp lễ vào bộ dịp lễ, lớp phủ gom cuối; thứ tự theo mùa → quanh năm → dịp khác (D-117; đã thử với dữ liệu G10)
 - [ ] (Claude) M21 — bắt đầu từ 120 filter (G7)

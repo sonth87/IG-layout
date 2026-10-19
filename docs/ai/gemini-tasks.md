@@ -442,3 +442,7 @@ Phạm vi: assets/**, public/packs/**, scripts/assets/** (script mới nếu c�
 
 - **2026-10-18 — đổi nhỏ định dạng `windows`** (Claude): trường `path` (chuỗi SVG) được thay bằng `points` — đa giác `[x0, y0, x1, y1…]` toạ độ 0–1 theo hộp của cửa sổ (xem asset-catalog §3). Khung chữ nhật / bầu dục không cần trường này.
 - **Khung tự sinh** của Claude nằm ở các gói `assets/frame/gen-*` (đừng sửa tay — sinh lại bằng `scripts/frames/generate.mjs build`). `public/packs/catalog.json` là file sinh tự động: nếu bị xung đột khi merge thì chạy lại `build-catalog.mjs`.
+
+
+### Ghi chú cho mọi đợt sau (2026-10-19, D-117)
+Chế độ **Bộ** của thư viện xếp mỗi mục **một lần**: theo bộ chủ đề của **pack** (bộ cụ thể nhất trong `collections` của pack), trừ khi chính mục đó gắn một **dịp lễ** (tet, midAutumn, christmas, halloween, valentine, easter, womensDay, teachersDay, newYear, birthday, wedding, graduation, baby, backToSchool) thì vào dịp đó. Vì vậy: đặt bộ chủ đề thật của pack vào `collections` của pack; ở từng mục chỉ thêm dịp lễ khi mục đó đúng là của dịp ấy; các nhãn chung (vintage, journal, cute…) không quyết định chỗ hiện. Pack mới cần chủ đề khác cách tự suy ra thì báo Claude thêm vào `PACK_MAIN` (`src/lib/catalog/collections.ts`).
