@@ -2,8 +2,8 @@
   "id": "birds-animals",
   "kind": "sticker",
   "name": {
-    "en": "Vintage Birds & Fauna",
-    "vi": "Chim & Động vật vẽ cổ"
+    "en": "Vintage Birds",
+    "vi": "Chim cổ"
   },
   "collections": [
     "vintage",
@@ -640,6 +640,1286 @@
       },
       "width": 538,
       "height": 1024
+    },
+    {
+      "id": "bird-barn-owl-perched",
+      "name": {
+        "en": "Vintage Barn Owl Perched on Oak Branch",
+        "vi": "Chim cú lợn cổ điển đậu trên cành sồi"
+      },
+      "tags": {
+        "en": [
+          "barn owl",
+          "owl",
+          "bird",
+          "vintage"
+        ],
+        "vi": [
+          "cú lợn",
+          "cú mèo",
+          "chim cổ",
+          "thiên nhiên"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-barn-owl-perched",
+        "author": "IG Layout Illustration",
+        "title": "Vintage Barn Owl Perched on Oak Branch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 630,
+      "height": 485
+    },
+    {
+      "id": "bird-snowy-owl-flight",
+      "name": {
+        "en": "Arctic Snowy Owl Gliding with Spread Wings",
+        "vi": "Cú tuyết Bắc Cực sải cánh trắng bay lượn"
+      },
+      "tags": {
+        "en": [
+          "snowy owl",
+          "white owl",
+          "flight",
+          "bird"
+        ],
+        "vi": [
+          "cú tuyết",
+          "chim cú",
+          "sải cánh",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-snowy-owl-flight",
+        "author": "IG Layout Illustration",
+        "title": "Arctic Snowy Owl Gliding with Spread Wings",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 767,
+      "height": 382
+    },
+    {
+      "id": "bird-scarlet-macaw-parrot",
+      "name": {
+        "en": "Tropical Scarlet Macaw Parrot Illustration",
+        "vi": "Vẹt đỏ Nam Mỹ lông vũ rực rỡ đậu cành"
+      },
+      "tags": {
+        "en": [
+          "macaw",
+          "parrot",
+          "scarlet",
+          "tropical bird"
+        ],
+        "vi": [
+          "chim vẹt",
+          "vẹt đỏ",
+          "nhiệt đới",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-scarlet-macaw-parrot",
+        "author": "IG Layout Illustration",
+        "title": "Tropical Scarlet Macaw Parrot Illustration",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-cockatoo-crest",
+      "name": {
+        "en": "White Sulphur-Crested Cockatoo Parrot",
+        "vi": "Vẹt mào vàng lông trắng thanh nhã"
+      },
+      "tags": {
+        "en": [
+          "cockatoo",
+          "crested bird",
+          "parrot",
+          "vintage"
+        ],
+        "vi": [
+          "vẹt mào vàng",
+          "chim vẹt",
+          "lông trắng",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-cockatoo-crest",
+        "author": "IG Layout Illustration",
+        "title": "White Sulphur-Crested Cockatoo Parrot",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 545
+    },
+    {
+      "id": "bird-pink-flamingo-standing",
+      "name": {
+        "en": "Graceful Coral Pink Flamingo Standing in Lagoon",
+        "vi": "Chim hồng hạc đứng duyên dáng bên hồ nước"
+      },
+      "tags": {
+        "en": [
+          "flamingo",
+          "pink bird",
+          "tropical",
+          "vintage"
+        ],
+        "vi": [
+          "hồng hạc",
+          "chim hồng hạc",
+          "duyên dáng",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-pink-flamingo-standing",
+        "author": "IG Layout Illustration",
+        "title": "Graceful Coral Pink Flamingo Standing in Lagoon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 559,
+      "height": 702
+    },
+    {
+      "id": "bird-indian-peacock-plume",
+      "name": {
+        "en": "Regal Blue Peacock with Emerald Train Feathers",
+        "vi": "Chim công xanh vương giả xoè đuôi ngọc bích"
+      },
+      "tags": {
+        "en": [
+          "peacock",
+          "feathers",
+          "emerald",
+          "bird"
+        ],
+        "vi": [
+          "chim công",
+          "khổng tước",
+          "lông công",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-indian-peacock-plume",
+        "author": "IG Layout Illustration",
+        "title": "Regal Blue Peacock with Emerald Train Feathers",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 658,
+      "height": 549
+    },
+    {
+      "id": "bird-red-crowned-crane",
+      "name": {
+        "en": "Japanese Red-Crowned Crane Standing Tall",
+        "vi": "Sếu đầu đỏ đứng thanh tao bên đầm nước"
+      },
+      "tags": {
+        "en": [
+          "crane",
+          "red-crowned crane",
+          "bird",
+          "vintage"
+        ],
+        "vi": [
+          "chim sếu",
+          "sếu đầu đỏ",
+          "thanh tao",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-red-crowned-crane",
+        "author": "IG Layout Illustration",
+        "title": "Japanese Red-Crowned Crane Standing Tall",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 559,
+      "height": 702
+    },
+    {
+      "id": "bird-mute-swan-gliding",
+      "name": {
+        "en": "White Mute Swan Gliding on Calm Water",
+        "vi": "Thiên nga trắng bơi lướt nhẹ trên mặt hồ"
+      },
+      "tags": {
+        "en": [
+          "swan",
+          "white swan",
+          "waterbird",
+          "vintage"
+        ],
+        "vi": [
+          "thiên nga",
+          "thiên nga trắng",
+          "mặt hồ",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-mute-swan-gliding",
+        "author": "IG Layout Illustration",
+        "title": "White Mute Swan Gliding on Calm Water",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 668,
+      "height": 528
+    },
+    {
+      "id": "bird-common-kingfisher",
+      "name": {
+        "en": "Turquoise & Orange River Kingfisher on Reed",
+        "vi": "Chim bói cá lưng xanh bụng cam đậu cành lau"
+      },
+      "tags": {
+        "en": [
+          "kingfisher",
+          "turquoise",
+          "river bird",
+          "vintage"
+        ],
+        "vi": [
+          "chim bói cá",
+          "xanh ngọc",
+          "bờ sông",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-common-kingfisher",
+        "author": "IG Layout Illustration",
+        "title": "Turquoise & Orange River Kingfisher on Reed",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-barn-swallow-flight",
+      "name": {
+        "en": "Spring Barn Swallow Soaring in Flight",
+        "vi": "Chim én mùa xuân chao liệng giữa bầu trời"
+      },
+      "tags": {
+        "en": [
+          "swallow",
+          "spring bird",
+          "flight",
+          "vintage"
+        ],
+        "vi": [
+          "chim én",
+          "mùa xuân",
+          "bay lượn",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-barn-swallow-flight",
+        "author": "IG Layout Illustration",
+        "title": "Spring Barn Swallow Soaring in Flight",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 767,
+      "height": 382
+    },
+    {
+      "id": "bird-european-robin-berry",
+      "name": {
+        "en": "Red-Breasted European Robin on Winter Branch",
+        "vi": "Chim cổ đỏ châu Âu đậu trên nhánh cây"
+      },
+      "tags": {
+        "en": [
+          "robin",
+          "redbreast",
+          "songbird",
+          "vintage"
+        ],
+        "vi": [
+          "chim cổ đỏ",
+          "chim nhỏ",
+          "cành cây",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-european-robin-berry",
+        "author": "IG Layout Illustration",
+        "title": "Red-Breasted European Robin on Winter Branch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-blue-jay-oak",
+      "name": {
+        "en": "Crested Blue Jay Perched on Woodland Bough",
+        "vi": "Chim giẻ cùi xanh có mào đậu cành rừng"
+      },
+      "tags": {
+        "en": [
+          "blue jay",
+          "blue bird",
+          "songbird",
+          "vintage"
+        ],
+        "vi": [
+          "chim giẻ cùi",
+          "chim xanh",
+          "rừng cây",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-blue-jay-oak",
+        "author": "IG Layout Illustration",
+        "title": "Crested Blue Jay Perched on Woodland Bough",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 545
+    },
+    {
+      "id": "bird-northern-cardinal-red",
+      "name": {
+        "en": "Crimson Northern Cardinal Songbird with Crest",
+        "vi": "Chim hồng y giáo chủ đỏ thắm có mào"
+      },
+      "tags": {
+        "en": [
+          "cardinal",
+          "red bird",
+          "crested",
+          "vintage"
+        ],
+        "vi": [
+          "chim hồng y",
+          "chim đỏ",
+          "có mào",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-northern-cardinal-red",
+        "author": "IG Layout Illustration",
+        "title": "Crimson Northern Cardinal Songbird with Crest",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 545
+    },
+    {
+      "id": "bird-goldfinch-thistle",
+      "name": {
+        "en": "European Goldfinch with Yellow Wing Band",
+        "vi": "Chim sẻ cánh vàng mặt đỏ đậu nhánh cây"
+      },
+      "tags": {
+        "en": [
+          "goldfinch",
+          "finch",
+          "yellow bird",
+          "vintage"
+        ],
+        "vi": [
+          "chim sẻ vàng",
+          "chim sẻ",
+          "cánh vàng",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-goldfinch-thistle",
+        "author": "IG Layout Illustration",
+        "title": "European Goldfinch with Yellow Wing Band",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-house-sparrow-twig",
+      "name": {
+        "en": "Little Brown House Sparrow on Garden Twig",
+        "vi": "Chim sẻ nâu nhỏ nhắn đậu trên cành vườn"
+      },
+      "tags": {
+        "en": [
+          "sparrow",
+          "brown bird",
+          "garden bird",
+          "vintage"
+        ],
+        "vi": [
+          "chim sẻ nâu",
+          "chim sẻ",
+          "khu vườn",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-house-sparrow-twig",
+        "author": "IG Layout Illustration",
+        "title": "Little Brown House Sparrow on Garden Twig",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-toco-toucan-tropical",
+      "name": {
+        "en": "Tropical Toco Toucan with Giant Orange Bill",
+        "vi": "Chim Toucan nhiệt đới mỏ cam lớn nổi bật"
+      },
+      "tags": {
+        "en": [
+          "toucan",
+          "tropical bird",
+          "orange beak",
+          "vintage"
+        ],
+        "vi": [
+          "chim toucan",
+          "mỏ cam",
+          "nhiệt đới",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-toco-toucan-tropical",
+        "author": "IG Layout Illustration",
+        "title": "Tropical Toco Toucan with Giant Orange Bill",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 683,
+      "height": 469
+    },
+    {
+      "id": "bird-woodpecker-trunk",
+      "name": {
+        "en": "Red-Headed Woodpecker on Tree Branch",
+        "vi": "Chim gõ kiến đầu đỏ cánh đốm trắng đen"
+      },
+      "tags": {
+        "en": [
+          "woodpecker",
+          "red head",
+          "forest bird",
+          "vintage"
+        ],
+        "vi": [
+          "chim gõ kiến",
+          "đầu đỏ",
+          "rừng già",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-woodpecker-trunk",
+        "author": "IG Layout Illustration",
+        "title": "Red-Headed Woodpecker on Tree Branch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 545
+    },
+    {
+      "id": "bird-white-peace-dove",
+      "name": {
+        "en": "White Peace Dove Flying with Olive Twig",
+        "vi": "Chim bồ câu trắng tung cánh hoà bình"
+      },
+      "tags": {
+        "en": [
+          "white dove",
+          "peace dove",
+          "flight",
+          "bird"
+        ],
+        "vi": [
+          "chim bồ câu",
+          "bồ câu trắng",
+          "tung cánh",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-white-peace-dove",
+        "author": "IG Layout Illustration",
+        "title": "White Peace Dove Flying with Olive Twig",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 767,
+      "height": 382
+    },
+    {
+      "id": "bird-golden-eagle-soaring",
+      "name": {
+        "en": "Majestic Golden Eagle Soaring with Spread Wings",
+        "vi": "Đại bàng vàng sải cánh uy nghi trên bầu trời"
+      },
+      "tags": {
+        "en": [
+          "golden eagle",
+          "eagle",
+          "raptor",
+          "flight"
+        ],
+        "vi": [
+          "đại bàng",
+          "đại bàng vàng",
+          "sải cánh",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-golden-eagle-soaring",
+        "author": "IG Layout Illustration",
+        "title": "Majestic Golden Eagle Soaring with Spread Wings",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 767,
+      "height": 382
+    },
+    {
+      "id": "bird-peregrine-falcon",
+      "name": {
+        "en": "Peregrine Falcon Perched Watchfully",
+        "vi": "Chim cắt lớn đậu uy dũng nhìn xa xăm"
+      },
+      "tags": {
+        "en": [
+          "falcon",
+          "peregrine",
+          "bird of prey",
+          "vintage"
+        ],
+        "vi": [
+          "chim cắt",
+          "chim ưng",
+          "uy dũng",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-peregrine-falcon",
+        "author": "IG Layout Illustration",
+        "title": "Peregrine Falcon Perched Watchfully",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-mallard-duck-drake",
+      "name": {
+        "en": "Emerald-Headed Mallard Duck Swimming",
+        "vi": "Vịt cổ xanh bơi trên mặt hồ phẳng lặng"
+      },
+      "tags": {
+        "en": [
+          "mallard",
+          "duck",
+          "waterfowl",
+          "vintage"
+        ],
+        "vi": [
+          "vịt cổ xanh",
+          "vịt trời",
+          "mặt hồ",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-mallard-duck-drake",
+        "author": "IG Layout Illustration",
+        "title": "Emerald-Headed Mallard Duck Swimming",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 668,
+      "height": 528
+    },
+    {
+      "id": "bird-ring-necked-pheasant",
+      "name": {
+        "en": "Golden & Copper Ring-Necked Pheasant",
+        "vi": "Chim trĩ đỏ khoang cổ trắng đuôi dài cổ điển"
+      },
+      "tags": {
+        "en": [
+          "pheasant",
+          "game bird",
+          "long tail",
+          "vintage"
+        ],
+        "vi": [
+          "chim trĩ",
+          "trĩ đỏ",
+          "đuôi dài",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-ring-necked-pheasant",
+        "author": "IG Layout Illustration",
+        "title": "Golden & Copper Ring-Necked Pheasant",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-eurasian-hoopoe-crest",
+      "name": {
+        "en": "Crowned Eurasian Hoopoe with Striped Wings",
+        "vi": "Chim đầu rìu xoè mào cam vằn đen độc đáo"
+      },
+      "tags": {
+        "en": [
+          "hoopoe",
+          "crested bird",
+          "striped",
+          "vintage"
+        ],
+        "vi": [
+          "chim đầu rìu",
+          "mào cam",
+          "vằn đen",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-eurasian-hoopoe-crest",
+        "author": "IG Layout Illustration",
+        "title": "Crowned Eurasian Hoopoe with Striped Wings",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 545
+    },
+    {
+      "id": "bird-great-blue-heron",
+      "name": {
+        "en": "Slate-Blue Great Heron Wading in Marsh",
+        "vi": "Chim diệc xanh chân cao đứng bên đầm lầy"
+      },
+      "tags": {
+        "en": [
+          "heron",
+          "blue heron",
+          "marsh bird",
+          "vintage"
+        ],
+        "vi": [
+          "chim diệc",
+          "diệc xanh",
+          "đầm lầy",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-great-blue-heron",
+        "author": "IG Layout Illustration",
+        "title": "Slate-Blue Great Heron Wading in Marsh",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 559,
+      "height": 702
+    },
+    {
+      "id": "bird-brown-pelican-coast",
+      "name": {
+        "en": "Coastal Pelican with Golden Throat Pouch",
+        "vi": "Chim bồ nông biển mỏ lớn đậu bên bờ vịnh"
+      },
+      "tags": {
+        "en": [
+          "pelican",
+          "seabird",
+          "coastal",
+          "vintage"
+        ],
+        "vi": [
+          "chim bồ nông",
+          "chim biển",
+          "bờ vịnh",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-brown-pelican-coast",
+        "author": "IG Layout Illustration",
+        "title": "Coastal Pelican with Golden Throat Pouch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-atlantic-puffin",
+      "name": {
+        "en": "Atlantic Puffin with Colorful Striped Beak",
+        "vi": "Chim hải âu cổ rụt mỏ cam đỏ Bắc Đại Tây Dương"
+      },
+      "tags": {
+        "en": [
+          "puffin",
+          "seabird",
+          "colorful beak",
+          "vintage"
+        ],
+        "vi": [
+          "hải âu cổ rụt",
+          "chim puffin",
+          "mỏ cam",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-atlantic-puffin",
+        "author": "IG Layout Illustration",
+        "title": "Atlantic Puffin with Colorful Striped Beak",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-emperor-penguin-chick",
+      "name": {
+        "en": "Antarctic Emperor Penguin Standing Proudly",
+        "vi": "Chim cánh cụt hoàng đế ngực vàng Nam Cực"
+      },
+      "tags": {
+        "en": [
+          "emperor penguin",
+          "penguin",
+          "antarctic",
+          "bird"
+        ],
+        "vi": [
+          "chim cánh cụt",
+          "cánh cụt hoàng đế",
+          "nam cực",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-emperor-penguin-chick",
+        "author": "IG Layout Illustration",
+        "title": "Antarctic Emperor Penguin Standing Proudly",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 606,
+      "height": 425
+    },
+    {
+      "id": "bird-eurasian-magpie",
+      "name": {
+        "en": "Iridescent Black & White Eurasian Magpie",
+        "vi": "Chim ác là khoang đen trắng đuôi xanh ánh kim"
+      },
+      "tags": {
+        "en": [
+          "magpie",
+          "black and white",
+          "songbird",
+          "vintage"
+        ],
+        "vi": [
+          "chim ác là",
+          "chim khách",
+          "đen trắng",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-eurasian-magpie",
+        "author": "IG Layout Illustration",
+        "title": "Iridescent Black & White Eurasian Magpie",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-baltimore-oriole",
+      "name": {
+        "en": "Bright Orange & Black Baltimore Oriole",
+        "vi": "Chim vàng anh lông cam đen rực rỡ trên cành"
+      },
+      "tags": {
+        "en": [
+          "oriole",
+          "orange bird",
+          "songbird",
+          "vintage"
+        ],
+        "vi": [
+          "chim vàng anh",
+          "lông cam",
+          "hót vang",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-baltimore-oriole",
+        "author": "IG Layout Illustration",
+        "title": "Bright Orange & Black Baltimore Oriole",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-cedar-waxwing-berries",
+      "name": {
+        "en": "Silky Cedar Waxwing Songbird with Crest",
+        "vi": "Chim nghệ mào mượt mà đậu cành quả chín"
+      },
+      "tags": {
+        "en": [
+          "waxwing",
+          "crested bird",
+          "berries",
+          "vintage"
+        ],
+        "vi": [
+          "chim nghệ",
+          "chim có mào",
+          "cành quả",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-cedar-waxwing-berries",
+        "author": "IG Layout Illustration",
+        "title": "Silky Cedar Waxwing Songbird with Crest",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 545
+    },
+    {
+      "id": "bird-yellow-canary-singing",
+      "name": {
+        "en": "Sunny Yellow Singing Canary on Blossom Twig",
+        "vi": "Chim hoàng yến vàng tươi cất tiếng hót trên cành"
+      },
+      "tags": {
+        "en": [
+          "canary",
+          "yellow bird",
+          "singing bird",
+          "vintage"
+        ],
+        "vi": [
+          "chim hoàng yến",
+          "chim yến",
+          "vàng tươi",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-yellow-canary-singing",
+        "author": "IG Layout Illustration",
+        "title": "Sunny Yellow Singing Canary on Blossom Twig",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
+    },
+    {
+      "id": "bird-kookaburra-branch",
+      "name": {
+        "en": "Australian Laughing Kookaburra on Gum Branch",
+        "vi": "Chim bói cá Kookaburra Úc đậu cành bạch đàn"
+      },
+      "tags": {
+        "en": [
+          "kookaburra",
+          "australian bird",
+          "kingfisher",
+          "vintage"
+        ],
+        "vi": [
+          "chim kookaburra",
+          "chim bói cá úc",
+          "bạch đàn",
+          "chim cổ"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/birds-animals#bird-kookaburra-branch",
+        "author": "IG Layout Illustration",
+        "title": "Australian Laughing Kookaburra on Gum Branch",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 674,
+      "height": 465
     }
   ]
 }

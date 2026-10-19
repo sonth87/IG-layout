@@ -1027,6 +1027,1318 @@
       },
       "width": 574,
       "height": 750
+    },
+    {
+      "id": "cel-candle-number-0",
+      "name": {
+        "en": "Lit Birthday Number 0 Cake Candle",
+        "vi": "Nến sinh nhật hình số 0 (không) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 0",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 0",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-0",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 0 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 358,
+      "height": 746
+    },
+    {
+      "id": "cel-candle-number-1",
+      "name": {
+        "en": "Lit Birthday Number 1 Cake Candle",
+        "vi": "Nến sinh nhật hình số 1 (một) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 1",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 1",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-1",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 1 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 273,
+      "height": 746
+    },
+    {
+      "id": "cel-candle-number-2",
+      "name": {
+        "en": "Lit Birthday Number 2 Cake Candle",
+        "vi": "Nến sinh nhật hình số 2 (hai) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 2",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 2",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-2",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 2 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 364,
+      "height": 746
+    },
+    {
+      "id": "cel-candle-number-3",
+      "name": {
+        "en": "Lit Birthday Number 3 Cake Candle",
+        "vi": "Nến sinh nhật hình số 3 (ba) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 3",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 3",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-3",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 3 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 365,
+      "height": 746
+    },
+    {
+      "id": "cel-candle-number-4",
+      "name": {
+        "en": "Lit Birthday Number 4 Cake Candle",
+        "vi": "Nến sinh nhật hình số 4 (bốn) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 4",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 4",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-4",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 4 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 377,
+      "height": 746
+    },
+    {
+      "id": "cel-candle-number-5",
+      "name": {
+        "en": "Lit Birthday Number 5 Cake Candle",
+        "vi": "Nến sinh nhật hình số 5 (năm) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 5",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 5",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-5",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 5 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 367,
+      "height": 746
+    },
+    {
+      "id": "cel-candle-number-6",
+      "name": {
+        "en": "Lit Birthday Number 6 Cake Candle",
+        "vi": "Nến sinh nhật hình số 6 (sáu) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 6",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 6",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-6",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 6 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 359,
+      "height": 746
+    },
+    {
+      "id": "cel-candle-number-7",
+      "name": {
+        "en": "Lit Birthday Number 7 Cake Candle",
+        "vi": "Nến sinh nhật hình số 7 (bảy) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 7",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 7",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-7",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 7 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 355,
+      "height": 746
+    },
+    {
+      "id": "cel-candle-number-8",
+      "name": {
+        "en": "Lit Birthday Number 8 Cake Candle",
+        "vi": "Nến sinh nhật hình số 8 (tám) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 8",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 8",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-8",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 8 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 358,
+      "height": 746
+    },
+    {
+      "id": "cel-candle-number-9",
+      "name": {
+        "en": "Lit Birthday Number 9 Cake Candle",
+        "vi": "Nến sinh nhật hình số 9 (chín) đang cháy"
+      },
+      "tags": {
+        "en": [
+          "number 9",
+          "number candle",
+          "birthday candle",
+          "age"
+        ],
+        "vi": [
+          "nến số 9",
+          "nến sinh nhật",
+          "tuổi",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-candle-number-9",
+        "author": "IG Layout Illustration",
+        "title": "Lit Birthday Number 9 Cake Candle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 360,
+      "height": 746
+    },
+    {
+      "id": "cel-happy-birthday-banner",
+      "name": {
+        "en": "Hand-Drawn Festive Happy Birthday Ribbon Banner",
+        "vi": "Dải băng rôn chữ Happy Birthday trang trí tiệc sinh nhật"
+      },
+      "tags": {
+        "en": [
+          "happy birthday",
+          "banner",
+          "bunting",
+          "birthday"
+        ],
+        "vi": [
+          "chúc mừng sinh nhật",
+          "dây chữ",
+          "happy birthday",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-happy-birthday-banner",
+        "author": "IG Layout Illustration",
+        "title": "Hand-Drawn Festive Happy Birthday Ribbon Banner",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 790,
+      "height": 452
+    },
+    {
+      "id": "cel-cone-party-hat",
+      "name": {
+        "en": "Polka-Dot Birthday Cone Hat with Pom-Pom",
+        "vi": "Mũ chóp sinh nhật chấm bi đính quả bông tròn"
+      },
+      "tags": {
+        "en": [
+          "party hat",
+          "cone hat",
+          "polka dot",
+          "birthday"
+        ],
+        "vi": [
+          "mũ sinh nhật",
+          "mũ chóp",
+          "bữa tiệc",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-cone-party-hat",
+        "author": "IG Layout Illustration",
+        "title": "Polka-Dot Birthday Cone Hat with Pom-Pom",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 538,
+      "height": 687
+    },
+    {
+      "id": "cel-party-horn-blower",
+      "name": {
+        "en": "Festive Striped Party Horn Noisemaker with Confetti",
+        "vi": "Kèn giấy thổi tiệc sinh nhật sọc màu và hoa giấy"
+      },
+      "tags": {
+        "en": [
+          "party horn",
+          "noisemaker",
+          "blower",
+          "birthday"
+        ],
+        "vi": [
+          "kèn sinh nhật",
+          "kèn giấy",
+          "bữa tiệc",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-party-horn-blower",
+        "author": "IG Layout Illustration",
+        "title": "Festive Striped Party Horn Noisemaker with Confetti",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 644,
+      "height": 510
+    },
+    {
+      "id": "cel-chocolate-birthday-cake",
+      "name": {
+        "en": "Rich Chocolate Drip Birthday Cake with Cherries",
+        "vi": "Bánh sinh nhật phủ sô cô la chảy và quả anh đào đỏ"
+      },
+      "tags": {
+        "en": [
+          "chocolate cake",
+          "birthday cake",
+          "cherries",
+          "sweet"
+        ],
+        "vi": [
+          "bánh sô cô la",
+          "bánh sinh nhật",
+          "anh đào",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-chocolate-birthday-cake",
+        "author": "IG Layout Illustration",
+        "title": "Rich Chocolate Drip Birthday Cake with Cherries",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 606,
+      "height": 601
+    },
+    {
+      "id": "cel-colorful-macaron-tower",
+      "name": {
+        "en": "Pastel French Macaron Cookie Stack with Bow",
+        "vi": "Tháp bánh macaron Pháp màu pastel ngọt ngào"
+      },
+      "tags": {
+        "en": [
+          "macarons",
+          "pastel",
+          "dessert",
+          "wedding"
+        ],
+        "vi": [
+          "bánh macaron",
+          "bánh ngọt",
+          "pastel",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "wedding",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-colorful-macaron-tower",
+        "author": "IG Layout Illustration",
+        "title": "Pastel French Macaron Cookie Stack with Bow",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 444,
+      "height": 533
+    },
+    {
+      "id": "cel-pastel-donut-sprinkles",
+      "name": {
+        "en": "Strawberry Frosted Party Donut with Rainbow Sprinkles",
+        "vi": "Bánh vòng donut phủ kem dâu hồng rắc cốm nhiều màu"
+      },
+      "tags": {
+        "en": [
+          "donut",
+          "sprinkles",
+          "sweet",
+          "birthday"
+        ],
+        "vi": [
+          "bánh donut",
+          "bánh vòng",
+          "kem dâu",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-pastel-donut-sprinkles",
+        "author": "IG Layout Illustration",
+        "title": "Strawberry Frosted Party Donut with Rainbow Sprinkles",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 550,
+      "height": 550
+    },
+    {
+      "id": "cel-star-foil-balloon",
+      "name": {
+        "en": "Shiny Golden Star Foil Party Balloon",
+        "vi": "Bóng bay tráng gương ngôi sao vàng lấp lánh"
+      },
+      "tags": {
+        "en": [
+          "star balloon",
+          "foil balloon",
+          "gold star",
+          "birthday"
+        ],
+        "vi": [
+          "bóng ngôi sao",
+          "bóng tráng gương",
+          "sao vàng",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-star-foil-balloon",
+        "author": "IG Layout Illustration",
+        "title": "Shiny Golden Star Foil Party Balloon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 588,
+      "height": 726
+    },
+    {
+      "id": "cel-heart-foil-balloon",
+      "name": {
+        "en": "Glossy Pink Heart Party Balloon on String",
+        "vi": "Bóng bay trái tim màu hồng bóng buộc dây"
+      },
+      "tags": {
+        "en": [
+          "heart balloon",
+          "pink balloon",
+          "love",
+          "wedding"
+        ],
+        "vi": [
+          "bóng trái tim",
+          "bóng hồng",
+          "tình yêu",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "wedding",
+        "love"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-heart-foil-balloon",
+        "author": "IG Layout Illustration",
+        "title": "Glossy Pink Heart Party Balloon on String",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 508,
+      "height": 673
+    },
+    {
+      "id": "cel-wrapped-birthday-gift",
+      "name": {
+        "en": "Polka-Dot Birthday Present Box with Big Pink Bow",
+        "vi": "Hộp quà sinh nhật chấm bi thắt nơ hồng lớn"
+      },
+      "tags": {
+        "en": [
+          "birthday gift",
+          "present",
+          "pink bow",
+          "party"
+        ],
+        "vi": [
+          "hộp quà sinh nhật",
+          "quà tặng",
+          "nơ hồng",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-wrapped-birthday-gift",
+        "author": "IG Layout Illustration",
+        "title": "Polka-Dot Birthday Present Box with Big Pink Bow",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 502,
+      "height": 509
+    },
+    {
+      "id": "cel-sparkler-wand-glow",
+      "name": {
+        "en": "Glowing Golden Party Sparkler Stick",
+        "vi": "Que pháo bông cầm tay toả tia sáng vàng lấp lánh"
+      },
+      "tags": {
+        "en": [
+          "sparkler",
+          "fireworks",
+          "celebration",
+          "birthday"
+        ],
+        "vi": [
+          "pháo bông cầm tay",
+          "pháo sáng",
+          "chúc mừng",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "wedding"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-sparkler-wand-glow",
+        "author": "IG Layout Illustration",
+        "title": "Glowing Golden Party Sparkler Stick",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 412,
+      "height": 713
+    },
+    {
+      "id": "cel-confetti-streamer-burst",
+      "name": {
+        "en": "Swirling Party Ribbons & Colorful Confetti Stars",
+        "vi": "Hoa giấy ngôi sao và dây ruy băng xoắn chúc mừng"
+      },
+      "tags": {
+        "en": [
+          "confetti",
+          "streamers",
+          "ribbons",
+          "party"
+        ],
+        "vi": [
+          "hoa giấy",
+          "ruy băng xoắn",
+          "tung hoa",
+          "sinh nhật"
+        ]
+      },
+      "collections": [
+        "birthday",
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-confetti-streamer-burst",
+        "author": "IG Layout Illustration",
+        "title": "Swirling Party Ribbons & Colorful Confetti Stars",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 551,
+      "height": 626
+    },
+    {
+      "id": "cel-three-tier-wedding-cake",
+      "name": {
+        "en": "Elegant Three-Tier White Wedding Cake with Roses",
+        "vi": "Bánh cưới ba tầng kem trắng điểm hoa hồng lãng mạn"
+      },
+      "tags": {
+        "en": [
+          "wedding cake",
+          "three tier",
+          "bridal",
+          "wedding"
+        ],
+        "vi": [
+          "bánh cưới",
+          "bánh ba tầng",
+          "hoa hồng",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-three-tier-wedding-cake",
+        "author": "IG Layout Illustration",
+        "title": "Elegant Three-Tier White Wedding Cake with Roses",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 644,
+      "height": 584
+    },
+    {
+      "id": "cel-pair-white-doves",
+      "name": {
+        "en": "Pair of White Wedding Doves with Pink Heart",
+        "vi": "Đôi chim bồ câu trắng nâng trái tim hồng ngày cưới"
+      },
+      "tags": {
+        "en": [
+          "white doves",
+          "lovebirds",
+          "wedding",
+          "love"
+        ],
+        "vi": [
+          "chim bồ câu",
+          "đôi chim trắng",
+          "hạnh phúc",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "love"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-pair-white-doves",
+        "author": "IG Layout Illustration",
+        "title": "Pair of White Wedding Doves with Pink Heart",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 660,
+      "height": 232
+    },
+    {
+      "id": "cel-just-married-banner",
+      "name": {
+        "en": "Floral Just Married Wedding Garland Sign",
+        "vi": "Biển chữ Just Married kết hoa lá trang trí tiệc cưới"
+      },
+      "tags": {
+        "en": [
+          "just married",
+          "wedding sign",
+          "bride groom",
+          "wedding"
+        ],
+        "vi": [
+          "just married",
+          "biển đám cưới",
+          "tân hôn",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "love"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-just-married-banner",
+        "author": "IG Layout Illustration",
+        "title": "Floral Just Married Wedding Garland Sign",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 712,
+      "height": 352
+    },
+    {
+      "id": "cel-wedding-arch-roses",
+      "name": {
+        "en": "Romantic Floral Wedding Archway with White Drapes",
+        "vi": "Cổng hoa hồng đám cưới phủ lụa trắng lãng mạn"
+      },
+      "tags": {
+        "en": [
+          "wedding arch",
+          "floral arch",
+          "ceremony",
+          "wedding"
+        ],
+        "vi": [
+          "cổng hoa cưới",
+          "lễ cưới",
+          "hoa hồng",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-wedding-arch-roses",
+        "author": "IG Layout Illustration",
+        "title": "Romantic Floral Wedding Archway with White Drapes",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 604,
+      "height": 691
+    },
+    {
+      "id": "cel-bride-groom-toast",
+      "name": {
+        "en": "Tuxedo & Bridal Gown Wedding Couple Badge",
+        "vi": "Biểu tượng vest chú rể và váy cô dâu hạnh phúc"
+      },
+      "tags": {
+        "en": [
+          "bride and groom",
+          "tuxedo",
+          "wedding dress",
+          "wedding"
+        ],
+        "vi": [
+          "cô dâu chú rể",
+          "váy cưới",
+          "áo vest",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "love"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-bride-groom-toast",
+        "author": "IG Layout Illustration",
+        "title": "Tuxedo & Bridal Gown Wedding Couple Badge",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 587,
+      "height": 485
+    },
+    {
+      "id": "cel-pink-peony-corsage",
+      "name": {
+        "en": "Blush Pink Peony Wedding Boutonniere with Gold Ribbon",
+        "vi": "Hoa mẫu đơn hồng cài áo cưới buộc ruy băng vàng"
+      },
+      "tags": {
+        "en": [
+          "peony",
+          "corsage",
+          "wedding flower",
+          "wedding"
+        ],
+        "vi": [
+          "hoa mẫu đơn",
+          "hoa cài áo",
+          "hoa cưới",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding",
+        "nature"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-pink-peony-corsage",
+        "author": "IG Layout Illustration",
+        "title": "Blush Pink Peony Wedding Boutonniere with Gold Ribbon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 350,
+      "height": 562
+    },
+    {
+      "id": "cel-wedding-bells-ribbon",
+      "name": {
+        "en": "Pair of Silver & White Wedding Bells with Bow",
+        "vi": "Đôi chuông ngân đám cưới thắt nơ lụa trắng"
+      },
+      "tags": {
+        "en": [
+          "wedding bells",
+          "silver bells",
+          "marriage",
+          "wedding"
+        ],
+        "vi": [
+          "chuông đám cưới",
+          "hôn lễ",
+          "nơ trắng",
+          "đám cưới"
+        ]
+      },
+      "collections": [
+        "wedding"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-wedding-bells-ribbon",
+        "author": "IG Layout Illustration",
+        "title": "Pair of Silver & White Wedding Bells with Bow",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 554,
+      "height": 385
+    },
+    {
+      "id": "cel-graduation-owl-cap",
+      "name": {
+        "en": "Wise Scholar Owl Wearing Graduation Cap",
+        "vi": "Chim cú mèo thông thái đội mũ cử nhân tốt nghiệp"
+      },
+      "tags": {
+        "en": [
+          "owl",
+          "graduation",
+          "scholar",
+          "school"
+        ],
+        "vi": [
+          "cú mèo",
+          "tốt nghiệp",
+          "cử nhân",
+          "học tập"
+        ]
+      },
+      "collections": [
+        "graduation",
+        "school",
+        "cute"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-graduation-owl-cap",
+        "author": "IG Layout Illustration",
+        "title": "Wise Scholar Owl Wearing Graduation Cap",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 539,
+      "height": 612
+    },
+    {
+      "id": "cel-stack-books-apple",
+      "name": {
+        "en": "Stack of Hardcover Study Books with Red Apple",
+        "vi": "Chồng sách học tập và quả táo đỏ tri thức"
+      },
+      "tags": {
+        "en": [
+          "books",
+          "apple",
+          "study",
+          "graduation"
+        ],
+        "vi": [
+          "chồng sách",
+          "quả táo",
+          "học tập",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation",
+        "school"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-stack-books-apple",
+        "author": "IG Layout Illustration",
+        "title": "Stack of Hardcover Study Books with Red Apple",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 564,
+      "height": 587
+    },
+    {
+      "id": "cel-honor-rosette-badge",
+      "name": {
+        "en": "First Place Blue & Gold Honor Rosette Ribbon",
+        "vi": "Huy hiệu hoa ruy băng xanh vàng vinh danh hạng nhất"
+      },
+      "tags": {
+        "en": [
+          "rosette",
+          "first place",
+          "award ribbon",
+          "graduation"
+        ],
+        "vi": [
+          "huy hiệu",
+          "vinh danh",
+          "hạng nhất",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-honor-rosette-badge",
+        "author": "IG Layout Illustration",
+        "title": "First Place Blue & Gold Honor Rosette Ribbon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 419,
+      "height": 652
+    },
+    {
+      "id": "cel-congrats-grad-banner",
+      "name": {
+        "en": "Black & Gold Congrats Grad Celebration Banner",
+        "vi": "Băng rôn đen viền vàng chữ Congrats Grad chúc mừng tốt nghiệp"
+      },
+      "tags": {
+        "en": [
+          "congrats grad",
+          "graduation banner",
+          "class of",
+          "graduation"
+        ],
+        "vi": [
+          "chúc mừng tốt nghiệp",
+          "congrats grad",
+          "băng rôn",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation",
+        "school"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-congrats-grad-banner",
+        "author": "IG Layout Illustration",
+        "title": "Black & Gold Congrats Grad Celebration Banner",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 738,
+      "height": 337
+    },
+    {
+      "id": "cel-graduation-stole-sash",
+      "name": {
+        "en": "Golden Satin Graduation Honor Stole Sash",
+        "vi": "Dải khăn choàng vai danh dự màu vàng tốt nghiệp"
+      },
+      "tags": {
+        "en": [
+          "graduation stole",
+          "sash",
+          "honor",
+          "graduation"
+        ],
+        "vi": [
+          "khăn tốt nghiệp",
+          "dải danh dự",
+          "cử nhân",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation",
+        "school"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-graduation-stole-sash",
+        "author": "IG Layout Illustration",
+        "title": "Golden Satin Graduation Honor Stole Sash",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 480,
+      "height": 687
+    },
+    {
+      "id": "cel-gold-laurel-wreath",
+      "name": {
+        "en": "Golden Victory & Graduation Laurel Wreath Crown",
+        "vi": "Vòng nguyệt quế vàng chiến thắng và vinh danh tốt nghiệp"
+      },
+      "tags": {
+        "en": [
+          "laurel wreath",
+          "victory",
+          "gold crown",
+          "graduation"
+        ],
+        "vi": [
+          "vòng nguyệt quế",
+          "chiến thắng",
+          "vinh quang",
+          "tốt nghiệp"
+        ]
+      },
+      "collections": [
+        "graduation"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/celebrations#cel-gold-laurel-wreath",
+        "author": "IG Layout Illustration",
+        "title": "Golden Victory & Graduation Laurel Wreath Crown",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 592,
+      "height": 614
     }
   ]
 }

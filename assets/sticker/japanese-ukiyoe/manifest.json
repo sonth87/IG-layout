@@ -44,7 +44,7 @@
         "retrieved": "2026-10-18"
       },
       "width": 1024,
-      "height": 725
+      "height": 724
     },
     {
       "id": "ukiyoe-great-wave-cutout",
@@ -113,8 +113,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 507,
-      "height": 1002
+      "width": 520,
+      "height": 1024
     },
     {
       "id": "ukiyoe-quails-and-poppies",
@@ -148,8 +148,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 403,
-      "height": 1020
+      "width": 407,
+      "height": 1024
     },
     {
       "id": "ukiyoe-hiroshige-swallows",
@@ -183,8 +183,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 736,
-      "height": 1018
+      "width": 760,
+      "height": 1024
     },
     {
       "id": "ukiyoe-hiroshige-golden-pheasant",
@@ -218,7 +218,7 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 503,
+      "width": 501,
       "height": 1024
     },
     {
@@ -253,8 +253,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 532,
-      "height": 1022
+      "width": 534,
+      "height": 1024
     },
     {
       "id": "ukiyoe-hiroshige-plum-blossom",
@@ -288,7 +288,7 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 492,
+      "width": 493,
       "height": 1024
     },
     {
@@ -323,8 +323,8 @@
         "license": "CC0-1.0",
         "retrieved": "2026-10-18"
       },
-      "width": 398,
-      "height": 1021,
+      "width": 411,
+      "height": 1024,
       "process": {
         "bgMode": "flood",
         "tolerance": 8,
@@ -363,8 +363,8 @@
         "license": "PDM",
         "retrieved": "2026-10-18"
       },
-      "width": 395,
-      "height": 1022
+      "width": 417,
+      "height": 1024
     },
     {
       "id": "ukiyoe-hiroshige-rose-bird",
@@ -398,8 +398,8 @@
         "license": "PDM",
         "retrieved": "2026-10-18"
       },
-      "width": 391,
-      "height": 1022
+      "width": 395,
+      "height": 1024
     },
     {
       "id": "ukiyoe-wave-vertical-scroll",

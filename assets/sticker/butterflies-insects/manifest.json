@@ -2,8 +2,8 @@
   "id": "butterflies-insects",
   "kind": "sticker",
   "name": {
-    "en": "Butterflies & Insects",
-    "vi": "Bướm & Côn trùng"
+    "en": "Animals & Insects",
+    "vi": "Động vật"
   },
   "collections": [
     "vintage",
@@ -220,6 +220,2166 @@
       },
       "width": 859,
       "height": 718
+    },
+    {
+      "id": "ani-monarch-butterfly-orange",
+      "name": {
+        "en": "Orange & Black Monarch Butterfly",
+        "vi": "Bướm chúa cánh cam viền đen chấm trắng"
+      },
+      "tags": {
+        "en": [
+          "monarch butterfly",
+          "butterfly",
+          "orange",
+          "insect"
+        ],
+        "vi": [
+          "bướm chúa",
+          "bướm cam",
+          "côn trùng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-monarch-butterfly-orange",
+        "author": "IG Layout Illustration",
+        "title": "Orange & Black Monarch Butterfly",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 516
+    },
+    {
+      "id": "ani-swallowtail-butterfly-yellow",
+      "name": {
+        "en": "Yellow Tiger Swallowtail Butterfly",
+        "vi": "Bướm phượng vàng vằn đen rực rỡ"
+      },
+      "tags": {
+        "en": [
+          "swallowtail",
+          "yellow butterfly",
+          "insect",
+          "nature"
+        ],
+        "vi": [
+          "bướm phượng",
+          "bướm vàng",
+          "côn trùng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-swallowtail-butterfly-yellow",
+        "author": "IG Layout Illustration",
+        "title": "Yellow Tiger Swallowtail Butterfly",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 516
+    },
+    {
+      "id": "ani-luna-moth-pale-green",
+      "name": {
+        "en": "Emerald Pale Green Actias Luna Moth",
+        "vi": "Bướm đêm Luna xanh ngọc lục bảo thanh nhã"
+      },
+      "tags": {
+        "en": [
+          "luna moth",
+          "moth",
+          "green butterfly",
+          "insect"
+        ],
+        "vi": [
+          "bướm đêm",
+          "xanh ngọc",
+          "côn trùng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-luna-moth-pale-green",
+        "author": "IG Layout Illustration",
+        "title": "Emerald Pale Green Actias Luna Moth",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 516
+    },
+    {
+      "id": "ani-rosy-maple-moth",
+      "name": {
+        "en": "Pink & Yellow Rosy Maple Moth",
+        "vi": "Bướm đêm lá phong màu hồng phấn và vàng kem"
+      },
+      "tags": {
+        "en": [
+          "rosy maple moth",
+          "pink moth",
+          "cute insect",
+          "nature"
+        ],
+        "vi": [
+          "bướm hồng",
+          "bướm đêm",
+          "dễ thương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-rosy-maple-moth",
+        "author": "IG Layout Illustration",
+        "title": "Pink & Yellow Rosy Maple Moth",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 516
+    },
+    {
+      "id": "ani-honeybee-pollen",
+      "name": {
+        "en": "Golden Honeybee with Translucent Wings",
+        "vi": "Ong mật vàng sọc đen vỗ cánh trong suốt"
+      },
+      "tags": {
+        "en": [
+          "honeybee",
+          "bee",
+          "pollinator",
+          "insect"
+        ],
+        "vi": [
+          "ong mật",
+          "con ong",
+          "côn trùng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-honeybee-pollen",
+        "author": "IG Layout Illustration",
+        "title": "Golden Honeybee with Translucent Wings",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 484,
+      "height": 450
+    },
+    {
+      "id": "ani-bumblebee-fuzzy",
+      "name": {
+        "en": "Chubby Garden Bumblebee",
+        "vi": "Ong nghệ tròn trịa lông vàng cam đáng yêu"
+      },
+      "tags": {
+        "en": [
+          "bumblebee",
+          "bee",
+          "garden",
+          "cute"
+        ],
+        "vi": [
+          "ong nghệ",
+          "ong vàng",
+          "khu vườn",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-bumblebee-fuzzy",
+        "author": "IG Layout Illustration",
+        "title": "Chubby Garden Bumblebee",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 484,
+      "height": 450
+    },
+    {
+      "id": "ani-blue-darner-dragonfly",
+      "name": {
+        "en": "Iridescent Blue Pond Dragonfly",
+        "vi": "Chuồn chuồn xanh biếc bay trên mặt hồ"
+      },
+      "tags": {
+        "en": [
+          "dragonfly",
+          "blue dragonfly",
+          "pond",
+          "insect"
+        ],
+        "vi": [
+          "chuồn chuồn",
+          "chuồn chuồn xanh",
+          "mặt hồ",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-blue-darner-dragonfly",
+        "author": "IG Layout Illustration",
+        "title": "Iridescent Blue Pond Dragonfly",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 718,
+      "height": 567
+    },
+    {
+      "id": "ani-red-meadow-dragonfly",
+      "name": {
+        "en": "Crimson Red Autumn Dragonfly",
+        "vi": "Chuồn chuồn ớt đỏ thắm mùa thu"
+      },
+      "tags": {
+        "en": [
+          "red dragonfly",
+          "dragonfly",
+          "autumn",
+          "insect"
+        ],
+        "vi": [
+          "chuồn chuồn ớt",
+          "chuồn chuồn đỏ",
+          "côn trùng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-red-meadow-dragonfly",
+        "author": "IG Layout Illustration",
+        "title": "Crimson Red Autumn Dragonfly",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 718,
+      "height": 567
+    },
+    {
+      "id": "ani-seven-spot-ladybug",
+      "name": {
+        "en": "Lucky Red Seven-Spotted Ladybug",
+        "vi": "Bọ rùa đỏ bảy chấm đen may mắn"
+      },
+      "tags": {
+        "en": [
+          "ladybug",
+          "ladybird",
+          "beetle",
+          "lucky"
+        ],
+        "vi": [
+          "bọ rùa",
+          "cánh cam",
+          "may mắn",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-seven-spot-ladybug",
+        "author": "IG Layout Illustration",
+        "title": "Lucky Red Seven-Spotted Ladybug",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 488,
+      "height": 495
+    },
+    {
+      "id": "ani-stag-beetle-horned",
+      "name": {
+        "en": "Chestnut Brown Stag Beetle",
+        "vi": "Bọ kẹp kìm cánh cứng màu nâu hạt dẻ"
+      },
+      "tags": {
+        "en": [
+          "stag beetle",
+          "beetle",
+          "insect",
+          "forest"
+        ],
+        "vi": [
+          "bọ kẹp kìm",
+          "bọ cánh cứng",
+          "côn trùng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-stag-beetle-horned",
+        "author": "IG Layout Illustration",
+        "title": "Chestnut Brown Stag Beetle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 488,
+      "height": 495
+    },
+    {
+      "id": "ani-jewel-scarab-beetle",
+      "name": {
+        "en": "Metallic Emerald Green Jewel Scarab Beetle",
+        "vi": "Bọ hung ánh kim xanh ngọc lục bảo lấp lánh"
+      },
+      "tags": {
+        "en": [
+          "scarab",
+          "jewel beetle",
+          "emerald",
+          "insect"
+        ],
+        "vi": [
+          "bọ cánh cam",
+          "bọ ngọc bích",
+          "ánh kim",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-jewel-scarab-beetle",
+        "author": "IG Layout Illustration",
+        "title": "Metallic Emerald Green Jewel Scarab Beetle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 488,
+      "height": 495
+    },
+    {
+      "id": "ani-rhino-beetle-kabuto",
+      "name": {
+        "en": "Dark Horned Rhinoceros Kabuto Beetle",
+        "vi": "Bọ cánh cứng tê giác một sừng mạnh mẽ"
+      },
+      "tags": {
+        "en": [
+          "rhino beetle",
+          "kabutomushi",
+          "beetle",
+          "insect"
+        ],
+        "vi": [
+          "bọ tê giác",
+          "bọ cánh cứng",
+          "côn trùng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-rhino-beetle-kabuto",
+        "author": "IG Layout Illustration",
+        "title": "Dark Horned Rhinoceros Kabuto Beetle",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 488,
+      "height": 495
+    },
+    {
+      "id": "ani-golden-cicada-wings",
+      "name": {
+        "en": "Summer Cicada with Veined Amber Wings",
+        "vi": "Ve sầu mùa hạ cánh trong ánh hổ phách"
+      },
+      "tags": {
+        "en": [
+          "cicada",
+          "summer insect",
+          "wings",
+          "nature"
+        ],
+        "vi": [
+          "ve sầu",
+          "con ve",
+          "mùa hè",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-golden-cicada-wings",
+        "author": "IG Layout Illustration",
+        "title": "Summer Cicada with Veined Amber Wings",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 484,
+      "height": 450
+    },
+    {
+      "id": "ani-praying-mantis-green",
+      "name": {
+        "en": "Leaf-Green Garden Praying Mantis",
+        "vi": "Bọ ngựa xanh lá cây trong vườn"
+      },
+      "tags": {
+        "en": [
+          "praying mantis",
+          "green insect",
+          "garden",
+          "nature"
+        ],
+        "vi": [
+          "bọ ngựa",
+          "màu xanh",
+          "côn trùng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-praying-mantis-green",
+        "author": "IG Layout Illustration",
+        "title": "Leaf-Green Garden Praying Mantis",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 718,
+      "height": 567
+    },
+    {
+      "id": "ani-garden-snail-spiral",
+      "name": {
+        "en": "Cute Garden Snail with Spiral Brown Shell",
+        "vi": "Ốc sên nhỏ vỏ xoắn ốc nâu bò trên lá"
+      },
+      "tags": {
+        "en": [
+          "snail",
+          "spiral shell",
+          "garden",
+          "cute"
+        ],
+        "vi": [
+          "ốc sên",
+          "vỏ xoắn",
+          "khu vườn",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-garden-snail-spiral",
+        "author": "IG Layout Illustration",
+        "title": "Cute Garden Snail with Spiral Brown Shell",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 645,
+      "height": 449
+    },
+    {
+      "id": "ani-firefly-glowing-tail",
+      "name": {
+        "en": "Evening Firefly Beetle with Glowing Lantern",
+        "vi": "Đom đóm phát sáng vàng ấm trong đêm"
+      },
+      "tags": {
+        "en": [
+          "firefly",
+          "lightning bug",
+          "glow",
+          "insect"
+        ],
+        "vi": [
+          "đom đóm",
+          "phát sáng",
+          "ban đêm",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-firefly-glowing-tail",
+        "author": "IG Layout Illustration",
+        "title": "Evening Firefly Beetle with Glowing Lantern",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 484,
+      "height": 450
+    },
+    {
+      "id": "ani-orange-tabby-cat",
+      "name": {
+        "en": "Cozy Ginger Orange Tabby Cat Sitting",
+        "vi": "Mèo mướp vàng cam đáng yêu ngồi ngoan"
+      },
+      "tags": {
+        "en": [
+          "orange cat",
+          "tabby cat",
+          "kitten",
+          "pet"
+        ],
+        "vi": [
+          "mèo vàng",
+          "mèo cam",
+          "thú cưng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-orange-tabby-cat",
+        "author": "IG Layout Illustration",
+        "title": "Cozy Ginger Orange Tabby Cat Sitting",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 465,
+      "height": 571
+    },
+    {
+      "id": "ani-calico-cat-stretching",
+      "name": {
+        "en": "Cute Tri-Color Calico Cat",
+        "vi": "Mèo tam thể trắng cam đen dễ thương"
+      },
+      "tags": {
+        "en": [
+          "calico cat",
+          "cat",
+          "kitten",
+          "pet"
+        ],
+        "vi": [
+          "mèo tam thể",
+          "con mèo",
+          "thú cưng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-calico-cat-stretching",
+        "author": "IG Layout Illustration",
+        "title": "Cute Tri-Color Calico Cat",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 465,
+      "height": 571
+    },
+    {
+      "id": "ani-black-kitten-yarn",
+      "name": {
+        "en": "Little Black Kitten with Golden Eyes",
+        "vi": "Mèo đen mắt vàng tròn xoe đáng yêu"
+      },
+      "tags": {
+        "en": [
+          "black cat",
+          "kitten",
+          "cute cat",
+          "pet"
+        ],
+        "vi": [
+          "mèo đen",
+          "mèo con",
+          "mắt vàng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-black-kitten-yarn",
+        "author": "IG Layout Illustration",
+        "title": "Little Black Kitten with Golden Eyes",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 465,
+      "height": 571
+    },
+    {
+      "id": "ani-golden-retriever-dog",
+      "name": {
+        "en": "Happy Golden Retriever Puppy",
+        "vi": "Chú chó Golden lông vàng hiền lành tươi cười"
+      },
+      "tags": {
+        "en": [
+          "golden retriever",
+          "dog",
+          "puppy",
+          "pet"
+        ],
+        "vi": [
+          "chó golden",
+          "chú chó",
+          "thú cưng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-golden-retriever-dog",
+        "author": "IG Layout Illustration",
+        "title": "Happy Golden Retriever Puppy",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 452,
+      "height": 523
+    },
+    {
+      "id": "ani-corgi-dog-smiling",
+      "name": {
+        "en": "Fluffy Pembroke Welsh Corgi Dog",
+        "vi": "Chú chó Corgi chân ngắn lông vàng trắng"
+      },
+      "tags": {
+        "en": [
+          "corgi",
+          "puppy",
+          "dog",
+          "cute"
+        ],
+        "vi": [
+          "chó corgi",
+          "cún cưng",
+          "dễ thương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-corgi-dog-smiling",
+        "author": "IG Layout Illustration",
+        "title": "Fluffy Pembroke Welsh Corgi Dog",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 452,
+      "height": 523
+    },
+    {
+      "id": "ani-french-bulldog-cute",
+      "name": {
+        "en": "Cream & Fawn French Bulldog Puppy",
+        "vi": "Chú chó Bull Pháp tai dựng ngộ nghĩnh"
+      },
+      "tags": {
+        "en": [
+          "french bulldog",
+          "frenchie",
+          "dog",
+          "pet"
+        ],
+        "vi": [
+          "chó bull",
+          "cún con",
+          "thú cưng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-french-bulldog-cute",
+        "author": "IG Layout Illustration",
+        "title": "Cream & Fawn French Bulldog Puppy",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 452,
+      "height": 523
+    },
+    {
+      "id": "ani-white-lop-rabbit",
+      "name": {
+        "en": "Fluffy White Bunny Rabbit with Pink Ears",
+        "vi": "Thỏ trắng lông bông tai hồng xinh xắn"
+      },
+      "tags": {
+        "en": [
+          "white rabbit",
+          "bunny",
+          "cute",
+          "pet"
+        ],
+        "vi": [
+          "thỏ trắng",
+          "con thỏ",
+          "dễ thương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-white-lop-rabbit",
+        "author": "IG Layout Illustration",
+        "title": "Fluffy White Bunny Rabbit with Pink Ears",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 346,
+      "height": 656
+    },
+    {
+      "id": "ani-spotted-bunny-carrot",
+      "name": {
+        "en": "Cinnamon Brown Meadow Bunny Rabbit",
+        "vi": "Thỏ nâu đồng cỏ tai dài đáng yêu"
+      },
+      "tags": {
+        "en": [
+          "brown bunny",
+          "rabbit",
+          "meadow",
+          "animal"
+        ],
+        "vi": [
+          "thỏ nâu",
+          "thỏ rừng",
+          "đồng cỏ",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-spotted-bunny-carrot",
+        "author": "IG Layout Illustration",
+        "title": "Cinnamon Brown Meadow Bunny Rabbit",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 346,
+      "height": 656
+    },
+    {
+      "id": "ani-golden-hamster-seed",
+      "name": {
+        "en": "Chubby Golden Hamster with Rosy Cheeks",
+        "vi": "Chuột Hamster vàng mũm mĩm má hồng"
+      },
+      "tags": {
+        "en": [
+          "hamster",
+          "cute pet",
+          "rodent",
+          "animal"
+        ],
+        "vi": [
+          "chuột hamster",
+          "mũm mĩm",
+          "thú cưng",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-golden-hamster-seed",
+        "author": "IG Layout Illustration",
+        "title": "Chubby Golden Hamster with Rosy Cheeks",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-highland-fluffy-cow",
+      "name": {
+        "en": "Fluffy Ginger Scottish Highland Calf",
+        "vi": "Bê con lông xù màu nâu cam dễ thương"
+      },
+      "tags": {
+        "en": [
+          "highland cow",
+          "calf",
+          "farm animal",
+          "cute"
+        ],
+        "vi": [
+          "bò lông xù",
+          "bê con",
+          "nông trại",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-highland-fluffy-cow",
+        "author": "IG Layout Illustration",
+        "title": "Fluffy Ginger Scottish Highland Calf",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-red-fox-sitting",
+      "name": {
+        "en": "Woodland Red Fox with White-Tipped Tail",
+        "vi": "Cáo đỏ rừng xanh đuôi bông trắng"
+      },
+      "tags": {
+        "en": [
+          "red fox",
+          "fox",
+          "woodland",
+          "animal"
+        ],
+        "vi": [
+          "cáo đỏ",
+          "con cáo",
+          "rừng xanh",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-red-fox-sitting",
+        "author": "IG Layout Illustration",
+        "title": "Woodland Red Fox with White-Tipped Tail",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 465,
+      "height": 571
+    },
+    {
+      "id": "ani-spotted-fawn-deer",
+      "name": {
+        "en": "Gentle Spotted Forest Fawn Deer",
+        "vi": "Hươu sao nhỏ lông nâu đốm trắng hiền dịu"
+      },
+      "tags": {
+        "en": [
+          "fawn",
+          "deer",
+          "forest",
+          "animal"
+        ],
+        "vi": [
+          "hươu sao",
+          "nai con",
+          "rừng cây",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-spotted-fawn-deer",
+        "author": "IG Layout Illustration",
+        "title": "Gentle Spotted Forest Fawn Deer",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 452,
+      "height": 523
+    },
+    {
+      "id": "ani-giant-panda-bamboo",
+      "name": {
+        "en": "Cute Black & White Giant Panda Bear",
+        "vi": "Gấu trúc đen trắng mũm mĩm đáng yêu"
+      },
+      "tags": {
+        "en": [
+          "panda",
+          "giant panda",
+          "bamboo",
+          "cute"
+        ],
+        "vi": [
+          "gấu trúc",
+          "panda",
+          "dễ thương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-giant-panda-bamboo",
+        "author": "IG Layout Illustration",
+        "title": "Cute Black & White Giant Panda Bear",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-koala-eucalyptus",
+      "name": {
+        "en": "Sleepy Gray Australian Koala Bear",
+        "vi": "Gấu túi Koala lông xám tai tròn hiền lành"
+      },
+      "tags": {
+        "en": [
+          "koala",
+          "australian",
+          "cute animal",
+          "nature"
+        ],
+        "vi": [
+          "gấu koala",
+          "gấu túi",
+          "dễ thương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-koala-eucalyptus",
+        "author": "IG Layout Illustration",
+        "title": "Sleepy Gray Australian Koala Bear",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-red-panda-striped-tail",
+      "name": {
+        "en": "Rusty Red Panda with Ringed Tail",
+        "vi": "Gấu trúc đỏ mặt trắng đuôi vằn đáng yêu"
+      },
+      "tags": {
+        "en": [
+          "red panda",
+          "cute animal",
+          "forest",
+          "wildlife"
+        ],
+        "vi": [
+          "gấu trúc đỏ",
+          "dễ thương",
+          "rừng xanh",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-red-panda-striped-tail",
+        "author": "IG Layout Illustration",
+        "title": "Rusty Red Panda with Ringed Tail",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 465,
+      "height": 571
+    },
+    {
+      "id": "ani-brown-bear-honey",
+      "name": {
+        "en": "Friendly Forest Brown Bear Cub",
+        "vi": "Gấu nâu nhỏ hiền lành trong rừng"
+      },
+      "tags": {
+        "en": [
+          "brown bear",
+          "bear cub",
+          "forest",
+          "animal"
+        ],
+        "vi": [
+          "gấu nâu",
+          "gấu con",
+          "rừng cây",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-brown-bear-honey",
+        "author": "IG Layout Illustration",
+        "title": "Friendly Forest Brown Bear Cub",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-racoon-bandit-mask",
+      "name": {
+        "en": "Curious Gray Woodland Raccoon",
+        "vi": "Gấu mèo xám đeo mặt nạ đen tinh nghịch"
+      },
+      "tags": {
+        "en": [
+          "raccoon",
+          "woodland",
+          "wildlife",
+          "animal"
+        ],
+        "vi": [
+          "gấu mèo",
+          "tinh nghịch",
+          "rừng xanh",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-racoon-bandit-mask",
+        "author": "IG Layout Illustration",
+        "title": "Curious Gray Woodland Raccoon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 465,
+      "height": 571
+    },
+    {
+      "id": "ani-chipmunk-acorn",
+      "name": {
+        "en": "Striped Woodland Chipmunk Holding Acorn",
+        "vi": "Sóc chuột vằn lưng nâu ôm hạt sồi"
+      },
+      "tags": {
+        "en": [
+          "chipmunk",
+          "squirrel",
+          "acorn",
+          "woodland"
+        ],
+        "vi": [
+          "sóc chuột",
+          "con sóc",
+          "hạt sồi",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-chipmunk-acorn",
+        "author": "IG Layout Illustration",
+        "title": "Striped Woodland Chipmunk Holding Acorn",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-european-badger",
+      "name": {
+        "en": "Striped Forest Badger Illustration",
+        "vi": "Chồn lửng rừng sọc trắng đen cổ điển"
+      },
+      "tags": {
+        "en": [
+          "badger",
+          "forest animal",
+          "woodland",
+          "nature"
+        ],
+        "vi": [
+          "con lửng",
+          "thú rừng",
+          "thiên nhiên",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-european-badger",
+        "author": "IG Layout Illustration",
+        "title": "Striped Forest Badger Illustration",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-otter-holding-shell",
+      "name": {
+        "en": "Playful River Otter Floating on Back",
+        "vi": "Rái cá nhỏ nâu ấm ôm vỏ sò trên sông"
+      },
+      "tags": {
+        "en": [
+          "otter",
+          "sea otter",
+          "cute animal",
+          "river"
+        ],
+        "vi": [
+          "rái cá",
+          "vỏ sò",
+          "dễ thương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-otter-holding-shell",
+        "author": "IG Layout Illustration",
+        "title": "Playful River Otter Floating on Back",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-capybara-yuzu-head",
+      "name": {
+        "en": "Chill Capybara with Orange on Head",
+        "vi": "Chuột lang nước Capybara điềm tĩnh đáng yêu"
+      },
+      "tags": {
+        "en": [
+          "capybara",
+          "yuzu",
+          "chill",
+          "cute"
+        ],
+        "vi": [
+          "capybara",
+          "chuột lang nước",
+          "dễ thương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-capybara-yuzu-head",
+        "author": "IG Layout Illustration",
+        "title": "Chill Capybara with Orange on Head",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-alpaca-fluffy-scarf",
+      "name": {
+        "en": "Fluffy Cream Alpaca with Pastel Wool",
+        "vi": "Lạc đà không bướu Alpaca lông trắng xốp mềm"
+      },
+      "tags": {
+        "en": [
+          "alpaca",
+          "llama",
+          "fluffy",
+          "cute"
+        ],
+        "vi": [
+          "lạc đà alpaca",
+          "lông xù",
+          "dễ thương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-alpaca-fluffy-scarf",
+        "author": "IG Layout Illustration",
+        "title": "Fluffy Cream Alpaca with Pastel Wool",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-african-elephant-calf",
+      "name": {
+        "en": "Sweet Baby Gray Elephant with Big Ears",
+        "vi": "Voi con xám tai to hiền lành đáng yêu"
+      },
+      "tags": {
+        "en": [
+          "elephant",
+          "baby elephant",
+          "safari",
+          "animal"
+        ],
+        "vi": [
+          "voi con",
+          "con voi",
+          "hiền lành",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-african-elephant-calf",
+        "author": "IG Layout Illustration",
+        "title": "Sweet Baby Gray Elephant with Big Ears",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 452,
+      "height": 523
+    },
+    {
+      "id": "ani-giraffe-spotted-neck",
+      "name": {
+        "en": "Spotted Golden Savanna Giraffe",
+        "vi": "Hươu cao cổ vàng đốm nâu đồng cỏ"
+      },
+      "tags": {
+        "en": [
+          "giraffe",
+          "savanna",
+          "spotted",
+          "animal"
+        ],
+        "vi": [
+          "hươu cao cổ",
+          "đốm nâu",
+          "đồng cỏ",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-giraffe-spotted-neck",
+        "author": "IG Layout Illustration",
+        "title": "Spotted Golden Savanna Giraffe",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 400,
+      "height": 561
+    },
+    {
+      "id": "ani-red-eyed-tree-frog",
+      "name": {
+        "en": "Tropical Red-Eyed Green Tree Frog",
+        "vi": "Ếch cây xanh mắt đỏ nhiệt đới sống động"
+      },
+      "tags": {
+        "en": [
+          "tree frog",
+          "frog",
+          "tropical",
+          "amphibian"
+        ],
+        "vi": [
+          "ếch cây",
+          "con ếch",
+          "nhiệt đới",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-red-eyed-tree-frog",
+        "author": "IG Layout Illustration",
+        "title": "Tropical Red-Eyed Green Tree Frog",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 562,
+      "height": 460
+    },
+    {
+      "id": "ani-lilypad-green-frog",
+      "name": {
+        "en": "Happy Pond Frog Sitting on Green Lily Pad",
+        "vi": "Chú ếch xanh ngồi trên lá súng mặt hồ"
+      },
+      "tags": {
+        "en": [
+          "pond frog",
+          "frog",
+          "lily pad",
+          "cute"
+        ],
+        "vi": [
+          "ếch xanh",
+          "lá súng",
+          "mặt hồ",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-lilypad-green-frog",
+        "author": "IG Layout Illustration",
+        "title": "Happy Pond Frog Sitting on Green Lily Pad",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 562,
+      "height": 460
+    },
+    {
+      "id": "ani-green-sea-turtle",
+      "name": {
+        "en": "Ocean Green Sea Turtle Swimming",
+        "vi": "Rùa biển mai xanh bơi giữa đại dương"
+      },
+      "tags": {
+        "en": [
+          "sea turtle",
+          "turtle",
+          "ocean",
+          "marine"
+        ],
+        "vi": [
+          "rùa biển",
+          "con rùa",
+          "đại dương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-green-sea-turtle",
+        "author": "IG Layout Illustration",
+        "title": "Ocean Green Sea Turtle Swimming",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 512,
+      "height": 558
+    },
+    {
+      "id": "ani-veiled-chameleon-branch",
+      "name": {
+        "en": "Colorful Turquoise & Lime Chameleon",
+        "vi": "Tắc kè hoa xanh ngọc đổi màu trên cành"
+      },
+      "tags": {
+        "en": [
+          "chameleon",
+          "lizard",
+          "reptile",
+          "colorful"
+        ],
+        "vi": [
+          "tắc kè hoa",
+          "tắc kè",
+          "sắc màu",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-veiled-chameleon-branch",
+        "author": "IG Layout Illustration",
+        "title": "Colorful Turquoise & Lime Chameleon",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 702,
+      "height": 340
+    },
+    {
+      "id": "ani-koi-goldfish-fantail",
+      "name": {
+        "en": "Graceful Orange Fantail Goldfish",
+        "vi": "Cá vàng đuôi voan bơi uyển chuyển"
+      },
+      "tags": {
+        "en": [
+          "goldfish",
+          "fish",
+          "aquarium",
+          "orange fish"
+        ],
+        "vi": [
+          "cá vàng",
+          "đuôi voan",
+          "bơi lội",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-koi-goldfish-fantail",
+        "author": "IG Layout Illustration",
+        "title": "Graceful Orange Fantail Goldfish",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 645,
+      "height": 421
+    },
+    {
+      "id": "ani-clownfish-orange-stripes",
+      "name": {
+        "en": "Coral Reef Orange & White Clownfish",
+        "vi": "Cá hề cam sọc trắng rạn san hô"
+      },
+      "tags": {
+        "en": [
+          "clownfish",
+          "coral reef",
+          "marine fish",
+          "ocean"
+        ],
+        "vi": [
+          "cá hề",
+          "san hô",
+          "biển cả",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-clownfish-orange-stripes",
+        "author": "IG Layout Illustration",
+        "title": "Coral Reef Orange & White Clownfish",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 645,
+      "height": 421
+    },
+    {
+      "id": "ani-bottlenose-dolphin-jump",
+      "name": {
+        "en": "Playful Blue Bottlenose Dolphin Leaping",
+        "vi": "Cá heo xanh phóng mình trên sóng biển"
+      },
+      "tags": {
+        "en": [
+          "dolphin",
+          "ocean",
+          "marine",
+          "sea animal"
+        ],
+        "vi": [
+          "cá heo",
+          "biển xanh",
+          "đại dương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-bottlenose-dolphin-jump",
+        "author": "IG Layout Illustration",
+        "title": "Playful Blue Bottlenose Dolphin Leaping",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 421
+    },
+    {
+      "id": "ani-humpback-whale-breach",
+      "name": {
+        "en": "Gentle Deep Blue Ocean Whale with Water Spout",
+        "vi": "Cá voi xanh đại dương phun cột nước trắng"
+      },
+      "tags": {
+        "en": [
+          "whale",
+          "blue whale",
+          "ocean",
+          "marine"
+        ],
+        "vi": [
+          "cá voi",
+          "cá voi xanh",
+          "đại dương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-humpback-whale-breach",
+        "author": "IG Layout Illustration",
+        "title": "Gentle Deep Blue Ocean Whale with Water Spout",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 680,
+      "height": 421
+    },
+    {
+      "id": "ani-red-octopus-curled",
+      "name": {
+        "en": "Coral Red Octopus with Curled Tentacles",
+        "vi": "Bạch tuộc đỏ san hô xúc tu uốn lượn"
+      },
+      "tags": {
+        "en": [
+          "octopus",
+          "sea creature",
+          "ocean",
+          "marine"
+        ],
+        "vi": [
+          "bạch tuộc",
+          "sinh vật biển",
+          "đại dương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-red-octopus-curled",
+        "author": "IG Layout Illustration",
+        "title": "Coral Red Octopus with Curled Tentacles",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 514,
+      "height": 584
+    },
+    {
+      "id": "ani-moon-jellyfish-pink",
+      "name": {
+        "en": "Translucent Pink Glowing Ocean Jellyfish",
+        "vi": "Sứa biển màu hồng phấn bơi bồng bềnh"
+      },
+      "tags": {
+        "en": [
+          "jellyfish",
+          "pink jellyfish",
+          "ocean",
+          "marine"
+        ],
+        "vi": [
+          "sứa biển",
+          "con sứa",
+          "bồng bềnh",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-moon-jellyfish-pink",
+        "author": "IG Layout Illustration",
+        "title": "Translucent Pink Glowing Ocean Jellyfish",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 452,
+      "height": 553
+    },
+    {
+      "id": "ani-golden-seahorse",
+      "name": {
+        "en": "Coral Reef Golden Seahorse Illustration",
+        "vi": "Cá ngựa vàng rạn san hô cổ điển"
+      },
+      "tags": {
+        "en": [
+          "seahorse",
+          "ocean",
+          "coral reef",
+          "marine"
+        ],
+        "vi": [
+          "cá ngựa",
+          "san hô",
+          "biển cả",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-golden-seahorse",
+        "author": "IG Layout Illustration",
+        "title": "Coral Reef Golden Seahorse Illustration",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 356,
+      "height": 665
+    },
+    {
+      "id": "ani-coral-starfish-pair",
+      "name": {
+        "en": "Five-Pointed Coral Orange Sea Starfish",
+        "vi": "Sao biển năm cánh màu cam san hô"
+      },
+      "tags": {
+        "en": [
+          "starfish",
+          "sea star",
+          "beach",
+          "ocean"
+        ],
+        "vi": [
+          "sao biển",
+          "bãi biển",
+          "đại dương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-coral-starfish-pair",
+        "author": "IG Layout Illustration",
+        "title": "Five-Pointed Coral Orange Sea Starfish",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 644,
+      "height": 612
+    },
+    {
+      "id": "ani-red-shore-crab",
+      "name": {
+        "en": "Happy Red Beach Crab with Claws",
+        "vi": "Cua biển đỏ giơ đôi càng ngộ nghĩnh"
+      },
+      "tags": {
+        "en": [
+          "crab",
+          "red crab",
+          "beach",
+          "sea creature"
+        ],
+        "vi": [
+          "con cua",
+          "cua biển",
+          "bãi biển",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-red-shore-crab",
+        "author": "IG Layout Illustration",
+        "title": "Happy Red Beach Crab with Claws",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 656,
+      "height": 499
+    },
+    {
+      "id": "ani-axolotl-pink-smile",
+      "name": {
+        "en": "Smiling Pastel Pink Axolotl Salamander",
+        "vi": "Kỳ nhông Axolotl màu hồng pastel tươi cười"
+      },
+      "tags": {
+        "en": [
+          "axolotl",
+          "pink",
+          "cute animal",
+          "amphibian"
+        ],
+        "vi": [
+          "kỳ nhông",
+          "axolotl",
+          "dễ thương",
+          "động vật"
+        ]
+      },
+      "collections": [
+        "nature",
+        "cute",
+        "journal"
+      ],
+      "process": {
+        "removeBg": false,
+        "trim": true
+      },
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/assets/sticker/butterflies-insects#ani-axolotl-pink-smile",
+        "author": "IG Layout Illustration",
+        "title": "Smiling Pastel Pink Axolotl Salamander",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 562,
+      "height": 460
     }
   ]
 }
