@@ -68,7 +68,7 @@ await page.waitForTimeout(300);
 st = await S();
 const photo = st.doc.elements.find((e) => e.type === "image" && e.assetId);
 const widget = st.doc.elements.at(-1);
-const EFFECTS = ["melt", "drape", "twirl", "bulge", "wave", "arc", "glitch", "pixelate", "rgbSplit", "halftone", "duotone", "longShadow", "offsetShadow", "outline", "reflection", "glitter", "echo"];
+const EFFECTS = ["melt", "drape", "twirl", "bulge", "wave", "arc", "glitch", "pixelate", "rgbSplit", "halftone", "duotone", "longShadow", "offsetShadow", "outline", "reflection", "glitter", "echo", "flag", "ripple", "perspective", "fisheye", "mirror", "kaleidoscope", "stretch", "tear", "fold", "crt", "dither", "riso", "emboss", "glow", "extrude", "rays", "motionBlur", "zoomBlur", "tiltShift"];
 const shots = [];
 for (const target of [photo, text, widget]) {
   for (const fx of EFFECTS) {
