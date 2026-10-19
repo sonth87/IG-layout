@@ -587,6 +587,424 @@
       },
       "width": 1120,
       "height": 1400
+    },
+    {
+      "id": "ov-folded-letter-three-panel",
+      "name": {
+        "en": "Tri-Folded Vintage Letter Horizontal Creases",
+        "vi": "Nếp gấp thư làm ba ngang trang giấy cổ"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Tri-Folded Vintage Letter Horizontal Creases",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-folded-poster-sixteen-grid",
+      "name": {
+        "en": "16-Panel Folded Map & Poster Crease Grid",
+        "vi": "Lưới 16 ô nếp gấp bản đồ & áp phích cũ"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "16-Panel Folded Map & Poster Crease Grid",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-corner-dog-ear-creases",
+      "name": {
+        "en": "Worn Book Page Dog-Ear Corner Folds",
+        "vi": "Nếp gấp quăn bốn góc trang sách cũ"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Worn Book Page Dog-Ear Corner Folds",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-espresso-splash-stain-ring",
+      "name": {
+        "en": "Dark Espresso Cup Ring & Droplet Spatter",
+        "vi": "Vết đáy cốc cà phê Espresso & giọt bắn tự nhiên"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Dark Espresso Cup Ring & Droplet Spatter",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-matcha-tea-watercolor-stain",
+      "name": {
+        "en": "Aged Herbal Tea Ring & Edge Watermark",
+        "vi": "Vết cốc trà thảo mộc & loang nước cạnh giấy"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Aged Herbal Tea Ring & Edge Watermark",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-fountain-ink-splatter-blots",
+      "name": {
+        "en": "Vintage Fountain Pen Sepia Ink Blots & Drops",
+        "vi": "Vết mực bút máy nâu đen vẩy nhẹ trên giấy"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Vintage Fountain Pen Sepia Ink Blots & Drops",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-aged-book-foxing-vignette",
+      "name": {
+        "en": "Antique Book Page Foxing & Darkened Vignette",
+        "vi": "Viền ố vàng đốm mốc trang sách cổ trăm năm"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Antique Book Page Foxing & Darkened Vignette",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-water-damaged-tide-marks",
+      "name": {
+        "en": "Dried Water Tide Lines & Damp Paper Stain",
+        "vi": "Vệt loang nước khô tự nhiên trên giấy cũ"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Dried Water Tide Lines & Damp Paper Stain",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-coarse-newsprint-ink-rub",
+      "name": {
+        "en": "Coarse Vintage Newsprint Ink Rub & Specks",
+        "vi": "Bề mặt báo cũ lem mực in & hạt bụi giấy"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Coarse Vintage Newsprint Ink Rub & Specks",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-charcoal-sketch-smudge-dust",
+      "name": {
+        "en": "Artist Charcoal Sketchbook Smudge & Eraser Crumb",
+        "vi": "Vệt chì than nhoè nhẹ trên sổ ký hoạ"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Artist Charcoal Sketchbook Smudge & Eraser Crumb",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-postage-cancellation-ink-transfer",
+      "name": {
+        "en": "Faint Wet Ink Offset & Postal smudge Marks",
+        "vi": "Vệt in hằn mực dấu bưu điện mờ trên giấy"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "crease",
+          "stain",
+          "grain",
+          "vintage"
+        ],
+        "vi": [
+          "nếp gấp",
+          "vết ố",
+          "giấy cũ",
+          "vết cà phê",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "journal"
+      ],
+      "blend": "multiply",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/film-paper-grain",
+        "author": "IG Layout Procedural Generator",
+        "title": "Faint Wet Ink Offset & Postal smudge Marks",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
     }
   ]
 }

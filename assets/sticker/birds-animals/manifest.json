@@ -32,6 +32,7 @@
         ]
       },
       "collections": [
+        "featured",
         "vintage",
         "journal"
       ],
@@ -862,6 +863,7 @@
         ]
       },
       "collections": [
+        "featured",
         "vintage",
         "journal",
         "nature"
@@ -902,6 +904,7 @@
         ]
       },
       "collections": [
+        "featured",
         "vintage",
         "journal",
         "nature"
@@ -1262,6 +1265,7 @@
         ]
       },
       "collections": [
+        "featured",
         "vintage",
         "journal",
         "nature"

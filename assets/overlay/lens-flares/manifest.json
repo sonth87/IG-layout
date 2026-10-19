@@ -776,6 +776,552 @@
       },
       "width": 1120,
       "height": 1400
+    },
+    {
+      "id": "ov-flare-anamorphic-gold-cyan-streak",
+      "name": {
+        "en": "Anamorphic Gold Core & Cyan Horizontal Streak",
+        "vi": "Tia lóe ngang Anamorphic tâm vàng cánh xanh băng"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Anamorphic Gold Core & Cyan Horizontal Streak",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-sunset-amber-pentagon-chain",
+      "name": {
+        "en": "Sunset Amber Pentagon Aperture Ghost Chain",
+        "vi": "Chuỗi bóng ma ngũ giác nắng hoàng hôn hổ phách"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Sunset Amber Pentagon Aperture Ghost Chain",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-sapphire-blue-cinema-flash",
+      "name": {
+        "en": "Cinema Sapphire Blue Horizontal Flash Flare",
+        "vi": "Vệt lóe điện ảnh xanh sapphire sắc nét"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Cinema Sapphire Blue Horizontal Flash Flare",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-rose-quartz-prism-halo",
+      "name": {
+        "en": "Rose Quartz Iridescent Prism Halo Ring",
+        "vi": "Vòng hào quang lăng kính hồng thạch anh"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Rose Quartz Iridescent Prism Halo Ring",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-golden-hour-eight-star",
+      "name": {
+        "en": "Golden Hour 8-Point Starburst Sun Flare",
+        "vi": "Ngôi sao nắng 8 cánh giờ vàng rực rỡ"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Golden Hour 8-Point Starburst Sun Flare",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-vintage-cooke-warm-veil",
+      "name": {
+        "en": "Vintage Cooke Warm Amber Edge Glare Veil",
+        "vi": "Màn sương sáng vàng ấm góc ống kính cổ Cooke"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Vintage Cooke Warm Amber Edge Glare Veil",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-cyber-magenta-teal-streak",
+      "name": {
+        "en": "Neon Magenta & Teal Anamorphic Dual Flare",
+        "vi": "Tia lóe kép tím hồng & xanh ngọc neon"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Neon Magenta & Teal Anamorphic Dual Flare",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-prism-spectral-arc-top",
+      "name": {
+        "en": "Upper Spectral Rainbow Refraction Arc",
+        "vi": "Cung khúc xạ cầu vồng quang phổ phía trên"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Upper Spectral Rainbow Refraction Arc",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-soft-champagne-wedding-glow",
+      "name": {
+        "en": "Soft Champagne Gold Bridal Bokeh Flare",
+        "vi": "Quầng sáng vàng champagne dịu nhẹ lễ cưới"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Soft Champagne Gold Bridal Bokeh Flare",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-emerald-forest-sun-pierce",
+      "name": {
+        "en": "Emerald Canopy Sun Pierce Optical Flare",
+        "vi": "Tia nắng xuyên tán lá ánh lục bảo quang học"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Emerald Canopy Sun Pierce Optical Flare",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-twin-solar-orb-reflection",
+      "name": {
+        "en": "Twin Solar Orb Internal Lens Reflection",
+        "vi": "Phản xạ đôi quả cầu mặt trời trong thấu kính"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Twin Solar Orb Internal Lens Reflection",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-diagonal-diamond-needle-rays",
+      "name": {
+        "en": "Diagonal Diamond Needle Star Rays",
+        "vi": "Chùm tia sao kim cương chéo sắc sảo"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Diagonal Diamond Needle Star Rays",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-peach-sunset-horizon-wash",
+      "name": {
+        "en": "Warm Peach Sunset Horizon Light Wash",
+        "vi": "Ánh sáng hồng đào trải dọc chân trời hoàng hôn"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Warm Peach Sunset Horizon Light Wash",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-flare-violet-indigo-twilight-orb",
+      "name": {
+        "en": "Twilight Violet & Indigo Optical Ghost Orbs",
+        "vi": "Chuỗi cầu sáng tím hoàng hôn huyền ảo"
+      },
+      "tags": {
+        "en": [
+          "lens flare",
+          "optical",
+          "glow",
+          "cinema",
+          "light"
+        ],
+        "vi": [
+          "lóe ống kính",
+          "quang học",
+          "quầng sáng",
+          "điện ảnh",
+          "ánh sáng"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "wedding"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/lens-flares",
+        "author": "IG Layout Procedural Generator",
+        "title": "Twilight Violet & Indigo Optical Ghost Orbs",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
     }
   ]
 }

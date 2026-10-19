@@ -33,6 +33,7 @@
         ]
       },
       "collections": [
+        "featured",
         "handDrawn",
         "cute"
       ],
@@ -876,6 +877,7 @@
         ]
       },
       "collections": [
+        "featured",
         "handDrawn",
         "cute"
       ],
@@ -1019,6 +1021,7 @@
         ]
       },
       "collections": [
+        "featured",
         "handDrawn",
         "cute",
         "travel"

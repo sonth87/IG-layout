@@ -586,6 +586,513 @@
       },
       "width": 1120,
       "height": 1400
+    },
+    {
+      "id": "ov-light-leak-amber-edge-burn",
+      "name": {
+        "en": "Vintage 35mm Amber Right Edge Film Burn",
+        "vi": "Vệt cháy phim vàng hổ phách cạnh phải"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Vintage 35mm Amber Right Edge Film Burn",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-light-leak-coral-magenta-wave",
+      "name": {
+        "en": "Coral & Magenta Analog Light Leak Wave",
+        "vi": "Dải lọt sáng hồng san hô & tím đỏ máy phim"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Coral & Magenta Analog Light Leak Wave",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-light-leak-golden-top-border",
+      "name": {
+        "en": "Golden Sun Light Leak Along Top Frame",
+        "vi": "Vệt lọt sáng nắng vàng dọc viền trên"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Golden Sun Light Leak Along Top Frame",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-light-leak-cyan-emerald-vintage",
+      "name": {
+        "en": "Expired Film Cyan & Emerald Light Leak",
+        "vi": "Ánh lọt sáng xanh ngọc phim hết hạn cổ điển"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Expired Film Cyan & Emerald Light Leak",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-bokeh-rose-champagne-cascade",
+      "name": {
+        "en": "Rose Gold & Champagne Bokeh Cascade",
+        "vi": "Thác đốm sáng bokeh vàng hồng lấp lánh"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Rose Gold & Champagne Bokeh Cascade",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-bokeh-twilight-blue-violet",
+      "name": {
+        "en": "Dreamy Twilight Blue & Violet Bokeh Orbs",
+        "vi": "Đốm sáng bokeh xanh tím chiều chạng vạng"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Dreamy Twilight Blue & Violet Bokeh Orbs",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-bokeh-emerald-summer-foliage",
+      "name": {
+        "en": "Sunlit Summer Foliage Green & Gold Bokeh",
+        "vi": "Đốm nắng bokeh xanh lá & vàng nắng qua vòm cây"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Sunlit Summer Foliage Green & Gold Bokeh",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-bokeh-heart-shaped-warm-glow",
+      "name": {
+        "en": "Warm Golden Heart-Shaped Bokeh Lights",
+        "vi": "Đốm sáng bokeh hình trái tim vàng ấm áp"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Warm Golden Heart-Shaped Bokeh Lights",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-sunbeams-diagonal-cathedral",
+      "name": {
+        "en": "Diagonal Golden Cathedral Sunbeam Rays",
+        "vi": "Chùm tia nắng xiên vàng ấm qua khung cửa"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Diagonal Golden Cathedral Sunbeam Rays",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-sparkles-diamond-stardust-field",
+      "name": {
+        "en": "Glittering Diamond Stardust Sparkle Field",
+        "vi": "Bụi sao kim cương lấp lánh rải đều"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Glittering Diamond Stardust Sparkle Field",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-film-dust-vintage-projector",
+      "name": {
+        "en": "Authentic 16mm Projector Dust & Hair Specks",
+        "vi": "Bụi mảnh & sợi tơ máy chiếu phim 16mm cổ"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Authentic 16mm Projector Dust & Hair Specks",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-film-scratches-double-sprocket",
+      "name": {
+        "en": "Aged Cinema Reel Vertical Scratches & Dust",
+        "vi": "Vết xước dọc cuộn phim nhựa cổ & hạt bụi sáng"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Aged Cinema Reel Vertical Scratches & Dust",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "ov-prism-double-rainbow-corner",
+      "name": {
+        "en": "Crystal Prism Double Rainbow Corner Refraction",
+        "vi": "Khúc xạ cầu vồng đôi qua lăng kính pha lê góc ảnh"
+      },
+      "tags": {
+        "en": [
+          "light leak",
+          "bokeh",
+          "dust",
+          "film",
+          "glow"
+        ],
+        "vi": [
+          "lọt sáng",
+          "bokeh",
+          "bụi phim",
+          "ánh sáng",
+          "máy phim"
+        ]
+      },
+      "collections": [
+        "vintage",
+        "summer",
+        "cute"
+      ],
+      "blend": "screen",
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/light-effects",
+        "author": "IG Layout Procedural Generator",
+        "title": "Crystal Prism Double Rainbow Corner Refraction",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1200,
+      "height": 1200
     }
   ]
 }

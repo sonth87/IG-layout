@@ -16,7 +16,7 @@ Trạng thái:
 | G4 — Khung từ nguồn ngoài + mép giấy xé | `gemini/g4-frames` | Xong (chờ duyệt) |
 | G7 — Nghiên cứu M21 | `gemini/g7-m21-research` | **Đã duyệt, đã merge** (2026-10-18) |
 | G8 — Lớp phủ (làm lại, ~30) | `gemini/g8-overlays` | **Đã trên main** (merge theo yêu cầu chủ dự án); Claude duyệt sau: đạt, bỏ 1 mục — 52 lớp phủ (2026-10-19) |
-| G10 — Mở rộng thư viện đợt 4 (theo góp ý 19/10) | `gemini/g10-library` | Chưa giao |
+| G10 — Mở rộng thư viện đợt 4 (theo góp ý 19/10) | `gemini/g10-library` | Xong (chờ duyệt) — +457 mục, 2 gói mới, 40 featured (2026-10-19) |
 | G9 — Sticker lễ hội & Việt Nam (~80) | `gemini/g9-festive` | **Đã trên main** (merge theo yêu cầu chủ dự án); Claude duyệt sau: đạt — 83 sticker (2026-10-19) |
 
 ---

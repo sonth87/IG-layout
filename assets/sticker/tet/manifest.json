@@ -305,6 +305,7 @@
         ]
       },
       "collections": [
+        "featured",
         "tet",
         "vietnam"
       ],
@@ -422,6 +423,7 @@
         ]
       },
       "collections": [
+        "featured",
         "tet",
         "vietnam"
       ],
@@ -500,6 +502,7 @@
         ]
       },
       "collections": [
+        "featured",
         "tet",
         "vietnam"
       ],
@@ -773,6 +776,7 @@
         ]
       },
       "collections": [
+        "featured",
         "tet",
         "vietnam",
         "midAutumn"

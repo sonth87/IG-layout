@@ -33,6 +33,7 @@
         ]
       },
       "collections": [
+        "featured",
         "vintage",
         "travel"
       ],
@@ -593,6 +594,7 @@
         ]
       },
       "collections": [
+        "featured",
         "vintage",
         "travel"
       ],
@@ -1051,6 +1053,7 @@
         ]
       },
       "collections": [
+        "featured",
         "vintage",
         "travel"
       ],

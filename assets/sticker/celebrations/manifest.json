@@ -1429,6 +1429,7 @@
         ]
       },
       "collections": [
+        "featured",
         "birthday",
         "cute"
       ],
@@ -1858,6 +1859,7 @@
         ]
       },
       "collections": [
+        "featured",
         "wedding"
       ],
       "process": {
@@ -1974,6 +1976,7 @@
         ]
       },
       "collections": [
+        "featured",
         "wedding"
       ],
       "process": {
@@ -2128,6 +2131,7 @@
         ]
       },
       "collections": [
+        "featured",
         "graduation",
         "school",
         "cute"

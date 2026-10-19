@@ -73,6 +73,7 @@
         ]
       },
       "collections": [
+        "featured",
         "vintage",
         "travel",
         "journal"
@@ -681,6 +682,7 @@
         ]
       },
       "collections": [
+        "featured",
         "vintage",
         "travel",
         "journal"

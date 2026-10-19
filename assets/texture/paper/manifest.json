@@ -266,6 +266,903 @@
       },
       "width": 1024,
       "height": 1024
+    },
+    {
+      "id": "paper-ivory-cotton-rag",
+      "name": {
+        "en": "Warm Ivory 100% Cotton Rag Paper",
+        "vi": "Giấy cotton màu ngà ấm mịn"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Warm Ivory 100% Cotton Rag Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-cold-press-watercolor",
+      "name": {
+        "en": "Cold-Press Rough Watercolor Paper",
+        "vi": "Giấy vẽ màu nước vân sần Cold-Press"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Cold-Press Rough Watercolor Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-vietnamese-do-handmade",
+      "name": {
+        "en": "Handmade Vietnamese Dó Bark Fiber Paper",
+        "vi": "Giấy dó thủ công truyền thống lộ sợi vỏ cây"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Handmade Vietnamese Dó Bark Fiber Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-vintage-newsprint-grey",
+      "name": {
+        "en": "Aged Greyish-Cream Vintage Newsprint Paper",
+        "vi": "Giấy báo cũ ngả màu xám kem hoài cổ"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Aged Greyish-Cream Vintage Newsprint Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-antique-stained-parchment",
+      "name": {
+        "en": "Antique Tea-Stained Parchment Manuscript Paper",
+        "vi": "Giấy da cổ nhuộm trà ố vàng theo năm tháng"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Antique Tea-Stained Parchment Manuscript Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-recycled-flecked-kraft",
+      "name": {
+        "en": "Recycled Brown Kraft Paper with Organic Flecks",
+        "vi": "Giấy tái chế Kraft nâu lấm tấm hạt mộc"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Recycled Brown Kraft Paper with Organic Flecks",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-heavy-crumpled-parchment",
+      "name": {
+        "en": "Heavily Crumpled & Flattened Cream Paper",
+        "vi": "Giấy kem vò nhăn rồi trải phẳng tự nhiên"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Heavily Crumpled & Flattened Cream Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-corrugated-kraft-flute",
+      "name": {
+        "en": "Vertical Ribbed Corrugated Cardboard Flute",
+        "vi": "Bìa carton sóng dọc màu nâu mộc"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Vertical Ribbed Corrugated Cardboard Flute",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-architect-blueprint-grid",
+      "name": {
+        "en": "5mm Square Graph Grid Notebook Paper",
+        "vi": "Giấy kẻ ô vuông 5mm sổ tay kỹ thuật"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "5mm Square Graph Grid Notebook Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-bullet-journal-dotted",
+      "name": {
+        "en": "Subtle Dot-Grid Bullet Journal Paper",
+        "vi": "Giấy chấm bi Dot-Grid sổ tay Bullet Journal"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Subtle Dot-Grid Bullet Journal Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-french-seyes-ruled",
+      "name": {
+        "en": "Classic Vintage Blue & Red Ruled School Paper",
+        "vi": "Giấy kẻ ngang vở học sinh cổ điển"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Classic Vintage Blue & Red Ruled School Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-japanese-washi-mulberry",
+      "name": {
+        "en": "Japanese Mulberry Washi Paper with Long Fibers",
+        "vi": "Giấy Washi dâu tằm Nhật Bản sợi dài óng ả"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Japanese Mulberry Washi Paper with Long Fibers",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-laid-verge-ribbed",
+      "name": {
+        "en": "Classic Laid Paper with Fine Chain Lines",
+        "vi": "Giấy mỹ thuật vân sọc ngang mảnh cổ điển"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Classic Laid Paper with Fine Chain Lines",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-linen-woven-canvas",
+      "name": {
+        "en": "Cross-Woven Linen Embossed Art Paper",
+        "vi": "Giấy mỹ thuật dập vân vải lanh đan chéo"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Cross-Woven Linen Embossed Art Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-pastel-blush-rose-card",
+      "name": {
+        "en": "Soft Pastel Blush Pink Textured Cardstock",
+        "vi": "Giấy bìa mỹ thuật hồng phấn pastel vân mịn"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Soft Pastel Blush Pink Textured Cardstock",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-pastel-sage-botanical",
+      "name": {
+        "en": "Muted Sage Green Botanical Pressed Paper",
+        "vi": "Giấy thủ công xanh lá xô thơm dịu mắt"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Muted Sage Green Botanical Pressed Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-pastel-powder-blue",
+      "name": {
+        "en": "Serene Powder Blue Textured Cotton Paper",
+        "vi": "Giấy cotton xanh lam phấn nhẹ nhàng"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Serene Powder Blue Textured Cotton Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-charcoal-black-sketch",
+      "name": {
+        "en": "Deep Charcoal Black Pastel & Chalk Paper",
+        "vi": "Giấy mỹ thuật đen than chì sang trọng"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Deep Charcoal Black Pastel & Chalk Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-sun-bleached-manila-tag",
+      "name": {
+        "en": "Warm Manila Folder & Shipping Tag Cardstock",
+        "vi": "Bìa hồ sơ Manila vàng ấm cổ điển"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Warm Manila Folder & Shipping Tag Cardstock",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-coffee-dyed-journal",
+      "name": {
+        "en": "Hand-Dyed Coffee & Vanilla Vintage Journal Sheet",
+        "vi": "Giấy nhật ký nhuộm cà phê thủ công loang ấm"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Hand-Dyed Coffee & Vanilla Vintage Journal Sheet",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-pressed-wildflower-petal",
+      "name": {
+        "en": "Handmade Paper with Pressed Dried Flower Petals",
+        "vi": "Giấy thủ công ép cánh hoa khô tự nhiên"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Handmade Paper with Pressed Dried Flower Petals",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-music-manuscript-staves",
+      "name": {
+        "en": "Vintage Sheet Music Five-Line Staff Paper",
+        "vi": "Giấy kẻ khuôn nhạc 5 dòng cổ điển"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Vintage Sheet Music Five-Line Staff Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "id": "paper-ledger-accounting-columns",
+      "name": {
+        "en": "Antique Accounting Ledger Ruled Column Paper",
+        "vi": "Giấy sổ cái kế toán kẻ cột đỏ xanh cổ điển"
+      },
+      "tags": {
+        "en": [
+          "paper",
+          "texture",
+          "stationery",
+          "background",
+          "journal"
+        ],
+        "vi": [
+          "giấy",
+          "nền giấy",
+          "sổ tay",
+          "thủ công",
+          "cổ điển"
+        ]
+      },
+      "collections": [
+        "journal",
+        "vintage",
+        "minimal"
+      ],
+      "tile": true,
+      "source": {
+        "provider": "IG Layout",
+        "url": "https://ig-layout.local/assets/paper",
+        "author": "IG Layout Procedural Generator",
+        "title": "Antique Accounting Ledger Ruled Column Paper",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-19"
+      },
+      "width": 1024,
+      "height": 1024
     }
   ]
 }
