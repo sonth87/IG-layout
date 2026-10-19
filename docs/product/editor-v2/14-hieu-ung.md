@@ -893,3 +893,12 @@ Có nút Xáo.
 - **Khói** ban đầu thành khối chữ nhật cứng: giờ là làn khói loe hai bên, xoắn, tan dần.
 - **Lửa** quá thấp trên phần tử lớn: độ cao đổi sang %.
 - **Màu nước** sạn hạt: giảm hạt giấy, tăng độ loang.
+
+
+## 13. Tốc độ (D-126, 2026-10-20)
+
+Chủ dự án: "tốc độ xử lý ở vài hiệu ứng là khá chậm".
+
+- **Đang kéo thanh trượt**: hiệu ứng vẽ ở khoảng 40 % độ phân giải, nhanh gấp khoảng 6 lần.
+- **Dừng tay 0,35 giây**: vẽ lại nét đầy đủ.
+- **Trần xử lý** mỗi phần tử: 2,4 → 1,6 triệu điểm ảnh.

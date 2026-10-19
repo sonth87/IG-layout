@@ -13,7 +13,7 @@ import { drawClock, CLOCK_VARIANTS } from "./widgetClock";
 import { activityRings, chatLook, checklistLook, coupon, emojiSlider, exifLook, habit, hashtagLook, likeCount, mentionLook, moodFaces, notificationLook, pollLook, priceLook, progressLook, questionLook, receiptLook, recipeLook, runSummary, searchLook, sleep, starsLook, stepsLook, water } from "./widgetLooksB";
 import { calendarLook, countdownLook, musicLook, quoteLook, weatherLook } from "./widgetLooksA";
 import { boardingPassLook, booking, flightRoute, luggageTag, passport, passportStamp } from "./widgetTravel";
-import { airliner, C, card, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
+import { airliner, baseW, C, card, setWantWidth, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
 
 export const CARD_WIDGETS = [
   "clock",
@@ -65,6 +65,8 @@ export interface WidgetData {
   theme: WidgetTheme;
   /** One of WIDGET_VARIANTS[kind]: the same widget, another look (D-119). */
   variant?: string;
+  /** Layout width when stretched sideways (base units; owner, 2026-10-20). */
+  bw?: number;
 }
 
 /** A column of a list row: text, a percentage, done / not done, or which side a chat message is on. */
@@ -732,7 +734,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   weather(c, f, pal, _L, v) {
     if (v && v !== "card") return weatherLook(c, f, pal, v);
-    const w = 520;
+    const w = baseW(520);
     const cond: TextOpts = { size: 26, weight: 500, color: pal.sub };
     const condL = wrap(c, f.condition, cond, w - P * 2, 2);
     const h = P + 36 + 6 + 112 + linesH(condL.length, cond) + P;
@@ -746,7 +748,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   calendarDate(c, f, pal, _L, v) {
     if (v && v !== "card") return calendarLook(c, f, pal, v);
-    const w = 380;
+    const w = baseW(380);
     const band = 84;
     const note: TextOpts = { size: 24, weight: 600, color: pal.ac, align: "center" };
     const noteL = f.note ? wrap(c, f.note, note, w - P * 2, 2) : [];
@@ -767,7 +769,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   countdown(c, f, pal, _L, v) {
     if (v && v !== "card") return countdownLook(c, f, pal, v);
-    const w = 540;
+    const w = baseW(540);
     const big: TextOpts = { size: 84, weight: 800, color: pal.ac, lh: 1.15 };
     const unit: TextOpts = { size: 32, weight: 600, color: pal.fg, lh: 1.3 };
     const countW = textW(c, f.count, big);
@@ -797,7 +799,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   nowPlaying(c, f, pal, _L, v) {
     if (v && v !== "card") return musicLook(c, f, pal, v);
-    const w = 620;
+    const w = baseW(620);
     const art = 140;
     const h = P + art + 34 + 10 + 34 + 64 + P - 10;
     card(c, w, h, pal, 40);
@@ -846,7 +848,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   starRating(c, f, pal, L, v) {
     if (v && v !== "card") return starsLook(c, f, pal, v, rating(f));
-    const w = 540;
+    const w = baseW(540);
     const title: TextOpts = { size: 32, weight: 700, color: pal.fg };
     const com: TextOpts = { size: 26, weight: 400, color: pal.sub, lh: 1.35 };
     const titleL = f.title?.trim() ? wrap(c, f.title, title, w - P * 2, 2) : [];
@@ -881,7 +883,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   poll(c, f, pal, L, v) {
     if (v && v !== "card") return pollLook(c, f, pal, L, v);
-    const w = 560;
+    const w = baseW(560);
     const q: TextOpts = { size: 34, weight: 700, color: pal.fg, align: "center", lh: 1.25 };
     // No question: no empty space for it (owner, 2026-10-19).
     const qL = f.question?.trim() ? wrap(c, f.question, q, w - P * 2, 3) : [];
@@ -916,7 +918,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   chatConvo(c, f, pal, L, v) {
     if (v && v !== "blue") return chatLook(c, f, pal, L, v);
-    const w = 600;
+    const w = baseW(600);
     const msg: TextOpts = { size: 27, weight: 400, color: pal.fg, lh: 1.3 };
     const max = w * 0.68;
     const msgs = (L.messages ?? []).filter((m) => m.text?.trim()).map((m) => ({ out: m.side === "out", lines: wrap(c, m.text, msg, max - 44, 5) }));
@@ -947,7 +949,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   phoneNotification(c, f, pal, L, v) {
     if (v && v !== "banner") return notificationLook(c, f, pal, v);
-    const w = 660;
+    const w = baseW(660);
     const p = 28;
     const title: TextOpts = { size: 28, weight: 700, color: pal.fg, lh: 1.28 };
     const body: TextOpts = { size: 26, weight: 400, color: pal.fg, lh: 1.3 };
@@ -979,7 +981,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   questionBox(c, f, pal, L, v) {
     if (v && v !== "card") return questionLook(c, f, pal);
-    const w = 560;
+    const w = baseW(560);
     const head: TextOpts = { size: 28, weight: 700, color: pal.theme === "color" ? pal.fg : pal.onAc, align: "center", lh: 1.25 };
     const q: TextOpts = { size: 32, weight: 700, color: pal.fg, align: "center", lh: 1.28 };
     const a: TextOpts = { size: 26, weight: 500, color: pal.sub, align: "center", lh: 1.32 };
@@ -1014,7 +1016,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   priceTag(c, f, pal, L, v) {
     if (v && v !== "tag") return priceLook(c, f, pal, v);
-    const w = 500;
+    const w = baseW(500);
     const name: TextOpts = { size: 30, weight: 700, color: pal.fg, lh: 1.25 };
     const nameL = wrap(c, f.itemName, name, w - P * 2, 2);
     const h = P + 44 + 18 + linesH(nameL.length, name) + 10 + 34 + 70 + P - 10;
@@ -1108,7 +1110,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   progressBar(c, f, pal, L, v) {
     if (v && v !== "bar") return progressLook(c, f, pal, v);
-    const w = 560;
+    const w = baseW(560);
     const st: TextOpts = { size: 24, weight: 500, color: pal.sub, lh: 1.3 };
     const stL = f.status ? wrap(c, f.status, st, w - P * 2, 2) : [];
     const h = P + 36 + 16 + 24 + (stL.length ? 16 + linesH(stL.length, st) : 0) + P;
@@ -1127,7 +1129,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   boardingPass(c, f, pal, _L, v) {
     if (v && v !== "card") return boardingPassLook(c, f, pal, v, () => ({ w: 0, h: 0 }));
-    const w = 660;
+    const w = baseW(660);
     const band = 72;
     const h = band + 28 + 84 + 30 + 34 + 26 + 30 + 34 + P;
     card(c, w, h, pal, 32);
@@ -1170,7 +1172,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   recipeCard(c, f, pal, L, v) {
     if (v && v !== "card") return recipeLook(c, f, pal, L, v);
-    const w = 580;
+    const w = baseW(580);
     const bg = pal.theme === "light" ? "#fffaf0" : pal.bg;
     const dish: TextOpts = { size: 38, weight: 700, color: pal.fg, family: SERIF, lh: 1.2 };
     const ing: TextOpts = { size: 25, weight: 400, color: pal.fg, lh: 1.32 };
@@ -1206,7 +1208,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   filmExif(c, f, pal, L, v) {
     if (v && v !== "strip") return exifLook(c, f, pal, v);
-    const w = 620;
+    const w = baseW(620);
     const strip = 30;
     const h = strip + 26 + 40 + 6 + 34 + 6 + 34 + 6 + 34 + 26 + strip;
     const bg = pal.theme === "light" ? "#f4efe4" : pal.theme === "dark" ? "#141414" : pal.bg;
@@ -1232,7 +1234,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   checklist(c, f, pal, L, v) {
     if (v && v !== "card") return checklistLook(c, f, pal, L, v);
-    const w = 540;
+    const w = baseW(540);
     const title: TextOpts = { size: 32, weight: 800, color: pal.fg, lh: 1.25 };
     const item: TextOpts = { size: 26, weight: 500, color: pal.fg, lh: 1.3 };
     const titleL = f.title?.trim() ? wrap(c, f.title, title, w - P * 2, 2) : [];
@@ -1269,7 +1271,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   moodMeter(c, f, pal, L, v) {
     if (v && v !== "meter") return moodFaces(c, f, pal);
-    const w = 540;
+    const w = baseW(540);
     const mood: TextOpts = { size: 32, weight: 700, color: pal.fg, lh: 1.25 };
     const moodL = wrap(c, f.moodText, mood, w - P * 2 - 118, 3);
     const rowH = Math.max(96, linesH(moodL.length, mood));
@@ -1300,7 +1302,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   searchBar(c, f, pal, L, v) {
     if (v && v !== "bar") return searchLook(c, f, pal);
-    const w = 660;
+    const w = baseW(660);
     const bar = 88;
     const top = f.hint ? 40 : 0;
     const h = top + bar;
@@ -1336,7 +1338,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   bookQuote(c, f, pal, _L, v) {
     if (v && v !== "card") return quoteLook(c, f, pal, v);
-    const w = 580;
+    const w = baseW(580);
     const bg = pal.theme === "light" ? "#fbf7ee" : pal.theme === "dark" ? "#1f1d1a" : pal.bg;
     const quote: TextOpts = { size: 33, weight: 400, color: pal.fg, family: SERIF, lh: 1.38 };
     const quoteL = wrap(c, f.thought, quote, w - P * 2, 6);
@@ -1356,7 +1358,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   receipt(c, f, pal, L, v) {
     if (v && v !== "thermal") return receiptLook(c, f, pal, L, v);
-    const w = 480;
+    const w = baseW(480);
     const teeth = 14;
     const bg = pal.theme === "light" ? "#ffffff" : pal.theme === "dark" ? "#232323" : pal.bg;
     const fg = pal.theme === "color" ? pal.fg : pal.theme === "dark" ? "#f2f2f2" : "#1a1a1a";
@@ -1416,7 +1418,7 @@ const KINDS: Record<CardWidgetKind, Draw> = {
 
   stepCounter(c, f, pal, L, v) {
     if (v && v !== "ring") return stepsLook(c, f, pal, v);
-    const w = 540;
+    const w = baseW(540);
     const cap: TextOpts = { size: 25, weight: 500, color: pal.fg, lh: 1.32 };
     const capL = f.caption ? wrap(c, f.caption, cap, w - P * 2, 3) : [];
     const ring = 150;
@@ -1460,7 +1462,9 @@ export function widgetSize(w: WidgetData, color: string, locale: Locale = "vi") 
   scratch ??= document.createElement("canvas").getContext("2d");
   if (!scratch) return { w: 500, h: 300 };
   scratch.save();
+  setWantWidth(w.bw ?? 0);
   const size = KINDS[w.kind](scratch, w.fields, palette(w.theme, color), rowsOf(w), w.variant);
+  setWantWidth(0);
   scratch.restore();
   if (sizes.size > 400) sizes.clear();
   sizes.set(key, size);
@@ -1472,7 +1476,9 @@ export function drawWidget(c: C, w: WidgetData, color: string, width: number, lo
   const base = widgetSize(w, color, locale);
   c.save();
   c.scale(width / base.w, width / base.w);
+  setWantWidth(w.bw ?? 0);
   KINDS[w.kind](c, w.fields, palette(w.theme, color), rowsOf(w), w.variant);
+  setWantWidth(0);
   c.restore();
 }
 

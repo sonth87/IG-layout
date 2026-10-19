@@ -5,7 +5,7 @@ import { Icon } from "@/components/ui/Icon";
 import { EFFECT_BY_ID, EFFECT_GROUPS, EFFECTS, type EffectGroup, effectParams, type ElementEffect, newEffect, type ParamSpec } from "@/lib/effects/catalog";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useSettings, useT } from "@/store/settings";
-import { effectPreview } from "../canvas/useFx";
+import { effectPreview, roughFor } from "../canvas/useFx";
 import { Slider, ToolSheet } from "./controls";
 
 // Effects sheet (editor-v2/14): groups, a preview of each effect on this very element,
@@ -53,7 +53,12 @@ export function EffectTool({ elementId, onClose }: { elementId: string; onClose:
   };
   const spec = current ? EFFECT_BY_ID[current.id] : undefined;
   const values = current ? effectParams(current) : {};
-  const setParam = (key: string, v: number | string | boolean) => current && set({ ...current, params: { ...current.params, [key]: v } });
+  const setParam = (key: string, v: number | string | boolean) => {
+    if (!current) return;
+    // Quick, rough drawing while a slider moves; sharp once it rests.
+    roughFor();
+    set({ ...current, params: { ...current.params, [key]: v } });
+  };
 
   const control = (p: ParamSpec) => {
     const label = lang(p.label);

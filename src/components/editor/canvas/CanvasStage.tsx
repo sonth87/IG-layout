@@ -79,6 +79,8 @@ function SelectionTransformer(props: {
   // Cells are ordinary elements (D-113); a pack frame's windows stay where the art says.
   const fixed = !!el && (el.locked || fixedCell(el, elements)) && !whole;
   const isText = el?.type === "text";
+  // Card widgets stretch sideways (their layout gets wider); no top / bottom handles (owner, 2026-10-20).
+  const isWidget = el?.type === "icon" && !!el.widget;
   // Pack frames keep the shape of their art (M20 C4): corners only.
   const isArt = el?.type === "layout" && !!el.art;
   const snapOn = useSettings((s) => s.snap);
@@ -177,7 +179,9 @@ function SelectionTransformer(props: {
       enabledAnchors={
         whole || isArt
           ? ["top-left", "top-right", "bottom-left", "bottom-right"]
-          : isText
+          : isWidget
+            ? ["top-left", "top-right", "bottom-left", "bottom-right", "middle-left", "middle-right"]
+            : isText
             ? ["top-left", "top-right", "bottom-left", "bottom-right", "top-center", "bottom-center", "middle-left", "middle-right"]
             : ["top-left", "top-right", "bottom-left", "bottom-right", "top-center", "bottom-center", "middle-left", "middle-right"]
       }
@@ -236,7 +240,16 @@ function SelectionTransformer(props: {
           const p = tr?.findOne("." + from)?.getAbsolutePosition();
           const q = tr?.findOne("." + to)?.getAbsolutePosition();
           const len = p && q ? Math.hypot(q.x - p.x, q.y - p.y) : Infinity;
-          if (len < s * 1.7 + grab * 2) anchor.visible(false);
+          // A short edge (a line of text, a small zoom): the side handle moves just outside the
+          // box, clear of the corners, instead of hiding (owner, 2026-10-20: text could not be
+          // resized sideways).
+          // Top / bottom ones still hide: below sits the turn handle.
+          if (len < s * 1.7 + grab * 2) {
+            const out = grab * 0.8;
+            if (n.includes("middle-left")) anchor.offsetX(w / 2 + out);
+            else if (n.includes("middle-right")) anchor.offsetX(w / 2 - out);
+            else anchor.visible(false);
+          }
         }
         // The larger grab area grows outwards, so a small element stays tappable inside.
         const dx = n.includes("left") ? -1 : n.includes("right") ? 1 : 0;

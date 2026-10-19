@@ -8,6 +8,7 @@ import {
   SERIF,
   HAND,
   bare,
+  baseW,
   card,
   dashed,
   drawLines,
@@ -37,7 +38,7 @@ export function pollLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
   const opts = L.options ?? [];
   if (v === "minimal") {
     const ink = bare(pal);
-    const w = 600;
+    const w = baseW(600);
     const q: TextOpts = { size: 38, weight: 800, color: ink, lh: 1.25 };
     const qL = f.question?.trim() ? wrap(c, f.question, q, w, 3) : [];
     const h = (qL.length ? linesH(qL.length, q) + 20 : 0) + opts.length * 74;
@@ -56,7 +57,7 @@ export function pollLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
     return { w, h };
   }
   // Big buttons, one per option.
-  const w = 560;
+  const w = baseW(560);
   const q: TextOpts = { size: 34, weight: 800, color: pal.fg, align: "center", lh: 1.25 };
   const qL = f.question?.trim() ? wrap(c, f.question, q, w - P * 2, 3) : [];
   const row = 84;
@@ -77,7 +78,7 @@ export function pollLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
 
 /** A speech bubble with a tail, the question big, the answer under. */
 export function questionLook(c: C, f: F, pal: Pal): Size {
-  const w = 560;
+  const w = baseW(560);
   const p: TextOpts = { size: 22, weight: 700, color: pal.sub, align: "center", lh: 1.3 };
   const q: TextOpts = { size: 34, weight: 800, color: pal.fg, align: "center", lh: 1.28 };
   const a: TextOpts = { size: 26, weight: 500, color: onColor(pal), align: "center", lh: 1.32 };
@@ -102,7 +103,7 @@ export function questionLook(c: C, f: F, pal: Pal): Size {
 }
 
 export function chatLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
-  const w = 600;
+  const w = baseW(600);
   const msg: TextOpts = { size: 27, weight: 500, color: pal.fg, lh: 1.3 };
   const max = w * 0.7;
   const msgs = (L.messages ?? []).filter((m) => m.text?.trim()).map((m) => ({ out: m.side === "out", lines: wrap(c, m.text, msg, max - 48, 5) }));
@@ -174,7 +175,7 @@ export function chatLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
 }
 
 export function notificationLook(c: C, f: F, pal: Pal, v: string): Size {
-  const w = 660;
+  const w = baseW(660);
   const p = 30;
   const title: TextOpts = { size: 28, weight: 700, color: pal.fg, lh: 1.28 };
   const body: TextOpts = { size: 26, weight: 400, color: pal.fg, lh: 1.3 };
@@ -262,7 +263,7 @@ export function mentionLook(c: C, f: F, pal: Pal): Size {
 }
 
 export function searchLook(c: C, f: F, pal: Pal): Size {
-  const w = 700;
+  const w = baseW(700);
   const h = 200;
   const chrome = pal.theme === "dark" ? "#2c2c2e" : pal.theme === "color" ? pal.color : "#e9e9ee";
   card(c, w, h, pal, 24, chrome);
@@ -322,7 +323,7 @@ export function starsLook(c: C, f: F, pal: Pal, v: string, r: number): Size {
     return { w, h };
   }
   // Big score with small stars under it.
-  const w = 440;
+  const w = baseW(440);
   const h = 360;
   card(c, w, h, pal, 40);
   text(c, r.toFixed(1), w / 2, 30, { size: 130, weight: 900, color: pal.fg, align: "center", lh: 1.1 });
@@ -418,7 +419,7 @@ export function emojiSlider(c: C, f: F, pal: Pal, v: string): Size {
   const level = pct(f.level) || 0.7;
   if (v === "minimal") {
     const ink = bare(pal);
-    const w = 620;
+    const w = baseW(620);
     const h = 170;
     onPhoto(c, pal, () => {
       text(c, f.question, 0, 0, { size: 34, weight: 800, color: ink, lh: 1.3 }, w);
@@ -430,7 +431,7 @@ export function emojiSlider(c: C, f: F, pal: Pal, v: string): Size {
     text(c, f.emoji, w * level, 64, { size: 70, color: "#000", align: "center", lh: 1.2 });
     return { w, h };
   }
-  const w = 560;
+  const w = baseW(560);
   const q: TextOpts = { size: 34, weight: 800, color: pal.fg, align: "center", lh: 1.28 };
   const qL = wrap(c, f.question, q, w - P * 2, 3);
   const h = P + linesH(qL.length, q) + 40 + 70 + P;
@@ -462,7 +463,7 @@ export function stepsLook(c: C, f: F, pal: Pal, v: string): Size {
     return { w, h };
   }
   // A bar towards a goal.
-  const w = 560;
+  const w = baseW(560);
   const h = 250;
   card(c, w, h, pal, 36);
   text(c, f.steps, P, P, { size: 52, weight: 900, color: pal.fg, lh: 1.15 }, w - P * 2);
@@ -512,7 +513,7 @@ export function runSummary(c: C, f: F, pal: Pal, v: string): Size {
   ];
   if (v === "big") {
     const ink = bare(pal);
-    const w = 600;
+    const w = baseW(600);
     const h = 330;
     onPhoto(c, pal, () => {
       text(c, (f.title ?? "").toUpperCase(), 0, 0, { size: 26, weight: 800, color: ink, lh: 1.3 }, w);
@@ -526,7 +527,7 @@ export function runSummary(c: C, f: F, pal: Pal, v: string): Size {
   }
   if (v === "minimal") {
     const ink = bare(pal);
-    const w = 660;
+    const w = baseW(660);
     const h = 110;
     onPhoto(c, pal, () => {
       stats.forEach(([k, val], i) => {
@@ -537,7 +538,7 @@ export function runSummary(c: C, f: F, pal: Pal, v: string): Size {
     });
     return { w, h };
   }
-  const w = 620;
+  const w = baseW(620);
   const h = 470;
   card(c, w, h, pal, 40, pal.theme === "light" ? "#111214" : pal.bg);
   const ink = pal.theme === "light" ? "#ffffff" : pal.fg;
@@ -581,7 +582,7 @@ export function activityRings(c: C, f: F, pal: Pal, v: string): Size {
     drawRings(S / 2, S / 2, 150);
     return { w: S, h: S };
   }
-  const w = 640;
+  const w = baseW(640);
   const h = 380;
   card(c, w, h, pal, 40, pal.theme === "light" ? "#000000" : pal.bg);
   drawRings(190, h / 2, 150);
@@ -599,7 +600,7 @@ export function water(c: C, f: F, pal: Pal, v: string): Size {
   const goal = Math.max(1, Math.min(12, parseInt(f.goal ?? "", 10) || 8));
   const blue = pal.theme === "color" ? pal.fg : "#2fa6ff";
   if (v === "drop") {
-    const w = 380;
+    const w = baseW(380);
     const h = 500;
     card(c, w, h, pal, 40);
     const cx = w / 2;
@@ -662,7 +663,7 @@ export function water(c: C, f: F, pal: Pal, v: string): Size {
 /** Hours slept, bedtime and wake time. */
 export function sleep(c: C, f: F, pal: Pal, v: string): Size {
   if (v === "bar") {
-    const w = 600;
+    const w = baseW(600);
     const h = 250;
     card(c, w, h, pal, 36);
     text(c, f.caption, P, P - 4, { size: 24, weight: 700, color: pal.sub, lh: 1.3 }, w - P * 2);
@@ -676,7 +677,7 @@ export function sleep(c: C, f: F, pal: Pal, v: string): Size {
     text(c, `${f.wake ?? ""} ☀️`, w - P, y + 34, { size: 22, weight: 600, color: pal.sub, align: "right", lh: 1.3 });
     return { w, h };
   }
-  const w = 520;
+  const w = baseW(520);
   const h = 360;
   const g = c.createLinearGradient(0, 0, 0, h);
   g.addColorStop(0, pal.theme === "color" ? pal.color : "#14163a");
@@ -706,7 +707,7 @@ export function sleep(c: C, f: F, pal: Pal, v: string): Size {
 export function receiptLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
   const lines = (L.lines ?? []).map((l) => l.text).filter((s) => s?.trim());
   if (v === "handwritten") {
-    const w = 520;
+    const w = baseW(520);
     const ln: TextOpts = { size: 32, weight: 400, color: "#24324f", family: HAND, lh: 1.5 };
     const h = 90 + lines.length * 48 + 110;
     lifted(c, () => {
@@ -733,7 +734,7 @@ export function receiptLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
     return { w, h };
   }
   // Restaurant bill: name, dotted lines, total in a box.
-  const w = 520;
+  const w = baseW(520);
   const ln: TextOpts = { size: 24, weight: 500, color: "#2b2118", family: SERIF, lh: 1.4 };
   const wrapped = lines.map((t) => wrap(c, t, ln, w - 100, 2));
   const h = 210 + wrapped.reduce((a, l) => a + linesH(l.length, ln) + 10, 0) + 130;
@@ -797,7 +798,7 @@ export function priceLook(c: C, f: F, pal: Pal, v: string): Size {
 
 /** Coupon: a notched ticket or a card, the value big, the code to copy. */
 export function coupon(c: C, f: F, pal: Pal, v: string): Size {
-  const w = 640;
+  const w = baseW(640);
   const h = 260;
   const fill = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#1c1c1e" : "#ffffff";
   const ink = pal.theme === "color" ? pal.fg : pal.theme === "dark" ? "#ffffff" : "#111111";
@@ -849,7 +850,7 @@ export function checklistLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
   const ink = v === "hand" ? bare(pal) : "#2b2b33";
   const item: TextOpts = { size: v === "lined" ? 28 : 32, weight: 400, color: ink, family: font, lh: 1.3 };
   const rowH = 58;
-  const w = 520;
+  const w = baseW(520);
   const h = 100 + items.length * rowH + 40;
   if (v === "note") {
     c.save();
@@ -911,7 +912,7 @@ export function checklistLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
 export function progressLook(c: C, f: F, pal: Pal, v: string): Size {
   const p = pct(f.percentage);
   if (v === "ring") {
-    const w = 420;
+    const w = baseW(420);
     const h = 460;
     card(c, w, h, pal, 40);
     c.lineWidth = 30;
@@ -930,7 +931,7 @@ export function progressLook(c: C, f: F, pal: Pal, v: string): Size {
     return { w, h };
   }
   // Battery.
-  const w = 560;
+  const w = baseW(560);
   const h = 300;
   card(c, w, h, pal, 36);
   text(c, f.label, P, P - 4, { size: 28, weight: 800, color: pal.fg, lh: 1.3 }, w - P * 2);
@@ -954,7 +955,7 @@ export function progressLook(c: C, f: F, pal: Pal, v: string): Size {
 export function moodFaces(c: C, f: F, pal: Pal): Size {
   const faces = ["😢", "😕", "😐", "🙂", "😄"];
   const pick = Math.min(4, Math.floor(pct(f.level) * 5 - 1e-6));
-  const w = 600;
+  const w = baseW(600);
   const h = 260;
   card(c, w, h, pal, 40);
   text(c, f.label, w / 2, P - 6, { size: 26, weight: 800, color: pal.fg, align: "center", lh: 1.3 }, w - P * 2);
@@ -981,7 +982,7 @@ export function habit(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
   const days = (L.days ?? []).slice(0, 7);
   if (v === "dots") {
     const ink = bare(pal);
-    const w = 620;
+    const w = baseW(620);
     const h = 170;
     onPhoto(c, pal, () => {
       text(c, f.title, 0, 0, { size: 34, weight: 800, color: ink, lh: 1.3 }, w);
@@ -1002,7 +1003,7 @@ export function habit(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
     });
     return { w, h };
   }
-  const w = 640;
+  const w = baseW(640);
   const h = 260;
   card(c, w, h, pal, 36);
   const done = days.filter((d) => d.done === "1").length;
@@ -1035,7 +1036,7 @@ export function recipeLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
   const items = (L.ingredients ?? []).map((i) => i.text?.trim()).filter(Boolean);
   if (v === "minimal") {
     const ink = bare(pal);
-    const w = 560;
+    const w = baseW(560);
     const h = 120 + items.length * 44 + 20;
     onPhoto(c, pal, () => {
       text(c, f.dishName, 0, 0, { size: 44, weight: 800, color: ink, family: SERIF, lh: 1.2 }, w);
@@ -1045,7 +1046,7 @@ export function recipeLook(c: C, f: F, pal: Pal, L: Rows, v: string): Size {
     return { w, h };
   }
   // Ruled index card.
-  const w = 600;
+  const w = baseW(600);
   const it: TextOpts = { size: 30, weight: 400, color: "#24324f", family: HAND, lh: 1.3 };
   const h = 150 + items.length * 50 + (f.tip ? 70 : 20);
   lifted(c, () => {
@@ -1073,7 +1074,7 @@ export function exifLook(c: C, f: F, pal: Pal, v: string): Size {
   const ink = bare(pal);
   if (v === "hud") {
     // Viewfinder corners and the settings along the bottom.
-    const w = 680;
+    const w = baseW(680);
     const h = 460;
     onPhoto(c, pal, () => {
       c.strokeStyle = ink;

@@ -357,3 +357,13 @@ export function airliner(c: C, x: number, y: number, size: number, angle: number
   c.fill();
   c.restore();
 }
+
+// ---------------------------------------------------------------- stretching sideways (owner, 2026-10-20)
+
+let want = 0;
+/** The layout width asked for while one widget is drawn (0 = its own). */
+export function setWantWidth(w: number) {
+  want = w;
+}
+/** A widget's base width: its own `d`, or wider / narrower when stretched (not below 60 %). */
+export const baseW = (d: number) => (want > 0 ? Math.max(d * 0.6, want) : d);

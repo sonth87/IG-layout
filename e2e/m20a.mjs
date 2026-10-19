@@ -21,7 +21,7 @@ const anchors = () =>
   page.evaluate(() => {
     const tr = window.__igEditor.getState().canvas.layer.getStage().findOne("Transformer");
     const out = {};
-    for (const a of tr.children) if (a.hasName("_anchor")) out[a.name().split(" ")[0]] = { v: a.isVisible(), w: a.width(), h: a.height() };
+    for (const a of tr.children) if (a.hasName("_anchor")) out[a.name().split(" ")[0]] = { v: a.isVisible(), w: a.width(), h: a.height(), ox: a.offsetX() - a.width() / 2, oy: a.offsetY() - a.height() / 2 };
     return out;
   });
 
@@ -50,9 +50,11 @@ check(a["top-left"].v && a["top-left"].w <= 14, `small corner handles (${a["top-
 check(a["middle-left"].v && a["top-center"].v, "a big element keeps its side handles");
 await page.screenshot({ path: path.join(OUT, "m20a-handles.png") });
 
-// A small element: the edges are too short for side handles; the corners stay.
+// A small element: side handles move just outside the short edges, clear of the corners (owner, 2026-10-20).
 a = await size(500);
-check(!a["middle-left"].v && !a["top-center"].v && !a["bottom-center"].v && !a["middle-right"].v, "short edges: side handles hidden");
+check(a["middle-left"].v && a["middle-right"].v, "short edges: left / right handles still there");
+check(a["middle-left"].ox > 0 && a["middle-right"].ox < 0, "moved outside the box");
+check(!a["top-center"].v && !a["bottom-center"].v, "top / bottom ones hidden (the turn handle is below)");
 check(a["top-left"].v && a["bottom-right"].v, "corners kept");
 await page.screenshot({ path: path.join(OUT, "m20a-small.png"), clip: { x: 0, y: 60, width: 390, height: 360 } });
 

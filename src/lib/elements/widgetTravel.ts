@@ -1,6 +1,6 @@
 // Travel widgets (D-120): boarding pass, flight route (line, dotted map, globe, dark card),
 // booking confirmed, passport cover, passport stamp, luggage tag — each in several looks.
-import { type C, type F, type Pal, MONO, SANS, SERIF, airliner, card, dashed, fillRR, rr, text, textW, wrap, drawLines, linesH, type TextOpts } from "./widgetKit";
+import { type C, type F, type Pal, MONO, SANS, SERIF, airliner, baseW, card, dashed, fillRR, rr, text, textW, wrap, drawLines, linesH, type TextOpts } from "./widgetKit";
 
 type Size = { w: number; h: number };
 const P = 36;
@@ -177,7 +177,7 @@ export function boardingPassLook(c: C, f: F, pal: Pal, v: string, cardLook: () =
 
 /** Paper ticket with a tear-off stub on the right. */
 function passStub(c: C, f: F, pal: Pal): Size {
-  const w = 760;
+  const w = baseW(760);
   const h = 300;
   const stub = 210;
   const paper = pal.theme === "dark" ? "#22242a" : pal.theme === "color" ? pal.bg : "#fbf7ef";
@@ -232,7 +232,7 @@ function passStub(c: C, f: F, pal: Pal): Size {
 
 /** A phone wallet pass: coloured header, codes, details, a QR code. */
 function passMobile(c: C, f: F, pal: Pal): Size {
-  const w = 460;
+  const w = baseW(460);
   const h = 700;
   const head = pal.theme === "color" ? pal.bg : pal.color;
   const body = pal.theme === "dark" ? "#1c1c1e" : "#ffffff";
@@ -310,7 +310,7 @@ export function flightRoute(c: C, f: F, pal: Pal, v: string): Size {
 }
 
 function routeLine(c: C, f: F, pal: Pal): Size {
-  const w = 700;
+  const w = baseW(700);
   const h = 300;
   const ink = bare(pal);
   c.save();
@@ -330,7 +330,7 @@ function routeLine(c: C, f: F, pal: Pal): Size {
 
 /** Dotted map around the two places, the route arcing between them. */
 function routeMap(c: C, f: F, pal: Pal): Size {
-  const w = 680;
+  const w = baseW(680);
   const h = 460;
   const a = place(f.fromCode);
   const b = place(f.toCode, a);
@@ -475,7 +475,7 @@ function routeGlobe(c: C, f: F, pal: Pal): Size {
 
 /** Dark card: big codes, a glowing arc between them. */
 function routeDark(c: C, f: F, pal: Pal): Size {
-  const w = 680;
+  const w = baseW(680);
   const h = 360;
   const bg = c.createLinearGradient(0, 0, w, h);
   bg.addColorStop(0, pal.theme === "light" ? "#0f1c3f" : pal.theme === "dark" ? "#0b0b0d" : pal.color);
@@ -528,7 +528,7 @@ function check(c: C, x: number, y: number, r: number, bg: string, fg: string) {
 }
 
 function bookingCard(c: C, f: F, pal: Pal): Size {
-  const w = 560;
+  const w = baseW(560);
   const title: TextOpts = { size: 34, weight: 800, color: pal.fg, align: "center", lh: 1.25 };
   const tL = wrap(c, f.title, title, w - P * 2, 2);
   const h = P + 110 + 20 + linesH(tL.length, title) + 14 + 40 + 22 + 30 + 22 + 52 + P;
@@ -562,7 +562,7 @@ function bookingToast(c: C, f: F, pal: Pal): Size {
 }
 
 function bookingStamp(c: C, f: F, pal: Pal): Size {
-  const w = 560;
+  const w = baseW(560);
   const h = 300;
   const ink = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#ffffff" : "#1e8e3e";
   c.save();
@@ -623,7 +623,7 @@ function emblem(c: C, x: number, y: number, r: number, color: string) {
 }
 
 export function passport(c: C, f: F, pal: Pal, v: string): Size {
-  const w = 420;
+  const w = baseW(420);
   const h = 590;
   const cover = pal.color;
   const gold = v === "embossed" ? "rgba(0,0,0,0.28)" : "#d9b45a";
@@ -698,7 +698,7 @@ const inked = new Map<string, HTMLCanvasElement>();
 /** Ink stamp, drawn on its own and then speckled like real ink, slightly turned. */
 export function passportStamp(c: C, f: F, pal: Pal, v: string): Size {
   if (v === "postage" || v === "triangle" || v === "pin" || v === "ticket") return lineStamp(c, f, pal, v);
-  const w = 460;
+  const w = baseW(460);
   const h = v === "rect" || v === "plane" ? 300 : 420;
   const ink = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#1f3f9a" : pal.color;
   const m = c.getTransform();
@@ -808,7 +808,7 @@ export function luggageTag(c: C, f: F, pal: Pal, v: string): Size {
 
 /** The long airport bag tag: big code, flight, barcode. */
 function tagAirport(c: C, f: F, pal: Pal): Size {
-  const w = 300;
+  const w = baseW(300);
   const h = 760;
   const paper = pal.theme === "dark" ? "#22242a" : "#ffffff";
   const ink = pal.theme === "dark" ? "#f2f2f2" : "#111111";
@@ -842,7 +842,7 @@ function tagAirport(c: C, f: F, pal: Pal): Size {
 
 /** Leather tag with a window card. */
 function tagLeather(c: C, f: F, pal: Pal): Size {
-  const w = 420;
+  const w = baseW(420);
   const h = 640;
   const leather = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#2a1d14" : "#8b4a22";
   c.save();
@@ -907,7 +907,7 @@ function tagLeather(c: C, f: F, pal: Pal): Size {
 
 /** Kraft paper tag on a string. */
 function tagKraft(c: C, f: F, pal: Pal): Size {
-  const w = 440;
+  const w = baseW(440);
   const h = 300;
   const paper = pal.theme === "color" ? pal.color : pal.theme === "dark" ? "#5b4a36" : "#c9a273";
   const ink = pal.theme === "dark" ? "#f3e9d8" : "#2b2118";
@@ -959,7 +959,7 @@ function lineStamp(c: C, f: F, pal: Pal, v: string): Size {
   c.fillStyle = ink;
   c.lineJoin = "round";
   if (v === "postage") {
-    const w = 340;
+    const w = baseW(340);
     const h = 420;
     // Perforated edge: a row of half circles bitten out of the outline.
     const r = 9;
@@ -999,7 +999,7 @@ function lineStamp(c: C, f: F, pal: Pal, v: string): Size {
     return { w, h };
   }
   if (v === "triangle") {
-    const w = 460;
+    const w = baseW(460);
     const h = 400;
     c.lineWidth = 9;
     c.beginPath();
@@ -1023,7 +1023,7 @@ function lineStamp(c: C, f: F, pal: Pal, v: string): Size {
     return { w, h };
   }
   if (v === "pin") {
-    const w = 360;
+    const w = baseW(360);
     const h = 470;
     const R = 150;
     const pin = (r: number) => {
@@ -1046,7 +1046,7 @@ function lineStamp(c: C, f: F, pal: Pal, v: string): Size {
     return { w, h };
   }
   // Ticket: notched ends, a stub, the place in big letters.
-  const w = 620;
+  const w = baseW(620);
   const h = 260;
   const notch = (inset: number) => {
     c.beginPath();
@@ -1083,7 +1083,7 @@ function lineStamp(c: C, f: F, pal: Pal, v: string): Size {
 
 /** A hand-drawn dashed path with a loop and a heart, a pin at the start, a paper plane at the end. */
 function routeDoodle(c: C, f: F, pal: Pal): Size {
-  const w = 720;
+  const w = baseW(720);
   const h = 380;
   const ink = bare(pal);
   const HAND = '"Bradley Hand", "Marker Felt", "Segoe Print", "Comic Sans MS", cursive';

@@ -503,5 +503,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] (Claude) M21 — bắt đầu từ 120 filter (G7)
 - [x] (Claude) M21 — chức năng **Hiệu ứng** (mỗi phần tử một hiệu ứng) + đợt 1: 17 hiệu ứng (D-123, e2e effects.mjs)
 - [x] M21 — Hiệu ứng đợt 2 (19) + sửa Chảy (dòng + hạt giọt) và Phản chiếu (mặt nước tự nhiên) theo góp ý (D-124, e2e effects.mjs)
+- [x] Góp ý 20/10: chữ kéo ngang được (tay nắm bên không ẩn, đẩy ra ngoài cạnh ngắn); widget kéo cạnh bên giãn bố cục (chữ giữ cỡ); hiệu ứng vẽ nhanh khi đang kéo thanh trượt (D-126, e2e stretch.mjs)
 - [ ] Hiệu ứng: kéo tâm / mép trực tiếp trên canvas
 - [x] M21 — Hiệu ứng đợt 3 (12) — đủ 48 hiệu ứng (D-125, e2e effects.mjs)

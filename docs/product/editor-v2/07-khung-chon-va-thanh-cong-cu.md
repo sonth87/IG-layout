@@ -70,3 +70,11 @@ Mỗi nút mở một bottom sheet tương ứng, mô tả ở [08](08-cac-sheet
 3. Giữ nút ⟳ kéo vòng → phần tử xoay, gần 0° thì hít đúng 0° kèm rung.
 4. Co giãn ảnh A tới đúng chiều rộng ảnh B ở slide khác → thước xanh hiện trên cả A và B, kích thước hít đúng.
 5. Chọn khối / ảnh / chữ → thanh đáy đổi đúng danh sách nút; thanh trượt ngang được; ✕ bỏ chọn.
+
+
+## Bổ sung 2026-10-20 (D-126): tay nắm ở cạnh ngắn
+
+- Cạnh ngắn trên màn hình (dòng chữ, phần tử nhỏ, khi thu nhỏ):
+  - tay nắm **trái / phải** đẩy ra ngay ngoài khung, không chồng lên tay nắm góc, không còn ẩn;
+  - tay nắm **trên / dưới** ẩn (bên dưới là nút xoay).
+- **Widget** chỉ có tay nắm góc (phóng đều) và trái / phải (giãn bố cục ngang, chữ giữ cỡ, chiều cao tự theo).

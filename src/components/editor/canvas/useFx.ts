@@ -11,7 +11,16 @@ import type { CanvasElement } from "@/lib/project/types";
 // hit-tested and exported. Redone only when what it shows changes.
 
 /** Most pixels one effect works on: keeps phones quick. */
-const MAX_PIXELS = 2_400_000;
+const MAX_PIXELS = 1_600_000;
+
+/**
+ * While a setting is being dragged, effects draw at a lower resolution, then sharpen once
+ * the finger rests (owner, 2026-10-20: some effects were slow).
+ */
+let roughUntil = 0;
+export function roughFor(ms = 350) {
+  roughUntil = performance.now() + ms;
+}
 
 const ids = new WeakMap<object, number>();
 let nextId = 1;
@@ -54,6 +63,7 @@ function ratioFor(node: Konva.Node) {
 export function useFx<T extends Konva.Node>(el: CanvasElement, tokens: unknown[] = []) {
   const ref = useRef<T | null>(null);
   const last = useRef("");
+  const sharpen = useRef(0);
   useLayoutEffect(() => {
     const node = ref.current;
     if (!node) return;
@@ -68,21 +78,39 @@ export function useFx<T extends Konva.Node>(el: CanvasElement, tokens: unknown[]
       }
       return;
     }
-    let pr = ratioFor(node);
-    const key = JSON.stringify([look(el), tokens.map(idOf), pr]);
-    if (key === last.current) return;
+    const full = ratioFor(node);
+    const lookKey = JSON.stringify([look(el), tokens.map(idOf), full]);
+    const rough = performance.now() < roughUntil;
+    const key = lookKey + (rough ? "~" : "");
+    if (key === last.current || (!rough && last.current === lookKey)) return;
     last.current = key;
-    const w = el.width;
-    const h = el.height;
-    const pad = effectPad(e, w, h);
-    const cw = w + pad.l + pad.r;
-    const ch = h + pad.t + pad.b;
-    if (cw * ch * pr * pr > MAX_PIXELS) pr = Math.sqrt(MAX_PIXELS / (cw * ch));
-    node.setAttr("fxBox", { e, x0: pad.l * pr, y0: pad.t * pr, w: w * pr, h: h * pr, k: pr });
-    node.clearCache();
-    node.filters([fxFilter]);
-    node.cache({ x: -pad.l, y: -pad.t, width: cw, height: ch, pixelRatio: pr });
-    node.getLayer()?.batchDraw();
+    const draw = (quick: boolean) => {
+      let pr = full;
+      const w = el.width;
+      const h = el.height;
+      const pad = effectPad(e, w, h);
+      const cw = w + pad.l + pad.r;
+      const ch = h + pad.t + pad.b;
+      if (cw * ch * pr * pr > MAX_PIXELS) pr = Math.sqrt(MAX_PIXELS / (cw * ch));
+      if (quick) pr *= 0.4;
+      node.setAttr("fxBox", { e, x0: pad.l * pr, y0: pad.t * pr, w: w * pr, h: h * pr, k: pr });
+      node.clearCache();
+      node.filters([fxFilter]);
+      node.cache({ x: -pad.l, y: -pad.t, width: cw, height: ch, pixelRatio: pr });
+      node.getLayer()?.batchDraw();
+    };
+    draw(rough);
+    window.clearTimeout(sharpen.current);
+    if (rough)
+      // Sharp again once the dragging rests (if nothing changed meanwhile).
+      sharpen.current = window.setTimeout(
+        () => {
+          if (last.current !== key || !ref.current) return;
+          last.current = lookKey;
+          draw(false);
+        },
+        Math.max(60, roughUntil - performance.now() + 30),
+      );
   });
   return ref;
 }

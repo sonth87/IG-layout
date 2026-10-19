@@ -238,7 +238,7 @@ export function WidgetStyleTool({ elementId, onClose }: Props) {
         {looks.map((v) => {
           const on = (w.widget.variant ?? looks[0].id) === v.id;
           return (
-            <button key={v.id} type="button" aria-label={lang([v.name[0], v.name[1]], w.locale)} aria-pressed={on} onClick={() => w.change({ ...w.widget, variant: v.id, theme: v.theme })} className={`flex flex-col items-stretch gap-1 rounded-[14px] p-1.5 ${on ? "bg-accent/25 ring-2 ring-accent" : "bg-black/5 dark:bg-white/10"}`}>
+            <button key={v.id} type="button" aria-label={lang([v.name[0], v.name[1]], w.locale)} aria-pressed={on} onClick={() => w.change({ ...w.widget, variant: v.id, theme: v.theme, bw: undefined })} className={`flex flex-col items-stretch gap-1 rounded-[14px] p-1.5 ${on ? "bg-accent/25 ring-2 ring-accent" : "bg-black/5 dark:bg-white/10"}`}>
               <span className="flex h-20 items-center justify-center overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element -- drawn on a canvas */}
                 <img src={widgetThumb(w.widget.kind, w.locale, 220, v.id, { data: w.widget, color: w.el.color })} alt="" className="max-h-full max-w-full object-contain" />
