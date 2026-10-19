@@ -26,6 +26,7 @@ import {
 import { translate, useSettings } from "./settings";
 import { blockIds, cellFromFrame, copyUnit, isLayout, moveUnit, syncLayout } from "@/lib/project/blocks";
 import { createProjectRecord, loadProject, requestPersistence, saveAssets } from "@/lib/storage/projects";
+import { dbStatus, resetDb } from "@/lib/storage/db";
 
 // History follows the "confirm then record" model (D-12, D-17): only `commit`
 // adds a step. Each step is an immutable ProjectDoc; unchanged elements are
@@ -255,7 +256,20 @@ export const useEditor = create<EditorState>()((set, get) => {
       } catch (e) {
         console.error(e);
         const { locale } = useSettings.getState();
-        const why = e instanceof Error && e.message === "timeout" ? translate(locale, "project.createTimeout") : e instanceof Error && /quota/i.test(e.name + e.message) ? translate(locale, "project.createQuota") : e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+        const state = dbStatus.state;
+        const timeout = e instanceof Error && e.message === "timeout";
+        // A stuck connection is dropped: trying again opens a fresh one.
+        if (timeout) resetDb();
+        const why =
+          timeout && state === "blocked"
+            ? translate(locale, "project.createBlocked")
+            : timeout
+              ? `${translate(locale, "project.createTimeout")} (${state})`
+              : e instanceof Error && /quota/i.test(e.name + e.message)
+                ? translate(locale, "project.createQuota")
+                : e instanceof Error
+                  ? `${e.name}: ${e.message}`
+                  : String(e);
         window.alert(`${translate(locale, "project.createFailed")}\n\n${why}`);
         throw e;
       }

@@ -58,16 +58,58 @@ interface Schema extends DBSchema {
 
 let dbPromise: Promise<IDBPDatabase<Schema>> | null = null;
 
+/** Where opening the database got to (shown by the storage check in Settings). */
+export const dbStatus: { state: "idle" | "opening" | "open" | "blocked" | "failed" | "closed"; error?: string; openMs?: number } = { state: "idle" };
+
 export function db() {
-  dbPromise ??= openDB<Schema>("ig-layout", 2, {
-    upgrade(database, oldVersion) {
-      if (oldVersion < 1) {
-        database.createObjectStore("projects", { keyPath: "id" }).createIndex("updatedAt", "updatedAt");
-        database.createObjectStore("states", { keyPath: "id" });
-        database.createObjectStore("assets", { keyPath: "id" }).createIndex("projectId", "projectId");
-      }
-      if (oldVersion < 2) database.createObjectStore("library", { keyPath: "id" }).createIndex("kind", "kind");
-    },
-  });
+  if (!dbPromise) {
+    const t0 = performance.now();
+    dbStatus.state = "opening";
+    dbPromise = openDB<Schema>("ig-layout", 2, {
+      upgrade(database, oldVersion) {
+        if (oldVersion < 1) {
+          database.createObjectStore("projects", { keyPath: "id" }).createIndex("updatedAt", "updatedAt");
+          database.createObjectStore("states", { keyPath: "id" });
+          database.createObjectStore("assets", { keyPath: "id" }).createIndex("projectId", "projectId");
+        }
+        if (oldVersion < 2) database.createObjectStore("library", { keyPath: "id" }).createIndex("kind", "kind");
+      },
+      // Another tab holds an older connection and stops the upgrade: say so.
+      blocked() {
+        dbStatus.state = "blocked";
+      },
+      // Another tab needs to upgrade: let it (this tab reopens on its next use).
+      blocking() {
+        void dbPromise?.then((d) => d.close());
+        dbPromise = null;
+        dbStatus.state = "closed";
+      },
+      // The browser closed the connection (storage cleared, crash): reopen next time.
+      terminated() {
+        dbPromise = null;
+        dbStatus.state = "closed";
+      },
+    }).then(
+      (d) => {
+        dbStatus.state = "open";
+        dbStatus.openMs = Math.round(performance.now() - t0);
+        return d;
+      },
+      (e: unknown) => {
+        dbPromise = null;
+        dbStatus.state = "failed";
+        dbStatus.error = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+        throw e;
+      },
+    );
+  }
   return dbPromise;
+}
+
+/** Forget a connection that seems stuck, so the next use opens a fresh one. */
+export function resetDb() {
+  const p = dbPromise;
+  dbPromise = null;
+  dbStatus.state = "closed";
+  void p?.then((d) => d.close()).catch(() => {});
 }

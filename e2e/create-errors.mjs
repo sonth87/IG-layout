@@ -41,6 +41,57 @@ async function attempt(mode) {
 console.log("Storage full");
 let m = await attempt("quota");
 check(/Couldn’t create the project/.test(m) && /storage is full/.test(m), `a message says why (${m.split("\n").pop()})`);
+console.log("An old tab holds the storage at an older version (blocked upgrade)");
+{
+  const context = await browser.newContext({ viewport: { width: 1200, height: 900 } });
+  await skipTips(context);
+  const old = await context.newPage();
+  // A page of the same site that doesn't run the app, holding version 1 open like an old tab.
+  await old.goto(new URL("/404-not-a-page", URL_ARG).href);
+  await old.evaluate(
+    () =>
+      new Promise((resolve) => {
+        const del = indexedDB.deleteDatabase("ig-layout");
+        del.onsuccess = del.onerror = () => {
+          const r = indexedDB.open("ig-layout", 1);
+          r.onupgradeneeded = () => r.result.createObjectStore("projects", { keyPath: "id" });
+          r.onsuccess = () => {
+            window.__keep = r.result; // no versionchange handler: it never lets go
+            resolve();
+          };
+        };
+      }),
+  );
+  const page = await context.newPage();
+  let message = "";
+  page.on("dialog", (d) => {
+    message = d.message();
+    void d.accept();
+  });
+  await page.goto(URL_ARG);
+  await page.getByRole("button", { name: "Travel journal" }).first().click();
+  await page.getByRole("button", { name: "Use template" }).click();
+  await page.waitForTimeout(12000);
+  check(/old tab/.test(message) && /blocked/.test(message), `blocked by an old tab: said so (${message.split("\n").pop()})`);
+  await context.close();
+}
+
+console.log("Settings → Check storage");
+{
+  const context = await browser.newContext({ viewport: { width: 1200, height: 900 } });
+  await skipTips(context);
+  const page = await context.newPage();
+  await page.goto(URL_ARG);
+  await page.getByRole("tab", { name: "Settings" }).click();
+  await page.getByRole("button", { name: "Check storage" }).click();
+  const report = page.getByRole("region", { name: "Storage check" });
+  await report.waitFor({ timeout: 15000 });
+  const text = await report.innerText();
+  console.log(text.split("\n").map((l) => "     " + l).join("\n"));
+  check(/✓ open/.test(text) && /✓ write \+ delete/.test(text) && /✓ read projects/.test(text), "every step reported");
+  await context.close();
+}
+
 console.log(failures === 0 ? "ALL PASSED" : `${failures} FAILED`);
 if (failures) process.exitCode = 1;
 await browser.close();

@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import { formatBytes } from "@/lib/format";
 import { AboutScreen } from "./AboutScreen";
 import { ThanksScreen } from "./ThanksScreen";
+import { checkStorage } from "@/lib/storage/check";
 import { deleteAllProjects, listProjects, storageEstimate } from "@/lib/storage/projects";
 import { type Locale, type ThemeSetting, useSettings, useT } from "@/store/settings";
 
@@ -24,6 +25,14 @@ export function SettingsScreen({ onBack, onHelp }: { onBack?: () => void; onHelp
 
   const [reloadKey, setReloadKey] = useState(0);
   const [thanks, setThanks] = useState(false);
+  /** Storage check (2026-10-19): a step-by-step report to send when projects can't be created. */
+  const [report, setReport] = useState<string | null>(null);
+  const [checking, setChecking] = useState(false);
+  const runCheck = async () => {
+    setChecking(true);
+    setReport(await checkStorage());
+    setChecking(false);
+  };
   const [about, setAbout] = useState(false);
 
   useEffect(() => {
@@ -142,6 +151,17 @@ export function SettingsScreen({ onBack, onHelp }: { onBack?: () => void; onHelp
           >
             {t("settings.deleteAll")}
           </button>
+          <button type="button" onClick={runCheck} disabled={checking} className="h-12 rounded-[14px] border border-border text-sm font-semibold disabled:opacity-50">
+            {checking ? t("settings.checking") : t("settings.check")}
+          </button>
+          {report && (
+            <div role="region" aria-label={t("settings.checkResult")} className="flex flex-col gap-2 rounded-[14px] bg-surface p-3.5">
+              <pre className="max-h-60 overflow-y-auto text-[11px] leading-relaxed whitespace-pre-wrap text-text-2">{report}</pre>
+              <button type="button" onClick={() => void navigator.clipboard?.writeText(report)} className="h-10 rounded-full bg-surface-2 text-[13px] font-semibold">
+                {t("settings.copy")}
+              </button>
+            </div>
+          )}
         </section>
 
         <button type="button" onClick={() => setThanks(true)} className="flex items-center justify-between rounded-[14px] bg-surface px-3.5 py-3.5 text-left text-sm">
