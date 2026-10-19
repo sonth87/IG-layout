@@ -462,3 +462,10 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Thanh công cụ của ô có thêm Vị trí, Khoá, Nhân bản (bản sao là một ô mới của khối)
 - [x] Bố cục / Điều chỉnh xếp lại ô theo mẫu (báo trước nếu đã chỉnh tay); ô thêm bằng Nhân bản giữ nguyên chỗ; đổi cỡ cả khối không làm mất ô đã chỉnh tay
 - [x] Ô của khung từ thư viện vẫn cố định theo cửa sổ khung (kéo = dời ảnh) — e2e slots.mjs
+
+### Tạo dự án không bao giờ im lặng (2026-10-19)
+- [x] Lỗi khi tạo dự án (template hoặc tạo mới) hiện thông báo kèm lý do: bộ nhớ đầy, bộ nhớ bị **tab cũ chặn** (blocked), bộ nhớ không phản hồi (8 s), lỗi khác
+- [x] Kết nối bộ nhớ: nhả khi tab khác cần nâng cấp, mở lại khi bị đóng; lần thử sau mở kết nối mới
+- [x] Trang cũ sau một lần deploy không tải được code mới → tự tải lại một lần
+- [x] Cài đặt → **Kiểm tra bộ nhớ**: từng bước (dung lượng, phiên bản, mở, đọc, ghi) + sao chép báo cáo (e2e create-errors.mjs)
+- [ ] Chủ dự án: đóng mọi tab / cửa sổ app cũ, thử lại; nếu còn lỗi gửi báo cáo Kiểm tra bộ nhớ
