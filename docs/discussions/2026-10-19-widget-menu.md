@@ -223,3 +223,27 @@ Chủ dự án: "travel thì có những cái như vé máy bay, đặt vé, h�
   - Bản đồ tự khoanh vùng quanh hai điểm.
 - **Dấu mực:** loang lổ như mực thật (chỉ trên con dấu, không làm hỏng ảnh bên dưới).
 - **Ảnh xem trước:** các kiểu không có thẻ (chữ trắng trên ảnh) có nền giả ảnh để nhìn thấy.
+
+
+## Widget khác sticker ở đâu (chốt 2026-10-19)
+
+- **Sticker** là một hình cố định: đặt, kéo, xoay, đổi cỡ, độ mờ. Nội dung không sửa được.
+- **Widget** có **nội dung sửa được** và **công cụ riêng**:
+  - chữ, giờ, ngày, danh sách thêm / bớt, thanh trượt, mã sân bay…;
+  - nút **Kiểu** để đổi dáng mà giữ nội dung;
+  - kiểu thẻ Sáng / Tối / Màu, màu nhấn.
+- Cái gì chỉ để trang trí (máy bay, va li, la bàn, cọ dừa, kính râm…) thì là **sticker**.
+- Cái gì mang thông tin của người dùng (tên, nơi, giờ, mã chuyến, số liệu) thì là **widget**.
+
+### Sticker Du lịch
+
+- Chủ dự án sẽ bổ sung một bộ icon SVG du lịch.
+- Thư viện sticker tự có nhóm riêng cho mỗi bộ, và bộ `travel` (Du lịch) đã có sẵn.
+- Cách thêm:
+  - đặt file vào `assets/sticker/<tên-bộ>/` kèm `manifest.json` (nguồn, giấy phép, tên VI / EN, `collections: ["travel"]`);
+  - chạy `scripts/assets/validate.mjs` rồi `build-catalog.mjs`.
+  - Claude có thể làm manifest khi có file.
+- Lưu ý giấy phép (D-106):
+  - không dùng icon từ Freepik / Flaticon / Vecteezy / Shutterstock / Adobe / iStock / Canva…;
+  - các bộ "free icons" trên những trang đó vẫn cấm;
+  - nên dùng CC0 / MIT / OFL hoặc tự vẽ.
