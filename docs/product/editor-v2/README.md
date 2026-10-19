@@ -31,6 +31,7 @@ Chúng ta làm theo **cách hoạt động** của ứng dụng tham chiếu —
 | [11-thu-vien.md](11-thu-vien.md) | Menu "+", Sticker, Hình, Khung, Lưới, Widget, Brand Kit, Vẽ |
 | [12-sheet-menu-xuat-lop.md](12-sheet-menu-xuat-lop.md) | Hành vi bottom sheet, menu "⋯", Nền, Tỉ lệ, Hít, Xem trước, Xuất, Lớp, Hoàn tác |
 | [13-lo-trinh-va-cau-hoi.md](13-lo-trinh-va-cau-hoi.md) | So sánh với app hiện tại, lộ trình M14–M19, câu hỏi mở |
+| [14-hieu-ung.md](14-hieu-ung.md) | Hiệu ứng (M21): 48 hiệu ứng — trông thế nào, thông số, kết quả, thứ tự làm |
 | [phu-luc-a-nguyen-van.md](phu-luc-a-nguyen-van.md) | Nguyên văn mô tả của chủ dự án |
 | [phu-luc-b-anh.md](phu-luc-b-anh.md) | Mô tả từng ảnh tham chiếu |
 | [phu-luc-c-video.md](phu-luc-c-video.md) | Diễn biến video theo mốc thời gian |
