@@ -10,6 +10,7 @@
 import data from "../../../assets/text/widget-samples.json";
 import type { Locale } from "@/store/settings";
 import { drawClock, CLOCK_VARIANTS } from "./widgetClock";
+import { calendarLook, countdownLook, musicLook, quoteLook, weatherLook } from "./widgetLooksA";
 import { boardingPassLook, booking, flightRoute, luggageTag, passport, passportStamp } from "./widgetTravel";
 import { C, card, dashed, drawLines, F, fillRR, linesH, MONO, P, Pal, palette, pct, rating, rr, seconds, SERIF, star, text, TextOpts, textW, wrap } from "./widgetKit";
 
@@ -293,6 +294,49 @@ export const WIDGET_VARIANTS: Partial<Record<CardWidgetKind, readonly { id: stri
     { id: "pin", name: ["Map pin", "Ghim định vị"], theme: "color" },
     { id: "ticket", name: ["Ticket", "Vé"], theme: "color" },
   ],
+  // Info (D-121).
+  calendarDate: [
+    { id: "card", name: ["Tear-off sheet", "Tờ lịch xé"], theme: "light" },
+    { id: "pill", name: ["Pill", "Viên"], theme: "light" },
+    { id: "desk", name: ["Desk calendar", "Lịch để bàn"], theme: "light" },
+    { id: "month", name: ["Month", "Tháng"], theme: "light" },
+    { id: "week", name: ["Week strip", "Dải tuần"], theme: "light" },
+    { id: "big", name: ["Big number", "Số lớn"], theme: "light" },
+    { id: "filmStamp", name: ["Film date stamp", "Dấu ngày máy phim"], theme: "light" },
+  ],
+  countdown: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "big", name: ["Big number", "Số lớn"], theme: "light" },
+    { id: "ring", name: ["Ring", "Vòng"], theme: "light" },
+    { id: "flip", name: ["Flip", "Số lật"], theme: "light" },
+    { id: "pill", name: ["Pill", "Viên"], theme: "light" },
+  ],
+  weather: [
+    { id: "card", name: ["Card", "Thẻ"], theme: "light" },
+    { id: "sky", name: ["Sky", "Bầu trời"], theme: "light" },
+    { id: "glass", name: ["Frosted glass", "Kính mờ"], theme: "light" },
+    { id: "big", name: ["Big number", "Số lớn"], theme: "light" },
+    { id: "pill", name: ["Pill", "Viên"], theme: "light" },
+    { id: "icon", name: ["Big symbol", "Biểu tượng lớn"], theme: "light" },
+    { id: "thermo", name: ["Thermometer", "Nhiệt kế"], theme: "light" },
+  ],
+  bookQuote: [
+    { id: "card", name: ["Reading note", "Phiếu đọc sách"], theme: "light" },
+    { id: "marks", name: ["Big quote marks", "Ngoặc kép lớn"], theme: "light" },
+    { id: "typewriter", name: ["Typewriter", "Máy đánh chữ"], theme: "light" },
+    { id: "note", name: ["Sticky note", "Giấy note"], theme: "light" },
+    { id: "chalk", name: ["Chalkboard", "Bảng phấn"], theme: "light" },
+    { id: "book", name: ["Open book", "Sách mở"], theme: "light" },
+    { id: "line", name: ["One line", "Một dòng"], theme: "light" },
+  ],
+  nowPlaying: [
+    { id: "card", name: ["Player", "Trình phát"], theme: "dark" },
+    { id: "mini", name: ["Mini player", "Trình phát mini"], theme: "light" },
+    { id: "vinyl", name: ["Vinyl", "Đĩa than"], theme: "light" },
+    { id: "cassette", name: ["Cassette", "Băng cát-xét"], theme: "light" },
+    { id: "code", name: ["Scan code", "Mã quét"], theme: "light" },
+    { id: "minimal", name: ["Minimal", "Tối giản"], theme: "light" },
+  ],
   luggageTag: [
     { id: "airport", name: ["Airport tag", "Thẻ sân bay"], theme: "light" },
     { id: "leather", name: ["Leather", "Da"], theme: "light" },
@@ -466,7 +510,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
   passportStamp: (c, f, pal, _L, v) => passportStamp(c, f, pal, v ?? "round"),
   luggageTag: (c, f, pal, _L, v) => luggageTag(c, f, pal, v ?? "airport"),
 
-  weather(c, f, pal) {
+  weather(c, f, pal, _L, v) {
+    if (v && v !== "card") return weatherLook(c, f, pal, v);
     const w = 520;
     const cond: TextOpts = { size: 26, weight: 500, color: pal.sub };
     const condL = wrap(c, f.condition, cond, w - P * 2, 2);
@@ -479,7 +524,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  calendarDate(c, f, pal) {
+  calendarDate(c, f, pal, _L, v) {
+    if (v && v !== "card") return calendarLook(c, f, pal, v);
     const w = 380;
     const band = 84;
     const note: TextOpts = { size: 24, weight: 600, color: pal.ac, align: "center" };
@@ -499,7 +545,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  countdown(c, f, pal) {
+  countdown(c, f, pal, _L, v) {
+    if (v && v !== "card") return countdownLook(c, f, pal, v);
     const w = 540;
     const big: TextOpts = { size: 84, weight: 800, color: pal.ac, lh: 1.15 };
     const unit: TextOpts = { size: 32, weight: 600, color: pal.fg, lh: 1.3 };
@@ -528,7 +575,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  nowPlaying(c, f, pal) {
+  nowPlaying(c, f, pal, _L, v) {
+    if (v && v !== "card") return musicLook(c, f, pal, v);
     const w = 620;
     const art = 140;
     const h = P + art + 34 + 10 + 34 + 64 + P - 10;
@@ -1074,7 +1122,8 @@ const KINDS: Record<CardWidgetKind, Draw> = {
     return { w, h };
   },
 
-  bookQuote(c, f, pal) {
+  bookQuote(c, f, pal, _L, v) {
+    if (v && v !== "card") return quoteLook(c, f, pal, v);
     const w = 580;
     const bg = pal.theme === "light" ? "#fbf7ee" : pal.theme === "dark" ? "#1f1d1a" : pal.bg;
     const quote: TextOpts = { size: 33, weight: 400, color: pal.fg, family: SERIF, lh: 1.38 };
@@ -1214,7 +1263,7 @@ export function drawWidget(c: C, w: WidgetData, color: string, width: number, lo
 }
 
 const thumbs = new Map<string, string>();
-const BARE_LOOKS = new Set(["clock:digital", "clock:handwritten", "boardingPass:minimal", "flightRoute:line", "flightRoute:globe", "flightRoute:doodle"]);
+const BARE_LOOKS = new Set(["calendarDate:big", "countdown:big", "countdown:flip", "weather:big", "weather:icon", "weather:glass", "bookQuote:marks", "bookQuote:line", "nowPlaying:vinyl", "nowPlaying:code", "nowPlaying:minimal", "clock:digital", "clock:handwritten", "boardingPass:minimal", "flightRoute:line", "flightRoute:globe", "flightRoute:doodle"]);
 
 /** A small picture of a kind with its sample texts, for the library. */
 export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360, variant?: string, from?: { data: WidgetData; color: string }) {
@@ -1253,10 +1302,16 @@ export function widgetThumb(kind: CardWidgetKind, locale: Locale, width = 360, v
 }
 
 /** How the library groups the kinds. */
-export const WIDGET_GROUPS: { id: "clock" | "travel" | "info" | "social" | "keepsake"; kinds: CardWidgetKind[] }[] = [
+export const WIDGET_GROUPS: { id: "clock" | "calendar" | "weather" | "travel" | "social" | "music" | "quote" | "fitness" | "shopping" | "todo" | "more"; kinds: CardWidgetKind[] }[] = [
   { id: "clock", kinds: ["clock"] },
+  { id: "calendar", kinds: ["calendarDate", "countdown"] },
+  { id: "weather", kinds: ["weather"] },
   { id: "travel", kinds: ["boardingPass", "flightRoute", "booking", "passport", "passportStamp", "luggageTag"] },
   { id: "social", kinds: ["poll", "questionBox", "chatConvo", "phoneNotification", "hashtagPill", "mentionTag", "searchBar", "starRating"] },
-  { id: "info", kinds: ["weather", "calendarDate", "countdown", "nowPlaying", "progressBar", "stepCounter", "moodMeter", "checklist"] },
-  { id: "keepsake", kinds: ["receipt", "priceTag", "filmExif", "recipeCard", "bookQuote"] },
+  { id: "music", kinds: ["nowPlaying"] },
+  { id: "quote", kinds: ["bookQuote"] },
+  { id: "fitness", kinds: ["stepCounter"] },
+  { id: "shopping", kinds: ["receipt", "priceTag"] },
+  { id: "todo", kinds: ["checklist", "progressBar", "moodMeter"] },
+  { id: "more", kinds: ["recipeCard", "filmExif"] },
 ];

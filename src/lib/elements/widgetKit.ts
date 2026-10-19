@@ -201,3 +201,124 @@ export const seconds = (s: string | undefined) => {
   return parts.every(Number.isFinite) ? parts.reduce((a, b) => a * 60 + b, 0) : 0;
 };
 
+
+// ---------------------------------------------------------------- shared by the looks (D-121)
+
+export const HAND = '"Bradley Hand", "Marker Felt", "Segoe Print", "Comic Sans MS", cursive';
+export const MARKER = '"Marker Felt", "Chalkboard SE", "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive';
+export const TYPEWRITER = '"American Typewriter", "Courier Prime", "Courier New", monospace';
+export const ROUNDED = '"SF Pro Rounded", "Nunito", "Quicksand", "Arial Rounded MT Bold", ' + SANS;
+
+/** Text colour of the card-less looks: white on photos by default, black on dark, the colour on colour. */
+export const bare = (pal: Pal) => (pal.theme === "light" ? "#ffffff" : pal.theme === "dark" ? "#111111" : pal.color);
+
+/** Runs `draw` with a soft shadow when the look is white on a photo. */
+export function onPhoto(c: C, pal: Pal, draw: () => void) {
+  c.save();
+  if (pal.theme === "light") {
+    c.shadowColor = "rgba(0,0,0,0.35)";
+    c.shadowBlur = 12;
+  }
+  draw();
+  c.restore();
+}
+
+/** A drop shadow under whatever `draw` paints. */
+export function lifted(c: C, draw: () => void, blur = 24, dy = 8, alpha = 0.2) {
+  c.save();
+  c.shadowColor = `rgba(0,0,0,${alpha})`;
+  c.shadowBlur = blur;
+  c.shadowOffsetY = dy;
+  draw();
+  c.restore();
+}
+
+/** Wood grain, the same every time. */
+export function grain(c: C, x: number, y: number, w: number, h: number, base: string, line: string) {
+  c.fillStyle = base;
+  c.fillRect(x, y, w, h);
+  c.strokeStyle = line;
+  for (let i = 0; i < 26; i++) {
+    const yy = y + (i + 0.5) * (h / 26);
+    c.lineWidth = 1 + (i % 3);
+    c.globalAlpha = 0.18 + (i % 4) * 0.05;
+    c.beginPath();
+    for (let xx = 0; xx <= w; xx += 8) {
+      const yo = Math.sin(xx / 47 + i * 1.7) * 4 + Math.sin(xx / 13 + i) * 1.2;
+      if (xx) c.lineTo(x + xx, yy + yo);
+      else c.moveTo(x + xx, yy + yo);
+    }
+    c.stroke();
+  }
+  c.globalAlpha = 1;
+}
+
+/** Blackboard in a wooden frame. */
+export function blackboard(c: C, w: number, h: number) {
+  lifted(c, () => fillRR(c, 0, 0, w, h, 14, "#8a5a2b"), 24, 10, 0.35);
+  c.save();
+  rr(c, 0, 0, w, h, 14);
+  c.clip();
+  grain(c, 0, 0, w, h, "#9a6633", "#5a3815");
+  c.restore();
+  fillRR(c, 20, 20, w - 40, h - 40, 6, "#24312b");
+  c.save();
+  c.globalAlpha = 0.07;
+  c.fillStyle = "#ffffff";
+  for (let i = 0; i < 6; i++) {
+    c.beginPath();
+    c.ellipse(60 + ((i * 97) % Math.max(1, w - 120)), 60 + ((i * 53) % Math.max(1, h - 120)), 60, 18, i, 0, Math.PI * 2);
+    c.fill();
+  }
+  c.restore();
+}
+
+/** Chalky text: a few thin passes, slightly shifted. */
+export function chalkText(c: C, lines: string[], x: number, y: number, o: TextOpts) {
+  for (const [dx, dy, a] of [
+    [0, 0, 0.92],
+    [1.4, -1, 0.45],
+    [-1.1, 1.3, 0.35],
+  ] as const) {
+    c.save();
+    c.globalAlpha = a;
+    drawLines(c, lines, x + dx, y + dy, o);
+    c.restore();
+  }
+}
+
+/** A strip of semi-clear tape, turned a little. */
+export function tape(c: C, x: number, y: number, w: number, angle: number, color = "rgba(255,255,255,0.55)") {
+  c.save();
+  c.translate(x, y);
+  c.rotate(angle);
+  c.fillStyle = color;
+  c.fillRect(-w / 2, -16, w, 32);
+  c.strokeStyle = "rgba(0,0,0,0.06)";
+  c.strokeRect(-w / 2, -16, w, 32);
+  c.restore();
+}
+
+/** Steady pseudo-random numbers from a text. */
+export function seeded(textSeed: string) {
+  let s = 17;
+  for (const ch of textSeed) s = (s * 31 + ch.charCodeAt(0)) % 999983;
+  return () => {
+    s = (s * 48271) % 2147483647;
+    return (s % 100000) / 100000;
+  };
+}
+
+/** The date a widget shows: its picked date, else this month with its day number. */
+export function dateOf(f: F): Date {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(f.date ?? "")) {
+    const [y, m, d] = f.date.split("-").map(Number);
+    return new Date(y, m - 1, d);
+  }
+  const now = new Date();
+  const d = parseInt(f.day ?? "", 10);
+  return new Date(now.getFullYear(), now.getMonth(), Number.isFinite(d) ? Math.min(28, Math.max(1, d)) : now.getDate());
+}
+
+/** Whether the widget's texts are Vietnamese (draw functions do not get the locale). */
+export const isVi = (...s: (string | undefined)[]) => /[ăâđêôơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]|tháng|thứ|chủ nhật/i.test(s.join(" "));

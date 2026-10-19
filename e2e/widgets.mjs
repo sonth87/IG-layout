@@ -33,12 +33,12 @@ await page.waitForTimeout(800);
 
 console.log("Widget sheet groups");
 await widgets();
-for (const g of ["Text", "Social", "Info", "Keepsakes"]) check(await page.getByRole("region", { name: g, exact: true }).isVisible(), `group ${g}`);
+for (const g of ["Text", "Clock", "Calendar", "Weather", "Travel", "Social", "Music", "Quotes", "Fitness", "Shopping", "To-do", "More"]) check(await page.getByRole("region", { name: g, exact: true }).isVisible(), `group ${g}`);
 await page.screenshot({ path: path.join(OUT, "widgets-sheet.png") });
 // Every card (for a look at the drawings).
-for (const g of ["Social", "Info", "Keepsakes"]) {
+for (const g of ["Calendar", "Weather", "Music", "Quotes"]) {
   const region = page.getByRole("region", { name: g, exact: true });
-  check((await region.getByRole("button").count()) >= 5, `${g}: every card shown`);
+  check((await region.getByRole("button").count()) >= 6, `${g}: every look shown`);
   await region.scrollIntoViewIfNeeded();
   await region.screenshot({ path: path.join(OUT, `widgets-${g.toLowerCase()}.png`) });
 }
