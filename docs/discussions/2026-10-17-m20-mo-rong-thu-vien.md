@@ -207,3 +207,7 @@ Phim, polaroid, khung tranh cũng theo tinh thần này. Ví dụ phim thì lỗ
 Chủ dự án: kiểu xé giấy là **ảnh bị xé ở viền ngoài**, không phải khung giấy bị xé thủng ở viền trong. → Bỏ gói "giấy xé có lỗ"; các kiểu xé gồm: ảnh xé (một mảnh), **ảnh xé ghép** 2–4 mảnh chồng mép (như IG-4036), **ảnh xé đặt trên mảnh giấy lót** (cả hai xé mép ngoài).
 
 Bổ sung (2026-10-18): giấy xé **không nhất thiết vuông vức** — hình chữ nhật, hình thang, cạnh ngắn cạnh dài, cạnh xiên, không đều, xé không thẳng, vát, lẹm; xơ / lõi giấy chỗ to chỗ nhỏ; xé 1 tới nhiều cạnh, kể cả tròn. → Bộ sinh "mảnh ảnh xé" (`tornPiece`) thay cho gói ảnh xé cũ.
+
+## 14. Bỏ màn Bộ sưu tập riêng (2026-10-19)
+
+Chủ dự án: màn Bộ sưu tập lặp mục giữa các bộ, dải tab ngang càng nhiều bộ càng dài, và trùng chức năng với chế độ **Bộ** của sheet Sticker. → Bỏ màn riêng; giữ nút **Loại | Bộ** trong sheet Sticker, mỗi mục chỉ ở bộ chính của nó.

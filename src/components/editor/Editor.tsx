@@ -183,7 +183,7 @@ function PillButton(props: { label: string; icon: IconName; onClick: () => void 
       onClick={props.onClick}
       className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full active:bg-surface-2"
     >
-      <Icon name={props.icon} />
+      <Icon name={props.icon} size={26} />
     </button>
   );
 }
@@ -766,13 +766,13 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <div className={`flex h-14 items-center px-1 ${PILL}`}>
           <PillButton label={busy ? t("editor.importing") : t("editor.addPhotos")} icon="image" onClick={() => addInput.current?.click()} />
           <PillButton label={t("editor.text")} icon="text" onClick={addText} />
-          <PillButton label={t("lib.stickers")} icon="heart" onClick={() => openLibrary("sticker")} />
+          <PillButton label={t("lib.stickers")} icon="origami" onClick={() => openLibrary("sticker")} />
           <PillButton label={t("lib.shapes")} icon="shapes" onClick={() => openLibrary("shape")} />
           <PillButton label={t("lib.newLayer")} icon="plus" onClick={() => setTool("newLayer")} />
         </div>
         {/* Layers stand apart from the tools, as a round button on the right (D-92). */}
         <button type="button" aria-label={t("layers.title")} onClick={() => setTool("layers")} className={ROUND}>
-          <Icon name="layers" />
+          <Icon name="layers" size={26} />
         </button>
       </div>,
     );

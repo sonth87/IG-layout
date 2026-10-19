@@ -473,3 +473,8 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 ### iPhone Safari: chụm trong editor không mở màn hình tất cả tab (2026-10-19)
 - [x] Chỉ trong màn sửa / tạo (editor): chặn cử chỉ chụm riêng của Safari (`gesturechange` / `gestureend`) và mọi thao tác 2 ngón ở bất kỳ đâu trong editor; thao tác 1 ngón không đổi; màn khác không đổi (e2e ios-pinch.mjs)
 - [ ] Chủ dự án thử lại trên iPhone
+
+### Thư viện gọn lại (2026-10-19)
+- [x] Bỏ nút / màn **Bộ sưu tập** riêng (trùng với chế độ **Bộ** của sheet Sticker; dải tab ngang dài ra theo số bộ)
+- [x] Chế độ Bộ: **mỗi mục chỉ hiện một lần**, ở bộ chính của nó (bộ đầu tiên của gói)
+- [x] Icon Sticker → Lucide **Origami**, Widget → **Grid2x2Plus**; icon menu "+" (Lớp mới) và thanh công cụ to hơn

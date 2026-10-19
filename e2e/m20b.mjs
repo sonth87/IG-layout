@@ -96,19 +96,21 @@ await page.getByRole("radiogroup", { name: "View by" }).getByRole("radio", { nam
 check(await page.getByRole("region", { name: "Featured" }).isVisible(), "back to by type");
 await page.getByRole("button", { name: "Close", exact: true }).click();
 
-console.log("Collections screen (C3)");
+console.log("No separate Collections button; by collection, each item once (2026-10-19)");
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.getByRole("button", { name: "New layer" }).click();
-await page.getByRole("region", { name: "New layer" }).getByRole("button", { name: "Collections", exact: true }).click();
-const chips = page.getByRole("radiogroup", { name: "Collections" });
-const chipNames = await chips.getByRole("radio").allInnerTexts();
-check(["Vintage", "Film", "Journal"].every((c) => chipNames.includes(c)), `collections with content: ${chipNames.join(", ")}`);
-await chips.getByRole("radio", { name: "Journal" }).click();
-await page.screenshot({ path: path.join(OUT, "m20b-collection.png") });
-await page.getByRole("region", { name: "Backgrounds" }).getByRole("button", { name: "Test paper" }).click();
-await page.waitForTimeout(800);
-st = await S();
-check(st.doc.background.kind === "texture" && st.doc.background.texture === "test-textures/paper", "a collection's background applies at once");
+check((await page.getByRole("region", { name: "New layer" }).getByRole("button", { name: "Collections", exact: true }).count()) === 0, "no Collections in the + menu");
+await page.getByRole("region", { name: "New layer" }).getByRole("button", { name: "Close", exact: true }).click();
+await stickers();
+await page.getByRole("radiogroup", { name: "View by" }).getByRole("radio", { name: "Collection" }).click();
+const seen = await page.getByRole("region").evaluateAll((regions) => {
+  const labels = [];
+  for (const r of regions) if (r.getAttribute("aria-label") !== "Stickers") for (const btn of r.querySelectorAll("button[aria-label]")) labels.push(btn.getAttribute("aria-label"));
+  return labels.filter((l) => !/more$/.test(l));
+});
+check(seen.length > 0 && new Set(seen).size === seen.length, `every item once (${seen.length} items)`);
+await page.getByRole("radiogroup", { name: "View by" }).getByRole("radio", { name: "Type" }).click();
+await page.getByRole("button", { name: "Close", exact: true }).click();
 
 console.log("Thanks lists the pack sources (C6)");
 await page.getByLabel("Back").click();
