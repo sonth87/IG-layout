@@ -455,11 +455,12 @@ export function Editor({ onClose }: { onClose: () => void }) {
    * the canvas grows evenly from there, then the same point simply stays put once it can be
    * scrolled — no back-and-forth.
    */
-  function anchorAt(sx?: number, sy?: number, once = false) {
+  function anchorAt(sx?: number, sy?: number, once = false, free = false) {
     const area = areaRef.current;
     if (!area) return;
-    const lockX = area.scrollWidth <= area.clientWidth + 1;
-    const lockY = area.scrollHeight <= area.clientHeight + 1;
+    // `free` (wheel steps): always the given point — no back-and-forth to avoid between steps.
+    const lockX = !free && area.scrollWidth <= area.clientWidth + 1;
+    const lockY = !free && area.scrollHeight <= area.clientHeight + 1;
     const ax = lockX ? size.width / 2 : (area.scrollLeft + (sx ?? area.clientWidth / 2) - origin.x) / viewScale;
     const ay = lockY ? size.height / 2 : (area.scrollTop + (sy ?? area.clientHeight / 2) - origin.y) / viewScale;
     zoomAnchor.current = { ax, ay, sx: origin.x + ax * viewScale - area.scrollLeft, sy: origin.y + ay * viewScale - area.scrollTop, once, lockX, lockY };
@@ -475,6 +476,44 @@ export function Editor({ onClose }: { onClose: () => void }) {
     setEasing(null);
     setUserZoom(z);
   }
+
+  /**
+   * Mouse wheel / trackpad zoom (owner, 2026-10-19): the wheel zooms around the pointer —
+   * the point under it stays put. Ctrl / ⌘ + wheel (a trackpad pinch) too, finer. Shift +
+   * wheel or a sideways swipe still scrolls. One zoom per frame, like the pinch.
+   */
+  const wheel = useRef({ k: 1, x: 0, y: 0, frame: 0 });
+  const onWheel = useRef<(e: WheelEvent) => void>(() => {});
+  useLayoutEffect(() => {
+    onWheel.current = (e: WheelEvent) => {
+      const area = areaRef.current;
+      if (!area || e.shiftKey || (!e.ctrlKey && !e.metaKey && Math.abs(e.deltaX) > Math.abs(e.deltaY))) return;
+      e.preventDefault();
+      const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1);
+      const w = wheel.current;
+      w.k *= Math.exp(-Math.max(-60, Math.min(60, dy)) * (e.ctrlKey || e.metaKey ? 0.01 : 0.002));
+      const r = area.getBoundingClientRect();
+      w.x = e.clientX - r.left;
+      w.y = e.clientY - r.top;
+      w.frame ||= requestAnimationFrame(() => {
+        w.frame = 0;
+        const k = w.k;
+        w.k = 1;
+        anchorAt(w.x, w.y, true, true);
+        zoomTo(zoom * k);
+        // Nothing changed (already at the smallest / largest zoom): drop the anchor.
+        if (Math.min(MAX_ZOOM, Math.max(minZoom, zoom * k)) === zoom) zoomAnchor.current = null;
+      });
+    };
+  });
+  useEffect(() => {
+    const area = areaRef.current;
+    if (!area) return;
+    const listener = (e: WheelEvent) => onWheel.current(e);
+    // Not passive: the page must not scroll (or zoom) while the wheel zooms the canvas.
+    area.addEventListener("wheel", listener, { passive: false });
+    return () => area.removeEventListener("wheel", listener);
+  }, []);
 
   /** Eases the zoom to `to` in 250 ms; `follow`: then keep "see every slide". */
   const easeRun = useRef(0);

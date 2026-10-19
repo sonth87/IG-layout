@@ -40,6 +40,8 @@ Khi dự án có quá nhiều slide đến mức "thấy hết" sẽ nhỏ hơn 
 
 Khi **không có phần tử nào được chọn**, chụm hai ngón sẽ phóng to / thu nhỏ canvas quanh điểm giữa hai ngón tay, phóng tối đa khoảng 5 lần [ĐX]. Khi đã phóng to, kéo một ngón sẽ dời canvas để xem chỗ khác. Chạm đúp vào vùng trống sẽ đưa canvas về mức "thấy hết" [ĐX]. Khi đang chọn một phần tử, các cử chỉ này tác động lên phần tử chứ không phải canvas — xem [06](06-chon-va-cu-chi.md).
 
+**Trên máy tính (D-116):** lăn chuột lên / xuống để phóng to / thu nhỏ quanh con trỏ (kể cả khi đang chọn phần tử); Ctrl / ⌘ + lăn (chụm trên trackpad) cũng vậy; Shift + lăn hoặc vuốt ngang trackpad để cuộn ngang. Khi canvas còn nhỏ hơn màn hình thì luôn căn giữa.
+
 ## 3. Menu "⋯" của slide [QS] (IMG_3958)
 
 Chạm nút **⋯** dưới một slide mở một **popup nổi** ngay phía trên nút, nền kính mờ, phóng nhẹ ra từ chính nút. Popup có ba mục, mỗi mục một icon bên trái:
