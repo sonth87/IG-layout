@@ -70,3 +70,18 @@ Hai nút ↶ ↷ trên cùng, không giới hạn số bước (đã có). Nguy�
 5. Xem trước: vuốt ngang qua đủ các slide.
 6. Xuất: Carousel / Video; chọn 2× → ảnh xuất rộng 2160 px.
 7. Lớp: mỗi dòng là thumbnail của phần tử; kéo ≡ đổi thứ tự; chạm dòng chọn phần tử.
+
+
+## Bổ sung 2026-10-20 (D-129): đầu sheet chung
+
+Mọi bottom sheet có cùng một thanh trên, **không cuộn theo nội dung**:
+
+- **trái**: nút tròn ‹ (quay lại màn trước) hoặc ✕ (huỷ, ở sheet có ✓); để trống nếu không cần;
+- **giữa**: tiêu đề;
+- **phải**: nút tròn ✕ (đóng) hoặc ✓ (áp dụng, tô màu nhấn).
+
+**Màn con** trong sheet (nhóm "+N" của thư viện, toàn bộ emoji):
+
+- trượt vào từ phải;
+- thanh trên đổi thành ‹ + tên nhóm, ví dụ Sticker → Hoa: ‹ "Hoa" ✕;
+- ‹ quay về danh sách nhóm.

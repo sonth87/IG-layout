@@ -1,8 +1,8 @@
 "use client";
 
+import { SheetHeader } from "@/components/ui/SheetHeader";
 import { useState } from "react";
 import { TemplatePreview } from "@/components/layout/TemplatePreview";
-import { Icon } from "@/components/ui/Icon";
 import { DESIGNS, designsFor } from "@/lib/templates/designs";
 import { templateSlides } from "@/lib/templates/apply";
 import { DEFAULT_OPTIONS, TEMPLATE_CATEGORIES, type Template, type TemplateCategory } from "@/lib/templates/types";
@@ -99,17 +99,11 @@ export function TemplateLibrary({ onUse }: { onUse: (tpl: Template) => void }) {
             onClick={(e) => e.stopPropagation()}
             className="mx-auto flex w-full max-w-md flex-col gap-4 rounded-t-[22px] md:max-w-xl bg-surface px-5 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
           >
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col">
-                <h2 className="text-lg font-bold">{open.name[locale]}</h2>
-                <span className="text-[13px] text-muted">
-                  {t(`type.${open.design!.type}`)} · {open.design!.ratio} · {t("library.meta", { photos: open.photos, slides: slidesOf(open) })}
-                </span>
-              </div>
-              <button type="button" aria-label={t("common.close")} onClick={() => setOpen(null)} className="flex h-10 w-10 items-center justify-center">
-                <Icon name="close" />
-              </button>
-            </div>
+            <SheetHeader
+              title={open.name[locale]}
+              sub={`${t(`type.${open.design!.type}`)} · ${open.design!.ratio} · ${t("library.meta", { photos: open.photos, slides: slidesOf(open) })}`}
+              right={{ icon: "close", label: t("common.close"), onClick: () => setOpen(null) }}
+            />
             <div className="flex justify-center overflow-x-auto rounded-xl bg-surface-2 p-3">
               <div className="overflow-hidden rounded-md shadow">
                 <Preview tpl={open} width={detailWidth(open)} />

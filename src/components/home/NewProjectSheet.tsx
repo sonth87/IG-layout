@@ -1,5 +1,6 @@
 "use client";
 
+import { SheetHeader } from "@/components/ui/SheetHeader";
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { formatShortDate } from "@/lib/format";
@@ -67,16 +68,12 @@ export function NewProjectSheet(props: { onClose: () => void; onSteps: (type: "g
         className="mx-auto w-full max-w-2xl rounded-t-[28px] bg-surface/90 pb-[max(1.5rem,env(safe-area-inset-bottom))] backdrop-blur-xl"
       >
         <div className="mx-auto mt-2 h-1.5 w-10 rounded-full bg-border-2" />
-        <div className="relative flex h-12 items-center justify-center">
-          {view !== "main" && (
-            <button type="button" aria-label={t("common.back")} onClick={() => setView("main")} className="absolute left-3 flex h-10 w-10 items-center justify-center">
-              <Icon name="back" />
-            </button>
-          )}
-          <h2 className="text-[17px] font-semibold">{view === "main" ? t("newp.title") : t("newp.otherTitle")}</h2>
-          <button type="button" aria-label={t("common.close")} onClick={props.onClose} className="absolute right-3 flex h-10 w-10 items-center justify-center rounded-full bg-surface-2">
-            <Icon name="close" size={18} />
-          </button>
+        <div className="px-4 pt-2">
+          <SheetHeader
+            title={view === "main" ? t("newp.title") : t("newp.otherTitle")}
+            left={view !== "main" ? { icon: "back", label: t("common.back"), onClick: () => setView("main") } : undefined}
+            right={{ icon: "close", label: t("common.close"), onClick: props.onClose }}
+          />
         </div>
         {view === "main" ? (
           <div className="no-scrollbar flex items-end gap-1 overflow-x-auto px-3 pt-2 pb-3">

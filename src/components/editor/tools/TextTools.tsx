@@ -1,5 +1,6 @@
 "use client";
 
+import { SheetHeader } from "@/components/ui/SheetHeader";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { FONT_KEYS, type FontKey, type TextElement } from "@/lib/project/types";
@@ -167,23 +168,20 @@ export function TextEditDialog({ elementId, onClose }: ToolProps) {
   return (
     <div className="fixed inset-0 z-30 flex flex-col justify-end bg-black/60">
       <div role="dialog" aria-modal="true" aria-label={t("text.edit")} className="rounded-t-[20px] bg-surface px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-center justify-between pb-2">
-          <button type="button" onClick={onClose} className="h-10 px-2 text-sm font-semibold">
-            {t("common.cancel")}
-          </button>
-          <h2 className="text-[15px] font-bold">{t("text.edit")}</h2>
-          <button
-            type="button"
-            onClick={() => {
+        <SheetHeader
+          title={t("text.edit")}
+          left={{ icon: "close", label: t("common.cancel"), onClick: onClose }}
+          right={{
+            icon: "check",
+            label: t("common.done"),
+            accent: true,
+            onClick: () => {
               const text = value.trim() ? value : el.text;
               if (text !== el.text) updateElement(el.id, { text });
               onClose();
-            }}
-            className="h-10 rounded-xl bg-accent px-4 text-sm font-bold text-on-accent"
-          >
-            {t("common.done")}
-          </button>
-        </div>
+            },
+          }}
+        />
         <textarea
           autoFocus
           aria-label={t("text.edit")}

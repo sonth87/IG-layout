@@ -45,7 +45,7 @@ check((await group.getByRole("button").count()) === 3, "the pack shows all its i
   const expanded = (await more.count()) > 0;
   if (expanded) await more.click();
   check((await page.getByRole("region", { name: "Light & texture", exact: true }).getByRole("button", { name: "Test leak" }).count()) === 1, "pack overlays join “Light & texture”");
-  if (expanded) await page.getByRole("button", { name: "Light & texture" }).first().click(); // ‹ back
+  if (expanded) await page.getByRole("button", { name: "Back" }).last().click(); // ‹ back (pinned header, D-129)
 }
 await page.screenshot({ path: path.join(OUT, "m20b-packs.png") });
 

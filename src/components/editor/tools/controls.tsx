@@ -18,25 +18,26 @@ export function ToolSheet(props: {
   return (
     <section
       aria-label={props.title}
-      className="rounded-t-[20px] bg-surface pt-2 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+      className="rounded-t-[28px] bg-surface pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
     >
-      <div className="flex items-center justify-between px-2">
+      {/* Header like the colour sheet (D-129): round ✕ · title · round ✓. */}
+      <div className="flex items-center gap-2 px-4 pb-1">
         <button
           type="button"
           aria-label={t("common.cancel")}
           onClick={props.onCancel}
-          className="flex h-12 w-12 items-center justify-center"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-surface-2 active:scale-95"
         >
-          <Icon name="close" size={24} />
+          <Icon name="close" size={22} />
         </button>
-        <h2 className="text-[15px] font-bold">{props.title}</h2>
+        <h2 className="min-w-0 flex-1 truncate text-center text-[16px] font-bold">{props.title}</h2>
         <button
           type="button"
           aria-label={t("tool.apply")}
           onClick={props.onApply}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-on-accent"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent active:scale-95"
         >
-          <Icon name="check" size={24} />
+          <Icon name="check" size={22} />
         </button>
       </div>
       <div className="px-4 pt-2">{props.children}</div>
