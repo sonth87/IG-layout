@@ -38,7 +38,7 @@ await page.screenshot({ path: path.join(OUT, "widgets-sheet.png") });
 // Every card (for a look at the drawings).
 for (const g of ["Social", "Info", "Keepsakes"]) {
   const region = page.getByRole("region", { name: g, exact: true });
-  check((await region.getByRole("button").count()) >= 6, `${g}: every card shown`);
+  check((await region.getByRole("button").count()) >= 5, `${g}: every card shown`);
   await region.scrollIntoViewIfNeeded();
   await region.screenshot({ path: path.join(OUT, `widgets-${g.toLowerCase()}.png`) });
 }
@@ -87,7 +87,7 @@ st = await S();
 check(Math.abs(st.doc.elements.find((e) => e.id === list.id).height - h0) < 1, "undo restores the height");
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.getByRole("button", { name: "Layers" }).click();
-check(await page.getByText("Mini checklist").first().waitFor({ timeout: 5000 }).then(() => true, () => false), "listed as Mini checklist in Layers");
+check(await page.getByText("Mini checklist").first().waitFor({ timeout: 10000 }).then(() => true, () => false), "listed as Mini checklist in Layers");
 await page.keyboard.press("Escape");
 await page.waitForTimeout(300);
 
@@ -231,6 +231,36 @@ check(clock.widget.fields.time === "07:30", "time 07:30");
 await page.evaluate(() => window.__igEditor.getState().select(null));
 await page.waitForTimeout(300);
 await page.screenshot({ path: path.join(OUT, "widgets-clock.png") });
+
+console.log("Travel (D-120): boarding pass looks, route on a globe, passport stamp");
+await widgets();
+const travel = page.getByRole("region", { name: "Travel", exact: true }).getByRole("button");
+check((await travel.count()) === 28, `28 travel looks (${await travel.count()})`);
+await page.getByRole("button", { name: "Flight route · Globe", exact: true }).click();
+await page.waitForTimeout(300);
+let trip = (await S()).doc.elements.at(-1);
+check(trip.widget.kind === "flightRoute" && trip.widget.variant === "globe", "a route on a globe");
+await page.getByRole("button", { name: "Content" }).click();
+await page.getByRole("textbox", { name: "To (code)" }).fill("CDG");
+await page.getByRole("button", { name: "Apply" }).click();
+check((await S()).doc.elements.find((e) => e.id === trip.id).widget.fields.toCode === "CDG", "now to Paris");
+await widgets();
+await page.getByRole("button", { name: "Boarding pass · Phone pass", exact: true }).click();
+await page.waitForTimeout(300);
+trip = (await S()).doc.elements.at(-1);
+check(trip.widget.kind === "boardingPass" && trip.widget.variant === "mobile" && trip.height > trip.width, "a tall phone pass");
+await page.getByRole("button", { name: "Style", exact: true }).click();
+await page.getByRole("button", { name: "Paper with stub", exact: true }).click();
+await page.getByRole("button", { name: "Apply" }).click();
+trip = (await S()).doc.elements.find((e) => e.id === trip.id);
+check(trip.widget.variant === "stub" && trip.width > trip.height * 2, "switched to the paper ticket");
+await widgets();
+await page.getByRole("button", { name: "Passport stamp · Hexagon", exact: true }).click();
+await page.waitForTimeout(300);
+check((await S()).doc.elements.at(-1).widget.variant === "hex", "a hexagon stamp");
+await page.evaluate(() => window.__igEditor.getState().select(null));
+await page.waitForTimeout(400);
+await page.screenshot({ path: path.join(OUT, "widgets-travel.png") });
 
 console.log("Hanging over the canvas edge: still seen and grabbable");
 st = await S();

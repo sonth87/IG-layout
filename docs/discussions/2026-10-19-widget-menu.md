@@ -196,3 +196,30 @@ Mỗi dòng là **một widget** (một việc), sau dấu `:` là **các kiểu
 | Chữ | Nhãn†, Tin nhắn†, Địa điểm†, Tô sáng† (giữ là chữ) |
 
 Sheet Widget xếp theo các loại này; mỗi widget hiện các kiểu của nó.
+
+
+## Đợt 2 — Du lịch: đã làm (D-120)
+
+Chủ dự án: "travel thì có những cái như vé máy bay, đặt vé, hộ chiếu, 2 location trên bản đồ có máy bay và line đứt đoạn cong, hay quả địa cầu…".
+
+Ảnh tham khảo chủ dự án gửi là ảnh từ trang ảnh có bản quyền: dấu / tem nét mảnh, đường nét đứt vẽ tay có vòng và máy bay giấy, quả địa cầu dạng sticker có ghim. Chỉ lấy ý tưởng, không chép hình.
+
+28 kiểu, 6 widget:
+
+| Widget | Kiểu |
+| --- | --- |
+| Vé máy bay | thẻ, vé giấy có cuống xé (mã vạch), vé điện thoại (mã QR), tối giản trên ảnh |
+| Đường bay | đường cong trên ảnh, bản đồ chấm, quả địa cầu (chấm đất, lưới kinh vĩ), thẻ đêm (sao, vệt sáng), nét vẽ tay (trái tim, vòng xoắn, máy bay giấy), địa cầu sticker (viền trắng, ghim đỏ) |
+| Đặt vé thành công | thẻ có dấu tích, viên thông báo, dấu "CONFIRMED" |
+| Hộ chiếu (bìa) | chữ vàng, dập chìm, cũ sờn; màu bìa = màu nhấn |
+| Dấu hộ chiếu | tròn (chữ chạy theo vòng), chữ nhật, bầu dục, lục giác, có máy bay, tem bưu chính răng cưa, tam giác, ghim định vị, vé |
+| Thẻ hành lý | thẻ sân bay, thẻ da, giấy kraft buộc dây |
+
+### Chi tiết
+
+- **Vị trí trên bản đồ / địa cầu:**
+  - Khoảng 60 mã sân bay quen (SGN, HAN, DAD, NRT, ICN, CDG, JFK…) được đặt đúng vị trí.
+  - Mã lạ thì có một vị trí cố định suy từ chữ cái.
+  - Bản đồ tự khoanh vùng quanh hai điểm.
+- **Dấu mực:** loang lổ như mực thật (chỉ trên con dấu, không làm hỏng ảnh bên dưới).
+- **Ảnh xem trước:** các kiểu không có thẻ (chữ trắng trên ảnh) có nền giả ảnh để nhìn thấy.

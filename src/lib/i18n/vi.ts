@@ -292,6 +292,7 @@ export const vi: Record<MessageKey, string> = {
   "widget.evenSplit": "Chia đều",
   "widget.sideIn": "Đến",
   "widget.sideOut": "Đi",
+  "widget.group.travel": "Du lịch",
   "widget.group.clock": "Đồng hồ",
   "widget.style": "Kiểu",
   "widget.time": "Giờ",

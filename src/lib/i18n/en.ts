@@ -293,6 +293,7 @@ export const en = {
   "widget.evenSplit": "Split evenly",
   "widget.sideIn": "Them",
   "widget.sideOut": "Me",
+  "widget.group.travel": "Travel",
   "widget.group.clock": "Clock",
   "widget.style": "Style",
   "widget.time": "Time",
