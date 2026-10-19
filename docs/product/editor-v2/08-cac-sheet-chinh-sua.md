@@ -111,3 +111,46 @@ Tab Gradient chỉ có ở chỗ vẽ được gradient: màu chữ, màu hình,
 - Bảng màu, sheet, menu nổi, nút zoom tạm ẩn; nút **Huỷ** ở góc.
 - Chạm và kéo trên canvas: **kính lúp** tròn phía trên ngón tay phóng to các điểm ảnh quanh đó, ô giữa là điểm được chọn, kèm mã màu.
 - Thả tay: lấy màu đó, bảng màu hiện lại.
+
+
+## Cập nhật 2026-10-20 (D-128): bố cục theo ảnh mẫu của chủ dự án
+
+Thay phần giao diện của mục trên; màu mặc định giữ nguyên.
+
+### Dòng màu
+
+Ở mỗi chỗ chọn màu: dòng **"Tên ……… ◉ ›"**; ô tròn có viền.
+
+### Màn chính
+
+- **Thanh trên:** ‹ (về sheet trước) · tab **Solid / Gradient** (tab đang chọn là viên đậm) · ✕.
+- Nút dài **Màu tuỳ chỉnh** (hoặc **Gradient tuỳ chỉnh** ở tab Gradient).
+- **Màu thương hiệu**: ✎ Sửa (bật nút × trên từng màu) và **+** (thêm màu đang chọn vào Brand Kit).
+- **Đã lưu**.
+- **Mặc định**: lưới ô tròn to, 8 cột (gradient 7 cột).
+
+### Màn Màu tuỳ chỉnh
+
+- **Thanh trên:** ‹ · "Màu tuỳ chỉnh" · nút ống hút.
+- **Thanh sắc màu** cầu vồng. Kéo nút tròn để đổi sắc, giữ độ đậm / sáng; màu xám / đen thì thành màu tươi.
+- **Thanh độ trong suốt** (nền ô cờ), ô **%**, ô **HEX**. Hai ô đều chạm để gõ.
+- **Màu thương hiệu**.
+- **Đã lưu**, có **+** ở cuối để lưu màu đang chỉnh.
+
+### Màn Gradient
+
+- **Thanh trên:** ‹ · "Gradient".
+- **Thanh gradient**:
+  - kéo các điểm màu dọc thanh;
+  - chạm chỗ trống để thêm điểm (tối đa 5).
+- **Điểm màu**: mỗi dòng gồm
+  - ô **%**;
+  - ô **màu + HEX**, chạm vào mở Màu tuỳ chỉnh cho điểm đó (‹ quay lại Gradient);
+  - nút **−** xoá (tối thiểu 2 điểm).
+- **Góc**: thanh trượt + ô **°**.
+- **Kiểu**: thẳng / toả tròn / xoay vòng.
+- **Đã lưu** (+).
+
+### Ghi chú
+
+Không có ô kéo độ sáng / đậm riêng (giống ảnh mẫu): sắc chọn trên thanh, độ sáng giữ theo màu hiện tại; muốn màu chính xác thì gõ HEX hoặc dùng ống hút.

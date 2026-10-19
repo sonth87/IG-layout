@@ -62,7 +62,7 @@ await page.getByRole("button", { name: "Apply" }).click();
 await page.getByRole("button", { name: "Color", exact: true }).click();
 await page.getByRole("button", { name: "Card colour" }).click();
 await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "#1e88e5" }).click();
-await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "Done" }).click();
+await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "Close" }).click();
 await page.getByRole("button", { name: "Apply" }).click();
 st = await S();
 w = st.doc.elements.find((e) => e.id === w.id);

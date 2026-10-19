@@ -88,7 +88,7 @@ await page.getByRole("button", { name: "Color" }).click();
 // The compact colour control (2026-10-20): the swatch opens the colour panel.
 await page.getByRole("region", { name: "Color" }).getByRole("button", { name: "Color" }).click();
 await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "#8e24aa" }).click();
-await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "Done" }).click();
+await page.getByRole("dialog", { name: "Colour" }).getByRole("button", { name: "Close" }).click();
 await page.getByRole("button", { name: "Apply", exact: true }).click();
 st = await S();
 check(last(st, "icon").color !== tape.color, "sticker colour can be changed");
