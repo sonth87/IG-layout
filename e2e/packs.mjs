@@ -5,7 +5,7 @@ import path from "node:path";
 import sharp from "sharp";
 import { FIXTURES } from "./lib.mjs";
 
-const credit = { provider: "Test", license: "CC0-1.0", url: "https://example.org/", items: 3 };
+const credits = [{ provider: "Test", license: "CC-BY-4.0", url: "https://example.org/", items: 3 }, { provider: "Public domain source", license: "CC0-1.0", url: "https://example.org/pd", items: 1 }];
 
 async function webp(file, size, crop) {
   let img = sharp(path.join(FIXTURES, file));
@@ -62,7 +62,7 @@ export async function fakePacks() {
       { id: "test-overlays", kind: "overlay", name: { en: "Test overlays", vi: "Lớp phủ thử" }, collections: ["film"], order: 1, count: 1, file: "overlay/test-overlays.json", preview: [overlay] },
     ],
     fonts,
-    credits: [credit],
+    credits,
   });
   return files;
 }

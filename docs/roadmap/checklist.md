@@ -481,3 +481,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 
 ### Xem trước giống bài đăng Instagram (2026-10-19)
 - [x] Header: avatar, tên / phụ đề dạng skeleton, ⋯; ảnh có nhãn **1/N** góc trên phải (khi nhiều hơn 1), chấm vị trí; tim · bình luận · đăng lại · chia sẻ · bookmark nhạt, không bấm được; chú thích / thời gian dạng skeleton; hợp cả nền sáng / tối
+
+### Màn Cảm ơn gọn lại (2026-10-19)
+- [x] Chỉ liệt kê nguồn **bắt buộc ghi công** (CC BY, BY-SA, BY-NC, giấy phép riêng của tác giả) — hiện 14 / 110 nguồn
+- [x] Thư viện code, phông (OFL / Apache), Lucide, Fluent Emoji, ảnh CC0 / PD: không hiện; văn bản giấy phép gom vào `/licenses.txt` (sinh khi build bằng `scripts/build-licenses.mjs`), một dòng "Giấy phép mã nguồn mở" ở cuối màn

@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/copy-ort.mjs && node scripts/build-emoji.mjs && next dev",
-    "build": "node scripts/copy-ort.mjs && node scripts/build-emoji.mjs && next build",
+    "dev": "node scripts/copy-ort.mjs && node scripts/build-emoji.mjs && node scripts/build-licenses.mjs && next dev",
+    "build": "node scripts/copy-ort.mjs && node scripts/build-emoji.mjs && node scripts/build-licenses.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "e2e": "node e2e/run.mjs"

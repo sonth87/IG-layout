@@ -4,46 +4,15 @@ import { useEffect } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { loadCatalog, useCatalog } from "@/lib/catalog/load";
 import { LICENSES } from "@/lib/catalog/licenses";
-import { TEXT_FONTS } from "@/lib/text/fonts";
 import { useT } from "@/store/settings";
 
-// Thanks (M20 C6, D-110): every library, font, icon set and asset source the app uses,
-// with its licence. Pack sources come from the catalog's credits (built from each item's
-// licence record), so the list grows with the libraries.
+// Thanks (M20 C6, D-110): only the sources whose licence asks for credit to be shown to
+// people (CC BY, BY-SA, BY-NC…, authors' own terms) — owner, 2026-10-19. Licences that only
+// ask for their text to come with the app (MIT, ISC, Apache, MPL, OFL) are in
+// /licenses.txt (scripts/build-licenses.mjs), linked at the bottom.
 
-const CODE: [name: string, license: string, url: string][] = [
-  ["Next.js", "MIT", "https://nextjs.org"],
-  ["React", "MIT", "https://react.dev"],
-  ["Konva · react-konva", "MIT", "https://konvajs.org"],
-  ["Zustand", "MIT", "https://github.com/pmndrs/zustand"],
-  ["idb", "ISC", "https://github.com/jakearchibald/idb"],
-  ["fflate", "MIT", "https://github.com/101arrowz/fflate"],
-  ["Mediabunny", "MPL-2.0", "https://mediabunny.dev"],
-  ["Transformers.js", "Apache-2.0", "https://github.com/huggingface/transformers.js"],
-  ["ONNX Runtime Web", "MIT", "https://onnxruntime.ai"],
-  ["Tailwind CSS", "MIT", "https://tailwindcss.com"],
-];
-
-const ART: [name: string, license: string, url: string][] = [
-  ["Lucide icons", "ISC", "https://lucide.dev"],
-  ["Fluent Emoji © Microsoft", "MIT", "https://github.com/microsoft/fluentui-emoji"],
-  ["ormbg (background removal model)", "Apache-2.0", "https://huggingface.co/schirrmacher/ormbg"],
-];
-
-function Row({ name, detail, url }: { name: string; detail: string; url?: string }) {
-  return (
-    <li className="flex items-baseline justify-between gap-3 py-2">
-      {url ? (
-        <a href={url} target="_blank" rel="noreferrer" className="min-w-0 font-medium underline decoration-border-2 underline-offset-2">
-          {name}
-        </a>
-      ) : (
-        <span className="min-w-0 font-medium">{name}</span>
-      )}
-      <span className="shrink-0 text-right text-[12px] text-muted">{detail}</span>
-    </li>
-  );
-}
+/** Credit must be shown: Creative Commons "BY" licences and authors' own terms. */
+const mustCredit = (license: string) => /^CC-BY/.test(license) || license === "custom";
 
 export function ThanksScreen({ onBack }: { onBack: () => void }) {
   const t = useT();
@@ -51,7 +20,7 @@ export function ThanksScreen({ onBack }: { onBack: () => void }) {
   useEffect(() => {
     void loadCatalog();
   }, []);
-  const credits = catalog?.credits ?? [];
+  const credits = (catalog?.credits ?? []).filter((c) => mustCredit(c.license));
   const licenseName = (id: string) => (LICENSES as Record<string, { name: string }>)[id]?.name ?? id;
 
   return (
@@ -69,33 +38,22 @@ export function ThanksScreen({ onBack }: { onBack: () => void }) {
             <h2 className="pt-2 text-[13px] font-semibold tracking-wider text-muted uppercase">{t("thanks.assets")}</h2>
             <ul className="divide-y divide-border">
               {credits.map((c, i) => (
-                <Row key={i} name={c.author ? `${c.author} · ${c.provider}` : c.provider} url={c.url} detail={`${licenseName(c.license)} · ${t("thanks.items", { count: c.items })}`} />
+                <li key={i} className="flex items-baseline justify-between gap-3 py-2">
+                  <a href={c.url} target="_blank" rel="noreferrer" className="min-w-0 font-medium underline decoration-border-2 underline-offset-2">
+                    {c.author ? `${c.author} · ${c.provider}` : c.provider}
+                  </a>
+                  <a href={c.licenseUrl ?? (LICENSES as Record<string, { url: string }>)[c.license]?.url} target="_blank" rel="noreferrer" className="shrink-0 text-right text-[12px] text-muted">
+                    {licenseName(c.license)}
+                  </a>
+                </li>
               ))}
             </ul>
           </section>
         )}
-        <section aria-label={t("thanks.fonts")} className="rounded-[14px] bg-surface px-4 py-2">
-          <h2 className="pt-2 text-[13px] font-semibold tracking-wider text-muted uppercase">{t("thanks.fonts")}</h2>
-          <ul className="divide-y divide-border">
-            <Row name={`Google Fonts — ${Object.keys(TEXT_FONTS).length + (catalog?.fonts.length ?? 0)} ${t("thanks.fontsCount")}`} url="https://fonts.google.com" detail="OFL 1.1 · Apache 2.0" />
-          </ul>
-        </section>
-        <section aria-label={t("thanks.art")} className="rounded-[14px] bg-surface px-4 py-2">
-          <h2 className="pt-2 text-[13px] font-semibold tracking-wider text-muted uppercase">{t("thanks.art")}</h2>
-          <ul className="divide-y divide-border">
-            {ART.map(([n, l, u]) => (
-              <Row key={n} name={n} url={u} detail={l} />
-            ))}
-          </ul>
-        </section>
-        <section aria-label={t("thanks.code")} className="rounded-[14px] bg-surface px-4 py-2">
-          <h2 className="pt-2 text-[13px] font-semibold tracking-wider text-muted uppercase">{t("thanks.code")}</h2>
-          <ul className="divide-y divide-border">
-            {CODE.map(([n, l, u]) => (
-              <Row key={n} name={n} url={u} detail={l} />
-            ))}
-          </ul>
-        </section>
+        <a href="/licenses.txt" target="_blank" rel="noreferrer" className="flex items-center justify-between rounded-[14px] bg-surface px-4 py-3 text-[13px] text-text-2">
+          {t("thanks.openSource")}
+          <Icon name="link" size={16} />
+        </a>
       </div>
     </main>
   );
