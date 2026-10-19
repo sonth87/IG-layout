@@ -7,7 +7,7 @@ import { drawShape } from "@/lib/elements/shapes";
 import { frameInset, innerFrame, straightenScale } from "@/lib/project/geometry";
 import { refitCrop } from "@/lib/project/blocks";
 import { traceMask } from "@/lib/project/masks";
-import { frameColor, type ImageElement, pansInside } from "@/lib/project/types";
+import { fixedCell, frameColor, type ImageElement, pansInside } from "@/lib/project/types";
 import { useEditor } from "@/store/editor";
 import { useHtmlImage } from "./useHtmlImage";
 import { frameOverrides } from "@/lib/video/frames";
@@ -52,7 +52,12 @@ function withAlpha(hex: string, alpha: number) {
 export function ImageNode({ element: el }: Props) {
   const asset = useEditor((s) => (el.assetId ? s.assets[el.assetId] : undefined));
   const updateElement = useEditor((s) => s.updateElement);
-  const showWhole = useEditor((s) => s.selectedId === el.id && !s.exporting && pansInside(el, (s.draft ?? s.doc)?.elements) && !s.drawing && !s.cropping);
+  // The faint whole picture around a selected cell — not in a pack frame's window: its art is
+  // see-through outside the window (torn edges…), so the picture would look like it spills out.
+  const showWhole = useEditor((s) => {
+    const els = (s.draft ?? s.doc)?.elements;
+    return s.selectedId === el.id && !s.exporting && pansInside(el, els) && !fixedCell(el, els) && !s.drawing && !s.cropping;
+  });
   const isVideo = !!asset?.video;
   // Videos (M13): the poster stands in until the player has a frame.
   const original = useHtmlImage(isVideo ? asset?.video?.posterUrl : asset?.url);
