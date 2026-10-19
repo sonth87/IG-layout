@@ -45,6 +45,7 @@ import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
 import { TextTool } from "./tools/TextTools";
 import { TextAlignPanel, TextFormatPanel } from "./tools/TextFormat";
 import { OpacityTool } from "./tools/OpacityTool";
+import { WidgetTool } from "./tools/WidgetTool";
 import { InlineText } from "./InlineText";
 import { useImportPhotos } from "./useImportPhotos";
 import { useShortcuts } from "./useShortcuts";
@@ -113,9 +114,10 @@ type Tool =
   | "library"
   | "newLayer"
   | "ratio"
-  | "preview";
+  | "preview"
+  | "widget";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -651,6 +653,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "style" && selected) bottom = <StyleTool elementId={selected.id} onClose={close} />;
   else if (tool === "text" && selected) bottom = <TextTool elementId={selected.id} onClose={close} />;
   else if (tool === "fill" && selected) bottom = <FillTool elementId={selected.id} onClose={close} />;
+  else if (tool === "widget" && selected) bottom = <WidgetTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "draw") bottom = <DrawTool onClose={close} />;
   else if (tool === "music") bottom = <MusicTool onClose={close} />;
@@ -736,6 +739,13 @@ export function Editor({ onClose }: { onClose: () => void }) {
         position,
         <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />,
         SHOW_ANIMATE && <ToolButton key="animate" label={t("editor.animate")} icon="motion" onClick={() => openTool("animate")} />,
+        ...tail,
+      ];
+    else if (selected.type === "icon" && selected.widget)
+      tools = [
+        <ToolButton key="edit" label={t("widget.edit")} icon="pencil" onClick={() => openTool("widget")} />,
+        <ToolButton key="color" label={t("tool.color")} icon="palette" onClick={() => openTool("fill")} />,
+        position,
         ...tail,
       ];
     else

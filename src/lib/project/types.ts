@@ -257,6 +257,8 @@ export interface IconElement extends ElementBase {
   color: string;
   /** Emoji stickers: the SVG body (32 × 32 viewBox), kept in the project so it never needs fetching again. */
   svg?: string;
+  /** Card widget (D-114): drawn from its kind and texts (lib/elements/widgets); `color` is its accent. */
+  widget?: WidgetData;
 }
 
 /** Freehand drawing (M11, S17). Points are relative to the box (0..1), so resizing scales it. */
@@ -305,6 +307,8 @@ export interface LayoutCell {
   /** Extra turn of the cell, on top of the block's. */
   rotation?: number;
 }
+
+import type { WidgetData } from "@/lib/elements/widgets";
 
 export type CanvasElement = ImageElement | TextElement | ShapeElement | IconElement | DrawingElement | LayoutElement;
 

@@ -21,7 +21,7 @@ import { useSettings } from "@/store/settings";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { BackgroundNode } from "./BackgroundNode";
 import { ImageNode } from "./ImageNode";
-import { DrawingNode, IconNode, ShapeNode } from "./ShapeIconNodes";
+import { DrawingNode, IconNode, ShapeNode, WidgetNode } from "./ShapeIconNodes";
 import { isTouchUI } from "./interaction";
 import { applyMotion, clearMotion, hasMotion, makeSlideDuration, motionDuration } from "@/lib/motion/motion";
 import { defaultMedia, setExtraDuration, setFrameHook, setRedraw, timelineLength } from "@/lib/video/playback";
@@ -948,6 +948,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
           const hooks = { onDragMove, onDragEnd };
           if (el.type === "text") return <TextNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "shape") return <ShapeNode key={el.id} element={el} hooks={hooks} />;
+          if (el.type === "icon" && el.widget) return <WidgetNode key={el.id} element={el} widget={el.widget} hooks={hooks} />;
           if (el.type === "icon") return <IconNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "drawing") return <DrawingNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "layout") return <Fragment key={el.id}><LayoutNode element={el} />{el.art && el.cells.length === 0 && <FrameArtNode block={el} />}</Fragment>;
