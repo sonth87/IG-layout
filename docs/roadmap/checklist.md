@@ -434,8 +434,8 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] **G4** 26 khung (tranh mạ vàng, gỗ, bạc, bìa ảnh, viền hoa văn sách cổ, thiệp) + 32 mép giấy xé thật
 - [x] **G7** Nghiên cứu M21: [2026-10-18-m21-nghien-cuu.md](../discussions/2026-10-18-m21-nghien-cuu.md) + 120 filter (`assets/research/m21/filters.json`)
 - [x] Soát lại G1, G5, G6 (2026-10-18): 195 phông tự vẽ đủ chữ của ngôn ngữ khai báo (dò tự động từng ký tự có dấu); không cần sửa
-- [x] **G8** Lớp phủ: 52 (Gemini; tự merge sai quy trình, Claude duyệt sau)
-- [x] **G9** Sticker lễ hội & Việt Nam: 83 (Gemini; tự merge sai quy trình, Claude duyệt sau)
+- [x] **G8** Lớp phủ: 52 (Gemini; merge theo yêu cầu chủ dự án, Claude duyệt sau)
+- [x] **G9** Sticker lễ hội & Việt Nam: 83 (Gemini; merge theo yêu cầu chủ dự án, Claude duyệt sau)
 - [ ] Đủ điều kiện xong ở [m20-plan.md](m20-plan.md) (≥ 1.000 mục…)
 
 ### M21 — Công cụ sáng tạo (D-105)

@@ -75,12 +75,34 @@ export function App() {
   );
 
   useEffect(() => {
+    // An old page after a deploy may ask for code files that no longer exist: reload once
+    // to get the new version instead of doing nothing (owner, 2026-10-19).
+    const stale = (msg: string) => /Loading chunk|ChunkLoadError|dynamically imported module|Importing a module script failed|error loading dynamically/i.test(msg);
+    const reloadOnce = (msg: string) => {
+      if (!stale(msg)) return;
+      try {
+        if (sessionStorage.getItem("ig-layout:reloaded") === "1") return;
+        sessionStorage.setItem("ig-layout:reloaded", "1");
+      } catch {
+        // ignore
+      }
+      window.location.reload();
+    };
+    const onError = (e: ErrorEvent) => reloadOnce(String(e.message));
+    const onRejection = (e: PromiseRejectionEvent) => reloadOnce(String(e.reason?.message ?? e.reason));
+    window.addEventListener("error", onError);
+    window.addEventListener("unhandledrejection", onRejection);
     void registerServiceWorker();
     // Fetch the editor in the background once the home screen is up, so the service
     // worker has it for offline use even if no project was opened yet.
     const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1500));
     idle(() => void loadEditor());
-    return startAutosave();
+    const stopAutosave = startAutosave();
+    return () => {
+      stopAutosave?.();
+      window.removeEventListener("error", onError);
+      window.removeEventListener("unhandledrejection", onRejection);
+    };
   }, []);
 
   if (!isClient) return null;
@@ -106,7 +128,9 @@ export function App() {
           onNew={() => setNewSheet(true)}
           onUseTemplate={(tpl) => {
             const { locale } = useSettings.getState();
-            void createFromTemplate(tpl, tpl.name[locale] || translate(locale, "library.untitled"));
+            // Never fail silently (owner, 2026-10-19): say what went wrong.
+            // Failures are reported by createProject itself.
+            createFromTemplate(tpl, tpl.name[locale] || translate(locale, "library.untitled")).catch(() => {});
           }}
         />
       )}
