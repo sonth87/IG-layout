@@ -299,6 +299,30 @@ const V2: FilterDef[] = [
     bw: [0.5, 1.4, -0.9], contrast: 22,
     curve: [[0, 0], [64, 50], [128, 130], [192, 212], [255, 255]],
   }, { grain: 16, bloom: 0.35 }),
+
+  // Retro camera looks (also used by the cameras in filmfx.ts).
+  // Disposable camera with flash: hard contrast, warm, bright faces, dark falloff.
+  v2("flash", "Flash", "vintage", {
+    exposure: 0.1, temp: 8, contrast: 22, saturation: 6,
+    curve: [[0, 10], [64, 54], [128, 132], [200, 222], [255, 255]],
+    hsl: { orange: [-2, 4, 8], green: [-10, -14, 0], blue: [-6, -6, -6] },
+    grade: { shadows: [210, 8], highlights: [40, 8] },
+  }, { grain: 18, vignette: 34, bloom: 0.15 }),
+  // Early-2000s CCD compact: cool, crisp, saturated blues, hard clipped highlights.
+  v2("ccd03", "CCD 03", "vintage", {
+    temp: -12, tint: -3, contrast: 16, saturation: 12,
+    curve: [[0, 6], [64, 58], [128, 132], [192, 214], [235, 255], [255, 255]],
+    hsl: { orange: [-4, -6, 6], green: [10, 6, 0], aqua: [0, 14, 0], blue: [-6, 18, -4] },
+    grade: { shadows: [200, 10], highlights: [190, 4] },
+  }, { grain: 6 }),
+  // Cross-processed slide film: yellow-green highlights, blue shadows, punchy.
+  v2("cross", "Cross", "vintage", {
+    contrast: 24, saturation: 22,
+    curve: [[0, 0], [64, 50], [128, 130], [192, 214], [255, 255]],
+    r: [[0, 0], [128, 126], [255, 255]],
+    b: [[0, 22], [128, 120], [255, 210]],
+    grade: { shadows: [210, 8], highlights: [70, 16] },
+  }, { grain: 12, vignette: 45 }),
 ];
 
 export const FILTERS: FilterDef[] = [

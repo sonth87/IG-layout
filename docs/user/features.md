@@ -60,7 +60,7 @@ Chọn ảnh → Chọn tỉ lệ + số slide → Sắp xếp layout → Chỉn
 
 ## 5. Filter — `Đã chốt`
 
-- Bộ filter có sẵn, **có tên, chia theo nhóm phong cách** (Film, Analog, Trầm, Tươi sáng, Đen trắng, Vintage, Hiện đại, Thiên nhiên, Ẩm thực, Tương lai), có thanh chỉnh cường độ (mặc định 100; filter đen trắng luôn xám hoàn toàn). **Filter v2** (D-132): filter là công thức màu kiểu VSCO; **Film FX** (lớp phủ) và **Máy ảnh retro** là mục riêng — đang làm. **MVP** — làm trước **5 filter** để thử nghiệm, bổ sung dần sau. Chi tiết: [filters.md](filters.md).
+- Bộ filter có sẵn, **có tên, chia theo nhóm phong cách** (Film, Analog, Trầm, Tươi sáng, Đen trắng, Vintage, Hiện đại, Thiên nhiên, Ẩm thực, Tương lai), có thanh chỉnh cường độ (mặc định 100; filter đen trắng luôn xám hoàn toàn). **Filter v2** (D-132): filter là công thức màu kiểu VSCO; **Film FX** (lớp phủ: Ánh sáng, Kết cấu, Viền, Cũ hỏng, Dấu ngày) và **Máy ảnh retro** (12 máy gộp sẵn filter + lớp phủ, chạm lại để xáo) là hai mục riêng trong màn Chỉnh. Danh sách: [filters.md](filters.md). **MVP** — làm trước **5 filter** để thử nghiệm, bổ sung dần sau. Chi tiết: [filters.md](filters.md).
 - **Phạm vi áp dụng:** mặc định chỉnh **từng ảnh**. Có ô tick **"Áp dụng cho tất cả ảnh"** — **chỉ áp filter** (không áp thông số chỉnh tay), có **hộp thoại xác nhận** trước khi áp. **MVP**
 - **Tùy chỉnh:** lưu bộ chỉnh của mình thành preset riêng. **Sau**
 - Copy / dán bộ chỉnh giữa các ảnh. **Sau**

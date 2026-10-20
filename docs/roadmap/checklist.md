@@ -506,8 +506,11 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Filter v2 — đợt 1: 41 filter (Film 11, Analog 6, Trầm 8, Tươi sáng 7, Đen trắng 9) + trang thử `/labs/filters` (e2e filters.mjs)
 - [x] Sửa: vignette của filter (Instant, Moody, Golden…) trước đây không được vẽ
 - [ ] Filter v2: chủ dự án duyệt trên iPhone qua trang thử (Đẹp / Cần sửa / Bỏ) + ảnh đối chiếu VSCO (Q-F5) → chỉnh lại công thức
-- [ ] Filter v2 — Film FX: Texture (hạt, bụi, xước), Light (light leak, loé sáng), Frames (viền film), Distressed
-- [ ] Filter v2 — nhóm "Máy ảnh retro" (màu + lớp phủ gộp sẵn, light leak ngẫu nhiên, dấu ngày)
+- [x] Filter v2 — **Film FX** (mục riêng trong màn Chỉnh): Ánh sáng 7, Kết cấu 4, Viền 6, Cũ hỏng 3 + Dấu ngày; độ mạnh, nút Xáo (vị trí ngẫu nhiên theo seed); vẽ trên canvas, xuất ảnh, video (e2e filters.mjs)
+- [x] Filter v2 — **Máy ảnh retro** (12 máy: filter + lớp phủ + dấu ngày, chạm lại để xáo) + 3 filter cho máy (Flash, CCD 03, Cross)
+- [x] Trang thử: chế độ "Máy ảnh & Film FX"
+- [ ] Chủ dự án duyệt Máy ảnh / Film FX trên iPhone; chốt D-133 (áp cho tất cả gồm cả Film FX)
+- [ ] Film FX: lớp phủ từ ảnh quét thật (giấy phép CC0) nếu bản sinh bằng code chưa đủ thật
 - [ ] Filter v2 — các đợt sau: phủ đủ họ còn lại (ánh đèn, hồng ngoại màu, ảnh lấy liền, phân màu điện ảnh, tối giản…), mục tiêu 150–200
 - [ ] Filter v2 — làm lại 25 filter cũ bằng lõi mới (hoặc bỏ bớt) sau khi duyệt
 - [x] (Claude) M21 — chức năng **Hiệu ứng** (mỗi phần tử một hiệu ứng) + đợt 1: 17 hiệu ứng (D-123, e2e effects.mjs)

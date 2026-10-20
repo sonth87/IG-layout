@@ -12,6 +12,39 @@
 | Tươi sáng | Milk, Blossom, Air, Glow, Rosy, Bare, Candy | Sáng sạch, hồng, lạnh, da ấm có glow, da hồng, tự nhiên, vùng sáng hồng + vùng tối xanh ngọc (VSCO S, G, C1) |
 | Đen trắng | Silver, Grit 1600, Press 400, Soft Gray, Red Filter, Green Filter, Selenium, Platinum, Infrared | Cổ điển, đẩy ISO hạt to, phóng sự, mềm, kính lọc đỏ / xanh lá, tráng selen, in platin, hồng ngoại (VSCO B, X) |
 
+## Film FX (D-132)
+
+Lớp phủ vẽ sau màu, sinh bằng code (không có tài sản bên thứ ba), kích thước theo ảnh. Mỗi lớp có **độ mạnh** và nút **Xáo** (đổi vị trí vệt sáng, bụi…). Mỗi nhóm chọn được một lớp; các nhóm chồng lên nhau.
+
+| Nhóm | Lớp |
+|---|---|
+| Ánh sáng | Vệt sáng ấm, Vệt đỏ (dải sáng lọt qua khe máy), Vệt hồng, Loé góc, Loé ống kính (có bóng ma dọc đường chéo), Lăng kính, Nắng mờ |
+| Kết cấu | Bụi, Bụi đen, Vết xước, Giấy |
+| Viền | Film 35 mm (lỗ răng + chữ in mép), Mép phim (mép nham nhở), Ảnh lấy liền, Super 8, Khung slide, Viền trắng |
+| Cũ hỏng | Cháy film, Vết ố (hoá chất), Phai mép |
+| Ngày | Dấu ngày LED cam kiểu máy compact thập niên 90 (`'26 10 20`, sửa được) |
+
+## Máy ảnh retro (D-132)
+
+Một chạm = filter + lớp phủ (+ dấu ngày); **chạm lại** để xáo vệt sáng / bụi như Huji, Dazz. Chỉnh tay bất kỳ lớp nào thì không còn đánh dấu là máy đó.
+
+| Máy | Filter | Lớp phủ |
+|---|---|---|
+| Disposable | Flash | Vệt sáng ấm, Bụi, Ngày |
+| Compact 98 | Gold 200 | Loé góc, Bụi, Ngày |
+| Instant | Linen | Viền ảnh lấy liền, Phai mép, Bụi đen |
+| Digicam 03 | CCD 03 | Ngày |
+| Lomo | Cross | Vệt hồng |
+| Toy Cam | Vivid 100 | Vệt đỏ, Bụi |
+| Super 8 | Rust | Viền Super 8, Vết xước |
+| Night Cine | Tungsten 800 | Viền 35 mm |
+| Expired Roll | Expired | Vết ố, Vệt sáng ấm, Bụi |
+| Darkroom | Press 400 | Mép phim, Vết xước |
+| Slide Show | Slide 100 | Khung slide, Bụi |
+| Sunburnt | Honey 400 | Cháy film, Bụi |
+
+Filter thêm cho máy (nhóm Vintage): **Flash** (đèn flash máy dùng một lần), **CCD 03** (máy số đầu 2000), **Cross** (tráng chéo).
+
 ## Bộ cũ (25, M4 / M11)
 
 > Trạng thái: **Đã chốt** nhóm và tên filter (2026-10-14). Tên filter dùng **tiếng Anh**.

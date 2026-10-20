@@ -4,6 +4,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FILTER_GROUPS, FILTERS, filterById, type FilterDef, type FilterGroup } from "@/lib/color/filters";
 import { NO_ADJUST, shaderParams, vignetteOf } from "@/lib/color/params";
+import { CAMERAS, drawFilmFx, FILM_FX, type FilmFx, type FxKind } from "@/lib/color/filmfx";
 import { processImage } from "@/lib/color/processor";
 
 // Filter lab (Filter v2, docs/discussions/2026-10-20-filter-v2.md): every filter on sample
@@ -59,9 +60,9 @@ function schedule(job: () => void) {
   setTimeout(pump, 0);
 }
 
-function Rendered(props: { img: HTMLImageElement; filter: FilterDef | null; intensity: number; max: number; original?: boolean; className?: string }) {
+function Rendered(props: { img: HTMLImageElement; filter: FilterDef | null; intensity: number; max: number; original?: boolean; fx?: FilmFx; className?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
-  const { img, filter, intensity, max, original } = props;
+  const { img, filter, intensity, max, original, fx } = props;
   useEffect(() => {
     let live = true;
     schedule(() => {
@@ -83,11 +84,12 @@ function Rendered(props: { img: HTMLImageElement; filter: FilterDef | null; inte
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, c.width, c.height);
       }
+      if (!original) drawFilmFx(ctx, c.width, c.height, fx);
     });
     return () => {
       live = false;
     };
-  }, [img, filter, intensity, max, original]);
+  }, [img, filter, intensity, max, original, fx]);
   return <canvas ref={ref} className={props.className ?? "block aspect-[4/5] w-full rounded-md bg-white/5 object-cover"} />;
 }
 
@@ -96,7 +98,8 @@ const MARK_COLOR: Record<Mark, string> = { good: "bg-emerald-500", fix: "bg-ambe
 
 export function FilterLab() {
   const [photos, setPhotos] = useState<Photo[]>([]);
-  const [mode, setMode] = useState<"photo" | "filter">("photo");
+  const [mode, setMode] = useState<"photo" | "filter" | "fx">("photo");
+  const [seed, setSeed] = useState(11);
   const [photoAt, setPhotoAt] = useState(0);
   const [filterId, setFilterId] = useState(FILTERS[0].id);
   const [group, setGroup] = useState<FilterGroup | "all" | "new">("new");
@@ -173,6 +176,7 @@ export function FilterLab() {
         <div className="flex gap-2">
           <button type="button" className={tab(mode === "photo")} onClick={() => setMode("photo")}>1 ảnh × mọi filter</button>
           <button type="button" className={tab(mode === "filter")} onClick={() => setMode("filter")}>1 filter × mọi ảnh</button>
+          <button type="button" className={tab(mode === "fx")} onClick={() => setMode("fx")}>Máy ảnh & Film FX</button>
         </div>
         <div className="no-scrollbar flex gap-2 overflow-x-auto">
           {(["new", "all", ...FILTER_GROUPS] as const).map((g) => (
@@ -189,7 +193,9 @@ export function FilterLab() {
       </header>
 
       <main className="px-4 pb-16">
-        {mode === "photo" ? (
+        {mode === "fx" && photo ? (
+          <FxBoard photo={photo} photos={photos} photoAt={photoAt} setPhotoAt={setPhotoAt} seed={seed} onShuffle={() => setSeed(Math.floor(Math.random() * 1e9))} />
+        ) : mode === "photo" ? (
           <>
             <div className="no-scrollbar mb-3 flex gap-2 overflow-x-auto py-1">
               {photos.map((p, i) => (
@@ -359,5 +365,56 @@ function Detail(props: {
         />
       </div>
     </div>
+  );
+}
+
+const FX_KIND_LABEL: Record<FxKind, string> = { light: "Ánh sáng", texture: "Kết cấu", frame: "Viền", distress: "Cũ hỏng" };
+
+/** Retro cameras and every Film FX layer on one photo; Shuffle re-rolls the random parts. */
+function FxBoard(props: { photo: Photo; photos: Photo[]; photoAt: number; setPhotoAt: (i: number) => void; seed: number; onShuffle: () => void }) {
+  const { photo, seed } = props;
+  const today = new Date();
+  const stamp = `'${String(today.getFullYear() % 100).padStart(2, "0")} ${String(today.getMonth() + 1).padStart(2, "0")} ${String(today.getDate()).padStart(2, "0")}`;
+  return (
+    <>
+      <div className="no-scrollbar mb-3 flex items-center gap-2 overflow-x-auto py-1">
+        {props.photos.map((p, i) => (
+          <button key={i} type="button" onClick={() => props.setPhotoAt(i)} className={`shrink-0 overflow-hidden rounded-md ${i === props.photoAt ? "ring-2 ring-white" : "opacity-60"}`}>
+            <img src={p.img.src} alt={p.name} className="h-16 w-[52px] object-cover" />
+          </button>
+        ))}
+        <button type="button" onClick={props.onShuffle} className="h-10 shrink-0 rounded-full bg-white px-4 text-sm font-semibold text-black">
+          Xáo
+        </button>
+      </div>
+      <h2 className="mb-2 mt-2 font-semibold">Máy ảnh retro</h2>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        {CAMERAS.map((cam) => {
+          const fx: FilmFx = { date: cam.date ? stamp : undefined };
+          for (const [k, l] of Object.entries(cam.layers)) fx[k as FxKind] = { ...l, seed };
+          return (
+            <figure key={cam.id}>
+              <Rendered img={photo.img} filter={filterById(cam.filter) ?? null} intensity={100} max={720} fx={fx} />
+              <figcaption className="mt-1 text-xs">
+                <span className="font-medium">{cam.name}</span> <span className="text-white/40">{filterById(cam.filter)?.name}</span>
+              </figcaption>
+            </figure>
+          );
+        })}
+      </div>
+      {(["light", "texture", "frame", "distress"] as const).map((k) => (
+        <section key={k}>
+          <h2 className="mb-2 mt-6 font-semibold">Film FX — {FX_KIND_LABEL[k]}</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            {FILM_FX.filter((f) => f.kind === k).map((f) => (
+              <figure key={f.id}>
+                <Rendered img={photo.img} filter={null} intensity={0} max={720} fx={{ [k]: { id: f.id, amount: k === "frame" ? 100 : 75, seed } }} />
+                <figcaption className="mt-1 text-xs font-medium">{f.name.vi}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      ))}
+    </>
   );
 }

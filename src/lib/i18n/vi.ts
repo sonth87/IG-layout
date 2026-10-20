@@ -463,6 +463,17 @@ export const vi: Record<MessageKey, string> = {
 
   "tool.adjust": "Chỉnh màu",
   "tool.filters": "Filter",
+  "tool.cameras": "Máy ảnh",
+  "tool.filmFx": "Film FX",
+  "fx.kind.light": "Ánh sáng",
+  "fx.kind.texture": "Kết cấu",
+  "fx.kind.frame": "Viền",
+  "fx.kind.distress": "Cũ hỏng",
+  "fx.kind.date": "Ngày",
+  "fx.amount": "Độ mạnh",
+  "fx.shuffle": "Xáo",
+  "fx.dateStamp": "Dấu ngày",
+  "camera.hint": "Chạm lại máy đang chọn để có vệt sáng, bụi mới.",
   "tool.compare": "Giữ để so sánh",
   "tool.intensity": "Cường độ",
 
@@ -495,7 +506,7 @@ export const vi: Record<MessageKey, string> = {
   "filter.filterOnly": "chỉ filter",
   "filter.confirmTitle": "Áp “{name}” cho cả {count} ảnh?",
   "filter.confirmTitleNone": "Bỏ filter khỏi cả {count} ảnh?",
-  "filter.confirmBody": "Filter của mọi ảnh trong project sẽ bị thay. Các chỉnh màu tay của từng ảnh vẫn giữ nguyên. Có thể hoàn tác trong một bước.",
+  "filter.confirmBody": "Filter và Film FX của mọi ảnh trong project sẽ bị thay. Các chỉnh màu tay của từng ảnh vẫn giữ nguyên. Có thể hoàn tác trong một bước.",
   "filter.confirmApply": "Áp cho tất cả",
 
   "editor.adjust": "Chỉnh màu",
