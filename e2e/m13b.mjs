@@ -72,9 +72,9 @@ await page.evaluate((id) => window.__igEditor.getState().select(id), video.id);
 await page.waitForTimeout(200);
 check(await page.getByRole("button", { name: "Filters" }).isVisible(), "Filters for videos");
 await page.getByRole("button", { name: "Filters" }).click();
-await page.getByRole("tab", { name: "Mono" }).click();
+await page.getByRole("tab", { name: "B&W" }).click();
 await page.getByRole("button", { name: "Noir" }).click();
-await page.getByRole("slider", { name: /Intensity/ }).fill("100"); // default is 80
+await page.getByRole("slider", { name: /Intensity/ }).fill("100"); // already the default (D-131)
 await page.getByRole("button", { name: "Apply", exact: true }).click();
 doc = await S();
 check(doc.elements.find((e) => e.id === video.id).filter?.id === "noir", "filter saved on the video");

@@ -1,3 +1,5 @@
+import { recipeFor } from "./filters";
+import { buildLut, LUT_SIZE } from "./lut";
 import { paramsKey, type ShaderParams } from "./params";
 
 // One WebGL pass applies every colour adjustment (docs/architecture/editor-model.md, mục 7).
@@ -15,7 +17,9 @@ const FRAG = `
 precision highp float;
 varying vec2 v_uv;
 uniform sampler2D u_image;
+uniform sampler2D u_lut;
 uniform vec2 u_size;
+uniform float u_lutAmount, u_lutMono, u_bloom, u_halation;
 uniform float u_exposure, u_brightness, u_contrast, u_highlights, u_shadows;
 uniform float u_saturation, u_vibrance, u_temperature, u_tint, u_hue;
 uniform float u_grain, u_fade, u_mono, u_split, u_blur, u_sharpen;
@@ -36,6 +40,28 @@ vec3 hueRotate(vec3 c, float turns) {
 
 float rand(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
 
+// Filter v2: the recipe's 3D table, laid out as blue slices side by side (lut.ts).
+const float N = ${LUT_SIZE}.0;
+vec3 lut(vec3 c) {
+  c = clamp(c, 0.0, 1.0);
+  float b = c.b * (N - 1.0);
+  float b0 = floor(b);
+  float b1 = min(b0 + 1.0, N - 1.0);
+  float y = (c.g * (N - 1.0) + 0.5) / N;
+  float x = c.r * (N - 1.0) + 0.5;
+  vec3 s0 = texture2D(u_lut, vec2((b0 * N + x) / (N * N), y)).rgb;
+  vec3 s1 = texture2D(u_lut, vec2((b1 * N + x) / (N * N), y)).rgb;
+  return mix(s0, s1, b - b0);
+}
+
+// Film grain: smooth noise a few pixels wide (sized to the picture, so preview and export match).
+float noise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(rand(i), rand(i + vec2(1.0, 0.0)), f.x), mix(rand(i + vec2(0.0, 1.0)), rand(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+
 void main() {
   vec4 src = texture2D(u_image, v_uv);
   vec3 c = src.rgb;
@@ -53,6 +79,28 @@ void main() {
     vec3 n = texture2D(u_image, v_uv + vec2(px.x, 0.0)).rgb + texture2D(u_image, v_uv - vec2(px.x, 0.0)).rgb
            + texture2D(u_image, v_uv + vec2(0.0, px.y)).rgb + texture2D(u_image, v_uv - vec2(0.0, px.y)).rgb;
     c += (c - n * 0.25) * u_sharpen * 2.0;
+  }
+
+  if (u_lutAmount > 0.0) {
+    vec3 base = mix(c, vec3(luma(c)), u_lutMono);
+    c = mix(base, lut(c), u_lutAmount);
+  }
+  // Glow: bright parts of the photo spread over a small disc (golden-angle spiral).
+  if (u_bloom + u_halation > 0.0) {
+    float r = min(u_size.x, u_size.y) * 0.018;
+    vec3 glow = vec3(0.0);
+    for (int i = 0; i < 24; i++) {
+      float a = float(i) * 2.39996;
+      vec2 o = vec2(cos(a), sin(a)) * sqrt((float(i) + 0.5) / 24.0) * r * px;
+      vec3 s = texture2D(u_image, v_uv + o).rgb;
+      glow += s * smoothstep(0.6, 0.95, luma(s));
+    }
+    glow /= 24.0;
+    c = 1.0 - (1.0 - c) * (1.0 - glow * u_bloom);
+    // Halation only spills past the edge of a light onto what is darker around it.
+    float here = smoothstep(0.6, 0.95, luma(src.rgb));
+    float spill = max(0.0, luma(glow) - here * 0.9);
+    c += vec3(1.0, 0.28, 0.1) * spill * u_halation * 2.5;
   }
 
   c *= pow(2.0, u_exposure);
@@ -79,7 +127,12 @@ void main() {
   c += (u_splitShadows - 0.5) * (1.0 - l) * u_split + (u_splitHighlights - 0.5) * l * u_split;
 
   c = c * (1.0 - u_fade * 0.22) + u_fade * 0.1;
-  c += (rand(v_uv * u_size) - 0.5) * u_grain * 0.18;
+  if (u_grain > 0.0) {
+    vec2 gp = v_uv * u_size / max(1.0, min(u_size.x, u_size.y) / 800.0);
+    float g = noise(gp) * 0.65 + noise(gp * 2.3 + 17.0) * 0.35 - 0.5;
+    float gl = luma(clamp(c, 0.0, 1.0));
+    c += g * u_grain * 0.3 * (0.35 + 2.2 * gl * (1.0 - gl));
+  }
 
   gl_FragColor = vec4(clamp(c, 0.0, 1.0), src.a);
 }`;
@@ -91,6 +144,9 @@ interface GL {
   canvas: HTMLCanvasElement;
   uniforms: Uniforms;
   texture: WebGLTexture;
+  lutTexture: WebGLTexture;
+  /** Recipe currently in lutTexture. */
+  lutId: string;
   maxSize: number;
   /** Last uploaded source, to skip re-uploading while dragging a slider. */
   uploaded: { source: CanvasImageSource; width: number; height: number } | null;
@@ -129,12 +185,25 @@ function init(): GL | null {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 
+  const lutTexture = gl.createTexture()!;
+  gl.activeTexture(gl.TEXTURE1);
+  gl.bindTexture(gl.TEXTURE_2D, lutTexture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
+  gl.activeTexture(gl.TEXTURE0);
+  gl.uniform1i(gl.getUniformLocation(program, "u_image"), 0);
+  gl.uniform1i(gl.getUniformLocation(program, "u_lut"), 1);
+
   const names = [
     "size", "exposure", "brightness", "contrast", "highlights", "shadows", "saturation", "vibrance",
     "temperature", "tint", "hue", "grain", "fade", "mono", "split", "blur", "sharpen", "monoTint", "splitShadows", "splitHighlights",
+    "lutAmount", "lutMono", "bloom", "halation",
   ];
   const uniforms = Object.fromEntries(names.map((n) => [n, gl.getUniformLocation(program, `u_${n}`)]));
-  return { gl, canvas, uniforms, texture, maxSize: gl.getParameter(gl.MAX_TEXTURE_SIZE), uploaded: null };
+  return { gl, canvas, uniforms, texture, lutTexture, lutId: "", maxSize: gl.getParameter(gl.MAX_TEXTURE_SIZE), uploaded: null };
 }
 
 function context() {
@@ -166,6 +235,14 @@ function fit(source: CanvasImageSource & { width: number; height: number }, max:
   return { image: c as CanvasImageSource, width: c.width, height: c.height };
 }
 
+// Baked tables (≈ 140 KB each), kept for the filters used this session.
+const luts = new Map<string, Uint8Array>();
+function lutBytes(id: string, recipe: NonNullable<ReturnType<typeof recipeFor>>) {
+  let bytes = luts.get(id);
+  if (!bytes) luts.set(id, (bytes = buildLut(recipe)));
+  return bytes;
+}
+
 function render(
   source: HTMLImageElement | HTMLCanvasElement,
   p: ShaderParams,
@@ -188,6 +265,18 @@ function render(
     g.uploaded = { source: image, width, height };
   }
   gl.uniform2f(u.size, width, height);
+  const recipe = p.lut ? recipeFor(p.lut) : undefined;
+  if (recipe && g.lutId !== p.lut) {
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, g.lutTexture);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, LUT_SIZE * LUT_SIZE, LUT_SIZE, 0, gl.RGBA, gl.UNSIGNED_BYTE, lutBytes(p.lut, recipe));
+    gl.activeTexture(gl.TEXTURE0);
+    g.lutId = p.lut;
+  }
+  gl.uniform1f(u.lutAmount, recipe ? p.lutAmount : 0);
+  gl.uniform1f(u.lutMono, recipe ? p.lutMono : 0);
+  gl.uniform1f(u.bloom, p.bloom);
+  gl.uniform1f(u.halation, p.halation);
   for (const key of ["exposure", "brightness", "contrast", "highlights", "shadows", "saturation", "vibrance", "temperature", "tint", "hue", "grain", "fade", "mono", "split", "blur", "sharpen"] as const) {
     gl.uniform1f(u[key], p[key]);
   }

@@ -1,5 +1,19 @@
 # Bộ filter
 
+> **Filter v2 (D-132, 2026-10-20):** đợt 1 thêm 41 filter công thức (bảng dưới). Phân tích, tham khảo VSCO và lộ trình: [discussions/2026-10-20-filter-v2.md](../discussions/2026-10-20-filter-v2.md). Trang thử: `/labs/filters`.
+
+## Filter v2 — đợt 1 (41)
+
+| Nhóm | Filter | Phong cách tham chiếu |
+|---|---|---|
+| Film | Honey 400, Velvet 160, Gold 200, Vivid 100, Verde 400, Mint 400, Slide 100, Tungsten 800, Expired, Cine 50, Street 200 | Film âm bản chân dung ấm / mịn, film vàng phổ thông, film rực hạt mịn, film Nhật xanh lá, film pastel dư sáng, film dương bản, film điện ảnh ánh đèn (có halation), film hết hạn, film điện ảnh ban ngày, film châu Âu (VSCO Film X) |
+| Analog | Linen, Cotton, Peach, Sage, Dune, Haze | Pastel, trung tông nâng, hơi dư sáng / tự nhiên, hơi phai (VSCO A) |
+| Trầm | Tide, Mellow, Quiet, Rust, Dusk, Ember, Smoke, Ash | Phai xanh như film thiếu sáng, nhẹ nhàng, ấm ngả gỉ sét, trầm lạnh / ấm, phai xám (VSCO F, M, T) |
+| Tươi sáng | Milk, Blossom, Air, Glow, Rosy, Bare, Candy | Sáng sạch, hồng, lạnh, da ấm có glow, da hồng, tự nhiên, vùng sáng hồng + vùng tối xanh ngọc (VSCO S, G, C1) |
+| Đen trắng | Silver, Grit 1600, Press 400, Soft Gray, Red Filter, Green Filter, Selenium, Platinum, Infrared | Cổ điển, đẩy ISO hạt to, phóng sự, mềm, kính lọc đỏ / xanh lá, tráng selen, in platin, hồng ngoại (VSCO B, X) |
+
+## Bộ cũ (25, M4 / M11)
+
 > Trạng thái: **Đã chốt** nhóm và tên filter (2026-10-14). Tên filter dùng **tiếng Anh**.
 > **Đã làm đủ** (M11, 2026-10-16): 20 filter trong bảng + nhóm Thiên nhiên (Forest, Golden, Skyline) và Ẩm thực (Warm Plate, Fresh) = 25 filter. Cần chủ dự án xem trên ảnh thật.
 > Nguyên tắc: filter có **tên** và được chia theo **nhóm phong cách**. Làm trước 5 filter thử nghiệm, bổ sung dần.

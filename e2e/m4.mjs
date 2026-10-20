@@ -105,7 +105,7 @@ await page.getByLabel("Cancel").click();
 
 console.log("3. Filter + apply to all (with confirmation)");
 await page.getByRole("button", { name: "Filters" }).click();
-await page.getByRole("tab", { name: "Mono" }).click();
+await page.getByRole("tab", { name: "B&W" }).click();
 await page.getByRole("button", { name: "Classic" }).click();
 await page.getByRole("slider").fill("100");
 check(gray(await pixel(spot.x, spot.y)), "Classic at 100% previews grayscale");

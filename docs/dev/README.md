@@ -56,7 +56,7 @@ src/
     project/slides.ts     thêm / xóa / đổi chỗ slide; Grid: thêm / bớt hàng, bật / tắt bù khe
     project/migrate.ts    nâng cấp dữ liệu project cũ
     templates/          types, library (layout cho LayoutPicker), designs (template thiết kế sẵn có chữ, cho trang chủ), apply (template → phần tử)
-    color/              params (thông số màu), filters (danh sách filter), processor (WebGL + cache)
+    color/              params (thông số màu), filters (danh sách filter + công thức filter v2), lut (công thức → bảng tra màu 3D), processor (WebGL + cache)
     text/fonts.ts       danh sách 78 font (nhóm, độ đậm) + chờ font tải; text/webfonts.ts khai báo next/font (đi cùng trình chỉnh sửa)
     elements/           create (tạo chữ / hình / icon / sticker / lớp phủ / khung), stickers (SVG tự vẽ), overlays (lớp phủ sinh bằng code), resize (co giãn cỡ chữ, viền theo tỉ lệ), shapes (vẽ hình), icons (Lucide)
   app/fonts.ts          khai báo 6 font (next/font), dùng chung cho giao diện và canvas
@@ -77,6 +77,7 @@ src/
   store/settings.ts     theme, ngôn ngữ (localStorage) + useT()
 public/sw.js           service worker (offline; chỉ "/" làm bản offline)
 public/labs/video.html trang thử nghiệm video M13 (độc lập, không thuộc app)
+src/app/labs/filters  trang thử filter v2 (/labs/filters — dùng chính bộ xử lý màu của app, không có link trong app); ảnh mẫu ở public/labs/filter-samples
 scripts/              copy-ort.mjs (runtime ONNX), build-emoji.mjs (sticker emoji) — chạy trong pnpm dev / build; đổi tên CACHE khi đổi chiến lược cache
 ```
 
