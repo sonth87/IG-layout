@@ -133,6 +133,8 @@ type Tool =
 const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "widgetColor", "effect"];
 /** Sheets about the selected element: they close (keeping their edits) when the selection changes (owner, 2026-10-19). */
 const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "widgetColor", "effect"];
+/** Sheets about the project / slides, not an element: they stay open when nothing is selected. */
+const GLOBAL_TOOLS: Tool[] = ["elements", "background", "slides", "layout", "layers", "draw", "music", "newSlide", "projectMenu", "library", "newLayer", "ratio", "preview"];
 
 /**
  * Stage pixels per export pixel at zoom 1, and the height the canvas is centred in.
@@ -433,7 +435,10 @@ export function Editor({ onClose }: { onClose: () => void }) {
     () =>
       useEditor.subscribe((s, prev) => {
         const t = toolRef.current;
-        if (s.selectedId === prev.selectedId || !t || !ELEMENT_TOOLS.includes(t)) return;
+        if (s.selectedId === prev.selectedId || !t) return;
+        // Deselecting (tap outside) closes any element sheet too: it was only hidden, and came
+        // back on the next tap of the element (owner 2026-10-20).
+        if (!ELEMENT_TOOLS.includes(t) && !(s.selectedId === null && !GLOBAL_TOOLS.includes(t))) return;
         if (s.draft) s.applyDraft();
         setTool(null);
       }),
