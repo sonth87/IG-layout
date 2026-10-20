@@ -175,10 +175,9 @@ export function PhotoEditScreen({ elementId, start, onClose }: { elementId: stri
         </div>
       </header>
 
-      <div className="flex min-h-0 flex-1 items-center justify-center px-2">
-        <div className="relative max-h-full max-w-full">
-          <canvas ref={canvasRef} className="block max-h-[calc(100dvh-300px)] max-w-full object-contain" style={{ height: "auto", width: "100%" }} />
-        </div>
+      {/* The photo takes whatever height the tool panel leaves (panels differ in height). */}
+      <div className="relative mx-2 min-h-0 flex-1">
+        <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full object-contain" />
       </div>
 
       {/* The selected tool. */}

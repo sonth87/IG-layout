@@ -87,8 +87,22 @@ const bottom = await ed.evaluate(({ x, y }) => {
 check(bottom.every((v) => v > 225), `instant frame drawn on the canvas (${bottom})`);
 await ed.screenshot({ path: path.join(OUT, "filters-cameras.png") });
 await ed.getByRole("tab", { name: "Film FX" }).click();
+await ed.getByRole("button", { name: "Warm leak" }).click();
 await ed.waitForTimeout(400);
 await ed.screenshot({ path: path.join(OUT, "filters-fx.png") });
+// The photo never covers the tool panel (owner 2026-10-20: it did on a short window).
+const overlap = () =>
+  ed.evaluate(() => {
+    const photo = document.querySelector('[role="dialog"] canvas').getBoundingClientRect();
+    const panel = document.querySelector('[role="dialog"] section').getBoundingClientRect();
+    return Math.round(photo.bottom - panel.top);
+  });
+check((await overlap()) <= 0, `photo above the Film FX panel on a phone (${await overlap()} px)`);
+await ed.setViewportSize({ width: 900, height: 560 });
+await ed.waitForTimeout(400);
+check((await overlap()) <= 0, `photo above the Film FX panel in a short window (${await overlap()} px)`);
+await ed.screenshot({ path: path.join(OUT, "filters-fx-short.png") });
+await ed.setViewportSize({ width: 390, height: 844 });
 await ed.getByRole("tab", { name: "Date" }).click();
 await ed.getByRole("checkbox", { name: "Date stamp" }).check();
 st1 = await state();

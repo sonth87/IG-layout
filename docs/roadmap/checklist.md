@@ -509,6 +509,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Filter v2 — **Film FX** (mục riêng trong màn Chỉnh): Ánh sáng 7, Kết cấu 4, Viền 6, Cũ hỏng 3 + Dấu ngày; độ mạnh, nút Xáo (vị trí ngẫu nhiên theo seed); vẽ trên canvas, xuất ảnh, video (e2e filters.mjs)
 - [x] Filter v2 — **Máy ảnh retro** (12 máy: filter + lớp phủ + dấu ngày, chạm lại để xáo) + 3 filter cho máy (Flash, CCD 03, Cross)
 - [x] Trang thử: chế độ "Máy ảnh & Film FX"
+- [x] Sửa (góp ý 20/10): màn Chỉnh — ảnh đè lên bảng Film FX khi bảng cao (cửa sổ thấp); ảnh giờ co theo chỗ còn lại (e2e filters.mjs)
 - [ ] Chủ dự án duyệt Máy ảnh / Film FX trên iPhone; chốt D-133 (áp cho tất cả gồm cả Film FX)
 - [ ] Film FX: lớp phủ từ ảnh quét thật (giấy phép CC0) nếu bản sinh bằng code chưa đủ thật
 - [x] Filter v2 — đợt 2: 28 filter (hồng ngoại màu 2, Rực rỡ 6, Lấy liền 5, Điện ảnh 6, Đô thị 5, Ánh đèn 4) → 72 filter công thức
