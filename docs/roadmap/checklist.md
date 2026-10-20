@@ -511,7 +511,8 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Trang thử: chế độ "Máy ảnh & Film FX"
 - [ ] Chủ dự án duyệt Máy ảnh / Film FX trên iPhone; chốt D-133 (áp cho tất cả gồm cả Film FX)
 - [ ] Film FX: lớp phủ từ ảnh quét thật (giấy phép CC0) nếu bản sinh bằng code chưa đủ thật
-- [ ] Filter v2 — các đợt sau: phủ đủ họ còn lại (ánh đèn, hồng ngoại màu, ảnh lấy liền, phân màu điện ảnh, tối giản…), mục tiêu 150–200
+- [x] Filter v2 — đợt 2: 28 filter (hồng ngoại màu 2, Rực rỡ 6, Lấy liền 5, Điện ảnh 6, Đô thị 5, Ánh đèn 4) → 72 filter công thức
+- [ ] Filter v2 — các đợt sau: thêm biến thể mỗi họ (mỗi họ VSCO có 3–10), mục tiêu 150–200, sau khi chủ dự án duyệt hướng màu
 - [ ] Filter v2 — làm lại 25 filter cũ bằng lõi mới (hoặc bỏ bớt) sau khi duyệt
 - [x] (Claude) M21 — chức năng **Hiệu ứng** (mỗi phần tử một hiệu ứng) + đợt 1: 17 hiệu ứng (D-123, e2e effects.mjs)
 - [x] M21 — Hiệu ứng đợt 2 (19) + sửa Chảy (dòng + hạt giọt) và Phản chiếu (mặt nước tự nhiên) theo góp ý (D-124, e2e effects.mjs)

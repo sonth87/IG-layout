@@ -12,6 +12,19 @@
 | Tươi sáng | Milk, Blossom, Air, Glow, Rosy, Bare, Candy | Sáng sạch, hồng, lạnh, da ấm có glow, da hồng, tự nhiên, vùng sáng hồng + vùng tối xanh ngọc (VSCO S, G, C1) |
 | Đen trắng | Silver, Grit 1600, Press 400, Soft Gray, Red Filter, Green Filter, Selenium, Platinum, Infrared | Cổ điển, đẩy ISO hạt to, phóng sự, mềm, kính lọc đỏ / xanh lá, tráng selen, in platin, hồng ngoại (VSCO B, X) |
 
+## Filter v2 — đợt 2 (28)
+
+| Nhóm | Filter | Phong cách tham chiếu |
+|---|---|---|
+| Film (thêm) | Aero Pink, Aero Gold | Phim hồng ngoại màu: lá thành đỏ thẫm / vàng, trời sẫm (VSCO IR) |
+| Rực rỡ | Pop, Cherry, Citrus, Lagoon, Sunny, Tropic | Rực, đỏ hồng, vàng cam, xanh ngọc, ấm rực, nhiệt đới (VSCO C, KK) |
+| Lấy liền | Snapshot, Seventies, Cool Shot, Pale, Peel | Ảnh lấy liền: ấm sáng / vùng tối xanh ngọc, nâu thập niên 70, ngả lam, dư sáng bạc màu, film bóc tách ngả xanh lục – hồng (VSCO P) |
+| Điện ảnh | Blockbuster, Thriller, Bleach, Golden Age, Reverie, Arctic | Teal & cam, trầm xanh lục, bỏ tẩy (bạc, gắt), màu phim cổ điển rực, mơ màng hồng tím, lạnh băng (VSCO CG) |
+| Đô thị | Concrete, Steel, Street Cool, Gallery, Shade | Phố lạnh giảm màu, xám thép, phố lạnh tương phản, tối giản sáng sạch, tối giản trầm (VSCO HB, J) |
+| Ánh đèn | Lamp, Fluoro, Neon Night, Candle | Khử vàng đèn sợi đốt, khử xanh đèn tuýp, làm rực neon đêm, ấm ánh nến (VSCO AL) |
+
+Tổng filter công thức: **72** (41 đợt 1 + 3 cho máy ảnh + 28 đợt 2), cùng 25 filter cũ.
+
 ## Film FX (D-132)
 
 Lớp phủ vẽ sau màu, sinh bằng code (không có tài sản bên thứ ba), kích thước theo ảnh. Mỗi lớp có **độ mạnh** và nút **Xáo** (đổi vị trí vệt sáng, bụi…). Mỗi nhóm chọn được một lớp; các nhóm chồng lên nhau.
