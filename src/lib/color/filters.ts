@@ -5,9 +5,13 @@ import type { FilterPreset } from "./params";
 // Names stay in English in every language. First 5 for testing (D-15), the rest of the
 // agreed list + nature / food groups in M11 (S10). Adding a filter = adding an entry here.
 
-export type FilterGroup = "film" | "analog" | "mood" | "bright" | "mono" | "vintage" | "modern" | "future" | "nature" | "food";
+export type FilterGroup =
+  | "film" | "analog" | "mood" | "bright" | "vivid" | "instant" | "cinema" | "urban" | "lights"
+  | "mono" | "vintage" | "modern" | "future" | "nature" | "food";
 
-export const FILTER_GROUPS: FilterGroup[] = ["film", "analog", "mood", "bright", "mono", "vintage", "modern", "nature", "food", "future"];
+export const FILTER_GROUPS: FilterGroup[] = [
+  "film", "analog", "mood", "bright", "vivid", "instant", "cinema", "urban", "lights", "mono", "vintage", "modern", "nature", "food", "future",
+];
 
 export interface FilterDef {
   id: string;
@@ -299,6 +303,172 @@ const V2: FilterDef[] = [
     bw: [0.5, 1.4, -0.9], contrast: 22,
     curve: [[0, 0], [64, 50], [128, 130], [192, 212], [255, 255]],
   }, { grain: 16, bloom: 0.35 }),
+
+  // ── Batch 2 (D-132): the remaining VSCO families ──
+  // Colour infrared film: foliage turns red / pink or gold, skies deepen.
+  v2("aeropink", "Aero Pink", "film", {
+    contrast: 14, saturation: -4,
+    curve: [[0, 0], [64, 56], [128, 130], [192, 206], [255, 255]],
+    hsl: { yellow: [-80, -16, 10], green: [-135, -22, 12], aqua: [-20, 0, -4], blue: [-6, 16, -14] },
+    grade: { shadows: [230, 8] },
+  }, { grain: 12 }),
+  v2("aerogold", "Aero Gold", "film", {
+    contrast: 14, saturation: 10, temp: 6,
+    hsl: { yellow: [-24, 20, 6], green: [-80, 26, 8], blue: [4, 14, -12] },
+    grade: { highlights: [45, 8] },
+  }, { grain: 12 }),
+
+  // Vivid — chromatic, punchy colour (VSCO C, KK).
+  v2("pop", "Pop", "vivid", {
+    exposure: 0.08, contrast: 14, saturation: 22, vibrance: 16,
+    curve: [[0, 4], [64, 60], [128, 132], [192, 206], [255, 255]],
+    hsl: { orange: [0, -4, 6], blue: [-4, 10, -6] },
+  }),
+  v2("cherry", "Cherry", "vivid", {
+    contrast: 12, saturation: 12, tint: 4,
+    curve: [[0, 6], [64, 60], [128, 130], [192, 204], [255, 252]],
+    hsl: { red: [-4, 26, -6], magenta: [-6, 18, 0], orange: [-4, 0, 6], green: [10, -14, 0] },
+    grade: { highlights: [345, 8] },
+  }),
+  v2("citrus", "Citrus", "vivid", {
+    temp: 12, contrast: 10, saturation: 16,
+    hsl: { orange: [4, 12, 6], yellow: [-4, 26, 8], green: [-14, 10, 0], blue: [-4, -10, 0] },
+    grade: { highlights: [55, 12] },
+  }),
+  v2("lagoon", "Lagoon", "vivid", {
+    temp: -6, contrast: 12, saturation: 14,
+    hsl: { aqua: [-6, 28, 0], blue: [-10, 22, -6], green: [16, 10, 0], orange: [0, -6, 6] },
+    grade: { shadows: [190, 12] },
+  }),
+  v2("sunny", "Sunny", "vivid", {
+    exposure: 0.06, temp: 18, contrast: 8, saturation: 12, vibrance: 14,
+    curve: [[0, 8], [64, 66], [128, 136], [192, 206], [255, 252]],
+    hsl: { orange: [-2, 6, 8], green: [-12, 0, 0] },
+    grade: { highlights: [40, 14] },
+  }),
+  v2("tropic", "Tropic", "vivid", {
+    temp: 6, contrast: 16, saturation: 18,
+    hsl: { green: [8, 22, -4], aqua: [-10, 24, 0], yellow: [-8, 14, 0], orange: [0, 4, 4] },
+    grade: { shadows: [170, 10], highlights: [45, 10] },
+  }),
+
+  // Instant — peel-apart and integral instant film (VSCO P).
+  v2("snapshot", "Snapshot", "instant", {
+    exposure: 0.08, contrast: -16, saturation: -14, temp: 6,
+    curve: [[0, 26], [64, 76], [128, 140], [192, 200], [255, 238]],
+    hsl: { green: [10, -20, 4], blue: [-14, -18, 6] },
+    grade: { shadows: [185, 16], highlights: [45, 14] },
+  }, { grain: 10, vignette: 18 }),
+  v2("seventies", "Seventies", "instant", {
+    temp: 22, tint: 6, contrast: -12, saturation: -26,
+    curve: [[0, 30], [64, 76], [128, 134], [192, 188], [255, 226]],
+    hsl: { green: [-20, -30, 0], blue: [-30, -40, 0] },
+    grade: { shadows: [25, 14], midtones: [30, 10], highlights: [42, 12] },
+  }, { grain: 14, vignette: 24 }),
+  v2("coolshot", "Cool Shot", "instant", {
+    temp: -18, contrast: -10, saturation: -18,
+    curve: [[0, 28], [64, 74], [128, 132], [192, 194], [255, 236]],
+    b: [[0, 20], [255, 250]],
+    grade: { shadows: [200, 14], highlights: [180, 8] },
+  }, { grain: 12, vignette: 18 }),
+  v2("pale", "Pale", "instant", {
+    exposure: 0.3, contrast: -26, saturation: -22,
+    curve: [[0, 40], [64, 104], [128, 166], [192, 216], [255, 244]],
+    grade: { shadows: [190, 8], highlights: [40, 8] },
+  }, { grain: 8, bloom: 0.2 }),
+  v2("peel", "Peel", "instant", {
+    tint: -10, contrast: -8, saturation: -10,
+    curve: [[0, 22], [64, 70], [128, 132], [192, 198], [255, 240]],
+    hsl: { orange: [-6, -4, 6], red: [-8, 6, 0] },
+    grade: { shadows: [140, 14], highlights: [330, 12] },
+  }, { grain: 12, vignette: 14 }),
+
+  // Cinema — colour grading looks (VSCO CG).
+  v2("blockbuster", "Blockbuster", "cinema", {
+    contrast: 18, saturation: 4,
+    curve: [[0, 4], [64, 54], [128, 128], [192, 206], [255, 250]],
+    hsl: { orange: [4, 14, 4], aqua: [-4, 12, -4], blue: [-20, 8, -8], green: [30, -20, -6] },
+    grade: { shadows: [190, 24], highlights: [32, 16] },
+  }, { grain: 6 }),
+  v2("thriller", "Thriller", "cinema", {
+    exposure: -0.12, temp: -4, tint: -10, contrast: 14, saturation: -34,
+    curve: [[0, 10], [64, 50], [128, 120], [192, 192], [255, 236]],
+    grade: { shadows: [160, 14], midtones: [90, 6], highlights: [60, 6] },
+  }, { grain: 10, vignette: 26 }),
+  v2("bleach", "Bleach", "cinema", {
+    contrast: 30, saturation: -46,
+    curve: [[0, 0], [48, 30], [128, 130], [200, 222], [255, 255]],
+    grade: { shadows: [200, 6] },
+  }, { grain: 14 }),
+  v2("technic", "Golden Age", "cinema", {
+    temp: 8, contrast: 14, saturation: 18,
+    curve: [[0, 10], [64, 60], [128, 130], [192, 202], [255, 246]],
+    hsl: { red: [2, 20, -6], orange: [2, 4, 4], blue: [6, 10, -10], green: [-6, 4, -6] },
+    grade: { shadows: [210, 8], highlights: [45, 10] },
+  }, { grain: 8, bloom: 0.12 }),
+  v2("reverie", "Reverie", "cinema", {
+    exposure: 0.1, tint: 10, contrast: -12, saturation: -6,
+    curve: [[0, 22], [64, 76], [128, 138], [192, 204], [255, 246]],
+    grade: { shadows: [270, 14], highlights: [330, 12] },
+  }, { bloom: 0.3 }),
+  v2("arctic", "Arctic", "cinema", {
+    temp: -30, contrast: 10, saturation: -20,
+    curve: [[0, 8], [64, 58], [128, 128], [192, 200], [255, 248]],
+    hsl: { orange: [0, 10, 4] },
+    grade: { shadows: [215, 16], highlights: [195, 8] },
+  }, { grain: 6 }),
+
+  // Urban — cool streets and minimal clean frames (VSCO HB, J).
+  v2("concrete", "Concrete", "urban", {
+    temp: -8, contrast: 16, saturation: -26,
+    curve: [[0, 8], [64, 54], [128, 126], [192, 202], [255, 248]],
+    hsl: { orange: [0, 10, 0], red: [0, 10, 0] },
+    grade: { shadows: [210, 10] },
+  }, { grain: 10 }),
+  v2("steel", "Steel", "urban", {
+    temp: -16, contrast: 10, saturation: -34,
+    curve: [[0, 14], [64, 62], [128, 128], [192, 196], [255, 244]],
+    grade: { shadows: [215, 14], highlights: [205, 6] },
+  }, { grain: 8 }),
+  v2("streetcool", "Street Cool", "urban", {
+    temp: -10, contrast: 20, saturation: -8,
+    curve: [[0, 0], [64, 52], [128, 128], [192, 206], [255, 255]],
+    hsl: { red: [0, 14, 0], yellow: [-10, -20, 0], green: [20, -30, -6], blue: [-6, 8, -10] },
+    grade: { shadows: [200, 12], highlights: [40, 4] },
+  }, { grain: 10 }),
+  v2("gallery", "Gallery", "urban", {
+    exposure: 0.12, contrast: -4, saturation: -24,
+    curve: [[0, 12], [64, 72], [128, 142], [192, 210], [255, 254]],
+    grade: { highlights: [50, 3] },
+  }),
+  v2("shade", "Shade", "urban", {
+    contrast: -10, saturation: -30,
+    curve: [[0, 20], [64, 66], [128, 128], [192, 192], [255, 240]],
+    grade: { shadows: [210, 6], highlights: [40, 4] },
+  }),
+
+  // Lights — indoor and night light: neutralise or play up lamps, tubes, neon (VSCO AL).
+  v2("lamp", "Lamp", "lights", {
+    temp: -26, contrast: 6, saturation: -6,
+    hsl: { orange: [4, -10, 6], yellow: [-6, -20, 0] },
+    grade: { highlights: [40, 4] },
+  }),
+  v2("fluoro", "Fluoro", "lights", {
+    tint: 22, temp: 4, contrast: 6,
+    hsl: { green: [10, -20, 0], yellow: [-6, -10, 0], orange: [0, 0, 6] },
+  }),
+  v2("neonnight", "Neon Night", "lights", {
+    exposure: -0.1, contrast: 22, saturation: 20, vibrance: 14,
+    curve: [[0, 0], [64, 44], [128, 124], [192, 206], [255, 255]],
+    hsl: { magenta: [0, 20, 6], purple: [0, 20, 6], aqua: [0, 20, 4], blue: [0, 14, 0] },
+    grade: { shadows: [240, 12] },
+  }, { grain: 10, bloom: 0.3 }),
+  v2("candle", "Candle", "lights", {
+    temp: 20, contrast: 4, saturation: -6,
+    curve: [[0, 12], [64, 62], [128, 130], [192, 200], [255, 244]],
+    hsl: { orange: [-2, 4, 6], blue: [0, -30, 0] },
+    grade: { shadows: [30, 12], highlights: [40, 10] },
+  }, { grain: 12, vignette: 22, bloom: 0.2 }),
 
   // Retro camera looks (also used by the cameras in filmfx.ts).
   // Disposable camera with flash: hard contrast, warm, bright faces, dark falloff.
