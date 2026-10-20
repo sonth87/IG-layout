@@ -182,11 +182,11 @@ export function PhotoEditScreen({ elementId, start, onClose }: { elementId: stri
             <div className="no-scrollbar flex gap-2 overflow-x-auto pb-2">
               <Chip image={image} filter={null} active={!look.filter} label={t("filter.none")} onClick={() => set({ ...look, filter: null }, "filter")} />
               {filters.map((f) => (
-                <Chip key={f.id} image={image} filter={f} active={look.filter?.id === f.id} label={f.name} onClick={() => set({ ...look, filter: { id: f.id, intensity: look.filter?.intensity ?? 80 } }, "filter")} />
+                <Chip key={f.id} image={image} filter={f} active={look.filter?.id === f.id} label={f.name} onClick={() => set({ ...look, filter: { id: f.id, intensity: look.filter?.intensity ?? 100 } }, "filter")} />
               ))}
             </div>
             {look.filter && current && (
-              <Slider label={t("tool.intensity")} value={look.filter.intensity} min={0} max={100} defaultValue={80} onChange={(v) => set({ ...look, filter: { ...look.filter!, intensity: v } }, "intensity")} />
+              <Slider label={t("tool.intensity")} value={look.filter.intensity} min={0} max={100} defaultValue={100} onChange={(v) => set({ ...look, filter: { ...look.filter!, intensity: v } }, "intensity")} />
             )}
             {photoCount > 1 && (
               <label className="flex items-center gap-3 rounded-[14px] bg-white/10 px-3.5 py-2.5 text-sm">

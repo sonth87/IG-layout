@@ -96,8 +96,9 @@ export function shaderParams(adjust: Adjustments, preset: FilterPreset | undefin
     fade: v("fade") / 100,
     blur: v("blur") / 100,
     sharpen: v("sharpen") / 100,
-    mono: (preset?.mono ?? 0) * k,
-    monoTint: preset?.monoTint ?? [1, 1, 1],
+    // A black-and-white filter stays fully grey at any intensity; intensity only scales its tone and tint (owner 2026-10-20).
+    mono: preset?.mono && k > 0 ? preset.mono : 0,
+    monoTint: (preset?.monoTint ?? [1, 1, 1]).map((c) => 1 + (c - 1) * k) as [number, number, number],
     splitShadows: preset?.split?.shadows ?? [0.5, 0.5, 0.5],
     splitHighlights: preset?.split?.highlights ?? [0.5, 0.5, 0.5],
     split: (preset?.split?.strength ?? 0) * k,
