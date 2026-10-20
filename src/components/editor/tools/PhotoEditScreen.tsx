@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { FILTER_GROUPS, FILTERS, filterById, type FilterDef, type FilterGroup } from "@/lib/color/filters";
-import { type Adjustments, ADJUST_MIN, type AdjustKey, type FilterRef, NO_ADJUST, shaderParams } from "@/lib/color/params";
+import { type Adjustments, ADJUST_MIN, type AdjustKey, type FilterRef, NO_ADJUST, shaderParams, vignetteOf } from "@/lib/color/params";
 import { processImage } from "@/lib/color/processor";
 import { type ImageElement, isImage, stillUrl } from "@/lib/project/types";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
@@ -155,8 +155,8 @@ export function PhotoEditScreen({ elementId, start, onClose }: { elementId: stri
         <div className="relative max-h-full max-w-full">
           <canvas ref={canvasRef} className="block max-h-[calc(100dvh-300px)] max-w-full object-contain" style={{ height: "auto", width: "100%" }} />
           {/* Vignette is drawn on the canvas over the photo; shown here the same way. */}
-          {!comparing && look.adjust.vignette > 0 && (
-            <div className="pointer-events-none absolute inset-0" style={{ background: `radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,${(look.adjust.vignette / 100) * 0.75}) 100%)` }} />
+          {!comparing && vignetteOf(look.adjust, look.filter) > 0 && (
+            <div className="pointer-events-none absolute inset-0" style={{ background: `radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,${(vignetteOf(look.adjust, look.filter) / 100) * 0.75}) 100%)` }} />
           )}
         </div>
       </div>

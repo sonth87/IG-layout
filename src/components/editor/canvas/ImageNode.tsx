@@ -14,7 +14,7 @@ import { useHtmlImage } from "./useHtmlImage";
 import { frameOverrides } from "@/lib/video/frames";
 import { attachVideo, defaultMedia, detachVideo } from "@/lib/video/playback";
 import { filterById } from "@/lib/color/filters";
-import { isNeutral, shaderParams } from "@/lib/color/params";
+import { isNeutral, shaderParams, vignetteOf } from "@/lib/color/params";
 import { processFrame } from "@/lib/color/processor";
 
 /** Long edge of video frames while editing (colour processed every frame). */
@@ -222,7 +222,7 @@ export function ImageNode({ element: el }: Props) {
         c.drawImage(source, crop.x * k, crop.y * k, crop.width * k, crop.height * k, -iw / 2, -ih / 2, iw, ih);
         c.restore();
       }
-      const vignette = compareThis ? 0 : (el.adjust?.vignette ?? 0) / 100;
+      const vignette = compareThis ? 0 : vignetteOf(el.adjust, el.filter) / 100;
       if (vignette > 0) {
         const r = Math.hypot(iw, ih) / 2;
         const g = c.createRadialGradient(iw / 2, ih / 2, r * 0.35, iw / 2, ih / 2, r);

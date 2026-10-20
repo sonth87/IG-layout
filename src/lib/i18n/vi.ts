@@ -481,7 +481,11 @@ export const vi: Record<MessageKey, string> = {
   "adjust.fade": "Bạc màu",
 
   "filter.none": "Không",
-  "filter.group.mono": "Đơn sắc",
+  "filter.group.film": "Film",
+  "filter.group.analog": "Analog",
+  "filter.group.mood": "Trầm",
+  "filter.group.bright": "Tươi sáng",
+  "filter.group.mono": "Đen trắng",
   "filter.group.vintage": "Vintage",
   "filter.group.modern": "Hiện đại",
   "filter.group.nature": "Thiên nhiên",

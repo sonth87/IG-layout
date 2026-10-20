@@ -502,7 +502,14 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Widget đợt 2 — Lịch, Thời tiết, Trích dẫn, Âm nhạc (D-121); Mạng xã hội, Thể thao, Mua sắm, Việc cần làm, Khác + 8 widget mới (D-122); sheet xếp theo loại (e2e widgets.mjs)
 - [ ] (Claude) M21 — bắt đầu từ 120 filter (G7) → thay bằng **Filter v2** (discussions/2026-10-20-filter-v2.md)
 - [x] Filter: cường độ mặc định 100, filter đen trắng luôn xám hoàn toàn (D-131)
-- [ ] Filter v2: chờ chủ dự án chốt Q-F2 (bố cục Filter / Film FX), Q-F4 (đợt đầu)
+- [x] Filter v2 — lõi màu: công thức → bảng tra màu 3D 33³, HSL 8 dải, cân màu 3 vùng, trộn kênh đen trắng; bloom, halation; hạt film có kích thước (D-132)
+- [x] Filter v2 — đợt 1: 41 filter (Film 11, Analog 6, Trầm 8, Tươi sáng 7, Đen trắng 9) + trang thử `/labs/filters` (e2e filters.mjs)
+- [x] Sửa: vignette của filter (Instant, Moody, Golden…) trước đây không được vẽ
+- [ ] Filter v2: chủ dự án duyệt trên iPhone qua trang thử (Đẹp / Cần sửa / Bỏ) + ảnh đối chiếu VSCO (Q-F5) → chỉnh lại công thức
+- [ ] Filter v2 — Film FX: Texture (hạt, bụi, xước), Light (light leak, loé sáng), Frames (viền film), Distressed
+- [ ] Filter v2 — nhóm "Máy ảnh retro" (màu + lớp phủ gộp sẵn, light leak ngẫu nhiên, dấu ngày)
+- [ ] Filter v2 — các đợt sau: phủ đủ họ còn lại (ánh đèn, hồng ngoại màu, ảnh lấy liền, phân màu điện ảnh, tối giản…), mục tiêu 150–200
+- [ ] Filter v2 — làm lại 25 filter cũ bằng lõi mới (hoặc bỏ bớt) sau khi duyệt
 - [x] (Claude) M21 — chức năng **Hiệu ứng** (mỗi phần tử một hiệu ứng) + đợt 1: 17 hiệu ứng (D-123, e2e effects.mjs)
 - [x] M21 — Hiệu ứng đợt 2 (19) + sửa Chảy (dòng + hạt giọt) và Phản chiếu (mặt nước tự nhiên) theo góp ý (D-124, e2e effects.mjs)
 - [x] Góp ý 20/10: chữ kéo ngang được (tay nắm bên không ẩn, đẩy ra ngoài cạnh ngắn); widget kéo cạnh bên giãn bố cục (chữ giữ cỡ); hiệu ứng vẽ nhanh khi đang kéo thanh trượt (D-126, e2e stretch.mjs)

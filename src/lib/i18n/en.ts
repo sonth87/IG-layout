@@ -482,7 +482,11 @@ export const en = {
   "adjust.fade": "Fade",
 
   "filter.none": "None",
-  "filter.group.mono": "Mono",
+  "filter.group.film": "Film",
+  "filter.group.analog": "Analog",
+  "filter.group.mood": "Moody",
+  "filter.group.bright": "Bright",
+  "filter.group.mono": "B&W",
   "filter.group.vintage": "Vintage",
   "filter.group.modern": "Modern",
   "filter.group.nature": "Nature",
