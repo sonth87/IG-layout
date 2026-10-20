@@ -12,6 +12,7 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 
 ### Filter v2 (2026-10-20 — [2026-10-20-filter-v2.md](../discussions/2026-10-20-filter-v2.md))
 - **Q-F5.** Chủ dự án gửi 5–8 ảnh mẫu chỉnh bằng VSCO (thêm thẳng vào trang thử `/labs/filters`, ô "Ảnh đối chiếu") — đã đồng ý, chờ ảnh.
+- **Q-F6.** "Áp dụng cho tất cả ảnh" có áp cả Film FX / máy ảnh không? (Đã làm theo hướng có — D-133 đề xuất.)
 
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?

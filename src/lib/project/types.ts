@@ -3,6 +3,7 @@
 // Full design: docs/architecture/editor-model.md.
 
 import type { PathShape } from "@/lib/elements/shapeLibrary";
+import type { FilmFx } from "@/lib/color/filmfx";
 import type { Adjustments, FilterRef } from "@/lib/color/params";
 
 export type ProjectType = "post" | "story" | "grid";
@@ -202,6 +203,8 @@ export interface ImageElement extends ElementBase {
   /** Manual colour adjustments (M4). */
   adjust: Adjustments;
   filter: FilterRef | null;
+  /** Film FX layers + date stamp drawn over the photo after its colour (Filter v2, D-132). */
+  filmFx?: FilmFx;
   /** Decorative frame around the photo (M5); the photo fills the inner area. */
   frame: FrameStyle;
   /** How it mixes with what is below (M11 overlays: light leaks "screen", paper "multiply"). */

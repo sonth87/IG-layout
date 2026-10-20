@@ -14,6 +14,7 @@ import { useHtmlImage } from "./useHtmlImage";
 import { frameOverrides } from "@/lib/video/frames";
 import { attachVideo, defaultMedia, detachVideo } from "@/lib/video/playback";
 import { filterById } from "@/lib/color/filters";
+import { drawFilmFx } from "@/lib/color/filmfx";
 import { isNeutral, shaderParams, vignetteOf } from "@/lib/color/params";
 import { processFrame } from "@/lib/color/processor";
 
@@ -231,6 +232,7 @@ export function ImageNode({ element: el }: Props) {
         c.fillStyle = g;
         c.fillRect(0, 0, iw, ih);
       }
+      if (!compareThis) drawFilmFx(c, iw, ih, el.filmFx);
     } else {
       c.fillStyle = "#d9d5cd";
       c.fillRect(0, 0, iw, ih);

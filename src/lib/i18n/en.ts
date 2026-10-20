@@ -464,6 +464,17 @@ export const en = {
 
   "tool.adjust": "Adjust",
   "tool.filters": "Filters",
+  "tool.cameras": "Cameras",
+  "tool.filmFx": "Film FX",
+  "fx.kind.light": "Light",
+  "fx.kind.texture": "Texture",
+  "fx.kind.frame": "Frames",
+  "fx.kind.distress": "Distressed",
+  "fx.kind.date": "Date",
+  "fx.amount": "Strength",
+  "fx.shuffle": "Shuffle",
+  "fx.dateStamp": "Date stamp",
+  "camera.hint": "Tap the chosen camera again for a new leak and dust.",
   "tool.compare": "Hold to compare",
   "tool.intensity": "Intensity",
 
@@ -496,7 +507,7 @@ export const en = {
   "filter.filterOnly": "filter only",
   "filter.confirmTitle": "Apply “{name}” to all {count} photos?",
   "filter.confirmTitleNone": "Remove the filter from all {count} photos?",
-  "filter.confirmBody": "This replaces the filter on every photo in this project. Your manual adjustments stay as they are. You can undo this in one step.",
+  "filter.confirmBody": "This replaces the filter and Film FX on every photo in this project. Your manual adjustments stay as they are. You can undo this in one step.",
   "filter.confirmApply": "Apply to all",
 
   "editor.adjust": "Adjust",
