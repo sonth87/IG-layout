@@ -23,7 +23,24 @@
 | Đô thị | Concrete, Steel, Street Cool, Gallery, Shade | Phố lạnh giảm màu, xám thép, phố lạnh tương phản, tối giản sáng sạch, tối giản trầm (VSCO HB, J) |
 | Ánh đèn | Lamp, Fluoro, Neon Night, Candle | Khử vàng đèn sợi đốt, khử xanh đèn tuýp, làm rực neon đêm, ấm ánh nến (VSCO AL) |
 
-Tổng filter công thức: **72** (41 đợt 1 + 3 cho máy ảnh + 28 đợt 2), cùng 25 filter cũ.
+## Filter v2 — đợt 3 (36 biến thể)
+
+| Nhóm | Filter |
+|---|---|
+| Film | Honey 800, Gold 400, Tungsten 500, Verde 800, Velvet 400 |
+| Analog | Clay, Oat, Sea Salt, Moss, Blush |
+| Trầm | Ink, Midnight, Tobacco, Fog, Wine |
+| Tươi sáng | Cream, Pearl, Daisy, Sky |
+| Rực rỡ | Mango, Berry, Electric |
+| Lấy liền | Sun Bleach, Night Flash |
+| Điện ảnh | Desert, Emerald, Noir Rouge (chỉ giữ màu đỏ) |
+| Đô thị | Asphalt, Glass |
+| Ánh đèn | Neon Pink, Street Lamp |
+| Đen trắng | Charcoal, Snow, Blue Filter, Gelatin, Halide |
+
+**25 filter cũ** (Classic, Kyoto, Retro 70… Fresh) được **làm lại bằng lõi mới**, giữ nguyên id / tên / nhóm (project cũ tự đổi sang màu mới).
+
+Tổng: **133 filter**, tất cả là công thức (bảng tra màu 3D).
 
 ## Film FX (D-132)
 
@@ -58,7 +75,7 @@ Một chạm = filter + lớp phủ (+ dấu ngày); **chạm lại** để xáo
 
 Filter thêm cho máy (nhóm Vintage): **Flash** (đèn flash máy dùng một lần), **CCD 03** (máy số đầu 2000), **Cross** (tráng chéo).
 
-## Bộ cũ (25, M4 / M11)
+## Bộ cũ (25, M4 / M11) — mô tả gốc; nay đã làm lại bằng lõi mới (đợt 3)
 
 > Trạng thái: **Đã chốt** nhóm và tên filter (2026-10-14). Tên filter dùng **tiếng Anh**.
 > **Đã làm đủ** (M11, 2026-10-16): 20 filter trong bảng + nhóm Thiên nhiên (Forest, Golden, Skyline) và Ẩm thực (Warm Plate, Fresh) = 25 filter. Cần chủ dự án xem trên ảnh thật.
