@@ -10,6 +10,11 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 ### Phạm vi tính năng
 - **Q-08.** Template layout: tự thiết kế, hay để người dùng tự tạo và lưu template?
 
+### Filter v2 (2026-10-20 — [2026-10-20-filter-v2.md](../discussions/2026-10-20-filter-v2.md))
+- **Q-F2.** Tách 2 mục như VSCO: **Filter** (chỉ màu) + **Film FX** (lớp phủ: light leak, bụi, viền film…), hay thêm "máy ảnh retro" gộp sẵn màu + lớp phủ kiểu Huji / Dazz?
+- **Q-F4.** Đợt đầu: các họ filter nào trong bảng đối chiếu VSCO (discussions/2026-10-20-filter-v2.md, mục 6)?
+- **Q-F5.** Chủ dự án gửi 5–8 ảnh mẫu chỉnh bằng VSCO để làm ảnh đối chiếu?
+
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?
 
@@ -20,6 +25,8 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 | — | Có làm bước đăng lên Instagram không? | Không. User tự tải về và tự đăng | 2026-10-14 |
 | — | Có cần chiến lược cạnh tranh / kiếm tiền? | Không. Miễn phí cho mọi người | 2026-10-14 |
 | — | Công nghệ? | Next.js + PWA | 2026-10-14 |
+| Q-F1 | Cường độ mặc định 100, filter đen trắng luôn xám hoàn toàn? | Đồng ý (D-131) | 2026-10-20 |
+| Q-F3 | Tự dựng công thức màu hay dùng LUT mở? | Phải tham khảo, đánh giá từ nhiều nguồn, không chỉ tự nghĩ ra (D-131) | 2026-10-20 |
 | Q-01 | Ưu tiên mobile hay desktop? | Mobile-first | 2026-10-14 |
 | Q-04 | Có làm Story không? | Chỉ làm ảnh đăng bài; Story chưa định hình, để sau | 2026-10-14 |
 | Q-05 | Mức độ chỉnh ảnh? | Phạm vi rộng: crop, xoay, layout, viền, chỉnh màu, hiệu ứng, filter có sẵn + tùy chỉnh, nhiều loại phần tử biến đổi được | 2026-10-14 |

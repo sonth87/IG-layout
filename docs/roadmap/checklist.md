@@ -500,7 +500,9 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Widget đợt 2 — Du lịch: 6 widget, 28 kiểu (D-120, e2e widgets.mjs)
 - [ ] (Để sau) Widget "Cụm sticker": gom sticker một bộ thành vòng quanh chữ / rải / viền / dải / watermark, nút Xáo ngẫu nhiên, Tách ra — xem discussions/2026-10-19-widget-menu.md
 - [x] Widget đợt 2 — Lịch, Thời tiết, Trích dẫn, Âm nhạc (D-121); Mạng xã hội, Thể thao, Mua sắm, Việc cần làm, Khác + 8 widget mới (D-122); sheet xếp theo loại (e2e widgets.mjs)
-- [ ] (Claude) M21 — bắt đầu từ 120 filter (G7)
+- [ ] (Claude) M21 — bắt đầu từ 120 filter (G7) → thay bằng **Filter v2** (discussions/2026-10-20-filter-v2.md)
+- [x] Filter: cường độ mặc định 100, filter đen trắng luôn xám hoàn toàn (D-131)
+- [ ] Filter v2: chờ chủ dự án chốt Q-F2 (bố cục Filter / Film FX), Q-F4 (đợt đầu)
 - [x] (Claude) M21 — chức năng **Hiệu ứng** (mỗi phần tử một hiệu ứng) + đợt 1: 17 hiệu ứng (D-123, e2e effects.mjs)
 - [x] M21 — Hiệu ứng đợt 2 (19) + sửa Chảy (dòng + hạt giọt) và Phản chiếu (mặt nước tự nhiên) theo góp ý (D-124, e2e effects.mjs)
 - [x] Góp ý 20/10: chữ kéo ngang được (tay nắm bên không ẩn, đẩy ra ngoài cạnh ngắn); widget kéo cạnh bên giãn bố cục (chữ giữ cỡ); hiệu ứng vẽ nhanh khi đang kéo thanh trượt (D-126, e2e stretch.mjs)
