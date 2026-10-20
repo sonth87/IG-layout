@@ -37,8 +37,9 @@ export function placeImages(doc: ProjectDoc, assets: ImageAsset[], firstSlide = 
 
   if (empty && assets.length === 1) {
     const size = canvasSize(doc);
-    // Covers the whole canvas: lock it so swipes scroll the slides instead of dragging it (UX-01).
-    return [{ ...imageElement(assets[0], { x: 0, y: 0, width: size.width, height: size.height }), locked: true }];
+    // Covers the whole canvas. Not locked (owner 2026-10-20): on touch only a selected element
+    // drags (D-60), so swipes still scroll the slides.
+    return [imageElement(assets[0], { x: 0, y: 0, width: size.width, height: size.height })];
   }
   if (empty) {
     return assets.map((asset, i) => imageElement(asset, slideRect(doc, Math.min(firstSlide + i, doc.slideCount - 1))));

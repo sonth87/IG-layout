@@ -28,6 +28,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `m13c.mjs` | Nhạc nền (chọn, âm lượng, phát cùng project, trộn vào video, mở lại), xuất: ảnh tĩnh JPEG / video & chuyển động MP4 có tiếng, video 9:16 (1080×1920, độ dài = các slide + lướt, có tiếng) |
 | `drag-perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian khung hình khi kéo / chụm trên điện thoại giả lập, CPU chậm 4× |
 | `perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian nhập 20 ảnh 4000 px, thời gian vẽ lại, bộ nhớ canvas |
+| `sheets.mjs` | Chạm ra ngoài đóng hẳn sheet của phần tử, chọn lại không tự bật lại; ảnh panorama thêm vào không khoá (D-134) |
 | `filters.mjs` | Filter v2: trang thử `/labs/filters` vẽ đủ filter công thức, filter Film đổi màu ảnh, filter đen trắng ở 30 % vẫn xám hoàn toàn; trong editor: máy ảnh retro (filter + lớp, chạm lại xáo), viền vẽ trên canvas, dấu ngày, ✓ = 1 bước (D-131, D-132) |
 | `offline.mjs` | Vào trang 1 lần → tắt mạng → vẫn chạy, kể cả mở trình chỉnh sửa lần đầu (tải muộn, M11) |
 

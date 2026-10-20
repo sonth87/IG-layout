@@ -74,8 +74,8 @@ check(f3.y >= 0 && f3.y + f3.height <= sheetTop + 1, `tool open: the canvas sits
 check(same(f2, await frame()), "closing the tool puts it back");
 
 console.log("F-02 rotation: pinch doesn't tilt, snaps to 0°, Rotate to 0°");
-// Unlock the panorama so it can be rotated.
-await page.evaluate((id) => window.__igEditor.getState().toggleLock(id), photo.id);
+// The panorama is no longer locked when added (D-134); make sure it is unlocked.
+check(!photo.locked, "the added panorama is not locked (D-134)");
 await page.evaluate((id) => window.__igEditor.getState().select(id), photo.id);
 await page.waitForTimeout(200);
 const fb = await frame();
