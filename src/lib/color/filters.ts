@@ -158,7 +158,7 @@ const V2: FilterDef[] = [
   v2("dune", "Dune", "analog", {
     temp: 18, tint: 2, contrast: -8, saturation: -22, fade: 20,
     curve: [[0, 10], [64, 66], [128, 134], [192, 200], [255, 244]],
-    hsl: { green: [-25, -30, 0], blue: [-20, -30, 0] },
+    hsl: { green: [-25, -30, 0], aqua: [8, -24, 0], blue: [6, -34, 0] },
     grade: { shadows: [25, 10], highlights: [40, 14] },
   }, { grain: 12 }),
   v2("haze", "Haze", "analog", {
@@ -362,7 +362,7 @@ const V2: FilterDef[] = [
   v2("seventies", "Seventies", "instant", {
     temp: 22, tint: 6, contrast: -12, saturation: -26,
     curve: [[0, 30], [64, 76], [128, 134], [192, 188], [255, 226]],
-    hsl: { green: [-20, -30, 0], blue: [-30, -40, 0] },
+    hsl: { green: [-20, -30, 0], aqua: [10, -30, 0], blue: [8, -44, 0] },
     grade: { shadows: [25, 14], midtones: [30, 10], highlights: [42, 12] },
   }, { grain: 14, vignette: 24 }),
   v2("coolshot", "Cool Shot", "instant", {
@@ -495,135 +495,344 @@ const V2: FilterDef[] = [
   }, { grain: 12, vignette: 45 }),
 ];
 
-export const FILTERS: FilterDef[] = [
-  ...V2,
-  {
-    id: "classic",
-    name: "Classic",
-    group: "mono",
-    preset: { adjust: { contrast: 24, highlights: -14, shadows: -4, fade: 6 }, mono: 1, monoTint: [1, 1, 1] },
-  },
-  {
-    id: "kyoto",
-    name: "Kyoto",
-    group: "vintage",
-    // Japanese film feel: soft greens, warm skin, cool lifted shadows.
-    preset: {
-      adjust: { contrast: -4, highlights: -16, saturation: -14, temperature: 4, fade: 24 },
-      split: { shadows: [0.42, 0.56, 0.6], highlights: [0.6, 0.54, 0.46], strength: 0.4 },
-    },
-  },
-  {
-    id: "retro70",
-    name: "Retro 70",
-    group: "vintage",
-    preset: {
-      adjust: { contrast: 6, saturation: -6, temperature: 32, fade: 28, grain: 24 },
-      split: { shadows: [0.56, 0.46, 0.4], highlights: [0.62, 0.55, 0.4], strength: 0.32 },
-    },
-  },
-  {
-    id: "clean",
-    name: "Clean",
-    group: "modern",
-    preset: { adjust: { exposure: 8, brightness: 4, contrast: 6, highlights: -10, shadows: 12, vibrance: 22, saturation: 4 } },
-  },
-  {
-    id: "cyberpunk",
-    name: "Cyberpunk",
-    group: "future",
-    preset: {
-      adjust: { exposure: -12, contrast: 32, saturation: 22, temperature: -16, tint: -14, highlights: -22, shadows: -12 },
-      split: { shadows: [0.3, 0.58, 0.74], highlights: [0.74, 0.36, 0.7], strength: 0.56 },
-    },
-  },
-  // ── M11: the rest of the agreed list (docs/user/filters.md) ──────────────
-  { id: "noir", name: "Noir", group: "mono", preset: { adjust: { contrast: 48, highlights: 6, shadows: -26, exposure: -4, grain: 10 }, mono: 1, monoTint: [1, 1, 1] } },
-  { id: "mist", name: "Mist", group: "mono", preset: { adjust: { contrast: -26, exposure: 6, fade: 30, highlights: -10 }, mono: 1, monoTint: [1, 1, 1] } },
-  { id: "sepia", name: "Sepia", group: "mono", preset: { adjust: { contrast: 8, fade: 14, grain: 8 }, mono: 1, monoTint: [1, 0.87, 0.68] } },
-  { id: "cyan", name: "Cyan", group: "mono", preset: { adjust: { contrast: 14, fade: 8 }, mono: 1, monoTint: [0.68, 0.85, 1] } },
-  {
-    id: "tokyo90",
-    name: "Tokyo 90",
-    group: "vintage",
-    preset: {
-      adjust: { contrast: -8, saturation: -18, highlights: -20, tint: 6, fade: 32, grain: 18 },
-      split: { shadows: [0.46, 0.5, 0.58], highlights: [0.58, 0.54, 0.5], strength: 0.3 },
-    },
-  },
-  {
-    id: "instant",
-    name: "Instant",
-    group: "vintage",
-    preset: {
-      adjust: { exposure: 6, contrast: -10, saturation: -10, temperature: 10, fade: 26, vignette: 26 },
-      split: { shadows: [0.4, 0.54, 0.58], highlights: [0.62, 0.56, 0.46], strength: 0.36 },
-    },
-  },
-  { id: "faded", name: "Faded", group: "vintage", preset: { adjust: { contrast: -14, saturation: -26, fade: 40, highlights: -8 } } },
-  { id: "editorial", name: "Editorial", group: "modern", preset: { adjust: { contrast: 14, saturation: -16, highlights: -12, shadows: 6, temperature: -4 } } },
-  {
-    id: "moody",
-    name: "Moody",
-    group: "modern",
-    preset: {
-      adjust: { exposure: -14, contrast: 18, saturation: -28, highlights: -24, shadows: -10, vignette: 30 },
-      split: { shadows: [0.44, 0.48, 0.54], highlights: [0.54, 0.52, 0.48], strength: 0.24 },
-    },
-  },
-  {
-    id: "tealorange",
-    name: "Teal & Orange",
-    group: "modern",
-    preset: {
-      adjust: { contrast: 16, saturation: 10, highlights: -10 },
-      split: { shadows: [0.3, 0.56, 0.6], highlights: [0.72, 0.52, 0.34], strength: 0.5 },
-    },
-  },
-  { id: "softskin", name: "Soft Skin", group: "modern", preset: { adjust: { exposure: 6, contrast: -12, highlights: -14, shadows: 10, temperature: 10, tint: 4, saturation: -6, fade: 8 } } },
-  {
-    id: "neon",
-    name: "Neon",
-    group: "future",
-    preset: { adjust: { contrast: 26, saturation: 46, vibrance: 30, highlights: -16 }, split: { shadows: [0.46, 0.36, 0.7], highlights: [0.6, 0.5, 0.62], strength: 0.3 } },
-  },
-  {
-    id: "vaporwave",
-    name: "Vaporwave",
-    group: "future",
-    preset: {
-      adjust: { contrast: -6, saturation: -4, fade: 18, highlights: -10 },
-      split: { shadows: [0.5, 0.42, 0.7], highlights: [0.74, 0.5, 0.62], strength: 0.5 },
-    },
-  },
-  {
-    id: "synthwave",
-    name: "Synthwave",
-    group: "future",
-    preset: {
-      adjust: { contrast: 22, saturation: 18, exposure: -6 },
-      split: { shadows: [0.5, 0.3, 0.68], highlights: [0.78, 0.48, 0.32], strength: 0.56 },
-    },
-  },
-  {
-    id: "matrix",
-    name: "Matrix",
-    group: "future",
-    preset: { adjust: { exposure: -10, contrast: 24, saturation: -30 }, split: { shadows: [0.38, 0.56, 0.42], highlights: [0.5, 0.62, 0.46], strength: 0.5 } },
-  },
+// ── The first 25 (M4 / M11), rebuilt as recipes (owner 2026-10-20: "basic, not pretty").
+// Same ids, names and groups, so projects that use them get the new look.
+const V1: FilterDef[] = [
+  // Mono
+  v2("classic", "Classic", "mono", { bw: [0.3, 0.59, 0.11], contrast: 14, curve: [[0, 6], [64, 56], [128, 128], [192, 204], [255, 250]] }, { grain: 6 }),
+  v2("noir", "Noir", "mono", { bw: [0.4, 0.5, 0.1], contrast: 40, curve: [[0, 0], [56, 24], [128, 120], [200, 226], [255, 255]] }, { grain: 12, vignette: 30 }),
+  v2("mist", "Mist", "mono", { bw: true, exposure: 0.1, contrast: -26, curve: [[0, 46], [64, 92], [128, 144], [192, 196], [255, 238]] }, { grain: 6, bloom: 0.15 }),
+  v2("sepia", "Sepia", "mono", {
+    bw: [0.3, 0.6, 0.1], contrast: 6,
+    curve: [[0, 14], [64, 64], [128, 132], [192, 200], [255, 244]],
+    grade: { shadows: [25, 22], midtones: [35, 22], highlights: [45, 14] },
+  }, { grain: 10, vignette: 16 }),
+  // Cyanotype print.
+  v2("cyan", "Cyan", "mono", { bw: [0.25, 0.6, 0.15], contrast: 12, grade: { shadows: [210, 30], midtones: [205, 26], highlights: [195, 12] } }, { grain: 6 }),
+  // Vintage
+  v2("kyoto", "Kyoto", "vintage", {
+    temp: 4, contrast: -6, saturation: -10,
+    curve: [[0, 18], [64, 70], [128, 134], [192, 198], [255, 246]],
+    hsl: { orange: [0, -6, 8], yellow: [-6, -18, 0], green: [12, -14, 6], blue: [-8, -10, 4] },
+    grade: { shadows: [185, 12], highlights: [40, 8] },
+  }, { grain: 10 }),
+  v2("retro70", "Retro 70", "vintage", {
+    temp: 20, tint: 4, contrast: 6, saturation: -6, fade: 18,
+    curve: [[0, 16], [64, 66], [128, 134], [192, 198], [255, 236]],
+    b: [[0, 10], [255, 226]],
+    hsl: { green: [-30, -20, 0], aqua: [10, -30, 0], blue: [8, -36, 0] },
+    grade: { shadows: [25, 12], highlights: [42, 16] },
+  }, { grain: 20, vignette: 18 }),
+  v2("tokyo90", "Tokyo 90", "vintage", {
+    tint: 6, contrast: -10, saturation: -20,
+    curve: [[0, 24], [64, 70], [128, 130], [192, 190], [255, 236]],
+    hsl: { red: [6, -10, 0], green: [16, -20, 4] },
+    grade: { shadows: [200, 12], highlights: [330, 6] },
+  }, { grain: 16 }),
+  v2("instant", "Instant", "vintage", {
+    exposure: 0.08, temp: 8, contrast: -12, saturation: -12,
+    curve: [[0, 24], [64, 74], [128, 138], [192, 198], [255, 236]],
+    grade: { shadows: [180, 16], highlights: [42, 12] },
+  }, { grain: 10, vignette: 26 }),
+  v2("faded", "Faded", "vintage", { contrast: -14, saturation: -28, curve: [[0, 40], [64, 76], [128, 128], [192, 188], [255, 240]] }, { grain: 6 }),
+  // Modern
+  v2("clean", "Clean", "modern", {
+    exposure: 0.12, temp: -2, contrast: 6, vibrance: 18,
+    curve: [[0, 4], [64, 66], [128, 138], [192, 212], [255, 255]],
+    hsl: { orange: [0, -4, 8], blue: [-4, 8, 0] },
+  }),
+  v2("editorial", "Editorial", "modern", {
+    contrast: 12, saturation: -18,
+    curve: [[0, 8], [64, 58], [128, 128], [192, 202], [255, 250]],
+    hsl: { orange: [0, 6, 4] },
+    grade: { shadows: [210, 6], highlights: [40, 4] },
+  }),
+  v2("moody", "Moody", "modern", {
+    exposure: -0.15, contrast: 14, saturation: -28,
+    curve: [[0, 12], [64, 50], [128, 118], [192, 186], [255, 236]],
+    hsl: { orange: [0, 6, 0], green: [-10, -30, -10], blue: [0, -24, -10] },
+    grade: { shadows: [205, 10], highlights: [38, 6] },
+  }, { grain: 8, vignette: 30 }),
+  v2("tealorange", "Teal & Orange", "modern", {
+    contrast: 16, saturation: 8,
+    hsl: { orange: [4, 14, 4], yellow: [-14, 0, 0], green: [40, -20, -6], aqua: [-6, 14, -4], blue: [-24, 10, -6] },
+    grade: { shadows: [188, 28], highlights: [30, 18] },
+  }),
+  v2("softskin", "Soft Skin", "modern", {
+    exposure: 0.1, temp: 8, tint: 4, contrast: -12, saturation: -6,
+    curve: [[0, 10], [64, 70], [128, 140], [192, 206], [255, 250]],
+    hsl: { red: [4, -8, 8], orange: [-2, -6, 10] },
+    grade: { highlights: [30, 6] },
+  }, { bloom: 0.2 }),
+  // Future
+  v2("cyberpunk", "Cyberpunk", "future", {
+    exposure: -0.1, temp: -12, tint: 10, contrast: 26, saturation: 20,
+    curve: [[0, 0], [64, 46], [128, 124], [192, 206], [255, 255]],
+    hsl: { red: [-20, 14, 0], yellow: [-60, 0, -10], green: [60, 10, -10], blue: [10, 20, 0] },
+    grade: { shadows: [195, 30], highlights: [310, 24] },
+  }, { grain: 8, bloom: 0.25 }),
+  v2("neon", "Neon", "future", {
+    contrast: 24, saturation: 40, vibrance: 24,
+    curve: [[0, 0], [64, 50], [128, 128], [192, 210], [255, 255]],
+    grade: { shadows: [270, 12] },
+  }, { bloom: 0.3 }),
+  v2("vaporwave", "Vaporwave", "future", {
+    exposure: 0.08, contrast: -10, saturation: -6,
+    curve: [[0, 30], [64, 80], [128, 138], [192, 198], [255, 242]],
+    hsl: { yellow: [-50, -20, 0], green: [60, -30, 0], blue: [20, 10, 0] },
+    grade: { shadows: [255, 22], midtones: [300, 10], highlights: [330, 16] },
+  }, { grain: 6 }),
+  v2("synthwave", "Synthwave", "future", {
+    contrast: 22, saturation: 16,
+    curve: [[0, 0], [64, 50], [128, 128], [192, 206], [255, 255]],
+    hsl: { yellow: [-20, 10, 0], green: [-80, 0, -10], blue: [30, 20, 0] },
+    grade: { shadows: [275, 28], highlights: [28, 24] },
+  }, { bloom: 0.25 }),
+  v2("matrix", "Matrix", "future", {
+    exposure: -0.1, contrast: 24, saturation: -40,
+    curve: [[0, 0], [64, 48], [128, 124], [192, 200], [255, 248]],
+    grade: { shadows: [130, 26], midtones: [125, 16], highlights: [100, 10] },
+  }, { grain: 10, vignette: 20 }),
   // Nature
-  { id: "forest", name: "Forest", group: "nature", preset: { adjust: { contrast: 10, vibrance: 26, temperature: -6, tint: -10, shadows: 8, highlights: -12 } } },
-  { id: "golden", name: "Golden", group: "nature", preset: { adjust: { exposure: 4, temperature: 30, tint: 6, vibrance: 16, highlights: -18, vignette: 14 } } },
-  {
-    id: "skyline",
-    name: "Skyline",
-    group: "nature",
-    preset: { adjust: { contrast: 14, highlights: -30, shadows: 14, vibrance: 22, temperature: -12 }, split: { shadows: [0.46, 0.5, 0.56], highlights: [0.5, 0.52, 0.56], strength: 0.2 } },
-  },
+  v2("forest", "Forest", "nature", {
+    temp: -4, tint: -6, contrast: 10, vibrance: 20,
+    curve: [[0, 8], [64, 60], [128, 130], [192, 202], [255, 248]],
+    hsl: { yellow: [-12, 8, 0], green: [6, 10, -6], aqua: [0, 10, -4] },
+    grade: { shadows: [160, 8] },
+  }),
+  v2("golden", "Golden", "nature", {
+    exposure: 0.05, temp: 24, tint: 4, vibrance: 14,
+    curve: [[0, 8], [64, 64], [128, 134], [192, 206], [255, 250]],
+    hsl: { orange: [0, 8, 6], green: [-30, -10, 0] },
+    grade: { shadows: [30, 8], highlights: [42, 20] },
+  }, { bloom: 0.2, vignette: 14 }),
+  v2("skyline", "Skyline", "nature", {
+    temp: -8, contrast: 14, vibrance: 20,
+    curve: [[0, 6], [64, 62], [128, 130], [192, 200], [255, 244]],
+    hsl: { orange: [0, 6, 4], aqua: [-4, 16, -8], blue: [-6, 22, -14] },
+    grade: { shadows: [215, 8] },
+  }),
   // Food
-  { id: "warmplate", name: "Warm Plate", group: "food", preset: { adjust: { exposure: 6, contrast: 12, temperature: 18, vibrance: 28, saturation: 6, shadows: 10 } } },
-  { id: "fresh", name: "Fresh", group: "food", preset: { adjust: { exposure: 10, brightness: 6, contrast: 8, vibrance: 34, temperature: -4, highlights: -10 } } },
+  v2("warmplate", "Warm Plate", "food", {
+    exposure: 0.08, temp: 14, contrast: 12, saturation: 8, vibrance: 20,
+    hsl: { red: [0, 10, 0], orange: [0, 12, 4], yellow: [-4, 10, 4], green: [-8, 8, 0] },
+    grade: { highlights: [40, 8] },
+  }),
+  v2("fresh", "Fresh", "food", {
+    exposure: 0.14, temp: -4, contrast: 8, vibrance: 26,
+    curve: [[0, 6], [64, 68], [128, 138], [192, 210], [255, 255]],
+    hsl: { red: [0, 10, 0], yellow: [-6, 10, 4], green: [6, 14, 4] },
+  }),
 ];
+
+// ── Batch 3: more of each family (VSCO has 3–10 per family) ──
+const V3: FilterDef[] = [
+  // Film
+  v2("honey800", "Honey 800", "film", {
+    temp: 12, contrast: 4, saturation: -2,
+    curve: [[0, 16], [60, 58], [128, 132], [200, 210], [255, 246]],
+    hsl: { orange: [0, -4, 6], yellow: [-8, -10, 0], green: [-16, -24, -6], blue: [-8, -10, 0] },
+    grade: { shadows: [200, 12], highlights: [36, 14] },
+  }, { grain: 24 }),
+  v2("gold400", "Gold 400", "film", {
+    temp: 20, tint: 2, contrast: 14, saturation: 14, vibrance: 8,
+    curve: [[0, 6], [64, 58], [128, 130], [192, 204], [255, 250]],
+    b: [[0, 4], [128, 116], [255, 228]],
+    hsl: { red: [0, 14, -4], yellow: [-4, 16, 6], green: [-20, -6, 0] },
+    grade: { highlights: [45, 18] },
+  }, { grain: 18 }),
+  v2("tungsten500", "Tungsten 500", "film", {
+    temp: -16, contrast: 6, saturation: -2,
+    curve: [[0, 10], [64, 60], [128, 128], [200, 208], [255, 250]],
+    hsl: { orange: [4, -4, 6], blue: [-10, 4, -4] },
+    grade: { shadows: [195, 14], highlights: [25, 6] },
+  }, { grain: 12, halation: 0.3 }),
+  v2("verde800", "Verde 800", "film", {
+    exposure: -0.06, temp: -8, tint: -8, contrast: 12,
+    curve: [[0, 12], [64, 58], [128, 124], [192, 194], [255, 246]],
+    g: [[0, 12], [128, 130], [255, 250]],
+    hsl: { yellow: [10, -14, 0], green: [10, 6, -8], blue: [-10, 0, -6] },
+    grade: { shadows: [155, 18], highlights: [40, 4] },
+  }, { grain: 22 }),
+  v2("velvet400", "Velvet 400", "film", {
+    exposure: 0.06, temp: 4, contrast: -12, saturation: -10,
+    curve: [[0, 16], [64, 72], [128, 138], [192, 202], [255, 248]],
+    hsl: { orange: [0, -8, 8], green: [-2, -26, 6], blue: [-6, -16, 6] },
+    grade: { shadows: [195, 8], highlights: [35, 8] },
+  }, { grain: 12 }),
+
+  // Analog
+  v2("clay", "Clay", "analog", {
+    temp: 16, tint: 4, contrast: -6, saturation: -18, fade: 14,
+    hsl: { red: [8, -10, 0], orange: [4, -6, 4], green: [-24, -30, 0], blue: [-14, -34, 0] },
+    grade: { shadows: [20, 12], midtones: [20, 6] },
+  }, { grain: 10 }),
+  v2("oat", "Oat", "analog", {
+    exposure: 0.1, temp: 10, contrast: -14, saturation: -24,
+    curve: [[0, 22], [64, 80], [128, 144], [192, 204], [255, 246]],
+    grade: { shadows: [40, 8], highlights: [45, 8] },
+  }, { grain: 8 }),
+  v2("seasalt", "Sea Salt", "analog", {
+    exposure: 0.12, temp: -10, contrast: -14, saturation: -14,
+    curve: [[0, 20], [64, 80], [128, 146], [192, 210], [255, 250]],
+    hsl: { aqua: [-6, -10, 8], blue: [-8, -16, 8], orange: [0, -8, 8] },
+    grade: { shadows: [195, 10], highlights: [190, 4] },
+  }, { grain: 6 }),
+  v2("moss", "Moss", "analog", {
+    temp: 2, tint: -6, contrast: -4, saturation: -12,
+    hsl: { yellow: [-14, -20, -4], green: [-14, -16, -8], aqua: [-20, -20, 0], orange: [0, -4, 4] },
+    grade: { shadows: [110, 12], highlights: [55, 6] },
+  }, { grain: 10 }),
+  v2("blush", "Blush", "analog", {
+    exposure: 0.1, tint: 10, contrast: -12, saturation: -8,
+    curve: [[0, 18], [64, 76], [128, 142], [192, 206], [255, 250]],
+    hsl: { green: [10, -26, 6], orange: [-6, -6, 8] },
+    grade: { shadows: [300, 8], highlights: [345, 10] },
+  }, { grain: 6 }),
+
+  // Mood
+  v2("ink", "Ink", "mood", {
+    exposure: -0.12, temp: -14, contrast: 18, saturation: -20,
+    curve: [[0, 6], [64, 46], [128, 118], [192, 190], [255, 242]],
+    grade: { shadows: [225, 18], highlights: [45, 4] },
+  }, { grain: 8, vignette: 24 }),
+  v2("midnight", "Midnight", "mood", {
+    exposure: -0.2, temp: -20, contrast: 10, saturation: -16,
+    curve: [[0, 14], [64, 48], [128, 112], [192, 180], [255, 230]],
+    grade: { shadows: [230, 20], midtones: [220, 8] },
+  }, { grain: 10, vignette: 30 }),
+  v2("tobacco", "Tobacco", "mood", {
+    exposure: -0.08, temp: 18, contrast: 10, saturation: -24,
+    curve: [[0, 10], [64, 54], [128, 122], [192, 190], [255, 236]],
+    hsl: { green: [-16, -34, -10], aqua: [0, -30, -6], blue: [6, -44, -10] },
+    grade: { shadows: [28, 16], midtones: [32, 10], highlights: [40, 8] },
+  }, { grain: 12, vignette: 22 }),
+  v2("fog", "Fog", "mood", {
+    temp: -6, contrast: -22, saturation: -32,
+    curve: [[0, 42], [64, 84], [128, 134], [192, 190], [255, 232]],
+    grade: { shadows: [205, 8], highlights: [200, 4] },
+  }, { grain: 8, bloom: 0.15 }),
+  v2("wine", "Wine", "mood", {
+    exposure: -0.1, tint: 8, contrast: 14, saturation: -14,
+    curve: [[0, 8], [64, 50], [128, 120], [192, 190], [255, 240]],
+    hsl: { red: [-6, 16, -8], magenta: [-10, 10, -6], green: [-20, -30, -10] },
+    grade: { shadows: [335, 16], highlights: [30, 6] },
+  }, { grain: 8, vignette: 22 }),
+
+  // Bright
+  v2("cream", "Cream", "bright", {
+    exposure: 0.18, temp: 8, contrast: -8, saturation: -10,
+    curve: [[0, 14], [64, 80], [128, 150], [192, 214], [255, 250]],
+    grade: { highlights: [45, 10] },
+  }),
+  v2("pearl", "Pearl", "bright", {
+    exposure: 0.22, temp: -4, tint: 4, contrast: -10, saturation: -14,
+    curve: [[0, 16], [64, 84], [128, 154], [192, 216], [255, 252]],
+    grade: { shadows: [240, 6], highlights: [320, 4] },
+  }, { bloom: 0.15 }),
+  v2("daisy", "Daisy", "bright", {
+    exposure: 0.16, temp: 12, contrast: -4, vibrance: 10,
+    curve: [[0, 10], [64, 76], [128, 146], [192, 212], [255, 252]],
+    hsl: { yellow: [0, 16, 8], green: [-10, -10, 6], orange: [0, -4, 8] },
+    grade: { highlights: [55, 10] },
+  }),
+  v2("sky", "Sky", "bright", {
+    exposure: 0.14, temp: -14, contrast: -2, vibrance: 8,
+    curve: [[0, 8], [64, 74], [128, 144], [192, 210], [255, 254]],
+    hsl: { aqua: [0, 10, 6], blue: [-6, 12, 6], orange: [0, -6, 8] },
+    grade: { shadows: [210, 10] },
+  }),
+
+  // Vivid
+  v2("mango", "Mango", "vivid", {
+    temp: 16, contrast: 12, saturation: 18,
+    hsl: { orange: [4, 20, 4], yellow: [-8, 18, 4], red: [6, 10, 0], blue: [0, -6, -4] },
+    grade: { highlights: [38, 14], shadows: [200, 6] },
+  }),
+  v2("berry", "Berry", "vivid", {
+    tint: 10, contrast: 14, saturation: 16,
+    hsl: { red: [-6, 18, -6], magenta: [-6, 22, 0], purple: [0, 20, 0], green: [10, -16, 0] },
+    grade: { shadows: [280, 12], highlights: [340, 8] },
+  }),
+  v2("electric", "Electric", "vivid", {
+    temp: -10, contrast: 20, saturation: 24, vibrance: 10,
+    curve: [[0, 0], [64, 52], [128, 128], [192, 208], [255, 255]],
+    hsl: { blue: [-10, 26, -6], aqua: [-6, 24, 0], purple: [0, 18, 0] },
+    grade: { shadows: [230, 12] },
+  }),
+
+  // Instant
+  v2("sunbleach", "Sun Bleach", "instant", {
+    exposure: 0.2, temp: 18, contrast: -20, saturation: -30,
+    curve: [[0, 34], [64, 94], [128, 158], [192, 212], [255, 240]],
+    hsl: { aqua: [10, -30, 6], blue: [8, -36, 8], green: [-30, -30, 6] },
+    grade: { highlights: [55, 16], shadows: [40, 10] },
+  }, { grain: 10, vignette: 16 }),
+  v2("nightflash", "Night Flash", "instant", {
+    exposure: 0.05, temp: 6, contrast: 26, saturation: 4,
+    curve: [[0, 6], [48, 22], [128, 132], [200, 228], [255, 255]],
+    grade: { shadows: [230, 12], highlights: [40, 8] },
+  }, { grain: 16, vignette: 50 }),
+
+  // Cinema
+  v2("desert", "Desert", "cinema", {
+    temp: 18, contrast: 14, saturation: -4,
+    hsl: { orange: [4, 10, 4], yellow: [-10, 0, 0], blue: [-20, 10, -8], aqua: [-10, 10, -4], green: [-30, -30, 0] },
+    grade: { shadows: [190, 18], highlights: [35, 22] },
+  }, { grain: 8 }),
+  v2("emerald", "Emerald", "cinema", {
+    tint: -10, contrast: 16, saturation: -6,
+    curve: [[0, 6], [64, 54], [128, 126], [192, 200], [255, 248]],
+    hsl: { green: [16, 10, -6], aqua: [-10, 14, -6], orange: [0, 4, 4] },
+    grade: { shadows: [165, 22], highlights: [40, 8] },
+  }, { grain: 8, vignette: 16 }),
+  // Colour kept only in reds, the rest nearly grey.
+  v2("noirrouge", "Noir Rouge", "cinema", {
+    contrast: 22,
+    curve: [[0, 0], [64, 50], [128, 126], [192, 206], [255, 255]],
+    hsl: { red: [0, 20, -4], orange: [-8, -70, 0], yellow: [0, -100, 0], green: [0, -100, 0], aqua: [0, -100, 0], blue: [0, -100, 0], purple: [0, -100, 0], magenta: [0, -50, 0] },
+  }, { grain: 10, vignette: 24 }),
+
+  // Urban
+  v2("asphalt", "Asphalt", "urban", {
+    exposure: -0.08, contrast: 22, saturation: -30,
+    curve: [[0, 4], [64, 48], [128, 122], [192, 200], [255, 248]],
+    grade: { shadows: [215, 6] },
+  }, { grain: 12, vignette: 18 }),
+  v2("glass", "Glass", "urban", {
+    exposure: 0.1, temp: -10, contrast: 2, saturation: -18,
+    curve: [[0, 10], [64, 70], [128, 140], [192, 208], [255, 254]],
+    grade: { shadows: [205, 8], highlights: [195, 4] },
+  }),
+
+  // Lights
+  v2("neonpink", "Neon Pink", "lights", {
+    exposure: -0.08, tint: 14, contrast: 18, saturation: 14,
+    curve: [[0, 0], [64, 46], [128, 124], [192, 206], [255, 255]],
+    hsl: { magenta: [-6, 26, 6], red: [-10, 10, 0], purple: [10, 20, 0], aqua: [0, 14, 0] },
+    grade: { shadows: [265, 14], highlights: [330, 10] },
+  }, { grain: 8, bloom: 0.3 }),
+  v2("streetlamp", "Street Lamp", "lights", {
+    exposure: -0.05, temp: 26, contrast: 14, saturation: -10,
+    curve: [[0, 6], [64, 50], [128, 124], [192, 200], [255, 246]],
+    hsl: { blue: [10, 10, -10], aqua: [10, 6, -6] },
+    grade: { shadows: [210, 16], highlights: [35, 16] },
+  }, { grain: 14, bloom: 0.25, halation: 0.2 }),
+
+  // Mono
+  v2("charcoal", "Charcoal", "mono", { bw: [0.3, 0.6, 0.1], exposure: -0.2, contrast: 18, curve: [[0, 0], [64, 40], [128, 104], [192, 176], [255, 236]] }, { grain: 14, vignette: 28 }),
+  v2("snow", "Snow", "mono", { bw: [0.3, 0.6, 0.1], exposure: 0.25, contrast: -6, curve: [[0, 30], [64, 104], [128, 170], [192, 222], [255, 255]] }, { grain: 4 }),
+  // Blue lens filter: skin and reds darker, skies pale.
+  v2("bluefilter", "Blue Filter", "mono", { bw: [-0.1, 0.5, 0.6], contrast: 12 }, { grain: 10 }),
+  v2("gelatin", "Gelatin", "mono", {
+    bw: [0.3, 0.59, 0.11], contrast: 10,
+    curve: [[0, 8], [64, 60], [128, 130], [192, 202], [255, 246]],
+    grade: { shadows: [35, 6], highlights: [50, 6] },
+  }, { grain: 10 }),
+  v2("halide", "Halide", "mono", { bw: [0.32, 0.58, 0.1], contrast: 16, curve: [[0, 4], [64, 54], [128, 128], [192, 206], [255, 252]] }, { grain: 30 }),
+];
+
+export const FILTERS: FilterDef[] = [...V2, ...V3, ...V1];
 
 export function filterById(id: string | undefined) {
   return id ? FILTERS.find((f) => f.id === id) : undefined;
