@@ -98,7 +98,7 @@ function Heart({ id, className = "" }: { id: string; className?: string }) {
 }
 
 /** Template card (§3): cover, ♡ that doesn't open it, photo / slide counts, dots for carousels. */
-function TemplateCard({ tpl, width, onOpen }: { tpl: Template; width: number; onOpen: (tpl: Template) => void }) {
+function TemplateCard({ tpl, width, onOpen, inRow }: { tpl: Template; width: number; onOpen: (tpl: Template) => void; inRow?: boolean }) {
   const locale = useSettings((s) => s.locale);
   const slides = slidesOf(tpl);
   const swipe = slides > 1 && tpl.design!.type !== "grid";
@@ -123,6 +123,15 @@ function TemplateCard({ tpl, width, onOpen }: { tpl: Template; width: number; on
         <button type="button" aria-label={tpl.name[locale]} onClick={() => onOpen(tpl)} className="block">
           {seen ? <Preview tpl={tpl} width={width} /> : <div style={{ width, height: width * cardRatio(tpl) }} />}
         </button>
+      )}
+      {swipe && inRow && (
+        // In a sideways row (owner, 2026-10-28): the bottom strip and the right edge move
+        // the whole row; the rest of the card turns the template's slides. These layers sit
+        // outside the card's own scroller, so the browser scrolls the row from them.
+        <>
+          <div aria-hidden="true" data-row-drag="" onClick={() => onOpen(tpl)} className="absolute inset-x-0 bottom-0 h-[20%]" style={{ touchAction: "pan-x pan-y" }} />
+          <div aria-hidden="true" data-row-drag="" onClick={() => onOpen(tpl)} className="absolute top-0 right-0 bottom-0 w-[18%]" style={{ touchAction: "pan-x pan-y" }} />
+        </>
       )}
       <Heart id={tpl.id} className="absolute top-2 right-2" />
       <span className="pointer-events-none absolute bottom-2 left-2 flex gap-1 text-[11px] font-semibold text-white">
@@ -445,7 +454,7 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
                 <div className="no-scrollbar flex items-start gap-2 overflow-x-auto px-4 pt-3" style={{ touchAction: "pan-x pan-y" }}>
                   {sh.list.map((tpl) => (
                     // One height per row (owner, 2026-10-28): stories are narrower, not taller.
-                    <TemplateCard key={tpl.id} tpl={tpl} width={Math.round((cardW * 5) / 4 / cardRatio(tpl))} onOpen={open} />
+                    <TemplateCard key={tpl.id} tpl={tpl} width={Math.round((cardW * 5) / 4 / cardRatio(tpl))} onOpen={open} inRow />
                   ))}
                 </div>
               </section>
