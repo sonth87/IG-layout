@@ -178,7 +178,7 @@ export const en = {
   "library.desc.story": "Made for stories",
   "library.desc.occasion": "Birthdays, anniversaries and big days",
   "library.desc.minimal": "Quiet and clean",
-  "library.desc.grid": "A big picture across your profile grid",
+  "library.desc.grid": "Plan your profile: one big picture, or photos and words tile by tile",
   "home.forYou": "For you",
   "home.explore": "Explore",
   "home.favorites": "Liked",

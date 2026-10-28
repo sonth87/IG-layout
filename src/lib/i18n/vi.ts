@@ -177,7 +177,7 @@ export const vi: Record<MessageKey, string> = {
   "library.desc.story": "Dành cho story",
   "library.desc.occasion": "Sinh nhật, kỷ niệm và những ngày đặc biệt",
   "library.desc.minimal": "Nhẹ nhàng, tối giản",
-  "library.desc.grid": "Một ảnh lớn trên lưới trang cá nhân",
+  "library.desc.grid": "Lên kế hoạch trang cá nhân: một ảnh lớn, hoặc ảnh xen chữ từng ô",
   "home.forYou": "Dành cho bạn",
   "home.explore": "Khám phá",
   "home.favorites": "Đã thích",
