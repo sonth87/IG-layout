@@ -152,7 +152,7 @@ await page.getByRole("region", { name: "Mid-Autumn Festival", exact: true }).get
 check(await page.getByRole("heading", { name: "Mid-Autumn Festival", exact: true, level: 1 }).isVisible(), "an event group opens its own list");
 
 console.log("Templates with pack frames, stickers and widgets (2026-10-28)");
-const useFound = async (name) => {
+const openTemplate = async (name) => {
   await page.goto(URL_ARG);
   await page.waitForTimeout(600);
   await page.getByRole("button", { name: "Search" }).click();
@@ -165,15 +165,15 @@ const useFound = async (name) => {
     return { doc: s.doc, assets: Object.values(s.assets).map((a) => a.name) };
   });
 };
-let used = await useFound("Torn strips");
+let used = await openTemplate("Torn strips");
 const torn = used.doc.elements.find((e) => e.type === "layout" && e.art);
 check(
   torn && torn.cells.length === 3 && used.doc.elements.filter((e) => e.parentId === torn.id && e.maskPoints?.length).length === 3 && used.assets.some((n) => n.includes("torn-collage")),
   "torn paper frame: art stored in the project, 3 torn photo windows",
 );
-used = await useFound("Pastel notes");
+used = await openTemplate("Pastel notes");
 check(used.doc.elements.some((e) => e.type === "image" && e.assetId && !e.slot) && used.doc.elements.some((e) => e.type === "icon"), "pack stickers and drawn stickers placed");
-used = await useFound("Countdown");
+used = await openTemplate("Countdown");
 check(used.doc.elements.some((e) => e.type === "icon" && e.widget?.kind === "countdown"), "a template widget becomes a card widget");
 
 console.log("console errors:", errors);

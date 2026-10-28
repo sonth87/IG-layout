@@ -444,7 +444,8 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
                 </button>
                 <div className="no-scrollbar flex items-start gap-2 overflow-x-auto px-4 pt-3" style={{ touchAction: "pan-x pan-y" }}>
                   {sh.list.map((tpl) => (
-                    <TemplateCard key={tpl.id} tpl={tpl} width={cardW} onOpen={open} />
+                    // One height per row (owner, 2026-10-28): stories are narrower, not taller.
+                    <TemplateCard key={tpl.id} tpl={tpl} width={Math.round((cardW * 5) / 4 / cardRatio(tpl))} onOpen={open} />
                   ))}
                 </div>
               </section>
