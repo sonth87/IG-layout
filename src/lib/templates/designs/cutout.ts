@@ -7,6 +7,51 @@ import { art, block, cells, design, icon, INK, KRAFT, photo, strip, t, tape, tex
 const booth = strip(0, 0, 0.72, 0.5, 0.32, 3, 5, 0.8, "#ffffff");
 
 export const CUTOUT: Template[] = [
+  design("cut-gazette", "cutout", t("Front page", "Trang nhất"), {
+    themes: ["city", "mono", "friends"],
+    slides: 1,
+    background: { kind: "color", color: "#e9e6dd" },
+    shapes: [block(0, 0.06, 0.24, 0.88, 0.004, INK), block(0, 0.06, 0.25, 0.88, 0.0015, INK)],
+    slots: [photo(0, 0, 0.06, 0.29, 0.56, 0.62), photo(1, 0, 0.65, 0.29, 0.29, 0.3), photo(2, 0, 0.65, 0.61, 0.29, 0.3)],
+    texts: [text(0, 0.04, 0.03, 0.92, t("The Daily Us", "Nhật Báo Tụi Mình"), { font: "anton", size: 0.085, color: INK, cutout: { style: "gazette", seed: 2, mess: 0.35, wave: 0.2 } })],
+  }),
+  design("cut-old-letter", "cutout", t("Old love letter", "Thư tình xưa"), {
+    themes: ["couple", "retro", "portrait"],
+    slides: 1,
+    background: { kind: "color", color: "#d8c9ad" },
+    art: [art("gen-album/album-2", 0, 0.2, 0.26, 0.6, { rotation: 3 })],
+    slots: [],
+    texts: [text(0, 0.04, 0.03, 0.92, t("yours,\nsince 1999", "của em,\ntừ năm ấy"), { font: "anton", size: 0.085, color: INK, lineHeight: 1, cutout: { style: "oldLetters", seed: 6, mess: 0.5, wave: 0.3 } })],
+  }),
+  design("cut-old-pages", "cutout", t("Old pages", "Trang cũ"), {
+    format: "story",
+    themes: ["mono", "portrait", "city"],
+    slides: 1,
+    background: { kind: "color", color: "#1d1a17" },
+    slots: [photo(0, 0, 0.1, 0.34, 0.8, 0.44, { border: { width: 0.012, color: "#e9dcb5" }, rotation: -2 })],
+    texts: [text(0, 0.04, 0.13, 0.92, t("turn the\npage", "lật sang\ntrang mới"), { font: "anton", size: 0.12, color: INK, lineHeight: 1, cutout: { style: "classic", seed: 4, mess: 0.55, wave: 0.35 } })],
+  }),
+  design("cut-roman", "cutout", t("Roman holiday", "Kỳ nghỉ La Mã"), {
+    themes: ["travel", "city", "nature"],
+    slides: 2,
+    background: { kind: "color", color: "#ebe5da" },
+    slots: [photo(0, 0, 0.08, 0.3, 0.84, 0.62, { mask: "arch" }), ...cells(1, 1, [0.06, 0.06, 0.88, 0.88], 2, 2, 0.025)],
+    texts: [text(0, 0.04, 0.04, 0.92, t("ROMAN HOLIDAY", "KỲ NGHỈ LA MÃ"), { font: "anton", size: 0.09, color: INK, cutout: { style: "roman", seed: 3, mess: 0.3, wave: 0.2, curve: 0.2 } })],
+  }),
+  design("cut-street", "cutout", t("Street poster", "Áp phích phố"), {
+    format: "story",
+    themes: ["city", "fashion", "party"],
+    slides: 1,
+    slots: [photo(0, 0, 0, 0, 1, 1)],
+    texts: [text(0, 0.04, 0.14, 0.92, t("LOUD &\nPROUD", "SỐNG\nHẾT MÌNH"), { font: "anton", size: 0.14, color: INK, lineHeight: 1, cutout: { style: "street", seed: 8, mess: 0.6, wave: 0.4 } })],
+  }),
+  design("cut-vintage-label", "cutout", t("Vintage label", "Nhãn cổ điển"), {
+    themes: ["food", "retro", "travel"],
+    slides: 1,
+    background: { kind: "color", color: "#f1e3c8" },
+    slots: [photo(0, 0, 0.12, 0.08, 0.76, 0.6, { mask: "rounded", cornerRadius: 0.04, border: { width: 0.012, color: "#2f4858" } })],
+    texts: [text(0, 0.04, 0.74, 0.92, t("homemade\nwith love", "nhà làm\nbằng cả tâm"), { font: "anton", size: 0.08, color: INK, lineHeight: 1, cutout: { style: "vintageLabel", seed: 5, mess: 0.4, wave: 0.25, curve: -0.2 } })],
+  }),
   design("cut-weekend", "cutout", t("Weekend, cut out", "Cuối tuần chữ cắt"), {
     themes: ["friends", "city", "food"],
     slides: 2,

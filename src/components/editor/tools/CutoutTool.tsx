@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import type { CutoutText, TextElement } from "@/lib/project/types";
-import { CUTOUT_STYLES, type CutoutStyle, cutoutFonts, cutoutLayout, DEFAULT_CUTOUT, drawCutout } from "@/lib/text/cutout";
-import { loadFont } from "@/lib/text/fonts";
+import { CUTOUT_STYLES, type CutoutStyle, loadCutoutFonts, cutoutLayout, DEFAULT_CUTOUT, drawCutout } from "@/lib/text/cutout";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useSettings, useT } from "@/store/settings";
 import { Slider, ToolSheet } from "./controls";
@@ -18,7 +17,7 @@ function StyleThumb({ style, text, cutout }: { style: CutoutStyle; text: string;
   const [ready, setReady] = useState(0);
   useEffect(() => {
     let alive = true;
-    void Promise.all(cutoutFonts(style).map((f) => loadFont(f.font, f.weight))).then(() => alive && setReady((n) => n + 1));
+    void loadCutoutFonts(style).then(() => alive && setReady((n) => n + 1));
     return () => {
       alive = false;
     };
@@ -111,8 +110,8 @@ export function CutoutTool({ elementId, onClose }: { elementId: string; onClose:
               ))}
             </div>
           </div>
-          <Slider label={t("cutout.mess")} value={Math.round(cutout.mess * 100)} min={0} max={100} defaultValue={50} onChange={(v) => set({ mess: v / 100 })} />
-          <Slider label={t("cutout.wave")} value={Math.round(cutout.wave * 100)} min={0} max={100} defaultValue={30} onChange={(v) => set({ wave: v / 100 })} />
+          <Slider label={t("cutout.mess")} value={Math.round(cutout.mess * 100)} min={0} max={100} defaultValue={40} onChange={(v) => set({ mess: v / 100 })} />
+          <Slider label={t("cutout.wave")} value={Math.round(cutout.wave * 100)} min={0} max={100} defaultValue={20} onChange={(v) => set({ wave: v / 100 })} />
           <Slider label={t("cutout.curve")} value={Math.round(cutout.curve * 100)} min={-100} max={100} defaultValue={0} onChange={(v) => set({ curve: v / 100 })} />
           <p className="pt-1 text-xs text-muted">{t("cutout.tapHint")}</p>
         </>
