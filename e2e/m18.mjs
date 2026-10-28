@@ -116,6 +116,16 @@ const strip0 = page.getByRole("region", { name: "Everyday" }).locator(".snap-man
 await strip0.evaluate((e) => e.scrollTo({ left: e.clientWidth }));
 await page.waitForTimeout(400);
 check((await strip0.evaluate((e) => e.scrollLeft)) > 50, "a carousel template card swipes to its next slide");
+// Bottom strip and right edge of a carousel card move the row, the rest turns its slides (owner, 2026-10-28).
+const zones = await strip0.evaluate((inner) => {
+  const r = inner.getBoundingClientRect();
+  const at = (x, y) => document.elementFromPoint(x, y);
+  const mid = at(r.left + r.width * 0.4, r.top + r.height * 0.4);
+  const bottom = at(r.left + r.width * 0.4, r.bottom - r.height * 0.08);
+  const right = at(r.right - r.width * 0.06, r.top + r.height * 0.5);
+  return { mid: inner.contains(mid), bottom: !inner.contains(bottom) && bottom?.hasAttribute("data-row-drag"), right: !inner.contains(right) && right?.hasAttribute("data-row-drag") };
+});
+check(zones.mid && zones.bottom && zones.right, "card in a row: middle turns slides, bottom strip / right edge drag the row");
 
 console.log("Template detail (03 §5–6)");
 await page.getByRole("button", { name: "Travel journal" }).first().click();

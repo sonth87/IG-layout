@@ -54,3 +54,15 @@ Mép giấy xé (ngang giữa các ảnh, quanh ảnh, vòng tròn xé), khung t
 - Bảng ngày Tết / Trung thu cần bổ sung sau 2035.
 - Chưa có khung "máy ảnh số" và "mép sổ lò xo" như SCRL — cần thêm vào thư viện khung (M20) nếu muốn.
 - Mẫu theo mùa nên được chủ dự án duyệt trên điện thoại (màu, chữ tiếng Việt).
+
+---
+
+## Đợt 3 — vuốt trong hàng template
+
+**Vấn đề (chủ dự án):** ở trang chủ, mỗi danh mục là một hàng cuộn ngang, mà thẻ carousel bên trong cũng vuốt ngang được → khó vuốt hàng cha.
+
+**Chốt:** trên thẻ nhiều slide nằm trong hàng ngang, **dải dưới đáy (~20% chiều cao)** và **mép phải (~18% chiều rộng)** dùng để kéo cả hàng; phần còn lại lật slide của template. Chạm (không vuốt) ở đâu cũng mở template. Thẻ một slide, lưới nhóm và "Khám phá thêm" giữ như cũ.
+
+**Cách làm:** hai lớp trong suốt nằm ngoài vùng cuộn của thẻ → trình duyệt tự cuộn hàng cha (giữ quán tính, hít thẻ). Đã thử bằng cử chỉ chạm giả lập: vuốt giữa → slide đổi, hàng đứng yên; vuốt dải dưới / mép phải → hàng trượt, slide đứng yên.
+
+**Để sau:** "chuyền tiếp" (ở slide cuối vuốt tiếp thì sang template kế) — thử trên máy rồi mới tính.

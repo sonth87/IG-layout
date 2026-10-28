@@ -534,3 +534,5 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Chủ dự án chốt D-135, D-136 (2026-10-28)
 - [x] Hàng template cuộn ngang: mọi thẻ cùng chiều cao (story hẹp hơn thay vì cao hơn)
 - [ ] Thư viện khung: khung máy ảnh số, mép sổ lò xo (tham khảo sample/1)
+- [x] Thẻ carousel trong hàng ngang: dải dưới / mép phải kéo hàng, giữa thẻ lật slide (D-137, e2e m18.mjs)
+- [ ] Thử trên iPhone; cân nhắc "chuyền tiếp" ở slide cuối
