@@ -2,10 +2,11 @@
 
 import { useRef, useState } from "react";
 import { useImportPhotos } from "@/components/editor/useImportPhotos";
+import { GapDemo, GridProfilePreview, gridRowsHint } from "@/components/layout/GridProfilePreview";
 import { LayoutPicker } from "@/components/layout/LayoutPicker";
 import { Icon } from "@/components/ui/Icon";
 import { formatShortDate } from "@/lib/format";
-import { GRID_COLS, MAX_GRID_ROWS } from "@/lib/project/layout";
+import { GRID_COLS, MAX_GRID_TILES, MIN_GRID_TILES } from "@/lib/project/layout";
 import {
   type AspectRatio,
   type ImageAsset,
@@ -92,7 +93,9 @@ export function NewProject({ onClose, initialType = "post" }: { onClose: () => v
   const [postRatio, setPostRatio] = useState<AspectRatio>("4:5");
   const [slides, setSlides] = useState(5);
   const [frames, setFrames] = useState(3);
-  const [rows, setRows] = useState(3);
+  // Grid: any number of posts, 2–24 (owner, 2026-10-28); the last row may be short.
+  const [tiles, setTiles] = useState(9);
+  const rows = Math.ceil(tiles / GRID_COLS);
   const [gap, setGap] = useState(true);
   const fileInput = useRef<HTMLInputElement>(null);
   const createProject = useEditor((s) => s.createProject);
@@ -102,7 +105,7 @@ export function NewProject({ onClose, initialType = "post" }: { onClose: () => v
   const [picked, setPicked] = useState<ImageAsset[] | null>(null);
 
   const ratio: AspectRatio = type === "story" ? "9:16" : type === "grid" ? "3:4" : postRatio;
-  const count = type === "story" ? frames : type === "grid" ? rows * GRID_COLS : slides;
+  const count = type === "story" ? frames : type === "grid" ? tiles : slides;
   const size = slideSize(ratio);
   const name = () => t(`new.defaultName.${type}`, { date: formatShortDate(Date.now(), locale) });
   const create = (slideCount: number) => createProject({ type, ratio, slideCount, name: name(), gapCompensation: gap });
@@ -226,47 +229,71 @@ export function NewProject({ onClose, initialType = "post" }: { onClose: () => v
 
         {type === "grid" && (
           <section className="flex flex-col gap-3">
-            <h2 className={sectionTitle}>{t("grid.rows")}</h2>
+            <h2 className={sectionTitle}>{t("grid.count")}</h2>
+            <div className="flex gap-2">
+              {[3, 6, 9, 12].map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  aria-label={t("grid.preset", { count: n })}
+                  aria-pressed={tiles === n}
+                  onClick={() => setTiles(n)}
+                  className={`h-10 flex-1 rounded-xl text-sm font-semibold ${tiles === n ? "border-2 border-accent bg-accent-soft" : "border border-border bg-surface"}`}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
             <Stepper
-              value={rows}
-              min={1}
-              max={MAX_GRID_ROWS}
-              onChange={setRows}
-              fewer={t("grid.fewerRows")}
-              more={t("grid.moreRows")}
-              hint={t("new.gridPosts", { count: rows * GRID_COLS })}
+              value={tiles}
+              min={MIN_GRID_TILES}
+              max={MAX_GRID_TILES}
+              onChange={setTiles}
+              fewer={t("grid.fewer")}
+              more={t("grid.more")}
+              hint={gridRowsHint(t, tiles)}
             />
+            {tiles % GRID_COLS !== 0 && (
+              // Only a heads-up: the choice stays the user's (owner, 2026-10-28).
+              <p role="note" className="rounded-xl bg-accent-soft px-3 py-2.5 text-xs leading-relaxed">
+                {t("grid.shortRowNote")}
+              </p>
+            )}
+            <GridProfilePreview count={tiles} gap={gap} />
             <label className="flex items-center justify-between gap-3 rounded-2xl bg-surface px-4 py-3 text-sm">
               <span>
                 {t("grid.gap")}
-                <span className="block text-xs text-muted">{t("grid.gapHint")}</span>
+                <span className="block text-xs leading-relaxed text-muted">{t("grid.gapHint")}</span>
               </span>
-              <input type="checkbox" checked={gap} onChange={(e) => setGap(e.target.checked)} className="h-[22px] w-[22px] accent-accent" />
+              <input type="checkbox" checked={gap} onChange={(e) => setGap(e.target.checked)} className="h-[22px] w-[22px] shrink-0 accent-accent" />
             </label>
+            <GapDemo on={gap} />
+            <p className="text-sm leading-relaxed text-muted">{t("new.cutInfo.grid", { count, width: size.width, height: size.height })}</p>
           </section>
         )}
 
-        <section>
-          <div
-            aria-hidden="true"
-            className="grid gap-[3px]"
-            style={{ gridTemplateColumns: `repeat(${type === "grid" ? GRID_COLS : count}, minmax(0, 1fr))` }}
-          >
-            {Array.from({ length: count }, (_, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-center rounded-[3px] border border-dashed border-border-2 text-[10px] text-muted"
-                style={{ aspectRatio: `${size.width} / ${size.height}`, maxHeight: type === "grid" ? 44 : 72 }}
-              >
-                {i + 1}
-              </div>
-            ))}
-          </div>
-          <p className="pt-3 text-sm leading-relaxed text-muted">
-            {t(`new.cutInfo.${type}`, { count, width: size.width, height: size.height })}
-          </p>
-        </section>
-
+        {type !== "grid" && (
+          <section>
+            <div
+              aria-hidden="true"
+              className="grid gap-[3px]"
+              style={{ gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
+            >
+              {Array.from({ length: count }, (_, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-center rounded-[3px] border border-dashed border-border-2 text-[10px] text-muted"
+                  style={{ aspectRatio: `${size.width} / ${size.height}`, maxHeight: 72 }}
+                >
+                  {i + 1}
+                </div>
+              ))}
+            </div>
+            <p className="pt-3 text-sm leading-relaxed text-muted">
+              {t(`new.cutInfo.${type}`, { count, width: size.width, height: size.height })}
+            </p>
+          </section>
+        )}
         {errors.length > 0 && (
           <div role="alert" className="text-sm text-danger">
             {errors.map((e) => (

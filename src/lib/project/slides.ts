@@ -1,5 +1,5 @@
 import { isLayout, outermost, syncLayout, units } from "./blocks";
-import { GRID_COLS, GRID_GAP, MAX_GRID_ROWS, slideOfElement, slideRect } from "./layout";
+import { GRID_COLS, GRID_GAP, MAX_GRID_TILES, MIN_GRID_TILES, slideOfElement, slideRect } from "./layout";
 import { type CanvasElement, MAX_SLIDES, newId, type ProjectDoc, slideSize } from "./types";
 
 // Slide operations. An element belongs to the slide containing its center;
@@ -79,13 +79,13 @@ export function moveSlide(doc: ProjectDoc, index: number, direction: -1 | 1): Pr
   return relocate(doc, doc, (s) => (s === index ? target : s === target ? index : s));
 }
 
-/** Grid: change the number of rows (rows are added / removed at the bottom). */
-export function setGridRows(doc: ProjectDoc, rows: number): ProjectDoc {
+/** Grid: change the number of tiles, 2–24 (added / removed at the end; the last row may be short). */
+export function setGridCount(doc: ProjectDoc, count: number): ProjectDoc {
   if (doc.type !== "grid" || !doc.grid) return doc;
-  const r = Math.max(1, Math.min(MAX_GRID_ROWS, rows));
-  if (r === doc.grid.rows) return doc;
-  const next = { ...doc, slideCount: r * GRID_COLS, grid: { ...doc.grid, rows: r } };
-  return relocate(doc, next, (s) => (s < r * GRID_COLS ? s : null));
+  const n = Math.max(MIN_GRID_TILES, Math.min(MAX_GRID_TILES, count));
+  if (n === doc.slideCount) return doc;
+  const next = { ...doc, slideCount: n, grid: { ...doc.grid, rows: Math.ceil(n / GRID_COLS) } };
+  return relocate(doc, next, (s) => (s < n ? s : null));
 }
 
 /** Grid: turn the profile-gap compensation on / off; content follows its tile. */

@@ -90,3 +90,8 @@ export function samplePhotosFor(tpl: Template): ImageAsset[] {
   byTemplate.set(tpl.id, list);
   return list;
 }
+
+/** Sample photos of some themes (URL and shape), for other previews (grid profile mock-up). */
+export function samplesOf(themes: SampleTheme[]) {
+  return PHOTOS.filter((p) => themes.includes(p.theme)).map((p) => ({ url: `/samples/${p.id}.webp`, width: p.width, height: p.height }));
+}

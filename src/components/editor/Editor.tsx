@@ -903,7 +903,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <div className="flex min-w-0 flex-1 flex-col px-1 leading-tight">
           <span className="truncate text-[14px] font-semibold">
             {doc.type === "grid"
-              ? t("editor.titleGrid", { rows: doc.grid?.rows ?? 1 })
+              ? t("editor.titleGrid", { count: doc.slideCount })
               : doc.type === "story"
                 ? t("editor.titleStory", { count: doc.slideCount })
                 : t("editor.title", { ratio: doc.ratio.replace("1080x", "1080×"), count: doc.slideCount })}

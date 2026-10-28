@@ -99,11 +99,11 @@ await page.getByLabel("Back").click();
 console.log("4. Grid export: profile assembles the picture");
 await openNewProject(page);
 await page.getByRole("radio", { name: /Grid/ }).click();
-await page.getByLabel("Fewer rows").click();
+await page.getByRole("button", { name: "6 posts", exact: true }).click();
 await page.locator('input[type="file"]').setInputFiles(path.join(dir, "panorama.jpg"));
 await page.getByRole("button", { name: /^Panorama/ }).first().click();
 await page.getByRole("button", { name: "Use this layout" }).click();
-await page.getByText("Grid · 3 × 2").waitFor();
+await page.getByText("Grid · 6 posts").waitFor();
 await page.getByRole("button", { name: "Export" }).click();
 await page.getByText("6 images · JPEG · 1080 × 1440").waitFor();
 const order = await page.evaluate(() => {

@@ -6,7 +6,8 @@ import { catalogAsset, loadCatalog, loadPack, packsOf, packUrl, useCatalog } fro
 import { TEXTURE_KEYS, TEXTURES, textureTile } from "@/lib/elements/textures";
 import { Icon } from "@/components/ui/Icon";
 import { type Background, isImage } from "@/lib/project/types";
-import { MAX_GRID_ROWS } from "@/lib/project/layout";
+import { GRID_COLS, MAX_GRID_TILES, MIN_GRID_TILES } from "@/lib/project/layout";
+import { GapDemo, gridRowsHint } from "@/components/layout/GridProfilePreview";
 import { MAX_SLIDES } from "@/lib/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useSettings, useT } from "@/store/settings";
@@ -245,7 +246,7 @@ export function SlidesTool(props: { onClose: () => void; showSafeZone: boolean; 
   const t = useT();
   const doc = useViewDoc();
   const current = useEditor((s) => s.currentSlide);
-  const { insertSlide, deleteSlide, moveSlide, setCurrentSlide, setGridRows, setGridGap } = useEditor.getState();
+  const { insertSlide, deleteSlide, moveSlide, setCurrentSlide, setGridCount, setGridGap } = useEditor.getState();
   if (!doc) return null;
   const index = Math.min(current, doc.slideCount - 1);
   const isStory = doc.type === "story";
@@ -258,34 +259,38 @@ export function SlidesTool(props: { onClose: () => void; showSafeZone: boolean; 
   );
 
   if (doc.type === "grid" && doc.grid) {
-    const rows = doc.grid.rows;
+    const count = doc.slideCount;
     return shell(
-      t("grid.title", { rows, count: doc.slideCount }),
+      t("grid.title", { count }),
       <>
         <div className="flex items-center justify-between py-1">
-          <span className="text-sm">{t("grid.rows")}</span>
+          <span className="flex flex-col text-sm">
+            {t("grid.count")}
+            <span className="text-xs text-muted">{gridRowsHint(t, count)}</span>
+          </span>
           <div className="flex items-center gap-3">
             <button
               type="button"
-              aria-label={t("grid.fewerRows")}
-              disabled={rows <= 1}
-              onClick={() => setGridRows(rows - 1)}
+              aria-label={t("grid.fewer")}
+              disabled={count <= MIN_GRID_TILES}
+              onClick={() => setGridCount(count - 1)}
               className="flex h-10 w-10 items-center justify-center rounded-xl border border-border disabled:text-disabled"
             >
               <Icon name="minus" size={18} />
             </button>
-            <span className="w-6 text-center font-display text-lg font-bold">{rows}</span>
+            <span className="w-6 text-center font-display text-lg font-bold">{count}</span>
             <button
               type="button"
-              aria-label={t("grid.moreRows")}
-              disabled={rows >= MAX_GRID_ROWS}
-              onClick={() => setGridRows(rows + 1)}
+              aria-label={t("grid.more")}
+              disabled={count >= MAX_GRID_TILES}
+              onClick={() => setGridCount(count + 1)}
               className="flex h-10 w-10 items-center justify-center rounded-xl border border-border disabled:text-disabled"
             >
               <Icon name="plus" size={18} />
             </button>
           </div>
         </div>
+        {count % GRID_COLS !== 0 && <p className="rounded-xl bg-accent-soft px-3 py-2 text-xs leading-relaxed">{t("grid.shortRowNote")}</p>}
         <label className="flex items-center justify-between gap-3 py-2 text-sm">
           <span>
             {t("grid.gap")}
@@ -298,7 +303,8 @@ export function SlidesTool(props: { onClose: () => void; showSafeZone: boolean; 
             className="h-[22px] w-[22px] accent-accent"
           />
         </label>
-        <p className="pt-1 text-xs leading-relaxed text-muted">{t("grid.orderHint")}</p>
+        <GapDemo on={doc.grid.gapCompensation} />
+        <p className="pt-2 text-xs leading-relaxed text-muted">{t("grid.orderHint")}</p>
       </>,
     );
   }
