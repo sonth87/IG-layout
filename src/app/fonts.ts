@@ -1,4 +1,4 @@
-import { Be_Vietnam_Pro, Dancing_Script, Lora, Montserrat, Playfair_Display, Space_Grotesk } from "next/font/google";
+import { Anton, Be_Vietnam_Pro, Cormorant_Garamond, Dancing_Script, Great_Vibes, Lora, Montserrat, Patrick_Hand, Playfair_Display, Space_Grotesk } from "next/font/google";
 
 // Fonts loaded with the app: the UI fonts (Be Vietnam Pro, Space Grotesk) and the text
 // fonts used by the home template library. All 70+ text fonts: lib/text/webfonts.ts,
@@ -29,6 +29,36 @@ export const montserrat = Montserrat({
 export const dancing = Dancing_Script({
   subsets: ["latin", "vietnamese"],
   preload: false,
+});
+
+// Also used by home templates (2026-10-28): editorial serif, condensed display,
+// calligraphy and handwriting. Declared here so they draw on the home screen; a file is
+// fetched only when a template shows the font.
+export const cormorant = Cormorant_Garamond({
+  subsets: ["latin", "vietnamese"],
+  preload: false,
+  adjustFontFallback: false,
+});
+
+export const anton = Anton({
+  subsets: ["latin", "vietnamese"],
+  weight: ["400"],
+  preload: false,
+  adjustFontFallback: false,
+});
+
+export const greatVibes = Great_Vibes({
+  subsets: ["latin", "vietnamese"],
+  weight: ["400"],
+  preload: false,
+  adjustFontFallback: false,
+});
+
+export const patrickHand = Patrick_Hand({
+  subsets: ["latin", "vietnamese"],
+  weight: ["400"],
+  preload: false,
+  adjustFontFallback: false,
 });
 
 export const spaceGrotesk = Space_Grotesk({

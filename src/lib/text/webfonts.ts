@@ -2,7 +2,6 @@ import {
   Alegreya,
   Allura,
   Amatic_SC,
-  Anton,
   Anybody,
   Archivo,
   Big_Shoulders,
@@ -14,14 +13,12 @@ import {
   Chonburi,
   Comfortaa,
   Corinthia,
-  Cormorant_Garamond,
   Crimson_Pro,
   Dela_Gothic_One,
   EB_Garamond,
   Fraunces,
   Geologica,
   Gluten,
-  Great_Vibes,
   Grenze_Gotisch,
   Hanken_Grotesk,
   Inter,
@@ -46,7 +43,6 @@ import {
   Open_Sans,
   Oswald,
   Pacifico,
-  Patrick_Hand,
   Paytone_One,
   Pinyon_Script,
   Playball,
@@ -207,12 +203,6 @@ const ebGaramond = EB_Garamond({
   adjustFontFallback: false,
 });
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin", "vietnamese"],
-  preload: false,
-  adjustFontFallback: false,
-});
-
 const bodoni = Libre_Bodoni({
   subsets: ["latin", "vietnamese"],
   preload: false,
@@ -295,13 +285,6 @@ const taviraj = Taviraj({
 
 const oswald = Oswald({
   subsets: ["latin", "vietnamese"],
-  preload: false,
-  adjustFontFallback: false,
-});
-
-const anton = Anton({
-  subsets: ["latin", "vietnamese"],
-  weight: ["400"],
   preload: false,
   adjustFontFallback: false,
 });
@@ -402,13 +385,6 @@ const pacifico = Pacifico({
   adjustFontFallback: false,
 });
 
-const greatVibes = Great_Vibes({
-  subsets: ["latin", "vietnamese"],
-  weight: ["400"],
-  preload: false,
-  adjustFontFallback: false,
-});
-
 const lobster = Lobster({
   subsets: ["latin", "vietnamese"],
   weight: ["400"],
@@ -452,13 +428,6 @@ const corinthia = Corinthia({
 });
 
 const moonDance = Moon_Dance({
-  subsets: ["latin", "vietnamese"],
-  weight: ["400"],
-  preload: false,
-  adjustFontFallback: false,
-});
-
-const patrickHand = Patrick_Hand({
   subsets: ["latin", "vietnamese"],
   weight: ["400"],
   preload: false,
@@ -536,4 +505,4 @@ const recursive = Recursive({
 });
 
 /** Keeps the declarations alive (next/font emits the CSS for each call). */
-export const WEB_FONTS = [inter, manrope, jakarta, lexend, nunito, quicksand, raleway, workSans, josefin, openSans, roboto, mulish, archivo, bricolage, hanken, comfortaa, kanit, prompt, geologica, fraunces, ebGaramond, cormorant, bodoni, newsreader, literata, crimson, bitter, merriweather, vollkorn, alegreya, sourceSerif, robotoSlab, brygada, yeseva, taviraj, oswald, anton, bungee, unbounded, bigShoulders, anybody, leagueSpartan, smooch, yanone, tektur, museo, grenze, dela, paytone, chonburi, amatic, pacifico, greatVibes, lobster, charm, allura, pinyon, playball, corinthia, moonDance, patrickHand, itim, mali, shantell, playpen, merienda, gluten, sriracha, jetbrains, spaceMono, robotoMono, recursive].length;
+export const WEB_FONTS = [inter, manrope, jakarta, lexend, nunito, quicksand, raleway, workSans, josefin, openSans, roboto, mulish, archivo, bricolage, hanken, comfortaa, kanit, prompt, geologica, fraunces, ebGaramond, bodoni, newsreader, literata, crimson, bitter, merriweather, vollkorn, alegreya, sourceSerif, robotoSlab, brygada, yeseva, taviraj, oswald, bungee, unbounded, bigShoulders, anybody, leagueSpartan, smooch, yanone, tektur, museo, grenze, dela, paytone, chonburi, amatic, pacifico, lobster, charm, allura, pinyon, playball, corinthia, moonDance, itim, mali, shantell, playpen, merienda, gluten, sriracha, jetbrains, spaceMono, robotoMono, recursive].length;

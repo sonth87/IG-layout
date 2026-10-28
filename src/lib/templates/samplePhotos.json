@@ -1,0 +1,1382 @@
+[
+ {
+  "id": "travel-1",
+  "theme": "travel",
+  "width": 720,
+  "height": 480,
+  "color": "#7F7E7A",
+  "pexels": 40090812,
+  "author": "Paolo Bici",
+  "url": "https://www.pexels.com/photo/sailing-on-walensee-lake-with-alpine-background-40090812/"
+ },
+ {
+  "id": "travel-2",
+  "theme": "travel",
+  "width": 720,
+  "height": 480,
+  "color": "#6B777D",
+  "pexels": 4791619,
+  "author": "Gantas Vaičiulėnas",
+  "url": "https://www.pexels.com/photo/person-standing-on-a-rock-near-a-lake-4791619/"
+ },
+ {
+  "id": "travel-3",
+  "theme": "travel",
+  "width": 720,
+  "height": 480,
+  "color": "#606A5E",
+  "pexels": 138903,
+  "author": "Markus Spiske",
+  "url": "https://www.pexels.com/photo/green-lake-surrounded-by-green-trees-and-snow-covered-mountains-138903/"
+ },
+ {
+  "id": "travel-4",
+  "theme": "travel",
+  "width": 720,
+  "height": 477,
+  "color": "#6F8382",
+  "pexels": 9719409,
+  "author": "JENNY DILPHY",
+  "url": "https://www.pexels.com/photo/scenic-view-of-boats-on-a-lake-near-mountains-9719409/"
+ },
+ {
+  "id": "travel-5",
+  "theme": "travel",
+  "width": 720,
+  "height": 480,
+  "color": "#8A8D88",
+  "pexels": 163915,
+  "author": "Bob Krustev",
+  "url": "https://www.pexels.com/photo/green-grass-covered-ground-near-body-of-water-under-gray-cloudy-sky-163915/"
+ },
+ {
+  "id": "travel-6",
+  "theme": "travel",
+  "width": 480,
+  "height": 720,
+  "color": "#818680",
+  "pexels": 28887156,
+  "author": "Bala",
+  "url": "https://www.pexels.com/photo/vintage-car-on-sunny-day-road-trip-28887156/"
+ },
+ {
+  "id": "travel-7",
+  "theme": "travel",
+  "width": 480,
+  "height": 720,
+  "color": "#999B8E",
+  "pexels": 31175534,
+  "author": "Катерина пешиć",
+  "url": "https://www.pexels.com/photo/vintage-convertible-on-scenic-mountain-road-31175534/"
+ },
+ {
+  "id": "travel-8",
+  "theme": "travel",
+  "width": 720,
+  "height": 480,
+  "color": "#87766E",
+  "pexels": 27951359,
+  "author": "Lorenzo Manera",
+  "url": "https://www.pexels.com/photo/a-blue-and-white-vw-beetle-with-luggage-on-the-roof-27951359/"
+ },
+ {
+  "id": "travel-9",
+  "theme": "travel",
+  "width": 480,
+  "height": 720,
+  "color": "#43443C",
+  "pexels": 18361557,
+  "author": "Beyzaa",
+  "url": "https://www.pexels.com/photo/vintage-car-on-the-street-18361557/"
+ },
+ {
+  "id": "travel-10",
+  "theme": "travel",
+  "width": 480,
+  "height": 720,
+  "color": "#979799",
+  "pexels": 22598562,
+  "author": "Yana Kangal",
+  "url": "https://www.pexels.com/photo/view-of-a-red-volkswagen-beetle-on-a-road-along-a-body-of-water-22598562/"
+ },
+ {
+  "id": "travel-11",
+  "theme": "travel",
+  "width": 481,
+  "height": 720,
+  "color": "#333F43",
+  "pexels": 3374249,
+  "author": "Brady Knoll",
+  "url": "https://www.pexels.com/photo/white-airplane-wing-3374249/"
+ },
+ {
+  "id": "travel-12",
+  "theme": "travel",
+  "width": 480,
+  "height": 720,
+  "color": "#313743",
+  "pexels": 19554729,
+  "author": "Oscar Zhu",
+  "url": "https://www.pexels.com/photo/airplane-wing-seen-through-window-19554729/"
+ },
+ {
+  "id": "travel-13",
+  "theme": "travel",
+  "width": 540,
+  "height": 720,
+  "color": "#282829",
+  "pexels": 1815388,
+  "author": "Guilherme Rossi",
+  "url": "https://www.pexels.com/photo/white-and-black-electronic-device-1815388/"
+ },
+ {
+  "id": "travel-14",
+  "theme": "travel",
+  "width": 540,
+  "height": 720,
+  "color": "#222F37",
+  "pexels": 35173466,
+  "author": "Nihar Manyalli",
+  "url": "https://www.pexels.com/photo/aerial-view-of-clouds-through-airplane-window-35173466/"
+ },
+ {
+  "id": "travel-15",
+  "theme": "travel",
+  "width": 540,
+  "height": 720,
+  "color": "#7D8383",
+  "pexels": 9721803,
+  "author": "Kadin  Eksteen",
+  "url": "https://www.pexels.com/photo/airport-view-from-the-airplane-window-9721803/"
+ },
+ {
+  "id": "beach-1",
+  "theme": "beach",
+  "width": 720,
+  "height": 407,
+  "color": "#9D9185",
+  "pexels": 39653740,
+  "author": "Tomi Saputra",
+  "url": "https://www.pexels.com/photo/vibrant-beach-scene-in-bali-indonesia-39653740/"
+ },
+ {
+  "id": "beach-2",
+  "theme": "beach",
+  "width": 720,
+  "height": 481,
+  "color": "#B3AA8B",
+  "pexels": 29684011,
+  "author": "Vicky T M",
+  "url": "https://www.pexels.com/photo/couple-relaxing-on-vagator-beach-in-goa-29684011/"
+ },
+ {
+  "id": "beach-3",
+  "theme": "beach",
+  "width": 540,
+  "height": 720,
+  "color": "#7B7B7B",
+  "pexels": 32946898,
+  "author": "Derya Öztürk",
+  "url": "https://www.pexels.com/photo/silhouette-of-people-relaxing-by-the-sea-32946898/"
+ },
+ {
+  "id": "beach-4",
+  "theme": "beach",
+  "width": 480,
+  "height": 720,
+  "color": "#348E7D",
+  "pexels": 5833666,
+  "author": "Jonathan Borba",
+  "url": "https://www.pexels.com/photo/anonymous-travelers-relaxing-on-sandy-beach-of-tropical-resort-5833666/"
+ },
+ {
+  "id": "beach-5",
+  "theme": "beach",
+  "width": 720,
+  "height": 530,
+  "color": "#8F8C98",
+  "pexels": 936018,
+  "author": "nappy",
+  "url": "https://www.pexels.com/photo/two-women-with-man-hugging-by-the-sea-936018/"
+ },
+ {
+  "id": "beach-6",
+  "theme": "beach",
+  "width": 720,
+  "height": 405,
+  "color": "#A6B7C7",
+  "pexels": 35030757,
+  "author": "David Solce",
+  "url": "https://www.pexels.com/photo/sailboat-on-serene-lake-michigan-waters-35030757/"
+ },
+ {
+  "id": "beach-7",
+  "theme": "beach",
+  "width": 720,
+  "height": 480,
+  "color": "#7A96AC",
+  "pexels": 8627246,
+  "author": "Irina Balashova",
+  "url": "https://www.pexels.com/photo/sailboats-on-the-ocean-8627246/"
+ },
+ {
+  "id": "beach-8",
+  "theme": "beach",
+  "width": 720,
+  "height": 481,
+  "color": "#326286",
+  "pexels": 15305793,
+  "author": "Diego F. Parra",
+  "url": "https://www.pexels.com/photo/sailing-ship-in-the-middle-of-the-sea-15305793/"
+ },
+ {
+  "id": "beach-9",
+  "theme": "beach",
+  "width": 477,
+  "height": 720,
+  "color": "#B1C0C7",
+  "pexels": 9654691,
+  "author": "Nika Benedictova",
+  "url": "https://www.pexels.com/photo/white-sailboats-on-sea-under-gray-sky-9654691/"
+ },
+ {
+  "id": "beach-10",
+  "theme": "beach",
+  "width": 720,
+  "height": 480,
+  "color": "#7D95B1",
+  "pexels": 15630890,
+  "author": "Phil Evenden",
+  "url": "https://www.pexels.com/photo/sailboats-sailing-on-open-water-15630890/"
+ },
+ {
+  "id": "city-1",
+  "theme": "city",
+  "width": 542,
+  "height": 720,
+  "color": "#8B8D8C",
+  "pexels": 23881340,
+  "author": "Constantin Ch",
+  "url": "https://www.pexels.com/photo/old-town-in-lvov-in-rain-23881340/"
+ },
+ {
+  "id": "city-2",
+  "theme": "city",
+  "width": 576,
+  "height": 720,
+  "color": "#95887B",
+  "pexels": 22619620,
+  "author": "Anh Nguyen",
+  "url": "https://www.pexels.com/photo/a-street-in-zittau-germany-22619620/"
+ },
+ {
+  "id": "city-3",
+  "theme": "city",
+  "width": 540,
+  "height": 720,
+  "color": "#7D7666",
+  "pexels": 20214761,
+  "author": "Viliam Kudelka",
+  "url": "https://www.pexels.com/photo/narrow-street-in-city-20214761/"
+ },
+ {
+  "id": "city-4",
+  "theme": "city",
+  "width": 480,
+  "height": 720,
+  "color": "#59544E",
+  "pexels": 10501352,
+  "author": "Sami  Aksu",
+  "url": "https://www.pexels.com/photo/narrow-street-in-old-town-10501352/"
+ },
+ {
+  "id": "city-5",
+  "theme": "city",
+  "width": 480,
+  "height": 720,
+  "color": "#464543",
+  "pexels": 30641513,
+  "author": "John One",
+  "url": "https://www.pexels.com/photo/quiet-tokyo-night-street-scene-with-people-30641513/"
+ },
+ {
+  "id": "city-6",
+  "theme": "city",
+  "width": 480,
+  "height": 720,
+  "color": "#3A252D",
+  "pexels": 1510610,
+  "author": "Aleksandar Pasaric",
+  "url": "https://www.pexels.com/photo/dark-alley-1510610/"
+ },
+ {
+  "id": "city-7",
+  "theme": "city",
+  "width": 480,
+  "height": 720,
+  "color": "#132D3C",
+  "pexels": 39978661,
+  "author": "K ZHAO",
+  "url": "https://www.pexels.com/photo/aerial-view-of-bustling-shibuya-crossing-at-night-39978661/"
+ },
+ {
+  "id": "city-8",
+  "theme": "city",
+  "width": 720,
+  "height": 540,
+  "color": "#506576",
+  "pexels": 33901684,
+  "author": "Fernando B M",
+  "url": "https://www.pexels.com/photo/evening-street-view-of-ginza-tokyo-s-shopping-district-33901684/"
+ },
+ {
+  "id": "city-9",
+  "theme": "city",
+  "width": 540,
+  "height": 720,
+  "color": "#434341",
+  "pexels": 15155101,
+  "author": "Álvaro Jesús Gómez Ruiz",
+  "url": "https://www.pexels.com/photo/people-walking-past-cafes-on-narrow-cobblestone-street-15155101/"
+ },
+ {
+  "id": "city-10",
+  "theme": "city",
+  "width": 404,
+  "height": 720,
+  "color": "#705649",
+  "pexels": 20380436,
+  "author": "Karography",
+  "url": "https://www.pexels.com/photo/tables-with-chairs-outside-of-bistro-restaurant-20380436/"
+ },
+ {
+  "id": "city-11",
+  "theme": "city",
+  "width": 720,
+  "height": 480,
+  "color": "#6D7069",
+  "pexels": 30248853,
+  "author": "Daria Agafonova",
+  "url": "https://www.pexels.com/photo/charming-parisian-street-corner-with-cafe-30248853/"
+ },
+ {
+  "id": "city-12",
+  "theme": "city",
+  "width": 720,
+  "height": 540,
+  "color": "#666867",
+  "pexels": 36963782,
+  "author": "Zak H",
+  "url": "https://www.pexels.com/photo/charming-parisian-street-cafes-on-a-sunny-day-36963782/"
+ },
+ {
+  "id": "food-1",
+  "theme": "food",
+  "width": 540,
+  "height": 720,
+  "color": "#AC9069",
+  "pexels": 34052586,
+  "author": "N G",
+  "url": "https://www.pexels.com/photo/delicious-cappuccino-and-croissant-breakfast-34052586/"
+ },
+ {
+  "id": "food-2",
+  "theme": "food",
+  "width": 540,
+  "height": 720,
+  "color": "#A39B90",
+  "pexels": 15801049,
+  "author": "Arya Bajra",
+  "url": "https://www.pexels.com/photo/coffees-and-croissants-on-a-table-15801049/"
+ },
+ {
+  "id": "food-3",
+  "theme": "food",
+  "width": 480,
+  "height": 720,
+  "color": "#43433B",
+  "pexels": 20164169,
+  "author": "Merve Nur Türker",
+  "url": "https://www.pexels.com/photo/croissant-and-coffee-on-table-20164169/"
+ },
+ {
+  "id": "food-4",
+  "theme": "food",
+  "width": 480,
+  "height": 720,
+  "color": "#997E69",
+  "pexels": 8569410,
+  "author": "Gül Işık",
+  "url": "https://www.pexels.com/photo/croissants-on-white-ceramic-plate-with-latte-coffee-8569410/"
+ },
+ {
+  "id": "food-5",
+  "theme": "food",
+  "width": 480,
+  "height": 720,
+  "color": "#9BA093",
+  "pexels": 4427706,
+  "author": "Bianca Debisko",
+  "url": "https://www.pexels.com/photo/croissants-beside-a-cup-of-coffeee-4427706/"
+ },
+ {
+  "id": "food-6",
+  "theme": "food",
+  "width": 405,
+  "height": 720,
+  "color": "#86786D",
+  "pexels": 33089293,
+  "author": "Esra Nur Kalay",
+  "url": "https://www.pexels.com/photo/elegant-brunch-setting-with-flowers-and-pastry-33089293/"
+ },
+ {
+  "id": "food-7",
+  "theme": "food",
+  "width": 480,
+  "height": 720,
+  "color": "#84736C",
+  "pexels": 17216071,
+  "author": "Nati",
+  "url": "https://www.pexels.com/photo/croissants-fruit-and-a-cup-of-coffee-on-the-table-17216071/"
+ },
+ {
+  "id": "food-8",
+  "theme": "food",
+  "width": 478,
+  "height": 720,
+  "color": "#9B8B7E",
+  "pexels": 34317411,
+  "author": "N G",
+  "url": "https://www.pexels.com/photo/delicious-pancake-breakfast-with-fresh-berries-34317411/"
+ },
+ {
+  "id": "food-9",
+  "theme": "food",
+  "width": 480,
+  "height": 720,
+  "color": "#655B53",
+  "pexels": 3850965,
+  "author": "ready made",
+  "url": "https://www.pexels.com/photo/cooked-food-on-black-ceramic-plate-3850965/"
+ },
+ {
+  "id": "food-10",
+  "theme": "food",
+  "width": 720,
+  "height": 480,
+  "color": "#856549",
+  "pexels": 6534623,
+  "author": "ROMAN ODINTSOV",
+  "url": "https://www.pexels.com/photo/a-clear-beverage-with-a-piece-of-strawberry-floating-6534623/"
+ },
+ {
+  "id": "portrait-1",
+  "theme": "portrait",
+  "width": 720,
+  "height": 483,
+  "color": "#3D3027",
+  "pexels": 22724406,
+  "author": "Fernando Huelgas",
+  "url": "https://www.pexels.com/photo/portrait-of-brunette-woman-on-a-street-during-sunset-22724406/"
+ },
+ {
+  "id": "portrait-2",
+  "theme": "portrait",
+  "width": 480,
+  "height": 720,
+  "color": "#826749",
+  "pexels": 35256272,
+  "author": "Alef Morais",
+  "url": "https://www.pexels.com/photo/silhouette-of-a-woman-at-sunset-on-the-beach-35256272/"
+ },
+ {
+  "id": "portrait-3",
+  "theme": "portrait",
+  "width": 480,
+  "height": 720,
+  "color": "#7F5B48",
+  "pexels": 13234230,
+  "author": "Vitaly Gorbachev",
+  "url": "https://www.pexels.com/photo/woman-in-black-blazer-wearing-sunglasses-13234230/"
+ },
+ {
+  "id": "portrait-4",
+  "theme": "portrait",
+  "width": 480,
+  "height": 720,
+  "color": "#9D6F19",
+  "pexels": 9584793,
+  "author": "Lada Rezantseva",
+  "url": "https://www.pexels.com/photo/lens-flares-on-portrait-of-woman-by-river-9584793/"
+ },
+ {
+  "id": "portrait-5",
+  "theme": "portrait",
+  "width": 480,
+  "height": 720,
+  "color": "#4E3A22",
+  "pexels": 9026864,
+  "author": "Антон Леонардович Варфоломеев",
+  "url": "https://www.pexels.com/photo/a-close-up-shot-of-a-woman-9026864/"
+ },
+ {
+  "id": "portrait-6",
+  "theme": "portrait",
+  "width": 405,
+  "height": 720,
+  "color": "#5E5351",
+  "pexels": 15902991,
+  "author": "Omran Soliman",
+  "url": "https://www.pexels.com/photo/young-smiling-woman-in-a-jacket-standing-on-the-street-in-city-in-the-evening-15902991/"
+ },
+ {
+  "id": "portrait-7",
+  "theme": "portrait",
+  "width": 480,
+  "height": 720,
+  "color": "#8D8175",
+  "pexels": 17597051,
+  "author": "David Kouakou",
+  "url": "https://www.pexels.com/photo/portrait-of-a-young-woman-standing-outside-17597051/"
+ },
+ {
+  "id": "portrait-8",
+  "theme": "portrait",
+  "width": 479,
+  "height": 720,
+  "color": "#907D6E",
+  "pexels": 27609102,
+  "author": "Mădălina Ghidion",
+  "url": "https://www.pexels.com/photo/a-woman-wearing-a-sweatshirt-with-the-word-california-on-it-27609102/"
+ },
+ {
+  "id": "portrait-9",
+  "theme": "portrait",
+  "width": 480,
+  "height": 720,
+  "color": "#7E8480",
+  "pexels": 27721748,
+  "author": "Gabriel Chamak",
+  "url": "https://www.pexels.com/photo/a-man-in-white-shorts-and-a-white-shirt-27721748/"
+ },
+ {
+  "id": "portrait-10",
+  "theme": "portrait",
+  "width": 405,
+  "height": 720,
+  "color": "#69676C",
+  "pexels": 18849591,
+  "author": "Braks Alexandros",
+  "url": "https://www.pexels.com/photo/woman-wearing-coat-in-front-of-graffiti-18849591/"
+ },
+ {
+  "id": "friends-1",
+  "theme": "friends",
+  "width": 720,
+  "height": 527,
+  "color": "#ACA4A2",
+  "pexels": 3768884,
+  "author": "Andrea Piacquadio",
+  "url": "https://www.pexels.com/photo/photo-of-women-laughing-while-sitting-near-water-fountain-3768884/"
+ },
+ {
+  "id": "friends-2",
+  "theme": "friends",
+  "width": 720,
+  "height": 480,
+  "color": "#797A6A",
+  "pexels": 8445576,
+  "author": "Jeff Vinluan",
+  "url": "https://www.pexels.com/photo/female-friends-having-fun-together-8445576/"
+ },
+ {
+  "id": "friends-3",
+  "theme": "friends",
+  "width": 720,
+  "height": 480,
+  "color": "#C4C3BF",
+  "pexels": 8733136,
+  "author": "Katya Wolf",
+  "url": "https://www.pexels.com/photo/two-girls-with-their-arms-raised-8733136/"
+ },
+ {
+  "id": "friends-4",
+  "theme": "friends",
+  "width": 720,
+  "height": 480,
+  "color": "#8B6F5F",
+  "pexels": 4005032,
+  "author": "Gustavo Fring",
+  "url": "https://www.pexels.com/photo/happy-friends-cheerfully-talking-on-street-4005032/"
+ },
+ {
+  "id": "friends-5",
+  "theme": "friends",
+  "width": 720,
+  "height": 480,
+  "color": "#9A928C",
+  "pexels": 5254676,
+  "author": "Antonius Ferret",
+  "url": "https://www.pexels.com/photo/three-laughing-women-5254676/"
+ },
+ {
+  "id": "friends-6",
+  "theme": "friends",
+  "width": 480,
+  "height": 720,
+  "color": "#A0A5A1",
+  "pexels": 10433242,
+  "author": "Anastazja Mazur",
+  "url": "https://www.pexels.com/photo/a-group-of-friends-partying-while-drinking-10433242/"
+ },
+ {
+  "id": "friends-7",
+  "theme": "friends",
+  "width": 481,
+  "height": 720,
+  "color": "#6D384A",
+  "pexels": 8551080,
+  "author": "Pavel Danilyuk",
+  "url": "https://www.pexels.com/photo/group-of-friends-having-a-party-8551080/"
+ },
+ {
+  "id": "friends-8",
+  "theme": "friends",
+  "width": 720,
+  "height": 480,
+  "color": "#6B5045",
+  "pexels": 30682913,
+  "author": "Jonathan Valdes",
+  "url": "https://www.pexels.com/photo/group-of-friends-celebrating-birthday-in-party-hats-30682913/"
+ },
+ {
+  "id": "friends-9",
+  "theme": "friends",
+  "width": 480,
+  "height": 720,
+  "color": "#7B1A2E",
+  "pexels": 19542470,
+  "author": "Jose Ismael Espinola",
+  "url": "https://www.pexels.com/photo/women-drinking-cocktail-on-party-19542470/"
+ },
+ {
+  "id": "friends-10",
+  "theme": "friends",
+  "width": 720,
+  "height": 540,
+  "color": "#312920",
+  "pexels": 5970895,
+  "author": "KATRIN  BOLOVTSOVA",
+  "url": "https://www.pexels.com/photo/people-having-a-party-5970895/"
+ },
+ {
+  "id": "couple-1",
+  "theme": "couple",
+  "width": 517,
+  "height": 720,
+  "color": "#4C4034",
+  "pexels": 16122200,
+  "author": "Wesley Davi",
+  "url": "https://www.pexels.com/photo/couple-lying-on-the-ground-and-man-playing-the-guitar-16122200/"
+ },
+ {
+  "id": "couple-2",
+  "theme": "couple",
+  "width": 480,
+  "height": 720,
+  "color": "#727272",
+  "pexels": 19966161,
+  "author": "Toàn Văn",
+  "url": "https://www.pexels.com/photo/photo-of-a-kissing-couple-19966161/"
+ },
+ {
+  "id": "couple-3",
+  "theme": "couple",
+  "width": 720,
+  "height": 480,
+  "color": "#483129",
+  "pexels": 31558934,
+  "author": "Seljan  Salimova",
+  "url": "https://www.pexels.com/photo/romantic-close-up-of-smiling-couple-at-sunset-31558934/"
+ },
+ {
+  "id": "couple-4",
+  "theme": "couple",
+  "width": 720,
+  "height": 576,
+  "color": "#CCBEB3",
+  "pexels": 12163465,
+  "author": "CAMERA TREASURE",
+  "url": "https://www.pexels.com/photo/romantic-couple-sitting-on-the-bench-12163465/"
+ },
+ {
+  "id": "couple-5",
+  "theme": "couple",
+  "width": 576,
+  "height": 720,
+  "color": "#5E5C5F",
+  "pexels": 30877399,
+  "author": "Israyosoy S.",
+  "url": "https://www.pexels.com/photo/romantic-couple-sharing-a-kiss-with-wine-glasses-30877399/"
+ },
+ {
+  "id": "couple-6",
+  "theme": "couple",
+  "width": 720,
+  "height": 720,
+  "color": "#62554D",
+  "pexels": 19950472,
+  "author": "Yusuf Rendecioglu art",
+  "url": "https://www.pexels.com/photo/bride-and-bridegroom-standing-together-19950472/"
+ },
+ {
+  "id": "couple-7",
+  "theme": "couple",
+  "width": 480,
+  "height": 720,
+  "color": "#CED0CD",
+  "pexels": 32705154,
+  "author": "Thảo Phương",
+  "url": "https://www.pexels.com/photo/elegant-wedding-couple-in-stylish-attire-indoors-32705154/"
+ },
+ {
+  "id": "couple-8",
+  "theme": "couple",
+  "width": 720,
+  "height": 540,
+  "color": "#4D4143",
+  "pexels": 38708859,
+  "author": "abubakar mamman",
+  "url": "https://www.pexels.com/photo/joyful-bride-and-groom-on-their-wedding-day-38708859/"
+ },
+ {
+  "id": "couple-9",
+  "theme": "couple",
+  "width": 720,
+  "height": 480,
+  "color": "#8D8379",
+  "pexels": 17657612,
+  "author": "CAMERA TREASURE",
+  "url": "https://www.pexels.com/photo/loving-newlywed-couple-embrace-17657612/"
+ },
+ {
+  "id": "couple-10",
+  "theme": "couple",
+  "width": 479,
+  "height": 720,
+  "color": "#6B6466",
+  "pexels": 6679832,
+  "author": "Maksim Kolykhanov",
+  "url": "https://www.pexels.com/photo/a-newlywed-couple-together-6679832/"
+ },
+ {
+  "id": "autumn-1",
+  "theme": "autumn",
+  "width": 720,
+  "height": 480,
+  "color": "#675031",
+  "pexels": 34633066,
+  "author": "Mete Kaan Özdilek",
+  "url": "https://www.pexels.com/photo/city-park-with-autumn-foliage-and-trees-34633066/"
+ },
+ {
+  "id": "autumn-2",
+  "theme": "autumn",
+  "width": 480,
+  "height": 720,
+  "color": "#694A2C",
+  "pexels": 5616665,
+  "author": "Lisa Fotios",
+  "url": "https://www.pexels.com/photo/autumn-in-park-5616665/"
+ },
+ {
+  "id": "autumn-3",
+  "theme": "autumn",
+  "width": 540,
+  "height": 720,
+  "color": "#321F11",
+  "pexels": 18594962,
+  "author": "Rahmi Aksöz",
+  "url": "https://www.pexels.com/photo/a-bench-with-leaves-on-it-and-a-leaf-on-the-ground-18594962/"
+ },
+ {
+  "id": "autumn-4",
+  "theme": "autumn",
+  "width": 480,
+  "height": 720,
+  "color": "#726B58",
+  "pexels": 39482893,
+  "author": "Bara Cross",
+  "url": "https://www.pexels.com/photo/serene-forest-pathway-with-autumn-foliage-39482893/"
+ },
+ {
+  "id": "autumn-5",
+  "theme": "autumn",
+  "width": 720,
+  "height": 480,
+  "color": "#A46136",
+  "pexels": 29122857,
+  "author": "Christina & Peter",
+  "url": "https://www.pexels.com/photo/fresh-orange-pumpkins-on-rustic-wooden-surface-29122857/"
+ },
+ {
+  "id": "autumn-6",
+  "theme": "autumn",
+  "width": 482,
+  "height": 720,
+  "color": "#7C4C28",
+  "pexels": 40439708,
+  "author": "Noemí Jiménez",
+  "url": "https://www.pexels.com/photo/group-of-orange-and-white-pumpkins-in-autumn-display-40439708/"
+ },
+ {
+  "id": "autumn-7",
+  "theme": "autumn",
+  "width": 426,
+  "height": 720,
+  "color": "#68502E",
+  "pexels": 40488277,
+  "author": "Anett Szekeres",
+  "url": "https://www.pexels.com/photo/colorful-autumn-gourds-and-leaves-display-40488277/"
+ },
+ {
+  "id": "autumn-8",
+  "theme": "autumn",
+  "width": 480,
+  "height": 720,
+  "color": "#AA714C",
+  "pexels": 4589488,
+  "author": "ArtHouse Studio",
+  "url": "https://www.pexels.com/photo/big-butternut-squashes-4589488/"
+ },
+ {
+  "id": "autumn-9",
+  "theme": "autumn",
+  "width": 480,
+  "height": 720,
+  "color": "#9A817A",
+  "pexels": 9147706,
+  "author": "Mikhail Nilov",
+  "url": "https://www.pexels.com/photo/two-children-in-halloween-costumes-9147706/"
+ },
+ {
+  "id": "autumn-10",
+  "theme": "autumn",
+  "width": 480,
+  "height": 720,
+  "color": "#3F4C5D",
+  "pexels": 20054421,
+  "author": "HellphoX",
+  "url": "https://www.pexels.com/photo/people-in-halloween-costumes-20054421/"
+ },
+ {
+  "id": "autumn-11",
+  "theme": "autumn",
+  "width": 720,
+  "height": 480,
+  "color": "#918D84",
+  "pexels": 18951602,
+  "author": "Matheus Bertelli",
+  "url": "https://www.pexels.com/photo/group-of-people-celebrating-halloween-18951602/"
+ },
+ {
+  "id": "autumn-12",
+  "theme": "autumn",
+  "width": 720,
+  "height": 480,
+  "color": "#898886",
+  "pexels": 9740397,
+  "author": "Mike Jones",
+  "url": "https://www.pexels.com/photo/little-girls-in-halloween-costumes-holding-decorations-9740397/"
+ },
+ {
+  "id": "nature-1",
+  "theme": "nature",
+  "width": 720,
+  "height": 315,
+  "color": "#484A3C",
+  "pexels": 20624333,
+  "author": "Sebastián Mera Jaramillo",
+  "url": "https://www.pexels.com/photo/wooden-cabins-in-forest-20624333/"
+ },
+ {
+  "id": "nature-2",
+  "theme": "nature",
+  "width": 480,
+  "height": 720,
+  "color": "#84836E",
+  "pexels": 17402875,
+  "author": "Brunxs",
+  "url": "https://www.pexels.com/photo/chalet-in-green-forest-17402875/"
+ },
+ {
+  "id": "nature-3",
+  "theme": "nature",
+  "width": 720,
+  "height": 720,
+  "color": "#7B723B",
+  "pexels": 11539578,
+  "author": "Bilal Mansuri",
+  "url": "https://www.pexels.com/photo/brown-wooden-house-on-green-grass-field-11539578/"
+ },
+ {
+  "id": "nature-4",
+  "theme": "nature",
+  "width": 720,
+  "height": 480,
+  "color": "#3D4E3C",
+  "pexels": 33123147,
+  "author": "Abdullah Öğük",
+  "url": "https://www.pexels.com/photo/rustic-wooden-cabins-in-a-tranquil-forest-setting-33123147/"
+ },
+ {
+  "id": "nature-5",
+  "theme": "nature",
+  "width": 720,
+  "height": 479,
+  "color": "#6F747A",
+  "pexels": 18274228,
+  "author": "Jean-Paul Wettstein",
+  "url": "https://www.pexels.com/photo/wooden-cabin-in-winter-18274228/"
+ },
+ {
+  "id": "nature-6",
+  "theme": "nature",
+  "width": 480,
+  "height": 720,
+  "color": "#49422F",
+  "pexels": 25578266,
+  "author": "ATHENEA CODJAMBASSIS ROSSITTO",
+  "url": "https://www.pexels.com/photo/mountain-peaks-among-clouds-25578266/"
+ },
+ {
+  "id": "nature-7",
+  "theme": "nature",
+  "width": 720,
+  "height": 480,
+  "color": "#525D4C",
+  "pexels": 10786346,
+  "author": "Samuele Galiazzo",
+  "url": "https://www.pexels.com/photo/foggy-landscape-at-dawn-10786346/"
+ },
+ {
+  "id": "nature-8",
+  "theme": "nature",
+  "width": 720,
+  "height": 480,
+  "color": "#737792",
+  "pexels": 11089921,
+  "author": "6th Era Photography",
+  "url": "https://www.pexels.com/photo/silhouette-of-foggy-mountains-11089921/"
+ },
+ {
+  "id": "nature-9",
+  "theme": "nature",
+  "width": 720,
+  "height": 405,
+  "color": "#848484",
+  "pexels": 39306933,
+  "author": "Kaan  Keskin",
+  "url": "https://www.pexels.com/photo/dramatic-mist-covered-mountains-in-nigde-turkiye-39306933/"
+ },
+ {
+  "id": "nature-10",
+  "theme": "nature",
+  "width": 720,
+  "height": 480,
+  "color": "#8F9AA0",
+  "pexels": 34639397,
+  "author": "Pablo May",
+  "url": "https://www.pexels.com/photo/misty-mountain-peaks-shrouded-in-clouds-34639397/"
+ },
+ {
+  "id": "minimal-1",
+  "theme": "minimal",
+  "width": 480,
+  "height": 720,
+  "color": "#CCBFAD",
+  "pexels": 7302750,
+  "author": "Cup of  Couple",
+  "url": "https://www.pexels.com/photo/ceramic-products-on-the-plate-7302750/"
+ },
+ {
+  "id": "minimal-2",
+  "theme": "minimal",
+  "width": 480,
+  "height": 720,
+  "color": "#A5A09C",
+  "pexels": 18278210,
+  "author": "Mathilde Langevin",
+  "url": "https://www.pexels.com/photo/sculpture-made-with-pottery-vases-in-art-gallery-18278210/"
+ },
+ {
+  "id": "minimal-3",
+  "theme": "minimal",
+  "width": 480,
+  "height": 720,
+  "color": "#312F23",
+  "pexels": 33105316,
+  "author": "Kaybee Photography",
+  "url": "https://www.pexels.com/photo/abstract-ceramic-vase-on-rustic-shelf-33105316/"
+ },
+ {
+  "id": "minimal-4",
+  "theme": "minimal",
+  "width": 480,
+  "height": 720,
+  "color": "#ADA192",
+  "pexels": 6739705,
+  "author": "cottonbro studio",
+  "url": "https://www.pexels.com/photo/crockery-figurine-in-beige-background-6739705/"
+ },
+ {
+  "id": "minimal-5",
+  "theme": "minimal",
+  "width": 480,
+  "height": 720,
+  "color": "#C1C4BE",
+  "pexels": 6476112,
+  "author": "Hanna Pad",
+  "url": "https://www.pexels.com/photo/blank-paper-and-ceramic-vases-6476112/"
+ },
+ {
+  "id": "minimal-6",
+  "theme": "minimal",
+  "width": 540,
+  "height": 720,
+  "color": "#716F62",
+  "pexels": 33740221,
+  "author": "Igor Kocka",
+  "url": "https://www.pexels.com/photo/minimalist-sunlit-wall-with-geometric-shadows-33740221/"
+ },
+ {
+  "id": "minimal-7",
+  "theme": "minimal",
+  "width": 540,
+  "height": 720,
+  "color": "#363A3B",
+  "pexels": 17032911,
+  "author": "Teguh Arief",
+  "url": "https://www.pexels.com/photo/shadow-on-wall-behind-table-17032911/"
+ },
+ {
+  "id": "minimal-8",
+  "theme": "minimal",
+  "width": 480,
+  "height": 720,
+  "color": "#826140",
+  "pexels": 16377181,
+  "author": "Yusra  Mizgin Günay",
+  "url": "https://www.pexels.com/photo/raised-hand-shadow-on-sunlit-wall-16377181/"
+ },
+ {
+  "id": "minimal-9",
+  "theme": "minimal",
+  "width": 480,
+  "height": 720,
+  "color": "#575E56",
+  "pexels": 37150635,
+  "author": "Mingyang LIU",
+  "url": "https://www.pexels.com/photo/green-plant-growing-in-between-window-panes-37150635/"
+ },
+ {
+  "id": "minimal-10",
+  "theme": "minimal",
+  "width": 576,
+  "height": 720,
+  "color": "#888D91",
+  "pexels": 7870751,
+  "author": "cottonbro studio",
+  "url": "https://www.pexels.com/photo/column-in-white-room-in-sunlight-7870751/"
+ },
+ {
+  "id": "mono-1",
+  "theme": "mono",
+  "width": 482,
+  "height": 720,
+  "color": "#2F302F",
+  "pexels": 6500631,
+  "author": "Alexander Krivitskiy",
+  "url": "https://www.pexels.com/photo/grayscale-photo-of-a-beautiful-woman-6500631/"
+ },
+ {
+  "id": "mono-2",
+  "theme": "mono",
+  "width": 480,
+  "height": 720,
+  "color": "#161616",
+  "pexels": 5388501,
+  "author": "Ankita Manik",
+  "url": "https://www.pexels.com/photo/grayscale-photo-of-woman-in-tank-top-looking-at-camera-5388501/"
+ },
+ {
+  "id": "mono-3",
+  "theme": "mono",
+  "width": 720,
+  "height": 592,
+  "color": "#424240",
+  "pexels": 35659475,
+  "author": "Daniel McDermid",
+  "url": "https://www.pexels.com/photo/close-up-portrait-of-a-child-in-a-fur-hood-35659475/"
+ },
+ {
+  "id": "mono-4",
+  "theme": "mono",
+  "width": 480,
+  "height": 720,
+  "color": "#181818",
+  "pexels": 7699980,
+  "author": "Delia Rayma",
+  "url": "https://www.pexels.com/photo/blurry-photograph-of-a-woman-7699980/"
+ },
+ {
+  "id": "mono-5",
+  "theme": "mono",
+  "width": 720,
+  "height": 480,
+  "color": "#4D4D4D",
+  "pexels": 7470692,
+  "author": "Nothing Ahead",
+  "url": "https://www.pexels.com/photo/grayscale-photo-of-a-cute-child-7470692/"
+ },
+ {
+  "id": "mono-6",
+  "theme": "mono",
+  "width": 480,
+  "height": 720,
+  "color": "#727272",
+  "pexels": 11726759,
+  "author": "Takeshi Arai",
+  "url": "https://www.pexels.com/photo/grayscale-photo-of-people-walking-on-the-street-11726759/"
+ },
+ {
+  "id": "mono-7",
+  "theme": "mono",
+  "width": 478,
+  "height": 720,
+  "color": "#656565",
+  "pexels": 7488527,
+  "author": "Saeed Khokhar",
+  "url": "https://www.pexels.com/photo/grayscale-photo-of-fence-7488527/"
+ },
+ {
+  "id": "mono-8",
+  "theme": "mono",
+  "width": 477,
+  "height": 720,
+  "color": "#4B4B4B",
+  "pexels": 12225796,
+  "author": "Anton Ivanov",
+  "url": "https://www.pexels.com/photo/monochrome-photo-of-people-walking-on-a-walkway-12225796/"
+ },
+ {
+  "id": "mono-9",
+  "theme": "mono",
+  "width": 480,
+  "height": 720,
+  "color": "#606060",
+  "pexels": 11328719,
+  "author": "Jean-Daniel Francoeur",
+  "url": "https://www.pexels.com/photo/reflection-of-person-on-a-glass-walking-on-sidewalk-11328719/"
+ },
+ {
+  "id": "mono-10",
+  "theme": "mono",
+  "width": 720,
+  "height": 480,
+  "color": "#4B4B4B",
+  "pexels": 32933048,
+  "author": "Fatih Kopcal",
+  "url": "https://www.pexels.com/photo/silhouettes-in-urban-black-and-white-street-scene-32933048/"
+ },
+ {
+  "id": "party-1",
+  "theme": "party",
+  "width": 720,
+  "height": 480,
+  "color": "#544325",
+  "pexels": 30218071,
+  "author": "Helena Jankovičová Kováčová",
+  "url": "https://www.pexels.com/photo/boy-blowing-candles-on-birthday-cake-at-party-30218071/"
+ },
+ {
+  "id": "party-2",
+  "theme": "party",
+  "width": 480,
+  "height": 720,
+  "color": "#291A15",
+  "pexels": 15211704,
+  "author": "Shuvalova Natalia",
+  "url": "https://www.pexels.com/photo/burning-candles-on-birthday-cake-15211704/"
+ },
+ {
+  "id": "party-3",
+  "theme": "party",
+  "width": 720,
+  "height": 450,
+  "color": "#C9BDAD",
+  "pexels": 11308365,
+  "author": "Ylanite Koppens",
+  "url": "https://www.pexels.com/photo/a-colorful-happy-birthday-candles-11308365/"
+ },
+ {
+  "id": "party-4",
+  "theme": "party",
+  "width": 720,
+  "height": 541,
+  "color": "#615D5A",
+  "pexels": 36254950,
+  "author": "Kimy Moto",
+  "url": "https://www.pexels.com/photo/80th-birthday-cake-with-blue-candles-36254950/"
+ },
+ {
+  "id": "party-5",
+  "theme": "party",
+  "width": 480,
+  "height": 720,
+  "color": "#AFA395",
+  "pexels": 36211802,
+  "author": "Rizky Sabriansyah",
+  "url": "https://www.pexels.com/photo/smiling-woman-celebrating-birthday-indoors-36211802/"
+ },
+ {
+  "id": "party-6",
+  "theme": "party",
+  "width": 479,
+  "height": 720,
+  "color": "#155477",
+  "pexels": 4303015,
+  "author": "Maryann Kariuki",
+  "url": "https://www.pexels.com/photo/bright-colorful-confetti-in-blue-water-4303015/"
+ },
+ {
+  "id": "party-7",
+  "theme": "party",
+  "width": 720,
+  "height": 480,
+  "color": "#BC9986",
+  "pexels": 25956371,
+  "author": "Ylanite Koppens",
+  "url": "https://www.pexels.com/photo/colorful-paper-confetti-25956371/"
+ },
+ {
+  "id": "party-8",
+  "theme": "party",
+  "width": 720,
+  "height": 481,
+  "color": "#DEBEBF",
+  "pexels": 5372794,
+  "author": "Leeloo The First",
+  "url": "https://www.pexels.com/photo/a-phrase-made-of-scrabble-tiles-5372794/"
+ },
+ {
+  "id": "party-9",
+  "theme": "party",
+  "width": 480,
+  "height": 720,
+  "color": "#816D55",
+  "pexels": 15834762,
+  "author": "Alina Komarevska",
+  "url": "https://www.pexels.com/photo/colorful-confetti-in-wineglass-15834762/"
+ },
+ {
+  "id": "party-10",
+  "theme": "party",
+  "width": 720,
+  "height": 480,
+  "color": "#74757A",
+  "pexels": 8459420,
+  "author": "Katie Rainbow 🏳️‍🌈",
+  "url": "https://www.pexels.com/photo/close-up-of-colorful-confetti-8459420/"
+ },
+ {
+  "id": "fashion-1",
+  "theme": "fashion",
+  "width": 480,
+  "height": 720,
+  "color": "#5C403C",
+  "pexels": 38290948,
+  "author": "Esra Saltürk",
+  "url": "https://www.pexels.com/photo/fashion-model-in-red-suit-holding-magazine-outdoors-38290948/"
+ },
+ {
+  "id": "fashion-2",
+  "theme": "fashion",
+  "width": 720,
+  "height": 388,
+  "color": "#575652",
+  "pexels": 19909750,
+  "author": "Ulaş Ocaklı",
+  "url": "https://www.pexels.com/photo/woman-in-black-blouse-holding-railing-19909750/"
+ },
+ {
+  "id": "fashion-3",
+  "theme": "fashion",
+  "width": 480,
+  "height": 720,
+  "color": "#20261C",
+  "pexels": 20483654,
+  "author": "Iván Cauich",
+  "url": "https://www.pexels.com/photo/young-woman-in-a-black-tank-top-and-pants-20483654/"
+ },
+ {
+  "id": "fashion-4",
+  "theme": "fashion",
+  "width": 720,
+  "height": 480,
+  "color": "#1D262D",
+  "pexels": 20194705,
+  "author": "Alessandra Shalbe",
+  "url": "https://www.pexels.com/photo/model-in-a-satin-black-blouse-and-leather-gloves-posing-in-the-studio-20194705/"
+ },
+ {
+  "id": "fashion-5",
+  "theme": "fashion",
+  "width": 480,
+  "height": 720,
+  "color": "#37281A",
+  "pexels": 3153460,
+  "author": "JJ Jordan",
+  "url": "https://www.pexels.com/photo/woman-in-white-sweetheart-neckline-top-and-gray-flare-pants-3153460/"
+ },
+ {
+  "id": "fashion-6",
+  "theme": "fashion",
+  "width": 720,
+  "height": 481,
+  "color": "#694D41",
+  "pexels": 37459907,
+  "author": "Michal Ufniak",
+  "url": "https://www.pexels.com/photo/elegant-bridal-accessories-with-pearl-detailing-37459907/"
+ },
+ {
+  "id": "fashion-8",
+  "theme": "fashion",
+  "width": 720,
+  "height": 505,
+  "color": "#6F6B6A",
+  "pexels": 31450721,
+  "author": "pedro furtado",
+  "url": "https://www.pexels.com/photo/elegant-black-handbag-with-stylish-shoes-indoors-31450721/"
+ },
+ {
+  "id": "fashion-9",
+  "theme": "fashion",
+  "width": 540,
+  "height": 720,
+  "color": "#5E4B3A",
+  "pexels": 16211089,
+  "author": "Dominika Mazur",
+  "url": "https://www.pexels.com/photo/sunglasses-on-chair-16211089/"
+ },
+ {
+  "id": "fashion-10",
+  "theme": "fashion",
+  "width": 480,
+  "height": 720,
+  "color": "#887163",
+  "pexels": 8989582,
+  "author": "Alena Darmel",
+  "url": "https://www.pexels.com/photo/person-wearing-chain-bracelet-holding-bag-8989582/"
+ }
+]

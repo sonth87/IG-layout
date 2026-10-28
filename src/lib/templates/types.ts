@@ -26,7 +26,10 @@ export interface TemplateSlot {
   frame?: FrameStyle;
 }
 
-/** Decorative shape under the photos (e.g. the film strip band). Same coordinates as slots. */
+/**
+ * Decorative shape (film strip band, colour block, paper card, tape). Same coordinates as
+ * slots. Drawn under the photos unless `above` (tape over a photo's edge).
+ */
 export interface TemplateShape {
   slide: number;
   x: number;
@@ -35,6 +38,9 @@ export interface TemplateShape {
   h: number;
   shape: ShapeKind;
   fill: string;
+  rotation?: number;
+  opacity?: number;
+  above?: boolean;
 }
 
 /** Text placed by a template (designed templates, M10). Sizes relative to slide width. */
@@ -59,9 +65,25 @@ export interface TemplateText {
 }
 
 /** Where a designed template appears in the home library (M10). */
-export type TemplateCategory = "carousel" | "seamless" | "collage" | "story" | "grid" | "minimal" | "occasion";
+export type TemplateCategory =
+  | "autumn"
+  | "carousel"
+  | "travel"
+  | "film"
+  | "editorial"
+  | "scrapbook"
+  | "seamless"
+  | "collage"
+  | "story"
+  | "occasion"
+  | "minimal"
+  | "grid";
 
-export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["carousel", "seamless", "collage", "story", "occasion", "minimal", "grid"];
+/** Home order (SCRL-like sections, 2026-10-28): the season first. */
+export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["autumn", "carousel", "travel", "film", "editorial", "scrapbook", "seamless", "collage", "occasion", "story", "minimal", "grid"];
+
+/** Kinds of sample photo a template's preview shows (public/samples, from Pexels). */
+export type SampleTheme = "travel" | "beach" | "city" | "food" | "portrait" | "friends" | "couple" | "autumn" | "nature" | "minimal" | "mono" | "party" | "fashion";
 
 export type TemplateBackground =
   | { kind: "color"; color: string }
@@ -88,7 +110,7 @@ export interface Template {
   texts?: TemplateText[];
   slots: TemplateSlot[];
   /** Designed templates (home library): category and the format a new project starts with. */
-  design?: { category: TemplateCategory; type: ProjectType; ratio: AspectRatio };
+  design?: { category: TemplateCategory; type: ProjectType; ratio: AspectRatio; themes?: SampleTheme[] };
 }
 
 export interface TemplateOptions {

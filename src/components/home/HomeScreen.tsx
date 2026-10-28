@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import { formatRelative } from "@/lib/format";
 import { listProjects, type ProjectMeta } from "@/lib/storage/projects";
 import { templateSlides } from "@/lib/templates/apply";
-import { DESIGNS } from "@/lib/templates/designs";
+import { DESIGNS, MIXED } from "@/lib/templates/designs";
 import { useFavorites } from "@/lib/templates/favorites";
 import { samplePhotosFor } from "@/lib/templates/samples";
 import { DEFAULT_OPTIONS, TEMPLATE_CATEGORIES, type Template, type TemplateCategory } from "@/lib/templates/types";
@@ -23,7 +23,7 @@ function slidesOf(tpl: Template) {
   return templateSlides(tpl, 0, type === "grid" ? 9 : 3, type);
 }
 
-/** Every template preview shows the drawn sample photos (editor-v2/03 §3). */
+/** Every template preview shows sample photos (editor-v2/03 §3; real photos since 2026-10-28). */
 function Preview({ tpl, width, slide = 0 }: { tpl: Template; width: number; slide?: number }) {
   const d = tpl.design!;
   const grid = d.type === "grid";
@@ -35,7 +35,7 @@ function Preview({ tpl, width, slide = 0 }: { tpl: Template; width: number; slid
       <div style={{ marginLeft: grid ? 0 : -slide * width }}>
         <TemplatePreview
           template={tpl}
-          photos={samplePhotosFor(tpl.id)}
+          photos={samplePhotosFor(tpl)}
           ratio={d.ratio}
           slides={slides}
           type={d.type}
@@ -47,6 +47,33 @@ function Preview({ tpl, width, slide = 0 }: { tpl: Template; width: number; slid
       </div>
     </div>
   );
+}
+
+/** Card height / width before its preview is drawn. */
+function cardRatio(tpl: Template) {
+  const type = tpl.design!.type;
+  return type === "story" ? 16 / 9 : type === "grid" ? 4 / 3 : 5 / 4;
+}
+
+/** True once the element has come near the screen: previews are built (and photos fetched) only then. */
+function useSeen<T extends Element>() {
+  const ref = useRef<T>(null);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || seen) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        setSeen(true);
+        io.disconnect();
+      },
+      { rootMargin: "400px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [seen]);
+  return [ref, seen] as const;
 }
 
 function Heart({ id, className = "" }: { id: string; className?: string }) {
@@ -75,8 +102,9 @@ function TemplateCard({ tpl, width, onOpen }: { tpl: Template; width: number; on
   const slides = slidesOf(tpl);
   const swipe = slides > 1 && tpl.design!.type !== "grid";
   const [at, setAt] = useState(0);
+  const [ref, seen] = useSeen<HTMLDivElement>();
   return (
-    <div className="relative shrink-0 overflow-hidden rounded-xl bg-surface-2" style={{ width }}>
+    <div ref={ref} className="relative shrink-0 overflow-hidden rounded-xl bg-surface-2" style={{ width }}>
       {swipe ? (
         // A carousel template: swipe on the card to see its other slides (owner, 2026-10-17).
         <div
@@ -86,13 +114,13 @@ function TemplateCard({ tpl, width, onOpen }: { tpl: Template; width: number; on
         >
           {Array.from({ length: slides }, (_, i) => (
             <button key={i} type="button" aria-label={i === 0 ? tpl.name[locale] : `${tpl.name[locale]} ${i + 1}`} onClick={() => onOpen(tpl)} className="block shrink-0 snap-center">
-              <Preview tpl={tpl} width={width} slide={i} />
+              {seen ? <Preview tpl={tpl} width={width} slide={i} /> : <div style={{ width, height: width * cardRatio(tpl) }} />}
             </button>
           ))}
         </div>
       ) : (
         <button type="button" aria-label={tpl.name[locale]} onClick={() => onOpen(tpl)} className="block">
-          <Preview tpl={tpl} width={width} />
+          {seen ? <Preview tpl={tpl} width={width} /> : <div style={{ width, height: width * cardRatio(tpl) }} />}
         </button>
       )}
       <Heart id={tpl.id} className="absolute top-2 right-2" />
@@ -122,8 +150,7 @@ function Masonry({ list, onOpen, width }: { list: Template[]; onOpen: (tpl: Temp
   const cols: Template[][] = [[], []];
   const heights = [0, 0];
   for (const tpl of list) {
-    const d = tpl.design!;
-    const h = d.type === "story" ? 16 / 9 : d.type === "grid" ? 4 / 3 : 5 / 4;
+    const h = cardRatio(tpl);
     const c = heights[0] <= heights[1] ? 0 : 1;
     cols[c].push(tpl);
     heights[c] += h;
@@ -285,9 +312,9 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
     return score(b) - score(a);
   });
   const banners: { title: string; sub: string; category: TemplateCategory; tpl: Template }[] = [
-    { title: t("home.banner1"), sub: t("home.banner1sub"), category: "carousel", tpl: DESIGNS.find((d) => d.id === "design-seamless-collage") ?? DESIGNS[0] },
-    { title: t("home.banner2"), sub: t("home.banner2sub"), category: "story", tpl: DESIGNS.find((d) => d.design?.type === "story") ?? DESIGNS[0] },
-    { title: t("home.banner3"), sub: t("home.banner3sub"), category: "collage", tpl: DESIGNS.find((d) => d.design?.category === "collage") ?? DESIGNS[0] },
+    { title: t("home.banner1"), sub: t("home.banner1sub"), category: "autumn", tpl: DESIGNS.find((d) => d.id === "design-halloween-night") ?? DESIGNS[0] },
+    { title: t("home.banner2"), sub: t("home.banner2sub"), category: "travel", tpl: DESIGNS.find((d) => d.id === "design-city-recap") ?? DESIGNS[0] },
+    { title: t("home.banner3"), sub: t("home.banner3sub"), category: "film", tpl: DESIGNS.find((d) => d.id === "design-photobooth") ?? DESIGNS[0] },
   ];
   const top = stack.at(-1);
   const q = query.trim().toLowerCase();
@@ -401,7 +428,7 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
             {/* Explore more (§2.5). */}
             <section className="pt-8">
               <h2 className="px-4 pb-3 text-[17px] font-bold">{t("home.exploreMore")}</h2>
-              <Masonry list={DESIGNS} onOpen={open} width={halfW} />
+              <Masonry list={MIXED} onOpen={open} width={halfW} />
             </section>
           </>
         ) : (
@@ -419,7 +446,7 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
                 </button>
               ))}
             </nav>
-            <Masonry list={chip === "all" ? DESIGNS : DESIGNS.filter((d) => d.design?.category === chip)} onOpen={open} width={halfW} />
+            <Masonry list={chip === "all" ? MIXED : DESIGNS.filter((d) => d.design?.category === chip)} onOpen={open} width={halfW} />
           </div>
         )}
       </div>

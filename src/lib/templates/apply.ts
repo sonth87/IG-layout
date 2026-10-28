@@ -47,21 +47,22 @@ export function applyTemplate(
     elements.push({ ...el, locked: true });
   }
 
-  for (const sh of tpl.shapes ?? []) {
+  const shape = (sh: NonNullable<Template["shapes"]>[number]): CanvasElement => {
     const r = slideRect(sized, sh.slide);
-    elements.push({
+    return {
       id: newId(),
       type: "shape",
       x: r.x + sh.x * W,
       y: r.y + sh.y * H,
       width: sh.w * W,
       height: sh.h * H,
-      rotation: 0,
-      opacity: 1,
+      rotation: sh.rotation ?? 0,
+      opacity: sh.opacity ?? 1,
       shape: sh.shape,
       fill: sh.fill,
-    });
-  }
+    };
+  };
+  for (const sh of tpl.shapes ?? []) if (!sh.above && sh.slide < slideCount) elements.push(shape(sh));
 
   const slots: TemplateSlot[] = tpl.perPhoto
     ? Array.from({ length: slideCount }, (_, i) => ({ ...tpl.slots[0], photo: i, slide: i }))
@@ -110,6 +111,9 @@ export function applyTemplate(
     }
     elements.push(el);
   }
+
+  // Tape and stickers over the photos' edges.
+  for (const sh of tpl.shapes ?? []) if (sh.above && sh.slide < slideCount) elements.push(shape(sh));
 
   // Texts on top of the photos (designed templates).
   for (const tx of tpl.texts ?? []) {

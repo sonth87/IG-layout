@@ -64,14 +64,38 @@ export function TemplatePreview(props: {
       style={{ width, height: size.height * k, background: cssBackground(doc) }}
     >
       {doc.elements.map((el) => {
-        if (el.type === "shape")
+        if (el.type === "shape") {
+          const h = el.height * k;
           return (
             <div
               key={el.id}
               className="absolute"
-              style={{ left: el.x * k, top: el.y * k, width: el.width * k, height: el.height * k, background: el.fill }}
-            />
+              style={{
+                left: el.x * k,
+                top: el.y * k,
+                width: el.width * k,
+                height: h,
+                background: el.fill,
+                opacity: el.opacity,
+                transform: el.rotation ? `rotate(${el.rotation}deg)` : undefined,
+                borderRadius: el.shape === "circle" ? "50%" : el.shape === "roundRect" ? Math.min(el.width, el.height) * k * 0.18 : el.shape === "line" ? h / 2 : undefined,
+              }}
+            >
+              {el.shape === "film" && (
+                // Sprocket holes along both edges, like drawShape.
+                <div
+                  className="absolute inset-x-0"
+                  style={{
+                    top: h * 0.035,
+                    bottom: h * 0.035,
+                    backgroundImage: `repeating-linear-gradient(90deg, transparent 0 ${h * 0.048}px, rgba(255,255,255,0.88) ${h * 0.048}px ${h * 0.108}px)`,
+                    maskImage: `linear-gradient(#000 0 ${h * 0.045}px, transparent ${h * 0.045}px calc(100% - ${h * 0.045}px), #000 0)`,
+                  }}
+                />
+              )}
+            </div>
           );
+        }
         if (el.type === "text")
           return (
             <div
@@ -115,7 +139,9 @@ export function TemplatePreview(props: {
               borderRadius: radius(el, k),
               border: framed
                 ? `${Math.max(1.5, el.width * k * (el.frame === "gallery" ? 0.11 : 0.05))}px solid ${frameColor(el.frame)}`
-                : el.border
+                : el.frame === "film"
+                  ? `${Math.max(2, el.width * k * 0.06)}px solid #161616`
+                  : el.border
                   ? `${Math.max(1, el.border.width * k)}px solid ${el.border.color}`
                   : undefined,
               borderBottomWidth: polaroid ? Math.max(3, el.width * k * 0.18) : undefined,

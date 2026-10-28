@@ -1,48 +1,12 @@
-import type { Template, TemplateCategory, TemplateSlot, TemplateText } from "./types";
+import type { Template } from "../types";
+import { design, INK, PAPER, photo, t, text, WHITE_FRAME } from "./kit";
 
-// Designed templates for the home library (M10, like SCRL's template library): photo
-// cells plus text, background and decoration, so a post looks finished as soon as the
-// photos are in. Our own designs (D-66: no copying of other apps' templates).
-// Coordinates: x / w relative to slide width, y / h to slide height; text size to width.
-// Story texts stay out of Instagram's top / bottom zones (y 0.13 … 0.82).
+// The first designed templates (M10, M18).
 
-const PAPER = "#f3eee6";
-const INK = "#1d1c1a";
-const WHITE_FRAME = { border: { width: 0.02, color: "#ffffff" }, shadow: true };
-
-const t = (en: string, vi: string) => ({ en, vi });
-
-function text(slide: number, x: number, y: number, w: number, value: { en: string; vi: string }, style: Omit<TemplateText, "slide" | "x" | "y" | "w" | "text">): TemplateText {
-  return { slide, x, y, w, text: value, ...style };
-}
-
-/** Photo cell; `photo` numbers count up in reading order. */
-function photo(n: number, slide: number, x: number, y: number, w: number, h: number, extra: Partial<TemplateSlot> = {}): TemplateSlot {
-  return { photo: n, slide, x, y, w, h, ...extra };
-}
-
-function design(
-  id: string,
-  category: TemplateCategory,
-  name: { en: string; vi: string },
-  spec: Omit<Template, "id" | "name" | "group" | "photos" | "design"> & { group?: Template["group"]; format?: "post" | "story" | "grid" },
-): Template {
-  const { format = "post", group = "scrapbook", ...rest } = spec;
-  const photos = new Set(rest.slots.map((s) => s.photo)).size + (rest.background?.kind === "photo" ? 1 : 0);
-  return {
-    id: `design-${id}`,
-    group,
-    name,
-    photos,
-    types: [format],
-    design: { category, type: format, ratio: format === "story" ? "9:16" : format === "grid" ? "3:4" : "4:5" },
-    ...rest,
-  };
-}
-
-export const DESIGNS: Template[] = [
+export const CLASSIC: Template[] = [
   // ── Carousel ──────────────────────────────────────────────────────────
   design("photo-dump", "carousel", t("Photo dump", "Photo dump"), {
+    themes: ["friends", "food", "beach"],
     slides: 3,
     background: { kind: "color", color: PAPER },
     slots: [
@@ -57,7 +21,8 @@ export const DESIGNS: Template[] = [
       text(2, 0.08, 0.82, 0.84, t("until next time.", "hẹn gặp lại."), { font: "dancing", size: 0.075, color: INK, align: "left" }),
     ],
   }),
-  design("travel-journal", "carousel", t("Travel journal", "Nhật ký du lịch"), {
+  design("travel-journal", "travel", t("Travel journal", "Nhật ký du lịch"), {
+    themes: ["travel", "nature"],
     slides: 3,
     background: { kind: "color", color: "#ece4d6" },
     slots: [
@@ -73,7 +38,8 @@ export const DESIGNS: Template[] = [
       text(2, 0.1, 0.8, 0.8, t("see you soon ♡", "hẹn sớm gặp lại ♡"), { font: "dancing", size: 0.08, color: INK }),
     ],
   }),
-  design("editorial", "carousel", t("Editorial", "Tạp chí"), {
+  design("editorial", "editorial", t("Editorial", "Tạp chí"), {
+    themes: ["fashion", "mono"],
     slides: 2,
     background: { kind: "color", color: "#111111" },
     slots: [photo(0, 0, 0, 0, 1, 0.78), photo(1, 1, 0.06, 0.06, 0.42, 0.6), photo(2, 1, 0.52, 0.34, 0.42, 0.6)],
@@ -84,6 +50,7 @@ export const DESIGNS: Template[] = [
     ],
   }),
   design("numbered", "carousel", t("Numbered", "Đánh số"), {
+    themes: ["city", "food"],
     slides: 3,
     background: { kind: "color", color: "#ffffff" },
     slots: [photo(0, 0, 0.1, 0.1, 0.8, 0.68), photo(1, 1, 0.1, 0.1, 0.8, 0.68), photo(2, 2, 0.1, 0.1, 0.8, 0.68)],
@@ -93,6 +60,7 @@ export const DESIGNS: Template[] = [
     ]),
   }),
   design("before-after", "carousel", t("Before / after", "Trước / sau"), {
+    themes: ["minimal"],
     slides: 1,
     background: { kind: "color", color: "#f4f1ec" },
     slots: [photo(0, 0, 0.04, 0.16, 0.45, 0.72), photo(1, 0, 0.51, 0.16, 0.45, 0.72)],
@@ -105,6 +73,7 @@ export const DESIGNS: Template[] = [
 
   // ── Seamless (one picture across the swipe) ─────────────────────────────
   design("panorama-title", "seamless", t("Panorama + title", "Panorama + tiêu đề"), {
+    themes: ["travel"],
     group: "panorama",
     slides: 3,
     background: { kind: "photo", photo: 0 },
@@ -116,6 +85,7 @@ export const DESIGNS: Template[] = [
     ],
   }),
   design("seamless-collage", "seamless", t("Seamless collage", "Collage liền mạch"), {
+    themes: ["friends", "beach", "food"],
     group: "seamless",
     slides: 3,
     background: { kind: "color", color: "#efe9e1" },
@@ -131,7 +101,8 @@ export const DESIGNS: Template[] = [
       text(1, 0.06, 0.18, 0.4, t("of good days", "của ngày đẹp"), { font: "dancing", size: 0.07, color: INK, align: "left" }),
     ],
   }),
-  design("film-roll", "seamless", t("Film roll", "Cuộn phim"), {
+  design("film-roll", "film", t("Film roll", "Cuộn phim"), {
+    themes: ["mono", "city"],
     group: "seamless",
     slides: 3,
     background: { kind: "color", color: "#e9e4dc" },
@@ -142,7 +113,8 @@ export const DESIGNS: Template[] = [
       text(2, 0.08, 0.84, 0.84, t("shot on memories", "chụp bằng kỷ niệm"), { font: "lora", size: 0.045, color: INK, align: "right" }),
     ],
   }),
-  design("scrapbook-wide", "seamless", t("Scrapbook", "Sổ tay"), {
+  design("scrapbook-wide", "scrapbook", t("Scrapbook", "Sổ tay"), {
+    themes: ["friends", "couple"],
     group: "scrapbook",
     slides: 3,
     background: { kind: "color", color: "#f1e7d8" },
@@ -161,6 +133,7 @@ export const DESIGNS: Template[] = [
 
   // ── Collage (one slide) ─────────────────────────────────────────────────
   design("mood-board", "collage", t("Mood board", "Mood board"), {
+    themes: ["minimal", "fashion"],
     slides: 1,
     background: { kind: "color", color: "#f7f4ef" },
     slots: [
@@ -176,6 +149,7 @@ export const DESIGNS: Template[] = [
     ],
   }),
   design("grid-caption", "collage", t("Grid with caption", "Lưới có chú thích"), {
+    themes: ["food", "minimal"],
     group: "grid",
     slides: 1,
     background: { kind: "color", color: "#ffffff" },
@@ -191,6 +165,7 @@ export const DESIGNS: Template[] = [
     ],
   }),
   design("polaroid-stack", "collage", t("Polaroid stack", "Chồng polaroid"), {
+    themes: ["couple", "friends"],
     slides: 1,
     background: { kind: "gradient", from: "#f4e3d3", to: "#e4cfc9", angle: 160 },
     slots: [
@@ -203,6 +178,7 @@ export const DESIGNS: Template[] = [
 
   // ── Story (9:16) ────────────────────────────────────────────────────────
   design("story-title", "story", t("Big title", "Tiêu đề lớn"), {
+    themes: ["portrait"],
     format: "story",
     slides: 1,
     background: { kind: "color", color: "#f2ede5" },
@@ -213,6 +189,7 @@ export const DESIGNS: Template[] = [
     ],
   }),
   design("story-three", "story", t("Three frames", "Ba khung"), {
+    themes: ["city", "nature"],
     format: "story",
     slides: 1,
     background: { kind: "color", color: "#1b1b1d" },
@@ -220,6 +197,7 @@ export const DESIGNS: Template[] = [
     texts: [text(0, 0.08, 0.78, 0.84, t("today in 3", "hôm nay, 3 khung hình"), { font: "spaceGrotesk", size: 0.045, color: "#f0f0f0", align: "left", letterSpacing: 0.05 })],
   }),
   design("story-polaroid", "story", t("Polaroid", "Polaroid"), {
+    themes: ["beach"],
     format: "story",
     slides: 1,
     background: { kind: "gradient", from: "#cfd9df", to: "#e2ebf0", angle: 180 },
@@ -227,6 +205,7 @@ export const DESIGNS: Template[] = [
     texts: [text(0, 0.1, 0.7, 0.8, t("a moment worth keeping", "khoảnh khắc đáng giữ"), { font: "dancing", size: 0.085, color: INK })],
   }),
   design("story-quote", "story", t("Quote", "Trích dẫn"), {
+    themes: ["portrait"],
     format: "story",
     slides: 1,
     background: { kind: "color", color: "#c9b79c" },
@@ -239,6 +218,7 @@ export const DESIGNS: Template[] = [
 
   // ── Special occasions (M18) ─────────────────────────────────────────────
   design("birthday-story", "occasion", t("Birthday", "Sinh nhật"), {
+    themes: ["party", "friends"],
     format: "story",
     slides: 1,
     background: { kind: "gradient", from: "#ffd6e0", to: "#fff1d6", angle: 180 },
@@ -249,6 +229,7 @@ export const DESIGNS: Template[] = [
     ],
   }),
   design("anniversary", "occasion", t("Anniversary", "Kỷ niệm"), {
+    themes: ["couple"],
     slides: 2,
     background: { kind: "color", color: "#f6efe6" },
     slots: [photo(0, 0, 0.08, 0.08, 0.84, 0.62), photo(1, 1, 0.08, 0.08, 0.4, 0.4), photo(2, 1, 0.52, 0.08, 0.4, 0.4), photo(3, 1, 0.08, 0.52, 0.84, 0.4)],
@@ -260,12 +241,14 @@ export const DESIGNS: Template[] = [
 
   // ── Minimal ─────────────────────────────────────────────────────────────
   design("gallery-border", "minimal", t("Gallery border", "Viền triển lãm"), {
+    themes: ["minimal"],
     slides: 1,
     background: { kind: "color", color: "#ffffff" },
     slots: [photo(0, 0, 0.12, 0.1, 0.76, 0.7)],
     texts: [text(0, 0.12, 0.85, 0.76, t("Untitled, 2026", "Không đề, 2026"), { font: "lora", size: 0.038, color: "#4c4a46", align: "left" })],
   }),
   design("arch", "minimal", t("Arch", "Mái vòm"), {
+    themes: ["beach", "nature"],
     slides: 1,
     background: { kind: "color", color: "#ede6dc" },
     slots: [photo(0, 0, 0.18, 0.08, 0.64, 0.64, { mask: "arch" })],
@@ -275,6 +258,7 @@ export const DESIGNS: Template[] = [
     ],
   }),
   design("circle-duo", "minimal", t("Circle duo", "Đôi tròn"), {
+    themes: ["couple", "portrait"],
     slides: 1,
     background: { kind: "color", color: "#e8ece6" },
     slots: [photo(0, 0, 0.08, 0.2, 0.46, 0.37, { mask: "circle" }), photo(1, 0, 0.46, 0.42, 0.46, 0.37, { mask: "circle" })],
@@ -283,6 +267,7 @@ export const DESIGNS: Template[] = [
 
   // ── Grid (one picture over the profile) ─────────────────────────────────
   design("grid-launch", "grid", t("Profile reveal", "Ra mắt trên profile"), {
+    themes: ["nature"],
     format: "grid",
     group: "panorama",
     slides: "any",
@@ -293,11 +278,3 @@ export const DESIGNS: Template[] = [
     ],
   }),
 ];
-
-export function designsFor(category: TemplateCategory | "all") {
-  return category === "all" ? DESIGNS : DESIGNS.filter((d) => d.design?.category === category);
-}
-
-export function findDesign(id: string) {
-  return DESIGNS.find((d) => d.id === id);
-}
