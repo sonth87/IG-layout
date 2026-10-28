@@ -528,3 +528,8 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Thư viện template: 22 → 98 mẫu, 5 nhóm mới, ảnh mẫu thật từ Pexels (D-135, e2e m18.mjs)
 - [ ] Chủ dự án duyệt bộ template mới + chốt D-135 (nhóm, font)
 - [ ] Template theo mùa tiếp theo (Giáng sinh, Tết) và cách đổi banner theo thời gian
+- [x] Next.js 16.4.0 → 16.4.3 (vá bảo mật)
+- [x] Trang chủ theo mùa / sự kiện (lịch 17 mục, Tết / Trung thu âm lịch; thử bằng `?today=`) (D-136, e2e m18.mjs)
+- [x] Template dùng khung / sticker thư viện, sticker vẽ tay, widget; +105 mẫu → 203; nhóm Giấy xé, Vẽ tay, Teen, Tình yêu, Retro (D-136, e2e m18.mjs)
+- [ ] Chủ dự án duyệt mẫu theo mùa + chốt D-135, D-136
+- [ ] Thư viện khung: khung máy ảnh số, mép sổ lò xo (tham khảo sample/1)

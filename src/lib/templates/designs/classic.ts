@@ -6,6 +6,7 @@ import { design, INK, PAPER, photo, t, text, WHITE_FRAME } from "./kit";
 export const CLASSIC: Template[] = [
   // ── Carousel ──────────────────────────────────────────────────────────
   design("photo-dump", "carousel", t("Photo dump", "Photo dump"), {
+    events: ["summer"],
     themes: ["friends", "food", "beach"],
     slides: 3,
     background: { kind: "color", color: PAPER },
@@ -197,6 +198,7 @@ export const CLASSIC: Template[] = [
     texts: [text(0, 0.08, 0.78, 0.84, t("today in 3", "hôm nay, 3 khung hình"), { font: "spaceGrotesk", size: 0.045, color: "#f0f0f0", align: "left", letterSpacing: 0.05 })],
   }),
   design("story-polaroid", "story", t("Polaroid", "Polaroid"), {
+    events: ["summer"],
     themes: ["beach"],
     format: "story",
     slides: 1,
@@ -229,6 +231,7 @@ export const CLASSIC: Template[] = [
     ],
   }),
   design("anniversary", "occasion", t("Anniversary", "Kỷ niệm"), {
+    events: ["valentine"],
     themes: ["couple"],
     slides: 2,
     background: { kind: "color", color: "#f6efe6" },

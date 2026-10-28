@@ -88,7 +88,7 @@ Chọn ảnh → Chọn tỉ lệ + số slide → Sắp xếp layout → Chỉn
 ## 8. Layout / Collage — `Đã chốt`
 
 - Template chia ô có sẵn (2, 3, 4, 6 ô…).
-- Thư viện template trên trang chủ: **98 mẫu** theo nhóm (Mùa thu & Halloween, Thường ngày, Bưu thiếp du lịch, Chụp bằng phim, Tạp chí, Sổ tay, Liền mạch, Collage, Dịp đặc biệt, Story, Tối giản, Lưới profile), xem trước bằng ảnh thật (Pexels). Xem [2026-10-28](../discussions/2026-10-28-template-anh-that.md).
+- Thư viện template trên trang chủ: **203 mẫu** theo nhóm (Thường ngày, Giấy xé, Chụp bằng phim, Bưu thiếp du lịch, Sổ tay, Vẽ tay, Teen & dễ thương, Tình yêu, Retro, Tạp chí, Liền mạch, Collage, Dịp đặc biệt, Story, Tối giản, Lưới profile, Theo mùa & lễ hội), xem trước bằng ảnh thật (Pexels). Template có thể kèm khung / sticker của thư viện, sticker vẽ tay và widget. Trang chủ **tự đưa lên đầu** các mẫu của mùa / sự kiện sắp tới (Halloween, Noel, Tết, Trung thu, Valentine, 8/3, 20/10, 20/11…). Xem [2026-10-28](../discussions/2026-10-28-template-anh-that.md).
 - Chỉnh khoảng cách giữa các ô, bo góc, màu nền.
 - Thả ảnh vào ô, kéo để chỉnh vùng hiển thị trong ô.
 

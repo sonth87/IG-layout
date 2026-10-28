@@ -10,7 +10,8 @@ const nightStrip = strip(0, 0, 0.72, 0.38, 0.36, 3, 4);
 const spookyStrip = strip(0, 0, 0.5, 0.43, 0.34, 4, -3, 0.5625);
 
 export const AUTUMN: Template[] = [
-  design("halloween-night", "autumn", t("Made for Halloween", "Halloween"), {
+  design("halloween-night", "seasonal", t("Made for Halloween", "Halloween"), {
+    events: ["halloween"],
     themes: ["autumn", "friends", "mono"],
     slides: 1,
     background: { kind: "color", color: NIGHT },
@@ -21,7 +22,8 @@ export const AUTUMN: Template[] = [
       text(0, 0.06, 0.79, 0.88, t("HALLOWEEN", "HALLOWEEN"), { font: "anton", size: 0.15, color: PUMPKIN, align: "left", letterSpacing: 0.02 }),
     ],
   }),
-  design("pumpkin-patch", "autumn", t("Pumpkin patch", "Vườn bí ngô"), {
+  design("pumpkin-patch", "seasonal", t("Pumpkin patch", "Vườn bí ngô"), {
+    events: ["halloween", "autumn"],
     themes: ["autumn", "food", "friends"],
     slides: 2,
     background: { kind: "color", color: "#f4ead9" },
@@ -31,7 +33,8 @@ export const AUTUMN: Template[] = [
       text(0, 0.5, 0.9, 0.42, t("OCTOBER · WEEKEND", "THÁNG MƯỜI · CUỐI TUẦN"), { font: "spaceGrotesk", size: 0.026, color: "#7a3413", align: "right", letterSpacing: 0.15 }),
     ],
   }),
-  design("fall-recap", "autumn", t("Fall recap", "Thu này"), {
+  design("fall-recap", "seasonal", t("Fall recap", "Thu này"), {
+    events: ["autumn"],
     themes: ["autumn", "food", "portrait"],
     slides: 3,
     background: { kind: "color", color: KRAFT },
@@ -49,7 +52,8 @@ export const AUTUMN: Template[] = [
       text(2, 0.1, 0.84, 0.8, t("and the evening, slowly", "và buổi tối, thật chậm"), { font: "patrickHand", size: 0.055, color: INK }),
     ],
   }),
-  design("october-dump", "autumn", t("October dump", "Tháng mười"), {
+  design("october-dump", "seasonal", t("October dump", "Tháng mười"), {
+    events: ["autumn", "halloween"],
     themes: ["autumn", "food", "friends", "nature"],
     slides: 3,
     background: { kind: "color", color: "#fbfaf7" },
@@ -64,7 +68,8 @@ export const AUTUMN: Template[] = [
       text(0, 0.22, 0.43, 0.56, t("october dump", "tháng mười"), { font: "greatVibes", size: 0.09, color: "#8a3b17", background: { color: "#fbfaf7", padding: 0.3 } }),
     ],
   }),
-  design("cozy-season", "autumn", t("Cozy season", "Mùa ấm áp"), {
+  design("cozy-season", "seasonal", t("Cozy season", "Mùa ấm áp"), {
+    events: ["autumn", "winter"],
     format: "story",
     themes: ["autumn", "food"],
     slides: 1,
@@ -75,7 +80,8 @@ export const AUTUMN: Template[] = [
       text(0, 0.08, 0.79, 0.84, t("SWEATERS · TEA · RAIN", "ÁO LEN · TRÀ · MƯA"), { font: "spaceGrotesk", size: 0.032, color: "#7b5a43", letterSpacing: 0.25 }),
     ],
   }),
-  design("spooky-season", "autumn", t("Spooky season", "Mùa ma quái"), {
+  design("spooky-season", "seasonal", t("Spooky season", "Mùa ma quái"), {
+    events: ["halloween"],
     format: "story",
     themes: ["friends", "autumn", "mono"],
     slides: 1,
@@ -84,7 +90,8 @@ export const AUTUMN: Template[] = [
     slots: spookyStrip.slots,
     texts: [text(0, 0.08, 0.75, 0.84, t("spooky season", "mùa ma quái"), { font: "greatVibes", size: 0.1, color: PUMPKIN })],
   }),
-  design("golden-weeks", "autumn", t("Golden weeks", "Những tuần vàng"), {
+  design("golden-weeks", "seasonal", t("Golden weeks", "Những tuần vàng"), {
+    events: ["autumn"],
     group: "seamless",
     themes: ["autumn", "nature", "portrait"],
     slides: 3,
@@ -101,7 +108,8 @@ export const AUTUMN: Template[] = [
       text(2, 0.06, 0.6, 0.4, t("AUTUMN\n2026", "THU\n2026"), { font: "spaceGrotesk", size: 0.04, color: "#5a2e14", align: "left", letterSpacing: 0.2, lineHeight: 1.3 }),
     ],
   }),
-  design("autumn-slowly", "autumn", t("Autumn, slowly", "Thu, thật chậm"), {
+  design("autumn-slowly", "seasonal", t("Autumn, slowly", "Thu, thật chậm"), {
+    events: ["autumn"],
     themes: ["autumn", "nature"],
     slides: 1,
     background: { kind: "color", color: "#2b211b" },
@@ -111,7 +119,8 @@ export const AUTUMN: Template[] = [
       text(0, 0.1, 0.89, 0.8, t("a collection of quiet afternoons", "những buổi chiều yên ả"), { font: "lora", size: 0.032, color: "#c8b9a6", align: "left" }),
     ],
   }),
-  design("leaf-peeping", "autumn", t("Leaf peeping", "Ngắm lá"), {
+  design("leaf-peeping", "seasonal", t("Leaf peeping", "Ngắm lá"), {
+    events: ["autumn"],
     themes: ["autumn", "nature", "travel"],
     slides: 2,
     background: { kind: "color", color: "#f6efe4" },

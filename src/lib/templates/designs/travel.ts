@@ -89,6 +89,7 @@ export const TRAVEL: Template[] = [
     ],
   }),
   design("beach-days", "travel", t("Beach days", "Những ngày biển"), {
+    events: ["summer"],
     themes: ["beach"],
     slides: 2,
     background: { kind: "color", color: "#cfe3ea" },

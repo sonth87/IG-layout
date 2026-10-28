@@ -1,4 +1,5 @@
 import type { ImageAsset } from "@/lib/project/types";
+import { PACK_ART } from "./apply";
 import manifest from "./samplePhotos.json";
 import type { SampleTheme, Template } from "./types";
 
@@ -40,6 +41,10 @@ function cellAspects(tpl: Template): number[] {
   const out: number[] = [];
   if (tpl.background?.kind === "photo") out[tpl.background.photo] = d?.type === "grid" ? slide : slide * (typeof tpl.slides === "number" ? tpl.slides : 3);
   for (const s of tpl.slots) out[s.photo] ??= (s.w / s.h) * slide;
+  for (const a of tpl.art ?? []) {
+    const info = PACK_ART[a.id];
+    info?.windows?.forEach((w, i) => (out[(a.photo ?? 0) + i] ??= (w.w * info.width) / (w.h * info.height)));
+  }
   return out;
 }
 
@@ -53,20 +58,19 @@ export function samplePhotosFor(tpl: Template): ImageAsset[] {
   const hit = byTemplate.get(tpl.id);
   if (hit) return hit;
   const themes = tpl.design?.themes ?? DEFAULT_THEMES;
-  const pool = PHOTOS.filter((p) => themes.includes(p.theme));
   const h = hash(tpl.id);
-  // Start somewhere in the pool that depends on the template.
-  const rotated = [...pool.slice(h % pool.length), ...pool.slice(0, h % pool.length)];
   const used = new Set<string>();
   const list = Array.from(cellAspects(tpl), (aspect, i) => {
     const want = Math.log(aspect ?? 1);
-    // Themes take turns.
+    // Themes take turns; each cell starts at its own place within the theme so templates
+    // don't all open on the same photo.
     const theme = themes[(i + h) % themes.length];
-    const candidates = rotated.filter((p) => !used.has(p.id));
-    const own = candidates.filter((p) => p.theme === theme);
-    const from = own.length ? own : candidates.length ? candidates : rotated;
-    // The first photo close enough in shape (each template starts at its own place in the
-    // pool, so photos spread out), else the closest one.
+    let from = PHOTOS.filter((p) => p.theme === theme && !used.has(p.id));
+    if (!from.length) from = PHOTOS.filter((p) => themes.includes(p.theme) && !used.has(p.id));
+    if (!from.length) from = PHOTOS.filter((p) => !used.has(p.id));
+    const start = hash(`${tpl.id}:${i}`) % from.length;
+    from = [...from.slice(start), ...from.slice(0, start)];
+    // The first photo close enough in shape, else the closest one.
     let best = from[0];
     let bestScore = Infinity;
     for (const p of from) {

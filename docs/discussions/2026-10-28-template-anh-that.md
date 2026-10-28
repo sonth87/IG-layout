@@ -26,3 +26,31 @@
 - "Dùng template" vẫn tạo **ô ảnh trống** (D-72) — ảnh mẫu chỉ để xem trước. Có thể cân nhắc tuỳ chọn "giữ ảnh mẫu" sau.
 - Template theo mùa cần thay theo thời gian (Giáng sinh, Tết…). Chưa có cơ chế tự đổi theo ngày.
 - Chưa dùng khung giấy xé / sticker từ thư viện (packs) trong template — mô hình template chưa tham chiếu tài sản pack.
+
+---
+
+## Đợt 2 (cùng ngày) — mùa / sự kiện, phong cách mới, +105 mẫu
+
+### Yêu cầu
+- Nâng cấp Next.js.
+- Trang chủ **tự đẩy** các mục theo mùa / sự kiện (xuân hạ thu đông, Halloween, Noel, Tết, Trung thu, Valentine, các ngày lễ…).
+- Thêm template đa dạng: giấy xé, phim, có text / shape / widget / sticker theo phong cách teen, love, retro… — tham khảo ảnh mới trong `sample/1` (39 ảnh).
+- Thêm khoảng 100 mẫu.
+
+### Quan sát từ `sample/1`
+Mép giấy xé (ngang giữa các ảnh, quanh ảnh, vòng tròn xé), khung tem răng cưa + kẹp giấy, khung phim có chữ số mép, viền vẽ tay nguệch ngoạc, doodle sao / xoáy rải, nhãn vị trí 📍, hoa ép, chữ cắt báo (ransom), vạch highlight dưới tên, nền giấy xám, khung máy ảnh, mép sổ lò xo.
+
+### Đã làm
+- **Next.js 16.4.0 → 16.4.3** (bản vá bảo mật cùng dòng; `eslint-config-next` theo). Build, lint, e2e đều qua.
+- **Lịch mùa & sự kiện** (`src/lib/templates/seasons.ts`): 17 mục — 4 mùa, Halloween, Giáng sinh, Năm mới, Tết, Valentine, 8/3, Ngày của mẹ, 1/6, Trung thu, 20/10, 20/11, mùa tốt nghiệp, mùa tựu trường. Tết và Trung thu theo bảng ngày âm lịch 2025–2035. Mỗi sự kiện hiện trước ngày một khoảng (Halloween 24 ngày, Noel 30, Tết 21, Trung thu 14…). Template gắn `design.events`.
+  - Trang chủ: **2 banner đầu** và **tối đa 3 mục đầu** là sự kiện đang tới gần nhất (rồi tới mùa); còn lại là các nhóm thường. Có màn riêng cho từng sự kiện.
+  - Thử ngày khác: thêm `?today=2026-12-20` vào URL.
+- **Template dùng tài sản thư viện** (mô hình mới): `art` (khung có cửa sổ ảnh — giấy xé, tem, phim, polaroid, album, phong bì, khung tranh, bưu thiếp; hoặc sticker ảnh — washi, giấy note, mẩu giấy xé, hoa, Noel, Tết, Trung thu, sinh nhật…), `icons` (sticker / doodle vẽ sẵn: sao, xoáy, tim, mũi tên, gạch chân, vương miện…), `widgets` (đếm ngược, bài hát, thời tiết, vé máy bay, lịch, thông số phim, hashtag), chữ có viền / nghiêng / bóng. Kit thêm: viền vẽ tay (`sketch`), chữ cắt báo (`ransom`).
+  - Xem trước không phải tải cả gói: `scripts/build-template-art.mjs` trích kích thước + cửa sổ (rút gọn) của các khung / sticker được dùng vào `packArt.json` (chạy cùng `pnpm dev` / `pnpm build`). Khi bấm "Dùng template", app tải ảnh khung / sticker vào dự án và lấy cửa sổ chính xác từ gói; offline thì bỏ qua phần đó. Widget nạp lười (không làm nặng trang chủ).
+- **+105 mẫu → 203 template.** Nhóm mới: **Giấy xé** (15), **Vẽ tay** (10), **Teen & dễ thương** (12), **Tình yêu** (10), **Retro** (12); nhóm "Mùa thu & Halloween" đổi thành **Theo mùa & lễ hội** (Noel 6, Năm mới 4, Tết 5, Trung thu 4, 8/3–20/10 2, 20/11 2, Ngày của mẹ, 1/6, tốt nghiệp 2, xuân, đông, Halloween +2); sinh nhật +4 (chữ cắt báo, viền vẽ tay, bánh kem, bóng bay); thêm mẫu phim / du lịch có widget.
+- **Ảnh mẫu +83** (Pexels): đông, Giáng sinh, Tết / đèn lồng / áo dài, xuân, hoa, trường học, trẻ em, retro → 221 ảnh, 7.5 MB. Cách chọn ảnh: mỗi ô bắt đầu ở một chỗ riêng **trong** chủ đề nên ít lặp.
+
+### Để ngỏ
+- Bảng ngày Tết / Trung thu cần bổ sung sau 2035.
+- Chưa có khung "máy ảnh số" và "mép sổ lò xo" như SCRL — cần thêm vào thư viện khung (M20) nếu muốn.
+- Mẫu theo mùa nên được chủ dự án duyệt trên điện thoại (màu, chữ tiếng Việt).

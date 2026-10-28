@@ -1,3 +1,4 @@
+import type { EventId } from "./seasons";
 import type { AspectRatio, Border, FontKey, FrameStyle, MaskShape, ProjectType, ShapeKind } from "@/lib/project/types";
 
 // Layout templates are data (D-31): coordinates are relative to one slide
@@ -43,6 +44,52 @@ export interface TemplateShape {
   above?: boolean;
 }
 
+/**
+ * A picture from a pack (M20) placed by a template (2026-10-28): a frame whose windows take
+ * photos `photo`, `photo + 1`… (torn paper, stamp, film, instant…), or a sticker. Height
+ * follows the picture. Ids are "pack/item" (see src/lib/templates/packArt.json).
+ */
+export interface TemplateArt {
+  slide: number;
+  x: number;
+  y: number;
+  w: number;
+  id: string;
+  /** Frames: number of the photo in the first window. */
+  photo?: number;
+  rotation?: number;
+  opacity?: number;
+  /** Stickers: drawn under the photo cells (a paper scrap behind photos). */
+  under?: boolean;
+}
+
+/** A drawn sticker or doodle (lib/elements/stickers: "heart", "doodle-swirl"…). Height follows its shape. */
+export interface TemplateIcon {
+  slide: number;
+  x: number;
+  y: number;
+  w: number;
+  icon: string;
+  /** Main colour; default: the sticker's own. */
+  color?: string;
+  rotation?: number;
+  opacity?: number;
+}
+
+/** A card widget (D-114: weather, now playing, hashtag…) with its own texts. */
+export interface TemplateWidget {
+  slide: number;
+  x: number;
+  y: number;
+  w: number;
+  kind: string;
+  variant?: string;
+  /** Field texts replacing the samples. */
+  fields?: Record<string, { en: string; vi: string }>;
+  color?: string;
+  rotation?: number;
+}
+
 /** Text placed by a template (designed templates, M10). Sizes relative to slide width. */
 export interface TemplateText {
   slide: number;
@@ -60,18 +107,28 @@ export interface TemplateText {
   letterSpacing?: number;
   lineHeight?: number;
   rotation?: number;
-  /** Box behind the text. Padding relative to the font size. */
-  background?: { color: string; padding: number };
+  /** Box behind the text. Padding relative to the font size; radius too (default 0.2). */
+  background?: { color: string; padding: number; radius?: number };
+  /** Outline; width relative to the font size. */
+  stroke?: { color: string; width: number };
+  italic?: boolean;
+  shadow?: boolean;
+  opacity?: number;
 }
 
 /** Where a designed template appears in the home library (M10). */
 export type TemplateCategory =
-  | "autumn"
+  | "seasonal"
   | "carousel"
   | "travel"
   | "film"
-  | "editorial"
+  | "torn"
   | "scrapbook"
+  | "doodle"
+  | "teen"
+  | "love"
+  | "retro"
+  | "editorial"
   | "seamless"
   | "collage"
   | "story"
@@ -79,11 +136,11 @@ export type TemplateCategory =
   | "minimal"
   | "grid";
 
-/** Home order (SCRL-like sections, 2026-10-28): the season first. */
-export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["autumn", "carousel", "travel", "film", "editorial", "scrapbook", "seamless", "collage", "occasion", "story", "minimal", "grid"];
+/** Home order (SCRL-like sections, 2026-10-28). Events in season come before all of these (seasons.ts). */
+export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["carousel", "torn", "film", "travel", "scrapbook", "doodle", "teen", "love", "retro", "editorial", "seamless", "collage", "occasion", "story", "minimal", "grid", "seasonal"];
 
 /** Kinds of sample photo a template's preview shows (public/samples, from Pexels). */
-export type SampleTheme = "travel" | "beach" | "city" | "food" | "portrait" | "friends" | "couple" | "autumn" | "nature" | "minimal" | "mono" | "party" | "fashion";
+export type SampleTheme = "travel" | "beach" | "city" | "food" | "portrait" | "friends" | "couple" | "autumn" | "nature" | "minimal" | "mono" | "party" | "fashion" | "winter" | "christmas" | "lunar" | "spring" | "flowers" | "school" | "kids" | "retro";
 
 export type TemplateBackground =
   | { kind: "color"; color: string }
@@ -109,8 +166,13 @@ export interface Template {
   shapes?: TemplateShape[];
   texts?: TemplateText[];
   slots: TemplateSlot[];
+  /** Pack frames and stickers, drawn after the slots in this order. */
+  art?: TemplateArt[];
+  /** Drawn stickers / doodles, above the art. */
+  icons?: TemplateIcon[];
+  widgets?: TemplateWidget[];
   /** Designed templates (home library): category and the format a new project starts with. */
-  design?: { category: TemplateCategory; type: ProjectType; ratio: AspectRatio; themes?: SampleTheme[] };
+  design?: { category: TemplateCategory; type: ProjectType; ratio: AspectRatio; themes?: SampleTheme[]; events?: EventId[] };
 }
 
 export interface TemplateOptions {

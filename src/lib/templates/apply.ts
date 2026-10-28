@@ -5,10 +5,58 @@ import { type CanvasElement, MAX_SLIDES, type ImageAsset, newId, type ProjectDoc
 import { groupSlots, syncLayout } from "@/lib/project/blocks";
 import { insertSlideAt } from "@/lib/project/slides";
 import type { LayoutElement } from "@/lib/project/types";
+import { catalogAsset, loadCatalog, loadPack } from "@/lib/catalog/load";
+import type { FrameWindow } from "@/lib/catalog/types";
+import type { WidgetData } from "@/lib/elements/widgets";
+import { STICKERS } from "@/lib/elements/stickers";
+import packArt from "./packArt.json";
 import { type SlideLayout, slideCells } from "./slideLayouts";
-import type { Template, TemplateOptions, TemplateSlot } from "./types";
+import type { Template, TemplateOptions, TemplateSlot, TemplateWidget } from "./types";
 
 const EPS = 0.001;
+
+/** Pack pictures the templates use: size, file and (thinned) windows (scripts/build-template-art.mjs). */
+export const PACK_ART = packArt as Record<string, { kind: string; file: string; thumb: string; width: number; height: number; windows?: FrameWindow[] }>;
+
+/** Id of a pack picture shown straight from its URL (previews; not stored in a project). */
+export const packAssetId = (id: string) => `pack:${id}`;
+
+/** What a real project adds to a template (store/editor createFromTemplate); previews go without. */
+export interface TemplateExtras {
+  /** Pack pictures already in the project, by catalog id. Without: drawn from the pack URL. */
+  art?: Record<string, ImageAsset>;
+  /** Exact frame windows, by catalog id. Without: the thinned preview ones. */
+  windows?: Record<string, FrameWindow[]>;
+  /** Builds a widget (widgets module, loaded on demand). Without: widgets are left out. */
+  widget?: (spec: TemplateWidget, locale: "en" | "vi") => { widget: WidgetData; color: string; aspect: number };
+}
+
+/**
+ * Pack pictures (stored in the project, exact windows) and widgets for a template that
+ * becomes a real project. A picture that can't be fetched (offline) is left out.
+ */
+export async function templateExtras(tpl: Template): Promise<TemplateExtras> {
+  const extras: TemplateExtras = { art: {}, windows: {} };
+  const ids = [...new Set((tpl.art ?? []).map((a) => a.id))];
+  if (ids.length) {
+    const catalog = await loadCatalog().catch(() => null);
+    await Promise.all(
+      ids.map(async (id) => {
+        const pack = catalog?.packs.find((p) => p.id === id.split("/")[0]);
+        const item = pack && (await loadPack(pack)).find((it) => it.id === id);
+        if (!item) return;
+        try {
+          extras.art![id] = await catalogAsset(item);
+          if (item.windows) extras.windows![id] = item.windows;
+        } catch {
+          // Offline: the template goes on without this picture.
+        }
+      }),
+    );
+  }
+  if (tpl.widgets?.length) extras.widget = (await import("./widgetSpec")).widgetFromSpec;
+  return extras;
+}
 
 /** Number of slides the template will produce for `photoCount` photos. Grid keeps its tiles. */
 export function templateSlides(tpl: Template, photoCount: number, current: number, type: ProjectDoc["type"] = "post") {
@@ -28,6 +76,7 @@ export function applyTemplate(
   photos: (ImageAsset | undefined)[],
   opts: TemplateOptions,
   locale: "en" | "vi" = "en",
+  extras: TemplateExtras = {},
 ): ProjectDoc {
   const { width: W, height: H } = slideSize(doc.ratio);
   const slideCount = templateSlides(tpl, photos.length, doc.slideCount, doc.type);
@@ -63,6 +112,41 @@ export function applyTemplate(
     };
   };
   for (const sh of tpl.shapes ?? []) if (!sh.above && sh.slide < slideCount) elements.push(shape(sh));
+
+  // Pack frames (their windows take the next photos) and stickers, in order; stickers
+  // marked `under` go below the photo cells.
+  const frameBlocks: string[] = [];
+  const placeArt = (a: NonNullable<Template["art"]>[number]) => {
+    const info = PACK_ART[a.id];
+    if (!info || a.slide >= slideCount) return;
+    // A real project without the picture (offline): leave it out rather than point at the pack.
+    if (extras.art && !extras.art[a.id]) return;
+    const asset = extras.art?.[a.id] ?? { id: packAssetId(a.id), blob: new Blob(), url: `/packs/${info.file}`, width: info.width, height: info.height, name: a.id };
+    const r = slideRect(sized, a.slide);
+    const w = a.w * W;
+    const h = (w * info.height) / info.width;
+    const box = { x: r.x + a.x * W, y: r.y + a.y * H, width: w, height: h };
+    const windows = extras.windows?.[a.id] ?? info.windows;
+    if (info.kind !== "frame" || !windows?.length) {
+      elements.push({ ...imageElement(asset, box), rotation: a.rotation ?? 0, opacity: a.opacity ?? 1 });
+      return;
+    }
+    const block: LayoutElement = { id: newId(), type: "layout", ...box, rotation: a.rotation ?? 0, opacity: a.opacity ?? 1, cells: [], art: { assetId: asset.id, catalogId: a.id } };
+    elements.push(block);
+    windows.forEach((win, i) => {
+      const frame = { x: box.x + win.x * w, y: box.y + win.y * h, width: win.w * w, height: win.h * h };
+      const p = photos[(a.photo ?? 0) + i];
+      const el = p ? imageElement(p, frame) : { ...imageElement({ id: "", width: frame.width, height: frame.height }, frame), assetId: null };
+      el.parentId = block.id;
+      el.slot = true;
+      if (win.shape === "ellipse") el.mask = "circle";
+      if (win.points?.length) el.maskPoints = win.points;
+      block.cells.push({ id: el.id, x: win.x, y: win.y, w: win.w, h: win.h, ...(win.rotation ? { rotation: win.rotation } : {}) });
+      elements.push(el);
+    });
+    frameBlocks.push(block.id);
+  };
+  for (const a of tpl.art ?? []) if (a.under) placeArt(a);
 
   const slots: TemplateSlot[] = tpl.perPhoto
     ? Array.from({ length: slideCount }, (_, i) => ({ ...tpl.slots[0], photo: i, slide: i }))
@@ -112,8 +196,24 @@ export function applyTemplate(
     elements.push(el);
   }
 
+  for (const a of tpl.art ?? []) if (!a.under) placeArt(a);
+
   // Tape and stickers over the photos' edges.
   for (const sh of tpl.shapes ?? []) if (sh.above && sh.slide < slideCount) elements.push(shape(sh));
+  for (const ic of tpl.icons ?? []) {
+    const st = STICKERS[ic.icon];
+    if (!st || ic.slide >= slideCount) continue;
+    const r = slideRect(sized, ic.slide);
+    const width = ic.w * W;
+    elements.push({ id: newId(), type: "icon", x: r.x + ic.x * W, y: r.y + ic.y * H, width, height: (width * st.h) / st.w, rotation: ic.rotation ?? 0, opacity: ic.opacity ?? 1, icon: ic.icon, color: ic.color ?? st.color });
+  }
+  for (const wd of extras.widget ? (tpl.widgets ?? []) : []) {
+    if (wd.slide >= slideCount) continue;
+    const { widget, color, aspect } = extras.widget!(wd, locale);
+    const r = slideRect(sized, wd.slide);
+    const width = wd.w * W;
+    elements.push({ id: newId(), type: "icon", x: r.x + wd.x * W, y: r.y + wd.y * H, width, height: width / aspect, rotation: wd.rotation ?? 0, opacity: 1, icon: `widget:${wd.kind}`, color, widget });
+  }
 
   // Texts on top of the photos (designed templates).
   for (const tx of tpl.texts ?? []) {
@@ -140,16 +240,21 @@ export function applyTemplate(
       align: tx.align ?? "center",
       letterSpacing: Math.round((tx.letterSpacing ?? 0) * fontSize),
       lineHeight,
-      stroke: null,
-      shadow: false,
+      stroke: tx.stroke ? { color: tx.stroke.color, width: Math.max(1, Math.round(tx.stroke.width * fontSize)) } : null,
+      shadow: tx.shadow ?? false,
+      ...(tx.italic && { italic: true }),
+      ...(tx.opacity !== undefined && { opacity: tx.opacity }),
       background: tx.background
-        ? { color: tx.background.color, padding: Math.round(tx.background.padding * fontSize), radius: Math.round(fontSize * 0.2) }
+        ? { color: tx.background.color, padding: Math.round(tx.background.padding * fontSize), radius: Math.round(fontSize * (tx.background.radius ?? 0.2)) }
         : null,
     });
   }
 
-  // Grid cells become one layout block per slide (M14).
-  return groupSlots({ ...doc, slideCount, background, elements: elements.map((e) => ({ ...e, fromLayout: true })) });
+  // Grid cells become one layout block per slide (M14); frame cells follow their frame's turn.
+  let out = groupSlots({ ...doc, slideCount, background, elements: elements.map((e) => ({ ...e, fromLayout: true })) });
+  const sizes = new Map(photos.filter((p): p is ImageAsset => !!p).map((p) => [p.id, p]));
+  for (const id of frameBlocks) out = syncLayout(out, id, (assetId) => sizes.get(assetId));
+  return out;
 }
 
 /**
