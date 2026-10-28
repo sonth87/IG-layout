@@ -543,3 +543,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Thư viện template 203 → 373: mọi nhóm ≥ 15 mẫu, lưới profile 3 × 3 kiểu mỗi ô một bài (D-140, e2e m18.mjs)
 - [x] Trang thử `/labs/templates`: xem mọi template theo nhóm / sự kiện
 - [ ] Chủ dự án duyệt mẫu mới trên điện thoại qua `/labs/templates`; chốt D-140
+- [x] Chữ cắt báo: kiểu của phần tử chữ, 22 kiểu, Xáo, chữ cái / từ, lộn xộn / biên độ / độ cong, chạm một chữ để xáo riêng; nhóm template "Chữ cắt báo" 12 mẫu; trang thử `?cutout=1` (D-141, e2e cutout.mjs)
+- [ ] Chủ dự án thử chữ cắt báo trên điện thoại (kiểu nào xấu / thiếu, thanh trượt có dễ hiểu không)
+

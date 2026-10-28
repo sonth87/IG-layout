@@ -2,6 +2,7 @@ import type { Template, TemplateCategory } from "../types";
 import { AUTUMN } from "./autumn";
 import { CLASSIC } from "./classic";
 import { COLLAGE } from "./collage";
+import { CUTOUT } from "./cutout";
 import { EDITORIAL } from "./editorial";
 import { EVERYDAY } from "./everyday";
 import { FILM } from "./film";
@@ -31,6 +32,7 @@ export const DESIGNS: Template[] = [
   ...WINTER,
   ...TET,
   ...HOLIDAYS,
+  ...CUTOUT,
   ...TORN,
   ...DOODLE,
   ...TEEN,

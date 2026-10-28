@@ -180,3 +180,20 @@ Mỗi kiểu có: bộ phông (4–8 phông trong 78 phông sẵn có, đều c�
 
 **Sau đó:** thay chữ cắt trong mẫu "Sinh nhật chữ cắt" bằng phần tử mới (sửa chữ được), thêm template dùng kiểu này (sinh nhật, tạp chí, teen, retro, Noel, Tết).
 
+### Chốt & bổ sung (chủ dự án)
+Đồng ý thiết kế; thêm: chữ không cùng một hàng thì cho chỉnh **biên độ**, và **độ cong của cả đoạn**.
+
+### Đã làm
+- **Mô hình:** `TextElement.cutout = { style, seed, by, mess, wave, curve, rolls }`. `src/lib/text/cutout.ts`: 22 kiểu (dữ liệu: bộ phông + độ đậm, bảng màu nền / chữ, hình mẩu, chất liệu, kiểu chữ hoa / thường, bóng, phát sáng), xếp chữ và một hàm vẽ canvas 2D dùng chung cho **canvas editor (Konva shape) — ảnh xuất — ảnh xem trước template**.
+- **Hình mẩu:** chữ nhật, bo góc, viên thuốc, tròn (một chữ), mép xé, băng dính (hai đầu răng cưa, hơi trong), vé (khuyết hai bên), nhãn in (dải sáng như băng nhựa nổi), không nền. **Chất liệu:** kẻ dòng + lề đỏ, ô ly, chấm in, sọc chéo.
+- **Xếp chữ:** ngắt dòng theo từ trong bề rộng khối chữ, căn trái / giữa / phải theo khối. *Biên độ* đẩy mỗi mẩu lên / xuống (tối đa ~0,4 cỡ chữ); *Lộn xộn* nghiêng (tối đa ±14°) và chênh cỡ; *Độ cong* uốn từng dòng theo parabol (âm = võng xuống), mẩu xoay theo độ dốc. Chiều cao khối tự theo các mẩu.
+- **Bảng "Chữ cắt báo"** (nút **Cắt báo** trên thanh công cụ chữ): dải kiểu (xem trước bằng chính chữ đang gõ) + "Chữ thường" để tắt, Xáo, Chữ cái / Từ, 3 thanh trượt; ✕ / ✓ như các bảng khác (một bước hoàn tác).
+- **Chạm một chữ** trên khối đang chọn → xáo riêng chữ đó (không vào chế độ gõ); chạm vào khoảng trống trong khối vẫn gõ chữ như cũ; chạm đúp gõ chữ.
+- **Template:** `TemplateText.cutout`; mẫu "Sinh nhật chữ cắt" giờ là **một** khối chữ (sửa chữ được). Nhóm mới **"Chữ cắt báo"** (12 mẫu: cuối tuần, tin nóng, bạn thân, Y2K, máy in nhãn, vé đi chơi, Noel, Tết, thư tình, photobooth, giấy vở, neon). Ảnh xem trước tải khai báo phông của editor khi cần (trang chủ chỉ khai báo 10 phông).
+- **Trang thử:** `/labs/templates?cutout=1` — cả 22 kiểu với câu mẫu Anh / Việt, thẳng và cong.
+- e2e `cutout.mjs`.
+
+### Để sau
+- Chữ cắt báo chưa có hiệu ứng "gõ từng chữ" khi làm video (chữ hiện cả khối).
+- Khi sửa chữ, các chữ đã "xáo riêng" có thể đổi chỗ (chỉ số mẩu thay đổi theo chữ).
+

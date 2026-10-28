@@ -42,6 +42,7 @@ import { type LibraryKind, LibrarySheet, NewLayerSheet } from "./library/Library
 import { saveLibrary } from "@/lib/storage/library";
 import { FillTool, MaskTool, StyleTool } from "./tools/ElementTools";
 import { BackgroundTool, SlidesTool } from "./tools/ProjectTools";
+import { CutoutTool } from "./tools/CutoutTool";
 import { TextTool } from "./tools/TextTools";
 import { TextAlignPanel, TextFormatPanel } from "./tools/TextFormat";
 import { OpacityTool } from "./tools/OpacityTool";
@@ -128,11 +129,12 @@ type Tool =
   | "widgetStyle"
   | "widgetTime"
   | "widgetColor"
-  | "effect";
+  | "effect"
+  | "cutout";
 /** Tools that edit a draft (✕ / ✓). */
-const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "widgetColor", "effect"];
+const DRAFT_TOOLS: Tool[] = ["crop", "mask", "style", "adjust", "filters", "text", "fill", "background", "sound", "animate", "position", "blockLayout", "blockAdjust", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "widgetColor", "effect", "cutout"];
 /** Sheets about the selected element: they close (keeping their edits) when the selection changes (owner, 2026-10-19). */
-const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "widgetColor", "effect"];
+const ELEMENT_TOOLS: Tool[] = ["fill", "opacity", "widget", "widgetList", "widgetLook", "widgetValue", "widgetPick", "widgetDate", "widgetStyle", "widgetTime", "widgetColor", "effect", "cutout"];
 /** Sheets about the project / slides, not an element: they stay open when nothing is selected. */
 const GLOBAL_TOOLS: Tool[] = ["elements", "background", "slides", "layout", "layers", "draw", "music", "newSlide", "projectMenu", "library", "newLayer", "ratio", "preview"];
 
@@ -741,6 +743,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
   else if (tool === "widgetTime" && selected) bottom = <WidgetTimeTool elementId={selected.id} onClose={close} />;
   else if (tool === "widgetColor" && selected) bottom = <WidgetColorTool elementId={selected.id} onClose={close} />;
   else if (tool === "effect" && selected) bottom = <EffectTool elementId={selected.id} onClose={close} />;
+  else if (tool === "cutout" && selected) bottom = <CutoutTool elementId={selected.id} onClose={close} />;
   else if (tool === "background") bottom = <BackgroundTool onClose={close} />;
   else if (tool === "draw") bottom = <DrawTool onClose={close} />;
   else if (tool === "music") bottom = <MusicTool onClose={close} />;
@@ -824,6 +827,7 @@ export function Editor({ onClose }: { onClose: () => void }) {
         <ToolButton key="edit" label={t("type.edit")} icon="pencil" onClick={() => typeText(id, "type")} />,
         <ToolButton key="format" label={t("type.format")} icon="text" onClick={() => typeText(id, "format")} />,
         <ToolButton key="align" label={t("type.align")} icon="alignLeft" onClick={() => typeText(id, "align")} />,
+        <ToolButton key="cutout" label={t("tool.cutout")} icon="scissors" onClick={() => openTool("cutout")} />,
         <ToolButton key="effect" label={t("tool.effect")} icon="wand" onClick={() => openTool("effect")} />,
         position,
         <ToolButton key="opacity" label={t("tool.opacityTitle")} icon="adjust" onClick={() => openTool("opacity")} />,

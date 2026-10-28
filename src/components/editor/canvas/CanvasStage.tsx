@@ -8,7 +8,7 @@ import { snap, snapTargets } from "@/lib/project/snap";
 import { canvasSize, GRID_COLS, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
 import { scaleExtras } from "@/lib/elements/resize";
 import { strokePath } from "@/lib/elements/shapes";
-import { type CanvasElement, fixedCell, type ImageAsset, type ImageElement, type LayoutElement, pansInside, type Rect as Box, slideSize, zoomsInside } from "@/lib/project/types";
+import { type CanvasElement, type CutoutText, fixedCell, type ImageAsset, type ImageElement, type LayoutElement, pansInside, type Rect as Box, slideSize, type TextElement, zoomsInside } from "@/lib/project/types";
 import { liveCrops } from "@/lib/project/liveCrop";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { panCrop, wholePicture } from "@/lib/project/blocks";
@@ -25,6 +25,8 @@ import { DrawingNode, IconNode, ShapeNode, WidgetNode } from "./ShapeIconNodes";
 import { isTouchUI } from "./interaction";
 import { applyMotion, clearMotion, hasMotion, makeSlideDuration, motionDuration } from "@/lib/motion/motion";
 import { defaultMedia, setExtraDuration, setFrameHook, setRedraw, timelineLength } from "@/lib/video/playback";
+import { CutoutTextNode } from "./CutoutTextNode";
+import { drawnLayouts, pieceAt } from "@/lib/text/cutout";
 import { TextNode } from "./TextNode";
 
 const SNAP_SCREEN_PX = 8;
@@ -731,6 +733,21 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       lastEmptyTap.current = time;
     }
     const res = tapResult(d, st.selectedId, hitId, onPlus);
+    // Cut-out letters (D-141): a tap on a letter of the selected text reshuffles that letter.
+    if (res.action === "editText" && hit?.type === "text" && hit.cutout) {
+      const p = target.getStage()?.getRelativePointerPosition();
+      const layout = drawnLayouts.get(hit.id);
+      if (p && layout) {
+        const a = (-hit.rotation * Math.PI) / 180;
+        const dx = p.x - (hit.x + hit.width / 2);
+        const dy = p.y - (hit.y + hit.height / 2);
+        const piece = pieceAt(layout, dx * Math.cos(a) - dy * Math.sin(a) + hit.width / 2, dx * Math.sin(a) + dy * Math.cos(a) + hit.height / 2);
+        if (piece) {
+          const rolls = { ...hit.cutout.rolls, [piece.index]: (hit.cutout.rolls?.[piece.index] ?? 0) + 1 };
+          return st.updateElement(hit.id, { cutout: { ...hit.cutout, rolls } });
+        }
+      }
+    }
     select(res.select);
     if (res.action === "editText" && res.select) setEditingText(res.select);
     // A widget opens its content on a double tap only (owner, 2026-10-19): one tap just selects.
@@ -967,7 +984,7 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
         <BackgroundNode background={doc.background} width={width} height={height} />
         {doc.elements.map((el) => {
           const hooks = { onDragMove, onDragEnd };
-          if (el.type === "text") return <TextNode key={el.id} element={el} hooks={hooks} />;
+          if (el.type === "text") return el.cutout ? <CutoutTextNode key={el.id} element={el as TextElement & { cutout: CutoutText }} hooks={hooks} /> : <TextNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "shape") return <ShapeNode key={el.id} element={el} hooks={hooks} />;
           if (el.type === "icon" && el.widget) return <WidgetNode key={el.id} element={el} widget={el.widget} hooks={hooks} />;
           if (el.type === "icon") return <IconNode key={el.id} element={el} hooks={hooks} />;

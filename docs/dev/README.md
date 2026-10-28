@@ -57,6 +57,7 @@ src/
     project/migrate.ts    nâng cấp dữ liệu project cũ
     templates/          types, library (layout cho LayoutPicker), designs/ (template thiết kế sẵn cho trang chủ, mỗi nhóm một file, hàm dựng chung ở kit.ts; khung / sticker thư viện dùng trong template được trích vào packArt.json bằng scripts/build-template-art.mjs), seasons (lịch mùa / sự kiện cho trang chủ; thử ngày khác bằng `?today=YYYY-MM-DD`), widgetSpec (widget trong template, nạp lười), samples (ảnh mẫu theo chủ đề cho ô xem trước — public/samples, tải bằng `node --env-file=.env.local scripts/fetch-samples.mjs`, cần PEXELS_API_KEY trong .env.local), apply (template → phần tử)
     color/              params (thông số màu), filters (danh sách filter + công thức filter v2), lut (công thức → bảng tra màu 3D), processor (WebGL + cache), filmfx (Film FX: lớp phủ + dấu ngày + máy ảnh retro)
+    text/cutout.ts      chữ cắt báo (D-141): kiểu, xếp chữ, hàm vẽ dùng chung (canvas Konva, xuất ảnh, xem trước template)
     text/fonts.ts       danh sách 78 font (nhóm, độ đậm) + chờ font tải; text/webfonts.ts khai báo next/font (đi cùng trình chỉnh sửa)
     elements/           create (tạo chữ / hình / icon / sticker / lớp phủ / khung), stickers (SVG tự vẽ), overlays (lớp phủ sinh bằng code), resize (co giãn cỡ chữ, viền theo tỉ lệ), shapes (vẽ hình), icons (Lucide)
   app/fonts.ts          khai báo 6 font (next/font), dùng chung cho giao diện và canvas
@@ -78,7 +79,7 @@ src/
 public/sw.js           service worker (offline; chỉ "/" làm bản offline)
 public/labs/video.html trang thử nghiệm video M13 (độc lập, không thuộc app)
 src/app/labs/filters  trang thử filter v2 (/labs/filters — dùng chính bộ xử lý màu của app, không có link trong app); ảnh mẫu ở public/labs/filter-samples
-src/app/labs/templates  trang thử template (/labs/templates?cat=grid hoặc ?event=christmas — mọi template của trang chủ, cả dải carousel; không có link trong app)
+src/app/labs/templates  trang thử template (/labs/templates?cat=grid, ?event=christmas, ?cutout=1 xem các kiểu chữ cắt báo — mọi template của trang chủ, cả dải carousel; không có link trong app)
 scripts/              copy-ort.mjs (runtime ONNX), build-emoji.mjs (sticker emoji) — chạy trong pnpm dev / build; đổi tên CACHE khi đổi chiến lược cache
 ```
 

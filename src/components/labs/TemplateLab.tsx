@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { TemplatePreview } from "@/components/layout/TemplatePreview";
 import { templateSlides } from "@/lib/templates/apply";
 import { DESIGNS } from "@/lib/templates/designs";
 import { samplePhotosFor } from "@/lib/templates/samples";
 import { EVENTS, type EventId } from "@/lib/templates/seasons";
+import type { CutoutText } from "@/lib/project/types";
+import { CUTOUT_STYLES, cutoutFonts, cutoutLayout, cutoutStyle, DEFAULT_CUTOUT, drawCutout } from "@/lib/text/cutout";
+import { loadFont } from "@/lib/text/fonts";
 import { DEFAULT_OPTIONS, TEMPLATE_CATEGORIES, type Template, type TemplateCategory } from "@/lib/templates/types";
 import { useSettings, useT } from "@/store/settings";
 
@@ -13,7 +16,56 @@ import { useSettings, useT } from "@/store/settings";
 // event, with the whole carousel strip — to review the library on a phone.
 // Filters live in the URL (?cat=film, ?event=christmas) so a view can be shared.
 
-type Filter = { cat: TemplateCategory | "all" } | { event: EventId };
+type Filter = { cat: TemplateCategory | "all" } | { event: EventId } | { cutout: true };
+
+const SAMPLES = ["Happy birthday!", "Chúc mừng năm mới", "weekend mood"];
+
+/** Every cut-out letter style (D-141) on a few sample lines, flat and curved. */
+function CutoutGallery() {
+  const locale = useSettings((s) => s.locale);
+  return (
+    <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {CUTOUT_STYLES.map((style, i) => (
+        <figure key={style.id} className="m-0 rounded-lg bg-white p-2">
+          {SAMPLES.map((text, j) => (
+            <CutoutSample key={j} text={text} cutout={{ ...DEFAULT_CUTOUT, style: style.id, seed: i * 3 + j + 1, curve: j === 2 ? 0.6 : 0 }} />
+          ))}
+          <figcaption className="text-xs text-black/60">
+            {style.name[locale]} · {style.id}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+
+function CutoutSample({ text, cutout }: { text: string; cutout: CutoutText }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const [ready, setReady] = useState(0);
+  useEffect(() => {
+    let alive = true;
+    void import("@/lib/text/webfonts")
+      .then(() => Promise.all(cutoutFonts(cutoutStyle(cutout.style)).map((f) => loadFont(f.font, f.weight))))
+      .then(() => alive && setReady((n) => n + 1));
+    return () => {
+      alive = false;
+    };
+  }, [cutout.style]);
+  useEffect(() => {
+    const canvas = ref.current;
+    const c = canvas?.getContext("2d");
+    if (!canvas || !c) return;
+    const layout = cutoutLayout({ text, width: 900, fontSize: 80, align: "center", letterSpacing: 0, lineHeight: 1.15, cutout });
+    const W = 420;
+    const k = W / 900;
+    canvas.width = W * 2;
+    canvas.height = Math.ceil(layout.height * k * 2);
+    canvas.style.height = `${layout.height * k}px`;
+    c.setTransform(k * 2, 0, 0, k * 2, 0, 0);
+    drawCutout(c, layout);
+  }, [text, cutout, ready]);
+  return <canvas ref={ref} className="block w-full max-w-[420px]" />;
+}
 
 function slidesOf(tpl: Template) {
   const type = tpl.design!.type;
@@ -61,15 +113,16 @@ export function TemplateLab() {
     const q = new URLSearchParams(location.search);
     const event = q.get("event");
     const cat = q.get("cat");
-    if (event) setFilter({ event: event as EventId });
+    if (q.get("cutout")) setFilter({ cutout: true });
+    else if (event) setFilter({ event: event as EventId });
     else if (cat) setFilter({ cat: cat as TemplateCategory });
   }, []);
   const choose = (f: Filter) => {
     setFilter(f);
-    history.replaceState(null, "", `?${"event" in f ? `event=${f.event}` : `cat=${f.cat}`}`);
+    history.replaceState(null, "", `?${"cutout" in f ? "cutout=1" : "event" in f ? `event=${f.event}` : `cat=${f.cat}`}`);
   };
   const shown = useMemo(
-    () => DESIGNS.filter((d) => ("event" in filter ? d.design?.events?.includes(filter.event) : filter.cat === "all" || d.design?.category === filter.cat)),
+    () => ("cutout" in filter ? [] : DESIGNS.filter((d) => ("event" in filter ? d.design?.events?.includes(filter.event) : filter.cat === "all" || d.design?.category === filter.cat))),
     [filter],
   );
   const count = (c: TemplateCategory) => DESIGNS.filter((d) => d.design?.category === c).length;
@@ -91,12 +144,16 @@ export function TemplateLab() {
         ))}
       </div>
       <div className="mt-2 flex flex-wrap gap-1.5">
+        <button className={chip("cutout" in filter)} onClick={() => choose({ cutout: true })}>
+          ✂ cut-out {CUTOUT_STYLES.length}
+        </button>
         {EVENTS.map((e) => (
           <button key={e.id} className={chip("event" in filter && filter.event === e.id)} onClick={() => choose({ event: e.id })}>
             {e.name[locale]} {eventCount(e.id)}
           </button>
         ))}
       </div>
+      {"cutout" in filter && <CutoutGallery />}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((tpl) => (
           <Card key={tpl.id} tpl={tpl} />

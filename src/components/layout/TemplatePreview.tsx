@@ -1,13 +1,50 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { stickerSvg } from "@/lib/elements/stickers";
 import { canvasSize, slideRect } from "@/lib/project/layout";
-import { type AspectRatio, type CanvasElement, frameColor, stillUrl, type ImageAsset, type ImageElement, type ProjectDoc, type ProjectType } from "@/lib/project/types";
+import { type AspectRatio, type CanvasElement, type CutoutText, type TextElement, frameColor, stillUrl, type ImageAsset, type ImageElement, type ProjectDoc, type ProjectType } from "@/lib/project/types";
 import { applyTemplate, PACK_ART } from "@/lib/templates/apply";
 import type { Template, TemplateOptions } from "@/lib/templates/types";
-import { fontInfo, fontWeight } from "@/lib/text/fonts";
+import { cutoutFonts, cutoutLayout, cutoutStyle, drawCutout } from "@/lib/text/cutout";
+import { fontInfo, fontWeight, loadFont } from "@/lib/text/fonts";
 import { useSettings } from "@/store/settings";
+
+/** Cut-out letters (D-141) drawn on a small canvas with the editor's own drawing. */
+function CutoutPreview({ el, k }: { el: TextElement & { cutout: CutoutText }; k: number }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const [ready, setReady] = useState(0);
+  useEffect(() => {
+    let alive = true;
+    // The home screen declares only a few fonts: the editor's font declarations come first.
+    void import("@/lib/text/webfonts")
+      .then(() => Promise.all(cutoutFonts(cutoutStyle(el.cutout.style)).map((f) => loadFont(f.font, f.weight))))
+      .then(() => alive && setReady((n) => n + 1));
+    return () => {
+      alive = false;
+    };
+  }, [el.cutout.style]);
+  // ready: measured again with the real fonts once loaded.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const layout = useMemo(() => cutoutLayout(el), [el, ready]);
+  useEffect(() => {
+    const canvas = ref.current;
+    const c = canvas?.getContext("2d");
+    if (!canvas || !c) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = Math.ceil(el.width * k * dpr);
+    canvas.height = Math.ceil(layout.height * k * dpr);
+    c.setTransform(k * dpr, 0, 0, k * dpr, 0, 0);
+    drawCutout(c, layout);
+  }, [layout, el.width, k]);
+  return (
+    <canvas
+      ref={ref}
+      className="absolute"
+      style={{ left: el.x * k, top: el.y * k, width: el.width * k, height: layout.height * k, opacity: el.opacity, transform: el.rotation ? `rotate(${el.rotation}deg)` : undefined }}
+    />
+  );
+}
 
 /** Soft placeholder tones for empty photo cells (template library, before photos are added). */
 const PLACEHOLDERS = ["#cfc6b8", "#b9c4c9", "#d6c2bd", "#c3cbb8", "#cdbfd2", "#bcc9c0"];
@@ -165,6 +202,7 @@ export function TemplatePreview(props: {
             </div>
           );
         }
+        if (el.type === "text" && el.cutout) return <CutoutPreview key={el.id} el={el as TextElement & { cutout: CutoutText }} k={k} />;
         if (el.type === "text")
           return (
             <div

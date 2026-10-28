@@ -243,6 +243,23 @@ export interface TextElement extends ElementBase {
   stroke: Border | null;
   shadow: boolean;
   background: { color: string; padding: number; radius: number } | null;
+  /** Cut-out letters (ransom note, D-141): each letter / word a scrap of paper. Replaces font, colour, outline and background when set. */
+  cutout?: CutoutText;
+}
+
+export interface CutoutText {
+  /** lib/text/cutout CUTOUT_STYLES id. */
+  style: string;
+  seed: number;
+  by: "letter" | "word";
+  /** 0..1: tilt and size differences. */
+  mess: number;
+  /** 0..1: how far scraps move up and down off the line. */
+  wave: number;
+  /** -1..1: lines bent into an arc (up when > 0). */
+  curve: number;
+  /** Scraps reshuffled one by one (tap a letter): scrap index → times. */
+  rolls?: Record<number, number>;
 }
 
 export const SHAPES = ["rect", "roundRect", "circle", "triangle", "line", "arrow", "film"] as const;
