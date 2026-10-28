@@ -148,3 +148,35 @@ Khi thư viện lớn, tìm "birthday" khớp cả mô tả nhóm Dịp đặc b
 
 **Đề xuất (chờ chủ dự án chọn, Q-T1):** thêm kiểu **"Chữ cắt báo"** cho phần tử chữ — gõ cả câu như chữ thường, mỗi ký tự tự nhận phông / màu nền / góc xoay / lệch dòng khác nhau theo seed, nút **Xáo** để đổi ngẫu nhiên, vài bộ màu (báo cũ, pastel, đen trắng, neon); xuất ảnh đúng như trên canvas. Sau đó thêm template dùng kiểu này (sinh nhật, tạp chí, teen, retro). Trước khi thiết kế giao diện sẽ tham khảo cách các app khác làm.
 
+### Chủ dự án (tiếp)
+Đồng ý hướng này; muốn **tự chọn kiểu (style)**; chỉnh **riêng từng chữ** thì cân nhắc vì dễ sinh UI lằng nhằng; cần **rất nhiều kiểu** chữ cắt báo.
+
+### Tham khảo app khác
+- **Framer "Ransom Note Text"**: mỗi ký tự là một mẩu giấy có phông / màu / hình nền riêng + bóng; điều khiển chỉ gồm chữ, **seed** (khoá hoặc xáo lại), cỡ, độ nghiêng; **bấm vào một chữ để đổi riêng chữ đó**.
+- **"Make It Ransomy"** (tiện ích Chrome): chọn cách cắt — **theo chữ cái**, **theo từ**, hoặc theo cụm (các chữ trong một cụm chung một mẩu giấy).
+- **Kittl**: bộ chữ cắt làm sẵn, sửa màu trong editor. Các bộ PNG chữ cắt sẵn (itch.io, Envato) cho thấy sự đa dạng nằm ở **chất liệu mẩu giấy** (báo, tạp chí bóng, giấy kraft, băng dính, nhãn), không chỉ ở phông.
+- **Canva / CapCut / Picsart**: không có sẵn kiểu chữ này (Canva chỉ có template khung chữ bán riêng) → điểm khác biệt đáng làm.
+
+### Đề xuất thiết kế (D-141, chờ duyệt)
+**Mô hình:** vẫn là **một phần tử chữ** (gõ, sửa, căn lề, đổi cỡ như chữ thường) có thêm kiểu `cutout: { style, seed, cut: "letter" | "word", mess }`. Mỗi ký tự (hoặc mỗi từ) được vẽ thành một mẩu riêng; phông, màu, nền, góc nghiêng, lệch dòng **suy ra từ seed** → cùng seed thì luôn ra cùng một hình, xuất ảnh giống canvas.
+
+**Giao diện (trong công cụ Text, mục "Kiểu chữ"):**
+1. Dải **kiểu chữ cắt** (ảnh xem trước bằng chính chữ đang gõ), chạm để áp.
+2. Nút **Xáo** (đổi seed).
+3. **Cắt theo:** Chữ cái / Từ.
+4. Thanh trượt **Độ lộn xộn** (nghiêng, lệch, cỡ chênh nhau — từ gọn gàng đến hỗn loạn).
+5. **Chỉnh riêng từng chữ — đề xuất bản nhẹ:** khi chữ đang được chọn, **chạm vào một chữ cái để xáo riêng chữ đó** (như Framer). Không có bảng chỉnh phông / màu cho từng chữ → không thêm UI. Nếu sau này cần thật thì mới tính.
+
+**Kiểu (đợt đầu ~20, mỗi kiểu là một "chất liệu"):**
+| Nhóm | Kiểu |
+|---|---|
+| Báo & tạp chí | Báo cũ (giấy báo ngả vàng, chữ đen), Tạp chí màu (nền rực, chữ trắng / đen), Tạp chí thời trang (serif mảnh, đen – trắng – đỏ), Tiêu đề lớn (chữ đậm cỡ chênh nhiều) |
+| Giấy | Giấy kraft, Giấy vở kẻ dòng, Giấy ô ly, Mẩu giấy xé (mép răng cưa), Giấy note pastel |
+| Nhãn & băng | Máy in nhãn (băng nhựa, chữ nổi trắng), Băng dính washi, Vé / cuống vé, Nhãn đánh máy |
+| Màu sắc | Pastel, Đen trắng, Neon (nền tối, chữ sáng), Y2K (tím – hồng – bạc) |
+| Theo dịp | Noel (đỏ – xanh – kem), Tết (đỏ – vàng), Tình yêu (hồng – đỏ) |
+
+Mỗi kiểu có: bộ phông (4–8 phông trong 78 phông sẵn có, đều có dấu tiếng Việt), bảng màu nền / chữ, hình mẩu (chữ nhật, nghiêng, tròn, mép xé, nhãn bo), có / không bóng. Thêm kiểu = thêm một dòng dữ liệu.
+
+**Sau đó:** thay chữ cắt trong mẫu "Sinh nhật chữ cắt" bằng phần tử mới (sửa chữ được), thêm template dùng kiểu này (sinh nhật, tạp chí, teen, retro, Noel, Tết).
+
