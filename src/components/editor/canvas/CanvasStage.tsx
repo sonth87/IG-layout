@@ -5,7 +5,7 @@ import { Fragment, useEffect, useLayoutEffect, useRef } from "react";
 import { Circle, Group, Label, Layer, Line, Rect, Shape, Stage, Tag, Text, Transformer } from "react-konva";
 import { rotatedBounds } from "@/lib/project/geometry";
 import { snap, snapTargets } from "@/lib/project/snap";
-import { canvasSize, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
+import { canvasSize, GRID_COLS, GRID_GAP, postingNumber, slideRect, STORY_SAFE } from "@/lib/project/layout";
 import { scaleExtras } from "@/lib/elements/resize";
 import { strokePath } from "@/lib/elements/shapes";
 import { type CanvasElement, fixedCell, type ImageAsset, type ImageElement, type LayoutElement, pansInside, type Rect as Box, slideSize, zoomsInside } from "@/lib/project/types";
@@ -991,6 +991,11 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
             c.globalAlpha = 0.6;
             c.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--canvas").trim() || "#e6e3dd";
             c.fill("evenodd");
+            // Short last row of a grid: the empty end isn't posted (older posts go there).
+            if (doc.type === "grid" && rects.length % GRID_COLS) {
+              const last = rects[rects.length - 1];
+              c.fillRect(last.x + last.width, last.y, width - last.x - last.width, last.height);
+            }
           }}
         />
         {doc.type === "grid" &&

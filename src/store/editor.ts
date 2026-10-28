@@ -9,7 +9,7 @@ import { fillCells, fillTargets, freePhotos } from "@/lib/project/fill";
 import { patchElement } from "@/lib/project/position";
 import { relayout } from "@/lib/templates/blockLayout";
 import { canvasSize, GRID_COLS } from "@/lib/project/layout";
-import { changeRatio, deleteSlide, duplicateSlide, insertSlide, moveSlide, moveSlideTo, setGridGap, setGridRows } from "@/lib/project/slides";
+import { changeRatio, deleteSlide, duplicateSlide, insertSlide, moveSlide, moveSlideTo, setGridCount, setGridGap } from "@/lib/project/slides";
 import { addFrameBlock, addLayoutBlock, addLayoutSlide, applyTemplate, templateExtras, templateSlides } from "@/lib/templates/apply";
 import { slideLayoutById } from "@/lib/templates/slideLayouts";
 import { DEFAULT_OPTIONS, type Template, type TemplateOptions } from "@/lib/templates/types";
@@ -118,7 +118,8 @@ interface EditorState {
   setEditingText: (id: string | null) => void;
 
   insertSlide: (after: number) => void;
-  setGridRows: (rows: number) => void;
+  /** Grid: number of tiles, 2–24. */
+  setGridCount: (count: number) => void;
   setGridGap: (on: boolean) => void;
   deleteSlide: (index: number) => void;
   moveSlide: (index: number, direction: -1 | 1) => void;
@@ -564,8 +565,8 @@ export const useEditor = create<EditorState>()((set, get) => {
     },
 
     insertSlide: (after) => commit((d) => insertSlide(d, after)),
-    setGridRows: (rows) => {
-      commit((d) => setGridRows(d, rows));
+    setGridCount: (count) => {
+      commit((d) => setGridCount(d, count));
       set({ selectedId: null });
     },
     setGridGap: (on) => commit((d) => setGridGap(d, on)),

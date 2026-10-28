@@ -34,7 +34,7 @@ Chọn ảnh → Chọn tỉ lệ + số slide → Sắp xếp layout → Chỉn
 ## 2. Thiết lập khung — `Đã chốt`
 
 - **Bước đầu tiên: chọn loại** — Post, Story hay Grid. **Mỗi project chỉ một loại**, không trộn.
-- **Grid:** chọn số hàng (3 cột × N hàng); mỗi ô xuất 1080 × 1440 và là một bài đăng riêng.
+- **Grid:** chọn số bài **2–24** (3 cột; hàng cuối có thể lửng — có ghi chú "lệch cột" khi không chia hết cho 3, không chặn); xem trước như trang cá nhân Instagram; "Nối liền qua khe" có hình minh hoạ. Mỗi ô xuất 1080 × 1440 và là một bài đăng riêng.
 - **Post:** chọn tỉ lệ 1:1, 4:5, 3:4; chọn số slide carousel (tối đa theo giới hạn của Instagram).
 - **Story:** khung 9:16 (1080 × 1920); hiển thị **vùng an toàn** (mép trên / dưới bị giao diện Instagram che). Có thể làm nhiều khung Story liên tiếp, mỗi khung xuất thành một ảnh.
 - Thêm / bớt / sắp xếp lại thứ tự slide / khung.

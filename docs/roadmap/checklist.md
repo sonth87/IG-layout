@@ -536,3 +536,4 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] Thư viện khung: khung máy ảnh số, mép sổ lò xo (tham khảo sample/1)
 - [x] Thẻ carousel trong hàng ngang: dải dưới / mép phải kéo hàng, giữa thẻ lật slide (D-137, e2e m18.mjs)
 - [ ] Thử trên iPhone; cân nhắc "chuyền tiếp" ở slide cuối
+- [x] Lưới profile: số bài 2–24, xem trước như trang cá nhân IG, "Nối liền qua khe" có hình minh hoạ (D-138, e2e m6.mjs, m7.mjs)
