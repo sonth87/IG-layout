@@ -96,6 +96,25 @@ if (piece) {
 }
 await page.screenshot({ path: path.join(out, "cutout-canvas.png") });
 
+console.log("3b. Resizing sizes the scraps with the box");
+{
+  const before = text(await S());
+  const pos = await page.evaluate(() => {
+    const st = window.__igEditor.getState().canvas.layer.getStage();
+    const a = st.findOne("Transformer").findOne(".middle-right");
+    const r = a.getClientRect();
+    const box = st.container().getBoundingClientRect();
+    return { x: box.left + r.x + r.width / 2, y: box.top + r.y + r.height / 2 };
+  });
+  await page.mouse.move(pos.x, pos.y);
+  await page.mouse.down();
+  await page.mouse.move(pos.x + 30, pos.y, { steps: 6 });
+  await page.mouse.up();
+  await page.waitForTimeout(400);
+  const after = text(await S());
+  check(after.fontSize > before.fontSize * 1.05 && after.width > before.width, `side handle: bigger letters (${Math.round(before.fontSize)} → ${Math.round(after.fontSize)})`);
+}
+
 console.log("4. Plain text again");
 await page.getByRole("button", { name: "Cut-out", exact: true }).click();
 await sheet.getByRole("radio", { name: "Plain text" }).click();
