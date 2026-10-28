@@ -1,5 +1,5 @@
 import type { Template } from "../types";
-import { block, cells, design, INK, photo, strip, t, text } from "./kit";
+import { art, block, cells, design, INK, photo, strip, t, text } from "./kit";
 
 // Film & analog: contact sheets, photobooth strips, film frames (2026-10-28).
 
@@ -11,6 +11,50 @@ const rightStrip = strip(4, 0, 0.7, 0.5, 0.3, 4, 3);
 const storyStrip = strip(0, 0, 0.5, 0.46, 0.4, 4, -3, 0.5625);
 
 export const FILM: Template[] = [
+  design("film-negative", "film", t("Negatives", "Âm bản"), {
+    themes: ["portrait", "city", "retro"],
+    slides: 1,
+    background: { kind: "color", color: "#1a1714" },
+    art: [art("gen-film/film-14", 0, -0.02, 0.1, 1.04, { rotation: -4 }), art("gen-film/film-21", 0, -0.02, 0.52, 1.04, { rotation: 3, photo: 3 })],
+    slots: [],
+    texts: [text(0, 0.06, 0.9, 0.88, t("hold it up to the light", "giơ lên trước ánh sáng"), { font: "spaceGrotesk", size: 0.03, color: AMBER, letterSpacing: 0.2 })],
+  }),
+  design("film-vertical-pair", "film", t("Two vertical strips", "Hai dải phim dọc"), {
+    themes: ["friends", "travel", "city"],
+    slides: 1,
+    background: { kind: "color", color: "#f0ebe3" },
+    art: [art("gen-film/film-1", 0, 0.08, 0.02, 0.36, { rotation: -3 }), art("gen-film/film-6", 0, 0.54, 0.04, 0.36, { rotation: 3, photo: 3 })],
+    slots: [],
+  }),
+  design("film-half-frame", "film", t("Half frame", "Máy nửa khung"), {
+    themes: ["city", "portrait", "friends"],
+    slides: 2,
+    background: { kind: "color", color: "#141414" },
+    slots: [photo(0, 0, 0.06, 0.12, 0.43, 0.7), photo(1, 0, 0.51, 0.12, 0.43, 0.7), photo(2, 1, 0.06, 0.12, 0.43, 0.7), photo(3, 1, 0.51, 0.12, 0.43, 0.7)],
+    texts: [
+      ...[0, 1].flatMap((s) => [
+        text(s, 0.06, 0.85, 0.43, t(`${12 + s * 2}A`, `${12 + s * 2}A`), { font: "spaceGrotesk", size: 0.03, color: AMBER, align: "left", letterSpacing: 0.2 }),
+        text(s, 0.51, 0.85, 0.43, t(`${12 + s * 2}B`, `${12 + s * 2}B`), { font: "spaceGrotesk", size: 0.03, color: AMBER, align: "left", letterSpacing: 0.2 }),
+      ]),
+      text(0, 0.06, 0.04, 0.88, t("half frame · 72 shots", "nửa khung · 72 kiểu"), { font: "spaceGrotesk", size: 0.03, color: "#bdbdbd", align: "left", letterSpacing: 0.2 }),
+    ],
+  }),
+  design("film-light-leak", "film", t("Light leak", "Lóa sáng"), {
+    themes: ["portrait", "beach", "nature"],
+    slides: 2,
+    background: { kind: "color", color: "#2a1a10" },
+    shapes: [block(0, -0.1, -0.1, 0.5, 1.2, "#ff7a2f", { opacity: 0.35, rotation: 8, above: true }), block(1, 0.7, -0.1, 0.4, 1.2, "#ffb347", { opacity: 0.3, rotation: -6, above: true })],
+    slots: [photo(0, 0, 0.06, 0.06, 0.88, 0.88), photo(1, 1, 0.06, 0.06, 0.88, 0.88)],
+    texts: [text(0, 0.1, 0.86, 0.8, t("expired film, 2009", "phim hết hạn, 2009"), { font: "spaceGrotesk", size: 0.032, color: "#ffd9b0", align: "right", letterSpacing: 0.2 })],
+  }),
+  design("film-instant-row", "film", t("Instant row", "Hàng ảnh lấy liền"), {
+    themes: ["friends", "party", "couple"],
+    slides: 1,
+    background: { kind: "color", color: "#e8e2d8" },
+    art: [art("gen-instant/instant-7", 0, 0.02, 0.22, 0.36, { rotation: -7 }), art("gen-instant/instant-12", 0, 0.32, 0.18, 0.36, { rotation: 2, photo: 1 }), art("gen-instant/instant-15", 0, 0.62, 0.24, 0.36, { rotation: 8, photo: 2 })],
+    slots: [],
+    texts: [text(0, 0.06, 0.08, 0.88, t("instant, like us", "lấy liền, như tụi mình"), { font: "patrickHand", size: 0.06, color: INK })],
+  }),
   design("contact-sheet", "film", t("Contact sheet", "Tờ in thử"), {
     themes: ["mono", "city", "friends"],
     slides: 1,

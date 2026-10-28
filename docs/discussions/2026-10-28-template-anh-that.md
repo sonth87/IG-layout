@@ -90,3 +90,51 @@ Mép giấy xé (ngang giữa các ảnh, quanh ảnh, vòng tròn xé), khung t
 **Kết quả:** lúc mở 3 lần đứng hình, tổng ~0.3 s, dài nhất ~120 ms; 684 phần tử DOM. Khi cuộn 7.000 px: dài nhất ~80–108 ms (trước 226 ms).
 
 **e2e:** mở template ngoài màn hình qua Tìm kiếm (`openTemplate` trong `e2e/lib.mjs`); "Khám phá thêm" kiểm tra đợt đầu ≥ 12 và tải thêm khi cuộn.
+
+---
+
+## Đợt 5 — làm đầy thư viện: Noel, Tết, khung mới, mọi nhóm ≥ 15
+
+**Chủ dự án:** đồng ý làm trước những việc làm được ngay (template Giáng sinh / Tết, thư viện khung…) để tăng số lượng và độ đa dạng — nhiều nhóm còn rất ít mẫu (Lưới profile 3, Collage 7, Tối giản 8…).
+
+### Khung mới (thư viện, M20)
+Sinh bằng code như các gói `gen-*` khác (`scripts/frames/kinds.mjs`, giấy phép CC0), đã duyệt bằng mắt và chọn seed trong `scripts/frames/picks.json`:
+- **Máy ảnh số** (`gen-camera`, 20 khung): mặt sau máy compact (bạc, đen, hồng, bạc hà, trắng, tím nhạt, vàng sâm panh, xanh) nằm ngang hoặc dựng đứng; ảnh hiện trên **màn LCD** cùng các ký hiệu của máy (pin, số kiểu còn lại, khung lấy nét, chế độ hoặc **dấu ngày màu cam** kiểu máy cũ). Bộ: digital, y2k, retro.
+- **Sổ lò xo** (`gen-notebook`, 20 khung): trang sổ có **gáy lò xo** (trên hoặc trái, lò xo bạc / đen / vàng / trắng / hồng) hoặc **trang xé khỏi sổ** (mép lỗ đục xù xì); giấy trắng, kem, kraft, hồng, xanh, bạc hà, xám; kẻ dòng (có lề đỏ), ô ly, chấm, trơn; ảnh dán trên trang, chừa chỗ viết bên dưới, đôi khi có băng dính. Bộ: journal, school, cute.
+- Thư viện: 742 mục.
+
+### Template: 203 → 373
+| Nhóm | Trước | Sau | | Sự kiện | Trước | Sau |
+|---|---|---|---|---|---|---|
+| Theo mùa & lễ hội | 40 | 81 | | Giáng sinh | 9 | 27 |
+| Thường ngày | 12 | 20 | | Tết | 6 | 21 |
+| Giấy xé | 15 | 20 | | Năm mới | 5 | 12 |
+| Chụp bằng phim | 15 | 20 | | Mùa đông | 5 | 13 |
+| Bưu thiếp du lịch | 12 | 20 | | Valentine | 8 | 15 |
+| Collage | 7 | 19 | | Xuân | 2 | 4 |
+| Sổ tay (scrapbook) | 7 | 18 | | | | |
+| Vẽ tay, Teen, Tình yêu, Retro | 10–12 | 18 | | | | |
+| Tạp chí | 9 | 18 | | | | |
+| Dịp đặc biệt | 13 | 18 | | | | |
+| Story, Tối giản | 8–10 | 18 | | | | |
+| Liền mạch | 8 | 16 | | | | |
+| Lưới profile | 3 | 15 | | | | |
+
+Mẫu mới đáng chú ý:
+- **Giáng sinh** (`designs/winter.ts`): cây thông ghép từ ảnh tròn, quả châu ảnh treo dây, máy ảnh số Noel, kẻ caro tartan, thư gửi ông già Noel, bộ tem, photobooth, quả cầu tuyết, chợ Giáng sinh, đêm phim, danh sách điều ước (trang sổ), dây polaroid vắt 2 slide, thực đơn đêm Noel, khung vàng… **Năm mới**: số năm cỡ lớn, tổng kết năm (lưới 3 × 3), nâng ly, pháo hoa, tấm ảnh cuối năm, sổ tay mục tiêu. **Mùa đông**: áo len, ngày tuyết, trượt tuyết.
+- **Tết** (`designs/tet.ts`): mùng 1 – 2 – 3 (tết cha, tết mẹ, tết thầy), chợ hoa 28 Tết, về nhà ăn Tết (vé máy bay về "Quê nhà"), múa lân, Tết tranh Đông Hồ, lời chúc đầu năm, quất & polaroid, máy ảnh ngày Tết, áo dài du xuân, mâm ngũ quả, gói bánh chưng, dây pháo, thu hoạch lì xì.
+- **Lưới profile** (`designs/grids.ts`): kế hoạch 3 × 3 mà **mỗi ô là một bài**: bàn cờ ảnh / ô chữ, chữ hình chữ thập, lời nhắn ở giữa, hàng giữa toàn cảnh, chữ to vắt ngang hàng giữa, tường tranh đánh số, tường polaroid, vòng tròn pastel, ô cầu vồng theo thứ, ba dải phim, câu nói hàng giữa, góc & tâm.
+- **Collage / Tối giản / Story** (`designs/collage.ts`, `designs/minimal.ts`), **Sổ tay** (`designs/journal.ts`: nhật ký trang sổ, giấy note, một tuần băng dính, sổ mở hai trang, hoa ép, bướm…); các nhóm còn lại thêm thẳng vào file của nhóm (mẫu mới xếp đầu).
+- Chữ chỉ dùng 10 phông đã tải cùng trang chủ; mọi mẫu có chữ EN / VI.
+
+### Trang thử `/labs/templates`
+Hiện mọi template theo **nhóm** hoặc **sự kiện** (có số lượng), thấy cả dải carousel; bộ lọc nằm trên URL (`?cat=grid`, `?event=christmas`) để gửi link. Không có link trong app. Dùng để duyệt mẫu trên điện thoại.
+
+### Tìm kiếm
+Khi thư viện lớn, tìm "birthday" khớp cả mô tả nhóm Dịp đặc biệt nên mẫu tên "Birthday" bị đẩy ra sau đợt 12 thẻ đầu → kết quả giờ xếp **mẫu khớp tên trước**, mẫu khớp theo nhóm sau.
+
+### Để ngỏ
+- Chủ dự án duyệt mẫu mới trên điện thoại (qua `/labs/templates`), bỏ / sửa mẫu chưa đẹp; chốt D-140.
+- Khung máy ảnh số có chữ "DIGITAL" trên thân máy và ký hiệu màn hình bằng tiếng Anh (MENU, DISP, AUTO) — giống máy thật; đổi nếu chủ dự án muốn.
+- Template theo **năm cụ thể** (2027, "Tết 2027") cần cập nhật khi sang năm.
+

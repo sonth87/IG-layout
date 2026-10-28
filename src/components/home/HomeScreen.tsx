@@ -445,8 +445,13 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
   const eventOf = (id: EventId) => events.find((e) => e.id === id);
   const top = stack.at(-1);
   const q = query.trim().toLowerCase();
+  // Templates whose own name matches come first, then the ones found by their group.
+  const byName = (d: Template) => `${d.name.en} ${d.name.vi}`.toLowerCase().includes(q);
   const found = q
-    ? DESIGNS.filter((d) => `${d.name.en} ${d.name.vi} ${t(`library.category.${d.design!.category}`)} ${t(`library.desc.${d.design!.category}`)}`.toLowerCase().includes(q))
+    ? [
+        ...DESIGNS.filter(byName),
+        ...DESIGNS.filter((d) => !byName(d) && `${t(`library.category.${d.design!.category}`)} ${t(`library.desc.${d.design!.category}`)}`.toLowerCase().includes(q)),
+      ]
     : [];
 
   return (

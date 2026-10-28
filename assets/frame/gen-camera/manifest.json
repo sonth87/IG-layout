@@ -1,0 +1,900 @@
+{
+  "id": "gen-camera",
+  "kind": "frame",
+  "name": {
+    "en": "Digital camera",
+    "vi": "Máy ảnh số"
+  },
+  "collections": [
+    "digital",
+    "y2k",
+    "retro"
+  ],
+  "order": 18,
+  "items": [
+    {
+      "id": "camera-1",
+      "name": {
+        "en": "Digital camera, silver",
+        "vi": "Máy ảnh số bạc"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "silver"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "bạc"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #1",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-1",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-2",
+      "name": {
+        "en": "Digital camera, pink",
+        "vi": "Máy ảnh số hồng"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "pink",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "hồng",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #2",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-2",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-3",
+      "name": {
+        "en": "Digital camera, silver 2",
+        "vi": "Máy ảnh số bạc 2"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "silver",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "bạc",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #3",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-3",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-4",
+      "name": {
+        "en": "Digital camera, pink 2",
+        "vi": "Máy ảnh số hồng 2"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "pink",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "hồng",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #4",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-4",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-5",
+      "name": {
+        "en": "Digital camera, champagne",
+        "vi": "Máy ảnh số vàng sâm panh"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "champagne"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "vàng sâm panh"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #5",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-5",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-7",
+      "name": {
+        "en": "Digital camera, silver, upright",
+        "vi": "Máy ảnh số bạc dọc"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "silver",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "bạc",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #7",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-7",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 918,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1563,
+          "y": 0.1257,
+          "w": 0.6875,
+          "h": 0.6011
+        }
+      ]
+    },
+    {
+      "id": "camera-8",
+      "name": {
+        "en": "Digital camera, lilac, upright",
+        "vi": "Máy ảnh số tím nhạt dọc"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "lilac"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "tím nhạt"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #8",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-8",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 918,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1563,
+          "y": 0.1257,
+          "w": 0.6875,
+          "h": 0.6011
+        }
+      ]
+    },
+    {
+      "id": "camera-9",
+      "name": {
+        "en": "Digital camera, champagne, upright",
+        "vi": "Máy ảnh số vàng sâm panh dọc"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "champagne",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "vàng sâm panh",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #9",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-9",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 918,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1563,
+          "y": 0.1257,
+          "w": 0.6875,
+          "h": 0.6011
+        }
+      ]
+    },
+    {
+      "id": "camera-10",
+      "name": {
+        "en": "Digital camera, blue",
+        "vi": "Máy ảnh số xanh dương"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "blue",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "xanh dương",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #10",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-10",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-11",
+      "name": {
+        "en": "Digital camera, white",
+        "vi": "Máy ảnh số trắng"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "white",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "trắng",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #11",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-11",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-13",
+      "name": {
+        "en": "Digital camera, pink 3",
+        "vi": "Máy ảnh số hồng 3"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "pink",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "hồng",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #13",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-13",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-14",
+      "name": {
+        "en": "Digital camera, mint",
+        "vi": "Máy ảnh số xanh bạc hà"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "mint"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "xanh bạc hà"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #14",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-14",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-15",
+      "name": {
+        "en": "Digital camera, mint, upright",
+        "vi": "Máy ảnh số xanh bạc hà dọc"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "mint"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "xanh bạc hà"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #15",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-15",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 918,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1563,
+          "y": 0.1257,
+          "w": 0.6875,
+          "h": 0.6011
+        }
+      ]
+    },
+    {
+      "id": "camera-16",
+      "name": {
+        "en": "Digital camera, black",
+        "vi": "Máy ảnh số đen"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "black"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "đen"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #16",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-16",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-17",
+      "name": {
+        "en": "Digital camera, black 2",
+        "vi": "Máy ảnh số đen 2"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "black",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "đen",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #17",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-17",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-19",
+      "name": {
+        "en": "Digital camera, pink, upright",
+        "vi": "Máy ảnh số hồng dọc"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "pink"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "hồng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #19",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-19",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 918,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1563,
+          "y": 0.1257,
+          "w": 0.6875,
+          "h": 0.6011
+        }
+      ]
+    },
+    {
+      "id": "camera-20",
+      "name": {
+        "en": "Digital camera, mint 2",
+        "vi": "Máy ảnh số xanh bạc hà 2"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "mint"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "xanh bạc hà"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #20",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-20",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-22",
+      "name": {
+        "en": "Digital camera, black 3",
+        "vi": "Máy ảnh số đen 3"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "black",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "đen",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #22",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-22",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1400,
+      "height": 939,
+      "windows": [
+        {
+          "x": 0.1027,
+          "y": 0.1879,
+          "w": 0.589,
+          "h": 0.6588
+        }
+      ]
+    },
+    {
+      "id": "camera-23",
+      "name": {
+        "en": "Digital camera, silver, upright 2",
+        "vi": "Máy ảnh số bạc dọc 2"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "silver",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "bạc",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #23",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-23",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 918,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1563,
+          "y": 0.1257,
+          "w": 0.6875,
+          "h": 0.6011
+        }
+      ]
+    },
+    {
+      "id": "camera-24",
+      "name": {
+        "en": "Digital camera, blue, upright",
+        "vi": "Máy ảnh số xanh dương dọc"
+      },
+      "tags": {
+        "en": [
+          "camera",
+          "digital camera",
+          "digicam",
+          "y2k",
+          "screen",
+          "blue",
+          "date stamp"
+        ],
+        "vi": [
+          "máy ảnh",
+          "máy ảnh số",
+          "máy ảnh kỹ thuật số",
+          "y2k",
+          "màn hình",
+          "xanh dương",
+          "dấu ngày"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "camera #24",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#camera-24",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 918,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1563,
+          "y": 0.1257,
+          "w": 0.6875,
+          "h": 0.6011
+        }
+      ]
+    }
+  ]
+}

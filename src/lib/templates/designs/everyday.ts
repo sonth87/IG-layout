@@ -4,6 +4,74 @@ import { cells, design, INK, photo, t, text, WHITE_FRAME } from "./kit";
 // Everyday carousels and one-slide collages (2026-10-28).
 
 export const EVERYDAY: Template[] = [
+  design("day-in-life", "carousel", t("A day in my life", "Một ngày của mình"), {
+    themes: ["food", "city", "friends", "nature"],
+    slides: 4,
+    background: { kind: "color", color: "#f7f4ef" },
+    slots: [0, 1, 2, 3].map((s) => photo(s, s, 0.08, 0.16, 0.84, 0.7)),
+    texts: [0, 1, 2, 3].flatMap((s) => [
+      text(s, 0.08, 0.05, 0.4, t(["07:30", "12:15", "17:40", "22:00"][s], ["07:30", "12:15", "17:40", "22:00"][s]), { font: "spaceGrotesk", size: 0.05, color: INK, align: "left", bold: true }),
+      text(s, 0.4, 0.06, 0.52, [t("coffee first", "cà phê trước đã"), t("lunch break", "nghỉ trưa"), t("golden hour", "giờ vàng"), t("lights out", "tắt đèn")][s], { font: "patrickHand", size: 0.05, color: INK, align: "right" }),
+    ]),
+  }),
+  design("dump-mixed", "carousel", t("Mixed dump", "Photo dump lộn xộn"), {
+    themes: ["friends", "food", "party", "city"],
+    slides: 3,
+    background: { kind: "color", color: "#ffffff" },
+    slots: [
+      photo(0, 0, 0.04, 0.04, 0.92, 0.92),
+      photo(1, 1, 0.04, 0.04, 0.6, 0.5), photo(2, 1, 0.66, 0.04, 0.3, 0.5), photo(3, 1, 0.04, 0.56, 0.3, 0.4), photo(4, 1, 0.36, 0.56, 0.6, 0.4),
+      photo(5, 2, 0.04, 0.04, 0.44, 0.44), photo(6, 2, 0.52, 0.04, 0.44, 0.44), photo(7, 2, 0.04, 0.52, 0.92, 0.44),
+    ],
+  }),
+  design("week-recap", "carousel", t("Week recap", "Tổng kết tuần"), {
+    themes: ["food", "nature", "city", "friends"],
+    slides: 2,
+    background: { kind: "color", color: "#1d1c1a" },
+    slots: [photo(0, 0, 0.06, 0.2, 0.88, 0.72), ...cells(1, 1, [0.06, 0.06, 0.88, 0.88], 2, 3, 0.02)],
+    texts: [text(0, 0.06, 0.05, 0.88, t("WEEK 44", "TUẦN 44"), { font: "anton", size: 0.1, color: "#ffffff", align: "left", letterSpacing: 0.04 })],
+  }),
+  design("coffee-diary", "carousel", t("Coffee diary", "Nhật ký cà phê"), {
+    themes: ["food", "city", "minimal"],
+    slides: 3,
+    background: { kind: "color", color: "#efe5d8" },
+    slots: [photo(0, 0, 0.1, 0.1, 0.8, 0.64, { mask: "rounded", cornerRadius: 0.03 }), photo(1, 1, 0.06, 0.06, 0.43, 0.6, { mask: "rounded", cornerRadius: 0.03 }), photo(2, 1, 0.51, 0.34, 0.43, 0.6, { mask: "rounded", cornerRadius: 0.03 }), photo(3, 2, 0.1, 0.1, 0.8, 0.64, { mask: "rounded", cornerRadius: 0.03 })],
+    texts: [
+      text(0, 0.1, 0.78, 0.8, t("coffee diary, vol. 9", "nhật ký cà phê, tập 9"), { font: "cormorant", size: 0.065, color: "#5b3a24", italic: true }),
+      text(1, 0.06, 0.72, 0.4, t("oat latte\n★★★★☆", "latte yến mạch\n★★★★☆"), { font: "patrickHand", size: 0.045, color: "#5b3a24", align: "left" }),
+      text(2, 0.1, 0.78, 0.8, t("where to next?", "quán nào tiếp?"), { font: "patrickHand", size: 0.055, color: "#5b3a24" }),
+    ],
+  }),
+  design("rounded-cards", "carousel", t("Rounded cards", "Thẻ bo tròn"), {
+    themes: ["travel", "nature", "beach"],
+    slides: 3,
+    background: { kind: "gradient", from: "#fde2cf", to: "#e7d7f3", angle: 135 },
+    slots: [0, 1, 2].map((s) => photo(s, s, 0.1, 0.08, 0.8, 0.72, { mask: "rounded", cornerRadius: 0.06, shadow: true })),
+    texts: [0, 1, 2].map((s) => text(s, 0.1, 0.84, 0.8, [t("first,", "đầu tiên,"), t("then,", "sau đó,"), t("finally.", "cuối cùng.")][s], { font: "cormorant", size: 0.06, color: INK, italic: true })),
+  }),
+  design("caption-pills", "carousel", t("Caption pills", "Chú thích dạng viên"), {
+    themes: ["city", "food", "friends"],
+    slides: 3,
+    slots: [0, 1, 2].map((s) => photo(s, s, 0, 0, 1, 1)),
+    texts: [0, 1, 2].map((s) => text(s, 0.06, 0.88, 0.6, [t("📍 the corner bakery", "📍 tiệm bánh góc phố"), t("🍜 noodles at 10 pm", "🍜 mì lúc 10 giờ tối"), t("🌙 walking home", "🌙 đi bộ về nhà")][s], { font: "beVietnam", size: 0.034, color: INK, align: "left", bold: true, background: { color: "#ffffff", padding: 0.5, radius: 0.6 } })),
+  }),
+  design("before-during-after", "carousel", t("Before, during, after", "Trước, trong, sau"), {
+    themes: ["food", "party", "friends"],
+    slides: 1,
+    background: { kind: "color", color: "#fbfaf7" },
+    slots: cells(0, 0, [0.04, 0.16, 0.92, 0.62], 3, 1, 0.02),
+    texts: [
+      text(0, 0.04, 0.05, 0.92, t("the party, in three acts", "bữa tiệc, ba hồi"), { font: "playfair", size: 0.065, color: INK, bold: true }),
+      ...[t("before", "trước"), t("during", "trong"), t("after", "sau")].map((w, i) => text(0, 0.04 + i * 0.313, 0.82, 0.293, w, { font: "spaceGrotesk", size: 0.032, color: INK, letterSpacing: 0.2 })),
+    ],
+  }),
+  design("sunday-reset", "carousel", t("Sunday reset", "Chủ nhật sạc pin"), {
+    themes: ["minimal", "food", "flowers"],
+    slides: 2,
+    background: { kind: "color", color: "#e9efe6" },
+    slots: [photo(0, 0, 0.12, 0.26, 0.76, 0.64, { mask: "arch" }), photo(1, 1, 0.06, 0.06, 0.43, 0.88), photo(2, 1, 0.51, 0.06, 0.43, 0.43), photo(3, 1, 0.51, 0.51, 0.43, 0.43)],
+    texts: [text(0, 0.1, 0.07, 0.8, t("sunday reset", "chủ nhật sạc pin"), { font: "greatVibes", size: 0.1, color: "#3f5a3a" })],
+  }),
   // ── Carousel ──────────────────────────────────────────────────────────
   design("weekend-notes", "carousel", t("Weekend notes", "Ghi chú cuối tuần"), {
     themes: ["friends", "food", "city"],

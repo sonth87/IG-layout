@@ -1,9 +1,88 @@
 import type { Template } from "../types";
-import { design, INK, photo, t, text, WHITE_FRAME } from "./kit";
+import { art, block, design, INK, photo, t, text, WHITE_FRAME } from "./kit";
 
 // Seamless carousels: photos crossing the swipe, panoramas (2026-10-28).
 
 export const SEAMLESS: Template[] = [
+  design("seam-big-title", "seamless", t("Title across", "Tiêu đề vắt ngang"), {
+    themes: ["travel", "nature", "beach"],
+    group: "panorama",
+    slides: 3,
+    background: { kind: "photo", photo: 0 },
+    slots: [],
+    texts: [text(0, 0.06, 0.38, 2.88, t("SOMEWHERE FAR", "MỘT NƠI THẬT XA"), { font: "anton", size: 0.28, color: "#ffffff", letterSpacing: 0.06, shadow: true })],
+  }),
+  design("seam-wave-photos", "seamless", t("Wave of photos", "Sóng ảnh"), {
+    themes: ["beach", "travel", "friends"],
+    group: "seamless",
+    slides: 3,
+    background: { kind: "color", color: "#eef4f6" },
+    slots: [0, 1, 2, 3, 4, 5].map((i) => photo(i, 0, 0.06 + i * 0.48, 0.5 + Math.sin(i * 1.3) * 0.28 - 0.2, 0.42, 0.4, { mask: "rounded", cornerRadius: 0.04, shadow: true })),
+    texts: [
+      text(0, 0.06, 0.06, 0.8, t("riding the wave", "theo con sóng"), { font: "greatVibes", size: 0.09, color: "#1e4e66", align: "left" }),
+      text(2, 0.1, 0.86, 0.84, t("— july", "— tháng bảy"), { font: "lora", size: 0.045, color: "#1e4e66", align: "right", italic: true }),
+    ],
+  }),
+  design("seam-big-circle", "seamless", t("Circle across", "Vòng tròn vắt ngang"), {
+    themes: ["flowers", "portrait", "nature"],
+    group: "seamless",
+    slides: 2,
+    background: { kind: "color", color: "#f6e9de" },
+    slots: [photo(0, 0, 0.5, 0.15, 1, 0.8, { mask: "circle" }), photo(1, 0, 0.06, 0.6, 0.36, 0.32, WHITE_FRAME), photo(2, 1, 0.62, 0.06, 0.32, 0.3, WHITE_FRAME)],
+    texts: [text(0, 0.06, 0.08, 0.4, t("full\ncircle", "trọn\nvòng"), { font: "cormorant", size: 0.09, color: INK, align: "left", italic: true, lineHeight: 0.95 })],
+  }),
+  design("seam-torn-band", "seamless", t("Torn band", "Dải xé vắt ngang"), {
+    themes: ["travel", "city", "nature"],
+    group: "seamless",
+    slides: 2,
+    background: { kind: "color", color: "#ece7df" },
+    art: [art("gen-torn-photos/torn-piece-30", 0, 0.1, 0.22, 1.8, { rotation: -3 })],
+    slots: [photo(1, 0, 0.08, 0.62, 0.36, 0.3, { frame: "polaroid", shadow: true, rotation: -5 }), photo(2, 1, 0.56, 0.06, 0.36, 0.3, { frame: "polaroid", shadow: true, rotation: 5 })],
+    texts: [text(1, 0.1, 0.8, 0.8, t("pieces of a long day", "mảnh ghép một ngày dài"), { font: "patrickHand", size: 0.05, color: INK, align: "right" })],
+  }),
+  design("seam-film-long", "seamless", t("Long film strip", "Dải phim dài"), {
+    themes: ["city", "mono", "retro"],
+    group: "seamless",
+    slides: 4,
+    background: { kind: "color", color: "#f1ede6" },
+    shapes: [{ slide: 0, x: -0.05, y: 0.3, w: 4.1, h: 0.42, shape: "film", fill: "#141414", rotation: -2 }],
+    slots: [0, 1, 2, 3, 4, 5, 6].map((i) => photo(i, 0, 0.08 + i * 0.56, 0.37 + (i - 3) * -0.012, 0.5, 0.28, { rotation: -2 })),
+    texts: [
+      text(0, 0.08, 0.1, 0.8, t("one roll,\none weekend", "một cuộn phim,\nmột cuối tuần"), { font: "cormorant", size: 0.07, color: INK, align: "left", italic: true, lineHeight: 1 }),
+      text(3, 0.1, 0.84, 0.82, t("36 / 36", "36 / 36"), { font: "spaceGrotesk", size: 0.035, color: INK, align: "right", letterSpacing: 0.2 }),
+    ],
+  }),
+  design("seam-straddle", "seamless", t("Over the seams", "Vắt qua đường cắt"), {
+    themes: ["friends", "travel", "food"],
+    group: "seamless",
+    slides: 3,
+    background: { kind: "color", color: "#f2ede6" },
+    slots: [
+      photo(0, 0, 0.06, 0.08, 0.6, 0.5, { shadow: true, rotation: -3 }),
+      photo(1, 0, 0.72, 0.3, 0.56, 0.46, { ...WHITE_FRAME, rotation: 4 }),
+      photo(2, 1, 0.5, 0.06, 0.4, 0.4, { shadow: true, rotation: -2 }),
+      photo(3, 1, 0.74, 0.5, 0.56, 0.44, { ...WHITE_FRAME, rotation: -4 }),
+      photo(4, 2, 0.4, 0.1, 0.52, 0.42, { shadow: true, rotation: 3 }),
+    ],
+    texts: [text(0, 0.06, 0.66, 0.5, t("no gaps,\njust good days", "không khoảng trống,\nchỉ ngày vui"), { font: "patrickHand", size: 0.055, color: INK, align: "left", lineHeight: 1.05 })],
+  }),
+  design("seam-panorama-polaroid", "seamless", t("Panorama + prints", "Toàn cảnh + ảnh in"), {
+    themes: ["travel", "nature", "beach"],
+    group: "panorama",
+    slides: 3,
+    background: { kind: "photo", photo: 0 },
+    slots: [photo(1, 0, 0.62, 0.5, 0.42, 0.4, { frame: "polaroid", shadow: true, rotation: 6 }), photo(2, 1, 0.92, 0.12, 0.38, 0.36, { frame: "polaroid", shadow: true, rotation: -5 })],
+    texts: [text(0, 0.06, 0.08, 0.6, t("the long way\nround", "đi đường\nvòng"), { font: "greatVibes", size: 0.1, color: "#ffffff", align: "left", shadow: true, lineHeight: 0.95 })],
+  }),
+  design("seam-color-blocks", "seamless", t("Colour blocks", "Khối màu nối liền"), {
+    themes: ["food", "flowers", "fashion"],
+    group: "seamless",
+    slides: 3,
+    background: { kind: "color", color: "#fbf7f0" },
+    shapes: [block(0, 0.6, 0.1, 0.8, 0.8, "#f4c7b8"), block(1, 0.7, 0.2, 0.9, 0.7, "#c9dcc6")],
+    slots: [photo(0, 0, 0.08, 0.2, 0.6, 0.6), photo(1, 0, 0.8, 0.3, 0.6, 0.5), photo(2, 1, 0.5, 0.06, 0.4, 0.38), photo(3, 2, 0.3, 0.4, 0.62, 0.52)],
+    texts: [text(0, 0.08, 0.06, 0.6, t("colour story", "câu chuyện màu"), { font: "playfair", size: 0.07, color: INK, align: "left", bold: true })],
+  }),
   design("step-by-step", "seamless", t("Step by step", "Từng bước"), {
     group: "seamless",
     themes: ["travel", "city", "nature"],

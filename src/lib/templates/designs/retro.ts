@@ -9,6 +9,64 @@ const RUST = "#c4572b";
 const BROWN = "#5b3a24";
 
 export const RETRO: Template[] = [
+  design("retro-digicam-2004", "retro", t("Digicam 2004", "Máy ảnh số 2004"), {
+    themes: ["friends", "party", "retro"],
+    slides: 2,
+    background: { kind: "color", color: "#cfd8e3" },
+    art: [art("gen-camera/camera-3", 0, 0.04, 0.22, 0.92, { rotation: -2 }), art("gen-camera/camera-24", 1, 0.2, 0.06, 0.6, { rotation: 3, photo: 1 })],
+    slots: [],
+    texts: [
+      text(0, 0.06, 0.06, 0.88, t("found on an old SD card", "tìm thấy trong thẻ nhớ cũ"), { font: "spaceGrotesk", size: 0.034, color: "#25406b", align: "left", letterSpacing: 0.08 }),
+      text(1, 0.06, 0.88, 0.88, t("DSC_0042.JPG", "DSC_0042.JPG"), { font: "spaceGrotesk", size: 0.034, color: "#25406b", letterSpacing: 0.15 }),
+    ],
+  }),
+  design("retro-70s-bands", "retro", t("70s bands", "Sọc thập niên 70"), {
+    themes: ["retro", "beach", "fashion"],
+    slides: 1,
+    background: { kind: "color", color: "#f4e6cc" },
+    shapes: [block(0, 0, 0.7, 1, 0.06, MUSTARD), block(0, 0, 0.76, 1, 0.06, RUST), block(0, 0, 0.82, 1, 0.06, BROWN)],
+    slots: [photo(0, 0, 0.14, 0.08, 0.72, 0.56, { mask: "rounded", cornerRadius: 0.2 })],
+    texts: [text(0, 0.06, 0.9, 0.88, t("groovy days", "những ngày groovy"), { font: "playfair", size: 0.055, color: BROWN, bold: true, italic: true })],
+  }),
+  design("retro-tv", "retro", t("Old TV", "TV đời cũ"), {
+    themes: ["retro", "kids", "portrait"],
+    slides: 1,
+    background: { kind: "color", color: "#e9dcc6" },
+    shapes: [block(0, 0.08, 0.16, 0.84, 0.66, BROWN, { shape: "roundRect" }), block(0, 0.68, 0.24, 0.18, 0.5, "#3b2716", { shape: "roundRect" })],
+    slots: [photo(0, 0, 0.13, 0.21, 0.52, 0.56, { mask: "rounded", cornerRadius: 0.06 })],
+    icons: [icon("circle", 0, 0.73, 0.3, 0.08, { color: MUSTARD }), icon("circle", 0, 0.73, 0.42, 0.08, { color: MUSTARD })],
+    texts: [
+      text(0, 0.08, 0.05, 0.84, t("now showing", "đang chiếu"), { font: "patrickHand", size: 0.06, color: BROWN }),
+      text(0, 0.08, 0.86, 0.84, t("channel 7 · family hour", "kênh 7 · giờ gia đình"), { font: "spaceGrotesk", size: 0.03, color: BROWN, letterSpacing: 0.15 }),
+    ],
+  }),
+  design("retro-cassette", "retro", t("Mixtape", "Băng cát-xét"), {
+    format: "story",
+    themes: ["retro", "friends", "couple"],
+    slides: 1,
+    background: { kind: "color", color: "#f2d7b6" },
+    slots: [photo(0, 0, 0.1, 0.14, 0.8, 0.42, { shadow: true, rotation: -2 })],
+    widgets: [{ slide: 0, x: 0.12, y: 0.6, w: 0.76, kind: "nowPlaying", variant: "cassette", fields: { songTitle: t("Summer mixtape", "Băng mùa hè"), artist: t("side A", "mặt A") } }],
+  }),
+  design("retro-diner", "retro", t("Diner", "Quán ăn kiểu Mỹ"), {
+    themes: ["food", "retro", "friends"],
+    slides: 1,
+    background: { kind: "color", color: "#fbf3e4" },
+    shapes: [...[0, 1, 2, 3, 4, 5, 6, 7].map((i) => block(0, i * 0.125, 0, 0.0625, 0.1, "#d6453d")), block(0, 0, 0.1, 1, 0.012, "#d6453d")],
+    slots: [photo(0, 0, 0.08, 0.18, 0.5, 0.5, { mask: "circle", border: { width: 0.012, color: "#d6453d" } }), photo(1, 0, 0.52, 0.44, 0.4, 0.46, { border: { width: 0.015, color: "#ffffff" }, shadow: true, rotation: 4 })],
+    texts: [
+      text(0, 0.56, 0.18, 0.4, t("milkshakes\n& fries", "sữa lắc\n& khoai chiên"), { font: "playfair", size: 0.065, color: "#d6453d", align: "left", bold: true, italic: true, lineHeight: 1 }),
+      text(0, 0.06, 0.86, 0.5, t("OPEN 24/7", "MỞ CỬA 24/7"), { font: "anton", size: 0.05, color: "#2f6b8f", align: "left", letterSpacing: 0.1 }),
+    ],
+  }),
+  design("retro-slide-mount", "retro", t("Slide mounts", "Khung phim dương bản"), {
+    themes: ["retro", "travel", "nature"],
+    slides: 1,
+    background: { kind: "color", color: "#2d2a26" },
+    shapes: [0, 1, 2, 3].map((i) => block(0, 0.08 + (i % 2) * 0.44, 0.1 + Math.floor(i / 2) * 0.42, 0.4, 0.38, "#f1ece0", { shape: "roundRect" })),
+    slots: [0, 1, 2, 3].map((i) => photo(i, 0, 0.13 + (i % 2) * 0.44, 0.15 + Math.floor(i / 2) * 0.42, 0.3, 0.24)),
+    texts: [0, 1, 2, 3].map((i) => text(0, 0.1 + (i % 2) * 0.44, 0.41 + Math.floor(i / 2) * 0.42, 0.36, t(`KODA · 0${i + 1}`, `PHIM · 0${i + 1}`), { font: "spaceGrotesk", size: 0.022, color: "#6b6357", letterSpacing: 0.2 })),
+  }),
   design("stamp-collection", "retro", t("Stamp collection", "Bộ sưu tập tem"), {
     themes: ["travel", "nature", "city"],
     slides: 1,

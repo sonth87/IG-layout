@@ -1,11 +1,89 @@
 import type { Template } from "../types";
-import { block, cells, design, INK, photo, t, tape, text, WHITE_FRAME } from "./kit";
+import { art, block, cells, design, icon, INK, photo, t, tape, text, WHITE_FRAME } from "./kit";
 
 // Travel: postcards, tickets, city recaps, road trips (2026-10-28).
 
 const SEA = "#1e4e66";
 
 export const TRAVEL: Template[] = [
+  design("pc-stamps-trip", "travel", t("Stamped trip", "Chuyến đi đóng tem"), {
+    themes: ["travel", "city", "nature"],
+    slides: 2,
+    background: { kind: "color", color: "#efe6d6" },
+    art: [art("gen-stamps/stamp-1", 0, 0.06, 0.06, 0.5, { rotation: -4 }), art("gen-stamps/stamp-12", 0, 0.5, 0.36, 0.44, { rotation: 5, photo: 1 }), art("vintage-maps-compass/compass-rose-1607", 1, 0.62, 0.6, 0.32), art("gen-stamps/stamp-20", 1, 0.06, 0.08, 0.6, { rotation: 3, photo: 2 })],
+    slots: [],
+    texts: [
+      text(0, 0.06, 0.74, 0.5, t("greetings\nfrom afar", "lời chào\ntừ phương xa"), { font: "greatVibes", size: 0.085, color: "#8a3b17", align: "left", lineHeight: 0.95 }),
+      text(1, 0.06, 0.7, 0.5, t("N 16°03′ · E 108°12′", "N 16°03′ · E 108°12′"), { font: "spaceGrotesk", size: 0.03, color: INK, align: "left", letterSpacing: 0.15 }),
+    ],
+  }),
+  design("pc-luggage", "travel", t("Packed & ready", "Xếp đồ lên đường"), {
+    format: "story",
+    themes: ["travel", "portrait"],
+    slides: 1,
+    background: { kind: "color", color: "#f1e9dd" },
+    slots: [photo(0, 0, 0.08, 0.14, 0.84, 0.44, { shadow: true, rotation: -2 })],
+    widgets: [{ slide: 0, x: 0.1, y: 0.62, w: 0.8, kind: "luggageTag" }],
+    texts: [text(0, 0.08, 0.84, 0.84, t("out of office ✈", "nghỉ phép rồi ✈"), { font: "patrickHand", size: 0.055, color: INK })],
+  }),
+  design("pc-route", "travel", t("Flight route", "Đường bay"), {
+    themes: ["travel", "city", "beach"],
+    slides: 2,
+    background: { kind: "color", color: "#ffffff" },
+    slots: [photo(0, 0, 0, 0, 1, 0.58), ...cells(1, 1, [0.06, 0.06, 0.88, 0.88], 2, 2, 0.02)],
+    widgets: [{ slide: 0, x: 0.08, y: 0.62, w: 0.84, kind: "flightRoute", variant: "line" }],
+  }),
+  design("pc-passport", "travel", t("Passport stamp", "Dấu hộ chiếu"), {
+    themes: ["travel", "city"],
+    slides: 1,
+    background: { kind: "color", color: "#e7ecef" },
+    slots: [photo(0, 0, 0.08, 0.08, 0.6, 0.6, { shadow: true, rotation: -3 }), photo(1, 0, 0.5, 0.46, 0.42, 0.42, { ...WHITE_FRAME, rotation: 4 })],
+    widgets: [{ slide: 0, x: 0.6, y: 0.08, w: 0.34, kind: "passportStamp", rotation: 12 }],
+    texts: [text(0, 0.08, 0.76, 0.4, t("arrived.", "đã tới."), { font: "cormorant", size: 0.08, color: INK, align: "left", italic: true })],
+  }),
+  design("pc-vintage-card", "travel", t("Vintage postcard", "Bưu thiếp cổ"), {
+    themes: ["travel", "retro", "nature"],
+    slides: 2,
+    background: { kind: "color", color: "#e9dfc9" },
+    shapes: [block(1, 0.06, 0.06, 0.88, 0.88, "#f8f2e4"), block(1, 0.5, 0.14, 0.003, 0.72, "#b9a988")],
+    slots: [photo(0, 0, 0.06, 0.06, 0.88, 0.88, { border: { width: 0.02, color: "#f8f2e4" } })],
+    art: [art("vintage-stamps/stamp-us-niagara-5c-1901", 1, 0.74, 0.1, 0.16, { rotation: 4 })],
+    texts: [
+      text(0, 0.1, 0.12, 0.8, t("Greetings from\nthe coast", "Thân gửi từ\nmiền biển"), { font: "greatVibes", size: 0.1, color: "#ffffff", align: "left", shadow: true, lineHeight: 0.95 }),
+      text(1, 0.1, 0.16, 0.36, t("Having the best time.\nThe sea is warm,\nthe food is better.\nSee you soon —\nme", "Đang vui lắm nè.\nBiển ấm,\nđồ ăn còn ngon hơn.\nGặp sớm nha —\nmình"), { font: "patrickHand", size: 0.04, color: "#3b4a6b", align: "left", lineHeight: 1.3 }),
+      text(1, 0.56, 0.5, 0.34, t("To: you\nSomewhere sunny", "Gửi: cậu\nMột nơi nhiều nắng"), { font: "patrickHand", size: 0.04, color: "#3b4a6b", align: "left", lineHeight: 1.6 }),
+    ],
+  }),
+  design("pc-map-pins", "travel", t("Pinned places", "Những nơi đã ghim"), {
+    themes: ["travel", "city", "food"],
+    slides: 1,
+    background: { kind: "color", color: "#dfe9e6" },
+    slots: [photo(0, 0, 0.06, 0.08, 0.42, 0.36, WHITE_FRAME), photo(1, 0, 0.52, 0.2, 0.42, 0.36, WHITE_FRAME), photo(2, 0, 0.14, 0.54, 0.42, 0.36, WHITE_FRAME)],
+    icons: [icon("pin", 0, 0.23, 0.05, 0.08, { color: "#e5383b" }), icon("pin", 0, 0.69, 0.17, 0.08, { color: "#e5383b" }), icon("pin", 0, 0.31, 0.51, 0.08, { color: "#e5383b" }), icon("doodle-arrowCurve", 0, 0.6, 0.62, 0.3, { color: INK })],
+    texts: [text(0, 0.6, 0.86, 0.36, t("3 cities, 1 week", "3 thành phố, 1 tuần"), { font: "patrickHand", size: 0.045, color: INK })],
+  }),
+  design("pc-window-seat", "travel", t("Seat 12A", "Ghế 12A"), {
+    format: "story",
+    themes: ["travel", "nature"],
+    slides: 1,
+    background: { kind: "color", color: "#dfe7ef" },
+    slots: [photo(0, 0, 0.18, 0.18, 0.64, 0.46, { mask: "rounded", cornerRadius: 0.3, border: { width: 0.03, color: "#f7f7f5" }, shadow: true })],
+    texts: [
+      text(0, 0.08, 0.7, 0.84, t("window seat,\nalways", "luôn chọn\nghế cửa sổ"), { font: "cormorant", size: 0.08, color: "#2a3b55", italic: true, lineHeight: 1 }),
+      text(0, 0.08, 0.13, 0.84, t("SEAT 12A", "GHẾ 12A"), { font: "spaceGrotesk", size: 0.032, color: "#2a3b55", letterSpacing: 0.3 }),
+    ],
+  }),
+  design("pc-city-guide", "travel", t("City guide", "Cẩm nang thành phố"), {
+    themes: ["city", "food", "travel"],
+    slides: 4,
+    background: { kind: "color", color: "#fffaf0" },
+    slots: [photo(0, 0, 0, 0, 1, 0.66), ...[1, 2, 3].map((s) => photo(s, s, 0.06, 0.18, 0.88, 0.62))],
+    texts: [
+      text(0, 0.06, 0.7, 0.88, t("48 hours in\nthe old town", "48 giờ ở\nphố cổ"), { font: "playfair", size: 0.09, color: INK, align: "left", bold: true, lineHeight: 1 }),
+      ...[t("01 · EAT", "01 · ĂN"), t("02 · SEE", "02 · NGẮM"), t("03 · STAY", "03 · NGỦ")].map((w, i) => text(i + 1, 0.06, 0.06, 0.88, w, { font: "anton", size: 0.07, color: "#c4572b", align: "left", letterSpacing: 0.06 })),
+      ...[t("the noodle stall by the river", "quán mì cạnh bờ sông"), t("the bridge at sunset", "cây cầu lúc hoàng hôn"), t("a tiny room with a balcony", "phòng nhỏ có ban công")].map((w, i) => text(i + 1, 0.06, 0.84, 0.88, w, { font: "lora", size: 0.04, color: INK, align: "left", italic: true })),
+    ],
+  }),
   design("postcard", "travel", t("Postcard", "Bưu thiếp"), {
     themes: ["travel", "beach", "city"],
     slides: 1,

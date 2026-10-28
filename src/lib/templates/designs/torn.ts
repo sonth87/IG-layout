@@ -1,5 +1,5 @@
 import type { Template } from "../types";
-import { art, design, INK, KRAFT, t, text } from "./kit";
+import { art, design, INK, KRAFT, photo, t, text } from "./kit";
 
 // Torn paper (2026-10-28, owner's second SCRL batch): photos on ripped sheets, torn strips
 // and pieces, from the frame packs gen-torn-collage / gen-torn-photos / gen-torn-backed.
@@ -8,6 +8,52 @@ const PILL = { color: "#ffffff", padding: 0.45, radius: 0.6 };
 const WHITE_SHADOW = { color: "#ffffff", shadow: true } as const;
 
 export const TORN: Template[] = [
+  design("torn-notebook", "torn", t("Torn from a notebook", "Xé từ quyển sổ"), {
+    themes: ["school", "friends", "food"],
+    slides: 1,
+    background: { kind: "color", color: "#e3ddd3" },
+    art: [art("gen-notebook/notebook-3", 0, 0.08, 0.03, 0.62, { rotation: -4 }), art("gen-notebook/notebook-16", 0, 0.42, 0.32, 0.52, { rotation: 5, photo: 1 })],
+    slots: [],
+  }),
+  design("torn-backed-trio", "torn", t("On torn paper", "Trên giấy xé"), {
+    themes: ["travel", "nature", "city"],
+    slides: 2,
+    background: { kind: "color", color: KRAFT },
+    art: [
+      art("gen-torn-backed/torn-backed-2", 0, 0.04, 0.04, 0.5, { rotation: -4 }),
+      art("gen-torn-backed/torn-backed-7", 0, 0.46, 0.36, 0.5, { rotation: 5, photo: 1 }),
+      art("gen-torn-backed/torn-backed-9", 1, 0.08, 0.1, 0.84, { rotation: -2, photo: 2 }),
+    ],
+    slots: [],
+    texts: [text(0, 0.06, 0.86, 0.5, t("rough edges,\nsoft days", "mép xù xì,\nngày dịu dàng"), { font: "patrickHand", size: 0.045, color: INK, align: "left", lineHeight: 1.05 })],
+  }),
+  design("torn-label", "torn", t("Torn & labelled", "Ảnh xé có nhãn"), {
+    format: "story",
+    themes: ["portrait", "city", "fashion"],
+    slides: 1,
+    background: { kind: "color", color: "#f2eee8" },
+    art: [art("gen-torn-photos/torn-piece-5", 0, 0.08, 0.14, 0.84, { rotation: 2 })],
+    slots: [],
+    texts: [text(0, 0.18, 0.74, 0.64, t("📍 downtown, 6 pm", "📍 trung tâm, 6 giờ chiều"), { font: "beVietnam", size: 0.034, color: INK, bold: true, background: PILL })],
+  }),
+  design("torn-collage-duo", "torn", t("Torn pair", "Cặp ảnh xé"), {
+    themes: ["couple", "beach", "travel"],
+    slides: 2,
+    background: { kind: "color", color: "#ece6dc" },
+    art: [art("gen-torn-collage/torn-collage-8", 0, 0, 0.1, 1), art("gen-torn-collage/torn-collage-11", 1, 0, 0.1, 1, { photo: 2 })],
+    slots: [],
+    texts: [text(1, 0.06, 0.04, 0.88, t("half you, half me", "nửa cậu, nửa mình"), { font: "greatVibes", size: 0.08, color: INK, align: "right" })],
+  }),
+  design("torn-paper-scraps", "torn", t("Paper scraps", "Mẩu giấy vụn"), {
+    themes: ["food", "city", "friends"],
+    slides: 1,
+    background: { kind: "color", color: "#d8d2c8" },
+    art: [art("gen-paper-scraps/scrap-2", 0, 0.02, 0.04, 0.6, { rotation: -6, under: true }), art("gen-paper-scraps/scrap-9", 0, 0.4, 0.46, 0.6, { rotation: 5, under: true })],
+    slots: [photo(0, 0, 0.1, 0.1, 0.44, 0.38, { shadow: true, rotation: -6 }), photo(1, 0, 0.48, 0.52, 0.42, 0.36, { shadow: true, rotation: 5 })],
+    texts: [
+      text(0, 0.56, 0.16, 0.38, t("scraps of\na good week", "mảnh vụn của\nmột tuần vui"), { font: "patrickHand", size: 0.05, color: INK, align: "left", lineHeight: 1.05 }),
+    ],
+  }),
   design("torn-strips", "torn", t("Torn strips", "Ba dải xé"), {
     themes: ["travel", "beach", "nature"],
     slides: 1,

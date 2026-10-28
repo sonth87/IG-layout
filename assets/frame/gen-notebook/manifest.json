@@ -1,0 +1,946 @@
+{
+  "id": "gen-notebook",
+  "kind": "frame",
+  "name": {
+    "en": "Spiral notebook",
+    "vi": "Sổ lò xo"
+  },
+  "collections": [
+    "journal",
+    "school",
+    "cute"
+  ],
+  "order": 19,
+  "items": [
+    {
+      "id": "notebook-1",
+      "name": {
+        "en": "Torn-out notebook page, pink plain",
+        "vi": "Trang sổ xé hồng trơn"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "pink",
+          "plain",
+          "torn"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "hồng",
+          "trơn",
+          "xé"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #1",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-1",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1078,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.2074,
+          "y": 0.1039,
+          "w": 0.6661,
+          "h": 0.513,
+          "rotation": 0.45
+        }
+      ]
+    },
+    {
+      "id": "notebook-2",
+      "name": {
+        "en": "Spiral notebook, cream grid",
+        "vi": "Sổ lò xo kem ô ly"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "cream",
+          "grid"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "kem",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #2",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-2",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1078,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.2483,
+          "y": 0.1039,
+          "w": 0.5843,
+          "h": 0.6,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "notebook-3",
+      "name": {
+        "en": "Torn-out notebook page, pink lined",
+        "vi": "Trang sổ xé hồng kẻ dòng"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "pink",
+          "lined",
+          "torn"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "hồng",
+          "kẻ dòng",
+          "xé"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #3",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-3",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1078,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.2074,
+          "y": 0.1039,
+          "w": 0.6661,
+          "h": 0.513,
+          "rotation": -0.05
+        }
+      ]
+    },
+    {
+      "id": "notebook-4",
+      "name": {
+        "en": "Spiral notebook, cream lined",
+        "vi": "Sổ lò xo kem kẻ dòng"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "cream",
+          "lined"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "kem",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #4",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-4",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1186,
+      "height": 1390,
+      "windows": [
+        {
+          "x": 0.2796,
+          "y": 0.1151,
+          "w": 0.5217,
+          "h": 0.5935,
+          "rotation": -1.69
+        }
+      ]
+    },
+    {
+      "id": "notebook-5",
+      "name": {
+        "en": "Spiral notebook, cream dotted",
+        "vi": "Sổ lò xo kem chấm"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "cream",
+          "dotted"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "kem",
+          "chấm"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #5",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-5",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1186,
+      "height": 1390,
+      "windows": [
+        {
+          "x": 0.2796,
+          "y": 0.1151,
+          "w": 0.5217,
+          "h": 0.5935,
+          "rotation": 0.88
+        }
+      ]
+    },
+    {
+      "id": "notebook-6",
+      "name": {
+        "en": "Torn-out notebook page, blue lined",
+        "vi": "Trang sổ xé xanh dương kẻ dòng"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "blue",
+          "lined",
+          "torn"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "xanh dương",
+          "kẻ dòng",
+          "xé"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #6",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-6",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1074,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1989,
+          "y": 0.1588,
+          "w": 0.6021,
+          "h": 0.5774,
+          "rotation": -1.98
+        }
+      ]
+    },
+    {
+      "id": "notebook-8",
+      "name": {
+        "en": "Spiral notebook, kraft dotted",
+        "vi": "Sổ lò xo kraft chấm"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "kraft",
+          "dotted"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "kraft",
+          "chấm"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #8",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-8",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1074,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1316,
+          "y": 0.1588,
+          "w": 0.7368,
+          "h": 0.5653,
+          "rotation": 1.28
+        }
+      ]
+    },
+    {
+      "id": "notebook-9",
+      "name": {
+        "en": "Spiral notebook, white plain",
+        "vi": "Sổ lò xo trắng trơn"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "white",
+          "plain"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "trắng",
+          "trơn"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #9",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-9",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1006,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1961,
+          "y": 0.1488,
+          "w": 0.6079,
+          "h": 0.5826,
+          "rotation": -0.95
+        }
+      ]
+    },
+    {
+      "id": "notebook-10",
+      "name": {
+        "en": "Spiral notebook, blue plain",
+        "vi": "Sổ lò xo xanh dương trơn"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "blue",
+          "plain"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "xanh dương",
+          "trơn"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #10",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-10",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1074,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1316,
+          "y": 0.1588,
+          "w": 0.7368,
+          "h": 0.5653,
+          "rotation": -1.19
+        }
+      ]
+    },
+    {
+      "id": "notebook-11",
+      "name": {
+        "en": "Spiral notebook, blue grid",
+        "vi": "Sổ lò xo xanh dương ô ly"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "blue",
+          "grid"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "xanh dương",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #11",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-11",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1006,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1961,
+          "y": 0.1488,
+          "w": 0.6079,
+          "h": 0.5826,
+          "rotation": -1.68
+        }
+      ]
+    },
+    {
+      "id": "notebook-12",
+      "name": {
+        "en": "Torn-out notebook page, blue plain",
+        "vi": "Trang sổ xé xanh dương trơn"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "blue",
+          "plain",
+          "torn"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "xanh dương",
+          "trơn",
+          "xé"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #12",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-12",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1111,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.2105,
+          "y": 0.1643,
+          "w": 0.5789,
+          "h": 0.5745,
+          "rotation": 0.78
+        }
+      ]
+    },
+    {
+      "id": "notebook-13",
+      "name": {
+        "en": "Spiral notebook, white lined",
+        "vi": "Sổ lò xo trắng kẻ dòng"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "white",
+          "lined"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "trắng",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #13",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-13",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1186,
+      "height": 1390,
+      "windows": [
+        {
+          "x": 0.2622,
+          "y": 0.1151,
+          "w": 0.5565,
+          "h": 0.5935,
+          "rotation": -1.64
+        }
+      ]
+    },
+    {
+      "id": "notebook-14",
+      "name": {
+        "en": "Spiral notebook, pink lined",
+        "vi": "Sổ lò xo hồng kẻ dòng"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "pink",
+          "lined"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "hồng",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #14",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-14",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1111,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1382,
+          "y": 0.1643,
+          "w": 0.7237,
+          "h": 0.5745,
+          "rotation": 0.69
+        }
+      ]
+    },
+    {
+      "id": "notebook-15",
+      "name": {
+        "en": "Spiral notebook, kraft grid",
+        "vi": "Sổ lò xo kraft ô ly"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "kraft",
+          "grid"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "kraft",
+          "ô ly"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #15",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-15",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1111,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.2286,
+          "y": 0.1643,
+          "w": 0.5428,
+          "h": 0.5745,
+          "rotation": 1.76
+        }
+      ]
+    },
+    {
+      "id": "notebook-16",
+      "name": {
+        "en": "Torn-out notebook page, mint lined",
+        "vi": "Trang sổ xé xanh bạc hà kẻ dòng"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "mint",
+          "lined",
+          "torn"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "xanh bạc hà",
+          "kẻ dòng",
+          "xé"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #16",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-16",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1153,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.2511,
+          "y": 0.1111,
+          "w": 0.5788,
+          "h": 0.5958,
+          "rotation": 1.75
+        }
+      ]
+    },
+    {
+      "id": "notebook-18",
+      "name": {
+        "en": "Spiral notebook, pink lined 2",
+        "vi": "Sổ lò xo hồng kẻ dòng 2"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "pink",
+          "lined"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "hồng",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #18",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-18",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1006,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1961,
+          "y": 0.1488,
+          "w": 0.6079,
+          "h": 0.5826,
+          "rotation": 0.86
+        }
+      ]
+    },
+    {
+      "id": "notebook-19",
+      "name": {
+        "en": "Spiral notebook, pink dotted",
+        "vi": "Sổ lò xo hồng chấm"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "pink",
+          "dotted"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "hồng",
+          "chấm"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #19",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-19",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1006,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1316,
+          "y": 0.1488,
+          "w": 0.7368,
+          "h": 0.5296,
+          "rotation": 0.61
+        }
+      ]
+    },
+    {
+      "id": "notebook-20",
+      "name": {
+        "en": "Spiral notebook, blue lined",
+        "vi": "Sổ lò xo xanh dương kẻ dòng"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "blue",
+          "lined"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "xanh dương",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #20",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-20",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1153,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.2511,
+          "y": 0.1111,
+          "w": 0.5788,
+          "h": 0.5958,
+          "rotation": 0.91
+        }
+      ]
+    },
+    {
+      "id": "notebook-21",
+      "name": {
+        "en": "Spiral notebook, cream lined 2",
+        "vi": "Sổ lò xo kem kẻ dòng 2"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "cream",
+          "lined"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "kem",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #21",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-21",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1074,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1316,
+          "y": 0.1588,
+          "w": 0.7368,
+          "h": 0.424,
+          "rotation": 1.48
+        }
+      ]
+    },
+    {
+      "id": "notebook-24",
+      "name": {
+        "en": "Spiral notebook, kraft lined",
+        "vi": "Sổ lò xo kraft kẻ dòng"
+      },
+      "tags": {
+        "en": [
+          "notebook",
+          "spiral",
+          "page",
+          "journal",
+          "school",
+          "kraft",
+          "lined"
+        ],
+        "vi": [
+          "sổ",
+          "sổ lò xo",
+          "trang vở",
+          "nhật ký",
+          "trường học",
+          "kraft",
+          "kẻ dòng"
+        ]
+      },
+      "source": {
+        "provider": "IG Layout",
+        "author": "sonth87",
+        "title": "spiral #24",
+        "url": "https://github.com/sonth87/IG-layout/blob/main/scripts/frames/kinds.mjs#spiral-24",
+        "license": "CC0-1.0",
+        "retrieved": "2026-10-28"
+      },
+      "width": 1074,
+      "height": 1400,
+      "windows": [
+        {
+          "x": 0.1989,
+          "y": 0.1588,
+          "w": 0.6021,
+          "h": 0.5774,
+          "rotation": -0.92
+        }
+      ]
+    }
+  ]
+}

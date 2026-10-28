@@ -1,5 +1,5 @@
 import type { Template } from "../types";
-import { cells, design, INK, photo, t, text, WHITE_FRAME } from "./kit";
+import { art, cells, design, INK, photo, t, text, WHITE_FRAME } from "./kit";
 
 // Special occasions: birthdays, weddings, graduation, new year (2026-10-28).
 
@@ -7,6 +7,54 @@ const BERRY = "#d6455d";
 const GOLD = "#d8b45a";
 
 export const OCCASION: Template[] = [
+  design("wedding-arch", "occasion", t("Wedding arch", "Vòm hoa cưới"), {
+    themes: ["couple", "flowers"],
+    slides: 3,
+    background: { kind: "color", color: "#fbf8f3" },
+    art: [art("celebrations/cel-bridal-flower-bouquet", 0, 0.66, 0.62, 0.3, { rotation: 10 })],
+    slots: [photo(0, 0, 0.12, 0.1, 0.62, 0.66, { mask: "arch" }), ...cells(1, 1, [0.06, 0.06, 0.88, 0.88], 2, 2, 0.025), photo(5, 2, 0.06, 0.06, 0.88, 0.7)],
+    texts: [
+      text(0, 0.1, 0.8, 0.6, t("just married", "vừa cưới"), { font: "greatVibes", size: 0.1, color: GOLD, align: "left" }),
+      text(2, 0.06, 0.82, 0.88, t("12 · 12 · 2026", "12 · 12 · 2026"), { font: "spaceGrotesk", size: 0.04, color: INK, letterSpacing: 0.3 }),
+    ],
+  }),
+  design("baby-hello", "occasion", t("Hello baby", "Chào con"), {
+    themes: ["kids", "portrait"],
+    slides: 1,
+    background: { kind: "color", color: "#eaf3f8" },
+    art: [art("celebrations/cel-plush-teddy-bear", 0, 0.66, 0.64, 0.28, { rotation: 6 })],
+    slots: [photo(0, 0, 0.14, 0.1, 0.62, 0.62, { mask: "circle", border: { width: 0.014, color: "#ffffff" } })],
+    texts: [
+      text(0, 0.08, 0.66, 0.6, t("hello,\nlittle one", "chào con,\nbé yêu"), { font: "greatVibes", size: 0.1, color: "#4a6f8a", align: "left", lineHeight: 0.95 }),
+      text(0, 0.08, 0.9, 0.6, t("3.2 kg · 50 cm · 06:42", "3,2 kg · 50 cm · 06:42"), { font: "spaceGrotesk", size: 0.03, color: "#4a6f8a", align: "left", letterSpacing: 0.15 }),
+    ],
+  }),
+  design("anniversary-gold", "occasion", t("Then & now, in gold", "Kỷ niệm viền vàng"), {
+    themes: ["couple"],
+    slides: 2,
+    background: { kind: "color", color: "#1f1a17" },
+    slots: [photo(0, 0, 0.08, 0.08, 0.4, 0.5, { border: { width: 0.008, color: GOLD } }), photo(1, 0, 0.52, 0.42, 0.4, 0.5, { border: { width: 0.008, color: GOLD } }), photo(2, 1, 0.06, 0.06, 0.88, 0.88)],
+    texts: [
+      text(0, 0.08, 0.64, 0.4, t("then", "ngày ấy"), { font: "cormorant", size: 0.07, color: GOLD, align: "left", italic: true }),
+      text(0, 0.52, 0.3, 0.4, t("now", "bây giờ"), { font: "cormorant", size: 0.07, color: GOLD, align: "right", italic: true }),
+      text(0, 0.08, 0.74, 0.4, t("5 YEARS", "5 NĂM"), { font: "anton", size: 0.06, color: GOLD, align: "left", letterSpacing: 0.3 }),
+    ],
+  }),
+  design("trophy-win", "occasion", t("We won", "Thắng rồi"), {
+    themes: ["friends", "party", "school"],
+    slides: 1,
+    background: { kind: "color", color: "#ffd84d" },
+    art: [art("celebrations/cel-golden-winner-trophy", 0, 0.62, 0.52, 0.32, { rotation: 8 }), art("celebrations/cel-confetti-ball-open", 0, 0.04, 0.02, 0.2)],
+    slots: [photo(0, 0, 0.12, 0.14, 0.62, 0.56, { shadow: true, rotation: -3 })],
+    texts: [text(0, 0.06, 0.76, 0.6, t("CHAMPIONS!", "VÔ ĐỊCH!"), { font: "anton", size: 0.1, color: INK, align: "left" })],
+  }),
+  design("housewarming", "occasion", t("New home", "Nhà mới"), {
+    themes: ["minimal", "friends", "food"],
+    slides: 2,
+    background: { kind: "color", color: "#f1ede6" },
+    slots: [photo(0, 0, 0.18, 0.2, 0.64, 0.66, { mask: "arch" }), photo(1, 1, 0.06, 0.06, 0.43, 0.43), photo(2, 1, 0.51, 0.06, 0.43, 0.43), photo(3, 1, 0.06, 0.51, 0.88, 0.43)],
+    texts: [text(0, 0.06, 0.05, 0.88, t("home sweet home", "tổ ấm mới"), { font: "greatVibes", size: 0.1, color: INK })],
+  }),
   design("birthday-post", "occasion", t("Happy birthday", "Mừng sinh nhật"), {
     themes: ["party", "friends"],
     slides: 2,

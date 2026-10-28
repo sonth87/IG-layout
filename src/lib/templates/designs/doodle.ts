@@ -9,6 +9,93 @@ const BLUE = "#3a6fd8";
 const CREAM = "#fbf9f4";
 
 export const DOODLE: Template[] = [
+  design("doodle-arrows", "doodle", t("Look here", "Nhìn đây nè"), {
+    themes: ["portrait", "friends"],
+    slides: 1,
+    background: { kind: "color", color: CREAM },
+    slots: [photo(0, 0, 0.18, 0.16, 0.64, 0.6, { shadow: true, rotation: 2 })],
+    icons: [icon("doodle-arrowCurve", 0, 0.02, 0.62, 0.2, { color: RED, rotation: -20 }), icon("doodle-circle", 0, 0.56, 0.1, 0.32, { color: RED }), icon("doodle-sparkleLines", 0, 0.78, 0.66, 0.14, { color: INK })],
+    texts: [
+      text(0, 0.04, 0.84, 0.5, t("me, obviously", "là mình chứ ai"), { font: "patrickHand", size: 0.055, color: RED, align: "left", rotation: -4 }),
+      text(0, 0.6, 0.04, 0.36, t("best day", "ngày đẹp nhất"), { font: "patrickHand", size: 0.04, color: RED, rotation: 6 }),
+    ],
+  }),
+  design("doodle-crown", "doodle", t("Crowned", "Đội vương miện"), {
+    format: "story",
+    themes: ["portrait", "kids", "friends"],
+    slides: 1,
+    background: { kind: "color", color: "#fff5d6" },
+    slots: [photo(0, 0, 0.12, 0.22, 0.76, 0.48, { mask: "rounded", cornerRadius: 0.04 })],
+    icons: [icon("doodle-crown", 0, 0.34, 0.14, 0.32, { color: "#e3a72f", rotation: -8 }), icon("doodle-starFilled", 0, 0.08, 0.72, 0.1, { color: "#e3a72f" }), icon("doodle-star", 0, 0.82, 0.68, 0.1, { color: INK })],
+    texts: [text(0, 0.1, 0.76, 0.8, t("main character\nenergy", "năng lượng\nnhân vật chính"), { font: "patrickHand", size: 0.07, color: INK, lineHeight: 1.05 })],
+  }),
+  design("doodle-blue-pen", "doodle", t("Blue pen", "Bút bi xanh"), {
+    themes: ["school", "friends", "city"],
+    slides: 2,
+    background: { kind: "color", color: "#ffffff" },
+    shapes: [...sketch(0, 0.12, 0.12, 0.76, 0.56, 0.8, BLUE), ...sketch(1, 0.08, 0.08, 0.4, 0.4, 0.8, BLUE), ...sketch(1, 0.52, 0.5, 0.4, 0.4, 0.8, BLUE)],
+    slots: [photo(0, 0, 0.12, 0.12, 0.76, 0.56), photo(1, 1, 0.08, 0.08, 0.4, 0.4), photo(2, 1, 0.52, 0.5, 0.4, 0.4)],
+    icons: [icon("doodle-underlineSwoosh", 0, 0.2, 0.86, 0.6, { color: BLUE })],
+    texts: [
+      text(0, 0.12, 0.76, 0.76, t("notes in the margin", "ghi chú bên lề"), { font: "patrickHand", size: 0.065, color: BLUE }),
+      text(1, 0.54, 0.16, 0.4, t("← this\nwas fun", "← vui\nghê"), { font: "patrickHand", size: 0.06, color: BLUE, align: "left" }),
+      text(1, 0.08, 0.6, 0.4, t("so was\nthis →", "cả cái\nnày →"), { font: "patrickHand", size: 0.06, color: BLUE, align: "right" }),
+    ],
+  }),
+  design("doodle-speech", "doodle", t("Doodled bubble", "Bong bóng vẽ tay"), {
+    themes: ["portrait", "friends", "kids"],
+    slides: 1,
+    background: { kind: "color", color: "#e8f1fb" },
+    slots: [photo(0, 0, 0.08, 0.3, 0.84, 0.64, { shadow: true })],
+    icons: [icon("doodle-bubble", 0, 0.42, 0.02, 0.5, { color: INK })],
+    texts: [text(0, 0.47, 0.08, 0.4, t("hi, it's\nme again", "lại là\nmình nè"), { font: "patrickHand", size: 0.05, color: INK, lineHeight: 1.05 })],
+  }),
+  design("doodle-music", "doodle", t("On repeat", "Nghe đi nghe lại"), {
+    themes: ["party", "friends", "city"],
+    slides: 1,
+    background: { kind: "color", color: "#1d1c1a" },
+    slots: [photo(0, 0, 0.14, 0.12, 0.72, 0.6)],
+    icons: [icon("doodle-music", 0, 0.04, 0.04, 0.16, { color: "#ffffff" }), icon("doodle-music", 0, 0.82, 0.56, 0.12, { color: "#ffd84d", rotation: 14 }), icon("doodle-scribble", 0, 0.62, 0.8, 0.3, { color: "#ffd84d" })],
+    texts: [text(0, 0.1, 0.78, 0.6, t("on repeat\nall night", "bật cả\nđêm luôn"), { font: "patrickHand", size: 0.065, color: "#ffffff", align: "left", lineHeight: 1.05 })],
+  }),
+  design("doodle-checklist", "doodle", t("Weekend checklist", "Việc cuối tuần"), {
+    themes: ["food", "nature", "friends"],
+    slides: 1,
+    background: { kind: "color", color: CREAM },
+    slots: [photo(0, 0, 0.5, 0.08, 0.44, 0.4, { shadow: true, rotation: 3 }), photo(1, 0, 0.5, 0.52, 0.44, 0.4, { shadow: true, rotation: -2 })],
+    icons: [0, 1, 2, 3].map((i) => icon(i < 3 ? "doodle-check" : "doodle-cross", 0, 0.06, 0.26 + i * 0.12, 0.07, { color: i < 3 ? "#2f9e5b" : RED })),
+    texts: [
+      text(0, 0.06, 0.08, 0.42, t("weekend\nto-do:", "cuối tuần\ncần làm:"), { font: "patrickHand", size: 0.065, color: INK, align: "left", lineHeight: 1 }),
+      ...[t("sleep in", "ngủ nướng"), t("eat well", "ăn ngon"), t("see friends", "gặp bạn"), t("emails", "trả lời mail")].map((w, i) =>
+        text(0, 0.15, 0.265 + i * 0.12, 0.32, w, { font: "patrickHand", size: 0.05, color: INK, align: "left" }),
+      ),
+    ],
+  }),
+  design("doodle-hearts-rain", "doodle", t("Raining hearts", "Mưa tim"), {
+    format: "story",
+    themes: ["couple", "portrait"],
+    slides: 1,
+    background: { kind: "color", color: "#ffeef0" },
+    slots: [photo(0, 0, 0.14, 0.28, 0.72, 0.42, { shadow: true, rotation: -2 })],
+    icons: [
+      icon("doodle-hearts", 0, 0.06, 0.13, 0.22, { color: RED }),
+      icon("doodle-heart", 0, 0.7, 0.17, 0.14, { color: RED, rotation: 12 }),
+      icon("doodle-heartFilled", 0, 0.78, 0.66, 0.12, { color: RED }),
+      icon("doodle-heart", 0, 0.06, 0.7, 0.1, { color: RED, rotation: -10 }),
+    ],
+    texts: [text(0, 0.12, 0.76, 0.76, t("heart eyes", "mắt tim"), { font: "patrickHand", size: 0.08, color: RED })],
+  }),
+  design("doodle-sun-day", "doodle", t("Sunny scribbles", "Nắng vẽ tay"), {
+    themes: ["beach", "nature", "travel"],
+    slides: 2,
+    background: { kind: "color", color: "#fff8e6" },
+    slots: [photo(0, 0, 0.08, 0.24, 0.84, 0.68), photo(1, 1, 0.08, 0.08, 0.84, 0.56)],
+    icons: [icon("doodle-sun", 0, 0.7, 0.02, 0.24, { color: "#f2a541" }), icon("doodle-cloud", 1, 0.06, 0.7, 0.24, { color: BLUE }), icon("doodle-arrowLoop", 1, 0.6, 0.7, 0.3, { color: INK })],
+    texts: [
+      text(0, 0.08, 0.06, 0.6, t("sunny\nside up", "ngày\nđầy nắng"), { font: "patrickHand", size: 0.075, color: INK, align: "left", lineHeight: 1 }),
+      text(1, 0.34, 0.86, 0.6, t("again tomorrow?", "mai nữa nhé?"), { font: "patrickHand", size: 0.05, color: INK, align: "right" }),
+    ],
+  }),
   design("sketch-pair", "doodle", t("Sketched frames", "Khung vẽ tay"), {
     themes: ["fashion", "portrait"],
     slides: 1,
