@@ -537,3 +537,5 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Thẻ carousel trong hàng ngang: dải dưới / mép phải kéo hàng, giữa thẻ lật slide (D-137, e2e m18.mjs)
 - [ ] Thử trên iPhone; cân nhắc "chuyền tiếp" ở slide cuối
 - [x] Lưới profile: số bài 2–24, xem trước như trang cá nhân IG, "Nối liền qua khe" có hình minh hoạ (D-138, e2e m6.mjs, m7.mjs)
+- [x] Trang chủ hết lag: dựng hàng khi cuộn tới, 10 thẻ / hàng + Xem tất cả, lưới tải theo đợt, bỏ blur trên thẻ (D-139)
+- [ ] Chủ dự án thử độ mượt trên iPhone; chốt D-139 (10 thẻ / hàng)

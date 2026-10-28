@@ -187,6 +187,7 @@ export const vi: Record<MessageKey, string> = {
   "home.blankPage": "Trang trắng",
   "home.exploreMore": "Khám phá thêm",
   "home.banners": "Nổi bật",
+  "home.seeAll": "Xem tất cả {count}",
   "home.exploreNow": "Khám phá ngay",
   "home.like": "Thích",
   "home.unlike": "Bỏ thích",

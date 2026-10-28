@@ -96,6 +96,9 @@ await page.getByRole("button", { name: "Explore now" }).nth(1).click();
 check(await page.getByRole("heading", { name: bannerTitle, exact: true, level: 1 }).isVisible(), "“Explore now” opens that group");
 await back();
 // Group strip slides sideways without scrolling the page.
+// Groups are built when they come near the screen (home speed, 2026-10-28).
+await page.getByRole("region", { name: "Everyday" }).scrollIntoViewIfNeeded();
+await page.waitForTimeout(400);
 const strip = page.getByRole("region", { name: "Everyday" }).locator(".overflow-x-auto").first();
 const pageTop = await page.locator("main > div.overflow-y-auto").evaluate((e) => e.scrollTop);
 await strip.evaluate((e) => (e.scrollLeft = 200));
@@ -128,7 +131,9 @@ const zones = await strip0.evaluate((inner) => {
 check(zones.mid && zones.bottom && zones.right, "card in a row: middle turns slides, bottom strip / right edge drag the row");
 
 console.log("Template detail (03 §5–6)");
-await page.getByRole("button", { name: "Travel journal" }).first().click();
+await page.getByRole("button", { name: "Search" }).click();
+await page.getByRole("searchbox", { name: "Search" }).fill("Travel journal");
+await page.getByRole("dialog", { name: "Search" }).getByRole("button", { name: "Travel journal", exact: true }).first().click();
 check(await page.getByRole("heading", { name: "Template", exact: true }).isVisible(), "detail screen");
 check(await page.getByText("4 photos").isVisible() && (await page.getByText("3 slides").isVisible()), "photo and slide counts");
 const slides = page.getByRole("dialog", { name: "Template" }).locator(".snap-mandatory").first();
@@ -149,7 +154,7 @@ await page.getByRole("searchbox", { name: "Search" }).fill("birthday");
 const search = page.getByRole("dialog", { name: "Search" });
 check(await search.getByRole("button", { name: "Birthday", exact: true }).isVisible(), "“birthday” finds the Birthday template");
 await page.getByRole("searchbox", { name: "Search" }).fill("special");
-check(await search.getByRole("button", { name: "Anniversary", exact: true }).isVisible(), "searching the group name finds its templates");
+check(await search.getByRole("button", { name: "Cut-out birthday", exact: true }).isVisible(), "searching the group name finds its templates");
 
 console.log("Seasons & events (2026-10-28)");
 for (const [day, name] of [["2026-12-20", "Merry Christmas"], ["2027-01-28", "Lunar New Year"], ["2026-09-15", "Mid-Autumn Festival"]]) {

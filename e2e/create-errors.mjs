@@ -1,7 +1,7 @@
 // Creating a project never fails silently (owner, 2026-10-19): when the browser storage
 // fails or hangs, a message says why.
 import { chromium } from "playwright-core";
-import { chromePath, skipTips, URL_ARG } from "./lib.mjs";
+import { chromePath, skipTips, URL_ARG, openTemplate } from "./lib.mjs";
 
 let failures = 0;
 const check = (cond, msg) => {
@@ -31,7 +31,7 @@ async function attempt(mode) {
     void d.accept();
   });
   await page.getByRole("button", { name: "Use template" }).count();
-  await page.getByRole("button", { name: "Travel journal" }).first().click();
+  await openTemplate(page, "Travel journal");
   await page.getByRole("button", { name: "Use template" }).click();
   await page.waitForTimeout(mode === "hang" ? 12000 : 1500);
   await context.close();
@@ -71,7 +71,7 @@ console.log("An old tab holds the storage at an older version (blocked upgrade)"
     void d.accept();
   });
   await page.goto(URL_ARG);
-  await page.getByRole("button", { name: "Travel journal" }).first().click();
+  await openTemplate(page, "Travel journal");
   await page.getByRole("button", { name: "Use template" }).click();
   // Impatient taps while it waits: no extra attempts, the button says it is opening.
   const busy = page.getByRole("button", { name: "Opening…" });

@@ -66,3 +66,27 @@ Mép giấy xé (ngang giữa các ảnh, quanh ảnh, vòng tròn xé), khung t
 **Cách làm:** hai lớp trong suốt nằm ngoài vùng cuộn của thẻ → trình duyệt tự cuộn hàng cha (giữ quán tính, hít thẻ). Đã thử bằng cử chỉ chạm giả lập: vuốt giữa → slide đổi, hàng đứng yên; vuốt dải dưới / mép phải → hàng trượt, slide đứng yên.
 
 **Để sau:** "chuyền tiếp" (ở slide cuối vuốt tiếp thì sang template kế) — thử trên máy rồi mới tính.
+
+---
+
+## Đợt 4 — trang chủ bị lag
+
+**Chủ dự án:** vào trang chủ khá lag, có vẻ do tải tất cả một lượt.
+
+**Đo (Chrome giả lập điện thoại, CPU chậm 4 lần):** lúc mở trang có 7 lần đứng hình, tổng 1.33 s, dài nhất 413 ms; 8.715 phần tử DOM. Profiler: phần lớn thời gian là style / layout / vẽ của trình duyệt chứ không phải JS.
+
+**Nguyên nhân:**
+- Dựng **toàn bộ ~400 thẻ** ngay lúc mở (17 hàng + 203 thẻ "Khám phá thêm"), dù ảnh xem trước đã hoãn.
+- ~1.200 nhãn trên thẻ dùng **làm mờ nền** (backdrop-blur), rất tốn công vẽ.
+- Thẻ carousel vẽ **cả dải slide lặp lại cho từng slide** (thẻ 4 slide = 4 bản sao).
+
+**Đã sửa:**
+- Mỗi hàng chỉ dựng khi sắp cuộn tới, **tối đa 10 thẻ + ô "Xem tất cả"** (màn nhóm có đủ).
+- "Khám phá thêm" (và các lưới 2 cột khác) dựng **12 thẻ mỗi đợt**, thêm khi gần cuối.
+- Banner chỉ dựng ảnh khi được vuốt tới.
+- Bỏ làm mờ nền trên nhãn / nút ♡ của thẻ (nền đen mờ thường); thanh trên cùng vẫn giữ.
+- Thẻ carousel vẽ dải slide **một lần**, các điểm hít slide trong suốt đặt lên trên (vuốt / chạm như cũ).
+
+**Kết quả:** lúc mở 3 lần đứng hình, tổng ~0.3 s, dài nhất ~120 ms; 684 phần tử DOM. Khi cuộn 7.000 px: dài nhất ~80–108 ms (trước 226 ms).
+
+**e2e:** mở template ngoài màn hình qua Tìm kiếm (`openTemplate` trong `e2e/lib.mjs`); "Khám phá thêm" kiểm tra đợt đầu ≥ 12 và tải thêm khi cuộn.
