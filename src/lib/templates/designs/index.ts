@@ -1,9 +1,11 @@
 import type { Template, TemplateCategory } from "../types";
 import { AUTUMN } from "./autumn";
 import { CLASSIC } from "./classic";
+import { COLLAGE } from "./collage";
 import { EDITORIAL } from "./editorial";
 import { EVERYDAY } from "./everyday";
 import { FILM } from "./film";
+import { GRIDS } from "./grids";
 import { OCCASION } from "./occasion";
 import { SCRAPBOOK } from "./scrapbook";
 import { SEAMLESS } from "./seamless";
@@ -12,16 +14,22 @@ import { TRAVEL } from "./travel";
 import { DOODLE } from "./doodle";
 import { EXTRAS } from "./extras";
 import { HOLIDAYS } from "./holidays";
+import { JOURNAL } from "./journal";
 import { LOVE } from "./love";
+import { MINIMAL } from "./minimal";
 import { RETRO } from "./retro";
 import { TEEN } from "./teen";
+import { TET } from "./tet";
 import { TORN } from "./torn";
+import { WINTER } from "./winter";
 
 // Designed templates for the home library (M10, like SCRL's template library), one file
 // per kind. Newer designs first within a group.
 
 export const DESIGNS: Template[] = [
   ...AUTUMN,
+  ...WINTER,
+  ...TET,
   ...HOLIDAYS,
   ...TORN,
   ...DOODLE,
@@ -33,9 +41,13 @@ export const DESIGNS: Template[] = [
   ...TRAVEL,
   ...FILM,
   ...EDITORIAL,
+  ...JOURNAL,
   ...SCRAPBOOK,
   ...SEAMLESS,
   ...OCCASION,
+  ...COLLAGE,
+  ...MINIMAL,
+  ...GRIDS,
   ...SIMPLE,
   ...CLASSIC,
 ];

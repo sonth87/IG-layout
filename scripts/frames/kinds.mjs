@@ -693,3 +693,200 @@ export function tornPiece(seed) {
 }
 
 KINDS.tornPiece = tornPiece;
+
+const BODIES = [
+  ["silver", "#d3d6db", "#a7abb2", "#4a4d52"],
+  ["black", "#3a3b3f", "#1f2023", "#d8d8d8"],
+  ["pink", "#f4c3cf", "#e39aac", "#7a3b4b"],
+  ["mint", "#c6e7d8", "#98cdb6", "#2f5c4a"],
+  ["white", "#f4f3ef", "#d6d4cd", "#55534e"],
+  ["lilac", "#d4c8ec", "#ac9bd6", "#4b3d70"],
+  ["champagne", "#e2d2b4", "#c2ab83", "#5b4a2c"],
+  ["blue", "#a9c3e6", "#7d9fd0", "#25406b"],
+];
+
+/**
+ * The back of a compact digital camera (SCRL-like "digital" frame): the photo shows on the
+ * LCD with the camera's on-screen marks over it (battery, shots left, focus brackets, date).
+ */
+export function camera(seed) {
+  const r = rng(seed);
+  const vertical = r() < 0.35;
+  const [bodyName, light, dark, ink] = pick(r, BODIES);
+  const m = 80;
+  // Screen 4:3 (3:4 held upright); controls beside it, or under it when upright.
+  const sw = vertical ? 660 : 860;
+  const sh = vertical ? 880 : 645;
+  const bw = vertical ? sw + m * 2 : sw + m * 2 + 300;
+  const bh = vertical ? sh + m + 330 : sh + m * 2;
+  const pad = 70;
+  const top = 34;
+  const W = bw + pad * 2;
+  const H = bh + pad * 2 + top;
+  const x0 = pad;
+  const y0 = pad + top;
+  const win = { x: x0 + m, y: y0 + m, w: sw, h: sh };
+  const rad = range(r, 50, 90);
+  // Controls: centre of the d-pad and where the small buttons go.
+  const pc = vertical ? [x0 + bw * 0.66, y0 + m + sh + 165] : [x0 + m + sw + 150, y0 + bh * 0.58];
+  const dpad = 82;
+  const small = vertical
+    ? [[x0 + bw * 0.2, pc[1] - 70], [x0 + bw * 0.34, pc[1] - 70], [x0 + bw * 0.2, pc[1] + 70], [x0 + bw * 0.34, pc[1] + 70]]
+    : [[pc[0] - 70, pc[1] - 175], [pc[0] + 70, pc[1] - 175], [pc[0] - 70, pc[1] + 165], [pc[0] + 70, pc[1] + 165]];
+  const labels = ["MENU", "DISP", "▶", "✕"];
+  const rocker = vertical ? { x: x0 + bw * 0.42, y: pc[1] - 25, w: 0, h: 0 } : { x: pc[0] - 75, y: y0 + 34, w: 150, h: 44 };
+  const date = `${2026 - Math.floor(r() * 30)}  ${String(1 + Math.floor(r() * 12)).padStart(2, " ")}  ${String(1 + Math.floor(r() * 28)).padStart(2, "0")}`;
+  const orange = r() < 0.6;
+  const brackets = r() < 0.7;
+  const shots = 100 + Math.floor(r() * 800);
+  const ui = "#ffffff";
+  const fs = sw * 0.045;
+  const bl = sw * 0.07;
+  const fx = win.x + sw / 2;
+  const fy = win.y + sh / 2;
+  const bx = sw * 0.11;
+  const by = sh * 0.1;
+  const bracket = (sx, sy) => `<path d="M${fx + sx * bx},${fy + sy * (by - bl)}V${fy + sy * by}H${fx + sx * (bx - bl)}"/>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>${grain("g", { freq: 1.1, strength: 0.05, seed })}
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${light}"/><stop offset="1" stop-color="${dark}"/></linearGradient>
+    <linearGradient id="btn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/><stop offset="1" stop-color="#000000" stop-opacity="0.18"/></linearGradient>
+    <filter id="b" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="10"/></filter>
+    <filter id="ui" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-opacity="0.55"/></filter>
+    <mask id="hole" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#fff"/><rect x="${win.x}" y="${win.y}" width="${sw}" height="${sh}" fill="#000"/></mask></defs>
+  <rect x="${x0 + 4}" y="${y0 + 14}" width="${bw}" height="${bh}" rx="${rad}" fill="#000" opacity="0.28" filter="url(#b)" mask="url(#hole)"/>
+  <rect x="${x0 + bw * 0.62}" y="${y0 - top}" width="${bw * 0.16}" height="${top + 20}" rx="14" fill="${dark}"/>
+  <rect x="${x0 + bw * 0.44}" y="${y0 - top * 0.55}" width="${bw * 0.09}" height="${top}" rx="10" fill="${dark}"/>
+  <g mask="url(#hole)">
+    <rect x="${x0}" y="${y0}" width="${bw}" height="${bh}" rx="${rad}" fill="url(#body)" filter="url(#g)"/>
+    <rect x="${x0 + 6}" y="${y0 + 6}" width="${bw - 12}" height="${bh - 12}" rx="${rad - 6}" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="3"/>
+    <rect x="${win.x - 26}" y="${win.y - 26}" width="${sw + 52}" height="${sh + 52}" rx="22" fill="#141416"/>
+    <rect x="${win.x - 26}" y="${win.y - 26}" width="${sw + 52}" height="${sh + 52}" rx="22" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="3"/>
+  </g>
+  <circle cx="${pc[0]}" cy="${pc[1]}" r="${dpad}" fill="${dark}"/>
+  <circle cx="${pc[0]}" cy="${pc[1]}" r="${dpad}" fill="url(#btn)"/>
+  <circle cx="${pc[0]}" cy="${pc[1]}" r="${dpad * 0.42}" fill="${light}" stroke="${ink}" stroke-opacity="0.3" stroke-width="3"/>
+  <text x="${pc[0]}" y="${pc[1] + 9}" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="24" fill="${ink}">OK</text>
+  ${[0, 90, 180, 270].map((a) => `<path d="M0,${-dpad * 0.78}l-10,14h20Z" transform="translate(${pc[0]} ${pc[1]}) rotate(${a})" fill="${ink}" opacity="0.55"/>`).join("")}
+  ${small.map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="30" fill="${dark}"/><circle cx="${x}" cy="${y}" r="30" fill="url(#btn)"/><text x="${x}" y="${y + 54}" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="${i < 2 ? 18 : 22}" fill="${ink}" opacity="0.8">${labels[i]}</text>`).join("")}
+  ${rocker.w ? `<rect x="${rocker.x}" y="${rocker.y}" width="${rocker.w}" height="${rocker.h}" rx="22" fill="${dark}"/><text x="${rocker.x + 28}" y="${rocker.y + 30}" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="20" fill="${light}">W</text><text x="${rocker.x + rocker.w - 40}" y="${rocker.y + 30}" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-size="20" fill="${light}">T</text>` : ""}
+  <circle cx="${vertical ? x0 + bw - 60 : x0 + bw - 55}" cy="${vertical ? y0 + bh - 50 : y0 + 55}" r="9" fill="${pick(r, ["#57d16b", "#ff7043", "#ffd54f"])}"/>
+  <text x="${vertical ? x0 + m : x0 + m + sw + 40}" y="${vertical ? y0 + m - 36 : y0 + bh - 40}" font-family="Helvetica, Arial, sans-serif" font-weight="bold" font-style="italic" font-size="26" letter-spacing="4" fill="${ink}" opacity="0.6">DIGITAL</text>
+  <g filter="url(#ui)" fill="${ui}" font-family="Helvetica, Arial, sans-serif" font-size="${fs.toFixed(1)}">
+    <rect x="${win.x + 22}" y="${win.y + 22}" width="${fs * 1.6}" height="${fs * 0.8}" rx="3" fill="none" stroke="${ui}" stroke-width="3"/>
+    <rect x="${win.x + 22 + fs * 1.6}" y="${win.y + 22 + fs * 0.22}" width="5" height="${fs * 0.36}" fill="${ui}"/>
+    <rect x="${win.x + 27}" y="${win.y + 27}" width="${fs * 1.1}" height="${fs * 0.8 - 10}" fill="${ui}"/>
+    <text x="${win.x + sw - 22}" y="${win.y + 22 + fs * 0.8}" text-anchor="end">${pick(r, ["12M", "8M", "10M", "5M"])}  ${shots}</text>
+    ${brackets ? `<g fill="none" stroke="${ui}" stroke-width="4">${bracket(-1, -1)}${bracket(1, -1)}${bracket(1, 1)}${bracket(-1, 1)}</g>` : ""}
+    ${orange ? "" : `<text x="${win.x + 22}" y="${win.y + sh - 24}">${pick(r, ["AUTO", "P", "SCN", "ISO 200"])}</text>`}
+  </g>
+  ${orange ? `<text x="${win.x + sw - 30}" y="${win.y + sh - 28}" text-anchor="end" font-family="Courier New, monospace" font-weight="bold" font-size="${(fs * 1.15).toFixed(1)}" fill="#ff9a2e" opacity="0.92">'${date.slice(2)}</text>` : ""}
+</svg>`;
+  return { svg, width: W, height: H, windows: [{ x: +(win.x / W).toFixed(4), y: +(win.y / H).toFixed(4), w: +(sw / W).toFixed(4), h: +(sh / H).toFixed(4) }], info: { vertical, body: bodyName, date: orange } };
+}
+
+KINDS.camera = camera;
+
+const PAGES = [
+  ["white", "#fbfaf6", "#9fb8d6"],
+  ["cream", "#f5edd9", "#c9b48d"],
+  ["kraft", "#cfae82", "#a5865e"],
+  ["pink", "#f8e1e4", "#e2a9b2"],
+  ["blue", "#e3ecf6", "#9db6d4"],
+  ["mint", "#e2f1e7", "#a3cdb3"],
+  ["grey", "#e6e5e1", "#b7b5ae"],
+];
+
+/**
+ * A notebook page with a spiral binding (or torn out of one: ragged punched edge), ruled,
+ * grid or dotted; the photo stuck on the page with room under it to write.
+ */
+export function spiral(seed) {
+  const r = rng(seed);
+  const side = r() < 0.55 ? "top" : "left";
+  const torn = r() < 0.3;
+  const [paperName, paper, lineColor] = pick(r, PAGES);
+  const rule = pick(r, ["lined", "lined", "grid", "dots", "plain"]);
+  const pw = 1000;
+  const ph = pick(r, [1250, 1300, 1400]);
+  const pad = 70;
+  const bind = side === "top" ? [0, 46] : [46, 0];
+  const W = pw + pad * 2 + bind[0];
+  const H = ph + pad * 2 + bind[1];
+  const x0 = pad + bind[0];
+  const y0 = pad + bind[1];
+  const holeIn = 48;
+  // Photo: margins around it, more on the binding side and a writing space under it.
+  const ratio = pick(r, [4 / 5, 1, 3 / 4, 4 / 3]);
+  const inset = side === "top" ? [80, 120] : [130, 90];
+  const maxW = pw - inset[0] - 80;
+  const maxH = ph * 0.66;
+  let ww = maxW;
+  let wh = ww / ratio;
+  if (wh > maxH) {
+    wh = maxH;
+    ww = wh * ratio;
+  }
+  const wx = x0 + inset[0] + (maxW - ww) / 2;
+  const wy = y0 + inset[1];
+  const rot = range(r, -2, 2);
+  const step = 62;
+  const holes = [];
+  if (side === "top") for (let x = x0 + 50; x < x0 + pw - 30; x += step) holes.push([x, y0 + holeIn]);
+  else for (let y = y0 + 50; y < y0 + ph - 30; y += step) holes.push([x0 + holeIn, y]);
+  // Page outline: straight, except a ragged strip along the binding when torn out.
+  let outline;
+  if (torn) {
+    const pts = [];
+    const n = 120;
+    const len = side === "top" ? pw : ph;
+    for (let i = 0; i <= n; i++) {
+      const t = (i / n) * len;
+      const dep = 14 + Math.sin(t * 0.21) * 4 + r() * 9;
+      pts.push(side === "top" ? [x0 + t, y0 + dep] : [x0 + dep, y0 + t]);
+    }
+    outline = side === "top" ? d([...pts, [x0 + pw, y0 + ph], [x0, y0 + ph]]) : d([[x0 + pw, y0], [x0 + pw, y0 + ph], ...pts.reverse()]);
+  } else outline = `M${x0},${y0}h${pw}v${ph}h${-pw}Z`;
+  let lines = "";
+  const gap = 46;
+  if (rule === "lined" || rule === "grid") {
+    for (let y = y0 + (side === "top" ? 130 : 80); y < y0 + ph - 20; y += gap) lines += `<path d="M${x0 + (side === "left" ? 90 : 0)},${y}H${x0 + pw}"/>`;
+    if (rule === "grid") for (let x = x0 + (side === "left" ? 92 : 23); x < x0 + pw; x += gap) lines += `<path d="M${x},${y0 + (side === "top" ? 90 : 0)}V${y0 + ph}"/>`;
+  }
+  let dots = "";
+  if (rule === "dots") for (let y = y0 + 110; y < y0 + ph - 20; y += gap) for (let x = x0 + (side === "left" ? 115 : 40); x < x0 + pw - 10; x += gap) dots += `<circle cx="${x}" cy="${y}" r="3.2"/>`;
+  const margin = rule === "lined" && r() < 0.6 ? (side === "top" ? `<path d="M${x0 + 110},${y0 + 90}V${y0 + ph}" stroke="#e57373" stroke-opacity="0.6" stroke-width="3"/>` : `<path d="M${x0 + 120},${y0}V${y0 + ph}" stroke="#e57373" stroke-opacity="0.6" stroke-width="3"/>`) : "";
+  const metal = pick(r, [["#b9bcc2", "#6d7077"], ["#2b2b2d", "#000"], ["#d8b768", "#8a6a22"], ["#f2f2f2", "#9a9a9a"], ["#e58fa6", "#a14a62"]]);
+  // A coil: the part in front, from the hole over the page edge.
+  const coil = ([x, y]) =>
+    side === "top"
+      ? `<path d="M${x - 8},${y} C${x - 14},${y0 - 6} ${x - 16},${y0 - 40} ${x},${y0 - 40} C${x + 12},${y0 - 40} ${x + 14},${y0 - 22} ${x + 12},${y0 - 4}" fill="none" stroke="${metal[0]}" stroke-width="9" stroke-linecap="round"/><path d="M${x - 8},${y} C${x - 14},${y0 - 6} ${x - 16},${y0 - 40} ${x},${y0 - 40}" fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round"/>`
+      : `<path d="M${x},${y - 8} C${x0 - 6},${y - 14} ${x0 - 40},${y - 16} ${x0 - 40},${y} C${x0 - 40},${y + 12} ${x0 - 22},${y + 14} ${x0 - 4},${y + 12}" fill="none" stroke="${metal[0]}" stroke-width="9" stroke-linecap="round"/><path d="M${x},${y - 8} C${x0 - 6},${y - 14} ${x0 - 40},${y - 16} ${x0 - 40},${y}" fill="none" stroke="#fff" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round"/>`;
+  const tape = r() < 0.5;
+  const tw = ww * range(r, 0.26, 0.36);
+  const sh = { dx: range(r, 1, 3), dy: range(r, 5, 9), blur: range(r, 6, 10), opacity: range(r, 0.18, 0.28) };
+  const cx = wx + ww / 2;
+  const cy = wy + wh / 2;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>${grain("g", { freq: 0.9, strength: paperName === "kraft" ? 0.18 : 0.07, seed, warm: true })}
+    <filter id="pb" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="5"/></filter>
+    <mask id="page" maskUnits="userSpaceOnUse" x="-200" y="-200" width="${W + 400}" height="${H + 400}"><rect x="-200" y="-200" width="${W + 400}" height="${H + 400}" fill="#fff"/><rect x="${wx}" y="${wy}" width="${ww}" height="${wh}" fill="#000"/>${torn ? holes.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="13" fill="#000"/>`).join("") : ""}</mask></defs>
+  <g transform="rotate(${rot.toFixed(2)} ${cx} ${cy})">
+    ${shadow("s", outline, sh, W, H)}
+    <g mask="url(#page)">
+      <path d="${outline}" fill="${paper}" filter="url(#g)"/>
+      <g stroke="${lineColor}" stroke-opacity="0.55" stroke-width="2">${lines}</g>
+      <g fill="${lineColor}" fill-opacity="0.7">${dots}</g>
+      ${margin}
+      ${torn ? "" : holes.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="13" fill="#1d1c1a" fill-opacity="0.85"/>`).join("")}
+      <path d="M${wx + 4},${wy + wh + 3}h${ww}v${-wh + 6}" fill="none" stroke="#000" stroke-opacity="0.25" stroke-width="8" filter="url(#pb)"/>
+    </g>
+    ${torn ? "" : holes.map(coil).join("")}
+    ${tape ? `<g transform="translate(${(wx + ww * range(r, 0.25, 0.75)).toFixed(1)} ${wy.toFixed(1)}) rotate(${range(r, -8, 8).toFixed(1)})"><rect x="${(-tw / 2).toFixed(1)}" y="-22" width="${tw.toFixed(1)}" height="44" fill="${pick(r, TAPES)}" fill-opacity="0.8" filter="url(#g)"/></g>` : ""}
+  </g>
+</svg>`;
+  // The window turns with the page.
+  return { svg, width: W, height: H, windows: [{ x: +(wx / W).toFixed(4), y: +(wy / H).toFixed(4), w: +(ww / W).toFixed(4), h: +(wh / H).toFixed(4), rotation: +rot.toFixed(2) }], info: { side, torn, paper: paperName, rule } };
+}
+
+KINDS.spiral = spiral;

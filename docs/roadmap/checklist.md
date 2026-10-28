@@ -424,7 +424,8 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
   - [ ] Chủ dự án duyệt: `node scripts/frames/generate.mjs explore <tornPhoto|tornPaper|film|polaroid> 40` → mở `assets/_review/frames/<kiểu>/index.html`; bỏ / thêm seed trong `scripts/frames/picks.json` rồi `generate.mjs build`
   - [x] Đợt 2: **84 khung** — 24 tem (răng cưa, chữ in, có lúc đóng dấu bưu điện), 24 khung tranh (gỗ sồi / óc chó / trắng / đen / mạ vàng / gỗ mộc, có hoặc không viền giấy), 20 trang album có góc dán ảnh (trang hơi nghiêng, ô ảnh nghiêng theo), 16 phong bì có ảnh thò ra
   - [x] Chủ dự án (2026-10-18): ảnh xé **không vuông vức** → gói "Ảnh xé" làm lại bằng bộ sinh **mảnh ảnh xé**: tứ giác méo, hình thang, xiên, 5–8 cạnh, tròn, mất góc theo đường chéo, dải dài; xé **1 cạnh tới mọi cạnh**; mép có chỗ **lẹm** vào, lõi giấy chỗ bong rộng chỗ gần như không có — 40 mảnh
-  - Tổng sinh tự động: **228 khung + 94 sticker + 40 nét vẽ tay**
+  - [x] Đợt 3 (2026-10-28): **40 khung** — 20 máy ảnh số (ảnh trên màn LCD, ký hiệu máy, dấu ngày cam), 20 trang sổ lò xo / trang xé khỏi sổ (D-140)
+  - Tổng sinh tự động: **268 khung + 94 sticker + 40 nét vẽ tay**
 - [ ] **C8** Ghép từng đợt của Gemini, e2e, merge, deploy
 - [x] **G6** Câu xem trước phông (125 VI, 125 EN, 35 JA / KO / ZH — đã dùng trong màn chọn phông), chữ mẫu 27 widget (Gemini, duyệt 2026-10-18)
 - [x] **G1** Script xử lý ảnh `process.mjs` + trang duyệt `review.mjs` (Gemini, duyệt 2026-10-18)
@@ -527,15 +528,18 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] M21 — Hiệu ứng đợt 3 (12) — đủ 48 hiệu ứng (D-125, e2e effects.mjs)
 - [x] Thư viện template: 22 → 98 mẫu, 5 nhóm mới, ảnh mẫu thật từ Pexels (D-135, e2e m18.mjs)
 - [ ] Chủ dự án duyệt bộ template mới + chốt D-135 (nhóm, font)
-- [ ] Template theo mùa tiếp theo (Giáng sinh, Tết) và cách đổi banner theo thời gian
+- [x] Template theo mùa tiếp theo (Giáng sinh 27, Tết 21, Năm mới 12) và cách đổi banner theo thời gian (lịch sự kiện D-136) (D-140)
 - [x] Next.js 16.4.0 → 16.4.3 (vá bảo mật)
 - [x] Trang chủ theo mùa / sự kiện (lịch 17 mục, Tết / Trung thu âm lịch; thử bằng `?today=`) (D-136, e2e m18.mjs)
 - [x] Template dùng khung / sticker thư viện, sticker vẽ tay, widget; +105 mẫu → 203; nhóm Giấy xé, Vẽ tay, Teen, Tình yêu, Retro (D-136, e2e m18.mjs)
 - [x] Chủ dự án chốt D-135, D-136 (2026-10-28)
 - [x] Hàng template cuộn ngang: mọi thẻ cùng chiều cao (story hẹp hơn thay vì cao hơn)
-- [ ] Thư viện khung: khung máy ảnh số, mép sổ lò xo (tham khảo sample/1)
+- [x] Thư viện khung: khung máy ảnh số (`gen-camera`, 20), sổ lò xo (`gen-notebook`, 20) (D-140)
 - [x] Thẻ carousel trong hàng ngang: dải dưới / mép phải kéo hàng, giữa thẻ lật slide (D-137, e2e m18.mjs)
 - [ ] Thử trên iPhone; cân nhắc "chuyền tiếp" ở slide cuối
 - [x] Lưới profile: số bài 2–24, xem trước như trang cá nhân IG, "Nối liền qua khe" có hình minh hoạ (D-138, e2e m6.mjs, m7.mjs)
 - [x] Trang chủ hết lag: dựng hàng khi cuộn tới, 10 thẻ / hàng + Xem tất cả, lưới tải theo đợt, bỏ blur trên thẻ (D-139)
 - [ ] Chủ dự án thử độ mượt trên iPhone; chốt D-139 (10 thẻ / hàng)
+- [x] Thư viện template 203 → 373: mọi nhóm ≥ 15 mẫu, lưới profile 3 × 3 kiểu mỗi ô một bài (D-140, e2e m18.mjs)
+- [x] Trang thử `/labs/templates`: xem mọi template theo nhóm / sự kiện
+- [ ] Chủ dự án duyệt mẫu mới trên điện thoại qua `/labs/templates`; chốt D-140

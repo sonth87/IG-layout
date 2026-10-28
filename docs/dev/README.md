@@ -78,6 +78,7 @@ src/
 public/sw.js           service worker (offline; chỉ "/" làm bản offline)
 public/labs/video.html trang thử nghiệm video M13 (độc lập, không thuộc app)
 src/app/labs/filters  trang thử filter v2 (/labs/filters — dùng chính bộ xử lý màu của app, không có link trong app); ảnh mẫu ở public/labs/filter-samples
+src/app/labs/templates  trang thử template (/labs/templates?cat=grid hoặc ?event=christmas — mọi template của trang chủ, cả dải carousel; không có link trong app)
 scripts/              copy-ort.mjs (runtime ONNX), build-emoji.mjs (sticker emoji) — chạy trong pnpm dev / build; đổi tên CACHE khi đổi chiến lược cache
 ```
 

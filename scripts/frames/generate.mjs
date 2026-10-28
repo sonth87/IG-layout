@@ -83,6 +83,17 @@ if (cmd === "explore") {
     const T = info.torn === info.sides ? ["torn all round", "xé quanh"] : [`${info.torn} torn side${info.torn > 1 ? "s" : ""}`, `xé ${info.torn} cạnh`];
     return { name: { en: `Torn photo${S[0]} (${T[0]})`, vi: `Ảnh xé${S[1]} (${T[1]})` }, tags: { en: ["torn", "ripped", "paper", "photo", info.shape], vi: ["xé", "ảnh xé", "giấy xé", S[1].trim() || "chữ nhật"] } };
   }
+  if (kind === "camera") {
+    const B = { silver: ["silver", "bạc"], black: ["black", "đen"], pink: ["pink", "hồng"], mint: ["mint", "xanh bạc hà"], white: ["white", "trắng"], lilac: ["lilac", "tím nhạt"], champagne: ["champagne", "vàng sâm panh"], blue: ["blue", "xanh dương"] }[info.body];
+    return { name: { en: `Digital camera, ${B[0]}${info.vertical ? ", upright" : ""}`, vi: `Máy ảnh số ${B[1]}${info.vertical ? " dọc" : ""}` }, tags: { en: ["camera", "digital camera", "digicam", "y2k", "screen", B[0], ...(info.date ? ["date stamp"] : [])], vi: ["máy ảnh", "máy ảnh số", "máy ảnh kỹ thuật số", "y2k", "màn hình", B[1], ...(info.date ? ["dấu ngày"] : [])] } };
+  }
+  if (kind === "spiral") {
+    const P = { white: ["white", "trắng"], cream: ["cream", "kem"], kraft: ["kraft", "kraft"], pink: ["pink", "hồng"], blue: ["blue", "xanh dương"], mint: ["mint", "xanh bạc hà"], grey: ["grey", "xám"] }[info.paper];
+    const R = { lined: ["lined", "kẻ dòng"], grid: ["grid", "ô ly"], dots: ["dotted", "chấm"], plain: ["plain", "trơn"] }[info.rule];
+    const en = info.torn ? `Torn-out notebook page, ${P[0]}` : `Spiral notebook, ${P[0]}`;
+    const vi = info.torn ? `Trang sổ xé ${P[1]}` : `Sổ lò xo ${P[1]}`;
+    return { name: { en: `${en} ${R[0]}`, vi: `${vi} ${R[1]}` }, tags: { en: ["notebook", "spiral", "page", "journal", "school", P[0], R[0], ...(info.torn ? ["torn"] : [])], vi: ["sổ", "sổ lò xo", "trang vở", "nhật ký", "trường học", P[1], R[1], ...(info.torn ? ["xé"] : [])] } };
+  }
   if (kind === "stamp") return { name: { en: "Postage stamp", vi: "Con tem" }, tags: { en: ["stamp", "postage", "perforated", "mail", ...(info.mark ? ["postmark"] : [])], vi: ["tem", "tem thư", "bưu chính", "răng cưa", ...(info.mark ? ["dấu bưu điện"] : [])] } };
   if (kind === "pictureFrame") {
     const Wd = { oak: ["Oak", "gỗ sồi"], walnut: ["Walnut", "gỗ óc chó"], white: ["White", "trắng"], black: ["Black", "đen"], gold: ["Gold", "vàng"], natural: ["Natural wood", "gỗ mộc"] }[info.wood];
