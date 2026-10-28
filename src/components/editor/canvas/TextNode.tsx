@@ -58,22 +58,20 @@ export function TextNode({ element: el, hooks }: { element: TextElement; hooks: 
       opacity={typing ? 0 : props.opacity}
       onDblTap={() => setEditingText(el.id)}
       onDblClick={() => setEditingText(el.id)}
-      // Live while resizing (no stretched text): a side bar changes the wrap width, a corner
-      // or the top / bottom bar the size of the letters (editor-v2/10 §6).
+      // Live while resizing (no stretched text): every handle sizes the letters with the box
+      // (owner, 2026-10-28; before, a side bar changed the wrap width — D-126). Line breaks
+      // stay where they are.
       onTransform={(e) => {
         const g = e.target as unknown as Konva.Group;
         const text = textRef.current;
         if (!text) return;
         const anchor = g.getStage()?.findOne<Konva.Transformer>("Transformer")?.getActiveAnchor() ?? "";
-        const side = anchor.includes("middle");
-        const k = side ? 1 : anchor.includes("center") ? g.scaleY() : g.scaleX();
-        const w = Math.max(20, side ? text.width() * g.scaleX() : text.width() * k);
-        if (!side) {
-          text.fontSize(text.fontSize() * k);
-          text.letterSpacing(text.letterSpacing() * k);
-          text.padding(text.padding() * k);
-          if (el.stroke) text.strokeWidth(text.strokeWidth() * k);
-        }
+        const k = anchor.includes("center") ? g.scaleY() : g.scaleX();
+        const w = Math.max(20, text.width() * k);
+        text.fontSize(text.fontSize() * k);
+        text.letterSpacing(text.letterSpacing() * k);
+        text.padding(text.padding() * k);
+        if (el.stroke) text.strokeWidth(text.strokeWidth() * k);
         text.width(w);
         g.scale({ x: 1, y: 1 });
         g.offset({ x: w / 2, y: text.height() / 2 });

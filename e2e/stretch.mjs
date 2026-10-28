@@ -1,5 +1,6 @@
 // Side handles (owner, 2026-10-20): a line of text keeps its side handles (moved outside a
-// short edge instead of hidden); a boarding pass stretched sideways gets a wider layout —
+// short edge instead of hidden) and they size the letters with the box (owner, 2026-10-28);
+// a boarding pass stretched sideways gets a wider layout —
 // same text size, the height follows — instead of scaling up.
 import { chromium } from "playwright-core";
 import path from "node:path";
@@ -53,7 +54,8 @@ if (right) {
   await page.waitForTimeout(300);
   st = await S();
   const t2 = st.doc.elements.find((e) => e.id === text.id);
-  check(t2.width > text.width + 20 && Math.abs(t2.fontSize - text.fontSize) < 0.01, `wider box, same letters (${Math.round(text.width)} → ${Math.round(t2.width)})`);
+  check(t2.width > text.width + 20 && t2.fontSize > text.fontSize * 1.05, `bigger box, bigger letters (${Math.round(text.fontSize)} → ${Math.round(t2.fontSize)})`);
+  check(Math.abs(t2.width / text.width - t2.fontSize / text.fontSize) < 0.02, "letters and box scale together (no re-wrap)");
 }
 
 console.log("A boarding pass stretched sideways");

@@ -547,3 +547,4 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] Chủ dự án thử chữ cắt báo trên điện thoại (kiểu nào xấu / thiếu, thanh trượt có dễ hiểu không)
 - [x] Chữ cắt báo bản 2: 30 kiểu, kiểu cổ điển như SCRL, phông thư viện, chất liệu giấy, xé nhiều kiểu; bỏ giấy cháy (D-142)
 - [ ] Cân nhắc "Cụm chữ có sẵn" cho chữ cắt báo (như SCRL Cutout Phrases)
+- [x] Kéo khung chữ: mọi tay nắm co giãn chữ (chữ thường + chữ cắt báo, hiện trực tiếp) (D-143, e2e stretch.mjs, cutout.mjs)

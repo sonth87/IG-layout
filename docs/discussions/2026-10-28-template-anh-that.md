@@ -213,3 +213,15 @@ Mỗi kiểu có: bộ phông (4–8 phông trong 78 phông sẵn có, đều c�
 
 **Gợi ý tiếp (chưa làm):** SCRL có danh sách **cụm chữ có sẵn** (thứ, tháng, mùa, quốc gia, gia đình…) — mình có thể thêm "Cụm chữ" trong bảng Chữ cắt báo / thư viện: chạm là thêm chữ cắt, vẫn sửa được.
 
+---
+
+## Đợt 7 — kéo khung chữ thì chữ to nhỏ theo
+
+**Chủ dự án:** kéo khung text thì text không tự to nhỏ theo (nói về khối chữ chung; chữ cắt báo làm theo cùng hướng).
+
+**Kiểm tra (chuột, bản build):** góc và thanh trên / dưới đã làm chữ to nhỏ (thanh trên / dưới rất nhạy vì khung một dòng chỉ cao ~15 px trên điện thoại); **thanh hai bên chỉ đổi bề rộng dòng** (D-126) — chữ xuống dòng lại nhưng giữ cỡ, đó là chỗ thấy "không to nhỏ theo". Chữ cắt báo thì khi kéo bị giãn méo, thanh trên / dưới không có tác dụng.
+
+**Chốt (D-143):** mọi tay nắm đều co giãn chữ cùng khung, hiện trực tiếp, giữ chỗ xuống dòng. Chữ cắt báo: xếp lại các mẩu ngay trong lúc kéo (không giãn méo).
+
+e2e: `stretch.mjs` (tay nắm bên → chữ to theo, cùng tỉ lệ khung), `cutout.mjs` (3b).
+
