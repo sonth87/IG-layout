@@ -525,3 +525,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Widget: Màu chữ (tự đen / trắng theo màu thẻ, hoặc tự chọn); kiểu không thẻ / chất liệu riêng không có Màu thẻ (D-130, e2e colors.mjs)
 - [ ] Hiệu ứng: kéo tâm / mép trực tiếp trên canvas
 - [x] M21 — Hiệu ứng đợt 3 (12) — đủ 48 hiệu ứng (D-125, e2e effects.mjs)
+- [x] Thư viện template: 22 → 98 mẫu, 5 nhóm mới, ảnh mẫu thật từ Pexels (D-135, e2e m18.mjs)
+- [ ] Chủ dự án duyệt bộ template mới + chốt D-135 (nhóm, font)
+- [ ] Template theo mùa tiếp theo (Giáng sinh, Tết) và cách đổi banner theo thời gian

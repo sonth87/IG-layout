@@ -55,3 +55,8 @@ public/emoji/
 
 # Generated at build (scripts/build-licenses.mjs)
 /public/licenses.txt
+
+/sample
+
+# SCRL reference screenshots (owner, large)
+/sample/

@@ -37,5 +37,13 @@ if (existsSync(catalog)) {
   }
 }
 
+// Sample photos of the template previews (Pexels licence: no credit required, given anyway).
+const samples = path.join(root, "src", "lib", "templates", "samplePhotos.json");
+if (existsSync(samples)) {
+  out.push("=".repeat(72), "Template sample photos — Pexels License (https://www.pexels.com/license/)", "");
+  for (const p of JSON.parse(readFileSync(samples, "utf8"))) out.push(`${p.author} — ${p.url}`);
+  out.push("");
+}
+
 writeFileSync(path.join(root, "public", "licenses.txt"), out.join("\n") + "\n");
 console.log(`licenses.txt: ${names.length} packages, ${builtin.length + fonts.length} fonts`);

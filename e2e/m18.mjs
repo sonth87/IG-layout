@@ -91,18 +91,18 @@ await banners.evaluate((e) => e.scrollTo({ left: e.clientWidth }));
 await page.waitForTimeout(500);
 check((await page.locator("section span.w-5.bg-white").count()) === 1, "banners swipe sideways, the dots follow");
 await page.getByRole("button", { name: "Explore now" }).nth(1).click();
-check(await page.getByRole("heading", { name: "Story", exact: true }).isVisible(), "“Explore now” opens that group");
+check(await page.getByRole("heading", { name: "Postcards from", exact: true, level: 1 }).isVisible(), "“Explore now” opens that group");
 await back();
 // Group strip slides sideways without scrolling the page.
-const strip = page.getByRole("region", { name: "Carousel" }).locator(".overflow-x-auto").first();
+const strip = page.getByRole("region", { name: "Everyday" }).locator(".overflow-x-auto").first();
 const pageTop = await page.locator("main > div.overflow-y-auto").evaluate((e) => e.scrollTop);
 await strip.evaluate((e) => (e.scrollLeft = 200));
 check((await strip.evaluate((e) => e.scrollLeft)) > 100 && (await page.locator("main > div.overflow-y-auto").evaluate((e) => e.scrollTop)) === pageTop, "a group strip scrolls sideways");
-await page.getByRole("region", { name: "Carousel" }).getByRole("button", { name: /Carousel/ }).click();
-check(await page.getByRole("heading", { name: "Carousel", exact: true }).isVisible(), "group title → full group grid");
+await page.getByRole("region", { name: "Everyday" }).getByRole("button", { name: /Everyday/ }).click();
+check(await page.getByRole("heading", { name: "Everyday", exact: true }).isVisible(), "group title → full group grid");
 await back();
 // Like without opening.
-const card = page.getByRole("region", { name: "Carousel" }).getByRole("button", { name: "Like" }).first();
+const card = page.getByRole("region", { name: "Everyday" }).getByRole("button", { name: "Like" }).first();
 await card.click();
 check((await page.getByRole("button", { name: "Unlike" }).count()) >= 1 && !(await page.getByRole("heading", { name: "Template", exact: true }).isVisible()), "♡ likes it without opening it");
 await page.getByRole("button", { name: "Liked" }).click();
@@ -110,7 +110,7 @@ check((await page.getByRole("button", { name: "Unlike" }).count()) >= 1, "the li
 await back();
 
 // A carousel card swipes through its slides (owner, 2026-10-17).
-const strip0 = page.getByRole("region", { name: "Carousel" }).locator(".snap-mandatory").first();
+const strip0 = page.getByRole("region", { name: "Everyday" }).locator(".snap-mandatory").first();
 await strip0.evaluate((e) => e.scrollTo({ left: e.clientWidth }));
 await page.waitForTimeout(400);
 check((await strip0.evaluate((e) => e.scrollLeft)) > 50, "a carousel template card swipes to its next slide");
