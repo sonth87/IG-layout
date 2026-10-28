@@ -10,6 +10,9 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 ### Phạm vi tính năng
 - **Q-08.** Template layout: tự thiết kế, hay để người dùng tự tạo và lưu template?
 
+### Chữ cắt báo (2026-10-28 — [2026-10-28-template-anh-that.md](../discussions/2026-10-28-template-anh-that.md), đợt 6)
+- **Q-T1.** Có làm "Chữ cắt báo" thành một kiểu chữ trong công cụ Text (một phần tử, gõ được, nút Xáo) không? Nếu có: mức tuỳ chỉnh nào (bảng màu / bộ phông), và có thêm nhiều template dùng kiểu này không?
+
 ### Filter v2 (2026-10-20 — [2026-10-20-filter-v2.md](../discussions/2026-10-20-filter-v2.md))
 - **Q-F5.** Chủ dự án gửi 5–8 ảnh mẫu chỉnh bằng VSCO (thêm thẳng vào trang thử `/labs/filters`, ô "Ảnh đối chiếu") — đã đồng ý, chờ ảnh.
 - **Q-F6.** "Áp dụng cho tất cả ảnh" có áp cả Film FX / máy ảnh không? (Đã làm theo hướng có — D-133 đề xuất.)

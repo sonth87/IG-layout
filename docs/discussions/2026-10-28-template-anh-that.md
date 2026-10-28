@@ -138,3 +138,13 @@ Khi thư viện lớn, tìm "birthday" khớp cả mô tả nhóm Dịp đặc b
 - Khung máy ảnh số có chữ "DIGITAL" trên thân máy và ký hiệu màn hình bằng tiếng Anh (MENU, DISP, AUTO) — giống máy thật; đổi nếu chủ dự án muốn.
 - Template theo **năm cụ thể** (2027, "Tết 2027") cần cập nhật khi sang năm.
 
+---
+
+## Đợt 6 — chữ cắt báo (ransom) chưa có trong editor
+
+**Chủ dự án:** mẫu "Sinh nhật chữ cắt" có phần chữ ghép từ mẩu báo cắt — hình như app chưa có gì kiểu này?
+
+**Đúng.** Chữ "HAPPY BIRTHDAY" trong mẫu là **15 phần tử chữ riêng lẻ** (mỗi chữ cái một khối: phông, nền, góc xoay riêng), dựng bằng hàm `ransom()` trong `designs/kit.ts`. Trong editor không có kiểu chữ này; dùng template xong muốn đổi chữ thì phải sửa / thêm / xoá từng chữ cái. Hiện chỉ 1 template dùng.
+
+**Đề xuất (chờ chủ dự án chọn, Q-T1):** thêm kiểu **"Chữ cắt báo"** cho phần tử chữ — gõ cả câu như chữ thường, mỗi ký tự tự nhận phông / màu nền / góc xoay / lệch dòng khác nhau theo seed, nút **Xáo** để đổi ngẫu nhiên, vài bộ màu (báo cũ, pastel, đen trắng, neon); xuất ảnh đúng như trên canvas. Sau đó thêm template dùng kiểu này (sinh nhật, tạp chí, teen, retro). Trước khi thiết kế giao diện sẽ tham khảo cách các app khác làm.
+
