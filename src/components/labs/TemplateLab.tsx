@@ -7,8 +7,7 @@ import { DESIGNS } from "@/lib/templates/designs";
 import { samplePhotosFor } from "@/lib/templates/samples";
 import { EVENTS, type EventId } from "@/lib/templates/seasons";
 import type { CutoutText } from "@/lib/project/types";
-import { CUTOUT_STYLES, cutoutFonts, cutoutLayout, cutoutStyle, DEFAULT_CUTOUT, drawCutout } from "@/lib/text/cutout";
-import { loadFont } from "@/lib/text/fonts";
+import { CUTOUT_STYLES, loadCutoutFonts, cutoutLayout, cutoutStyle, DEFAULT_CUTOUT, drawCutout } from "@/lib/text/cutout";
 import { DEFAULT_OPTIONS, TEMPLATE_CATEGORIES, type Template, type TemplateCategory } from "@/lib/templates/types";
 import { useSettings, useT } from "@/store/settings";
 
@@ -45,7 +44,7 @@ function CutoutSample({ text, cutout }: { text: string; cutout: CutoutText }) {
   useEffect(() => {
     let alive = true;
     void import("@/lib/text/webfonts")
-      .then(() => Promise.all(cutoutFonts(cutoutStyle(cutout.style)).map((f) => loadFont(f.font, f.weight))))
+      .then(() => loadCutoutFonts(cutoutStyle(cutout.style)))
       .then(() => alive && setReady((n) => n + 1));
     return () => {
       alive = false;

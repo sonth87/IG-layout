@@ -197,3 +197,19 @@ Mỗi kiểu có: bộ phông (4–8 phông trong 78 phông sẵn có, đều c�
 - Chữ cắt báo chưa có hiệu ứng "gõ từng chữ" khi làm video (chữ hiện cả khối).
 - Khi sửa chữ, các chữ đã "xáo riêng" có thể đổi chỗ (chỉ số mẩu thay đổi theo chữ).
 
+### Bản 2 — đa dạng hơn, đẹp như SCRL (chủ dự án, cùng ngày)
+**Góp ý:** phông, màu nền, màu chữ chưa đa dạng (báo cũ chỉ có đen + vàng ngà); cần chất liệu giấy: nhàu, xé nhiều kiểu tự nhiên, ố, giấy cũ nhiều màu; phông đa dạng: La Mã, kiểu New York Times, đánh máy… Sau đó: ảnh SCRL "Cutout Phrases" (`sample/2`) đẹp hơn — mình hơn ở chỗ sửa chữ và xáo được, nhưng độ đẹp chưa bằng. **Bỏ kiểu giấy cháy** (xấu).
+
+**Vì sao SCRL đẹp hơn (quan sát):** mẩu giấy xếp **sát / chồng nhau**, gần như **không nghiêng**; mẩu **ôm sát chữ** (cao đúng bằng phần mực của chữ), chữ đứng **chung đường chân chữ**; bảng màu **tiết chế** (giấy trắng ngà / xám + mực đen, điểm đỏ gạch, vàng mù tạt, ít xanh); phông **đậm** (serif kiểu Clarendon / Bodoni, slab, grotesque); cảm giác **giấy in thật** (hạt giấy, mực hơi loang), bóng gần như không có.
+
+**Đã làm:**
+- Dữ liệu kiểu tách ra `src/lib/text/cutoutStyles.ts`; **30 kiểu** (bỏ "giấy cháy" và hiệu ứng cháy). Mới: **Cắt dán cổ điển** (mặc định, theo nguyên tắc trên), Nhật báo (tên báo chữ gothic), Thư cũ, Giấy nhàu, La Mã, Áp phích đường phố, Nhãn cổ điển, Điểm ảnh.
+- **Phông:** mỗi kiểu 10–20 phông theo nhóm: gothic tên báo (Fruktur, Grenze Gotisch, Pirata One), serif cổ (Playfair, Bodoni, EB Garamond, Newsreader, Literata, Crimson, Vollkorn…), La Mã (Gideon Roman, Luxurious Roman, Viaoda Libre, Cinzel Decorative, IM Fell…), slab, chữ hẹp, đánh máy (Special Elite, Space Mono, VT323…), display, viết tay, script, bo tròn, cọ, stencil, pixel. Lấy được phông **thư viện** (`c:<id>`) mà không phải tải cả danh mục: `scripts/build-template-art.mjs` chép file phông cần dùng vào `src/lib/text/cutoutFonts.json` (49 phông). Phông không có dấu tiếng Việt chỉ dùng cho chữ không dấu.
+- **Màu:** bảng màu sinh từ các tông giấy (ố vàng, giấy báo xám, hồng cá hồi, sepia, trắng, kraft, xanh nhạt…) × màu mực (đen, nâu, xanh đen, đỏ sẫm…) + mẩu nền tối chữ sáng.
+- **Hình mẩu:** cắt kéo (4 cạnh xiên nhẹ), xé mảnh, xé lởm chởm (lộ lõi giấy trắng ở mép xé), xé một / hai cạnh, mép giấy thủ công; giữ các hình cũ.
+- **Chất liệu giấy** (mỗi kiểu một tỉ lệ xuất hiện): hạt giấy, nhàu (mảng sáng tối mềm + nếp gãy khúc), nếp gấp, ố vàng mép, vết cà phê / loang, đốm mốc, ánh sáng chiếu nghiêng; **mực in loang** (lỗ mực nhỏ trên chữ) cho các kiểu báo / đánh máy.
+- **Xếp chữ:** mẩu cắt / xé **cao theo phần mực của chữ** (đo thật, gồm dấu), chữ canh **chung đường chân chữ**; mỗi kiểu có khoảng cách (âm = chồng nhau), độ nghiêng tối đa, đệm riêng. Mặc định: Lộn xộn 40, Biên độ 20.
+- Template "Giấy cháy mép" đổi thành "Trang cũ" (kiểu cổ điển); +6 mẫu dùng kiểu mới (Trang nhất, Thư tình xưa, Kỳ nghỉ La Mã, Áp phích phố, Nhãn cổ điển…) → nhóm "Chữ cắt báo" 18 mẫu.
+
+**Gợi ý tiếp (chưa làm):** SCRL có danh sách **cụm chữ có sẵn** (thứ, tháng, mùa, quốc gia, gia đình…) — mình có thể thêm "Cụm chữ" trong bảng Chữ cắt báo / thư viện: chạm là thêm chữ cắt, vẫn sửa được.
+

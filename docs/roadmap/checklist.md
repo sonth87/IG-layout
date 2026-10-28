@@ -545,4 +545,5 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] Chủ dự án duyệt mẫu mới trên điện thoại qua `/labs/templates`; chốt D-140
 - [x] Chữ cắt báo: kiểu của phần tử chữ, 22 kiểu, Xáo, chữ cái / từ, lộn xộn / biên độ / độ cong, chạm một chữ để xáo riêng; nhóm template "Chữ cắt báo" 12 mẫu; trang thử `?cutout=1` (D-141, e2e cutout.mjs)
 - [ ] Chủ dự án thử chữ cắt báo trên điện thoại (kiểu nào xấu / thiếu, thanh trượt có dễ hiểu không)
-
+- [x] Chữ cắt báo bản 2: 30 kiểu, kiểu cổ điển như SCRL, phông thư viện, chất liệu giấy, xé nhiều kiểu; bỏ giấy cháy (D-142)
+- [ ] Cân nhắc "Cụm chữ có sẵn" cho chữ cắt báo (như SCRL Cutout Phrases)

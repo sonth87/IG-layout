@@ -4,8 +4,7 @@ import type Konva from "konva";
 import { useEffect, useMemo, useState } from "react";
 import { Group, Shape } from "react-konva";
 import type { CutoutText, TextElement } from "@/lib/project/types";
-import { cutoutFonts, cutoutLayout, cutoutStyle, drawCutout, drawnLayouts } from "@/lib/text/cutout";
-import { loadFont } from "@/lib/text/fonts";
+import { loadCutoutFonts, cutoutLayout, cutoutStyle, drawCutout, drawnLayouts } from "@/lib/text/cutout";
 import { scaleExtras } from "@/lib/elements/resize";
 import { useEditor } from "@/store/editor";
 import { useFx } from "./useFx";
@@ -27,7 +26,7 @@ export function CutoutTextNode({ element: el, hooks }: { element: TextElement & 
   // Measure again once the style's fonts are loaded.
   useEffect(() => {
     let alive = true;
-    void Promise.all(cutoutFonts(style).map((f) => loadFont(f.font, f.weight))).then(() => alive && setFontsReady((n) => n + 1));
+    void loadCutoutFonts(style).then(() => alive && setFontsReady((n) => n + 1));
     return () => {
       alive = false;
     };

@@ -58,3 +58,19 @@ for (const id of [...ids].sort()) {
 writeFileSync(out, JSON.stringify(art) + "\n");
 if (missing.length) console.warn(`template art: not in the packs: ${missing.join(", ")}`);
 console.log(`template art: ${Object.keys(art).length} pictures`);
+
+// Catalog fonts of the cut-out letter styles (D-141): their files, so the editor and the home
+// previews declare just these instead of loading the whole catalog.
+const cutoutSrc = readFileSync(path.join(root, "src", "lib", "text", "cutoutStyles.ts"), "utf8");
+const fontIds = [...new Set([...cutoutSrc.matchAll(/"c:([a-z0-9-]+)"/g)].map((m) => m[1]))].sort();
+const fonts = {};
+for (const id of fontIds) {
+  const f = catalog.fonts.find((x) => x.id === id);
+  if (!f) {
+    console.warn(`cut-out fonts: not in the catalog: ${id}`);
+    continue;
+  }
+  fonts[id] = { vi: f.languages.includes("vietnamese"), files: f.files.map(({ weight, file, unicodeRange }) => ({ weight, file, unicodeRange })) };
+}
+writeFileSync(path.join(root, "src", "lib", "text", "cutoutFonts.json"), JSON.stringify(fonts) + "\n");
+console.log(`cut-out fonts: ${Object.keys(fonts).length} catalog fonts`);

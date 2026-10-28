@@ -57,7 +57,7 @@ src/
     project/migrate.ts    nâng cấp dữ liệu project cũ
     templates/          types, library (layout cho LayoutPicker), designs/ (template thiết kế sẵn cho trang chủ, mỗi nhóm một file, hàm dựng chung ở kit.ts; khung / sticker thư viện dùng trong template được trích vào packArt.json bằng scripts/build-template-art.mjs), seasons (lịch mùa / sự kiện cho trang chủ; thử ngày khác bằng `?today=YYYY-MM-DD`), widgetSpec (widget trong template, nạp lười), samples (ảnh mẫu theo chủ đề cho ô xem trước — public/samples, tải bằng `node --env-file=.env.local scripts/fetch-samples.mjs`, cần PEXELS_API_KEY trong .env.local), apply (template → phần tử)
     color/              params (thông số màu), filters (danh sách filter + công thức filter v2), lut (công thức → bảng tra màu 3D), processor (WebGL + cache), filmfx (Film FX: lớp phủ + dấu ngày + máy ảnh retro)
-    text/cutout.ts      chữ cắt báo (D-141): kiểu, xếp chữ, hàm vẽ dùng chung (canvas Konva, xuất ảnh, xem trước template)
+    text/cutout.ts      chữ cắt báo (D-141, D-142): xếp chữ, hàm vẽ dùng chung (canvas Konva, xuất ảnh, xem trước template); kiểu ở text/cutoutStyles.ts, phông thư viện dùng tới ở text/cutoutFonts.json (sinh bởi scripts/build-template-art.mjs)
     text/fonts.ts       danh sách 78 font (nhóm, độ đậm) + chờ font tải; text/webfonts.ts khai báo next/font (đi cùng trình chỉnh sửa)
     elements/           create (tạo chữ / hình / icon / sticker / lớp phủ / khung), stickers (SVG tự vẽ), overlays (lớp phủ sinh bằng code), resize (co giãn cỡ chữ, viền theo tỉ lệ), shapes (vẽ hình), icons (Lucide)
   app/fonts.ts          khai báo 6 font (next/font), dùng chung cho giao diện và canvas

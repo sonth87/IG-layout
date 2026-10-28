@@ -6,8 +6,8 @@ import { canvasSize, slideRect } from "@/lib/project/layout";
 import { type AspectRatio, type CanvasElement, type CutoutText, type TextElement, frameColor, stillUrl, type ImageAsset, type ImageElement, type ProjectDoc, type ProjectType } from "@/lib/project/types";
 import { applyTemplate, PACK_ART } from "@/lib/templates/apply";
 import type { Template, TemplateOptions } from "@/lib/templates/types";
-import { cutoutFonts, cutoutLayout, cutoutStyle, drawCutout } from "@/lib/text/cutout";
-import { fontInfo, fontWeight, loadFont } from "@/lib/text/fonts";
+import { loadCutoutFonts, cutoutLayout, cutoutStyle, drawCutout } from "@/lib/text/cutout";
+import { fontInfo, fontWeight } from "@/lib/text/fonts";
 import { useSettings } from "@/store/settings";
 
 /** Cut-out letters (D-141) drawn on a small canvas with the editor's own drawing. */
@@ -18,7 +18,7 @@ function CutoutPreview({ el, k }: { el: TextElement & { cutout: CutoutText }; k:
     let alive = true;
     // The home screen declares only a few fonts: the editor's font declarations come first.
     void import("@/lib/text/webfonts")
-      .then(() => Promise.all(cutoutFonts(cutoutStyle(el.cutout.style)).map((f) => loadFont(f.font, f.weight))))
+      .then(() => loadCutoutFonts(cutoutStyle(el.cutout.style)))
       .then(() => alive && setReady((n) => n + 1));
     return () => {
       alive = false;
