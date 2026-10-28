@@ -10,7 +10,7 @@ import { patchElement } from "@/lib/project/position";
 import { relayout } from "@/lib/templates/blockLayout";
 import { canvasSize, GRID_COLS } from "@/lib/project/layout";
 import { changeRatio, deleteSlide, duplicateSlide, insertSlide, moveSlide, moveSlideTo, setGridGap, setGridRows } from "@/lib/project/slides";
-import { addFrameBlock, addLayoutBlock, addLayoutSlide, applyTemplate, templateSlides } from "@/lib/templates/apply";
+import { addFrameBlock, addLayoutBlock, addLayoutSlide, applyTemplate, templateExtras, templateSlides } from "@/lib/templates/apply";
 import { slideLayoutById } from "@/lib/templates/slideLayouts";
 import { DEFAULT_OPTIONS, type Template, type TemplateOptions } from "@/lib/templates/types";
 import {
@@ -304,7 +304,9 @@ export const useEditor = create<EditorState>()((set, get) => {
       await get().createProject({ type: d.type, ratio: d.ratio, slideCount, name });
       const doc = get().doc;
       if (!doc) return;
-      set({ doc: applyTemplate(doc, tpl, [], DEFAULT_OPTIONS, useSettings.getState().locale) });
+      const extras = await templateExtras(tpl);
+      storeAssets(Object.values(extras.art ?? {}));
+      set({ doc: applyTemplate(doc, tpl, [], DEFAULT_OPTIONS, useSettings.getState().locale, extras) });
     },
     openProject: async (id) => {
       const loaded = await loadProject(id);

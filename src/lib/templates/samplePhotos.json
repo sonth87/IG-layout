@@ -1350,6 +1350,16 @@
   "url": "https://www.pexels.com/photo/elegant-bridal-accessories-with-pearl-detailing-37459907/"
  },
  {
+  "id": "fashion-7",
+  "theme": "fashion",
+  "width": 540,
+  "height": 720,
+  "color": "#7F756E",
+  "pexels": 6617903,
+  "author": "Stephen Audu",
+  "url": "https://www.pexels.com/photo/person-holding-black-leather-handbag-6617903/"
+ },
+ {
   "id": "fashion-8",
   "theme": "fashion",
   "width": 720,
@@ -1378,5 +1388,825 @@
   "pexels": 8989582,
   "author": "Alena Darmel",
   "url": "https://www.pexels.com/photo/person-wearing-chain-bracelet-holding-bag-8989582/"
+ },
+ {
+  "id": "winter-1",
+  "theme": "winter",
+  "width": 480,
+  "height": 720,
+  "color": "#A3B9C7",
+  "pexels": 14480237,
+  "author": "Darya Grey_Owl",
+  "url": "https://www.pexels.com/photo/woman-in-white-winter-coat-standing-near-bare-tree-covered-with-snow-14480237/"
+ },
+ {
+  "id": "winter-2",
+  "theme": "winter",
+  "width": 480,
+  "height": 720,
+  "color": "#65605A",
+  "pexels": 35594208,
+  "author": "Tatyana Doloman",
+  "url": "https://www.pexels.com/photo/winter-portrait-of-woman-in-snowy-pine-forest-35594208/"
+ },
+ {
+  "id": "winter-3",
+  "theme": "winter",
+  "width": 404,
+  "height": 720,
+  "color": "#A5CED0",
+  "pexels": 11250672,
+  "author": "Misho chachanidze",
+  "url": "https://www.pexels.com/photo/woman-wrapped-in-checkered-shawl-in-winter-11250672/"
+ },
+ {
+  "id": "winter-4",
+  "theme": "winter",
+  "width": 480,
+  "height": 720,
+  "color": "#776B79",
+  "pexels": 31694604,
+  "author": "Elvir Novruzov",
+  "url": "https://www.pexels.com/photo/stylish-woman-with-umbrella-in-snowy-winter-park-31694604/"
+ },
+ {
+  "id": "winter-5",
+  "theme": "winter",
+  "width": 720,
+  "height": 481,
+  "color": "#CFCECE",
+  "pexels": 6712137,
+  "author": "Pavel Danilyuk",
+  "url": "https://www.pexels.com/photo/a-woman-wearing-winter-clothes-standing-on-the-snow-covered-ground-6712137/"
+ },
+ {
+  "id": "winter-6",
+  "theme": "winter",
+  "width": 480,
+  "height": 720,
+  "color": "#736258",
+  "pexels": 14642651,
+  "author": "Nati",
+  "url": "https://www.pexels.com/photo/a-close-up-shot-of-a-knitted-clothing-14642651/"
+ },
+ {
+  "id": "winter-7",
+  "theme": "winter",
+  "width": 542,
+  "height": 720,
+  "color": "#88393E",
+  "pexels": 14673793,
+  "author": "Eugene Golovesov",
+  "url": "https://www.pexels.com/photo/christmas-sweaters-in-close-up-shot-14673793/"
+ },
+ {
+  "id": "winter-8",
+  "theme": "winter",
+  "width": 720,
+  "height": 480,
+  "color": "#B4ADA5",
+  "pexels": 6630848,
+  "author": "Polina Tankilevitch",
+  "url": "https://www.pexels.com/photo/a-person-in-white-knitted-long-sleeves-6630848/"
+ },
+ {
+  "id": "winter-9",
+  "theme": "winter",
+  "width": 720,
+  "height": 481,
+  "color": "#9B8A7D",
+  "pexels": 5788366,
+  "author": "Pavel Danilyuk",
+  "url": "https://www.pexels.com/photo/close-up-shot-of-knitted-blankets-5788366/"
+ },
+ {
+  "id": "winter-10",
+  "theme": "winter",
+  "width": 480,
+  "height": 720,
+  "color": "#9D9B9A",
+  "pexels": 5475173,
+  "author": "Tijana Drndarski",
+  "url": "https://www.pexels.com/photo/close-up-shot-of-knitted-sweaters-on-white-surface-5475173/"
+ },
+ {
+  "id": "christmas-1",
+  "theme": "christmas",
+  "width": 576,
+  "height": 720,
+  "color": "#905D32",
+  "pexels": 29926019,
+  "author": "Radis B",
+  "url": "https://www.pexels.com/photo/29926019/"
+ },
+ {
+  "id": "christmas-2",
+  "theme": "christmas",
+  "width": 481,
+  "height": 720,
+  "color": "#2D2814",
+  "pexels": 29407651,
+  "author": "Italo Melo",
+  "url": "https://www.pexels.com/photo/festive-pine-tree-with-warm-glowing-lights-29407651/"
+ },
+ {
+  "id": "christmas-3",
+  "theme": "christmas",
+  "width": 480,
+  "height": 720,
+  "color": "#958668",
+  "pexels": 6117267,
+  "author": "Vladislav Murashko",
+  "url": "https://www.pexels.com/photo/christmas-lights-on-christmas-tree-6117267/"
+ },
+ {
+  "id": "christmas-4",
+  "theme": "christmas",
+  "width": 720,
+  "height": 477,
+  "color": "#251938",
+  "pexels": 752484,
+  "author": "Jonathan Meyer",
+  "url": "https://www.pexels.com/photo/assorted-color-string-lights-752484/"
+ },
+ {
+  "id": "christmas-5",
+  "theme": "christmas",
+  "width": 480,
+  "height": 720,
+  "color": "#473F35",
+  "pexels": 724375,
+  "author": "Burak The Weekender",
+  "url": "https://www.pexels.com/photo/green-and-gold-colored-lighted-christmas-tree-724375/"
+ },
+ {
+  "id": "christmas-6",
+  "theme": "christmas",
+  "width": 720,
+  "height": 480,
+  "color": "#8A7773",
+  "pexels": 6113585,
+  "author": "Julia Larson",
+  "url": "https://www.pexels.com/photo/ethnic-women-exchanging-presents-for-christmas-holidays-6113585/"
+ },
+ {
+  "id": "christmas-7",
+  "theme": "christmas",
+  "width": 720,
+  "height": 480,
+  "color": "#A29287",
+  "pexels": 5469708,
+  "author": "https://kaboompics.com/",
+  "url": "https://www.pexels.com/photo/friends-exchanging-christmas-gifts-at-dinner-5469708/"
+ },
+ {
+  "id": "christmas-8",
+  "theme": "christmas",
+  "width": 480,
+  "height": 720,
+  "color": "#938F87",
+  "pexels": 6245928,
+  "author": "olia danilevich",
+  "url": "https://www.pexels.com/photo/photo-of-a-woman-giving-a-present-to-another-woman-6245928/"
+ },
+ {
+  "id": "christmas-9",
+  "theme": "christmas",
+  "width": 480,
+  "height": 720,
+  "color": "#5C4A40",
+  "pexels": 35376955,
+  "author": "Donald Simanjuntak",
+  "url": "https://www.pexels.com/photo/festive-christmas-celebration-with-friends-35376955/"
+ },
+ {
+  "id": "christmas-10",
+  "theme": "christmas",
+  "width": 720,
+  "height": 480,
+  "color": "#867A6E",
+  "pexels": 35359068,
+  "author": "Daniel Lee",
+  "url": "https://www.pexels.com/photo/festive-christmas-celebration-at-a-cafe-35359068/"
+ },
+ {
+  "id": "lunar-1",
+  "theme": "lunar",
+  "width": 540,
+  "height": 720,
+  "color": "#602419",
+  "pexels": 35138538,
+  "author": "Stacey Koenitz",
+  "url": "https://www.pexels.com/photo/vibrant-red-lanterns-at-night-festival-35138538/"
+ },
+ {
+  "id": "lunar-2",
+  "theme": "lunar",
+  "width": 480,
+  "height": 720,
+  "color": "#AF3B22",
+  "pexels": 36092984,
+  "author": "Lily  Lili",
+  "url": "https://www.pexels.com/photo/vibrant-red-chinese-lanterns-for-festive-celebrations-36092984/"
+ },
+ {
+  "id": "lunar-3",
+  "theme": "lunar",
+  "width": 720,
+  "height": 480,
+  "color": "#9C1E12",
+  "pexels": 15838282,
+  "author": "pipop kunachon",
+  "url": "https://www.pexels.com/photo/close-up-of-red-traditional-lanterns-15838282/"
+ },
+ {
+  "id": "lunar-4",
+  "theme": "lunar",
+  "width": 480,
+  "height": 720,
+  "color": "#63343E",
+  "pexels": 15459980,
+  "author": "Matteo Basile",
+  "url": "https://www.pexels.com/photo/photo-of-hanging-lanterns-15459980/"
+ },
+ {
+  "id": "lunar-5",
+  "theme": "lunar",
+  "width": 481,
+  "height": 720,
+  "color": "#9E6A42",
+  "pexels": 33603005,
+  "author": "Felix Young",
+  "url": "https://www.pexels.com/photo/woman-in-red-ao-dai-with-conical-hat-outdoors-33603005/"
+ },
+ {
+  "id": "lunar-6",
+  "theme": "lunar",
+  "width": 480,
+  "height": 720,
+  "color": "#CCA39D",
+  "pexels": 19271514,
+  "author": "Tuấn Kiệt Jr.",
+  "url": "https://www.pexels.com/photo/woman-posing-in-a-traditional-long-red-dress-19271514/"
+ },
+ {
+  "id": "lunar-7",
+  "theme": "lunar",
+  "width": 423,
+  "height": 720,
+  "color": "#413F40",
+  "pexels": 29435486,
+  "author": "Võ Văn Tiến",
+  "url": "https://www.pexels.com/photo/elegant-woman-in-traditional-ao-dai-attire-29435486/"
+ },
+ {
+  "id": "lunar-8",
+  "theme": "lunar",
+  "width": 480,
+  "height": 720,
+  "color": "#854A42",
+  "pexels": 38540927,
+  "author": "Hufoto",
+  "url": "https://www.pexels.com/photo/woman-in-red-ao-dai-standing-outdoors-38540927/"
+ },
+ {
+  "id": "lunar-9",
+  "theme": "lunar",
+  "width": 720,
+  "height": 480,
+  "color": "#683B26",
+  "pexels": 39605793,
+  "author": "Đạt Nguyễn",
+  "url": "https://www.pexels.com/photo/vibrant-lanterns-at-mid-autumn-festival-market-39605793/"
+ },
+ {
+  "id": "lunar-10",
+  "theme": "lunar",
+  "width": 617,
+  "height": 720,
+  "color": "#AA5A53",
+  "pexels": 15359793,
+  "author": "Cz Jen",
+  "url": "https://www.pexels.com/photo/colorful-chinese-decorations-15359793/"
+ },
+ {
+  "id": "lunar-11",
+  "theme": "lunar",
+  "width": 720,
+  "height": 480,
+  "color": "#914C51",
+  "pexels": 27966715,
+  "author": "Ahmad  Malulein",
+  "url": "https://www.pexels.com/photo/people-of-vietnam-27966715/"
+ },
+ {
+  "id": "lunar-12",
+  "theme": "lunar",
+  "width": 720,
+  "height": 480,
+  "color": "#986C3F",
+  "pexels": 27551121,
+  "author": "HONG SON",
+  "url": "https://www.pexels.com/photo/a-colorful-display-of-chinese-lanterns-at-a-market-27551121/"
+ },
+ {
+  "id": "spring-1",
+  "theme": "spring",
+  "width": 480,
+  "height": 720,
+  "color": "#BDC1CD",
+  "pexels": 5258128,
+  "author": "Jan Jüttner",
+  "url": "https://www.pexels.com/photo/white-cherry-blossoms-across-the-sky-5258128/"
+ },
+ {
+  "id": "spring-2",
+  "theme": "spring",
+  "width": 480,
+  "height": 720,
+  "color": "#DEB7BA",
+  "pexels": 36633362,
+  "author": "Liz Yang",
+  "url": "https://www.pexels.com/photo/beautiful-cherry-blossoms-in-springtime-36633362/"
+ },
+ {
+  "id": "spring-3",
+  "theme": "spring",
+  "width": 480,
+  "height": 720,
+  "color": "#868A93",
+  "pexels": 12106723,
+  "author": "Irina Iriser",
+  "url": "https://www.pexels.com/photo/a-tree-in-spring-12106723/"
+ },
+ {
+  "id": "spring-4",
+  "theme": "spring",
+  "width": 720,
+  "height": 480,
+  "color": "#9B8D97",
+  "pexels": 1029040,
+  "author": "Brett Sayles",
+  "url": "https://www.pexels.com/photo/photo-of-bloomed-pink-cherry-blossom-1029040/"
+ },
+ {
+  "id": "spring-5",
+  "theme": "spring",
+  "width": 720,
+  "height": 481,
+  "color": "#ABAAA8",
+  "pexels": 31192317,
+  "author": "Ramon Karolan",
+  "url": "https://www.pexels.com/photo/beautiful-cherry-blossoms-in-springtime-31192317/"
+ },
+ {
+  "id": "spring-6",
+  "theme": "spring",
+  "width": 720,
+  "height": 480,
+  "color": "#996952",
+  "pexels": 33845723,
+  "author": "🇻🇳🇻🇳Nguyễn Tiến Thịnh 🇻🇳🇻🇳",
+  "url": "https://www.pexels.com/photo/woman-enjoying-vibrant-chrysanthemums-in-garden-33845723/"
+ },
+ {
+  "id": "spring-7",
+  "theme": "spring",
+  "width": 720,
+  "height": 480,
+  "color": "#A29071",
+  "pexels": 7156462,
+  "author": "Gustavo Fring",
+  "url": "https://www.pexels.com/photo/woman-holding-violet-flower-plant-7156462/"
+ },
+ {
+  "id": "spring-8",
+  "theme": "spring",
+  "width": 720,
+  "height": 480,
+  "color": "#938C6F",
+  "pexels": 10538797,
+  "author": "Chavdar Dimitrov",
+  "url": "https://www.pexels.com/photo/woman-posing-in-cherry-flowers-10538797/"
+ },
+ {
+  "id": "spring-9",
+  "theme": "spring",
+  "width": 480,
+  "height": 720,
+  "color": "#767862",
+  "pexels": 6231847,
+  "author": "Gary  Barnes",
+  "url": "https://www.pexels.com/photo/smiling-woman-cutting-stems-of-roses-6231847/"
+ },
+ {
+  "id": "spring-10",
+  "theme": "spring",
+  "width": 720,
+  "height": 480,
+  "color": "#736D55",
+  "pexels": 11766812,
+  "author": "Lan Anh  Hoàng",
+  "url": "https://www.pexels.com/photo/beautiful-woman-in-floral-dress-sitting-ona-flower-field-11766812/"
+ },
+ {
+  "id": "flowers-1",
+  "theme": "flowers",
+  "width": 477,
+  "height": 720,
+  "color": "#594F43",
+  "pexels": 30734753,
+  "author": "Michael Obstoj",
+  "url": "https://www.pexels.com/photo/colorful-tulip-bouquets-with-gift-tags-30734753/"
+ },
+ {
+  "id": "flowers-2",
+  "theme": "flowers",
+  "width": 720,
+  "height": 480,
+  "color": "#786255",
+  "pexels": 31497181,
+  "author": "ilayda 0700",
+  "url": "https://www.pexels.com/photo/colorful-spring-flower-bouquets-in-outdoor-market-31497181/"
+ },
+ {
+  "id": "flowers-3",
+  "theme": "flowers",
+  "width": 480,
+  "height": 720,
+  "color": "#6F5C3C",
+  "pexels": 32027599,
+  "author": "Lola Russian",
+  "url": "https://www.pexels.com/photo/vibrant-tulip-bouquets-at-market-stall-32027599/"
+ },
+ {
+  "id": "flowers-4",
+  "theme": "flowers",
+  "width": 720,
+  "height": 480,
+  "color": "#B78B92",
+  "pexels": 7311450,
+  "author": "Svetlana B",
+  "url": "https://www.pexels.com/photo/tulips-in-a-basket-7311450/"
+ },
+ {
+  "id": "flowers-5",
+  "theme": "flowers",
+  "width": 405,
+  "height": 720,
+  "color": "#4A362F",
+  "pexels": 16538034,
+  "author": "Mervilili",
+  "url": "https://www.pexels.com/photo/close-up-of-colorful-flowers-16538034/"
+ },
+ {
+  "id": "flowers-6",
+  "theme": "flowers",
+  "width": 480,
+  "height": 720,
+  "color": "#967274",
+  "pexels": 37804614,
+  "author": "Ana Lourenco",
+  "url": "https://www.pexels.com/photo/close-up-of-dew-kissed-pink-chrysanthemums-37804614/"
+ },
+ {
+  "id": "flowers-7",
+  "theme": "flowers",
+  "width": 540,
+  "height": 720,
+  "color": "#8887A6",
+  "pexels": 32470440,
+  "author": "novianadss",
+  "url": "https://www.pexels.com/photo/elegant-pink-bougainvillea-against-blue-sky-32470440/"
+ },
+ {
+  "id": "flowers-8",
+  "theme": "flowers",
+  "width": 540,
+  "height": 720,
+  "color": "#634249",
+  "pexels": 34586581,
+  "author": "Marina Zvada",
+  "url": "https://www.pexels.com/photo/vibrant-pink-rose-garden-in-full-bloom-34586581/"
+ },
+ {
+  "id": "flowers-9",
+  "theme": "flowers",
+  "width": 480,
+  "height": 720,
+  "color": "#4A4643",
+  "pexels": 39665144,
+  "author": "Cup of Honey Lemon",
+  "url": "https://www.pexels.com/photo/vibrant-pink-dahlias-in-lush-greenery-39665144/"
+ },
+ {
+  "id": "flowers-10",
+  "theme": "flowers",
+  "width": 514,
+  "height": 720,
+  "color": "#9FA7AA",
+  "pexels": 11551691,
+  "author": "Annika Sarro",
+  "url": "https://www.pexels.com/photo/close-up-shot-of-blooming-pink-flowers-under-the-cloudy-sky-11551691/"
+ },
+ {
+  "id": "school-1",
+  "theme": "school",
+  "width": 720,
+  "height": 480,
+  "color": "#ACB0A8",
+  "pexels": 7683872,
+  "author": "RDNE Stock project",
+  "url": "https://www.pexels.com/photo/men-talking-at-school-grounds-7683872/"
+ },
+ {
+  "id": "school-2",
+  "theme": "school",
+  "width": 480,
+  "height": 720,
+  "color": "#4C4944",
+  "pexels": 7972508,
+  "author": "George Pak",
+  "url": "https://www.pexels.com/photo/a-man-in-a-gray-sweatshirt-talking-to-a-woman-in-a-yellow-shirt-7972508/"
+ },
+ {
+  "id": "school-3",
+  "theme": "school",
+  "width": 720,
+  "height": 480,
+  "color": "#72776E",
+  "pexels": 5537996,
+  "author": "Zen Chung",
+  "url": "https://www.pexels.com/photo/joyful-multiethnic-students-walking-in-park-and-chatting-5537996/"
+ },
+ {
+  "id": "school-4",
+  "theme": "school",
+  "width": 720,
+  "height": 480,
+  "color": "#60674C",
+  "pexels": 5554257,
+  "author": "Armin  Rimoldi",
+  "url": "https://www.pexels.com/photo/multiracial-students-with-notebook-walking-together-in-park-5554257/"
+ },
+ {
+  "id": "school-5",
+  "theme": "school",
+  "width": 720,
+  "height": 480,
+  "color": "#75685E",
+  "pexels": 1454360,
+  "author": "Stanley Morales",
+  "url": "https://www.pexels.com/photo/people-wearing-backpacks-1454360/"
+ },
+ {
+  "id": "school-6",
+  "theme": "school",
+  "width": 480,
+  "height": 720,
+  "color": "#636154",
+  "pexels": 8106627,
+  "author": "https://kaboompics.com/",
+  "url": "https://www.pexels.com/photo/graduating-women-sitting-on-the-sidewalk-8106627/"
+ },
+ {
+  "id": "school-7",
+  "theme": "school",
+  "width": 720,
+  "height": 480,
+  "color": "#8B5F5E",
+  "pexels": 8127328,
+  "author": "olia danilevich",
+  "url": "https://www.pexels.com/photo/women-wearing-graduation-attires-8127328/"
+ },
+ {
+  "id": "school-8",
+  "theme": "school",
+  "width": 480,
+  "height": 720,
+  "color": "#4A463A",
+  "pexels": 7972742,
+  "author": "George Pak",
+  "url": "https://www.pexels.com/photo/friends-taking-a-group-picture-7972742/"
+ },
+ {
+  "id": "school-9",
+  "theme": "school",
+  "width": 720,
+  "height": 480,
+  "color": "#A79C8B",
+  "pexels": 7713504,
+  "author": "RDNE Stock project",
+  "url": "https://www.pexels.com/photo/smiling-graduates-taking-a-selfie-7713504/"
+ },
+ {
+  "id": "school-10",
+  "theme": "school",
+  "width": 480,
+  "height": 720,
+  "color": "#5A6A6A",
+  "pexels": 39192314,
+  "author": "Sinan KRIYA",
+  "url": "https://www.pexels.com/photo/joyful-female-graduates-celebrating-outdoors-39192314/"
+ },
+ {
+  "id": "kids-1",
+  "theme": "kids",
+  "width": 720,
+  "height": 480,
+  "color": "#7F7659",
+  "pexels": 13788600,
+  "author": "Luna Andrade Arango",
+  "url": "https://www.pexels.com/photo/child-sitting-on-toy-car-showing-thumb-up-13788600/"
+ },
+ {
+  "id": "kids-2",
+  "theme": "kids",
+  "width": 720,
+  "height": 480,
+  "color": "#A49A96",
+  "pexels": 5274654,
+  "author": "Antonius Ferret",
+  "url": "https://www.pexels.com/photo/girl-in-pink-shirt-holding-blue-and-pink-balloon-5274654/"
+ },
+ {
+  "id": "kids-3",
+  "theme": "kids",
+  "width": 720,
+  "height": 480,
+  "color": "#AA8E79",
+  "pexels": 19875334,
+  "author": "Nothing Ahead",
+  "url": "https://www.pexels.com/photo/child-playing-in-kindergarten-19875334/"
+ },
+ {
+  "id": "kids-4",
+  "theme": "kids",
+  "width": 480,
+  "height": 720,
+  "color": "#535D45",
+  "pexels": 20697268,
+  "author": "Yakup  Polat",
+  "url": "https://www.pexels.com/photo/smiling-girl-playing-with-balloons-in-doorway-20697268/"
+ },
+ {
+  "id": "kids-5",
+  "theme": "kids",
+  "width": 480,
+  "height": 720,
+  "color": "#7A6B66",
+  "pexels": 40466754,
+  "author": "Rohit Jha",
+  "url": "https://www.pexels.com/photo/child-playing-in-toy-filled-indoor-tent-40466754/"
+ },
+ {
+  "id": "kids-6",
+  "theme": "kids",
+  "width": 720,
+  "height": 481,
+  "color": "#939280",
+  "pexels": 18379520,
+  "author": "Katerina Kolomina",
+  "url": "https://www.pexels.com/photo/parents-with-daughters-18379520/"
+ },
+ {
+  "id": "kids-7",
+  "theme": "kids",
+  "width": 720,
+  "height": 480,
+  "color": "#998E8A",
+  "pexels": 12969212,
+  "author": "Atlantic Ambience",
+  "url": "https://www.pexels.com/photo/man-and-woman-carrying-a-girl-12969212/"
+ },
+ {
+  "id": "kids-8",
+  "theme": "kids",
+  "width": 720,
+  "height": 480,
+  "color": "#838C93",
+  "pexels": 10032947,
+  "author": "Ron Lach",
+  "url": "https://www.pexels.com/photo/people-at-garden-party-10032947/"
+ },
+ {
+  "id": "kids-9",
+  "theme": "kids",
+  "width": 480,
+  "height": 720,
+  "color": "#878A8D",
+  "pexels": 6849366,
+  "author": "RDNE Stock project",
+  "url": "https://www.pexels.com/photo/a-couple-with-a-child-and-baby-standing-near-a-lake-6849366/"
+ },
+ {
+  "id": "kids-10",
+  "theme": "kids",
+  "width": 720,
+  "height": 481,
+  "color": "#A1A082",
+  "pexels": 8954884,
+  "author": "Kampus Production",
+  "url": "https://www.pexels.com/photo/girl-wearing-a-red-bucket-hat-8954884/"
+ },
+ {
+  "id": "retro-1",
+  "theme": "retro",
+  "width": 540,
+  "height": 720,
+  "color": "#4D524B",
+  "pexels": 27573377,
+  "author": "Hannah Johnson",
+  "url": "https://www.pexels.com/photo/wall-of-vinyl-records-27573377/"
+ },
+ {
+  "id": "retro-2",
+  "theme": "retro",
+  "width": 480,
+  "height": 720,
+  "color": "#52261B",
+  "pexels": 31253253,
+  "author": "Sydney Sang",
+  "url": "https://www.pexels.com/photo/retro-music-vibe-in-vintage-room-with-vinyl-31253253/"
+ },
+ {
+  "id": "retro-3",
+  "theme": "retro",
+  "width": 480,
+  "height": 720,
+  "color": "#896D46",
+  "pexels": 17603821,
+  "author": "umut yıldız",
+  "url": "https://www.pexels.com/photo/woman-holding-retro-camcorder-17603821/"
+ },
+ {
+  "id": "retro-4",
+  "theme": "retro",
+  "width": 600,
+  "height": 720,
+  "color": "#66584F",
+  "pexels": 9043622,
+  "author": "Anastasia.Mesyanchikova",
+  "url": "https://www.pexels.com/photo/a-close-up-shot-of-vinyl-records-and-a-record-player-9043622/"
+ },
+ {
+  "id": "retro-5",
+  "theme": "retro",
+  "width": 576,
+  "height": 720,
+  "color": "#7D6647",
+  "pexels": 36160423,
+  "author": "Yusuf P",
+  "url": "https://www.pexels.com/photo/vintage-turntable-and-cassette-player-setup-36160423/"
+ },
+ {
+  "id": "retro-6",
+  "theme": "retro",
+  "width": 720,
+  "height": 480,
+  "color": "#697171",
+  "pexels": 1570612,
+  "author": "Paula Nardini",
+  "url": "https://www.pexels.com/photo/diner-light-signage-1570612/"
+ },
+ {
+  "id": "retro-7",
+  "theme": "retro",
+  "width": 720,
+  "height": 479,
+  "color": "#7B5A65",
+  "pexels": 15205255,
+  "author": "David Guerrero",
+  "url": "https://www.pexels.com/photo/a-diner-neon-signage-15205255/"
+ },
+ {
+  "id": "retro-8",
+  "theme": "retro",
+  "width": 480,
+  "height": 720,
+  "color": "#A19FA2",
+  "pexels": 20584522,
+  "author": "K",
+  "url": "https://www.pexels.com/photo/sign-on-facade-of-a-diner-20584522/"
+ },
+ {
+  "id": "retro-9",
+  "theme": "retro",
+  "width": 576,
+  "height": 720,
+  "color": "#504D44",
+  "pexels": 36566545,
+  "author": "Phil Evenden",
+  "url": "https://www.pexels.com/photo/vintage-diner-neon-sign-interior-view-36566545/"
+ },
+ {
+  "id": "retro-10",
+  "theme": "retro",
+  "width": 480,
+  "height": 720,
+  "color": "#6B9CBD",
+  "pexels": 36057344,
+  "author": "DΛVΞ GΛRCIΛ",
+  "url": "https://www.pexels.com/photo/vintage-parkview-diner-sign-against-blue-sky-36057344/"
  }
 ]

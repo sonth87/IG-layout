@@ -9,11 +9,36 @@ import { SCRAPBOOK } from "./scrapbook";
 import { SEAMLESS } from "./seamless";
 import { SIMPLE } from "./simple";
 import { TRAVEL } from "./travel";
+import { DOODLE } from "./doodle";
+import { EXTRAS } from "./extras";
+import { HOLIDAYS } from "./holidays";
+import { LOVE } from "./love";
+import { RETRO } from "./retro";
+import { TEEN } from "./teen";
+import { TORN } from "./torn";
 
 // Designed templates for the home library (M10, like SCRL's template library), one file
 // per kind. Newer designs first within a group.
 
-export const DESIGNS: Template[] = [...AUTUMN, ...EVERYDAY, ...TRAVEL, ...FILM, ...EDITORIAL, ...SCRAPBOOK, ...SEAMLESS, ...OCCASION, ...SIMPLE, ...CLASSIC];
+export const DESIGNS: Template[] = [
+  ...AUTUMN,
+  ...HOLIDAYS,
+  ...TORN,
+  ...DOODLE,
+  ...TEEN,
+  ...LOVE,
+  ...RETRO,
+  ...EXTRAS,
+  ...EVERYDAY,
+  ...TRAVEL,
+  ...FILM,
+  ...EDITORIAL,
+  ...SCRAPBOOK,
+  ...SEAMLESS,
+  ...OCCASION,
+  ...SIMPLE,
+  ...CLASSIC,
+];
 
 export function designsFor(category: TemplateCategory | "all") {
   return category === "all" ? DESIGNS : DESIGNS.filter((d) => d.design?.category === category);

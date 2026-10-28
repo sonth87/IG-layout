@@ -48,6 +48,7 @@ export const OCCASION: Template[] = [
     ],
   }),
   design("class-of", "occasion", t("Class of 2026", "Khoá 2026"), {
+    events: ["graduation"],
     themes: ["portrait", "friends"],
     slides: 1,
     background: { kind: "color", color: "#14213d" },
@@ -59,6 +60,7 @@ export const OCCASION: Template[] = [
     ],
   }),
   design("hello-new-year", "occasion", t("Hello new year", "Chào năm mới"), {
+    events: ["newYear"],
     themes: ["party", "friends"],
     slides: 2,
     background: { kind: "color", color: "#0e0e10" },
@@ -73,6 +75,7 @@ export const OCCASION: Template[] = [
     ],
   }),
   design("you-and-me", "occasion", t("You & me", "Mình và cậu"), {
+    events: ["valentine"],
     themes: ["couple"],
     slides: 1,
     background: { kind: "color", color: "#f6e1e1" },
@@ -80,6 +83,7 @@ export const OCCASION: Template[] = [
     texts: [text(0, 0.1, 0.7, 0.8, t("you & me,\nalways", "mình & cậu,\nmãi luôn"), { font: "greatVibes", size: 0.1, color: "#a8344a", lineHeight: 1 })],
   }),
   design("merry-bright", "occasion", t("Merry & bright", "An lành & rực rỡ"), {
+    events: ["christmas", "winter"],
     format: "story",
     themes: ["friends", "party", "couple"],
     slides: 1,

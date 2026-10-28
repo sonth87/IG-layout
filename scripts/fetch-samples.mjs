@@ -34,6 +34,15 @@ const THEMES = {
   mono: { per: 5, queries: ["black and white portrait", "black and white street photography"] },
   party: { per: 5, queries: ["birthday cake candles", "celebration confetti"] },
   fashion: { per: 5, queries: ["fashion editorial model", "fashion details accessories"] },
+  // Seasons and holidays (2026-10-28, second batch).
+  winter: { per: 5, queries: ["snow winter woman", "cozy winter knit sweater"] },
+  christmas: { per: 5, queries: ["christmas lights tree", "christmas gifts friends"] },
+  lunar: { per: 4, queries: ["lunar new year red lanterns", "ao dai vietnam", "mid autumn lantern festival"] },
+  spring: { per: 5, queries: ["cherry blossom spring", "spring flowers garden woman"] },
+  flowers: { per: 5, queries: ["flower bouquet", "pink flowers aesthetic"] },
+  school: { per: 5, queries: ["students campus friends", "graduation cap gown"] },
+  kids: { per: 5, queries: ["child playing happy", "family with kids outdoors"] },
+  retro: { per: 5, queries: ["vintage aesthetic 70s", "retro diner neon"] },
 };
 
 /** Pexels ids left out after review (off-theme, blurry, too many of one kind). */

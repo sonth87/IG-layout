@@ -9,6 +9,7 @@ import { templateSlides } from "@/lib/templates/apply";
 import { DESIGNS, MIXED } from "@/lib/templates/designs";
 import { useFavorites } from "@/lib/templates/favorites";
 import { samplePhotosFor } from "@/lib/templates/samples";
+import { activeEvents, type EventId, homeToday } from "@/lib/templates/seasons";
 import { DEFAULT_OPTIONS, TEMPLATE_CATEGORIES, type Template, type TemplateCategory } from "@/lib/templates/types";
 import { useEditor } from "@/store/editor";
 import { useSettings, useT } from "@/store/settings";
@@ -182,7 +183,7 @@ function useColumnWidth() {
   return { ref, w };
 }
 
-type Screen = { kind: "group"; category: TemplateCategory } | { kind: "detail"; tpl: Template } | { kind: "favorites" } | { kind: "search" };
+type Screen = { kind: "group"; category: TemplateCategory } | { kind: "event"; id: EventId } | { kind: "detail"; tpl: Template } | { kind: "favorites" } | { kind: "search" };
 
 /** A screen sliding in from the right, over the home tab (§2.4, §5). */
 function Pane(props: { title: string; onBack: () => void; children: React.ReactNode; footer?: React.ReactNode; header?: React.ReactNode }) {
@@ -297,7 +298,7 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
     const id = window.setInterval(() => {
       const el = bannerRef.current;
       if (!el || touched.current) return;
-      const next = (Math.round(el.scrollLeft / el.clientWidth) + 1) % 3;
+      const next = (Math.round(el.scrollLeft / el.clientWidth) + 1) % el.childElementCount;
       el.scrollTo({ left: next * el.clientWidth, behavior: "smooth" });
     }, 6000);
     return () => window.clearInterval(id);
@@ -311,11 +312,35 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
     const score = (c: TemplateCategory) => DESIGNS.filter((d) => d.design?.category === c && favorites.includes(d.id)).length;
     return score(b) - score(a);
   });
-  const banners: { title: string; sub: string; category: TemplateCategory; tpl: Template }[] = [
-    { title: t("home.banner1"), sub: t("home.banner1sub"), category: "autumn", tpl: DESIGNS.find((d) => d.id === "design-halloween-night") ?? DESIGNS[0] },
-    { title: t("home.banner2"), sub: t("home.banner2sub"), category: "travel", tpl: DESIGNS.find((d) => d.id === "design-city-recap") ?? DESIGNS[0] },
-    { title: t("home.banner3"), sub: t("home.banner3sub"), category: "film", tpl: DESIGNS.find((d) => d.id === "design-photobooth") ?? DESIGNS[0] },
+  // Seasons and events coming up (seasons.ts) lead the banners and the groups.
+  const events = useMemo(
+    () =>
+      activeEvents(homeToday())
+        .map((e) => ({ ...e, list: DESIGNS.filter((d) => d.design?.events?.includes(e.id)) }))
+        .filter((e) => e.list.length > 0)
+        .slice(0, 3),
+    [],
+  );
+  const banners: { title: string; sub: string; screen: Screen; tpl: Template }[] = [
+    ...events.slice(0, 2).map((e) => ({ title: e.name[locale], sub: e.sub[locale], screen: { kind: "event", id: e.id } as Screen, tpl: e.list[0] })),
+    ...(["torn", "film", "travel"] as const).map((c) => ({
+      title: t(`library.category.${c}`),
+      sub: t(`library.desc.${c}`),
+      screen: { kind: "group", category: c } as Screen,
+      tpl: DESIGNS.find((d) => d.design?.category === c) ?? DESIGNS[0],
+    })),
+  ].slice(0, 4);
+  const shelves: { key: string; title: string; sub: string; screen: Screen; list: Template[] }[] = [
+    ...events.map((e) => ({ key: e.id, title: e.name[locale], sub: e.sub[locale], screen: { kind: "event", id: e.id } as Screen, list: e.list })),
+    ...categories.map((c) => ({
+      key: c,
+      title: t(`library.category.${c}`),
+      sub: t(`library.desc.${c}`),
+      screen: { kind: "group", category: c } as Screen,
+      list: DESIGNS.filter((d) => d.design?.category === c),
+    })),
   ];
+  const eventOf = (id: EventId) => events.find((e) => e.id === id);
   const top = stack.at(-1);
   const q = query.trim().toLowerCase();
   const found = q
@@ -352,7 +377,7 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
         {tab === "forYou" ? (
           <>
             {/* Banners (§2.2). */}
-            <section aria-label={t("home.banner1")} className="relative">
+            <section aria-label={t("home.banners")} className="relative">
               <div
                 ref={bannerRef}
                 className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto"
@@ -368,7 +393,7 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
                     <div className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-2 p-5 text-white">
                       <h2 className="font-display text-[34px] leading-[1.02] font-bold">{b.title}</h2>
                       <p className="text-sm text-white/85">{b.sub}</p>
-                      <button type="button" onClick={() => push({ kind: "group", category: b.category })} className="mt-1 h-11 rounded-full bg-white px-5 text-[15px] font-bold text-black">
+                      <button type="button" onClick={() => push(b.screen)} className="mt-1 h-11 rounded-full bg-white px-5 text-[15px] font-bold text-black">
                         {t("home.exploreNow")}
                       </button>
                     </div>
@@ -407,18 +432,18 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
               </button>
             </div>
 
-            {/* Groups that slide sideways (§2.4). */}
-            {categories.map((c) => (
-              <section key={c} aria-label={t(`library.category.${c}`)} className="pt-6">
-                <button type="button" onClick={() => push({ kind: "group", category: c })} className="flex w-full items-center justify-between px-4 text-left">
+            {/* Groups that slide sideways (§2.4): events in season first. */}
+            {shelves.map((sh) => (
+              <section key={sh.key} aria-label={sh.title} className="pt-6">
+                <button type="button" onClick={() => push(sh.screen)} className="flex w-full items-center justify-between px-4 text-left">
                   <span className="flex flex-col">
-                    <span className="text-[17px] font-bold">{t(`library.category.${c}`)}</span>
-                    <span className="text-[13px] text-muted">{t(`library.desc.${c}`)}</span>
+                    <span className="text-[17px] font-bold">{sh.title}</span>
+                    <span className="text-[13px] text-muted">{sh.sub}</span>
                   </span>
                   <Icon name="chevronRight" />
                 </button>
                 <div className="no-scrollbar flex items-start gap-2 overflow-x-auto px-4 pt-3" style={{ touchAction: "pan-x pan-y" }}>
-                  {DESIGNS.filter((d) => d.design?.category === c).map((tpl) => (
+                  {sh.list.map((tpl) => (
                     <TemplateCard key={tpl.id} tpl={tpl} width={cardW} onOpen={open} />
                   ))}
                 </div>
@@ -455,6 +480,15 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
         <Pane title={t(`library.category.${top.category}`)} onBack={pop}>
           <div className="grid grid-cols-2 gap-2.5 px-4 pt-2 sm:grid-cols-3 lg:grid-cols-4">
             {DESIGNS.filter((d) => d.design?.category === top.category).map((tpl) => (
+              <TemplateCard key={tpl.id} tpl={tpl} width={halfW > 260 ? 220 : halfW} onOpen={open} />
+            ))}
+          </div>
+        </Pane>
+      )}
+      {top?.kind === "event" && (
+        <Pane title={eventOf(top.id)?.name[locale] ?? ""} onBack={pop}>
+          <div className="grid grid-cols-2 gap-2.5 px-4 pt-2 sm:grid-cols-3 lg:grid-cols-4">
+            {(eventOf(top.id)?.list ?? []).map((tpl) => (
               <TemplateCard key={tpl.id} tpl={tpl} width={halfW > 260 ? 220 : halfW} onOpen={open} />
             ))}
           </div>

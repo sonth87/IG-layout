@@ -73,7 +73,8 @@ export async function routePacks(context) {
   await context.route("**/packs/**", (route) => {
     const rel = new URL(route.request().url()).pathname.replace(/^\/packs\//, "");
     const body = files[rel];
-    if (body === undefined) return route.fulfill({ status: 404, body: "" });
+    // Pictures the home templates show (real pack files, 2026-10-28): served as they are.
+    if (body === undefined) return rel.endsWith(".webp") ? route.continue() : route.fulfill({ status: 404, body: "" });
     return route.fulfill({ status: 200, body, contentType: rel.endsWith(".json") ? "application/json" : "image/webp" });
   });
 }
