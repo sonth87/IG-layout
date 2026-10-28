@@ -11,7 +11,7 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-08.** Template layout: tự thiết kế, hay để người dùng tự tạo và lưu template?
 
 ### Chữ cắt báo (2026-10-28 — [2026-10-28-template-anh-that.md](../discussions/2026-10-28-template-anh-that.md), đợt 6)
-- **Q-T1.** ~~Có làm "Chữ cắt báo" không?~~ Có (chủ dự án, 2026-10-28): tự chọn kiểu, rất nhiều kiểu. Còn chờ: duyệt thiết kế D-141 — nhất là chỉnh riêng từng chữ chỉ ở mức "chạm một chữ để xáo riêng" có đủ không.
+- **Q-T1.** ~~Có làm "Chữ cắt báo" không?~~ Có (chủ dự án, 2026-10-28): tự chọn kiểu, rất nhiều kiểu. Đã chốt D-141 (chạm để xáo riêng, thêm biên độ / độ cong) — đã làm.
 
 ### Filter v2 (2026-10-20 — [2026-10-20-filter-v2.md](../discussions/2026-10-20-filter-v2.md))
 - **Q-F5.** Chủ dự án gửi 5–8 ảnh mẫu chỉnh bằng VSCO (thêm thẳng vào trang thử `/labs/filters`, ô "Ảnh đối chiếu") — đã đồng ý, chờ ảnh.

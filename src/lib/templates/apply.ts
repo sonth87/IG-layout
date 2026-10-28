@@ -1,3 +1,4 @@
+import { DEFAULT_CUTOUT } from "@/lib/text/cutout";
 import { imageElement } from "@/lib/project/placement";
 import { coverCrop, innerFrame } from "@/lib/project/geometry";
 import { canvasSize, slideRect } from "@/lib/project/layout";
@@ -243,6 +244,7 @@ export function applyTemplate(
       stroke: tx.stroke ? { color: tx.stroke.color, width: Math.max(1, Math.round(tx.stroke.width * fontSize)) } : null,
       shadow: tx.shadow ?? false,
       ...(tx.italic && { italic: true }),
+      ...(tx.cutout && { cutout: { ...DEFAULT_CUTOUT, ...tx.cutout } }),
       ...(tx.opacity !== undefined && { opacity: tx.opacity }),
       background: tx.background
         ? { color: tx.background.color, padding: Math.round(tx.background.padding * fontSize), radius: Math.round(fontSize * (tx.background.radius ?? 0.2)) }

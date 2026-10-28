@@ -1,5 +1,5 @@
 import type { Template } from "../types";
-import { art, block, cells, design, icon, INK, photo, ransom, sketch, t, text, WHITE_FRAME } from "./kit";
+import { art, block, cells, design, icon, INK, photo, sketch, t, text, WHITE_FRAME } from "./kit";
 
 // Holidays and seasons (2026-10-28): each one tagged with its event (seasons.ts) so the
 // home screen brings it up at the right time. Stickers from the packs christmas, tet,
@@ -377,7 +377,7 @@ export const HOLIDAYS: Template[] = [
     art: [art("gen-instant/instant-5", 0, 0.16, 0.24, 0.68, { rotation: 3 })],
     shapes: [block(0, 0.3, 0.89, 0.42, 0.02, "#7aa7ff", { rotation: -3, opacity: 0.9, above: true })],
     slots: [],
-    texts: [...ransom(0, 0.12, 0.03, "HAPPY", 0.11), ...ransom(0, 0.06, 0.13, "BIRTHDAY", 0.1, 3), text(0, 0.28, 0.85, 0.46, t("BESTIE", "BẠN THÂN"), { font: "patrickHand", size: 0.06, color: INK, rotation: -3 })],
+    texts: [text(0, 0.04, 0.02, 0.92, t("HAPPY\nBIRTHDAY", "CHÚC MỪNG\nSINH NHẬT"), { font: "anton", size: 0.1, color: INK, lineHeight: 1, cutout: { style: "magazine", seed: 3, mess: 0.6, wave: 0.35 } }), text(0, 0.28, 0.85, 0.46, t("BESTIE", "BẠN THÂN"), { font: "patrickHand", size: 0.06, color: INK, rotation: -3 })],
   }),
   design("doodle-birthday", "occasion", t("Doodled birthday", "Sinh nhật vẽ tay"), {
     themes: ["party", "portrait"],

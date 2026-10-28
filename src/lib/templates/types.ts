@@ -1,5 +1,5 @@
 import type { EventId } from "./seasons";
-import type { AspectRatio, Border, FontKey, FrameStyle, MaskShape, ProjectType, ShapeKind } from "@/lib/project/types";
+import type { AspectRatio, Border, CutoutText, FontKey, FrameStyle, MaskShape, ProjectType, ShapeKind } from "@/lib/project/types";
 
 // Layout templates are data (D-31): coordinates are relative to one slide
 // (0..1), so the same template works for every ratio. `slide` + `x` > 1 lets a
@@ -114,11 +114,14 @@ export interface TemplateText {
   italic?: boolean;
   shadow?: boolean;
   opacity?: number;
+  /** Cut-out letters (D-141); missing fields take the defaults. */
+  cutout?: Partial<CutoutText> & { style: string };
 }
 
 /** Where a designed template appears in the home library (M10). */
 export type TemplateCategory =
   | "seasonal"
+  | "cutout"
   | "carousel"
   | "travel"
   | "film"
@@ -137,7 +140,7 @@ export type TemplateCategory =
   | "grid";
 
 /** Home order (SCRL-like sections, 2026-10-28). Events in season come before all of these (seasons.ts). */
-export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["carousel", "torn", "film", "travel", "scrapbook", "doodle", "teen", "love", "retro", "editorial", "seamless", "collage", "occasion", "story", "minimal", "grid", "seasonal"];
+export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["carousel", "cutout", "torn", "film", "travel", "scrapbook", "doodle", "teen", "love", "retro", "editorial", "seamless", "collage", "occasion", "story", "minimal", "grid", "seasonal"];
 
 /** Kinds of sample photo a template's preview shows (public/samples, from Pexels). */
 export type SampleTheme = "travel" | "beach" | "city" | "food" | "portrait" | "friends" | "couple" | "autumn" | "nature" | "minimal" | "mono" | "party" | "fashion" | "winter" | "christmas" | "lunar" | "spring" | "flowers" | "school" | "kids" | "retro";

@@ -69,6 +69,7 @@ Chọn ảnh → Chọn tỉ lệ + số slide → Sắp xếp layout → Chỉn
 ## 6. Phần tử thêm vào — `Đã chốt`
 
 - **Text:** font, cỡ, màu, căn lề, giãn chữ, viền chữ, bóng, nền chữ; hỗ trợ tiếng Việt có dấu. **MVP**
+- **Chữ cắt báo** (D-141): mỗi chữ cái / từ là một mẩu giấy riêng (phông, màu, hình mẩu, nghiêng); 22 kiểu (báo cũ, tạp chí, thời trang, tiêu đề, kraft, giấy vở, ô ly, giấy xé, giấy note, máy in nhãn, washi, vé, đánh máy, pastel, đen trắng, neon, Y2K, truyện tranh, bụi bặm, Noel, Tết, tình yêu); Xáo; cắt theo chữ cái / từ; Lộn xộn, Biên độ (lên xuống), Độ cong (uốn dòng); chạm một chữ để xáo riêng chữ đó. `Đã chốt`
   - Font lấy từ **Google Fonts** (chọn một bộ font có hỗ trợ tiếng Việt), **tự host trong app** để dùng được offline và export không bị lỗi font.
 - **Ảnh khác:** chèn thêm ảnh, đặt tự do. **MVP**
 - **Hình khối:** chữ nhật, tròn, đường kẻ, mũi tên. **MVP**

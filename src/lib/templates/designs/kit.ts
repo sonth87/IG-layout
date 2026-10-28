@@ -88,32 +88,6 @@ export function sketch(slide: number, x: number, y: number, w: number, h: number
   ];
 }
 
-const RANSOM = [
-  { font: "anton", bg: "#f4e7c5", color: INK },
-  { font: "playfair", bg: "#ffffff", color: "#c2362f" },
-  { font: "cormorant", bg: "#1d1c1a", color: "#ffffff" },
-  { font: "montserrat", bg: "#e86f9a", color: "#ffffff" },
-  { font: "patrickHand", bg: "#9fc4e8", color: INK },
-  { font: "anton", bg: "#ffd84d", color: INK },
-] as const;
-
-/** A word in cut-out magazine letters (ransom note) from (x, y); `size` relative to slide width. */
-export function ransom(slide: number, x: number, y: number, word: string, size: number, seed = 0): TemplateText[] {
-  const out: TemplateText[] = [];
-  let cx = x;
-  [...word].forEach((ch, i) => {
-    if (ch === " ") {
-      cx += size * 0.45;
-      return;
-    }
-    const s = RANSOM[(i * 7 + seed) % RANSOM.length];
-    const k = 0.85 + ((i * 13 + seed) % 5) * 0.08;
-    out.push(text(slide, cx, y + ((i * 5 + seed) % 3) * 0.006, size * k * 0.8, t(ch, ch), { font: s.font, size: size * k, color: s.color, background: { color: s.bg, padding: 0.1, radius: 0.04 }, rotation: (((i * 11 + seed) % 9) - 4) * 1.6 }));
-    cx += size * k * 0.8 + size * 0.22;
-  });
-  return out;
-}
-
 /** A pack frame (its windows take photos from `photo` on) or a pack sticker; height follows the picture. */
 export function art(id: string, slide: number, x: number, y: number, w: number, extra: Partial<TemplateArt> = {}): TemplateArt {
   return { id, slide, x, y, w, ...extra };
