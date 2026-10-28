@@ -75,3 +75,13 @@ export async function newProject(page) {
   await page.getByRole("button", { name: "New project" }).click();
   await page.getByRole("button", { name: "From photos" }).click();
 }
+
+/**
+ * Opens a home template's details through Search: the home builds each group as it comes
+ * near and shows 10 cards a group (2026-10-28), so a template may not be on screen yet.
+ */
+export async function openTemplate(page, name) {
+  await page.getByRole("button", { name: "Search" }).click();
+  await page.getByRole("searchbox", { name: "Search" }).fill(name);
+  await page.getByRole("dialog", { name: "Search" }).getByRole("button", { name, exact: true }).first().click();
+}

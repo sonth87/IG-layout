@@ -24,6 +24,23 @@ function slidesOf(tpl: Template) {
   return templateSlides(tpl, 0, type === "grid" ? 9 : 3, type);
 }
 
+/** A carousel template's whole strip, `width` per slide. */
+function Strip({ tpl, width }: { tpl: Template; width: number }) {
+  const d = tpl.design!;
+  return (
+    <TemplatePreview
+      template={tpl}
+      photos={samplePhotosFor(tpl)}
+      ratio={d.ratio}
+      slides={slidesOf(tpl)}
+      type={d.type}
+      options={DEFAULT_OPTIONS}
+      width={width * slidesOf(tpl)}
+      plain
+    />
+  );
+}
+
 /** Every template preview shows sample photos (editor-v2/03 §3; real photos since 2026-10-28). */
 function Preview({ tpl, width, slide = 0 }: { tpl: Template; width: number; slide?: number }) {
   const d = tpl.design!;
@@ -77,6 +94,16 @@ function useSeen<T extends Element>() {
   return [ref, seen] as const;
 }
 
+/** A banner's picture, built once the banner is swiped into view. */
+function LazyBanner({ tpl, width }: { tpl: Template; width: number }) {
+  const [ref, seen] = useSeen<HTMLDivElement>();
+  return (
+    <div ref={ref} className="absolute inset-0 flex items-center justify-center bg-surface-2 opacity-90">
+      {seen && <Preview tpl={tpl} width={width} />}
+    </div>
+  );
+}
+
 function Heart({ id, className = "" }: { id: string; className?: string }) {
   const t = useT();
   const liked = useFavorites((s) => s.ids.includes(id));
@@ -90,7 +117,7 @@ function Heart({ id, className = "" }: { id: string; className?: string }) {
         e.stopPropagation();
         toggle(id);
       }}
-      className={`flex h-9 w-9 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-md ${className}`}
+      className={`flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white ${className}`}
     >
       <Icon name="heart" size={18} filled={liked} />
     </button>
@@ -113,11 +140,24 @@ function TemplateCard({ tpl, width, onOpen, inRow }: { tpl: Template; width: num
           style={{ touchAction: "pan-x pan-y" }}
           onScroll={(e) => setAt(Math.round(e.currentTarget.scrollLeft / width))}
         >
-          {Array.from({ length: slides }, (_, i) => (
-            <button key={i} type="button" aria-label={i === 0 ? tpl.name[locale] : `${tpl.name[locale]} ${i + 1}`} onClick={() => onOpen(tpl)} className="block shrink-0 snap-center">
-              {seen ? <Preview tpl={tpl} width={width} slide={i} /> : <div style={{ width, height: width * cardRatio(tpl) }} />}
-            </button>
-          ))}
+          {/* The strip is drawn once; one see-through stop per slide on top of it (not one copy per slide). */}
+          <div className="relative flex shrink-0" style={{ width: width * slides }}>
+            {seen && (
+              <div className="pointer-events-none absolute inset-0">
+                <Strip tpl={tpl} width={width} />
+              </div>
+            )}
+            {Array.from({ length: slides }, (_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={i === 0 ? tpl.name[locale] : `${tpl.name[locale]} ${i + 1}`}
+                onClick={() => onOpen(tpl)}
+                className="relative block shrink-0 snap-center"
+                style={{ width, height: width * cardRatio(tpl) }}
+              />
+            ))}
+          </div>
         </div>
       ) : (
         <button type="button" aria-label={tpl.name[locale]} onClick={() => onOpen(tpl)} className="block">
@@ -135,11 +175,11 @@ function TemplateCard({ tpl, width, onOpen, inRow }: { tpl: Template; width: num
       )}
       <Heart id={tpl.id} className="absolute top-2 right-2" />
       <span className="pointer-events-none absolute bottom-2 left-2 flex gap-1 text-[11px] font-semibold text-white">
-        <span className="flex items-center gap-1 rounded-full bg-black/45 px-2 py-0.5 backdrop-blur-md">
+        <span className="flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5">
           <Icon name="image" size={12} />
           {tpl.photos}
         </span>
-        <span className="flex items-center gap-1 rounded-full bg-black/45 px-2 py-0.5 backdrop-blur-md">
+        <span className="flex items-center gap-1 rounded-full bg-black/50 px-2 py-0.5">
           <Icon name="slides" size={12} />
           {slides}
         </span>
@@ -157,9 +197,19 @@ function TemplateCard({ tpl, width, onOpen, inRow }: { tpl: Template; width: num
 
 /** Two staggered columns (masonry), cards as tall as their shape. */
 function Masonry({ list, onOpen, width }: { list: Template[]; onOpen: (tpl: Template) => void; width: number }) {
+  // A dozen cards at a time, more as the end comes near (200+ cards at once made the home lag).
+  const [shown, setShown] = useState(MASONRY_STEP);
+  const more = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = more.current;
+    if (!el || shown >= list.length) return;
+    const io = new IntersectionObserver((entries) => entries.some((e) => e.isIntersecting) && setShown((n) => n + MASONRY_STEP), { rootMargin: "800px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [shown, list.length]);
   const cols: Template[][] = [[], []];
   const heights = [0, 0];
-  for (const tpl of list) {
+  for (const tpl of list.slice(0, shown)) {
     const h = cardRatio(tpl);
     const c = heights[0] <= heights[1] ? 0 : 1;
     cols[c].push(tpl);
@@ -174,7 +224,50 @@ function Masonry({ list, onOpen, width }: { list: Template[]; onOpen: (tpl: Temp
           ))}
         </div>
       ))}
+      {shown < list.length && <div ref={more} aria-hidden="true" className="h-px w-px" />}
     </div>
+  );
+}
+
+const MASONRY_STEP = 12;
+/** Cards in a sideways row before "See all" (the group screen has the rest). */
+const SHELF_MAX = 10;
+
+/** A sideways group: built once it comes near the screen, at most SHELF_MAX cards and "See all". */
+function Shelf(props: { title: string; sub: string; list: Template[]; cardW: number; onOpen: (tpl: Template) => void; onMore: () => void }) {
+  const t = useT();
+  const [ref, seen] = useSeen<HTMLElement>();
+  const rowH = Math.round((props.cardW * 5) / 4);
+  return (
+    <section ref={ref} aria-label={props.title} className="pt-6">
+      <button type="button" onClick={props.onMore} className="flex w-full items-center justify-between px-4 text-left">
+        <span className="flex flex-col">
+          <span className="text-[17px] font-bold">{props.title}</span>
+          <span className="text-[13px] text-muted">{props.sub}</span>
+        </span>
+        <Icon name="chevronRight" />
+      </button>
+      <div className="no-scrollbar flex items-start gap-2 overflow-x-auto px-4 pt-3" style={{ touchAction: "pan-x pan-y", minHeight: rowH + 12 }}>
+        {seen &&
+          props.list.slice(0, SHELF_MAX).map((tpl) => (
+            // One height per row (owner, 2026-10-28): stories are narrower, not taller.
+            <TemplateCard key={tpl.id} tpl={tpl} width={Math.round(rowH / cardRatio(tpl))} onOpen={props.onOpen} inRow />
+          ))}
+        {seen && props.list.length > SHELF_MAX && (
+          <button
+            type="button"
+            onClick={props.onMore}
+            className="flex shrink-0 flex-col items-center justify-center gap-2 rounded-xl bg-surface-2 text-sm font-semibold"
+            style={{ width: Math.round(props.cardW * 0.6), height: rowH }}
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface">
+              <Icon name="chevronRight" />
+            </span>
+            {t("home.seeAll", { count: props.list.length })}
+          </button>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -395,9 +488,7 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
               >
                 {banners.map((b) => (
                   <div key={b.title} className="relative h-[55dvh] min-h-[340px] w-full shrink-0 snap-center overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center bg-surface-2 opacity-90">
-                      <Preview tpl={b.tpl} width={Math.max(w, 360)} />
-                    </div>
+                    <LazyBanner tpl={b.tpl} width={Math.max(w, 360)} />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/10 to-black/75" />
                     <div className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-2 p-5 text-white">
                       <h2 className="font-display text-[34px] leading-[1.02] font-bold">{b.title}</h2>
@@ -443,21 +534,7 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
 
             {/* Groups that slide sideways (§2.4): events in season first. */}
             {shelves.map((sh) => (
-              <section key={sh.key} aria-label={sh.title} className="pt-6">
-                <button type="button" onClick={() => push(sh.screen)} className="flex w-full items-center justify-between px-4 text-left">
-                  <span className="flex flex-col">
-                    <span className="text-[17px] font-bold">{sh.title}</span>
-                    <span className="text-[13px] text-muted">{sh.sub}</span>
-                  </span>
-                  <Icon name="chevronRight" />
-                </button>
-                <div className="no-scrollbar flex items-start gap-2 overflow-x-auto px-4 pt-3" style={{ touchAction: "pan-x pan-y" }}>
-                  {sh.list.map((tpl) => (
-                    // One height per row (owner, 2026-10-28): stories are narrower, not taller.
-                    <TemplateCard key={tpl.id} tpl={tpl} width={Math.round((cardW * 5) / 4 / cardRatio(tpl))} onOpen={open} inRow />
-                  ))}
-                </div>
-              </section>
+              <Shelf key={sh.key} title={sh.title} sub={sh.sub} list={sh.list} cardW={cardW} onOpen={open} onMore={() => push(sh.screen)} />
             ))}
 
             {/* Explore more (§2.5). */}

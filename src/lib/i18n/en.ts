@@ -188,6 +188,7 @@ export const en = {
   "home.blankPage": "Blank page",
   "home.exploreMore": "Explore more",
   "home.banners": "Featured",
+  "home.seeAll": "See all {count}",
   "home.exploreNow": "Explore now",
   "home.like": "Like",
   "home.unlike": "Unlike",
