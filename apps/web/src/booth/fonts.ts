@@ -1,5 +1,5 @@
-import { Bungee, Coiny, Cormorant_Garamond, Fraunces, Space_Mono } from "next/font/google";
-import { anton, beVietnam, dancing, greatVibes, patrickHand } from "@/app/fonts";
+import { Bungee, Chakra_Petch, Coiny, Cormorant_Garamond, Fraunces, Space_Mono } from "next/font/google";
+import { anton, beVietnam, dancing, greatVibes, patrickHand, playfair } from "@/app/fonts";
 
 // The booth's own type (Cinema look, D-150: its own UI): Fraunces, a soft, heavy display
 // serif for the sign and titles, and a mono for labels, like a cinema ticket. The themes'
@@ -22,6 +22,7 @@ export const boothMono = Space_Mono({
 const candy = Coiny({ subsets: ["latin", "vietnamese"], weight: ["400"], preload: false });
 const alice = Cormorant_Garamond({ subsets: ["latin", "vietnamese"], weight: ["600", "700"], style: ["italic"], preload: false });
 const y2k = Bungee({ subsets: ["latin", "vietnamese"], weight: ["400"], preload: false });
+const tech = Chakra_Petch({ subsets: ["latin", "vietnamese"], weight: ["700"], preload: false });
 
 /** For drawing on canvas: the font-family strings next/font generated, by role (themes.ts). */
 export const canvasFonts = {
@@ -35,4 +36,6 @@ export const canvasFonts = {
   script: greatVibes.style.fontFamily,
   brush: dancing.style.fontFamily,
   poster: anton.style.fontFamily,
+  news: playfair.style.fontFamily,
+  tech: tech.style.fontFamily,
 };

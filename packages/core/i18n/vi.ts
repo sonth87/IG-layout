@@ -1147,4 +1147,12 @@ export const vi: Record<MessageKey, string> = {
   "booth.retakeBody": "Chỉ ô này thôi: đếm một lần, chụp một tấm, thay vào đúng ô này.",
   "booth.retakeGo": "Mở camera",
   "booth.share.editing": "{name} đang sửa · {tab}",
+  "booth.theme.newspaper": "Báo cũ",
+  "booth.theme.oldfilm": "Phim cũ",
+  "booth.theme.notebook": "Vở ô ly",
+  "booth.theme.circus": "Rạp xiếc",
+  "booth.theme.cyberpunk": "Cyberpunk",
+  "booth.group.vintage": "Hoài cổ",
+  "booth.group.school": "Học trò",
+  "booth.group.future": "Tương lai",
 };

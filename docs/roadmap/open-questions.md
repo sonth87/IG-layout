@@ -46,6 +46,7 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P24.** ~~Đồ trang trí mặc định **cả bản in** (dây leo bò qua khe giữa…~~ Đồng ý — D-161 (2026-10-30).
 - **Q-P25.** ~~Nhóm theme bản đầu: Cinema, Rừng, Candy, Đêm hội, Lãng mạn,…~~ Đồng ý — D-161 (2026-10-30).
 - **Q-P26.** ~~Theme đổi cả **không khí màn chụp / sửa** (nền mờ đổi màu +…~~ Đồng ý — D-161 (2026-10-30).
+- **Q-P27.** Theme "chưa thực sự đã mắt" (2026-10-30): thiếu nhất ở đâu — (a) nền còn phẳng, muốn **ảnh minh hoạ / texture thật** (giấy, vải, gỗ, bầu trời…); (b) **chữ tiêu đề** cần hiệu ứng (viền, bóng, chuyển màu, chữ uốn); (c) **đồ trang trí** cần to / dày / nhiều lớp hơn; (d) ảnh trong ô cần **viền / khung** đậm chất theme hơn (tem, film, khung tranh); (e) cần **sticker nhân vật / hình minh hoạ** theo chủ đề? Có app / tiệm nào anh/chị thấy đẹp để mình tham khảo không?
 
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?

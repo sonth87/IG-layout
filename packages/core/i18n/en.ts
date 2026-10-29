@@ -1148,6 +1148,14 @@ export const en = {
   "booth.retakeBody": "Just this one: one countdown, one shot, it goes in this cell.",
   "booth.retakeGo": "Open the camera",
   "booth.share.editing": "{name} is decorating · {tab}",
+  "booth.theme.newspaper": "Old newspaper",
+  "booth.theme.oldfilm": "Old film",
+  "booth.theme.notebook": "Notebook",
+  "booth.theme.circus": "Circus",
+  "booth.theme.cyberpunk": "Cyberpunk",
+  "booth.group.vintage": "Vintage",
+  "booth.group.school": "School days",
+  "booth.group.future": "Future",
 } as const;
 
 export type MessageKey = keyof typeof en;

@@ -203,6 +203,125 @@ function decor(c: CanvasRenderingContext2D, f: Sheet, th: BoothTheme) {
       c.fill();
     }
     c.globalAlpha = 1;
+  } else if (th.decor === "news") {
+    // An old newspaper: columns of faint print, rules, a masthead line at the top.
+    const r = rng(17);
+    const col = 120 * unit;
+    const gut = 16 * unit;
+    const lh = 9 * unit;
+    c.fillStyle = "rgba(28,26,23,0.16)";
+    for (let x = 14 * unit; x < f.width - 14 * unit; x += col + gut)
+      for (let y = 22 * unit; y < f.height - 10 * unit; y += lh) {
+        if (r() < 0.06) {
+          y += lh; // a paragraph break
+          continue;
+        }
+        const w = (r() < 0.12 ? 0.4 + r() * 0.4 : 0.92 + r() * 0.08) * Math.min(col, f.width - 14 * unit - x);
+        c.fillRect(x, y, w, 3.2 * unit);
+      }
+    c.fillStyle = "rgba(28,26,23,0.55)";
+    c.fillRect(10 * unit, 10 * unit, f.width - 20 * unit, 2.5 * unit);
+    c.fillRect(10 * unit, 15 * unit, f.width - 20 * unit, 1 * unit);
+    c.fillRect(10 * unit, f.height - 12 * unit, f.width - 20 * unit, 1.5 * unit);
+  } else if (th.decor === "grid") {
+    // A Vietnamese ô ly notebook: small squares, every fourth line darker, a red margin.
+    const sq = 9 * unit;
+    for (let i = 0, x = 0; x < f.width; x += sq, i++) {
+      c.fillStyle = i % 4 ? "rgba(70,110,200,0.16)" : "rgba(70,110,200,0.38)";
+      c.fillRect(x, 0, Math.max(1, unit * (i % 4 ? 0.6 : 1)), f.height);
+    }
+    for (let i = 0, y = 0; y < f.height; y += sq, i++) {
+      c.fillStyle = i % 4 ? "rgba(70,110,200,0.16)" : "rgba(70,110,200,0.38)";
+      c.fillRect(0, y, f.width, Math.max(1, unit * (i % 4 ? 0.6 : 1)));
+    }
+    c.fillStyle = "rgba(226,69,60,0.6)";
+    c.fillRect(f.width * 0.07, 0, 1.6 * unit, f.height);
+  } else if (th.decor === "stripes") {
+    // A circus tent: red and cream stripes, a scalloped gold valance at the top, and a plate
+    // behind the caption so it reads.
+    const sw = 34 * unit;
+    c.fillStyle = "#d8262f";
+    for (let x = 0; x < f.width; x += sw * 2) c.fillRect(x, 0, sw, f.height);
+    const sc = 26 * unit;
+    for (let x = 0; x < f.width + sc; x += sc * 2) {
+      c.fillStyle = "#f2b632";
+      c.beginPath();
+      c.arc(x + sc, 0, sc, 0, Math.PI);
+      c.fill();
+      c.fillStyle = "#8a1018";
+      c.beginPath();
+      c.arc(x + sc, 0, sc * 0.55, 0, Math.PI);
+      c.fill();
+    }
+    const ft = f.foot ?? { x: 0, y: f.height, w: f.width, h: 0 };
+    c.fillStyle = "#fff4e2";
+    c.strokeStyle = "#f2b632";
+    c.lineWidth = 4 * unit;
+    c.beginPath();
+    c.roundRect(ft.x + ft.w * 0.04, ft.y + ft.h * 0.14, ft.w * 0.92, ft.h * 0.72, 14 * unit);
+    c.fill();
+    c.stroke();
+  } else if (th.decor === "neongrid") {
+    // Cyberpunk: a glowing floor grid running to the horizon, scanlines over everything.
+    const hz = f.height * 0.45;
+    const vx = f.width / 2;
+    c.save();
+    c.shadowColor = "#ff2bd6";
+    c.shadowBlur = 8 * unit;
+    c.strokeStyle = "rgba(255,43,214,0.55)";
+    c.lineWidth = 1.4 * unit;
+    for (let k = 1; k < 24; k++) {
+      const y = hz + (f.height - hz) * Math.pow(k / 24, 1.8);
+      c.beginPath();
+      c.moveTo(0, y);
+      c.lineTo(f.width, y);
+      c.stroke();
+    }
+    c.strokeStyle = "rgba(45,246,255,0.45)";
+    for (let k = -14; k <= 14; k++) {
+      c.beginPath();
+      c.moveTo(vx + k * f.width * 0.04, hz);
+      c.lineTo(vx + k * f.width * 0.32, f.height);
+      c.stroke();
+    }
+    c.restore();
+    c.fillStyle = "rgba(0,0,0,0.18)";
+    for (let y = 0; y < f.height; y += 4 * unit) c.fillRect(0, y, f.width, 1.2 * unit);
+  } else if (th.decor === "reels") {
+    // Old cinema: two big film reels half off the sheet, a filmstrip snaking between them.
+    const R = Math.max(f.width, f.height) * 0.22;
+    for (const [x, y] of [
+      [f.width * 0.95, f.height * 0.12],
+      [f.width * 0.05, f.height * 0.78],
+    ] as const) {
+      c.save();
+      c.translate(x, y);
+      c.strokeStyle = "rgba(217,164,65,0.4)";
+      c.fillStyle = "rgba(217,164,65,0.14)";
+      c.lineWidth = 5 * unit;
+      c.beginPath();
+      c.arc(0, 0, R, 0, Math.PI * 2);
+      c.arc(0, 0, R * 0.16, 0, Math.PI * 2, true);
+      // Six windows in the reel.
+      for (let k = 0; k < 6; k++) {
+        const a = (k / 6) * Math.PI * 2;
+        c.moveTo(Math.cos(a) * R * 0.58 + R * 0.24, Math.sin(a) * R * 0.58);
+        c.arc(Math.cos(a) * R * 0.58, Math.sin(a) * R * 0.58, R * 0.24, 0, Math.PI * 2, true);
+      }
+      c.fill("evenodd");
+      c.stroke();
+      c.beginPath();
+      c.arc(0, 0, R * 0.06, 0, Math.PI * 2);
+      c.fillStyle = "rgba(217,164,65,0.5)";
+      c.fill();
+      c.restore();
+    }
+    c.strokeStyle = "rgba(236,223,196,0.12)";
+    c.lineWidth = 46 * unit;
+    c.beginPath();
+    c.moveTo(f.width * 0.95, f.height * 0.12 + R);
+    c.bezierCurveTo(f.width * 1.1, f.height * 0.5, -f.width * 0.1, f.height * 0.4, f.width * 0.05, f.height * 0.78 - R);
+    c.stroke();
   } else if (th.decor === "kraft") {
     // Paper fibres: short faint strokes every which way.
     const r = rng(11);

@@ -9,16 +9,16 @@ import type { LayoutChoice } from "./layout";
 // Plain data; render.ts / decor.ts draw it. Adding a theme = adding an entry.
 
 /** Font roles; the app maps them to loaded faces (booth/fonts.ts). */
-export type FontRole = "serif" | "mono" | "body" | "candy" | "alice" | "y2k" | "hand" | "script" | "brush" | "poster";
+export type FontRole = "serif" | "mono" | "body" | "candy" | "alice" | "y2k" | "hand" | "script" | "brush" | "poster" | "news" | "tech";
 
 /** The paper's pattern. */
-export type Pattern = "none" | "dots" | "suits" | "stars" | "grain" | "kraft" | "hearts" | "snow" | "night";
+export type Pattern = "none" | "dots" | "suits" | "stars" | "grain" | "kraft" | "hearts" | "snow" | "night" | "news" | "grid" | "stripes" | "neongrid" | "reels";
 
 /** What drifts across the booth's screens. */
 export type Particles = "none" | "leaves" | "candy" | "stars" | "snow" | "sparks" | "confetti" | "petals" | "fireflies";
 
-export type ThemeGroup = "cinema" | "forest" | "candy" | "party" | "romance" | "sky" | "classic" | "y2k" | "alice" | "season";
-export const THEME_GROUPS: ThemeGroup[] = ["cinema", "forest", "candy", "party", "romance", "sky", "classic", "y2k", "alice", "season"];
+export type ThemeGroup = "cinema" | "vintage" | "forest" | "candy" | "party" | "romance" | "sky" | "school" | "future" | "classic" | "y2k" | "alice" | "season";
+export const THEME_GROUPS: ThemeGroup[] = ["cinema", "vintage", "forest", "candy", "party", "romance", "sky", "school", "future", "classic", "y2k", "alice", "season"];
 
 export interface BoothTheme {
   id: string;
@@ -89,6 +89,44 @@ export const THEMES: BoothTheme[] = [
     pieces: [{ kind: "stars", scope: "print", density: 1, colors: ["#c8432f", "#2a1d16"] }],
     mood: { floor: floor("#2a1d16", "#1a1310"), particles: "none", colors: [] },
     swatch: ["#efe2c8", "#2a1d16", "#c8432f"],
+  },
+  // ── Vintage (owner, 2026-10-30: báo cũ, phim cũ với cuộn phim tròn) ─────────
+  {
+    id: "newspaper",
+    group: "vintage",
+    bg: ["#efe6d2", "#e0d2b2"],
+    ink: "#1c1a17",
+    accent: "#1c1a17",
+    empty: "#d9cdb2",
+    ghost: "#c4b694",
+    decor: "news",
+    cellBorder: { color: "#1c1a17", width: 3 },
+    title: { font: "news", weight: 900, text: "The Daily Booth" },
+    sub: { font: "news" },
+    filter: "press400",
+    // Clippings: torn out, pasted a little askew.
+    layout: { arrange: "scatter", shape: "torn" },
+    mood: { floor: floor("#3a342b", "#1d1a15", "rgba(239,230,210,0.14)"), particles: "none", colors: [], polaroid: "#efe6d2" },
+    swatch: ["#efe6d2", "#1c1a17", "#9a8f78"],
+  },
+  {
+    id: "oldfilm",
+    group: "vintage",
+    bg: ["#221c17", "#14100d"],
+    ink: "#ecdfc4",
+    accent: "#d9a441",
+    empty: "#2e2620",
+    ghost: "#40352c",
+    holes: "rgba(236,223,196,0.8)",
+    decor: "reels",
+    cellBorder: { color: "#ecdfc4", width: 3 },
+    title: { font: "serif", weight: 700, italic: true, text: "Now Playing" },
+    sub: { font: "mono" },
+    filter: "expired",
+    layout: { arrange: "stagger" },
+    pieces: [{ kind: "stars", scope: "print", density: 1, colors: ["#d9a441", "#ecdfc4"] }],
+    mood: { floor: floor("#2a221c", "#0f0c0a", "rgba(217,164,65,0.2)"), particles: "stars", colors: ["#ecdfc4"], polaroid: "#ecdfc4" },
+    swatch: ["#221c17", "#d9a441", "#ecdfc4"],
   },
   // ── Forest ───────────────────────────────────────────────────────────────
   {
@@ -215,6 +253,27 @@ export const THEMES: BoothTheme[] = [
     mood: { floor: floor("#120c1f", "#05050a", "rgba(255,79,216,0.22)"), particles: "sparks", colors: ["#ff4fd8", "#4ff3ff"], polaroid: "#16161f" },
     swatch: ["#0b0b12", "#ff4fd8", "#4ff3ff"],
   },
+  {
+    id: "circus",
+    group: "party",
+    bg: "#fff4e2",
+    ink: "#8a1018",
+    accent: "#f2b632",
+    empty: "#f6e3cf",
+    ghost: "#e6c9a8",
+    decor: "stripes",
+    cellBorder: { color: "#f2b632", width: 8 },
+    title: { font: "poster", weight: 400, upper: true, text: "Circus Booth" },
+    sub: { font: "mono" },
+    filter: "seventies",
+    layout: { arrange: "stagger", shape: "arch" },
+    pieces: [
+      { kind: "lights", scope: "print", density: 2, colors: ["#ffd36e", "#fff3c4"] },
+      { kind: "stars", scope: "print", density: 1, colors: ["#f2b632", "#ffffff"] },
+    ],
+    mood: { floor: floor("#7d0e16", "#3a0609", "rgba(242,182,50,0.28)"), particles: "confetti", colors: ["#f2b632", "#ffffff", "#e23b3b"], polaroid: "#fff4e2" },
+    swatch: ["#d8262f", "#fff4e2", "#f2b632"],
+  },
   // ── Romance ──────────────────────────────────────────────────────────────
   {
     id: "ribbon",
@@ -296,6 +355,42 @@ export const THEMES: BoothTheme[] = [
     pieces: [{ kind: "stars", scope: "cells", density: 2, colors: ["#ffffff", "#ffe28a"] }],
     mood: { floor: floor("#a99be8", "#f2b6d8", "rgba(255,255,255,0.4)"), particles: "stars", colors: ["#ffffff", "#fff2c2"], polaroid: "#ffffff" },
     swatch: ["#d9d4ff", "#ffd6ec", "#6a4fb3"],
+  },
+  // ── School (vở ô ly), Future (cyberpunk) ──────────────────────────────────
+  {
+    id: "notebook",
+    group: "school",
+    bg: "#fdfdfb",
+    ink: "#2342a8",
+    accent: "#e2453c",
+    empty: "#eef1f7",
+    ghost: "#d5dbe8",
+    decor: "grid",
+    cellBorder: { color: "#ffffff", width: 8 },
+    title: { font: "hand", weight: 400, text: "my booth diary" },
+    sub: { font: "hand" },
+    filter: "snapshot",
+    layout: { arrange: "scatter", shape: "polaroid" },
+    pieces: [{ kind: "stars", scope: "print", density: 1, colors: ["#2342a8", "#e2453c"] }],
+    mood: { floor: floor("#3b4157", "#1d2030", "rgba(255,255,255,0.12)"), particles: "none", colors: [], polaroid: "#ffffff" },
+    swatch: ["#fdfdfb", "#2342a8", "#e2453c"],
+  },
+  {
+    id: "cyberpunk",
+    group: "future",
+    bg: ["#0a0618", "#1a0b2e"],
+    ink: "#2df6ff",
+    accent: "#ff2bd6",
+    empty: "#140d2a",
+    ghost: "#251a45",
+    decor: "neongrid",
+    title: { font: "tech", weight: 700, upper: true, text: "Neo Saigon" },
+    sub: { font: "mono" },
+    filter: "cyberpunk",
+    layout: { arrange: "stagger", shape: "rect" },
+    pieces: [{ kind: "neon", scope: "cells", density: 2, colors: ["#ff2bd6", "#2df6ff"] }],
+    mood: { floor: floor("#160a2e", "#05030d", "rgba(255,43,214,0.24)"), particles: "sparks", colors: ["#2df6ff", "#ff2bd6"], polaroid: "#140d2a" },
+    swatch: ["#0a0618", "#ff2bd6", "#2df6ff"],
   },
   // ── Classic ──────────────────────────────────────────────────────────────
   {

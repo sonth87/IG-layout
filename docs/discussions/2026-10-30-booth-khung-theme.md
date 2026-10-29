@@ -151,3 +151,14 @@ Chủ dự án: "ok làm tiếp đi" (sau đề xuất làm sửa chung tiếp t
 - Cách đồng bộ (`apps/web/src/booth/share.ts`): sửa ở đâu thì gửi phần vừa đổi cho mọi người qua kênh P2P; **mỗi trường có số phiên bản** (bộ đếm + người sửa), bản cao hơn thắng → thứ tự tin đến thế nào thì mọi máy cũng ra giống nhau; hai người sửa cùng một thứ cùng lúc thì một người thắng, các thứ khác nhau thì giữ cả hai. Mở màn trang trí → **hỏi các máy kia bản mới nhất** (vào muộn / đang ở màn khác vẫn bắt kịp); máy đang ở màn khác cũng nhận và cập nhật bản đang mở / bản đã lưu.
 - **"Mai đang sửa · Hoạ tiết"**: dải vàng dưới tiêu đề màn trang trí, cập nhật mỗi 4 giây, ai rời / khoá máy thì tự mất sau ~11 giây.
 - Chưa làm: hoàn tác (booth chưa có hoàn tác nói chung); chụp lại từng ô trong phòng (mỗi ô có cả nhóm).
+
+## 11. Thêm theme (2026-10-30)
+Chủ dự án: "các theme đã hay ho hơn nhưng chưa thực sự đã mắt" + "thêm theme như báo cũ, vở ô ly, rạp xiếc (đường kẻ trắng đỏ), cyberpunk, phim cũ (cuộn phim tròn)…". Thêm 5 theme, 3 nhóm mới (Hoài cổ, Học trò, Tương lai), hoạ tiết nền vẽ bằng code:
+| Theme | Nhóm | Nét chính |
+|---|---|---|
+| **Báo cũ** | Hoài cổ | giấy ngả vàng, **cột chữ in mờ + đường kẻ đầu / cuối trang**, tiêu đề "The Daily Booth" kiểu măng-sét báo (Playfair Display đậm), filter đen trắng Press 400, ảnh như **mẩu báo cắt xé dán rải** (ô xé giấy) |
+| **Phim cũ** | Hoài cổ | nâu đen, **hai cuộn phim tròn lớn** (6 lỗ, lõi) ló ở góc + dải phim uốn giữa, lỗ phim hai bên, "Now Playing" nghiêng, filter Expired |
+| **Vở ô ly** | Học trò | giấy trắng **ô ly xanh (đường thứ 4 đậm hơn) + lề đỏ**, chữ viết tay "my booth diary", ảnh polaroid rải, sao xanh đỏ như vẽ bút bi |
+| **Rạp xiếc** | Đêm hội | **sọc đỏ – kem lều xiếc, diềm vàng hình vỏ sò ở mép trên**, ô vòm viền vàng, **bảng tên kem viền vàng** sau dòng chữ "CIRCUS BOOTH", đèn bóng vàng, confetti |
+| **Cyberpunk** | Tương lai | tím đen, **lưới neon phối cảnh chạy về chân trời + vạch quét màn hình**, neon hồng / xanh từng ô, "NEO SAIGON" font Chakra Petch, filter Cyberpunk |
+Tổng: **24 theme / 13 nhóm**. Chủ dự án muốn "đã mắt" hơn nữa → xem câu hỏi Q-P27.
