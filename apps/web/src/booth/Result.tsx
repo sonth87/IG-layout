@@ -116,9 +116,14 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
         <div className="mx-auto mt-3 flex max-w-sm flex-col gap-3">
           {selected !== null && onRetake && <Btn onClick={() => onRetake([selected])}>↺ {t("booth.retakeShot", { n: selected + 1 })}</Btn>}
           {missing.length > 0 ? (
-            <Btn tone="main" className="py-4 text-sm" onClick={() => onRetake?.(missing)}>
-              {t("booth.fill")}
-            </Btn>
+            <div className="grid grid-cols-[1fr_auto] gap-3">
+              <Btn tone="main" className="py-4 text-sm" onClick={() => onRetake?.(missing)}>
+                {t("booth.fill")}
+              </Btn>
+              <Btn className="py-4 text-sm" onClick={onDecorate}>
+                ✎ {t("booth.decorate")}
+              </Btn>
+            </div>
           ) : (
             <>
               {/* Save as: the print itself, or the print on an Instagram-sized sheet. */}

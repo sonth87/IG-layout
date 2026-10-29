@@ -1142,6 +1142,11 @@ export const en = {
   "booth.group.y2k": "Y2K",
   "booth.group.alice": "Wonderland",
   "booth.group.season": "Seasons",
+  "booth.zoomReset": "Reset zoom",
+  "booth.retakeAsk": "Retake photo {n}?",
+  "booth.fillAsk": "Take photo {n}?",
+  "booth.retakeBody": "Just this one: one countdown, one shot, it goes in this cell.",
+  "booth.retakeGo": "Open the camera",
 } as const;
 
 export type MessageKey = keyof typeof en;

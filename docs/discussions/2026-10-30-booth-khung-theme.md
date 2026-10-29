@@ -136,3 +136,10 @@ Xem [open-questions.md](../roadmap/open-questions.md) mục Photobooth (Q-P21 �
 - Font thêm (chỉ tải khi bản in dùng): viết tay (Patrick Hand), thư pháp (Great Vibes), bút lông (Dancing Script), poster (Anton) — đều có tiếng Việt.
 - Hình **vòm** ở ô ngang: đỉnh vòm thành nửa elip để không trồi sang ô khác.
 - Tiếp theo: sửa chung trong phòng (D-148); item từ kho IG Layout kéo thả trên bản in.
+
+## 9. Góp ý màn Trang trí (2026-10-30)
+Chủ dự án: "ở bước decorate user có thể zoom phần xem được không, có nút reset zoom ở góc; zoom của mỗi người không ảnh hưởng người khác. Chụp 3 ảnh, sang trang trí chọn dải 4 thì sinh 1 ô trống — có cho click vào ô đã chụp lẫn chưa chụp để chụp lại không? Nếu cho thì confirm trước, chỉ chụp 1 tấm thay cho ô vừa chọn."
+- **Zoom** (`ZoomView.tsx`): chụm 2 ngón / ctrl + lăn (chụm trackpad) để phóng quanh chỗ đặt tay, tối đa 500 %; đã phóng thì kéo 1 ngón (hoặc 2 ngón) để dời; nút **⟲ 250 %** ở góc trên phải → về 100 %. Bản in **vẽ lại nét hơn** mỗi nấc zoom (giới hạn ~16 MP). Kéo / chụm không bao giờ tính là chạm vào ảnh. Ở chế độ Tự do, kéo 1 ngón trên ô vẫn là đặt ô, 2 ngón để zoom. Zoom chỉ trên máy mình (không gửi đi, không lưu).
+- **Chạm ô để chụp (lại)** ngay ở màn Trang trí — ô đã chụp hoặc ô trống (vd. đổi dải 3 → dải 4): hỏi trước **"Chụp lại ảnh 2?" / "Chụp ảnh 4?" — "Chỉ ô này thôi: đếm một lần, chụp một tấm, thay vào đúng ô này."** → Mở camera → đếm 8 s, **chụp đúng 1 tấm** vào ô đó → **quay lại màn Trang trí** (không phải màn kết quả). Ô trống có số thứ tự.
+- Màn kết quả khi còn ô trống: cạnh nút "Chụp bù" có thêm nút Trang trí.
+- Bản chụp chung trong phòng: không chụp lại từng ô (mỗi ô có cả nhóm).

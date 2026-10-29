@@ -36,6 +36,8 @@ interface Plan {
   count: number;
   /** Shot indices to replace in the current roll; null = a new roll. */
   targets: number[] | null;
+  /** Where to go back to after a retake (the print, or decorating). */
+  back?: Screen;
 }
 
 interface Prefs {
@@ -187,7 +189,7 @@ function BoothApp() {
       const shots = [...roll.shots];
       plan.targets.forEach((t, i) => (shots[t] = blobs[i] ?? shots[t]));
       setRoll({ ...roll, shots, updatedAt: Date.now() });
-      setScreen("result");
+      setScreen(plan.back ?? "result");
     } else if (blobs.length > frame.shots) {
       setTakes(blobs);
       setScreen("pick");
@@ -256,7 +258,7 @@ function BoothApp() {
           sound={prefs.sound}
           onSound={(sound) => setPrefs({ sound })}
           onDone={shootDone}
-          onExit={() => setScreen(plan.targets ? "result" : "setup")}
+          onExit={() => setScreen(plan.targets ? (plan.back ?? "result") : "setup")}
         />
       );
     case "pick":
@@ -272,7 +274,21 @@ function BoothApp() {
         />
       );
     case "decorate":
-      return roll ? <Decorate roll={roll} onChange={(r) => setRoll({ ...r, updatedAt: Date.now() })} onDone={() => setScreen("result")} /> : null;
+      return roll ? (
+        <Decorate
+          roll={roll}
+          onChange={(r) => setRoll({ ...r, updatedAt: Date.now() })}
+          onDone={() => setScreen("result")}
+          onRetake={
+            room
+              ? undefined
+              : (shot) => {
+                  setPlan({ count: 1, targets: [shot], back: "decorate" });
+                  setScreen("shoot");
+                }
+          }
+        />
+      ) : null;
     case "result":
       return roll ? (
         <Result

@@ -1141,4 +1141,9 @@ export const vi: Record<MessageKey, string> = {
   "booth.group.y2k": "Y2K",
   "booth.group.alice": "Xứ sở thần tiên",
   "booth.group.season": "Theo mùa",
+  "booth.zoomReset": "Về cỡ gốc",
+  "booth.retakeAsk": "Chụp lại ảnh {n}?",
+  "booth.fillAsk": "Chụp ảnh {n}?",
+  "booth.retakeBody": "Chỉ ô này thôi: đếm một lần, chụp một tấm, thay vào đúng ô này.",
+  "booth.retakeGo": "Mở camera",
 };

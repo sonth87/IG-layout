@@ -15,7 +15,8 @@ import { LayoutEditor } from "./LayoutEditor";
 import { LayoutPanel } from "./LayoutPanel";
 import { lookOptions, rollFrame, rollFilter, useRollImages, withTheme } from "./look";
 import { ThemePicker } from "./ThemePicker";
-import { Btn, display, mono, serif } from "./ui";
+import { Btn, Confirm, display, mono, serif } from "./ui";
+import { ZoomView } from "./ZoomView";
 
 // Decorate the print (design §2.5, step 2): change the frame after shooting (D-147), the theme
 // (paper, ink, decoration, caption face — themes.ts), the filter (IG Layout's colour pipeline)
@@ -24,7 +25,13 @@ import { Btn, display, mono, serif } from "./ui";
 type Tab = "frame" | "theme" | "decor" | "filter" | "text";
 const TABS: Tab[] = ["frame", "theme", "decor", "filter", "text"];
 
-export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange: (roll: BoothRoll) => void; onDone: () => void }) {
+export function Decorate({ roll, onChange, onDone, onRetake }: {
+  roll: BoothRoll;
+  onChange: (roll: BoothRoll) => void;
+  onDone: () => void;
+  /** Shoot one cell again (solo rolls; a group roll has everyone in each cell). */
+  onRetake?: (shot: number) => void;
+}) {
   const t = useT();
   const [tab, setTab] = useState<Tab>("theme");
   const frame = useMemo(() => rollFrame(roll), [roll]);
@@ -34,6 +41,8 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
   const set = (patch: Partial<BoothRoll>) => onChange({ ...roll, ...patch });
   /** Free layout: the cells while a finger moves one (drawn live, saved on release). */
   const [draft, setDraft] = useState<PlacedCell[] | null>(null);
+  /** The cell tapped: asks before going back to the camera. */
+  const [retaking, setRetaking] = useState<number | null>(null);
 
   return (
     <div className="flex h-full flex-col">
@@ -48,15 +57,29 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
       </header>
 
       <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        <div className="flex min-h-0 flex-1 items-center justify-center p-4 [container-type:size] lg:p-8">
-          {images && (
-            <div className="relative shadow-[5px_6px_0_rgba(11,8,6,0.85)]" style={{ width: `min(100cqw, calc(100cqh * ${frame.width / frame.height}))`, aspectRatio: `${frame.width} / ${frame.height}` }}>
-              <FrameCanvas frame={draft ? { ...frame, cells: draft } : frame} images={images} look={look} scale={Math.min(1, 1000 / Math.max(frame.width, frame.height))} className="absolute inset-0 h-full w-full" />
-              {tab === "frame" && roll.layout?.arrange === "free" && (
-                <LayoutEditor frame={frame} onLive={setDraft} onChange={(cells) => set({ layout: { ...roll.layout, cells } })} />
-              )}
-            </div>
-          )}
+        <div className="min-h-0 flex-1 p-4 lg:p-8">
+          <ZoomView label={t("booth.zoomReset")}>
+            {(step) =>
+              images && (
+                <div className="relative shadow-[5px_6px_0_rgba(11,8,6,0.85)]" style={{ width: `min(100cqw, calc(100cqh * ${frame.width / frame.height}))`, aspectRatio: `${frame.width} / ${frame.height}` }}>
+                  <FrameCanvas
+                    frame={draft ? { ...frame, cells: draft } : frame}
+                    images={images}
+                    look={look}
+                    numbers
+                    // Sharper as the zoom grows, within ~16 MP.
+                    scale={Math.min(Math.sqrt(16e6 / (frame.width * frame.height)), (1400 / Math.max(frame.width, frame.height)) * step)}
+                    className="absolute inset-0 h-full w-full"
+                    // Tap a photo (or an empty cell) to shoot that one again — solo rolls only.
+                    onCell={onRetake && !(tab === "frame" && roll.layout?.arrange === "free") ? (shot) => setRetaking(shot) : undefined}
+                  />
+                  {tab === "frame" && roll.layout?.arrange === "free" && (
+                    <LayoutEditor frame={frame} onLive={setDraft} onChange={(cells) => set({ layout: { ...roll.layout, cells } })} />
+                  )}
+                </div>
+              )
+            }
+          </ZoomView>
         </div>
 
         <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:w-[460px] lg:overflow-y-auto lg:border-t-0 lg:border-l-2">
@@ -136,6 +159,20 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
           </div>
         </div>
       </div>
+      {retaking !== null && (
+        <Confirm
+          title={roll.shots[retaking] ? t("booth.retakeAsk", { n: retaking + 1 }) : t("booth.fillAsk", { n: retaking + 1 })}
+          body={t("booth.retakeBody")}
+          yes={t("booth.retakeGo")}
+          no={t("common.cancel")}
+          onYes={() => {
+            const shot = retaking;
+            setRetaking(null);
+            onRetake?.(shot);
+          }}
+          onNo={() => setRetaking(null)}
+        />
+      )}
     </div>
   );
 }
