@@ -242,3 +242,5 @@ e2e: `stretch.mjs` (tay nắm bên → chữ to theo, cùng tỉ lệ khung), `c
 
 **Trang thử:** thêm lọc theo chủ đề ảnh `/labs/templates?theme=concert,mirror,ootd`.
 
+**Sửa (chủ dự án):** ảnh của chủ dự án không được trộn với ảnh khác. Trước đó khi một chủ đề hết ảnh hoặc không có ảnh vừa khung, bộ chọn lấy ảnh bất kỳ (nên mẫu concert hiện ảnh confetti, mẫu gương hiện ảnh cặp đôi Pexels), và 2 mẫu có gắn kèm chủ đề "city". Giờ `samples.ts` chia **2 kho tách biệt** (ảnh của chủ dự án / ảnh Pexels), không bao giờ lấy chéo; mẫu dùng ảnh chủ dự án hết ảnh thì lặp lại ảnh trong chính chủ đề đó. 20 mẫu chỉ gắn chủ đề concert / mirror / ootd.
+

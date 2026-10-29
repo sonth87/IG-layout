@@ -18,6 +18,8 @@ interface SamplePhoto {
 }
 
 const PHOTOS = manifest as SamplePhoto[];
+/** Themes of the owner's own photos. */
+const OWN_THEMES = new Set(PHOTOS.filter((p) => p.ext === "jpg").map((p) => p.theme));
 const DEFAULT_THEMES: SampleTheme[] = ["portrait", "friends", "city", "food"];
 
 const assets = new Map<string, ImageAsset>();
@@ -61,6 +63,9 @@ export function samplePhotosFor(tpl: Template): ImageAsset[] {
   const hit = byTemplate.get(tpl.id);
   if (hit) return hit;
   const themes = tpl.design?.themes ?? DEFAULT_THEMES;
+  // Two separate stocks: the owner's own photos (JPEG) and the Pexels ones.
+  const own = themes.some((th) => OWN_THEMES.has(th));
+  const pool = PHOTOS.filter((p) => (p.ext === "jpg") === own);
   const h = hash(tpl.id);
   const used = new Set<string>();
   const list = Array.from(cellAspects(tpl), (aspect, i) => {
@@ -68,9 +73,12 @@ export function samplePhotosFor(tpl: Template): ImageAsset[] {
     // Themes take turns; each cell starts at its own place within the theme so templates
     // don't all open on the same photo.
     const theme = themes[(i + h) % themes.length];
-    let from = PHOTOS.filter((p) => p.theme === theme && !used.has(p.id));
-    if (!from.length) from = PHOTOS.filter((p) => themes.includes(p.theme) && !used.has(p.id));
-    if (!from.length) from = PHOTOS.filter((p) => !used.has(p.id));
+    let from = pool.filter((p) => p.theme === theme && !used.has(p.id));
+    if (!from.length) from = pool.filter((p) => themes.includes(p.theme) && !used.has(p.id));
+    // The owner's photos are never mixed with stock ones (owner, 2026-10-29): when a theme runs
+    // out, its photos come round again rather than borrowing others.
+    if (!from.length) from = own ? pool.filter((p) => themes.includes(p.theme)) : pool.filter((p) => !used.has(p.id));
+    if (!from.length) from = pool;
     const start = hash(`${tpl.id}:${i}`) % from.length;
     from = [...from.slice(start), ...from.slice(0, start)];
     // The first photo close enough in shape, else the closest one.
