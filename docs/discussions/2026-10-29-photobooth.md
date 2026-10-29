@@ -344,3 +344,12 @@ Chủ dự án: "ok, thử đi xem nào" → làm bản thử trên nhánh `boot
 - Chưa có TURN → người ở mạng chặn nối thẳng sẽ thấy "không nối được (cần TURN?)".
 - Đồng bộ đếm ngược theo "sau X ms" → lệch bằng độ trễ mạng (vài chục ms), chưa bù.
 - Chưa giới hạn số lần thử mã phòng; WebSocket của thành viên vẫn mở suốt (chưa đóng sau khi nối P2P); không có mic; rớt mạng chưa tự nối lại.
+
+## Tái cấu trúc monorepo — bước 1 (2026-10-29)
+Chủ dự án nhắc: thứ tự đã chốt là **tái cấu trúc trước, chức năng sau** (Q-P13); bản thử phòng ở trên làm trước là lệch thứ tự. Đã làm bước 1 trên nhánh `monorepo`:
+- `apps/web` — app Next.js cũ (giao diện, store, trang, PWA, scripts, e2e). Booth sẽ là route trong app này.
+- `packages/core` — toàn bộ `src/lib` cũ (logic, không giao diện), import `@ig-layout/core/...`; app web biên dịch thẳng mã nguồn (`transpilePackages`). Ở lại app web: `pwa.ts`, `text/webfonts.ts` (gắn với Next). Kiểu `Locale` chuyển vào `core/i18n/locale.ts`. Phiên booth nhận địa chỉ server từ app (không đọc biến môi trường Next trong core).
+- `apps/signal` — server phòng, dùng chung kiểu tin nhắn `core/booth/protocol.ts`.
+- `assets/` (nguồn tài sản) giữ ở gốc; chưa tách `packages/assets` vì chỉ có một app web phục vụ `public/packs` — tách khi cần.
+- ESLint một cấu hình ở gốc cho cả workspace.
+- Cần chủ dự án: Vercel → Root Directory = `apps/web` (Vercel tự cài workspace từ gốc). Chưa đổi thì deploy từ `main` sẽ hỏng → chưa merge.

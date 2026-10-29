@@ -19,7 +19,7 @@ Web app (Next.js + PWA) miễn phí, giúp người dùng chỉnh ảnh, cắt �
 
 - **Giao tiếp bằng tiếng Việt.**
 - **Không code khi giai đoạn hiện tại chưa cho phép code.** Kiểm tra giai đoạn trong [roadmap/plan.md](../roadmap/plan.md). (Từ 2026-10-14: Giai đoạn 1 — được code prototype.)
-- Khi code: đọc [dev/README.md](../dev/README.md) (cấu trúc, quy ước) và `AGENTS.md` ở thư mục gốc (Next.js 16).
+- Khi code: đọc [dev/README.md](../dev/README.md) (cấu trúc, quy ước) và `apps/web/AGENTS.md` (Next.js 16).
 - **Không tự chốt quyết định.** Chỉ được đề xuất; chủ dự án chốt. Mục chưa chốt ghi trạng thái `Đề xuất`.
 - **Cập nhật tài liệu sau mỗi buổi trao đổi:**
   - Quyết định mới → `discussions/decisions.md`

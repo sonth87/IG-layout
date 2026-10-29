@@ -33,18 +33,18 @@ Bạn đang làm việc trong repo "IG Layout" (Next.js 16 PWA, miễn phí, phi
 2. docs/architecture/asset-catalog.md — định dạng tài sản BẮT BUỘC theo.
 3. docs/roadmap/m20-plan.md — kế hoạch M20 và cách phối hợp.
 4. docs/ai/gemini-tasks.md — mục của việc bạn được giao.
-5. src/lib/catalog/types.ts, licenses.json, collections.json; scripts/assets/common.mjs, validate.mjs, build-catalog.mjs.
+5. packages/core/catalog/types.ts, licenses.json, collections.json; apps/web/scripts/assets/common.mjs, validate.mjs, build-catalog.mjs.
 
 Quy tắc:
 - Trao đổi và viết tài liệu bằng tiếng Việt. Code và comment bằng tiếng Anh, theo phong cách code sẵn có.
-- Tạo nhánh riêng từ main (tên ghi trong việc). Chỉ sửa file trong PHẠM VI của việc. Không sửa src/ (trừ khi việc cho phép), không sửa e2e/, không đổi package.json trừ khi việc cho phép.
+- Tạo nhánh riêng từ main (tên ghi trong việc). Chỉ sửa file trong PHẠM VI của việc. Không sửa src/ (trừ khi việc cho phép), không sửa apps/web/e2e/, không đổi package.json trừ khi việc cho phép.
 - Không commit thư mục refs/ và assets/**/src/ (file gốc tải về).
 - Không nhắc tên app tham khảo nào trong tài liệu.
 - Giấy phép (D-106): chỉ dùng CC0, Public Domain, MIT, ISC, Apache-2.0, OFL-1.1, CC-BY, CC-BY-SA, CC-BY-NC, CC-BY-NC-SA, hoặc giấy phép riêng của tác giả có cho dùng miễn phí phi thương mại (ghi "custom" + licenseUrl). App phi thương mại nên NC dùng được.
 - CẤM các nguồn có điều khoản không cho đưa nội dung vào app / thư viện, kể cả khi ghi "miễn phí": Pixabay, Unsplash, Pexels, Freepik, Flaticon, Canva, Vecteezy, Shutterstock, Adobe Stock, iStock, Getty, Etsy, Creative Market, DaFont, các gói "free" trên Gumroad / blog cá nhân không ghi giấy phép rõ ràng.
 - Kiểm tra giấy phép ở TRANG GỐC của từng mục, không tin nhãn của trang tổng hợp. Mỗi mục phải có source.url trỏ tới trang của chính mục đó.
 - Không lấy logo / nhãn hiệu, nhân vật có bản quyền, ảnh có người nhận diện được, ảnh có watermark, nội dung nhạy cảm.
-- Trước khi báo xong: chạy `node scripts/assets/validate.mjs` (phải OK) và `node scripts/assets/build-catalog.mjs`. Commit theo từng phần nhỏ, message tiếng Anh rõ ràng. Đẩy nhánh lên origin, KHÔNG merge / push vào main trừ khi chủ dự án bảo. Làm trong `git worktree` riêng (không phải thư mục chính của repo).
+- Trước khi báo xong: chạy `node apps/web/scripts/assets/validate.mjs` (phải OK) và `node apps/web/scripts/assets/build-catalog.mjs`. Commit theo từng phần nhỏ, message tiếng Anh rõ ràng. Đẩy nhánh lên origin, KHÔNG merge / push vào main trừ khi chủ dự án bảo. Làm trong `git worktree` riêng (không phải thư mục chính của repo).
 - Khi xong: cập nhật bảng trạng thái ở docs/ai/gemini-tasks.md (cột Trạng thái của việc mình) và viết báo cáo ngắn bằng tiếng Việt: đã làm gì, bao nhiêu mục, nguồn nào, điều gì chưa chắc chắn (giấy phép, chất lượng) cần chủ dự án xem.
 - Gặp chỗ định dạng không đủ hoặc mâu thuẫn: KHÔNG tự đổi định dạng; ghi lại trong báo cáo để Claude sửa.
 ```
@@ -70,7 +70,7 @@ Việc G6 — Câu xem trước phông và chữ mẫu widget. Nhánh: gemini/g6
 
 Đọc mục "G6" trong docs/ai/gemini-tasks.md và làm đúng đầu ra ghi ở đó:
 1. assets/text/preview-sentences.json — vi ≥ 120, en ≥ 120, ja/ko/zh ≥ 30 câu; câu ≤ 40 ký tự; hay, có ý nghĩa, hợp Instagram; tiếng Việt dùng nhiều dấu để thử phông; không trích lời bài hát / sách có bản quyền; không chủ đề nhạy cảm. Câu tiếng Nhật / Hàn / Trung phải tự nhiên (như người bản xứ viết), không dịch máy cứng.
-2. assets/text/widget-samples.json — chữ mẫu VI/EN cho 5 widget hiện có (label, message, location, highlight, clock — xem src/lib/elements/create.ts) và đề xuất ≥ 20 kiểu widget mới đa dạng (ví dụ thời tiết, lịch, đếm ngược, bài hát đang nghe, đánh giá sao, bình chọn, đoạn chat hai người, thông báo điện thoại, câu hỏi, giá / khuyến mãi, hashtag, @nhắc tên, thanh tiến trình, vé máy bay, công thức món ăn…). Mỗi kiểu: id (camelCase), name {en, vi}, description (tiếng Việt), fields (tên các trường chữ), samples {en: {...}, vi: {...}}.
+2. assets/text/widget-samples.json — chữ mẫu VI/EN cho 5 widget hiện có (label, message, location, highlight, clock — xem packages/core/elements/create.ts) và đề xuất ≥ 20 kiểu widget mới đa dạng (ví dụ thời tiết, lịch, đếm ngược, bài hát đang nghe, đánh giá sao, bình chọn, đoạn chat hai người, thông báo điện thoại, câu hỏi, giá / khuyến mãi, hashtag, @nhắc tên, thanh tiến trình, vé máy bay, công thức món ăn…). Mỗi kiểu: id (camelCase), name {en, vi}, description (tiếng Việt), fields (tên các trường chữ), samples {en: {...}, vi: {...}}.
 Không sửa file nào khác ngoài 2 file trên và bảng trạng thái trong docs/ai/gemini-tasks.md.
 ```
 
@@ -78,9 +78,9 @@ Không sửa file nào khác ngoài 2 file trên và bảng trạng thái trong 
 
 ## G1 — Script xử lý ảnh + trang duyệt
 
-- **Mục tiêu:** biến file gốc thành file đúng chuẩn `public/packs/` (asset-catalog §5, §6).
+- **Mục tiêu:** biến file gốc thành file đúng chuẩn `apps/web/public/packs/` (asset-catalog §5, §6).
 - **Phạm vi:**
-  - `scripts/assets/process.mjs`, `scripts/assets/review.mjs`, các file phụ trong `scripts/assets/lib/`;
+  - `apps/web/scripts/assets/process.mjs`, `apps/web/scripts/assets/review.mjs`, các file phụ trong `apps/web/scripts/assets/lib/`;
   - thêm devDependency nếu cần (ghi rõ lý do; ưu tiên `sharp` đã có);
   - một gói mẫu nhỏ để thử: `assets/sticker/sample-test/` — 3 – 5 mục CC0 thật; xoá trước khi báo xong, hoặc giữ nếu tốt và đổi tên gói cho đúng nội dung.
 - **Yêu cầu `process.mjs <kind>/<pack> [--only <id>] [--force]`:**
@@ -101,18 +101,18 @@ Không sửa file nào khác ngoài 2 file trên và bảng trạng thái trong 
   - Sinh `assets/<kind>/<pack>/review.html` (không commit, thêm vào .gitignore).
   - Lưới mọi mục trên ba nền: sáng, tối, ca rô.
   - Mỗi mục hiện tên VI, giấy phép, link nguồn; khung thì vẽ khung đỏ quanh `windows` đã dò.
-- **Xong khi:** gói mẫu chạy qua `process` → `validate` OK → `build-catalog`; có `scripts/assets/README.md` hướng dẫn chạy.
+- **Xong khi:** gói mẫu chạy qua `process` → `validate` OK → `build-catalog`; có `apps/web/scripts/assets/README.md` hướng dẫn chạy.
 
 **Prompt:**
 ```
 Việc G1 — Script xử lý ảnh và trang duyệt tài sản. Nhánh: gemini/g1-process.
 
 Đọc mục "G1" trong docs/ai/gemini-tasks.md và docs/architecture/asset-catalog.md (§2, §5, §6), rồi viết:
-1. scripts/assets/process.mjs <kind>/<pack> [--only <id>] [--force]: đọc manifest + file gốc ở assets/<kind>/<pack>/src/, xuất WebP + ảnh thu nhỏ vào public/packs/<kind>/<pack>/ theo đúng giới hạn (§5), điền width/height (và windows cho khung) vào manifest. Sticker: tách nền bằng mô hình chạy trên máy (không gọi dịch vụ online), cắt sát chừa lề 3 %, làm sạch mép. Frame: dò cửa sổ trong suốt; hỗ trợ khai báo windows sẵn để đục lỗ. Texture: kiểm tra lát lặp. Tự hạ chất lượng WebP cho vừa dung lượng.
-2. scripts/assets/review.mjs <kind>/<pack>: sinh review.html (thêm vào .gitignore) xem cả gói trên nền sáng / tối / ca rô, kèm tên, giấy phép, link nguồn, khung đỏ quanh cửa sổ khung.
-3. scripts/assets/README.md: cách cài và chạy.
+1. apps/web/scripts/assets/process.mjs <kind>/<pack> [--only <id>] [--force]: đọc manifest + file gốc ở assets/<kind>/<pack>/src/, xuất WebP + ảnh thu nhỏ vào apps/web/public/packs/<kind>/<pack>/ theo đúng giới hạn (§5), điền width/height (và windows cho khung) vào manifest. Sticker: tách nền bằng mô hình chạy trên máy (không gọi dịch vụ online), cắt sát chừa lề 3 %, làm sạch mép. Frame: dò cửa sổ trong suốt; hỗ trợ khai báo windows sẵn để đục lỗ. Texture: kiểm tra lát lặp. Tự hạ chất lượng WebP cho vừa dung lượng.
+2. apps/web/scripts/assets/review.mjs <kind>/<pack>: sinh review.html (thêm vào .gitignore) xem cả gói trên nền sáng / tối / ca rô, kèm tên, giấy phép, link nguồn, khung đỏ quanh cửa sổ khung.
+3. apps/web/scripts/assets/README.md: cách cài và chạy.
 4. Thử với một gói mẫu 3 – 5 sticker CC0 thật (ví dụ tem / bưu thiếp cổ từ Smithsonian Open Access hoặc The Met Open Access) để chứng minh chạy hết chuỗi process → validate → build-catalog.
-Dùng sharp (đã có trong devDependencies). Nếu thêm thư viện mới thì kiểm tra giấy phép và ghi lý do trong báo cáo. Node 20 (không chạy TypeScript trực tiếp). Phạm vi: scripts/assets/**, assets/sticker/<gói mẫu>/, public/packs/** của gói mẫu, .gitignore, package.json (chỉ devDependencies).
+Dùng sharp (đã có trong devDependencies). Nếu thêm thư viện mới thì kiểm tra giấy phép và ghi lý do trong báo cáo. Node 20 (không chạy TypeScript trực tiếp). Phạm vi: apps/web/scripts/assets/**, assets/sticker/<gói mẫu>/, apps/web/public/packs/** của gói mẫu, .gitignore, package.json (chỉ devDependencies).
 ```
 
 ---
@@ -121,9 +121,9 @@ Dùng sharp (đã có trong devDependencies). Nếu thêm thư viện mới thì
 
 - **Mục tiêu:** khoảng 150 phông mới, phong phú về kiểu và ngôn ngữ, tải được khi offline.
 - **Phạm vi:**
-  - `scripts/assets/fonts.mjs` (script tải phông);
+  - `apps/web/scripts/assets/fonts.mjs` (script tải phông);
   - `assets/font/<pack>/manifest.json`;
-  - `public/packs/font/**`.
+  - `apps/web/public/packs/font/**`.
 - **Nguồn:**
   - **Google Fonts** — tải WOFF2 qua gói Fontsource trên npm / CDN jsDelivr, đã chia sẵn theo bảng chữ kèm `unicode-range`;
   - phông có giấy phép riêng cho dùng phi thương mại (`custom` + `licenseUrl`), **chỉ khi** trang chính thức của tác giả ghi rõ;
@@ -138,7 +138,7 @@ Dùng sharp (đã có trong devDependencies). Nếu thêm thư viện mới thì
   - `festive` — lễ hội / Tết / Noel;
   - `retro-pixel`;
   - `brush-grunge`.
-- **Không trùng** với 78 phông đang có trong `src/lib/text/fonts.ts`.
+- **Không trùng** với 78 phông đang có trong `packages/core/text/fonts.ts`.
 - Mỗi phông lấy **tối đa 3 độ đậm**: 400 và một hai độ đậm hay dùng. Chỉ lấy kiểu thường, không lấy nghiêng.
 - Với tiếng Nhật / Hàn / Trung: lấy đủ các phần chia nhỏ của Fontsource (mỗi phần một `files[]` kèm `unicodeRange`). Tổng dung lượng mỗi phông CJK nên dưới 8 MB.
 - `languages`: chỉ ghi `vietnamese` khi phông có subset `vietnamese` **và** hiển thị đúng chữ có dấu.
@@ -149,11 +149,11 @@ Dùng sharp (đã có trong devDependencies). Nếu thêm thư viện mới thì
 Việc G5 — Thêm khoảng 150 phông chữ. Nhánh: gemini/g5-fonts.
 
 Đọc mục "G5" trong docs/ai/gemini-tasks.md và docs/architecture/asset-catalog.md (§3 phần Phông).
-1. Viết scripts/assets/fonts.mjs: từ một danh sách phông (khai báo trong chính manifest hoặc một file danh sách trong scripts/assets/), tải WOFF2 từ Fontsource (npm @fontsource/<tên> hoặc cdn.jsdelivr.net/fontsource), mỗi phông tối đa 3 độ đậm, kiểu thường, đủ các subset cần thiết, lưu vào public/packs/font/<pack>/<id>/ và điền files[] (weight, subset, file, unicodeRange) vào assets/font/<pack>/manifest.json.
-2. Chọn khoảng 150 phông KHÔNG trùng với src/lib/text/fonts.ts, chia gói: handwriting, calligraphy, vietnamese-display, japanese, korean, chinese, fantasy (phong cách cổ điển / phù thuỷ kiểu "Harry Potter" nhưng là phông OFL), playful (khối tròn kiểu đồ chơi / "Lego" nhưng là phông OFL), festive (lễ hội / Tết / Noel), retro-pixel, brush-grunge. Ưu tiên phông có subset vietnamese.
+1. Viết apps/web/scripts/assets/fonts.mjs: từ một danh sách phông (khai báo trong chính manifest hoặc một file danh sách trong apps/web/scripts/assets/), tải WOFF2 từ Fontsource (npm @fontsource/<tên> hoặc cdn.jsdelivr.net/fontsource), mỗi phông tối đa 3 độ đậm, kiểu thường, đủ các subset cần thiết, lưu vào apps/web/public/packs/font/<pack>/<id>/ và điền files[] (weight, subset, file, unicodeRange) vào assets/font/<pack>/manifest.json.
+2. Chọn khoảng 150 phông KHÔNG trùng với packages/core/text/fonts.ts, chia gói: handwriting, calligraphy, vietnamese-display, japanese, korean, chinese, fantasy (phong cách cổ điển / phù thuỷ kiểu "Harry Potter" nhưng là phông OFL), playful (khối tròn kiểu đồ chơi / "Lego" nhưng là phông OFL), festive (lễ hội / Tết / Noel), retro-pixel, brush-grunge. Ưu tiên phông có subset vietnamese.
 3. Mỗi phông: id kebab-case, family, label, styles, languages (chỉ ghi vietnamese khi thật sự đủ dấu), weights, files, source (provider "Google Fonts", url trang phông trên fonts.google.com, author = foundry/designer, license OFL-1.1 hoặc Apache-2.0, retrieved), collections phù hợp (tet, christmas, japan, vintage, cute, handDrawn…).
 4. Chạy validate.mjs và build-catalog.mjs. Báo cáo bảng: gói → số phông → vài tên ví dụ → tổng dung lượng.
-Phạm vi: scripts/assets/fonts.mjs (+ file danh sách nếu cần), assets/font/**, public/packs/font/**, public/packs/catalog.json.
+Phạm vi: apps/web/scripts/assets/fonts.mjs (+ file danh sách nếu cần), assets/font/**, apps/web/public/packs/font/**, apps/web/public/packs/catalog.json.
 ```
 
 ---
@@ -164,8 +164,8 @@ Phạm vi: scripts/assets/fonts.mjs (+ file danh sách nếu cần), assets/font
 - **Phạm vi:**
   - `assets/sticker/<pack>/manifest.json`;
   - `assets/sticker/<pack>/src/` (không commit);
-  - `public/packs/sticker/**`;
-  - `public/packs/catalog.json`.
+  - `apps/web/public/packs/sticker/**`;
+  - `apps/web/public/packs/catalog.json`.
 - **Gói gợi ý** (có thể điều chỉnh, ghi lý do):
   - Tem & dấu bưu chính cổ — Smithsonian National Postal Museum, The Met;
   - Vé, nhãn, bao bì cổ;
@@ -197,7 +197,7 @@ Việc G2 — Sticker đợt 1, khoảng 200 mục. Nhánh: gemini/g2-stickers (
 2. Chia 10 – 14 gói theo gợi ý (tem, vé / nhãn, bưu thiếp, hoa lá, bướm, chim / động vật, bản đồ, doodle, đồ vật, Nhật Bản, Việt Nam nếu có nguồn rõ ràng, lễ hội). Mỗi gói một phong cách thống nhất, gắn collections phù hợp.
 3. Tải gốc vào assets/sticker/<pack>/src/, viết manifest (tên VI tự nhiên, tags EN/VI ≥ 3 mỗi thứ tiếng, source đầy đủ), chạy process.mjs, mở review.html để xem và LOẠI mục xấu (tách nền lỗi, mờ, bị cắt, trùng), chạy validate.mjs (OK) và build-catalog.mjs.
 4. Báo cáo: bảng gói → số mục → nguồn chính → giấy phép; liệt kê riêng các mục NC / custom và mục còn nghi ngờ.
-Phạm vi: assets/sticker/**, public/packs/sticker/**, public/packs/catalog.json.
+Phạm vi: assets/sticker/**, apps/web/public/packs/sticker/**, apps/web/public/packs/catalog.json.
 ```
 
 ---
@@ -206,8 +206,8 @@ Phạm vi: assets/sticker/**, public/packs/sticker/**, public/packs/catalog.json
 
 - **Phạm vi:**
   - `assets/texture/**`, `assets/overlay/**`;
-  - `public/packs/texture/**`, `public/packs/overlay/**`;
-  - `public/packs/catalog.json`.
+  - `apps/web/public/packs/texture/**`, `apps/web/public/packs/overlay/**`;
+  - `apps/web/public/packs/catalog.json`.
 - **Chất liệu nền:**
   - Nguồn ambientCG, Poly Haven (CC0): chỉ lấy ảnh màu (albedo / diffuse), không lấy normal map.
   - Nhóm: giấy (trắng, ngà, kraft, cũ, nhăn, giấy dó / giấy bản nếu có), bìa carton, vải (lanh, bố, nỉ, len, jean), gỗ, đá / bê tông / cẩm thạch, kim loại nhẹ, lá / cỏ, cát / nước nhìn từ trên.
@@ -226,7 +226,7 @@ Việc G3 — Chất liệu nền và lớp phủ. Nhánh: gemini/g3-textures (t
 1. ≥ 40 chất liệu nền từ ambientCG và Poly Haven (CC0), chỉ ảnh màu (albedo/diffuse), chia gói: paper, fabric, wood, stone, nature (cỏ / lá / cát / nước nhìn từ trên), misc. Đặt tile: true cho ảnh lát lặp liền mép (kiểm tra bằng cảnh báo của process.mjs).
 2. ≥ 20 lớp phủ (vệt sáng, rò sáng, bụi / xước phim, hạt phim, bokeh, giấy nhăn, nếp gấp, vết cà phê, tia nắng, lăng kính) từ nguồn CC0 / CC-BY / NC hợp lệ, có blend phù hợp (nền đen → screen, nền trắng → multiply).
 3. process.mjs → review.html (loại mục xấu) → validate.mjs OK → build-catalog.mjs. Báo cáo như các việc khác.
-Phạm vi: assets/texture/**, assets/overlay/**, public/packs/texture/**, public/packs/overlay/**, public/packs/catalog.json.
+Phạm vi: assets/texture/**, assets/overlay/**, apps/web/public/packs/texture/**, apps/web/public/packs/overlay/**, apps/web/public/packs/catalog.json.
 ```
 
 ---
@@ -237,7 +237,7 @@ Phạm vi: assets/texture/**, assets/overlay/**, public/packs/texture/**, public
   - (a) khoảng 40 ảnh khung thật có cửa sổ;
   - (b) bộ ảnh **mép giấy xé thật** để bộ sinh khung của Claude (C7, D-107) dùng làm "cọ".
 - **Phạm vi:**
-  - `assets/frame/**`, `public/packs/frame/**`, `public/packs/catalog.json`;
+  - `assets/frame/**`, `apps/web/public/packs/frame/**`, `apps/web/public/packs/catalog.json`;
   - `assets/_sources/torn-edges/` (manifest cùng định dạng; ảnh đã xử lý để trong `assets/_sources/torn-edges/files/`, PNG có alpha, được commit, mỗi file ≤ 500 KB).
 - **(a) Khung:**
   - khung tranh cổ mạ vàng / gỗ chạm — The Met, Rijksmuseum, Smithsonian có ảnh khung tranh PD;
@@ -262,7 +262,7 @@ Việc G4 — Khung ảnh từ nguồn ngoài và mép giấy xé thật. Nhánh
 (a) ≥ 40 khung (kind "frame"): khung tranh cổ (mạ vàng, gỗ chạm), khung gương, ảnh cổ có viền (cabinet card, carte de visite, viền răng cưa), bưu thiếp có ô, khung hoa văn từ sách cổ, thiệp / nhãn có ô trống — nguồn PD / CC0 / CC hợp lệ (The Met, Rijksmuseum, Smithsonian, NYPL public domain, BHL, Wikimedia). Khai báo windows (toạ độ 0–1) cho vùng ảnh / tranh bên trong để process.mjs đục trong suốt; kiểm tra bằng review.html. Chia gói: gilded-frames, wooden-frames, vintage-photo-mounts, postcards, ornaments, labels-cards.
 (b) Mép giấy xé thật: ≥ 30 ảnh (giấy trắng, kraft, giấy báo, bìa…), mép dài ≥ 1500 px, thấy rõ lõi trắng có xơ, tách nền sạch, PNG alpha ≤ 500 KB mỗi file, lưu ở assets/_sources/torn-edges/files/ kèm assets/_sources/torn-edges/manifest.json (cùng định dạng mục, kind "sticker"). Nếu không đủ nguồn có giấy phép hợp lệ, báo đúng số lượng tìm được — không lấy nguồn bị cấm.
 Chạy validate.mjs (OK) và build-catalog.mjs. Báo cáo như các việc khác.
-Phạm vi: assets/frame/**, assets/_sources/torn-edges/**, public/packs/frame/**, public/packs/catalog.json.
+Phạm vi: assets/frame/**, assets/_sources/torn-edges/**, apps/web/public/packs/frame/**, apps/web/public/packs/catalog.json.
 ```
 
 ---
@@ -273,7 +273,7 @@ Phạm vi: assets/frame/**, assets/_sources/torn-edges/**, public/packs/frame/**
 - **Phạm vi:** `docs/discussions/<ngày>-m21-nghien-cuu.md`, và tuỳ chọn `assets/research/m21/filters.json`.
 - **Nội dung:**
   1. **Filter:** ≥ 12 nhóm (phim, retro, điện ảnh, chân dung, ẩm thực, phong cảnh, đen trắng, pastel, vintage, neon, mùa, Hàn / Nhật…), mỗi nhóm 8 – 12 filter.
-     - Mỗi filter có thông số theo **đúng các thông số app đang có**, xem `src/lib/color/params.ts` và `filters.ts`.
+     - Mỗi filter có thông số theo **đúng các thông số app đang có**, xem `packages/core/color/params.ts` và `filters.ts`.
      - Nếu cần thông số mới (đường cong tone, cân bằng màu vùng tối / sáng, hạt, LUT) thì liệt kê riêng.
      - Có thể dùng LUT nguồn mở (ghi giấy phép).
   2. **Hiệu ứng tĩnh** cho ảnh / chữ / mọi phần tử: gương, kính vạn hoa, xoáy, phình / co, gợn nước, sóng, lửa, khói, chảy màu, loang màu / màu nước, mực loang, glitch, điểm ảnh, halftone, duotone, phát sáng neon, tách màu RGB, đổ bóng dài, chữ 3D…
@@ -288,7 +288,7 @@ Phạm vi: assets/frame/**, assets/_sources/torn-edges/**, public/packs/frame/**
 ```
 Việc G7 — Nghiên cứu đầu vào cho M21 (filter, hiệu ứng tĩnh, bút vẽ). Nhánh: gemini/g7-m21-research. KHÔNG code vào app.
 
-Đọc mục "G7" trong docs/ai/gemini-tasks.md, D-105 trong docs/discussions/decisions.md, src/lib/color/params.ts, src/lib/color/filters.ts, src/lib/color/processor.ts (để biết filter hiện có và các thông số đang hỗ trợ).
+Đọc mục "G7" trong docs/ai/gemini-tasks.md, D-105 trong docs/discussions/decisions.md, packages/core/color/params.ts, packages/core/color/filters.ts, packages/core/color/processor.ts (để biết filter hiện có và các thông số đang hỗ trợ).
 Viết docs/discussions/<YYYY-MM-DD>-m21-nghien-cuu.md bằng tiếng Việt gồm 4 phần như mô tả ở G7: (1) ≥ 12 nhóm filter × 8–12 filter với thông số theo params.ts (thông số mới liệt kê riêng; LUT nguồn mở ghi giấy phép) — có thể xuất kèm assets/research/m21/filters.json; (2) danh sách hiệu ứng tĩnh với cách làm, thông số, độ nặng trên điện thoại, tham khảo + giấy phép; (3) bút vẽ / viết tay; (4) tham khảo cách các app chỉnh ảnh / collage khác tổ chức các công cụ này. Kết thúc bằng bảng tóm tắt và đề xuất thứ tự làm.
 Phạm vi: docs/discussions/<ngày>-m21-nghien-cuu.md, assets/research/m21/**, bảng trạng thái trong docs/ai/gemini-tasks.md.
 ```
@@ -307,7 +307,7 @@ Phạm vi: docs/discussions/<ngày>-m21-nghien-cuu.md, assets/research/m21/**, b
 ## G8 — Lớp phủ (làm lại, ~30)
 
 - **Mục tiêu:** khoảng 30 lớp phủ **thật sự là lớp phủ**: chỉ có ánh sáng / hạt / vết / nếp, **không có vật thể** nào nhận ra được.
-- **Phạm vi:** `assets/overlay/**`, `public/packs/overlay/**`, `public/packs/catalog.json`. Giữ 4 mục đang có (`film-paper-grain`, `light-effects`).
+- **Phạm vi:** `assets/overlay/**`, `apps/web/public/packs/overlay/**`, `apps/web/public/packs/catalog.json`. Giữ 4 mục đang có (`film-paper-grain`, `light-effects`).
 - **Loại cần:**
   - **Nền đen, `blend: screen`:** rò sáng phim (cam / đỏ / hồng), vệt sáng chéo, lens flare mềm, bokeh tròn mờ (chỉ đốm sáng, không thấy cây / đèn / người), bụi và xước phim (chấm / vạch trắng), hạt phim.
   - **Nền trắng, `blend: multiply`:** giấy nhăn, nếp gấp, vết cà phê / trà, mép cháy, giấy cũ ố, vân giấy dó.
@@ -325,9 +325,9 @@ Mọi lệnh chạy trong ../IG-layout-gemini-g8. Không làm trong thư mục c
 
 Đọc mục "Quy tắc kiểm tra bằng mắt" và "G8" trong docs/ai/gemini-tasks.md, và ghi chú duyệt đợt 2 (vì sao 18/22 lớp phủ cũ bị loại).
 Làm ~30 lớp phủ (giữ 4 mục đang có): nền đen + blend screen (rò sáng, vệt sáng, flare mềm, bokeh chỉ có đốm sáng, bụi / xước / hạt phim) và nền trắng + blend multiply (giấy nhăn, nếp gấp, vết cà phê / trà, giấy cũ ố). TUYỆT ĐỐI không có vật thể nhận ra được (cây, đèn, người, nhà, chữ, màn hình, tiền…).
-Ưu tiên tự sinh bằng script (scripts/assets/gen-overlays.mjs, dùng sharp / canvas, seed cố định, provider "IG Layout", license CC0-1.0, url trỏ tới file script trên GitHub); phần còn lại lấy CC0 / CC-BY rõ ràng.
+Ưu tiên tự sinh bằng script (apps/web/scripts/assets/gen-overlays.mjs, dùng sharp / canvas, seed cố định, provider "IG Layout", license CC0-1.0, url trỏ tới file script trên GitHub); phần còn lại lấy CC0 / CC-BY rõ ràng.
 Chạy process.mjs → mở review.html, xem từng mục → validate.mjs (OK) → build-catalog.mjs. Báo cáo: bảng mục → MÔ TẢ THỨ NHÌN THẤY → blend → nguồn → giấy phép.
-Phạm vi: assets/overlay/**, public/packs/overlay/**, public/packs/catalog.json, scripts/assets/gen-overlays.mjs, bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh, không merge.
+Phạm vi: assets/overlay/**, apps/web/public/packs/overlay/**, apps/web/public/packs/catalog.json, apps/web/scripts/assets/gen-overlays.mjs, bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh, không merge.
 ```
 
 ---
@@ -335,7 +335,7 @@ Phạm vi: assets/overlay/**, public/packs/overlay/**, public/packs/catalog.json
 ## G9 — Sticker lễ hội & Việt Nam (~80)
 
 - **Mục tiêu:** bù gói `festive-holidays` đã bị bỏ, và làm giàu nội dung Việt Nam.
-- **Phạm vi:** `assets/sticker/**` (gói mới), `public/packs/sticker/**`, `public/packs/catalog.json`.
+- **Phạm vi:** `assets/sticker/**` (gói mới), `apps/web/public/packs/sticker/**`, `apps/web/public/packs/catalog.json`.
 - **Gói:**
   - `tet` (~20): hoa mai, hoa đào, câu đối / chữ Phúc (hình vẽ, không phải ảnh chụp), bao lì xì, pháo, bánh chưng, mâm ngũ quả, đèn lồng đỏ, con giáp. Gắn `collections: ["tet", "vietnam"]`.
   - `mid-autumn` (~15): đèn ông sao, đèn cá chép, bánh trung thu, mặt trăng, thỏ ngọc, chú Cuội vẽ. `["midAutumn", "vietnam"]`.
@@ -356,7 +356,7 @@ Mọi lệnh chạy trong ../IG-layout-gemini-g9.
 Đọc mục "Quy tắc kiểm tra bằng mắt" và "G9" trong docs/ai/gemini-tasks.md, cùng ghi chú duyệt G2 (vì sao gói festive-holidays cũ bị bỏ).
 Làm 4 gói: tet (~20), mid-autumn (~15), christmas (~20), celebrations (~25). Mỗi sticker là MỘT vật rời, nền tách sạch, không lấy cả tấm bưu thiếp, không ảnh người thật, không tranh tôn giáo, không trùng Fluent Emoji. Gắn collections đúng (tet / midAutumn / christmas / birthday / wedding / graduation / vietnam). Tên VI tự nhiên, tags EN / VI ≥ 3 mỗi thứ tiếng.
 Chạy process.mjs → mở review.html, xem từng mục trên nền ca rô, loại mục xấu → validate.mjs (OK) → build-catalog.mjs. Báo cáo: bảng mục → MÔ TẢ THỨ NHÌN THẤY → nguồn → giấy phép; liệt kê mục NC / custom.
-Phạm vi: assets/sticker/<4 gói mới>/**, public/packs/sticker/<4 gói mới>/**, public/packs/catalog.json, bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh, không merge.
+Phạm vi: assets/sticker/<4 gói mới>/**, apps/web/public/packs/sticker/<4 gói mới>/**, apps/web/public/packs/catalog.json, bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh, không merge.
 ```
 
 ---
@@ -401,7 +401,7 @@ Mọi lệnh chạy trong ../IG-layout-gemini-g10.
 Đọc mục "Quy tắc kiểm tra bằng mắt" và "G10" trong docs/ai/gemini-tasks.md, xem ảnh tham khảo refs/scrl/IMG_3988.PNG (tem / dấu một màu dạng nét mực).
 Làm lần lượt 14 mục trong bảng G10 (ưu tiên từ trên xuống), tổng ~+500 mục. KHÔNG đổi id gói / id mục, không chuyển mục giữa các gói; đổi tên gói chỉ sửa "name". Gói mới: autumn, ink-stamps (có thể tự sinh bằng script SVG, CC0, provider "IG Layout"). Gắn "featured" cho ~40 mục đẹp nhất. Không đụng các gói gen-* (bộ sinh của Claude).
 Sau mỗi gói: process.mjs → mở review.html, xem từng mục trên nền ca rô, loại mục xấu → validate.mjs (OK) → build-catalog.mjs → commit. Báo cáo cuối: bảng gói → số mục trước / sau → nguồn → giấy phép, và một dòng MÔ TẢ THỨ NHÌN THẤY cho mỗi mục mới.
-Phạm vi: assets/**, public/packs/**, scripts/assets/** (script mới nếu cần), bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh gemini/g10-library; chỉ merge vào main khi chủ dự án bảo.
+Phạm vi: assets/**, apps/web/public/packs/**, apps/web/scripts/assets/** (script mới nếu cần), bảng trạng thái trong docs/ai/gemini-tasks.md. Đẩy nhánh gemini/g10-library; chỉ merge vào main khi chủ dự án bảo.
 ```
 
 ---
@@ -441,8 +441,8 @@ Phạm vi: assets/**, public/packs/**, scripts/assets/** (script mới nếu c�
   - Sau khi sửa: chạy lại `process.mjs`, xem `review.html` từng gói, `validate.mjs`, `build-catalog.mjs`; mục tiêu vẫn ~200 mục **sạch**.
 
 - **2026-10-18 — đổi nhỏ định dạng `windows`** (Claude): trường `path` (chuỗi SVG) được thay bằng `points` — đa giác `[x0, y0, x1, y1…]` toạ độ 0–1 theo hộp của cửa sổ (xem asset-catalog §3). Khung chữ nhật / bầu dục không cần trường này.
-- **Khung tự sinh** của Claude nằm ở các gói `assets/frame/gen-*` (đừng sửa tay — sinh lại bằng `scripts/frames/generate.mjs build`). `public/packs/catalog.json` là file sinh tự động: nếu bị xung đột khi merge thì chạy lại `build-catalog.mjs`.
+- **Khung tự sinh** của Claude nằm ở các gói `assets/frame/gen-*` (đừng sửa tay — sinh lại bằng `apps/web/scripts/frames/generate.mjs build`). `apps/web/public/packs/catalog.json` là file sinh tự động: nếu bị xung đột khi merge thì chạy lại `build-catalog.mjs`.
 
 
 ### Ghi chú cho mọi đợt sau (2026-10-19, D-117)
-Chế độ **Bộ** của thư viện xếp mỗi mục **một lần**: theo bộ chủ đề của **pack** (bộ cụ thể nhất trong `collections` của pack), trừ khi chính mục đó gắn một **dịp lễ** (tet, midAutumn, christmas, halloween, valentine, easter, womensDay, teachersDay, newYear, birthday, wedding, graduation, baby, backToSchool) thì vào dịp đó. Vì vậy: đặt bộ chủ đề thật của pack vào `collections` của pack; ở từng mục chỉ thêm dịp lễ khi mục đó đúng là của dịp ấy; các nhãn chung (vintage, journal, cute…) không quyết định chỗ hiện. Pack mới cần chủ đề khác cách tự suy ra thì báo Claude thêm vào `PACK_MAIN` (`src/lib/catalog/collections.ts`).
+Chế độ **Bộ** của thư viện xếp mỗi mục **một lần**: theo bộ chủ đề của **pack** (bộ cụ thể nhất trong `collections` của pack), trừ khi chính mục đó gắn một **dịp lễ** (tet, midAutumn, christmas, halloween, valentine, easter, womensDay, teachersDay, newYear, birthday, wedding, graduation, baby, backToSchool) thì vào dịp đó. Vì vậy: đặt bộ chủ đề thật của pack vào `collections` của pack; ở từng mục chỉ thêm dịp lễ khi mục đó đúng là của dịp ấy; các nhãn chung (vintage, journal, cute…) không quyết định chỗ hiện. Pack mới cần chủ đề khác cách tự suy ra thì báo Claude thêm vào `PACK_MAIN` (`packages/core/catalog/collections.ts`).

@@ -14,7 +14,7 @@ Tài liệu này là **"hợp đồng" chung** giữa người thu thập tài s
 | `overlay` | Ảnh phủ lên slide với chế độ hoà trộn | vệt sáng, bụi, hạt phim, giấy nhăn |
 | `font` | Phông chữ (file WOFF2 chia theo bảng chữ) | viết tay, thư pháp, tiếng Nhật |
 
-Những thứ **vẽ bằng code** vẫn ở trong `src/lib/elements/` như cũ: hình, sticker SVG tự vẽ, widget, chất liệu tự vẽ, và khung do bộ sinh tạo ra (D-107).
+Những thứ **vẽ bằng code** vẫn ở trong `packages/core/elements/` như cũ: hình, sticker SVG tự vẽ, widget, chất liệu tự vẽ, và khung do bộ sinh tạo ra (D-107).
 
 ## 2. Thư mục
 
@@ -25,7 +25,7 @@ assets/                          ← nguồn (commit)
   _sources/<tên>/manifest.json   ← tài sản phụ không vào thư viện (ví dụ mép giấy xé thật cho bộ sinh khung)
   text/                          ← dữ liệu chữ (câu xem trước phông…)
 
-public/packs/                    ← thứ app tải về (commit)
+apps/web/public/packs/                    ← thứ app tải về (commit)
   catalog.json                   ← sinh tự động: danh sách gói, phông, ghi công
   <kind>/<pack>.json             ← sinh tự động: các mục của gói (tải khi mở gói)
   <kind>/<pack>/<id>.webp        ← ảnh đã xử lý
@@ -65,7 +65,7 @@ public/packs/                    ← thứ app tải về (commit)
 }
 ```
 
-Các trường (kiểu TypeScript ở `src/lib/catalog/types.ts`):
+Các trường (kiểu TypeScript ở `packages/core/catalog/types.ts`):
 
 - **Gói:** `id` (trùng tên thư mục), `kind` (trùng thư mục cha), `name.en/vi`, `collections` (bộ của cả gói), `order` (số nhỏ hiện trước).
 - **Mục:**
@@ -81,16 +81,16 @@ Các trường (kiểu TypeScript ở `src/lib/catalog/types.ts`):
   - Tuỳ chọn `process: { removeBg?: false, trim?: false }` — bảo script xử lý không tách nền / không cắt sát mục này.
 - **Phông** (gói `kind: "font"`): mỗi mục có
   - `family` (tên CSS), `label`, `styles[]`, `languages[]`, `weights[]`;
-  - `files[]` gồm `{weight, subset, file, unicodeRange}`, với `file` là đường dẫn dưới `public/packs/`;
+  - `files[]` gồm `{weight, subset, file, unicodeRange}`, với `file` là đường dẫn dưới `apps/web/public/packs/`;
   - `source`.
-  - Các giá trị hợp lệ của `styles` và `languages` nằm trong `scripts/assets/common.mjs`.
+  - Các giá trị hợp lệ của `styles` và `languages` nằm trong `apps/web/scripts/assets/common.mjs`.
   - `languages` chỉ ghi khi phông **thật sự** có đủ chữ. Ví dụ `vietnamese` = đủ mọi chữ có dấu.
 
-**Bộ** (`collections`): chỉ dùng mã trong `src/lib/catalog/collections.json` (tet, midAutumn, christmas, travel, film, tornPaper, journal, vintage…). Muốn thêm bộ mới thì thêm vào file đó (kèm tên EN / VI, `season` nếu theo mùa).
+**Bộ** (`collections`): chỉ dùng mã trong `packages/core/catalog/collections.json` (tet, midAutumn, christmas, travel, film, tornPaper, journal, vintage…). Muốn thêm bộ mới thì thêm vào file đó (kèm tên EN / VI, `season` nếu theo mùa).
 
 ## 4. Giấy phép (D-106)
 
-Mã giấy phép hợp lệ nằm trong `src/lib/catalog/licenses.json`:
+Mã giấy phép hợp lệ nằm trong `packages/core/catalog/licenses.json`:
 - `CC0-1.0`, `PDM`;
 - `MIT`, `ISC`, `Apache-2.0`, `OFL-1.1`;
 - `CC-BY-4.0`, `CC-BY-3.0`, `CC-BY-SA-4.0`;
@@ -118,11 +118,11 @@ Mã giấy phép hợp lệ nằm trong `src/lib/catalog/licenses.json`:
 ## 6. Quy trình
 
 1. Tìm tài sản, tải file gốc vào `assets/<kind>/<pack>/src/<id>.<đuôi>`, ghi mục vào `manifest.json`.
-2. `node scripts/assets/process.mjs <kind>/<pack>` — xử lý ảnh gốc thành `public/packs/…` (tách nền, cắt, đổi cỡ, WebP, ảnh thu nhỏ, dò cửa sổ khung), điền `width/height/windows` vào manifest. *(Script này là việc G1 của Gemini.)*
-3. `node scripts/assets/review.mjs <kind>/<pack>` — sinh trang HTML xem nhanh cả gói (trên nền sáng, tối, ca rô) để duyệt bằng mắt. *(G1.)*
-4. `node scripts/assets/validate.mjs` — phải **OK**, không lỗi.
-5. `node scripts/assets/build-catalog.mjs` — sinh `public/packs/catalog.json` và `<kind>/<pack>.json`.
-6. Commit `assets/**/manifest.json` + `public/packs/**`, không commit `src/`.
+2. `node apps/web/scripts/assets/process.mjs <kind>/<pack>` — xử lý ảnh gốc thành `apps/web/public/packs/…` (tách nền, cắt, đổi cỡ, WebP, ảnh thu nhỏ, dò cửa sổ khung), điền `width/height/windows` vào manifest. *(Script này là việc G1 của Gemini.)*
+3. `node apps/web/scripts/assets/review.mjs <kind>/<pack>` — sinh trang HTML xem nhanh cả gói (trên nền sáng, tối, ca rô) để duyệt bằng mắt. *(G1.)*
+4. `node apps/web/scripts/assets/validate.mjs` — phải **OK**, không lỗi.
+5. `node apps/web/scripts/assets/build-catalog.mjs` — sinh `apps/web/public/packs/catalog.json` và `<kind>/<pack>.json`.
+6. Commit `assets/**/manifest.json` + `apps/web/public/packs/**`, không commit `src/`.
 
 ## 7. App dùng danh mục thế nào
 

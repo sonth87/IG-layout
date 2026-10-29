@@ -557,4 +557,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Bản thử phòng chụp chung: `apps/signal` (Cloudflare Durable Object) + `/labs/booth`; e2e `booth.mjs` 3 trình duyệt chạy local
 - [ ] Chủ dự án `wrangler login` → deploy worker, đặt `NEXT_PUBLIC_SIGNAL_URL` trên Vercel
 - [ ] Thử trên điện thoại thật: cùng Wi-Fi, Wi-Fi ↔ 4G (cần TURN không?)
-- [ ] Monorepo đầy đủ (apps/web, packages/*) — D-150, D-151
+- [x] Monorepo bước 1: `apps/web` (app), `apps/signal` (server phòng), `packages/core` (logic dùng chung, không giao diện) — D-150
+- [ ] Chủ dự án đổi Vercel → Settings → Root Directory = `apps/web` (trước khi merge nhánh `monorepo`)
+- [ ] Monorepo bước 2: tách lớp vẽ canvas (`packages/canvas`) để booth dùng chung sticker / chữ / kéo-xoay
+- [ ] Tag treo dây (thử ở /labs, chỉ ở màn home — D-151) → booth solo → phòng online + sửa chung

@@ -53,7 +53,7 @@ Kích thước khung (`width`, `height`) là khung hiển thị; ảnh được 
 
 ## 2. Hiển thị (Konva)
 
-> **Đã cài đặt (M2):** mỗi ảnh là **một** `Konva.Shape` tự vẽ (bóng → clip theo mask → ảnh crop / nắn thẳng / lật → viền) trong `sceneFunc`, hit theo đường mask. Lý do: khung chọn (Transformer) lấy kích thước từ `width/height` của shape nên luôn khớp khung, kể cả khi ảnh bên trong được phóng to để nắn thẳng. Code: `src/components/editor/canvas/ImageNode.tsx`, đường mask: `src/lib/project/masks.ts`.
+> **Đã cài đặt (M2):** mỗi ảnh là **một** `Konva.Shape` tự vẽ (bóng → clip theo mask → ảnh crop / nắn thẳng / lật → viền) trong `sceneFunc`, hit theo đường mask. Lý do: khung chọn (Transformer) lấy kích thước từ `width/height` của shape nên luôn khớp khung, kể cả khi ảnh bên trong được phóng to để nắn thẳng. Code: `apps/web/src/components/editor/canvas/ImageNode.tsx`, đường mask: `packages/core/project/masks.ts`.
 
 - Mỗi phần tử ảnh = `Group` (vị trí, xoay, `clipFunc` theo mask) chứa `Image` (crop, lật, nắn thẳng) + viền vẽ cùng đường mask phía trên + bóng vẽ phía dưới.
 - 3 layer: **nội dung** (được xuất), **đường chia slide** (không xuất), **UI** (khung chọn, đường gióng — không xuất).
@@ -81,7 +81,7 @@ Store có `draft: ProjectDoc | null`.
 
 ## 6. Template (M3)
 
-> **Đã cài đặt (M3):** template là dữ liệu TypeScript trong `src/lib/templates/library.ts` (có kiểu, dễ kiểm tra hơn JSON thuần; vẫn là dữ liệu — thêm layout không sửa code). `applyTemplate` trong `apply.ts`. Ô của template lưới có `slot: true`: kéo = dịch ảnh trong ô (đổi `crop`), đổi ảnh giữa hai ô bằng nút Swap. Template `perPhoto` sinh mỗi slide 1 ô theo số ảnh.
+> **Đã cài đặt (M3):** template là dữ liệu TypeScript trong `packages/core/templates/library.ts` (có kiểu, dễ kiểm tra hơn JSON thuần; vẫn là dữ liệu — thêm layout không sửa code). `applyTemplate` trong `apply.ts`. Ô của template lưới có `slot: true`: kéo = dịch ảnh trong ô (đổi `crop`), đổi ảnh giữa hai ô bằng nút Swap. Template `perPhoto` sinh mỗi slide 1 ô theo số ảnh.
 
 File JSON, toạ độ **tương đối** (0..1 theo slide) để dùng cho mọi tỉ lệ:
 
@@ -105,7 +105,7 @@ File JSON, toạ độ **tương đối** (0..1 theo slide) để dùng cho mọ
 
 ## 7. Màu & filter (M4)
 
-> **Đã cài đặt (M4):** `src/lib/color/` — `params.ts` (13 thông số, đơn vị giao diện -100..100 → giá trị shader), `filters.ts` (danh sách filter), `processor.ts` (WebGL + cache). Hook `useProcessedImage` xử lý đồng bộ trong `useMemo` (không nháy). Vignette vẽ bằng gradient trong `ImageNode` để bám theo khung. Khi xuất: store bật `exporting` → ảnh xử lý lại full resolution → cắt slide → tắt.
+> **Đã cài đặt (M4):** `packages/core/color/` — `params.ts` (13 thông số, đơn vị giao diện -100..100 → giá trị shader), `filters.ts` (danh sách filter), `processor.ts` (WebGL + cache). Hook `useProcessedImage` xử lý đồng bộ trong `useMemo` (không nháy). Vignette vẽ bằng gradient trong `ImageNode` để bám theo khung. Khi xuất: store bật `exporting` → ảnh xử lý lại full resolution → cắt slide → tắt.
 
 - Một shader WebGL nhận toàn bộ thông số: exposure, brightness, contrast, highlights, shadows, saturation, vibrance, temperature, tint, vignette, grain, fade.
 - **Filter = bộ thông số có sẵn** (+ tông màu vùng tối / vùng sáng, đơn sắc). Cường độ = nội suy từ 0 tới bộ thông số.
@@ -114,7 +114,7 @@ File JSON, toạ độ **tương đối** (0..1 theo slide) để dùng cho mọ
 
 ## 8. Text & font (M5)
 
-> **Đã cài đặt (M5):** `CanvasElement` = image | text | shape | icon (`types.ts`, `isImage`). Font khai báo một lần ở `src/app/fonts.ts`, canvas dùng qua `lib/text/fonts.ts` (`loadFont`). Chiều cao chữ là giá trị suy ra: `TextNode` đo rồi ghi bằng `setDerived` (không tạo bước lịch sử). Hình khối vẽ trong `lib/elements/shapes.ts`; icon Lucide render thành SVG theo kích thước (`lib/elements/icons.ts`). Khung ảnh: `frameInset` trong `geometry.ts`, ảnh lấp vùng bên trong.
+> **Đã cài đặt (M5):** `CanvasElement` = image | text | shape | icon (`types.ts`, `isImage`). Font khai báo một lần ở `apps/web/src/app/fonts.ts`, canvas dùng qua `lib/text/fonts.ts` (`loadFont`). Chiều cao chữ là giá trị suy ra: `TextNode` đo rồi ghi bằng `setDerived` (không tạo bước lịch sử). Hình khối vẽ trong `lib/elements/shapes.ts`; icon Lucide render thành SVG theo kích thước (`lib/elements/icons.ts`). Khung ảnh: `frameInset` trong `geometry.ts`, ảnh lấp vùng bên trong.
 
 - Font qua `next/font/google` (tự host), mỗi font có `vietnamese` subset; danh sách: Be Vietnam Pro, Playfair Display, Lora, Montserrat, Dancing Script, Space Grotesk.
 - Trước khi vẽ / xuất: `document.fonts.load()` cho đúng font + độ đậm.
@@ -122,7 +122,7 @@ File JSON, toạ độ **tương đối** (0..1 theo slide) để dùng cho mọ
 
 ## 9. Story & Grid (M6)
 
-> **Đã cài đặt (M6):** `src/lib/project/layout.ts` là nơi duy nhất tính vị trí slide (`slideRect`), kích thước canvas (`canvasSize`), slide của một điểm (`slideAt`), thứ tự xuất (`exportOrder`). Grid: 3 cột, ô 3:4; bật bù khe → giữa các ô có dải `GRID_GAP` px (tô màu trong editor, không xuất). Thao tác slide / hàng dời phần tử theo ô chứa tâm (`slides.ts`). Template khai báo `types` để lọc theo loại project.
+> **Đã cài đặt (M6):** `packages/core/project/layout.ts` là nơi duy nhất tính vị trí slide (`slideRect`), kích thước canvas (`canvasSize`), slide của một điểm (`slideAt`), thứ tự xuất (`exportOrder`). Grid: 3 cột, ô 3:4; bật bù khe → giữa các ô có dải `GRID_GAP` px (tô màu trong editor, không xuất). Thao tác slide / hàng dời phần tử theo ô chứa tâm (`slides.ts`). Template khai báo `types` để lọc theo loại project.
 
 - **Story:** `ratio = 9:16`, các khung nằm liền nhau như Post nhưng hiển thị **vùng an toàn** (trên ~250 px, dưới ~340 px — cần xác minh).
 - **Grid:** canvas 2 chiều 3 cột × `rows` hàng, mỗi ô 1080 × 1440. Xuất theo **thứ tự đăng** (ô dưới cùng bên phải = `_01`). Bù khe hở: thu nhỏ nội dung mỗi ô một chút quanh mép (tham số cần thử).
