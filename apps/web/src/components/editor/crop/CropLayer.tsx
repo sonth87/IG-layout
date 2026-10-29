@@ -5,7 +5,7 @@ import { Group, Layer, Shape } from "react-konva";
 import { warpInto } from "@ig-layout/core/image/warp";
 import { cropWindow, project, screenToPicture, tilted, toView } from "@ig-layout/core/project/cropView";
 import { useEditor, useViewDoc } from "@/store/editor";
-import { useHtmlImage } from "../canvas/useHtmlImage";
+import { useHtmlImage } from "@ig-layout/canvas/useHtmlImage";
 import { picSize, pictureHandles, tiltOf, windowHandles, windowResizable } from "./cropModel";
 
 const ACCENT = "#f2b84b";

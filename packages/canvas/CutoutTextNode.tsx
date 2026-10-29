@@ -6,7 +6,7 @@ import { Group, Shape } from "react-konva";
 import type { CutoutText, TextElement } from "@ig-layout/core/project/types";
 import { loadCutoutFonts, cutoutLayout, cutoutStyle, drawCutout, drawnLayouts } from "@ig-layout/core/text/cutout";
 import { scaleExtras } from "@ig-layout/core/elements/resize";
-import { useEditor } from "@/store/editor";
+import { useCanvas } from "./host";
 import { useFx } from "./useFx";
 import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
 
@@ -15,10 +15,10 @@ import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
  * Konva shape, so the export draws exactly the same. Height follows the scraps.
  */
 export function CutoutTextNode({ element: el, hooks }: { element: TextElement & { cutout: CutoutText }; hooks: DragHooks }) {
-  const setDerived = useEditor((s) => s.setDerived);
-  const setEditingText = useEditor((s) => s.setEditingText);
-  const updateElement = useEditor((s) => s.updateElement);
-  const typing = useEditor((s) => s.editingTextId === el.id);
+  const setDerived = useCanvas((s) => s.setDerived);
+  const setEditingText = useCanvas((s) => s.setEditingText);
+  const updateElement = useCanvas((s) => s.updateElement);
+  const typing = useCanvas((s) => s.editingTextId === el.id);
   const props = useNodeHandlers(el, hooks, (scale) => scaleExtras(el, scale));
   const [fontsReady, setFontsReady] = useState(0);
   const fxRef = useFx<Konva.Group>(el, [fontsReady]);

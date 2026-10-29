@@ -353,3 +353,10 @@ Chủ dự án nhắc: thứ tự đã chốt là **tái cấu trúc trước, c
 - `assets/` (nguồn tài sản) giữ ở gốc; chưa tách `packages/assets` vì chỉ có một app web phục vụ `public/packs` — tách khi cần.
 - ESLint một cấu hình ở gốc cho cả workspace.
 - Cần chủ dự án: Vercel → Root Directory = `apps/web` (Vercel tự cài workspace từ gốc). Chưa đổi thì deploy từ `main` sẽ hỏng → chưa merge.
+
+## Tái cấu trúc — bước 2: `packages/canvas` (2026-10-29)
+Chủ dự án: "chưa cần đẩy lên Vercel, cứ làm tiếp để chạy được local trước".
+- 14 file node / hook vẽ (ImageNode, TextNode, CutoutTextNode, ShapeIconNodes, BackgroundNode, FrameArtNode, LayoutNode, useFx, useProcessedImage, useHtmlImage, useNodeHandlers, interaction, selection, followers) chuyển sang `packages/canvas`.
+- Trước đây chúng gọi thẳng `useEditor`. Nay đọc qua `<CanvasHost store>` (React context, `host.tsx`) với interface hẹp `CanvasState`: doc / draft, assets, selectedId, compare, exporting, drawing, cropping, editingTextId và 5 hàm (select, updateElement, updateLive, setDerived, setEditingText). Store editor thoả sẵn interface này, không phải sửa.
+- `CanvasStage` ở lại editor (gắn với pinch, hít, crop, thanh công cụ). Booth sẽ có stage riêng gọn hơn, dùng lại cùng các node → sticker / chữ / khung vẽ y hệt IG Layout.
+- Kiểm tra: type-check, lint, build, 42 bài e2e, bài phòng 3 người — đều qua.

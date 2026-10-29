@@ -4,7 +4,7 @@ import { coverCrop, innerFrame } from "@ig-layout/core/project/geometry";
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { BLEND_MODES, type CanvasElement, FRAME_STYLES, type FrameStyle, type ImageElement, MASK_SHAPES, type ShadowStyle } from "@ig-layout/core/project/types";
-import { defaultShadow } from "../canvas/ImageNode";
+import { defaultShadow } from "@ig-layout/canvas/ImageNode";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
 import { MaskPreview, Slider, Swatches, ToolSheet } from "./controls";

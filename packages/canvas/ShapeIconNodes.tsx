@@ -6,7 +6,7 @@ import { Image as KImage, Shape } from "react-konva";
 import { iconDataUrl } from "@ig-layout/core/elements/icons";
 import { drawShape, strokePath } from "@ig-layout/core/elements/shapes";
 import { drawWidget, type WidgetData, widgetSize } from "@ig-layout/core/elements/widgets";
-import { useEditor } from "@/store/editor";
+import { useCanvas } from "./host";
 import type { DrawingElement, IconElement, ShapeElement } from "@ig-layout/core/project/types";
 import { useFx } from "./useFx";
 import { useHtmlImage } from "./useHtmlImage";
@@ -40,7 +40,7 @@ export function ShapeNode({ element: el, hooks }: { element: ShapeElement; hooks
 export function WidgetNode({ element: el, widget, hooks }: { element: IconElement; widget: WidgetData; hooks: DragHooks }) {
   const props = useNodeHandlers(el, hooks);
   const fxRef = useFx<Konva.Shape>(el);
-  const updateLive = useEditor((s) => s.updateLive);
+  const updateLive = useCanvas((s) => s.updateLive);
   /** The stretched layout while a side handle is dragged. */
   const live = useRef<WidgetData | null>(null);
   const sideOf = (node: Konva.Node) => (node.getStage()?.findOne<Konva.Transformer>("Transformer")?.getActiveAnchor() ?? "").includes("middle");

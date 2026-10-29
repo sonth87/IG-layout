@@ -1,7 +1,7 @@
 "use client";
 
 import { type CanvasElement, zoomsInside } from "@ig-layout/core/project/types";
-import { useEditor } from "@/store/editor";
+import { useCanvas, useCanvasApi } from "./host";
 
 // Selection / drag rules shared by every canvas element (M8, UX-01, UX-10):
 // - Touch screens: a finger on an element that is NOT selected does not grab it,
@@ -21,13 +21,14 @@ if (typeof window !== "undefined") {
 const emulatedMouse = () => Date.now() - lastTouch < 800;
 
 export function useElementInteraction(el: CanvasElement) {
-  const selected = useEditor((s) => s.selectedId === el.id);
-  const select = useEditor((s) => s.select);
+  const selected = useCanvas((s) => s.selectedId === el.id);
+  const select = useCanvas((s) => s.select);
+  const api = useCanvasApi();
   // Locked photos still pan inside their frame (the frame itself never moves).
   const draggable = (!el.locked || zoomsInside(el)) && (selected || !isTouchUI);
 
   function onSelect() {
-    const current = useEditor.getState().selectedId;
+    const current = api.getState().selectedId;
     if (el.locked && current && current !== el.id) select(null);
     else select(el.id);
   }

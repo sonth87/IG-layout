@@ -12,22 +12,23 @@ import { type CanvasElement, type CutoutText, fixedCell, type ImageAsset, type I
 import { liveCrops } from "@ig-layout/core/project/liveCrop";
 import { coverCrop, innerFrame } from "@ig-layout/core/project/geometry";
 import { panCrop, wholePicture } from "@ig-layout/core/project/blocks";
-import { endFollow, type Follow, follow, startFollow } from "./followers";
-import { LayoutNode } from "./LayoutNode";
-import { FrameArtNode } from "./FrameArtNode";
+import { endFollow, type Follow, follow, startFollow } from "@ig-layout/canvas/followers";
+import { LayoutNode } from "@ig-layout/canvas/LayoutNode";
+import { FrameArtNode } from "@ig-layout/canvas/FrameArtNode";
 import { CropLayer } from "../crop/CropLayer";
-import { elementOf, tapResult } from "./selection";
+import { elementOf, tapResult } from "@ig-layout/canvas/selection";
 import { useSettings } from "@/store/settings";
 import { useEditor, useViewDoc } from "@/store/editor";
-import { BackgroundNode } from "./BackgroundNode";
-import { ImageNode } from "./ImageNode";
-import { DrawingNode, IconNode, ShapeNode, WidgetNode } from "./ShapeIconNodes";
-import { isTouchUI } from "./interaction";
+import { BackgroundNode } from "@ig-layout/canvas/BackgroundNode";
+import { ImageNode } from "@ig-layout/canvas/ImageNode";
+import { DrawingNode, IconNode, ShapeNode, WidgetNode } from "@ig-layout/canvas/ShapeIconNodes";
+import { isTouchUI } from "@ig-layout/canvas/interaction";
 import { applyMotion, clearMotion, hasMotion, makeSlideDuration, motionDuration } from "@ig-layout/core/motion/motion";
 import { defaultMedia, setExtraDuration, setFrameHook, setRedraw, timelineLength } from "@ig-layout/core/video/playback";
-import { CutoutTextNode } from "./CutoutTextNode";
+import { CutoutTextNode } from "@ig-layout/canvas/CutoutTextNode";
 import { drawnLayouts, pieceAt } from "@ig-layout/core/text/cutout";
-import { TextNode } from "./TextNode";
+import { TextNode } from "@ig-layout/canvas/TextNode";
+import { CanvasHost } from "@ig-layout/canvas/host";
 
 const SNAP_SCREEN_PX = 8;
 /** Two-finger twist ignored below this, so a pinch doesn't tilt the photo (F-02). */
@@ -977,159 +978,162 @@ export default function CanvasStage({ viewScale, viewport, scrollRef, origin, co
       onPointerUp={onPointerUp}
       onPointerCancel={drawing ? onDrawUp : cancelGesture}
     >
-      {/* Content layer: exactly what gets exported. */}
-      {/* Not clipped: what hangs over the edge stays visible (faded by the veil below) and can
-          be dragged back; exports and thumbnails crop to the slides anyway. */}
-      <Layer ref={contentLayerRef} listening={!drawing && !cropping}>
-        <BackgroundNode background={doc.background} width={width} height={height} />
-        {doc.elements.map((el) => {
-          const hooks = { onDragMove, onDragEnd };
-          if (el.type === "text") return el.cutout ? <CutoutTextNode key={el.id} element={el as TextElement & { cutout: CutoutText }} hooks={hooks} /> : <TextNode key={el.id} element={el} hooks={hooks} />;
-          if (el.type === "shape") return <ShapeNode key={el.id} element={el} hooks={hooks} />;
-          if (el.type === "icon" && el.widget) return <WidgetNode key={el.id} element={el} widget={el.widget} hooks={hooks} />;
-          if (el.type === "icon") return <IconNode key={el.id} element={el} hooks={hooks} />;
-          if (el.type === "drawing") return <DrawingNode key={el.id} element={el} hooks={hooks} />;
-          if (el.type === "layout") return <Fragment key={el.id}><LayoutNode element={el} />{el.art && el.cells.length === 0 && <FrameArtNode block={el} />}</Fragment>;
-          // A pack frame's art goes right above its last cell (M20 C4).
-          const block = el.parentId ? artAfter.get(el.id) : undefined;
-          return block ? <Fragment key={el.id}><ImageNode element={el} /><FrameArtNode block={block} /></Fragment> : <ImageNode key={el.id} element={el} />;
-        })}
-      </Layer>
-      {/* Slide boundaries, grid gaps, story safe zones, posting order — never exported. */}
-      <Layer listening={false}>
-        {/* Outside the canvas: the canvas colour over what hangs out, so it shows faded (never exported). */}
-        <Shape
-          sceneFunc={(ctx: Konva.Context) => {
-            const c = ctx._context;
-            const big = 1e5;
-            c.beginPath();
-            c.rect(-big, -big, big * 2, big * 2);
-            c.rect(0, 0, width, height);
-            c.globalAlpha = 0.6;
-            c.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--canvas").trim() || "#e6e3dd";
-            c.fill("evenodd");
-            // Short last row of a grid: the empty end isn't posted (older posts go there).
-            if (doc.type === "grid" && rects.length % GRID_COLS) {
-              const last = rects[rects.length - 1];
-              c.fillRect(last.x + last.width, last.y, width - last.x - last.width, last.height);
-            }
-          }}
-        />
-        {doc.type === "grid" &&
-          doc.grid?.gapCompensation &&
-          rects.slice(1).map((r, i) => (
-            // Gap strips are cut away on export: tint them so the user sees what disappears.
-            <Group key={`gap${i}`}>
-              {r.x > 0 && <Rect x={r.x - GRID_GAP} y={r.y} width={GRID_GAP} height={r.height} fill="rgba(255,79,163,0.35)" />}
-              {r.y > 0 && r.x === 0 && <Rect x={0} y={r.y - GRID_GAP} width={width} height={GRID_GAP} fill="rgba(255,79,163,0.35)" />}
-            </Group>
-          ))}
-        {[...new Set(rects.flatMap((r) => [r.x, r.x + r.width]))]
-          .filter((x) => x > 0.5 && x < width - 0.5)
-          .map((x) => (
-            // Slide boundary: dark and white dashes in turn, visible on any background (owner, 2026-10-17).
-            <Group key={`vx${x}`}>
-              <Line points={[x, 0, x, height]} stroke="rgba(0,0,0,0.45)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} />
-              <Line points={[x, 0, x, height]} stroke="rgba(255,255,255,0.9)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} dashOffset={7 / viewScale} />
-            </Group>
-          ))}
-        {[...new Set(rects.flatMap((r) => [r.y, r.y + r.height]))]
-          .filter((y) => y > 0.5 && y < height - 0.5)
-          .map((y) => (
-            // Slide boundary: dark and white dashes in turn, visible on any background (owner, 2026-10-17).
-            <Group key={`hy${y}`}>
-              <Line points={[0, y, width, y]} stroke="rgba(0,0,0,0.45)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} />
-              <Line points={[0, y, width, y]} stroke="rgba(255,255,255,0.9)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} dashOffset={7 / viewScale} />
-            </Group>
-          ))}
-        {doc.type === "story" &&
-          showSafeZone &&
-          rects.map((r, i) => (
-            <Group key={`safe${i}`}>
-              <Rect x={r.x} y={r.y} width={r.width} height={STORY_SAFE.top} fill="rgba(242,139,130,0.28)" />
-              <Rect
-                x={r.x}
-                y={r.y + r.height - STORY_SAFE.bottom}
-                width={r.width}
-                height={STORY_SAFE.bottom}
-                fill="rgba(242,139,130,0.28)"
-              />
-              <Line points={[r.x, r.y + STORY_SAFE.top, r.x + r.width, r.y + STORY_SAFE.top]} stroke="#f28b82" strokeWidth={2 / viewScale} dash={[8 / viewScale, 6 / viewScale]} />
-              <Line
-                points={[r.x, r.y + r.height - STORY_SAFE.bottom, r.x + r.width, r.y + r.height - STORY_SAFE.bottom]}
-                stroke="#f28b82"
-                strokeWidth={2 / viewScale}
-                dash={[8 / viewScale, 6 / viewScale]}
-              />
-            </Group>
-          ))}
-        {doc.type === "grid" &&
-          rects.map((r, i) => {
-            const n = postingNumber(doc, i);
-            const radius = 22 / viewScale;
-            return (
-              <Group key={`num${i}`} x={r.x + r.width - radius * 1.6} y={r.y + r.height - radius * 1.6}>
-                <Circle radius={radius} fill={n === 1 ? "#f2b84b" : "rgba(17,18,20,0.8)"} />
-                <Text
-                  text={String(n)}
-                  width={radius * 2}
-                  height={radius * 2}
-                  offsetX={radius}
-                  offsetY={radius}
-                  align="center"
-                  verticalAlign="middle"
-                  fontSize={20 / viewScale}
-                  fontStyle="700"
-                  fill={n === 1 ? "#1a1408" : "#ffffff"}
-                />
-              </Group>
-            );
+      {/* The shared nodes (packages/canvas) read the editor store through this. */}
+      <CanvasHost store={useEditor}>
+        {/* Content layer: exactly what gets exported. */}
+        {/* Not clipped: what hangs over the edge stays visible (faded by the veil below) and can
+            be dragged back; exports and thumbnails crop to the slides anyway. */}
+        <Layer ref={contentLayerRef} listening={!drawing && !cropping}>
+          <BackgroundNode background={doc.background} width={width} height={height} />
+          {doc.elements.map((el) => {
+            const hooks = { onDragMove, onDragEnd };
+            if (el.type === "text") return el.cutout ? <CutoutTextNode key={el.id} element={el as TextElement & { cutout: CutoutText }} hooks={hooks} /> : <TextNode key={el.id} element={el} hooks={hooks} />;
+            if (el.type === "shape") return <ShapeNode key={el.id} element={el} hooks={hooks} />;
+            if (el.type === "icon" && el.widget) return <WidgetNode key={el.id} element={el} widget={el.widget} hooks={hooks} />;
+            if (el.type === "icon") return <IconNode key={el.id} element={el} hooks={hooks} />;
+            if (el.type === "drawing") return <DrawingNode key={el.id} element={el} hooks={hooks} />;
+            if (el.type === "layout") return <Fragment key={el.id}><LayoutNode element={el} />{el.art && el.cells.length === 0 && <FrameArtNode block={el} />}</Fragment>;
+            // A pack frame's art goes right above its last cell (M20 C4).
+            const block = el.parentId ? artAfter.get(el.id) : undefined;
+            return block ? <Fragment key={el.id}><ImageNode element={el} /><FrameArtNode block={block} /></Fragment> : <ImageNode key={el.id} element={el} />;
           })}
-      </Layer>
-      {/* Selection + snapping guides, never exported. */}
-      <Layer>
-        <Group ref={guidesRef} listening={false} />
-        <Group ref={rulerRef} name="rulers" listening={false} />
-        {selected?.type === "image" && pansInside(selected, doc.elements) && (
-          // Stands for the whole picture of the selected framed photo (box + zoom handles).
-          <Rect ref={proxyRef} id={PROXY_ID} listening={false} {...wholeAttrs(selected)} />
-        )}
-        {drawing && (
-          // Strokes of the drawing in progress + the live one (not exported until ✓).
+        </Layer>
+        {/* Slide boundaries, grid gaps, story safe zones, posting order — never exported. */}
+        <Layer listening={false}>
+          {/* Outside the canvas: the canvas colour over what hangs out, so it shows faded (never exported). */}
           <Shape
-            ref={liveRef}
-            listening={false}
-            sceneFunc={(ctx) => {
+            sceneFunc={(ctx: Konva.Context) => {
               const c = ctx._context;
-              c.save();
-              c.strokeStyle = drawing.color;
-              c.lineWidth = drawing.size;
-              c.lineCap = "round";
-              c.lineJoin = "round";
-              for (const st of [...drawing.strokes, live.current.points]) {
-                if (st.length < 2) continue;
-                strokePath(c, st);
-                c.stroke();
+              const big = 1e5;
+              c.beginPath();
+              c.rect(-big, -big, big * 2, big * 2);
+              c.rect(0, 0, width, height);
+              c.globalAlpha = 0.6;
+              c.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--canvas").trim() || "#e6e3dd";
+              c.fill("evenodd");
+              // Short last row of a grid: the empty end isn't posted (older posts go there).
+              if (doc.type === "grid" && rects.length % GRID_COLS) {
+                const last = rects[rects.length - 1];
+                c.fillRect(last.x + last.width, last.y, width - last.x - last.width, last.height);
               }
-              c.restore();
             }}
           />
-        )}
-        <SelectionTransformer
-          selected={cropping ? undefined : selected}
-          viewScale={viewScale}
-          onRotate={showAngle}
-          onRuler={showRuler}
-          onGuides={showGuides}
-          onWholeZoom={onWholeZoom}
-          onBlockTransform={onBlockTransform}
-        />
-        <Label ref={angleRef} visible={false} listening={false}>
-          <Tag fill="rgba(17,18,20,0.85)" cornerRadius={12} pointerDirection="none" />
-          <Text text="" fill="#ffffff" fontSize={14} fontStyle="700" padding={7} offsetX={0} />
-        </Label>
-      </Layer>
-      {cropping && <CropLayer id={cropping} viewScale={viewScale} />}
+          {doc.type === "grid" &&
+            doc.grid?.gapCompensation &&
+            rects.slice(1).map((r, i) => (
+              // Gap strips are cut away on export: tint them so the user sees what disappears.
+              <Group key={`gap${i}`}>
+                {r.x > 0 && <Rect x={r.x - GRID_GAP} y={r.y} width={GRID_GAP} height={r.height} fill="rgba(255,79,163,0.35)" />}
+                {r.y > 0 && r.x === 0 && <Rect x={0} y={r.y - GRID_GAP} width={width} height={GRID_GAP} fill="rgba(255,79,163,0.35)" />}
+              </Group>
+            ))}
+          {[...new Set(rects.flatMap((r) => [r.x, r.x + r.width]))]
+            .filter((x) => x > 0.5 && x < width - 0.5)
+            .map((x) => (
+              // Slide boundary: dark and white dashes in turn, visible on any background (owner, 2026-10-17).
+              <Group key={`vx${x}`}>
+                <Line points={[x, 0, x, height]} stroke="rgba(0,0,0,0.45)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} />
+                <Line points={[x, 0, x, height]} stroke="rgba(255,255,255,0.9)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} dashOffset={7 / viewScale} />
+              </Group>
+            ))}
+          {[...new Set(rects.flatMap((r) => [r.y, r.y + r.height]))]
+            .filter((y) => y > 0.5 && y < height - 0.5)
+            .map((y) => (
+              // Slide boundary: dark and white dashes in turn, visible on any background (owner, 2026-10-17).
+              <Group key={`hy${y}`}>
+                <Line points={[0, y, width, y]} stroke="rgba(0,0,0,0.45)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} />
+                <Line points={[0, y, width, y]} stroke="rgba(255,255,255,0.9)" strokeWidth={1.5 / viewScale} dash={[7 / viewScale, 7 / viewScale]} dashOffset={7 / viewScale} />
+              </Group>
+            ))}
+          {doc.type === "story" &&
+            showSafeZone &&
+            rects.map((r, i) => (
+              <Group key={`safe${i}`}>
+                <Rect x={r.x} y={r.y} width={r.width} height={STORY_SAFE.top} fill="rgba(242,139,130,0.28)" />
+                <Rect
+                  x={r.x}
+                  y={r.y + r.height - STORY_SAFE.bottom}
+                  width={r.width}
+                  height={STORY_SAFE.bottom}
+                  fill="rgba(242,139,130,0.28)"
+                />
+                <Line points={[r.x, r.y + STORY_SAFE.top, r.x + r.width, r.y + STORY_SAFE.top]} stroke="#f28b82" strokeWidth={2 / viewScale} dash={[8 / viewScale, 6 / viewScale]} />
+                <Line
+                  points={[r.x, r.y + r.height - STORY_SAFE.bottom, r.x + r.width, r.y + r.height - STORY_SAFE.bottom]}
+                  stroke="#f28b82"
+                  strokeWidth={2 / viewScale}
+                  dash={[8 / viewScale, 6 / viewScale]}
+                />
+              </Group>
+            ))}
+          {doc.type === "grid" &&
+            rects.map((r, i) => {
+              const n = postingNumber(doc, i);
+              const radius = 22 / viewScale;
+              return (
+                <Group key={`num${i}`} x={r.x + r.width - radius * 1.6} y={r.y + r.height - radius * 1.6}>
+                  <Circle radius={radius} fill={n === 1 ? "#f2b84b" : "rgba(17,18,20,0.8)"} />
+                  <Text
+                    text={String(n)}
+                    width={radius * 2}
+                    height={radius * 2}
+                    offsetX={radius}
+                    offsetY={radius}
+                    align="center"
+                    verticalAlign="middle"
+                    fontSize={20 / viewScale}
+                    fontStyle="700"
+                    fill={n === 1 ? "#1a1408" : "#ffffff"}
+                  />
+                </Group>
+              );
+            })}
+        </Layer>
+        {/* Selection + snapping guides, never exported. */}
+        <Layer>
+          <Group ref={guidesRef} listening={false} />
+          <Group ref={rulerRef} name="rulers" listening={false} />
+          {selected?.type === "image" && pansInside(selected, doc.elements) && (
+            // Stands for the whole picture of the selected framed photo (box + zoom handles).
+            <Rect ref={proxyRef} id={PROXY_ID} listening={false} {...wholeAttrs(selected)} />
+          )}
+          {drawing && (
+            // Strokes of the drawing in progress + the live one (not exported until ✓).
+            <Shape
+              ref={liveRef}
+              listening={false}
+              sceneFunc={(ctx) => {
+                const c = ctx._context;
+                c.save();
+                c.strokeStyle = drawing.color;
+                c.lineWidth = drawing.size;
+                c.lineCap = "round";
+                c.lineJoin = "round";
+                for (const st of [...drawing.strokes, live.current.points]) {
+                  if (st.length < 2) continue;
+                  strokePath(c, st);
+                  c.stroke();
+                }
+                c.restore();
+              }}
+            />
+          )}
+          <SelectionTransformer
+            selected={cropping ? undefined : selected}
+            viewScale={viewScale}
+            onRotate={showAngle}
+            onRuler={showRuler}
+            onGuides={showGuides}
+            onWholeZoom={onWholeZoom}
+            onBlockTransform={onBlockTransform}
+          />
+          <Label ref={angleRef} visible={false} listening={false}>
+            <Tag fill="rgba(17,18,20,0.85)" cornerRadius={12} pointerDirection="none" />
+            <Text text="" fill="#ffffff" fontSize={14} fontStyle="700" padding={7} offsetX={0} />
+          </Label>
+        </Layer>
+        {cropping && <CropLayer id={cropping} viewScale={viewScale} />}
+      </CanvasHost>
     </Stage>
   );
 }

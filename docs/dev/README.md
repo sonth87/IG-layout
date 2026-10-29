@@ -39,6 +39,10 @@ apps/web/          app Next.js (IG Layout; photobooth sẽ là route /booth tron
 apps/signal/       server phòng chụp chung: Cloudflare Worker + Durable Object
 packages/core/     logic dùng chung, KHÔNG có giao diện: import bằng "@ig-layout/core/<thư mục>/<file>"
                    (app web biên dịch thẳng mã nguồn — transpilePackages). Không import ngược từ apps/*.
+packages/canvas/   các node Konva vẽ project (ảnh, chữ, chữ cắt báo, hình, icon, sticker, khung, nền) + chạm / kéo.
+                   Không gọi store của app: app bọc các layer trong <Stage> bằng <CanvasHost store={…}> (host.tsx,
+                   interface CanvasState). Editor đưa useEditor; booth sẽ đưa store riêng. CanvasStage (pinch,
+                   hít, crop, chọn) vẫn là của editor: apps/web/src/components/editor/canvas/CanvasStage.tsx.
 assets/            nguồn tài sản thư viện (sticker, khung…) — script ở apps/web/scripts/assets ghi ra apps/web/public/packs
 docs/
 ```

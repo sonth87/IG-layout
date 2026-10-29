@@ -12,7 +12,7 @@ import { useEditor, useViewDoc } from "@/store/editor";
 import { WEB_FONTS } from "@/lib/text/webfonts";
 import { useSettings, useT } from "@/store/settings";
 import CanvasStage from "./canvas/CanvasStage";
-import { isTouchUI } from "./canvas/interaction";
+import { isTouchUI } from "@ig-layout/canvas/interaction";
 import { type Action, ActionSheet, CoachTips, LayersSheet } from "./EditorSheets";
 import { ExportSheet } from "./ExportSheet";
 import { RemoveBgDialog } from "./RemoveBgDialog";

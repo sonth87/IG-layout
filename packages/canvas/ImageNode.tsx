@@ -8,7 +8,7 @@ import { frameInset, innerFrame, straightenScale } from "@ig-layout/core/project
 import { refitCrop } from "@ig-layout/core/project/blocks";
 import { traceMask } from "@ig-layout/core/project/masks";
 import { fixedCell, frameColor, type ImageElement, pansInside } from "@ig-layout/core/project/types";
-import { useEditor } from "@/store/editor";
+import { useCanvas } from "./host";
 import { useFx } from "./useFx";
 import { useHtmlImage } from "./useHtmlImage";
 import { frameOverrides } from "@ig-layout/core/video/frames";
@@ -52,11 +52,11 @@ function withAlpha(hex: string, alpha: number) {
 }
 
 export function ImageNode({ element: el }: Props) {
-  const asset = useEditor((s) => (el.assetId ? s.assets[el.assetId] : undefined));
-  const updateElement = useEditor((s) => s.updateElement);
+  const asset = useCanvas((s) => (el.assetId ? s.assets[el.assetId] : undefined));
+  const updateElement = useCanvas((s) => s.updateElement);
   // The faint whole picture around a selected cell — not in a pack frame's window: its art is
   // see-through outside the window (torn edges…), so the picture would look like it spills out.
-  const showWhole = useEditor((s) => {
+  const showWhole = useCanvas((s) => {
     const els = (s.draft ?? s.doc)?.elements;
     return s.selectedId === el.id && !s.exporting && pansInside(el, els) && !fixedCell(el, els) && !s.drawing && !s.cropping;
   });
@@ -79,8 +79,8 @@ export function ImageNode({ element: el }: Props) {
       player.current = null;
     };
   }, [el.id]);
-  const compareThis = useEditor((s) => s.compare && s.selectedId === el.id);
-  const exporting = useEditor((s) => s.exporting);
+  const compareThis = useCanvas((s) => s.compare && s.selectedId === el.id);
+  const exporting = useCanvas((s) => s.exporting);
   const image = useProcessedImage(original, el, { original: compareThis, full: exporting });
   // Effects (editor-v2/14): not on videos (their frames keep changing).
   const fxRef = useFx<Konva.Shape>(isVideo ? { ...el, effect: undefined } : el, [image, original, showWhole]);

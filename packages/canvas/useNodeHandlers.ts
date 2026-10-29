@@ -2,7 +2,7 @@
 
 import type Konva from "konva";
 import type { CanvasElement } from "@ig-layout/core/project/types";
-import { useEditor } from "@/store/editor";
+import { useCanvas } from "./host";
 
 export interface DragHooks {
   onDragMove: (node: Konva.Node, element: CanvasElement) => void;
@@ -20,7 +20,7 @@ export function useNodeHandlers(
   _hooks: DragHooks,
   onResize?: (scale: number) => Partial<CanvasElement>,
 ) {
-  const updateElement = useEditor((s) => s.updateLive);
+  const updateElement = useCanvas((s) => s.updateLive);
   const w = el.width;
   const h = el.height;
 

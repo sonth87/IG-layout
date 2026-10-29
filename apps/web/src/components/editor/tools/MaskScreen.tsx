@@ -5,7 +5,7 @@ import { Icon } from "@/components/ui/Icon";
 import { type ImageAsset, type ImageElement, newId } from "@ig-layout/core/project/types";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
-import { useHtmlImage } from "../canvas/useHtmlImage";
+import { useHtmlImage } from "@ig-layout/canvas/useHtmlImage";
 import { Slider } from "./controls";
 
 // Background tools that need a finger (M19, editor-v2/09 §9), full screen on black:

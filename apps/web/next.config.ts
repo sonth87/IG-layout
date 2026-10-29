@@ -4,8 +4,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   images: { unoptimized: true },
-  // Shared logic (packages/core) is TypeScript source, compiled with the app.
-  transpilePackages: ["@ig-layout/core"],
+  // Shared packages (packages/core, packages/canvas) are TypeScript source, compiled with the app.
+  transpilePackages: ["@ig-layout/core", "@ig-layout/canvas"],
   turbopack: {
     rules: {
       "*.css": {

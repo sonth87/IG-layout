@@ -5,7 +5,7 @@ import { Icon } from "@/components/ui/Icon";
 import { EFFECT_BY_ID, EFFECT_GROUPS, EFFECTS, type EffectGroup, effectParams, type ElementEffect, newEffect, type ParamSpec } from "@ig-layout/core/effects/catalog";
 import { useEditor, useViewDoc } from "@/store/editor";
 import { useSettings, useT } from "@/store/settings";
-import { effectPreview, roughFor } from "../canvas/useFx";
+import { effectPreview, roughFor } from "@ig-layout/canvas/useFx";
 import { Slider, ToolSheet } from "./controls";
 
 // Effects sheet (editor-v2/14): groups, a preview of each effect on this very element,

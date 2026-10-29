@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.1",
+    "@ig-layout/canvas": "workspace:*",
     "@ig-layout/core": "workspace:*",
     "@mediabunny/aac-encoder": "1.61.5",
     "fflate": "^0.8.3",

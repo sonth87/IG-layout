@@ -13,5 +13,8 @@
     "mediabunny": "1.61.5",
     "react": "19.3.0",
     "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@types/react": "^19"
   }
 }

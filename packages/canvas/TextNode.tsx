@@ -7,7 +7,7 @@ import type { TextElement } from "@ig-layout/core/project/types";
 import { fontInfo, fontWeight, loadFont } from "@ig-layout/core/text/fonts";
 import { useCatalog } from "@ig-layout/core/catalog/load";
 import { scaleExtras } from "@ig-layout/core/elements/resize";
-import { useEditor } from "@/store/editor";
+import { useCanvas } from "./host";
 import { useFx } from "./useFx";
 import { konvaPaint } from "@ig-layout/core/color/paint";
 import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
@@ -18,11 +18,11 @@ import { type DragHooks, useNodeHandlers } from "./useNodeHandlers";
  * a derived value (no history). Resizing scales the font size.
  */
 export function TextNode({ element: el, hooks }: { element: TextElement; hooks: DragHooks }) {
-  const setDerived = useEditor((s) => s.setDerived);
-  const setEditingText = useEditor((s) => s.setEditingText);
-  const updateElement = useEditor((s) => s.updateElement);
+  const setDerived = useCanvas((s) => s.setDerived);
+  const setEditingText = useCanvas((s) => s.setEditingText);
+  const updateElement = useCanvas((s) => s.updateElement);
   // While typing, an HTML box stands in for it (InlineText).
-  const typing = useEditor((s) => s.editingTextId === el.id);
+  const typing = useCanvas((s) => s.editingTextId === el.id);
   const textRef = useRef<Konva.Text>(null);
   // Catalog fonts (M20) are known once the catalog is loaded: redraw then.
   useCatalog((s) => s.catalog);

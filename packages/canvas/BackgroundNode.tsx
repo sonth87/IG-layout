@@ -2,7 +2,7 @@
 
 import { Image as KImage, Rect } from "react-konva";
 import type { Background } from "@ig-layout/core/project/types";
-import { useEditor } from "@/store/editor";
+import { useCanvas } from "./host";
 import { stillUrl } from "@ig-layout/core/project/types";
 import { useBlurredImage, useHtmlImage } from "./useHtmlImage";
 import { TEXTURES, textureTile } from "@ig-layout/core/elements/textures";
@@ -25,10 +25,10 @@ function gradientPoints(angle: number, width: number, height: number) {
 
 /** Background of the whole canvas. Tapping it clears the selection. */
 export function BackgroundNode({ background, width, height }: Props) {
-  const select = useEditor((s) => s.select);
-  const blurUrl = useEditor((s) => (background.kind === "blur" ? s.assets[background.assetId] && stillUrl(s.assets[background.assetId]) : undefined));
+  const select = useCanvas((s) => s.select);
+  const blurUrl = useCanvas((s) => (background.kind === "blur" ? s.assets[background.assetId] && stillUrl(s.assets[background.assetId]) : undefined));
   const blurred = useBlurredImage(blurUrl, width / height);
-  const packUrl = useEditor((s) => (background.kind === "texture" && background.assetId ? s.assets[background.assetId]?.url : undefined));
+  const packUrl = useCanvas((s) => (background.kind === "texture" && background.assetId ? s.assets[background.assetId]?.url : undefined));
   const packImage = useHtmlImage(packUrl);
 
   const common = {

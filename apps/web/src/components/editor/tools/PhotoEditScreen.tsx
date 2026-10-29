@@ -9,7 +9,7 @@ import { processImage } from "@ig-layout/core/color/processor";
 import { type ImageElement, isImage, stillUrl } from "@ig-layout/core/project/types";
 import { updateEl, useEditor, useViewDoc } from "@/store/editor";
 import { useT } from "@/store/settings";
-import { useHtmlImage } from "../canvas/useHtmlImage";
+import { useHtmlImage } from "@ig-layout/canvas/useHtmlImage";
 import { Slider } from "./controls";
 import { CameraPanel, FilmFxPanel } from "./FilmFxPanels";
 

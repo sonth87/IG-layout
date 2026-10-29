@@ -2,7 +2,7 @@
 
 import { Image as KImage } from "react-konva";
 import type { LayoutElement } from "@ig-layout/core/project/types";
-import { useEditor } from "@/store/editor";
+import { useCanvas } from "./host";
 import { useHtmlImage } from "./useHtmlImage";
 
 /**
@@ -10,7 +10,7 @@ import { useHtmlImage } from "./useHtmlImage";
  * only through its windows. Not hit: taps go to the cells (windows) or the block (frame).
  */
 export function FrameArtNode({ block }: { block: LayoutElement }) {
-  const url = useEditor((s) => (block.art ? s.assets[block.art.assetId]?.url : undefined));
+  const url = useCanvas((s) => (block.art ? s.assets[block.art.assetId]?.url : undefined));
   const image = useHtmlImage(url);
   if (!image) return null;
   return (

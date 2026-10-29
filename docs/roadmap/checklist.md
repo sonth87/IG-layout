@@ -558,6 +558,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] Chủ dự án `wrangler login` → deploy worker, đặt `NEXT_PUBLIC_SIGNAL_URL` trên Vercel
 - [ ] Thử trên điện thoại thật: cùng Wi-Fi, Wi-Fi ↔ 4G (cần TURN không?)
 - [x] Monorepo bước 1: `apps/web` (app), `apps/signal` (server phòng), `packages/core` (logic dùng chung, không giao diện) — D-150
-- [ ] Chủ dự án đổi Vercel → Settings → Root Directory = `apps/web` (trước khi merge nhánh `monorepo`)
-- [ ] Monorepo bước 2: tách lớp vẽ canvas (`packages/canvas`) để booth dùng chung sticker / chữ / kéo-xoay
+- [ ] Chủ dự án đổi Vercel → Settings → Root Directory = `apps/web` (trước khi merge nhánh `monorepo`) — để sau, chạy local trước (chủ dự án, 2026-10-29)
+- [x] Monorepo bước 2: `packages/canvas` — node vẽ dùng chung, lấy store qua `<CanvasHost>`; CanvasStage ở lại editor
 - [ ] Tag treo dây (thử ở /labs, chỉ ở màn home — D-151) → booth solo → phòng online + sửa chung
