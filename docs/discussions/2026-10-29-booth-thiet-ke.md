@@ -1,6 +1,6 @@
 # 2026-10-29 — Booth chụp một mình: tham khảo + đề xuất thiết kế
 
-> Trạng thái: **Đã chốt phần lớn** (D-152 → D-157, 2026-10-29). Còn mở: theme (Q-P4), video hậu trường (Q-P20). Chưa code.
+> Trạng thái: **Đã chốt phần lớn** (D-152 → D-157, 2026-10-29). Còn mở: theme (Q-P4); video hậu trường (Q-P20) gác lại. **Bước 1 đã làm** (§9).
 > Nền: [2026-10-29-photobooth.md](2026-10-29-photobooth.md) (phân tích chung, mô hình ô D-147, monorepo D-150, tag D-151).
 
 ## 1. Tham khảo (2026-10-29)
@@ -174,3 +174,16 @@ Theme = màu khung + filter + font + dấu ngày + bộ sticker gợi ý. Tất 
 | **Giáng sinh** (theo mùa) | Noel | xanh – đỏ, tuyết, dây đèn | lạnh nhẹ | serif |
 
 Đề xuất bản đầu: **Cinema, Classic, Đen trắng, Candy, Alice, Y2K** (6 theme); Dreamy, Polaroid, Báo, Tết, Giáng sinh thêm dần (chỉ là dữ liệu + sticker).
+
+## 9. Bước 1 đã làm (2026-10-29)
+Chủ dự án: "cứ tạm gác video hậu trường lại vì chưa hiểu mục đích. bắt đầu đi" → Q-P20 gác lại; làm bước 1 trên nhánh `monorepo`.
+
+- **`/booth`** (`apps/web/src/booth/`, giao diện riêng kiểu Cinema, font Playfair Display + Space Mono chỉ tải ở trang này; chuỗi EN / VI trong `packages/core/i18n` khoá `booth.*`).
+- **Sảnh:** 3 thẻ vé (Chụp một mình; Tạo phòng / Vào phòng bằng mã ghi "Sắp có"), "Có ảnh sẵn? Tải lên", **cuộn phim gần đây** (D-156, IndexedDB riêng `ig-layout-booth`), **tag treo** góc phải về IG Layout. Tiêu đề chừa chỗ bên phải cho tag.
+- **Chọn khung:** camera bật sẵn, **ô sáng trên camera đúng bằng phần ảnh sẽ vào ô** (cắt giữa khung cảm biến, cùng cách `render.ts` cắt), phần ngoài tối đi; 8 khung có hình thu nhỏ vẽ bằng chính hàm vẽ lúc xuất; tuỳ chọn chụp dư; đổi camera trước / sau. Khung, chụp dư, tiếng nhớ cho lần sau.
+- **Chụp:** bắt đầu khi camera đã có hình; số đếm to + vòng chạy, 8 s / kiểu, nghỉ 2 s (D-154); loé trắng + tiếng màn trập (tạo bằng Web Audio, tắt được); ảnh vừa chụp rơi xuống khay; Tạm dừng, Chụp lại kiểu vừa rồi, Thoát (hỏi lại nếu đã có ảnh). Ảnh chụp ở độ phân giải gốc, không lật (D-153).
+- **Chọn ảnh** (khi chụp dư, D-157): chạm theo thứ tự, có số thứ tự.
+- **Kết quả:** ảnh **trượt ra từ khe máy in** (chạm để bỏ qua); một nút chính **Lưu ảnh** (JPEG đúng khổ, vd. dải 4 = 600 × 1800); **chạm một ảnh → Chụp lại kiểu đó**; ô thiếu (tải lên ít ảnh) → **Chụp bù**; Lật ảnh; Chụp lượt mới; Về sảnh; Xoá cuộn.
+- **Dữ liệu dùng chung** ở `packages/core/booth/`: `frames.ts` (8 khung = dữ liệu), `render.ts` (vẽ khung Cinema: lỗ phim, ô trống hình người xám, chữ "Photobooth" + ngày giờ kiểu vé), `camera.ts` (mở camera / camera giả / chụp — trang thử phòng `/labs/booth` cũng dùng), `storage/booth.ts`.
+- Chưa làm (các bước sau): theme khác, filter, sticker, chữ; đổi khung sau khi chụp; xuất Post / Story / Carousel; Mở trong IG Layout; tag ở home IG Layout (chờ Q-P12); phòng online.
+- Kiểm tra: `e2e/booth-solo.mjs` (camera giả của Chromium) — đủ luồng trên, 4 kiểu mất ≈ 39 s đúng 4 × 8 + 3 × 2.

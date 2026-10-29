@@ -192,3 +192,25 @@ img {
     animation: none;
   }
 }
+
+/* Booth (/booth): countdown number pop, shot dropping into the tray, flash, the print sliding
+   out of the printer's slot. */
+@keyframes booth-pop {
+  from { transform: scale(1.35); opacity: 0.4; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes booth-drop {
+  from { transform: translateY(-40vh) scale(2.2); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes booth-flash {
+  from { opacity: 0.95; }
+  to { opacity: 0; }
+}
+@keyframes booth-print {
+  from { transform: translateY(-100%); }
+  to { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [class*="animate-[booth-"]:not([class*="booth-flash"]) { animation: none !important; }
+}

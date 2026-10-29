@@ -4,6 +4,7 @@ import { useEffect, useReducer, useRef, useState } from "react";
 import { BoothSession, randomCode, type ErrorCode, type Peer } from "@ig-layout/core/booth/session";
 import { renderStrip } from "@ig-layout/core/booth/strip";
 import { isRoomCode } from "@ig-layout/core/booth/protocol";
+import { openCamera, snap } from "@ig-layout/core/booth/camera";
 
 // Booth lab (/labs/booth, 2026-10-29): try a shared online photobooth room — room code,
 // host lets people in, everyone's camera on screen, one countdown for all, each phone shoots
@@ -51,7 +52,7 @@ export function BoothLab() {
   useEffect(() => () => session?.leave(), [session]);
 
   async function start(create: boolean) {
-    const { stream, fake } = await openCamera(name || "?");
+    const { stream, fake } = await openCamera("user", name || "?");
     setFakeCam(fake);
     const roomCode = create ? randomCode() : code.toUpperCase();
     const s = new BoothSession({
@@ -262,57 +263,4 @@ function Strip({ session, roll, code }: { session: BoothSession; roll: number; c
       )}
     </section>
   );
-}
-
-async function openCamera(label: string): Promise<{ stream: MediaStream; fake: boolean }> {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false });
-    return { stream, fake: false };
-  } catch {
-    return { stream: fakeCamera(label), fake: true };
-  }
-}
-
-/** A moving test card, so a laptop without a camera can still test the room. */
-function fakeCamera(label: string): MediaStream {
-  const canvas = document.createElement("canvas");
-  canvas.width = 640;
-  canvas.height = 480;
-  const c = canvas.getContext("2d")!;
-  const hue = Math.floor(Math.random() * 360);
-  const draw = () => {
-    const t = performance.now() / 1000;
-    c.fillStyle = `hsl(${hue} 45% 30%)`;
-    c.fillRect(0, 0, 640, 480);
-    c.fillStyle = `hsl(${hue} 70% 65%)`;
-    c.beginPath();
-    c.arc(320 + Math.cos(t) * 180, 240 + Math.sin(t * 1.3) * 120, 60, 0, Math.PI * 2);
-    c.fill();
-    c.fillStyle = "#fff";
-    c.font = "bold 64px sans-serif";
-    c.textAlign = "center";
-    c.fillText(label, 320, 260);
-    c.font = "24px monospace";
-    c.fillText(new Date().toLocaleTimeString("vi-VN"), 320, 440);
-  };
-  draw();
-  setInterval(draw, 1000 / 15);
-  return canvas.captureStream(15);
-}
-
-/** One full-resolution JPEG from the camera (mirrored like the preview when asked). */
-async function snap(video: HTMLVideoElement, mirror: boolean): Promise<Blob | null> {
-  const w = video.videoWidth;
-  const h = video.videoHeight;
-  if (!w || !h) return null;
-  const canvas = document.createElement("canvas");
-  canvas.width = w;
-  canvas.height = h;
-  const c = canvas.getContext("2d")!;
-  if (mirror) {
-    c.translate(w, 0);
-    c.scale(-1, 1);
-  }
-  c.drawImage(video, 0, 0);
-  return new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.9));
 }

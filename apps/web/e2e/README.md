@@ -26,6 +26,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `m13.mjs` | Video: nhập + nén (giữ tiếng, ảnh bìa), phát / dừng, công cụ Âm thanh, xuất MP4 (ffprobe: H.264 1080×1350 + AAC, độ dài; tắt tiếng), mở lại. Cần ffmpeg / ffprobe |
 | `m13b.mjs` | Filter trên video (xuất ra xám với Noir), chuyển động (đánh máy, trượt ra, xoay tròn liên tục), Ken Burns, về vị trí thật khi dừng, slide chuyển động → MP4 |
 | `m13c.mjs` | Nhạc nền (chọn, âm lượng, phát cùng project, trộn vào video, mở lại), xuất: ảnh tĩnh JPEG / video & chuyển động MP4 có tiếng, video 9:16 (1080×1920, độ dài = các slide + lướt, có tiếng) |
+| `booth-solo.mjs` | Booth `/booth` (camera giả của Chromium): sảnh, 8 khung, ô camera đúng hình ô, đếm 8 giây + nghỉ 2 giây, tự chụp đủ 4 kiểu, ảnh in trượt ra, lưu JPEG 600×1800, chạm ảnh → chụp lại riêng kiểu đó, lật ảnh, cuộn phim còn sau khi tải lại, chụp dư 1 + 2 → chọn, xoá cuộn |
 | `drag-perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian khung hình khi kéo / chụm trên điện thoại giả lập, CPU chậm 4× |
 | `perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian nhập 20 ảnh 4000 px, thời gian vẽ lại, bộ nhớ canvas |
 | `sheets.mjs` | Chạm ra ngoài đóng hẳn sheet của phần tử, chọn lại không tự bật lại; ảnh panorama thêm vào không khoá (D-134) |

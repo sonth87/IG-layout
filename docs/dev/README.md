@@ -35,7 +35,9 @@ pnpm deploy                          # cần `npx wrangler login` trước; rồ
 Monorepo pnpm workspace (D-150, 2026-10-29). Lệnh `pnpm dev / build / e2e` ở thư mục gốc chạy cho `apps/web`; `pnpm lint` lint cả workspace (một file `eslint.config.mjs` ở gốc).
 
 ```
-apps/web/          app Next.js (IG Layout; photobooth sẽ là route /booth trong app này) — giao diện, store, trang, PWA
+apps/web/          app Next.js (IG Layout + photobooth ở route /booth) — giao diện, store, trang, PWA
+                   Booth: apps/web/src/booth/ (giao diện riêng, không dùng component của editor — D-150);
+                   dữ liệu khung / vẽ / camera ở packages/core/booth/, cuộn phim ở packages/core/storage/booth.ts
 apps/signal/       server phòng chụp chung: Cloudflare Worker + Durable Object
 packages/core/     logic dùng chung, KHÔNG có giao diện: import bằng "@ig-layout/core/<thư mục>/<file>"
                    (app web biên dịch thẳng mã nguồn — transpilePackages). Không import ngược từ apps/*.

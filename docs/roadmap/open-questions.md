@@ -38,7 +38,7 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P17.** ~~Đếm ngược?~~ 8 giây, nghỉ 2 giây — D-154.
 - **Q-P18.** ~~Mở trong IG Layout dạng gì?~~ Hỏi người dùng, kèm lựa chọn "Bất ngờ" — D-155.
 - **Q-P19.** ~~Lưu strip?~~ Có — D-156.
-- **Q-P20.** Video hậu trường (quay vài giây quanh mỗi lần chụp → strip động / video ghép): chủ dự án chưa rõ là gì (2026-10-29) — đã giải thích ở [2026-10-29-booth-thiet-ke.md](../discussions/2026-10-29-booth-thiet-ke.md) §8, chờ trả lời.
+- **Q-P20.** Video hậu trường: **gác lại** — chủ dự án chưa thấy mục đích (2026-10-29).
 
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?

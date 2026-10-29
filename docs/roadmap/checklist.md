@@ -565,5 +565,8 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Booth solo: tham khảo + đề xuất thiết kế (docs/discussions/2026-10-29-booth-thiet-ke.md)
 - [x] Chủ dự án chốt thiết kế booth solo (D-152 → D-157)
 - [ ] Còn mở: chọn theme (Q-P4), video hậu trường (Q-P20)
-- [ ] Booth solo: giao diện riêng (cinema), layout strip / lưới / khổ IG, sticker từ packages/canvas, chuyển ảnh sang IG Layout
+- [x] Booth solo bước 1: `/booth` — sảnh (thẻ vé, tải ảnh lên, cuộn phim gần đây, tag về IG Layout), chọn khung với camera bật sẵn (8 khung, ô camera đúng hình ô), chụp tự động (đếm 8 s, nghỉ 2 s, loé trắng, tiếng màn trập, tạm dừng, chụp lại kiểu vừa rồi, hỏi trước khi thoát), chụp dư + chọn, ảnh in trượt ra, lưu JPEG, chạm ảnh → chụp lại / chụp bù, lật ảnh, lưu cuộn trên máy; e2e `booth-solo.mjs`
+- [ ] Booth bước 2: trang trí (theme, filter, sticker, chữ, ngày), đổi khung sau khi chụp
+- [ ] Booth bước 3: xuất Post / Story / Carousel + Mở trong IG Layout (hỏi dạng / "Bất ngờ", D-155)
+- [ ] Booth bước 4: gắn tag vào home IG Layout (chờ Q-P12)
 - [ ] Phòng online + sửa chung
