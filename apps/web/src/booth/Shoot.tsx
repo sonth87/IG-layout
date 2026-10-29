@@ -6,7 +6,7 @@ import { shotAspect, type BoothFrame } from "@ig-layout/core/booth/frames";
 import { useT } from "@/store/settings";
 import { CameraView, type Camera } from "./CameraView";
 import { COUNTDOWN_S, REST_S } from "./timing";
-import { Confirm, RoundBtn, mono, serif } from "./ui";
+import { Btn, Confirm, display, mono, serif } from "./ui";
 
 // Shooting (design §2.3, D-154): an 8 s countdown per shot, a white flash (light for the front
 // camera) and a shutter click, 2 s rest, next shot — on its own until the roll is done. Pause,
@@ -107,62 +107,78 @@ export function Shoot({ camera, facing, frame, plan, sound, onSound, onDone, onE
   const urls = useMemo(() => shots.map((b) => URL.createObjectURL(b)), [shots]);
   useEffect(() => () => urls.forEach((u) => URL.revokeObjectURL(u)), [urls]);
 
+  const n = Math.min(shots.length + 1, plan.count);
+  const final = st.phase === "count" && seconds <= 3;
+
   return (
-    <div className="relative h-full">
-      <CameraView camera={camera} facing={facing} aspect={aspect} videoRef={video}>
-        {/* Top bar */}
-        <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-2 p-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
-          <RoundBtn label={t("booth.exit")} onClick={() => (shots.length ? setAsking(true) : onExit())}>
-            ✕
-          </RoundBtn>
-          <p className={`${mono} rounded-full bg-black/45 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em]`} aria-live="polite">
-            {t("booth.shotOf", { n: Math.min(shots.length + 1, plan.count), total: plan.count })}
+    <div className="relative flex h-full flex-col">
+      {/* Top: exit, which shot (one box per shot, filled when taken), sound, pause. */}
+      <header className="flex shrink-0 items-center justify-between gap-2 border-b-2 border-[#0b0806] bg-[#f3e9d6] px-3 py-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] text-[#1d1612]">
+        <Btn className="px-3 py-2" aria-label={t("booth.exit")} onClick={() => (shots.length ? setAsking(true) : onExit())}>
+          ✕
+        </Btn>
+        <div className="flex flex-col items-center gap-1">
+          <p className={`${mono} text-[11px] font-bold uppercase tracking-[0.2em]`} aria-live="polite">
+            {t("booth.shotOf", { n, total: plan.count })}
           </p>
-          <div className="flex gap-2">
-            <RoundBtn label={t("booth.sound")} aria-pressed={sound} onClick={() => onSound(!sound)}>
-              {sound ? "🔊" : "🔇"}
-            </RoundBtn>
-            <RoundBtn label={paused ? t("booth.resume") : t("booth.pause")} onClick={togglePause}>
-              {paused ? "▶" : "❚❚"}
-            </RoundBtn>
-          </div>
-        </div>
-
-        {/* Countdown */}
-        {st.phase === "count" && (
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="relative flex h-40 w-40 items-center justify-center">
-              <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
-                <circle cx="50" cy="50" r="46" fill="none" stroke="#efe6d6" strokeOpacity={0.2} strokeWidth="3" />
-                <circle cx="50" cy="50" r="46" fill="none" stroke="#efe6d6" strokeWidth="3" strokeDasharray={289} strokeDashoffset={289 * (1 - progress)} strokeLinecap="round" />
-              </svg>
-              <span key={seconds} className={`${serif} animate-[booth-pop_0.35s_ease-out] text-8xl font-black drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]`}>
-                {seconds}
-              </span>
-            </div>
-          </div>
-        )}
-        {st.phase === "wait" && <p className={`${mono} absolute inset-x-0 top-1/2 text-center text-sm uppercase tracking-[0.3em]`}>{t("booth.getReady")}</p>}
-        {paused && <div className="absolute inset-0 bg-black/40" />}
-
-        {/* Shots so far, and retake the last one */}
-        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-          <div className="flex gap-2 overflow-x-auto">
-            {urls.map((u, i) => (
-              // eslint-disable-next-line @next/next/no-img-element -- a local blob URL
-              <img key={u} src={u} alt="" className="h-16 w-auto animate-[booth-drop_0.45s_ease-out] rounded-[3px] border-2 border-[#efe6d6]" data-shot={i} />
+          <div aria-hidden className="flex gap-1">
+            {Array.from({ length: plan.count }, (_, i) => (
+              <span key={i} className={`h-2.5 w-4 border-2 border-[#1d1612] ${i < shots.length ? "bg-[#c8432f]" : i === shots.length ? "bg-[#eaa63c]" : ""}`} />
             ))}
           </div>
-          {shots.length > 0 && shots.length < plan.count && (
-            <button type="button" onClick={retakeLast} className={`${mono} shrink-0 rounded-full bg-black/55 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.15em]`}>
-              ↺ {t("booth.retakeLast")}
-            </button>
-          )}
         </div>
-      </CameraView>
+        <div className="flex gap-2">
+          <Btn className="px-2.5 py-2" aria-label={t("booth.sound")} aria-pressed={sound} onClick={() => onSound(!sound)}>
+            {sound ? "♪" : "–"}
+          </Btn>
+          <Btn className="px-2.5 py-2" aria-label={paused ? t("booth.resume") : t("booth.pause")} onClick={togglePause}>
+            {paused ? "▶" : "❚❚"}
+          </Btn>
+        </div>
+      </header>
+
+      <div className="relative min-h-0 flex-1">
+        <CameraView camera={camera} facing={facing} aspect={aspect} videoRef={video} tilt={shots.length % 2 ? 1 : -1.2} caption={`${t("booth.you")} · ${String(n).padStart(2, "0")}/${String(plan.count).padStart(2, "0")}`}>
+          {st.phase === "count" && (
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <div className="relative flex h-36 w-36 items-center justify-center">
+                <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
+                  <circle cx="50" cy="50" r="44" fill="rgba(29,22,18,0.35)" stroke="#f3e9d6" strokeOpacity={0.35} strokeWidth="5" />
+                  <circle cx="50" cy="50" r="44" fill="none" stroke={final ? "#c8432f" : "#eaa63c"} strokeWidth="5" strokeDasharray={276.5} strokeDashoffset={276.5 * (1 - progress)} />
+                </svg>
+                <span
+                  key={seconds}
+                  data-countdown
+                  className={`${serif} animate-[booth-pop_0.35s_ease-out] leading-none ${final ? "text-[96px] text-[#f3e9d6]" : "text-7xl text-[#f3e9d6]"} [-webkit-text-stroke:2px_#1d1612] [paint-order:stroke_fill] drop-shadow-[3px_3px_0_#0b0806]`}
+                  style={display}
+                >
+                  {seconds}
+                </span>
+              </div>
+            </div>
+          )}
+          {st.phase === "wait" && <p className={`${mono} absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-sm font-bold uppercase tracking-[0.3em]`}>{t("booth.getReady")}</p>}
+          {paused && <div className="absolute inset-0 bg-[#1d1612]/50" />}
+        </CameraView>
+      </div>
+
+      {/* The shots so far, as little prints; retake the last one. */}
+      <div className="flex min-h-[92px] shrink-0 items-center justify-between gap-3 border-t-2 border-[#0b0806] bg-[#120d0a] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="flex gap-2 overflow-x-auto py-1 pl-1">
+          {urls.map((u, i) => (
+            // eslint-disable-next-line @next/next/no-img-element -- a local blob URL
+            <img key={u} src={u} alt="" data-shot={i} className="h-14 w-auto animate-[booth-drop_0.45s_ease-out] border-[3px] border-[#f6efe2] shadow-[3px_3px_0_#0b0806]" style={{ rotate: `${i % 2 ? 3 : -3}deg` }} />
+          ))}
+        </div>
+        {shots.length > 0 && shots.length < plan.count && (
+          <Btn className="shrink-0 py-2.5 text-[10px]" onClick={retakeLast}>
+            ↺ {t("booth.retakeLast")}
+          </Btn>
+        )}
+      </div>
 
       {/* Flash: white, then fades (lights the face on the front camera). */}
-      {flash > 0 && <div key={flash} aria-hidden className="pointer-events-none absolute inset-0 animate-[booth-flash_0.5s_ease-out_forwards] bg-white" />}
+      {flash > 0 && <div key={flash} aria-hidden className="pointer-events-none fixed inset-0 z-40 animate-[booth-flash_0.5s_ease-out_forwards] bg-white" />}
 
       {asking && (
         <Confirm

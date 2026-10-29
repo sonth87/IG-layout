@@ -41,7 +41,7 @@ const t0 = Date.now();
 await page.getByRole("button", { name: "Start shooting" }).click();
 await page.getByText("Shot 1 of 4").waitFor();
 await page.waitForTimeout(1500);
-const num = await page.locator("span.text-8xl").textContent();
+const num = await page.locator("[data-countdown]").textContent();
 check(Number(num) >= 6 && Number(num) <= 8, `countdown runs (${num})`);
 await page.screenshot({ path: path.join(OUT, "booth-countdown.png") });
 await page.locator("img[data-shot='0']").waitFor({ timeout: 12000 });

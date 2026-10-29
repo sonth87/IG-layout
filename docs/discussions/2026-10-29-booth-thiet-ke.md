@@ -197,3 +197,19 @@ Chủ dự án: "cho thêm cái tag treo ở home để vào booth đi".
 ## 11. Sửa sau khi chủ dự án thử (2026-10-29)
 - **"Vào booth chẳng có gì, ấn vào một mục thì lỗi"** (`Cannot read properties of undefined (reading 'replace')`): trình duyệt chạy code cũ chưa có chuỗi `booth.*` (khả năng cao: service worker của một bản build production cũ trên localhost giữ cache). Sửa: khi chạy dev, app **tự gỡ service worker** còn sót; thiếu chuỗi thì hiện tên khoá thay vì sập; `/booth` cũng đăng ký service worker như IG Layout.
 - **"Sao chữ ngược hết thế?"**: máy không mở được camera → dùng hình thử, mà hình xem trước camera trước được lật như gương → chữ hình thử bị ngược. Sửa: **hình thử không bao giờ lật**; nói rõ **vì sao** không mở được camera (trình duyệt chặn → bấm biểu tượng camera trên thanh địa chỉ; không có camera; camera đang bị app khác dùng như Zoom / Meet; trang không an toàn) + nút **Thử lại camera**. e2e `booth-solo.mjs` thêm mục 8 (camera bị chặn).
+
+## 12. Làm lại giao diện booth (2026-10-29)
+Chủ dự án: "giao diện trông boring thế? … onboothvn làm giao diện rất đẹp, colorme có animation máy in ảnh xong nhè ảnh ra khá hay". Bước 1 mới làm cho chạy trọn luồng; nay làm giao diện thật.
+
+**Xem lại ONBOOTH** (chụp màn hình bằng trình duyệt tự động, 390 px): đẹp nhờ cảm giác **đồ in thật** — thẻ vé giấy kem hơi nghiêng trên nền tối có vân, khía tròn hai bên, viền mực đậm, **bóng đổ cứng lệch** (nút lún xuống khi bấm), chữ display rất đậm + nhãn mono giãn chữ màu đỏ, dải chữ chạy trên cùng, camera trong **khung polaroid** nghiêng, thanh dưới màu kem. ColorME chặn trình duyệt tự động (Cloudflare) → theo ảnh chủ dự án gửi trước đó (máy in nhả ảnh).
+
+**Làm theo hướng đó nhưng là kiểu riêng** (không chép ONBOOTH):
+- Font display **Fraunces** (SOFT / WONK — dáng chữ biển rạp cũ, có tiếng Việt) + Space Mono.
+- Bộ UI giấy (`apps/web/src/booth/ui.tsx`): `Paper` (kem, viền mực, bóng cứng, khía vé), `Btn` (bóng cứng, lún khi bấm), `Label`, `Perforation`, `Ticker` (dải chữ chạy màu hổ phách), `Bulbs` (biển đèn bóng chạy quanh), nền "sàn rạp" (đèn rọi ấm từ trên + vân chấm).
+- **Sảnh:** dải chữ chạy, biển đèn "Đang chiếu · Photobooth", vé "Vé vào cửa" (nút đỏ Chụp một mình, hai cuống vé chờ "Sắp có", đường xé, tải ảnh lên), ảnh in gần đây **dán băng keo**, nghiêng xen kẽ.
+- **Chọn khung:** thanh trên giấy kem + dải lỗ phim đỏ; **camera trong polaroid** đúng hình ô (phần ảnh trong polaroid = đúng phần vào ô, không còn vùng tối); khung là thẻ giấy, khung đang chọn nổi lên, nền mực, bóng đỏ; ô chụp dư kiểu đánh dấu ✕ đỏ.
+- **Chụp:** polaroid ghi "bạn · 01/04", số đếm chữ display viền mực + vòng hổ phách, 3 giây cuối vòng đỏ; ô vuông nhỏ cho từng kiểu (đã chụp đỏ, đang chụp hổ phách); ảnh vừa chụp rơi xuống khay thành ảnh in nhỏ nghiêng.
+- **Chọn ảnh:** tờ contact sheet — phim tối, số khung "▸ 01A", chọn = **khoanh bút sáp đỏ** + số thứ tự.
+- **Kết quả:** **máy in** (thân nâu, biển "Photobooth" phát sáng, đèn hổ phách nhấp nháy khi in → xanh khi xong, khe in); ảnh **bị đẩy ra từng nấc như mô-tơ** (hơi lắc), kèm **tiếng mô-tơ** (Web Audio, theo nút tiếng); in xong ảnh hơi nghiêng; "Ảnh nóng hổi đây!"; các nút phụ gọn một hàng.
+- Giảm chuyển động (prefers-reduced-motion): tắt các chuyển động, ảnh in hiện ngay.
+- Lỗi gặp khi làm: một selector CSS có ký tự `[` trong chuỗi làm bộ dịch CSS của Tailwind bỏ mất mọi `@keyframes` phía sau (ảnh in đứng yên, kẹt "Đang in…") → bỏ ký tự đó, ghi chú trong `globals.css`.

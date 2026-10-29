@@ -994,4 +994,11 @@ export const vi: Record<MessageKey, string> = {
   "booth.camera.other": "Không mở được camera.",
   "booth.camera.test": "Tạm dùng hình thử.",
   "booth.camera.retry": "Thử lại camera",
+  "booth.tagline": "Chọn khung, tạo dáng, mang dải ảnh về nhà.",
+  "booth.ticker": "Chọn khung|Tạo dáng|Cười lên nào|Giữ lấy dải ảnh",
+  "booth.privacy": "Không tài khoản · Ảnh không rời khỏi máy",
+  "booth.admit": "Vé vào cửa",
+  "booth.you": "bạn",
+  "booth.setupTitle": "Chọn khung",
+  "booth.printDone": "Ảnh nóng hổi đây!",
 };

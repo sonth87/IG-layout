@@ -995,6 +995,13 @@ export const en = {
   "booth.camera.other": "The camera could not be opened.",
   "booth.camera.test": "Using a test picture for now.",
   "booth.camera.retry": "Try the camera again",
+  "booth.tagline": "Pick a frame, strike a pose, take the strip home.",
+  "booth.ticker": "Pick a frame|Strike a pose|Say cheese|Keep the strip",
+  "booth.privacy": "No account · Photos stay on this device",
+  "booth.admit": "Admit one",
+  "booth.you": "you",
+  "booth.setupTitle": "Pick your frame",
+  "booth.printDone": "Fresh off the press!",
 } as const;
 
 export type MessageKey = keyof typeof en;

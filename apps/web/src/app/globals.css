@@ -211,6 +211,32 @@ img {
   from { transform: translateY(-100%); }
   to { transform: none; }
 }
+@keyframes booth-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes booth-bulbs {
+  50% { opacity: 0.35; }
+}
+@keyframes booth-led {
+  50% { opacity: 0.25; }
+}
+/* The print comes out in motor steps: short pushes with a tiny wobble. */
+@keyframes booth-feed {
+  0% { transform: translateY(-100%); }
+  12% { transform: translateY(-88%) rotate(0.3deg); }
+  20% { transform: translateY(-86%); }
+  35% { transform: translateY(-64%) rotate(-0.3deg); }
+  43% { transform: translateY(-62%); }
+  58% { transform: translateY(-38%) rotate(0.3deg); }
+  66% { transform: translateY(-36%); }
+  82% { transform: translateY(-10%) rotate(-0.2deg); }
+  90% { transform: translateY(-8%); }
+  100% { transform: translateY(0); }
+}
+/* Reduced motion: no booth movement (the flash only fades, it stays). No "[" in these
+   selectors: Tailwind's CSS parser would lose everything after it. */
 @media (prefers-reduced-motion: reduce) {
-  [class*="animate-[booth-"]:not([class*="booth-flash"]) { animation: none !important; }
+  [class*="booth-pop"], [class*="booth-drop"], [class*="booth-print"], [class*="booth-marquee"],
+  [class*="booth-bulbs"], [class*="booth-led"], [class*="booth-feed"] { animation: none !important; }
 }

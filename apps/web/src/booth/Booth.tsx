@@ -14,6 +14,7 @@ import { Result } from "./Result";
 import { Setup } from "./Setup";
 import { Shoot } from "./Shoot";
 import { shotImages } from "./images";
+import { floorStyle } from "./ui";
 import { SPARE } from "./timing";
 
 // The booth app (/booth, D-150 / D-152): its own screens and look (Cinema), sharing logic and
@@ -54,7 +55,11 @@ export function Booth() {
     () => true,
     () => false,
   );
-  return <div className={`${boothSerif.variable} ${boothMono.variable} fixed inset-0 overflow-hidden bg-[#15110e] text-[#efe6d6]`}>{isClient && <BoothApp />}</div>;
+  return (
+    <div className={`${boothSerif.variable} ${boothMono.variable} fixed inset-0 overflow-hidden text-[#f3e9d6]`} style={floorStyle}>
+      {isClient && <BoothApp />}
+    </div>
+  );
 }
 
 function BoothApp() {
@@ -207,6 +212,7 @@ function BoothApp() {
       return roll ? (
         <Result
           roll={roll}
+          sound={prefs.sound}
           onChange={(r) => setRoll({ ...r, updatedAt: Date.now() })}
           onRetake={retake}
           onAgain={() => {

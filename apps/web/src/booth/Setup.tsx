@@ -3,13 +3,14 @@
 import { FRAMES, frameById, shotAspect } from "@ig-layout/core/booth/frames";
 import type { Facing } from "@ig-layout/core/booth/camera";
 import { useT } from "@/store/settings";
-import { COUNTDOWN_S } from "./timing";
 import { CameraView, type Camera } from "./CameraView";
 import { FrameCanvas } from "./FrameCanvas";
-import { Btn, RoundBtn, mono, useFrameName } from "./ui";
+import { COUNTDOWN_S } from "./timing";
+import { Btn, Label, display, mono, serif, useFrameName } from "./ui";
 
-// Choose a frame with the camera already on (design §2.2, D-152): the window on the camera
-// is the shape of the frame's first cell, so you see your framing before the first shot.
+// Choose a frame with the camera already on (design §2.2, D-152): the camera sits in a
+// polaroid the shape of the frame's first cell, so you see your framing before the first
+// shot. Below, the frames as paper cards on a ticket-coloured sheet.
 
 const EMPTY: never[] = [];
 
@@ -31,32 +32,36 @@ export function Setup(props: {
 
   return (
     <div className="flex h-full flex-col">
+      <header className="flex shrink-0 items-center justify-between gap-3 border-b-2 border-[#0b0806] bg-[#f3e9d6] px-3 py-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] text-[#1d1612]">
+        <Btn className="px-3 py-2" aria-label={t("common.back")} onClick={props.onBack}>
+          ←
+        </Btn>
+        <h1 className={`${serif} text-2xl`} style={display}>
+          {t("booth.setupTitle")}
+        </h1>
+        <Btn className="px-3 py-2" aria-label={t("booth.switchCamera")} title={t("booth.switchCamera")} onClick={props.onFacing}>
+          ⇄
+        </Btn>
+      </header>
+      <div aria-hidden className="h-2.5 shrink-0 bg-[#c8432f]" style={{ backgroundImage: "repeating-linear-gradient(90deg, transparent 0 16px, #1a1310 16px 28px)", backgroundSize: "100% 45%", backgroundRepeat: "no-repeat", backgroundPosition: "bottom" }} />
+
       <div className="relative min-h-0 flex-1">
-        <CameraView camera={props.camera} facing={props.facing} aspect={shotAspect(frame, 0)}>
-          <div className="absolute inset-x-0 top-0 flex justify-between p-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
-            <RoundBtn label={t("common.back")} onClick={props.onBack}>
-              ←
-            </RoundBtn>
-            <RoundBtn label={t("booth.switchCamera")} onClick={props.onFacing}>
-              ⇄
-            </RoundBtn>
+        <CameraView camera={props.camera} facing={props.facing} aspect={shotAspect(frame, 0)} caption={t("booth.you")} />
+        {props.camera?.fake && (
+          <div role="status" className="absolute inset-x-4 bottom-3 flex flex-col items-center gap-2 border-2 border-[#1d1612] bg-[#f3e9d6] p-3 text-center text-[#1d1612] shadow-[4px_4px_0_#0b0806]">
+            <p className={`${mono} text-xs leading-relaxed`}>
+              {t(`booth.camera.${props.camera.error ?? "other"}`)} {t("booth.camera.test")}
+            </p>
+            <Btn tone="main" className="py-2" onClick={props.onRetryCamera}>
+              ↻ {t("booth.camera.retry")}
+            </Btn>
           </div>
-          {props.camera?.fake && (
-            <div role="status" className="absolute inset-x-3 bottom-3 flex flex-col items-center gap-2 rounded-lg bg-black/70 p-3 text-center text-sm">
-              <p>
-                {t(`booth.camera.${props.camera.error ?? "other"}`)} {t("booth.camera.test")}
-              </p>
-              <button type="button" onClick={props.onRetryCamera} className={`${mono} rounded-full border border-[#efe6d6]/50 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.15em]`}>
-                ↻ {t("booth.camera.retry")}
-              </button>
-            </div>
-          )}
-        </CameraView>
+        )}
       </div>
 
-      <div className="shrink-0 border-t border-dashed border-[#efe6d6]/25 pb-[max(1rem,env(safe-area-inset-bottom))]">
-        <p className={`${mono} px-5 pt-4 text-[11px] uppercase tracking-[0.3em] opacity-60`}>{t("booth.frame")}</p>
-        <div role="radiogroup" aria-label={t("booth.frame")} className="flex gap-3 overflow-x-auto px-5 py-3">
+      <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(1rem,env(safe-area-inset-bottom))] text-[#1d1612]">
+        <Label className="px-5 pt-4">{t("booth.frame")}</Label>
+        <div role="radiogroup" aria-label={t("booth.frame")} className="flex gap-3 overflow-x-auto px-5 pt-3 pb-4">
           {FRAMES.map((f) => {
             const on = f.id === frame.id;
             return (
@@ -66,28 +71,31 @@ export function Setup(props: {
                 role="radio"
                 aria-checked={on}
                 onClick={() => props.onFrame(f.id)}
-                className={`flex w-[84px] shrink-0 flex-col items-center gap-1.5 rounded-lg p-1.5 ${on ? "bg-[#efe6d6]/12 outline outline-1 outline-[#efe6d6]" : ""}`}
+                className={`flex w-[88px] shrink-0 flex-col items-center gap-1.5 border-2 border-[#1d1612] p-2 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-1 bg-[#1d1612] text-[#f3e9d6] shadow-[4px_4px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[3px_3px_0_#0b0806]"}`}
               >
-                <span className="flex h-20 items-center">
-                  <FrameCanvas frame={f} images={EMPTY} scale={160 / Math.max(f.width, f.height)} className="max-h-20 max-w-[72px] rounded-[2px]" />
+                <span className="flex h-[72px] items-center">
+                  <FrameCanvas frame={f} images={EMPTY} scale={160 / Math.max(f.width, f.height)} className="max-h-[72px] max-w-[68px]" />
                 </span>
                 <span className={`${mono} text-[10px] font-bold uppercase leading-tight tracking-wider`}>{frameName(f.id)}</span>
-                <span className="text-[10px] opacity-55">{t("booth.shots", { count: f.shots })}</span>
+                <span className={`${mono} text-[9px] opacity-60`}>
+                  {f.size} · {t("booth.shots", { count: f.shots })}
+                </span>
               </button>
             );
           })}
         </div>
         <div className="flex flex-col gap-3 px-5">
-          <label className="flex items-center gap-3 text-sm">
-            <input type="checkbox" className="h-5 w-5 accent-[#b5452f]" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />
+          <label className={`${mono} flex cursor-pointer items-center gap-3 text-xs`}>
+            <input type="checkbox" className="peer sr-only" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />
+            <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[#1d1612] bg-[#f3e9d6] text-sm font-bold text-[#c8432f] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">
+              {props.spare ? "✕" : ""}
+            </span>
             {t("booth.spare")}
           </label>
-          <p className={`${mono} text-[11px] uppercase tracking-[0.15em] opacity-55`}>
-            {frame.size} · {t("booth.countdown", { seconds: COUNTDOWN_S })}
-          </p>
           <Btn tone="main" className="py-4 text-sm" disabled={!props.camera} onClick={props.onStart}>
-            {t("booth.start")}
+            ✶ {t("booth.start")}
           </Btn>
+          <p className={`${mono} -mt-1 text-center text-[10px] uppercase tracking-[0.2em] opacity-55`}>{t("booth.countdown", { seconds: COUNTDOWN_S })}</p>
         </div>
       </div>
     </div>

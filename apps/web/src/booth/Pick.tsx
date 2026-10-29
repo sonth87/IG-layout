@@ -2,10 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useT } from "@/store/settings";
-import { Btn, mono, serif } from "./ui";
+import { Btn, Label, display, mono, serif } from "./ui";
 
-// Pick the shots that go into the frame when spares were taken (design §2.4, D-157): tap in
-// the order they go into the cells; tap again to drop one.
+// Pick the shots that go into the frame when spares were taken (design §2.4, D-157): a
+// contact sheet — tap in the order they go into the cells (a red grease-pencil circle with
+// the number), tap again to drop one.
 
 export function Pick({ takes, need, onDone }: { takes: Blob[]; need: number; onDone: (order: number[]) => void }) {
   const t = useT();
@@ -18,24 +19,36 @@ export function Pick({ takes, need, onDone }: { takes: Blob[]; need: number; onD
   }
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="px-5 pt-[max(1.5rem,env(safe-area-inset-top))]">
-        <h1 className={`${serif} text-3xl font-black`}>{t("booth.pick", { count: need })}</h1>
-        <p className="mt-1 text-sm opacity-70">{t("booth.pickHint")}</p>
+    <div className="flex h-full flex-col bg-[#f3e9d6] text-[#1d1612]">
+      <div className="shrink-0 border-b-2 border-[#0b0806] px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-4">
+        <Label>{t("booth.pickHint")}</Label>
+        <h1 className={`${serif} mt-1 text-4xl`} style={display}>
+          {t("booth.pick", { count: need })}
+        </h1>
       </div>
-      <div className="grid min-h-0 flex-1 grid-cols-2 content-start gap-3 overflow-y-auto p-5">
-        {urls.map((u, i) => {
-          const n = order.indexOf(i);
-          return (
-            <button key={u} type="button" aria-pressed={n >= 0} onClick={() => toggle(i)} className={`relative overflow-hidden rounded ${n >= 0 ? "outline outline-3 outline-[#efe6d6]" : "opacity-75"}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element -- a local blob URL */}
-              <img src={u} alt="" className="block w-full" />
-              {n >= 0 && <span className={`${mono} absolute left-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#efe6d6] text-sm font-bold text-[#15110e]`}>{n + 1}</span>}
-            </button>
-          );
-        })}
+      {/* The contact sheet: dark film with frame numbers. */}
+      <div className="min-h-0 flex-1 overflow-y-auto bg-[#1d1612] p-4">
+        <div className="grid grid-cols-2 gap-x-3 gap-y-5">
+          {urls.map((u, i) => {
+            const n = order.indexOf(i);
+            return (
+              <button key={u} type="button" aria-pressed={n >= 0} onClick={() => toggle(i)} className="relative text-left">
+                {/* eslint-disable-next-line @next/next/no-img-element -- a local blob URL */}
+                <img src={u} alt="" className={`block w-full transition-opacity ${n >= 0 || order.length < need ? "" : "opacity-45"}`} />
+                <span className={`${mono} mt-1 block text-[10px] font-bold tracking-[0.2em] text-[#eaa63c]`}>▸ {String(i + 1).padStart(2, "0")}A</span>
+                {n >= 0 && (
+                  <span aria-hidden className="pointer-events-none absolute -inset-1.5 animate-[booth-pop_0.2s_ease-out] rounded-[50%] border-[3px] border-[#c8432f]" style={{ rotate: `${i % 2 ? 2 : -3}deg` }}>
+                    <span className={`${serif} absolute -top-3 -right-1 flex h-9 w-9 items-center justify-center rounded-full bg-[#c8432f] text-xl text-[#f3e9d6]`} style={display}>
+                      {n + 1}
+                    </span>
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
-      <div className="shrink-0 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2">
+      <div className="shrink-0 border-t-2 border-[#0b0806] px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
         <Btn tone="main" className="w-full py-4 text-sm" disabled={order.length !== need} onClick={() => onDone(order)}>
           {t("booth.next")} · {order.length}/{need}
         </Btn>
