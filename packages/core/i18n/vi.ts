@@ -1039,4 +1039,7 @@ export const vi: Record<MessageKey, string> = {
   "booth.format.story": "Story 9:16",
   "booth.keys.start": "Nhấn Enter để bắt đầu",
   "booth.keys.shoot": "Space tạm dừng · R chụp lại · Esc thoát",
+  "booth.trial": "Bản thử",
+  "booth.codePlaceholder": "Mã",
+  "booth.go": "Vào",
 };

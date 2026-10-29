@@ -31,6 +31,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `booth-handoff.mjs` | Booth bước 3: lưu dạng Post 4:5 (1080×1350) / Story (1080×1920); Mở trong IG Layout → Carousel (bản in + 4 kiểu = 5 slide), Story, Bất ngờ (bố cục bốc ngẫu nhiên) — vào editor, project được lưu |
 | `booth-desktop.mjs` | Booth trên máy tính 1280×800: chọn khung ở cột phải cạnh camera, 1 camera → không có nút đổi camera, hình góc to hơn, Enter bắt đầu, Space tạm dừng, Esc thoát; bản in bên trái, nút bên phải |
 | `tag.mjs` | Tag treo `/labs/tag`: đung đưa, giật nhẹ không chuyển, kéo quá ngưỡng → booth, chạm → về, nghiêng điện thoại → tag ngả theo |
+| `tag-switch.mjs` | Kéo tag chuyển IG Layout ↔ booth: lấy mẫu màu giữa màn liên tục — sáng → tối (hoặc ngược lại) một lần, không nháy về màu cũ / trang trắng |
 | `drag-perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian khung hình khi kéo / chụm trên điện thoại giả lập, CPU chậm 4× |
 | `perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian nhập 20 ảnh 4000 px, thời gian vẽ lại, bộ nhớ canvas |
 | `sheets.mjs` | Chạm ra ngoài đóng hẳn sheet của phần tử, chọn lại không tự bật lại; ảnh panorama thêm vào không khoá (D-134) |

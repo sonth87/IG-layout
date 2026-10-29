@@ -2,22 +2,26 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { isRoomCode } from "@ig-layout/core/booth/protocol";
 import { listRolls, type BoothRoll } from "@ig-layout/core/storage/booth";
+import { SwitchCurtain, useAppSwitch } from "@/components/AppSwitch";
 import { SwitchTag } from "@/components/SwitchTag";
 import { LAYOUT_TAG, LayoutTagFace } from "@/components/TagFaces";
 import { useSettings, useT } from "@/store/settings";
 import { Bulbs, Label, Paper, Perforation, Ticker, display, mono, serif } from "./ui";
 
 // The booth lobby (design §2.1): the running band and the bulb sign of a cinema front, a
-// paper ticket with the three ways in (solo; rooms come later), upload, and recent prints
+// paper ticket with the three ways in (solo; rooms: the connection trial for now), upload, and recent prints
 // pinned under it. The hanging tag goes back to IG Layout (D-151).
 
 export function BoothHome({ onSolo, onUpload, onOpen }: { onSolo: () => void; onUpload: (files: File[]) => void; onOpen: (roll: BoothRoll) => void }) {
   const t = useT();
   const router = useRouter();
+  const toLayout = useAppSwitch("layout");
   const locale = useSettings((s) => s.locale);
   const file = useRef<HTMLInputElement>(null);
   const [rolls, setRolls] = useState<BoothRoll[]>([]);
+  const [code, setCode] = useState("");
   useEffect(() => {
     void listRolls().then(setRolls, () => {});
   }, []);
@@ -56,11 +60,35 @@ export function BoothHome({ onSolo, onUpload, onOpen }: { onSolo: () => void; on
                 ✶
               </span>
             </button>
+            {/* Rooms: for now the connection trial (/labs/booth) — the booth's own room comes next. */}
             <div className="mt-3 grid grid-cols-2 gap-3">
-              <Stub title={t("booth.room")} />
-              <Stub title={t("booth.join")} />
+              <a href="/labs/booth" className={`${mono} flex min-h-16 items-center justify-center border-2 border-[#1d1612] bg-[#e7d9bd] px-2 text-center text-[11px] font-bold uppercase leading-snug tracking-[0.12em] shadow-[3px_3px_0_#0b0806] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0_#0b0806]`}>
+                {t("booth.room")}
+              </a>
+              <form
+                className="flex min-h-16 flex-col justify-center gap-1.5 border-2 border-[#1d1612] bg-[#e7d9bd] p-1.5 shadow-[3px_3px_0_#0b0806]"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (isRoomCode(code)) router.push(`/labs/booth?r=${code}`);
+                }}
+              >
+                <span className={`${mono} text-center text-[10px] font-bold uppercase tracking-[0.1em]`}>{t("booth.join")}</span>
+                <span className="flex gap-1">
+                  <input
+                    value={code}
+                    onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4))}
+                    placeholder={t("booth.codePlaceholder")}
+                    aria-label={t("booth.join")}
+                    autoCapitalize="characters"
+                    className={`${mono} w-0 min-w-0 flex-1 border-2 border-[#1d1612] bg-[#fbf6ec] px-1.5 py-1 text-center text-sm font-bold tracking-[0.2em] outline-none`}
+                  />
+                  <button type="submit" disabled={!isRoomCode(code)} className={`${mono} border-2 border-[#1d1612] bg-[#c8432f] px-2 text-[10px] font-bold uppercase text-[#f3e9d6] disabled:opacity-40`}>
+                    {t("booth.go")}
+                  </button>
+                </span>
+              </form>
             </div>
-            <p className={`${mono} mt-1.5 text-center text-[10px] uppercase tracking-[0.2em] opacity-55`}>{t("booth.soon")}</p>
+            <p className={`${mono} mt-1.5 text-center text-[10px] uppercase tracking-[0.2em] opacity-55`}>{t("booth.trial")}</p>
             <Perforation className="my-5" />
             <button type="button" className={`${mono} w-full text-center text-xs font-bold uppercase tracking-[0.15em] underline decoration-2 underline-offset-4`} onClick={() => file.current?.click()}>
               {t("booth.upload")}
@@ -92,16 +120,9 @@ export function BoothHome({ onSolo, onUpload, onOpen }: { onSolo: () => void; on
         )}
         <p className={`${mono} mt-8 text-center text-[10px] uppercase tracking-[0.25em] opacity-45 lg:col-start-1`}>{t("booth.privacy")}</p>
       </div>
-      <SwitchTag label={`${t("booth.switchTo")} IG Layout`} face={<LayoutTagFace />} {...LAYOUT_TAG} string="#f3e9d6" onSwitch={() => router.push("/")} />
-    </div>
-  );
-}
-
-/** A torn-off ticket stub for what's not open yet. */
-function Stub({ title }: { title: string }) {
-  return (
-    <div aria-disabled className={`${mono} flex min-h-16 items-center justify-center border-2 border-dashed border-[#1d1612]/40 px-2 text-center text-[11px] font-bold uppercase leading-snug tracking-[0.12em] text-[#1d1612]/50`}>
-      {title}
+      <SwitchTag label={`${t("booth.switchTo")} IG Layout`} face={<LayoutTagFace />} {...LAYOUT_TAG} string="#f3e9d6" onSwitch={toLayout.onSwitch} onProgress={toLayout.onProgress} />
+      {toLayout.overlay}
+      <SwitchCurtain kind="booth" />
     </div>
   );
 }

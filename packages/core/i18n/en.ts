@@ -1040,6 +1040,9 @@ export const en = {
   "booth.format.story": "Story 9:16",
   "booth.keys.start": "Enter to start",
   "booth.keys.shoot": "Space pause · R retake · Esc exit",
+  "booth.trial": "Trial version",
+  "booth.codePlaceholder": "Code",
+  "booth.go": "Go",
 } as const;
 
 export type MessageKey = keyof typeof en;

@@ -282,3 +282,13 @@ Chủ dự án: "hỗ trợ giao diện máy tính nữa nhé, vì máy tính c�
 - **Phím tắt** (hiện gợi ý chỉ khi có chuột): Enter = bắt đầu chụp; lúc chụp Space = tạm dừng / tiếp, R = chụp lại kiểu vừa rồi, Esc = thoát (hỏi lại nếu đã có ảnh).
 - Máy chỉ có **1 camera** (đa số máy tính) → ẩn nút đổi camera.
 - Webcam máy tính là camera trước → vẫn lật như gương lúc xem, ảnh lưu ra không lật (D-153).
+
+## 18. Chuyển trang bằng tag cho mượt (2026-10-30)
+Chủ dự án: "kéo tag để chuyển trang thấy không mượt — kéo xuống, sau đấy trang mới nháy cái để chuyển". Nguyên nhân: thả tag là đổi trang ngay, trang mới vẽ từ đầu (khoảng trắng / nền rồi mới hiện nội dung).
+- Làm như bản thử `/labs/tag` (`components/AppSwitch.tsx`): **đang kéo** → tấm nền của app bên kia (booth: nâu đen + "Photobooth"; IG Layout: nền app + "IG Layout") **ló vào từ mép phải theo độ kéo** (tới 22 %); **thả** → tấm đó trượt phủ kín màn hình (380 ms), đổi trang **bên dưới** (trang kia đã được tải trước nên có ngay); trang mới mở ra với **đúng tấm đó phủ sẵn rồi trượt tiếp sang trái** (460 ms) → một chuyển động liền, không nháy.
+- Hai home đều có: IG Layout → booth và booth → IG Layout.
+- e2e `tag-switch.mjs`: lấy mẫu màu giữa màn trong lúc chuyển — IG → booth: sáng → tối rồi giữ tối; booth → IG: tối → sáng rồi giữ sáng.
+- Trang kia được tải trước **khi bắt đầu chạm / kéo tag** (không tải ngay khi mở home: offline sẽ báo lỗi, và home chỉ xem thì không tải gì thừa).
+
+## 19. Nút phòng chụp chung ở sảnh → bản thử (2026-10-30)
+Chủ dự án: "2 nút start a group room và join đang bị disable, làm sao thử join room được". Phòng chụp chung bên trong booth chưa làm; trong lúc chờ, hai thẻ ở sảnh dẫn tới **bản thử** `/labs/booth` (ghi "Bản thử"): **Tạo phòng chụp chung** → mở bản thử; **Vào phòng bằng mã** → ô nhập 4 ký tự (tự viết hoa, chỉ chữ + số) + nút Vào → `/labs/booth?r=MÃ` (điền sẵn mã).
