@@ -82,6 +82,13 @@ body {
   overscroll-behavior: none;
 }
 
+/* Scrolling lists stop at their ends instead of handing the pull on to the page, where it
+   would refresh it (owner, 2026-10-29: pull-to-refresh by mistake). */
+.overflow-y-auto,
+.overflow-auto {
+  overscroll-behavior-y: contain;
+}
+
 body {
   font-family: var(--font-body), system-ui, sans-serif;
   -webkit-tap-highlight-color: transparent;

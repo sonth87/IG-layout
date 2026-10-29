@@ -309,6 +309,17 @@ export function Editor({ onClose }: { onClose: () => void }) {
     noticeTimer.current = window.setTimeout(() => setNotice(null), 3500);
   }
   useShortcuts(tool === null && !editingText && !exportOpen);
+  // Reload / close while a project is open: the browser asks first (owner, 2026-10-29 — F5 or
+  // a stray pull-to-refresh lost the place). Work is saved anyway; this keeps you in it.
+  useEffect(() => {
+    const ask = (e: BeforeUnloadEvent) => {
+      void flushSave();
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", ask);
+    return () => window.removeEventListener("beforeunload", ask);
+  }, []);
 
   const size = canvasSize(doc);
   const { slide } = size;

@@ -15,7 +15,7 @@ export const MOMENTS: Template[] = [
     themes: ["concert"],
     slides: 1,
     slots: [photo(0, 0, 0, 0, 1, 1)],
-    widgets: [{ slide: 0, x: 0.1, y: 0.66, w: 0.8, kind: "nowPlaying", variant: "card", fields: { songTitle: t("Encore", "Encore"), artist: t("live, front row", "trực tiếp, hàng đầu") } }],
+    widgets: [{ slide: 0, x: 0.1, y: 0.66, w: 0.8, kind: "nowPlaying", variant: "card", fields: { songTitle: t("Blinding Lights", "Blinding Lights"), artist: t("The Weeknd", "The Weeknd") } }],
     texts: [text(0, 0.04, 0.13, 0.92, t("concert\nnight", "đêm\nconcert"), { font: "anton", size: 0.13, color: INK, lineHeight: 1, cutout: { style: "neon", seed: 3, mess: 0.4, wave: 0.25 } })],
   }),
   design("concert-ticket", "scrapbook", t("Ticket stub", "Cuống vé"), {
@@ -38,7 +38,8 @@ export const MOMENTS: Template[] = [
       text(0, 0.06, 0.9, 0.88, t("one night only · swipe for the setlist", "chỉ một đêm · vuốt xem setlist"), { font: "spaceGrotesk", size: 0.028, color: "#b9b4d6", align: "left", letterSpacing: 0.12 }),
       text(1, 0.06, 0.72, 0.4, t("lost my voice,\nworth it", "mất giọng,\nmà đáng"), { font: "patrickHand", size: 0.055, color: NEON, align: "left", lineHeight: 1.05 }),
       text(2, 0.1, 0.08, 0.8, t("SETLIST", "SETLIST"), { font: "anton", size: 0.09, color: NEON, align: "left", letterSpacing: 0.08 }),
-      ...[t("01  intro", "01  mở màn"), t("02  the one everyone screams", "02  bài cả sân hát theo"), t("03  slow one, phone lights", "03  bài chậm, bật đèn điện thoại"), t("04  the hit", "04  bài hit"), t("05  encore ♡", "05  encore ♡")].map((w, i) =>
+      // The owner's photos are from a The Weeknd show (2026-10-29).
+      ...["01  Starboy", "02  The Hills", "03  Save Your Tears", "04  Die For You", "05  Blinding Lights ♡"].map((name) => t(name, name)).map((w, i) =>
         text(2, 0.1, 0.24 + i * 0.1, 0.8, w, { font: "spaceGrotesk", size: 0.042, color: "#ffffff", align: "left" }),
       ),
       text(2, 0.1, 0.84, 0.8, t("best night of the year", "đêm vui nhất năm"), { font: "greatVibes", size: 0.08, color: "#ffffff", align: "left" }),

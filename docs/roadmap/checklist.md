@@ -549,3 +549,5 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] Cân nhắc "Cụm chữ có sẵn" cho chữ cắt báo (như SCRL Cutout Phrases)
 - [x] Kéo khung chữ: mọi tay nắm co giãn chữ (chữ thường + chữ cắt báo, hiện trực tiếp) (D-143, e2e stretch.mjs, cutout.mjs)
 - [x] Ảnh của chủ dự án (sample/3) làm ảnh mẫu: JPG 720 px, bỏ EXIF; +20 template concert / gương / outfit; lọc `?theme=` ở trang thử (D-144)
+- [x] Xác nhận khi tải lại trong editor; chặn kéo-để-làm-mới truyền từ vùng cuộn; nhóm Ăn uống + Đen trắng; mẫu concert bài The Weeknd (D-145)
+- [ ] Chủ dự án thử trên iPhone: còn bị kéo-để-làm-mới nhầm không (Safari iOS không có hộp thoại xác nhận)
