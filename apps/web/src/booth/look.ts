@@ -2,7 +2,8 @@ import { useMemo } from "react";
 import { frameById } from "@ig-layout/core/booth/frames";
 import { layoutFrame } from "@ig-layout/core/booth/layout";
 import { paintBackdrop, renderFrame, type RenderOptions, type ShotImage } from "@ig-layout/core/booth/render";
-import { themeById } from "@ig-layout/core/booth/themes";
+import { themeById, themePieces, type BoothTheme } from "@ig-layout/core/booth/themes";
+import { newSeed } from "@ig-layout/core/booth/layout";
 import { filterById } from "@ig-layout/core/color/filters";
 import { NO_ADJUST, shaderParams } from "@ig-layout/core/color/params";
 import { processImage } from "@ig-layout/core/color/processor";
@@ -36,6 +37,12 @@ export function filtered(img: ShotImage, filterId: string | undefined): ShotImag
   }
   const out = processImage(src, shaderParams(NO_ADJUST, f.preset, 100), MAX);
   return out ? { source: out, width: out.width, height: out.height } : img;
+}
+
+/** A theme picked: its whole look — filter, arrangement + cell shape, decorations (the frame,
+ * photos and caption stay). */
+export function withTheme(roll: BoothRoll, t: BoothTheme): BoothRoll {
+  return { ...roll, theme: t.id, filter: undefined, layout: { ...t.layout, seed: roll.layout?.seed ?? newSeed() }, decor: themePieces(t) };
 }
 
 /** The roll's frame with its layout (arrangement, shape) applied. */

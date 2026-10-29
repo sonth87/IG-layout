@@ -31,6 +31,7 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `booth-handoff.mjs` | Booth bước 3: lưu dạng Post 4:5 (1080×1350) / Story (1080×1920); Mở trong IG Layout → Carousel (bản in + 4 kiểu = 5 slide), Story, Bất ngờ (bố cục bốc ngẫu nhiên) — vào editor, project được lưu |
 | `booth-layout.mjs` | Booth bố cục (D-161): thẳng / so le / rải vẽ khác nhau, 🎲 xáo lại đổi bố cục rải và giữ nguyên khi không bấm, 6 hình ô, tự do: kéo / xoay một ô, bản in vẽ theo, còn sau khi tải lại, Căn lại |
 | `booth-decor.mjs` | Booth hoạ tiết (D-161 bước 2): 10 loại đều vẽ, bỏ ra thì bản in như cũ; cả bản in ≠ từng ô; trên / dưới ảnh; 🎲 vẽ lại; còn sau khi tải lại |
+| `booth-theme.mjs` | Booth theme theo nhóm (D-161 bước 3): ≥ 18 theme trong nhóm; chọn Rừng sáng → rải + bo góc + dây leo + dây hoa + filter Verde 400 + lá rơi; Giáng sinh → tuyết; chọn theme trước khi chụp đổi không khí màn chụp |
 | `booth-desktop.mjs` | Booth trên máy tính 1280×800: chọn khung ở cột phải cạnh camera, 1 camera → không có nút đổi camera, hình góc to hơn, Enter bắt đầu, Space tạm dừng, Esc thoát; bản in bên trái, nút bên phải |
 | `tag.mjs` | Tag treo `/labs/tag`: đung đưa, giật nhẹ không chuyển, kéo quá ngưỡng → booth, chạm → về, nghiêng điện thoại → tag ngả theo |
 | `tag-switch.mjs` | Kéo tag chuyển IG Layout ↔ booth: lấy mẫu màu giữa màn liên tục — sáng → tối (hoặc ngược lại) một lần, không nháy về màu cũ / trang trắng |

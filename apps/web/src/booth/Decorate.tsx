@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { PlacedCell } from "@ig-layout/core/booth/layout";
 import type { ShotImage } from "@ig-layout/core/booth/render";
-import { BOOTH_FILTERS, THEMES, themeById } from "@ig-layout/core/booth/themes";
+import { BOOTH_FILTERS, themeById } from "@ig-layout/core/booth/themes";
 import { filterById } from "@ig-layout/core/color/filters";
 import { NO_ADJUST, shaderParams } from "@ig-layout/core/color/params";
 import { processImage } from "@ig-layout/core/color/processor";
@@ -13,7 +13,8 @@ import { FrameCanvas } from "./FrameCanvas";
 import { DecorPanel } from "./DecorPanel";
 import { LayoutEditor } from "./LayoutEditor";
 import { LayoutPanel } from "./LayoutPanel";
-import { lookOptions, rollFrame, rollFilter, useRollImages } from "./look";
+import { lookOptions, rollFrame, rollFilter, useRollImages, withTheme } from "./look";
+import { ThemePicker } from "./ThemePicker";
 import { Btn, display, mono, serif } from "./ui";
 
 // Decorate the print (design §2.5, step 2): change the frame after shooting (D-147), the theme
@@ -87,27 +88,17 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
             )}
 
             {tab === "theme" && (
-              <div role="radiogroup" aria-label={t("booth.tab.theme")} className="flex gap-3 overflow-x-auto px-5 pt-4 pb-4 lg:flex-wrap lg:overflow-visible">
-                {THEMES.map((th) => {
-                  const on = th.id === theme.id;
-                  return (
-                    <button
-                      key={th.id}
-                      type="button"
-                      role="radio"
-                      aria-checked={on}
-                      // A new theme brings its own filter (still changeable after).
-                      onClick={() => set({ theme: th.id, filter: undefined })}
-                      className={`flex w-[92px] shrink-0 flex-col items-center gap-2 border-2 border-[#1d1612] p-2 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-1 bg-[#1d1612] text-[#f3e9d6] shadow-[4px_4px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[3px_3px_0_#0b0806]"}`}
-                    >
-                      <span className="flex h-[96px] items-center">
-                        {images && <FrameCanvas frame={frame} images={images} look={{ ...look, theme: th, title: undefined }} scale={190 / Math.max(frame.width, frame.height)} className="max-h-[96px] max-w-[76px]" />}
-                      </span>
-                      <span className={`${mono} text-[10px] font-bold uppercase tracking-wider`}>{t(`booth.theme.${th.id}` as Parameters<typeof t>[0])}</span>
-                    </button>
-                  );
-                })}
-              </div>
+              <ThemePicker
+                value={theme.id}
+                // A theme is a whole look: filter, arrangement, decorations (frame and photos stay).
+                onPick={(th) => onChange(withTheme(roll, th))}
+                preview={(th) => {
+                  if (!images) return null;
+                  const r = withTheme(roll, th);
+                  const f = rollFrame(r);
+                  return <FrameCanvas frame={f} images={images} look={{ ...lookOptions(r), title: undefined }} scale={190 / Math.max(f.width, f.height)} className="max-h-[96px] max-w-[76px]" />;
+                }}
+              />
             )}
 
             {tab === "decor" && <DecorPanel value={roll.decor ?? []} onChange={(decor) => set({ decor })} />}

@@ -9,6 +9,7 @@ import { CameraView, type Camera } from "./CameraView";
 import { DualView, type ViewKind } from "./DualView";
 import { FrameLive } from "./FrameLive";
 import { FramePicker } from "./FramePicker";
+import { ThemePicker } from "./ThemePicker";
 import { COUNTDOWN_S } from "./timing";
 import { Btn, Label, display, mono, serif } from "./ui";
 
@@ -28,6 +29,8 @@ export function Setup(props: {
   spare: boolean;
   onFrame: (id: string) => void;
   onSpare: (on: boolean) => void;
+  theme: string;
+  onTheme: (id: string) => void;
   onFacing: () => void;
   onRetryCamera: () => void;
   onBack: () => void;
@@ -87,7 +90,7 @@ export function Setup(props: {
             me={(small) => <CameraView compact={small} camera={props.camera} facing={props.facing} aspect={shotAspect(frame, 0)} caption={t("booth.you")} />}
             frame={(small) => (
               <div className={`h-full w-full ${small ? "" : "px-6 py-5"}`}>
-                <FrameLive frame={frame} shots={NO_SHOTS} current={0} stream={props.camera?.stream ?? null} facing={props.facing} fake={props.camera?.fake} />
+                <FrameLive frame={frame} shots={NO_SHOTS} current={0} stream={props.camera?.stream ?? null} facing={props.facing} fake={props.camera?.fake} look={{ theme: themeById(props.theme) }} />
               </div>
             )}
           />
@@ -103,9 +106,11 @@ export function Setup(props: {
           )}
         </div>
 
-        <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(1rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:w-[440px] lg:overflow-y-auto lg:border-t-0 lg:border-l-2 lg:pt-2">
+        <div className="max-h-[50dvh] shrink-0 overflow-y-auto border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(1rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:max-h-none lg:w-[440px] lg:border-t-0 lg:border-l-2 lg:pt-2">
           <Label className="px-5 pt-4">{t("booth.frame")}</Label>
           <FramePicker value={frame.id} onChange={props.onFrame} look={PICKER_LOOK} />
+        <Label className="px-5">{t("booth.tab.theme")}</Label>
+        <ThemePicker compact value={props.theme} onPick={(th) => props.onTheme(th.id)} />
           <div className="flex flex-col gap-3 px-5">
             <label className={`${mono} flex cursor-pointer items-center gap-3 text-xs`}>
               <input type="checkbox" className="peer sr-only" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />

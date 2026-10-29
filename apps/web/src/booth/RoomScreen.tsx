@@ -299,7 +299,7 @@ function Polaroid({ stream, self, mirror, tilt = 0, name, host, you, hostLabel, 
   }, [stream]);
   const initial = useMemo(() => name.trim().slice(0, 1).toUpperCase(), [name]);
   return (
-    <figure className="bg-[#f6efe2] p-2 pb-0 shadow-[5px_5px_0_#0b0806]" style={{ transform: `rotate(${tilt}deg)` }} data-person={name}>
+    <figure className="bg-[var(--booth-polaroid,#f6efe2)] p-2 pb-0 shadow-[5px_5px_0_#0b0806]" style={{ transform: `rotate(${tilt}deg)` }} data-person={name}>
       <div className="relative aspect-[3/4] overflow-hidden bg-[#2a231d]">
         {!stream && <span className={`${serif} absolute inset-0 flex items-center justify-center text-6xl text-[#f3e9d6]/40`} style={display}>{initial}</span>}
         {/* Own video muted (no echo); others' play their voice. */}

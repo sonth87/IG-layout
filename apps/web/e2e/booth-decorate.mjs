@@ -36,7 +36,7 @@ console.log("1. Themes");
 await page.getByRole("button", { name: /Decorate/ }).click();
 await page.getByRole("tab", { name: "Theme" }).click();
 const themes = page.getByRole("radiogroup", { name: "Theme" }).getByRole("radio");
-check((await themes.count()) === 6, "6 themes");
+check((await themes.count()) >= 18, `${await themes.count()} themes`);
 const corners = [];
 for (let i = 0; i < 6; i++) {
   await themes.nth(i).click();
@@ -45,9 +45,9 @@ for (let i = 0; i < 6; i++) {
   await page.screenshot({ path: path.join(OUT, `booth-theme-${i}.png`) });
 }
 check(new Set(corners).size >= 5, `themes change the paper (${new Set(corners).size} distinct corners)`);
-await themes.nth(3).click(); // Candy
+await page.locator("[data-theme-id='candy']").click();
 await page.waitForTimeout(400);
-check((await themes.nth(3).getAttribute("aria-checked")) === "true", "Candy picked");
+check((await page.locator("[data-theme-id='candy']").getAttribute("aria-checked")) === "true", "Candy picked");
 
 console.log("2. Filter");
 await page.getByRole("tab", { name: "Filter" }).click();

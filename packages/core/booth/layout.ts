@@ -169,10 +169,11 @@ export function shapePath(c: CanvasRenderingContext2D, shape: CellShape, w: numb
       c.roundRect(x, y, w, h, Math.max(radius, Math.min(w, h) * 0.08));
       break;
     case "arch": {
-      const r = w / 2;
+      // A round top that stays inside the box (an elliptic top on wide cells).
+      const ry = Math.min(w / 2, h / 2);
       c.moveTo(x, y + h);
-      c.lineTo(x, y + Math.min(r, h / 2));
-      c.arc(0, y + Math.min(r, h / 2), r, Math.PI, 0);
+      c.lineTo(x, y + ry);
+      c.ellipse(0, y + ry, w / 2, ry, 0, Math.PI, 0);
       c.lineTo(x + w, y + h);
       c.closePath();
       break;

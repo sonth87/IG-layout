@@ -1,9 +1,10 @@
 import { Bungee, Coiny, Cormorant_Garamond, Fraunces, Space_Mono } from "next/font/google";
-import { beVietnam } from "@/app/fonts";
+import { anton, beVietnam, dancing, greatVibes, patrickHand } from "@/app/fonts";
 
 // The booth's own type (Cinema look, D-150: its own UI): Fraunces, a soft, heavy display
 // serif for the sign and titles, and a mono for labels, like a cinema ticket. The themes'
-// faces (Candy, Alice, Y2K) load only when a print uses them (preload: false). All have
+// faces (Candy, Alice, Y2K, and IG Layout's handwriting / script / poster faces) load only
+// when a print uses them (preload: false). All have
 // Vietnamese glyphs (D-32). Loaded only on /booth.
 
 export const boothSerif = Fraunces({
@@ -30,4 +31,8 @@ export const canvasFonts = {
   candy: candy.style.fontFamily,
   alice: alice.style.fontFamily,
   y2k: y2k.style.fontFamily,
+  hand: patrickHand.style.fontFamily,
+  script: greatVibes.style.fontFamily,
+  brush: dancing.style.fontFamily,
+  poster: anton.style.fontFamily,
 };

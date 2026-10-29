@@ -203,6 +203,48 @@ function decor(c: CanvasRenderingContext2D, f: Sheet, th: BoothTheme) {
       c.fill();
     }
     c.globalAlpha = 1;
+  } else if (th.decor === "kraft") {
+    // Paper fibres: short faint strokes every which way.
+    const r = rng(11);
+    const n = Math.round((f.width * f.height) / (900 * unit));
+    c.lineWidth = 1 * unit;
+    for (let i = 0; i < n; i++) {
+      const x = r() * f.width;
+      const y = r() * f.height;
+      const a = r() * Math.PI;
+      const l = (4 + r() * 10) * unit;
+      c.strokeStyle = r() < 0.5 ? "rgba(90,70,40,0.10)" : "rgba(255,255,255,0.18)";
+      c.beginPath();
+      c.moveTo(x, y);
+      c.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l);
+      c.stroke();
+    }
+  } else if (th.decor === "hearts") {
+    const step = 64 * unit;
+    c.fillStyle = th.accent;
+    c.globalAlpha = 0.14;
+    for (let y = step / 2, row = 0; y < f.height; y += step, row++)
+      for (let x = (row % 2 ? step / 2 : 0) + step / 4; x < f.width; x += step) {
+        c.save();
+        c.translate(x, y);
+        c.rotate(((row + Math.round(x)) % 3) * 0.2 - 0.2);
+        shapePath(c, "heart", 16 * unit, 15 * unit);
+        c.fill();
+        c.restore();
+      }
+    c.globalAlpha = 1;
+  } else if (th.decor === "snow" || th.decor === "night") {
+    // Snowflakes or a starry night sky: soft dots of many sizes.
+    const r = rng(th.decor === "snow" ? 5 : 9);
+    const n = Math.round((f.width * f.height) / ((th.decor === "snow" ? 1800 : 2600) * unit * unit));
+    c.fillStyle = "#ffffff";
+    for (let i = 0; i < n; i++) {
+      c.globalAlpha = 0.15 + r() * (th.decor === "snow" ? 0.5 : 0.6);
+      c.beginPath();
+      c.arc(r() * f.width, r() * f.height, (th.decor === "snow" ? 1 + r() * 3 : 0.5 + r() * 1.6) * unit, 0, Math.PI * 2);
+      c.fill();
+    }
+    c.globalAlpha = 1;
   } else if (th.decor === "grain") {
     const r = rng(3);
     const n = Math.round((f.width * f.height) / 260);

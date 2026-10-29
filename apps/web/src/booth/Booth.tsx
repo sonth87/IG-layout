@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { openCamera, stopCamera, type Facing } from "@ig-layout/core/booth/camera";
 import type { Camera } from "./CameraView";
 import { frameById } from "@ig-layout/core/booth/frames";
@@ -18,7 +18,9 @@ import { randomCode } from "@ig-layout/core/booth/session";
 import { isRoomCode } from "@ig-layout/core/booth/protocol";
 import { Setup } from "./Setup";
 import { Shoot } from "./Shoot";
-import { loadThemeFonts, rollRender } from "./look";
+import { loadThemeFonts, rollRender, withTheme } from "./look";
+import { Mood } from "./Mood";
+import { themeById } from "@ig-layout/core/booth/themes";
 import { floorStyle } from "./ui";
 import { SPARE } from "./timing";
 
@@ -40,6 +42,8 @@ interface Prefs {
   /** Shown to the others in a group room. */
   name?: string;
   frameId: string;
+  /** The theme new rolls start in (picked before shooting; sets the booth's mood). */
+  theme?: string;
   spare: boolean;
   sound: boolean;
 }
@@ -83,6 +87,7 @@ function BoothApp() {
   /** All shots of a roll with spares, before picking. */
   const [takes, setTakes] = useState<Blob[]>([]);
   const frame = frameById(roll && screen !== "setup" ? roll.frameId : prefs.frameId);
+  const shootLook = useMemo(() => ({ theme: themeById(plan.targets && roll ? roll.theme : prefs.theme) }), [plan.targets, roll, prefs.theme]);
   /** The group room we're in (kept across the room, print and decorate screens). */
   const [room, setRoom] = useState<Room | null>(null);
   /** Asking for a name before opening / joining a room. */
@@ -174,7 +179,7 @@ function BoothApp() {
 
   function newRoll(shots: (Blob | null)[], frameId = prefs.frameId): BoothRoll {
     const now = Date.now();
-    return { id: crypto.randomUUID(), frameId, shots, flip: false, createdAt: now, updatedAt: now, thumbnail: new Blob() };
+    return withTheme({ id: crypto.randomUUID(), frameId, shots, flip: false, createdAt: now, updatedAt: now, thumbnail: new Blob() }, themeById(prefs.theme));
   }
 
   function shootDone(blobs: Blob[]) {
@@ -227,6 +232,8 @@ function BoothApp() {
           spare={prefs.spare}
           onFrame={(frameId) => setPrefs({ frameId })}
           onSpare={(spare) => setPrefs({ spare })}
+          theme={themeById(prefs.theme).id}
+          onTheme={(theme) => setPrefs({ theme })}
           onFacing={() => setFacing((f) => (f === "user" ? "environment" : "user"))}
           onRetryCamera={() => setCameraTry((n) => n + 1)}
           onBack={() => setScreen("home")}
@@ -245,6 +252,7 @@ function BoothApp() {
           frame={frame}
           plan={plan}
           base={plan.targets ? roll?.shots : undefined}
+          look={shootLook}
           sound={prefs.sound}
           onSound={(sound) => setPrefs({ sound })}
           onDone={shootDone}
@@ -290,7 +298,7 @@ function BoothApp() {
           room={room}
           sound={prefs.sound}
           onRoll={(r) => {
-            setRoll(r);
+            setRoll(withTheme(r, themeById(prefs.theme)));
             setScreen("result");
           }}
           onLeave={leaveRoom}
@@ -299,9 +307,16 @@ function BoothApp() {
   }
   })();
 
+  // The mood follows the theme: the roll's while printing / decorating, the picked one
+  // while choosing / shooting; the lobby stays the booth's own (Cinema).
+  const moodTheme = screen === "home" ? themeById("cinema") : roll && (screen === "result" || screen === "decorate") ? themeById(roll.theme) : themeById(prefs.theme);
   return (
     <>
-      {view}
+      <div className="relative z-10 h-full" style={{ "--booth-polaroid": moodTheme.mood.polaroid ?? "#f6efe2" } as React.CSSProperties}>
+        {view}
+      </div>
+      {/* After the screen in the page (its canvases come first), behind it on screen. */}
+      <Mood theme={moodTheme} />
       {askName && (
         <NamePrompt
           initial={prefs.name ?? ""}

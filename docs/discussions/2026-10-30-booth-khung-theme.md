@@ -1,6 +1,6 @@
 # 2026-10-30 — Booth: khung tự do, đồ trang trí, theme theo chủ đề
 
-> Trạng thái: **Đã chốt** ("ok tất", D-161, 2026-10-30). Bước 1 (bố cục) đã làm — §6.
+> Trạng thái: **Đã chốt** ("ok tất", D-161, 2026-10-30). Đã làm: bố cục (§6), hoạ tiết (§7), theme nhóm + không khí (§8).
 > Nền: [2026-10-29-booth-thiet-ke.md](2026-10-29-booth-thiet-ke.md) (khung D-152, theme §8 / §13, phòng D-159).
 
 ## Ý của chủ dự án (2026-10-30)
@@ -115,3 +115,24 @@ Xem [open-questions.md](../roadmap/open-questions.md) mục Photobooth (Q-P21 �
 - **Không che mặt:** hoạ tiết rải ở lớp trên không đặt vào vùng giữa ô (64 %) và vùng chữ; ở lớp dưới thì đặt ngoài ô (để ló ra); hết chỗ thì đặt lên ảnh nhưng vẫn tránh giữa ô, rồi thu nhỏ.
 - Vẽ hoàn toàn bằng code (lá, tua cuốn, hoa 5 cánh, dải băng xoắn, nơ, bóng đèn phát sáng, neon 3 lớp, chùm pháo hoa có đuôi rơi, tia lửa gãy khúc, sao 4 / 5 cánh, trăng khuyết phát sáng) → co giãn theo khổ, không cần tải ảnh.
 - Còn: item từ kho IG Layout kéo thả trên bản in; màu hoạ tiết theo theme (bước 3).
+
+## 8. Bước 3 đã làm: theme theo nhóm + không khí (2026-10-30)
+- `packages/core/booth/themes.ts`: **19 theme trong 10 nhóm**, mỗi theme đủ bộ: giấy (màu / dải chuyển) + hoạ tiết nền (kraft, chấm bi, tim, tuyết, trời đêm, chất bài, lấp lánh, hạt phim), mực, viền ô + bo góc, font tiêu đề + phụ, chữ tiêu đề mặc định, filter, **bố cục gợi ý** (cách xếp + hình ô), **hoạ tiết đi kèm** (màu riêng theo theme), **không khí** (nền màn chụp / sửa, thứ trôi qua màn, màu giấy polaroid):
+  | Nhóm | Theme | Nét chính |
+  |---|---|---|
+  | Cinema | Cinema · Vé xem phim | lỗ phim / giấy kraft, "ADMIT ONE" chữ poster, so le |
+  | Rừng | Rừng sáng · Đom đóm | giấy kraft xanh, **dây leo cả bản in + dây hoa từng ô**, chữ viết tay, lá rơi · trời đêm, ô vòm, dây leo + đom đóm phát sáng bay lên |
+  | Candy | Candy · Bong bóng | hồng chấm bi, ô bo tròn viền trắng, confetti, kẹo rơi · xanh – hồng, ô tròn, lấp lánh từng ô |
+  | Đêm hội | Pháo hoa · Neon | trời đêm, **pháo hoa sau ảnh + pháo que**, "CELEBRATE!", tia lửa bay lên · **neon theo hình từng ô** + đèn dây, "NIGHT OUT" |
+  | Lãng mạn | Ruy băng · Vườn hoa | hoạ tiết tim, **ruy băng cả bản in + nơ từng ô**, ô polaroid, chữ thư pháp "With Love", cánh hoa rơi · **dây hoa**, ô vòm, "Bloom" |
+  | Bầu trời | Đêm sao · Mơ màng | **trăng + sao**, chữ nghiêng cổ điển · dải chuyển tím hồng xanh, sao từng ô, "daydream" |
+  | Cổ điển | Classic · Đen trắng | (như cũ) |
+  | Y2K, Xứ sở thần tiên | Y2K · Alice | (nâng lên đủ bộ: rải, lấp lánh / dây hoa đỏ trắng) |
+  | Theo mùa | Tết · Trung thu · Giáng sinh | đỏ vàng, pháo hoa + đèn dây, "Happy Tết" · trăng + đèn lồng (đèn dây cam đỏ), ô tròn, "Trung Thu" · xanh thông, **tuyết**, đèn dây nhiều màu, ô polaroid, "Merry Christmas" |
+- **Chọn theme = đổi cả bộ** (filter, cách xếp + hình ô, hoạ tiết); khung, ảnh, chữ đã gõ giữ nguyên; đổi gì sau đó cũng được. Hoạ tiết của theme có hạt giống cố định theo theme → chọn lại ra y như cũ, 🎲 để đổi.
+- Thẻ **Theme** chia theo nhóm, mỗi theme là bản in thu nhỏ của chính cuộn đó trong theme ấy.
+- **Chọn theme ngay ở màn chọn khung** (dải theme dưới danh sách khung) → cuộn mới bắt đầu trong theme đó; phòng chụp chung cũng vậy.
+- **Không khí** (`apps/web/src/booth/Mood.tsx`): nền + hạt trôi (lá, kẹo / confetti, sao, tuyết, tia lửa, cánh hoa, đom đóm) theo theme ở màn chọn khung, chụp, phòng, kết quả, trang trí; sảnh giữ kiểu Cinema của booth. Giấy polaroid camera / người trong phòng đổi màu theo theme. Khung xem trước "cả khung" lúc chọn / chụp vẽ theo theme. Giảm chuyển động → hạt đứng yên.
+- Font thêm (chỉ tải khi bản in dùng): viết tay (Patrick Hand), thư pháp (Great Vibes), bút lông (Dancing Script), poster (Anton) — đều có tiếng Việt.
+- Hình **vòm** ở ô ngang: đỉnh vòm thành nửa elip để không trồi sang ô khác.
+- Tiếp theo: sửa chung trong phòng (D-148); item từ kho IG Layout kéo thả trên bản in.

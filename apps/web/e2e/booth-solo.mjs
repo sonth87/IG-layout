@@ -27,8 +27,8 @@ await page.getByRole("button", { name: "Shoot solo" }).click();
 
 // 1. Frame screen: camera on, 8 frames, window shaped like the first cell.
 console.log("1. Frame");
-await page.getByRole("radio").first().waitFor();
-check((await page.getByRole("radio").count()) === 8, "8 frames");
+await page.getByRole("radiogroup", { name: "Frame" }).getByRole("radio").first().waitFor();
+check((await page.getByRole("radiogroup", { name: "Frame" }).getByRole("radio").count()) === 8, "8 frames");
 await page.getByRole("radio", { name: /Strip of 4/ }).click();
 await page.waitForFunction(() => document.querySelector("video")?.videoWidth > 0, null, { timeout: 10000 });
 check(await page.getByText("Try the camera again").isHidden(), "camera opened (fake device)");

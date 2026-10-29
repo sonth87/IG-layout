@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { snap, type Facing } from "@ig-layout/core/booth/camera";
 import { shotAspect, type BoothFrame } from "@ig-layout/core/booth/frames";
+import type { RenderOptions } from "@ig-layout/core/booth/render";
 import { useT } from "@/store/settings";
 import { CameraView, type Camera } from "./CameraView";
 import { DualView, type ViewKind } from "./DualView";
@@ -25,13 +26,15 @@ interface State {
   paused: number | null;
 }
 
-export function Shoot({ camera, facing, frame, plan, base, sound, onSound, onDone, onExit }: {
+export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound, onDone, onExit }: {
   camera: Camera | null;
   facing: Facing;
   frame: BoothFrame;
   plan: { count: number; targets: number[] | null };
   /** The roll's shots when retaking some (shown around them in the frame view). */
   base?: (Blob | null)[];
+  /** The theme the roll is shot in (the whole-frame view is drawn in it). */
+  look?: RenderOptions;
   sound: boolean;
   onSound: (on: boolean) => void;
   onDone: (shots: Blob[]) => void;
@@ -192,7 +195,7 @@ export function Shoot({ camera, facing, frame, plan, base, sound, onSound, onDon
           )}
           frame={(small) => (
             <div className={`h-full w-full ${small ? "" : "px-6 py-5"}`}>
-              <FrameLive frame={frame} shots={frameShots} current={current} stream={camera?.stream ?? null} facing={facing} fake={camera?.fake} landed={landed} />
+              <FrameLive frame={frame} shots={frameShots} current={current} stream={camera?.stream ?? null} facing={facing} fake={camera?.fake} landed={landed} look={look} />
             </div>
           )}
           overlay={
