@@ -576,5 +576,10 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Tag treo ở home IG Layout → /booth (chủ dự án, 2026-10-29); booth có tag về IG Layout từ bước 1
 - [ ] Chốt hướng kéo / cảm giác dây (Q-P12) sau khi thử trên điện thoại
 - [x] Phòng chụp chung trong booth (D-159, D-160): tạo phòng (mã tự sinh) / vào bằng mã ở sảnh hoặc link `/booth?r=MÃ`, hỏi tên 1 lần, gõ cửa → chủ phòng cho vào, polaroid video + tiếng, tắt mic, chủ phòng chọn khung, đếm 8 s / nghỉ 2 s đồng loạt, mỗi ô ghép ảnh mọi người, bản in → trang trí / xuất / Mở trong IG Layout, về phòng; e2e `booth-room.mjs`
+- [x] Đề xuất khung tự do / đồ trang trí / theme nhóm (docs/discussions/2026-10-30-booth-khung-theme.md)
+- [ ] Chủ dự án chốt Q-P21 → Q-P26
+- [ ] Bố cục mới (7 cách xếp, hình ô, xáo lại, tự sắp xếp)
+- [ ] Đồ trang trí vẽ bằng code (dây leo, dây hoa, ruy băng, đèn dây, neon, pháo hoa, pháo que, sao / trăng, confetti) + item kho IG Layout
+- [ ] Theme theo nhóm + không khí màn chụp / sửa
 - [ ] Sửa chung trong phòng (D-148)
 - [ ] Thử phòng thật trên 2 điện thoại khác mạng (Wi-Fi ↔ 4G) → có cần TURN?
