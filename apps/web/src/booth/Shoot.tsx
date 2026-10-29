@@ -5,6 +5,8 @@ import { snap, type Facing } from "@ig-layout/core/booth/camera";
 import { shotAspect, type BoothFrame } from "@ig-layout/core/booth/frames";
 import { useT } from "@/store/settings";
 import { CameraView, type Camera } from "./CameraView";
+import { DualView, type ViewKind } from "./DualView";
+import { FrameLive } from "./FrameLive";
 import { COUNTDOWN_S, REST_S } from "./timing";
 import { Btn, Confirm, display, mono, serif } from "./ui";
 
@@ -23,11 +25,13 @@ interface State {
   paused: number | null;
 }
 
-export function Shoot({ camera, facing, frame, plan, sound, onSound, onDone, onExit }: {
+export function Shoot({ camera, facing, frame, plan, base, sound, onSound, onDone, onExit }: {
   camera: Camera | null;
   facing: Facing;
   frame: BoothFrame;
   plan: { count: number; targets: number[] | null };
+  /** The roll's shots when retaking some (shown around them in the frame view). */
+  base?: (Blob | null)[];
   sound: boolean;
   onSound: (on: boolean) => void;
   onDone: (shots: Blob[]) => void;
@@ -40,17 +44,30 @@ export function Shoot({ camera, facing, frame, plan, sound, onSound, onDone, onE
   const [now, setNow] = useState(0);
   const [flash, setFlash] = useState(0);
   const [asking, setAsking] = useState(false);
+  // Shooting: the big polaroid of me by default, the whole frame in the corner.
+  const [view, setView] = useState<ViewKind>("me");
+  const [landed, setLanded] = useState<{ shot: number; n: number } | null>(null);
   const busy = useRef(false);
   const audio = useRef<AudioContext | null>(null);
 
   // Which cell the next shot goes into: its shape is the window on the camera.
   const shotIndex = plan.targets ? plan.targets[Math.min(shots.length, plan.targets.length - 1)] : Math.min(shots.length, frame.shots - 1);
   const aspect = shotAspect(frame, shotIndex);
+  // The frame view: the roll so far, by shot index.
+  const frameShots = useMemo(() => {
+    if (plan.targets) {
+      const all = [...(base ?? [])];
+      shots.forEach((b, i) => (all[plan.targets![i]] = b));
+      return all;
+    }
+    return shots.slice(0, frame.shots);
+  }, [shots, plan.targets, base, frame.shots]);
+  const current = plan.targets ? (shots.length < plan.targets.length ? shotIndex : null) : shots.length < frame.shots ? shots.length : null;
 
   // Latest values for the timer (it runs outside React's render).
-  const live = useRef({ st, shots, sound, onDone, count: plan.count });
+  const live = useRef({ st, shots, sound, onDone, count: plan.count, targets: plan.targets });
   useEffect(() => {
-    live.current = { st, shots, sound, onDone, count: plan.count };
+    live.current = { st, shots, sound, onDone, count: plan.count, targets: plan.targets };
   });
 
   useEffect(() => {
@@ -74,6 +91,8 @@ export function Shoot({ camera, facing, frame, plan, sound, onSound, onDone, onE
           if (!blob) return;
           const next = [...shots, blob];
           setShots(next);
+          const { targets } = live.current;
+          setLanded({ shot: targets ? targets[next.length - 1] : next.length - 1, n: next.length });
           if (next.length >= live.current.count) {
             setSt({ phase: "rest", until: Infinity, paused: null });
             setTimeout(() => live.current.onDone(next), 700);
@@ -138,28 +157,51 @@ export function Shoot({ camera, facing, frame, plan, sound, onSound, onDone, onE
       </header>
 
       <div className="relative min-h-0 flex-1">
-        <CameraView camera={camera} facing={facing} aspect={aspect} videoRef={video} tilt={shots.length % 2 ? 1 : -1.2} caption={`${t("booth.you")} · ${String(n).padStart(2, "0")}/${String(plan.count).padStart(2, "0")}`}>
-          {st.phase === "count" && (
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <div className="relative flex h-36 w-36 items-center justify-center">
-                <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
-                  <circle cx="50" cy="50" r="44" fill="rgba(29,22,18,0.35)" stroke="#f3e9d6" strokeOpacity={0.35} strokeWidth="5" />
-                  <circle cx="50" cy="50" r="44" fill="none" stroke={final ? "#c8432f" : "#eaa63c"} strokeWidth="5" strokeDasharray={276.5} strokeDashoffset={276.5 * (1 - progress)} />
-                </svg>
-                <span
-                  key={seconds}
-                  data-countdown
-                  className={`${serif} animate-[booth-pop_0.35s_ease-out] leading-none ${final ? "text-[96px] text-[#f3e9d6]" : "text-7xl text-[#f3e9d6]"} [-webkit-text-stroke:2px_#1d1612] [paint-order:stroke_fill] drop-shadow-[3px_3px_0_#0b0806]`}
-                  style={display}
-                >
-                  {seconds}
-                </span>
-              </div>
+        <DualView
+          main={view}
+          onSwap={() => setView((v) => (v === "me" ? "frame" : "me"))}
+          label={view === "me" ? t("booth.view.frame") : t("booth.view.me")}
+          me={(small) => (
+            <CameraView
+              compact={small}
+              camera={camera}
+              facing={facing}
+              aspect={aspect}
+              videoRef={video}
+              tilt={shots.length % 2 ? 1 : -1.2}
+              caption={`${t("booth.you")} · ${String(n).padStart(2, "0")}/${String(plan.count).padStart(2, "0")}`}
+            />
+          )}
+          frame={(small) => (
+            <div className={`h-full w-full ${small ? "" : "px-6 py-5"}`}>
+              <FrameLive frame={frame} shots={frameShots} current={current} stream={camera?.stream ?? null} facing={facing} fake={camera?.fake} landed={landed} />
             </div>
           )}
-          {st.phase === "wait" && <p className={`${mono} absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-sm font-bold uppercase tracking-[0.3em]`}>{t("booth.getReady")}</p>}
-          {paused && <div className="absolute inset-0 bg-[#1d1612]/50" />}
-        </CameraView>
+          overlay={
+            <>
+              {st.phase === "count" && (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <div className="relative flex h-36 w-36 items-center justify-center">
+                    <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
+                      <circle cx="50" cy="50" r="44" fill="rgba(29,22,18,0.35)" stroke="#f3e9d6" strokeOpacity={0.35} strokeWidth="5" />
+                      <circle cx="50" cy="50" r="44" fill="none" stroke={final ? "#c8432f" : "#eaa63c"} strokeWidth="5" strokeDasharray={276.5} strokeDashoffset={276.5 * (1 - progress)} />
+                    </svg>
+                    <span
+                      key={seconds}
+                      data-countdown
+                      className={`${serif} animate-[booth-pop_0.35s_ease-out] leading-none ${final ? "text-[96px]" : "text-7xl"} text-[#f3e9d6] [-webkit-text-stroke:2px_#1d1612] [paint-order:stroke_fill] drop-shadow-[3px_3px_0_#0b0806]`}
+                      style={display}
+                    >
+                      {seconds}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {st.phase === "wait" && <p className={`${mono} pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-sm font-bold uppercase tracking-[0.3em]`}>{t("booth.getReady")}</p>}
+              {paused && <div className="pointer-events-none absolute inset-0 bg-[#1d1612]/50" />}
+            </>
+          }
+        />
       </div>
 
       {/* The shots so far, as little prints; retake the last one. */}

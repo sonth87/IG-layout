@@ -191,6 +191,7 @@ function BoothApp() {
           facing={facing}
           frame={frame}
           plan={plan}
+          base={plan.targets ? roll?.shots : undefined}
           sound={prefs.sound}
           onSound={(sound) => setPrefs({ sound })}
           onDone={shootDone}

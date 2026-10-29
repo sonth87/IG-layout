@@ -25,10 +25,10 @@ export function FramePicker({ value, onChange, look }: { value: string; onChange
             role="radio"
             aria-checked={on}
             onClick={() => onChange(f.id)}
-            className={`flex w-[88px] shrink-0 flex-col items-center gap-1.5 border-2 border-[#1d1612] p-2 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-1 bg-[#1d1612] text-[#f3e9d6] shadow-[4px_4px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[3px_3px_0_#0b0806]"}`}
+            className={`flex w-[100px] shrink-0 flex-col items-center gap-1.5 border-2 border-[#1d1612] p-2 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-1 bg-[#1d1612] text-[#f3e9d6] shadow-[4px_4px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[3px_3px_0_#0b0806]"}`}
           >
-            <span className="flex h-[72px] items-center">
-              <FrameCanvas frame={f} images={EMPTY} look={look} scale={160 / Math.max(f.width, f.height)} className="max-h-[72px] max-w-[68px]" />
+            <span className="flex h-[88px] items-center">
+              <FrameCanvas frame={f} images={EMPTY} look={look} scale={220 / Math.max(f.width, f.height)} className="max-h-[88px] max-w-[84px] shadow-[2px_2px_0_rgba(11,8,6,0.5)]" />
             </span>
             <span className={`${mono} text-[10px] font-bold uppercase leading-tight tracking-wider`}>{frameName(f.id)}</span>
             <span className={`${mono} text-[9px] opacity-60`}>

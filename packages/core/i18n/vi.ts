@@ -1018,4 +1018,6 @@ export const vi: Record<MessageKey, string> = {
   "booth.text.placeholder": "Để trống nếu không cần chữ",
   "booth.text.reset": "Chữ theo theme",
   "booth.text.date": "Ngày giờ",
+  "booth.view.me": "Xem mình to",
+  "booth.view.frame": "Xem cả khung",
 };

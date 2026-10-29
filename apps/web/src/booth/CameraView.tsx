@@ -19,7 +19,7 @@ export interface Camera {
 const PAD = 12;
 const CAPTION = 40;
 
-export function CameraView({ camera, facing, aspect, videoRef, caption, tilt = -1.2, children }: {
+export function CameraView({ camera, facing, aspect, videoRef, caption, tilt = -1.2, compact, children }: {
   camera: Camera | null;
   facing: Facing;
   /** Cell w / h. */
@@ -27,6 +27,8 @@ export function CameraView({ camera, facing, aspect, videoRef, caption, tilt = -
   videoRef?: RefObject<HTMLVideoElement | null>;
   caption?: ReactNode;
   tilt?: number;
+  /** The small corner view: thin border, no caption, no tilt. */
+  compact?: boolean;
   /** Drawn over the photo (countdown…). */
   children?: ReactNode;
 }) {
@@ -61,8 +63,10 @@ export function CameraView({ camera, facing, aspect, videoRef, caption, tilt = -
 
   const { W, H, vw, vh } = size;
   // The photo area: as big as fits (room for the polaroid border and caption, and the tilt).
-  const roomW = Math.max(0, W * 0.9 - PAD * 2);
-  const roomH = Math.max(0, H * 0.92 - PAD - CAPTION);
+  const pad = compact ? 3 : PAD;
+  const capH = compact ? pad : CAPTION;
+  const roomW = Math.max(0, W * (compact ? 1 : 0.9) - pad * 2);
+  const roomH = Math.max(0, H * (compact ? 1 : 0.92) - pad - capH);
   const pw = Math.min(roomW, roomH * aspect);
   const ph = pw / aspect;
   // The video, scaled so the cell's crop of the sensor frame covers the photo area.
@@ -73,8 +77,8 @@ export function CameraView({ camera, facing, aspect, videoRef, caption, tilt = -
   return (
     <div ref={box} className="flex h-full w-full items-center justify-center">
       <div
-        className="bg-[#f6efe2] shadow-[6px_6px_0_#0b0806] transition-transform duration-500"
-        style={{ padding: `${PAD}px ${PAD}px 0`, transform: `rotate(${tilt}deg)`, visibility: pw ? "visible" : "hidden" }}
+        className={`bg-[#f6efe2] transition-transform duration-500 ${compact ? "" : "shadow-[6px_6px_0_#0b0806]"}`}
+        style={{ padding: `${pad}px ${pad}px 0`, transform: compact ? undefined : `rotate(${tilt}deg)`, visibility: pw ? "visible" : "hidden" }}
       >
         <div className="relative overflow-hidden bg-[#2a231d] transition-[width,height] duration-300 ease-out" style={{ width: pw, height: ph }}>
           <video
@@ -92,8 +96,8 @@ export function CameraView({ camera, facing, aspect, videoRef, caption, tilt = -
           />
           {children}
         </div>
-        <div className={`${mono} flex items-center px-1 text-[13px] font-bold text-[#1d1612]`} style={{ height: CAPTION }}>
-          {caption}
+        <div className={`${mono} flex items-center px-1 text-[13px] font-bold text-[#1d1612]`} style={{ height: capH }}>
+          {!compact && caption}
         </div>
       </div>
     </div>

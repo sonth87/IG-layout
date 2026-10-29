@@ -32,8 +32,32 @@ check((await page.getByRole("radio").count()) === 8, "8 frames");
 await page.getByRole("radio", { name: /Strip of 4/ }).click();
 await page.waitForFunction(() => document.querySelector("video")?.videoWidth > 0, null, { timeout: 10000 });
 check(await page.getByText("Try the camera again").isHidden(), "camera opened (fake device)");
-check((await page.locator("video").evaluate((v) => v.style.transform)) === "scaleX(-1)", "front camera shown mirrored");
+check((await page.locator("video.absolute").evaluate((v) => v.style.transform)) === "scaleX(-1)", "front camera shown mirrored");
 await page.screenshot({ path: path.join(OUT, "booth-setup.png") });
+
+// 1b. Two views: the whole frame big (camera playing in cell 1), me in the corner; tap the
+// corner to swap, drag it to another corner.
+console.log("1b. Two views");
+check((await page.locator("video").count()) === 2, "frame view plays the camera in its cell + the corner polaroid");
+const pip = () => page.getByRole("button", { name: /Show me big|Show the whole frame/ });
+check((await pip().getAttribute("aria-label")) === "Show me big", "frame view is the main one while choosing");
+await pip().click();
+await page.waitForTimeout(400);
+check((await pip().getAttribute("aria-label")) === "Show the whole frame", "tap the corner → swapped");
+await page.screenshot({ path: path.join(OUT, "booth-setup-me.png") });
+let pb = await pip().boundingBox();
+await page.mouse.move(pb.x + pb.width / 2, pb.y + pb.height / 2);
+await page.mouse.down();
+await page.mouse.move(60, 160, { steps: 8 });
+await page.mouse.up();
+await page.waitForTimeout(400);
+pb = await pip().boundingBox();
+check(pb.x < 40 && pb.y < 200 && (await pip().getAttribute("aria-label")) === "Show the whole frame", `dragged → top-left corner, no swap (${Math.round(pb.x)}, ${Math.round(pb.y)})`);
+await page.mouse.move(pb.x + pb.width / 2, pb.y + pb.height / 2);
+await page.mouse.down();
+await page.mouse.move(370, 520, { steps: 8 });
+await page.mouse.up();
+await page.waitForTimeout(400);
 
 // 2. Shoot 4: countdown visible, then shots drop into the tray.
 console.log("2. Shoot");
@@ -44,6 +68,7 @@ await page.waitForTimeout(1500);
 const num = await page.locator("[data-countdown]").textContent();
 check(Number(num) >= 6 && Number(num) <= 8, `countdown runs (${num})`);
 await page.screenshot({ path: path.join(OUT, "booth-countdown.png") });
+check((await pip().getAttribute("aria-label")) === "Show me big" ? false : true, "shooting: me big, the frame in the corner");
 await page.locator("img[data-shot='0']").waitFor({ timeout: 12000 });
 const first = (Date.now() - t0) / 1000;
 check(first > 7.5 && first < 11, `first shot after ~8 s (${first.toFixed(1)} s)`);
@@ -129,7 +154,7 @@ await bp.getByRole("status").waitFor({ timeout: 10000 });
 const why = await bp.getByRole("status").innerText();
 check(/blocking the camera|No camera found/.test(why), `reason shown: ${why.split("\n")[0]}`);
 await bp.waitForFunction(() => document.querySelector("video")?.videoWidth > 0);
-check((await bp.locator("video").evaluate((v) => v.style.transform)) === "", "test picture not mirrored");
+check((await bp.locator("video.absolute").evaluate((v) => v.style.transform)) === "", "test picture not mirrored");
 await bp.getByRole("button", { name: /Try the camera again/ }).click();
 await bp.getByRole("status").waitFor({ timeout: 10000 });
 check(true, "retry asks again");

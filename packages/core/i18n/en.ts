@@ -1019,6 +1019,8 @@ export const en = {
   "booth.text.placeholder": "Leave empty for no title",
   "booth.text.reset": "Theme’s title",
   "booth.text.date": "Date and time",
+  "booth.view.me": "Show me big",
+  "booth.view.frame": "Show the whole frame",
 } as const;
 
 export type MessageKey = keyof typeof en;

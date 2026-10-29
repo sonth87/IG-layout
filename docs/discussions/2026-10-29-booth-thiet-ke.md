@@ -234,3 +234,15 @@ Chủ dự án: "làm tiếp đi" → làm bước 2 theo đề xuất; **6 them
 - Ô có viền: ảnh thụt vào trong viền, khe giữa các ô giữ nguyên.
 - Font theme (Coiny, Cormorant Garamond, Bungee — đều có tiếng Việt) chỉ tải khi bản in dùng tới.
 - Lưu vào cuộn phim: theme, filter, chữ, ngày giờ (mở lại còn nguyên); ảnh lưu ra và ảnh thu nhỏ ở sảnh vẽ đúng theme + filter.
+
+## 14. Hai cách xem lúc chọn khung / chụp (2026-10-29)
+Chủ dự án: "chọn frame thấy chọn frame không khác gì nhau". Giải thích: polaroid trên camera chỉ có hình **một ô** (ô đầu); 5 / 8 khung có ô nằm ngang tỉ lệ gần nhau (1,16 → 1,77) nên polaroid gần như không đổi — cái khác thật (cách xếp ô) không hiện ở đâu; hình thu nhỏ khung lại nhỏ và tối.
+
+Chủ dự án chốt hướng (D-158): **hai cách xem — "xem mình" (polaroid to của ô đang chụp) và "xem cả khung" (cả bản in, mọi người)**, chuyển qua lại; cách đang không xem hiện **thu nhỏ ở góc** (hình trong hình), **chạm để đổi**, **kéo sang góc khác** được.
+
+Đã làm:
+- `DualView`: hình nhỏ 118 × 150 ở góc; chạm → đổi (hiệu ứng nảy); kéo → thả ra tự hít vào góc gần nhất, nhớ góc (localStorage).
+- `FrameLive` ("xem cả khung"): bản in thật (cùng hàm vẽ), **camera chạy trực tiếp trong ô đang chụp** (object-fit: cover = đúng cách cắt của bản in), ô đang chụp viền hổ phách, ô đã chụp hiện ảnh, ô chưa chụp đánh số; mỗi lần chụp xong ô đó **loé trắng** khi ảnh vào. Phòng online sau này: ô của người khác chạy video của họ theo cùng cách.
+- Mặc định: **chọn khung → xem cả khung** (thấy cách xếp ô); **chụp → xem mình** (tạo dáng), khung ở góc cho biết đang chụp ô nào. Chụp lại / chụp bù: khung ở góc hiện cả cuộn hiện có.
+- Hình thu nhỏ khung trong danh sách: to hơn, vẽ trên **giấy trắng** (theme Classic, không chữ) để thấy rõ cách xếp ô.
+- e2e `booth-solo.mjs` mục 1b: khung là cách xem chính lúc chọn, chạm góc → đổi, kéo → sang góc trên trái và không đổi; lúc chụp → xem mình.
