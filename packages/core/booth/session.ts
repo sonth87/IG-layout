@@ -32,8 +32,9 @@ export interface Roll {
 }
 
 type PeerMsg =
-  | { t: "shoot"; roll: number; shots: number; gap: number; lead?: number; delay: number; frameId?: string }
-  | { t: "frame"; frameId: string }
+  | { t: "shoot"; roll: number; shots: number; gap: number; lead?: number; delay: number; frameId?: string; order?: string[] }
+  | { t: "app"; data: unknown }
+  | { t: "frame"; frameId: string; theme?: string }
   | { t: "photo"; roll: number; shot: number; size: number };
 
 interface Link {
@@ -57,8 +58,9 @@ export class BoothSession {
   roll: Roll | null = null;
   /** The last roll started (kept after it ends, to know whose photos to wait for). */
   lastRoll: Roll | null = null;
-  /** The frame the host picked (the host decides for everyone). */
+  /** The frame and theme the host picked (the host decides for everyone). */
   frameId: string | null = null;
+  theme: string | null = null;
   /** photos[roll][shot][memberId] */
   photos = new Map<number, Map<number, Map<string, Blob>>>();
 
@@ -67,6 +69,7 @@ export class BoothSession {
   private links = new Map<string, Link>();
   private listeners = new Set<() => void>();
   private onShot: (roll: number, shot: number) => Promise<Blob | null>;
+  private appListeners = new Set<(from: Member, data: unknown) => void>();
 
   constructor(opts: { server: string; code: string; name: string; create: boolean; stream: MediaStream; onShot: (roll: number, shot: number) => Promise<Blob | null> }) {
     this.stream = opts.stream;
@@ -102,10 +105,11 @@ export class BoothSession {
   }
 
   /** Host: the frame for everyone (sent now, and to whoever joins later). */
-  setFrame(frameId: string) {
+  setFrame(frameId: string, theme = this.theme ?? undefined) {
     if (!this.me?.host) return;
     this.frameId = frameId;
-    for (const l of this.links.values()) sendJson(l.dc, { t: "frame", frameId });
+    this.theme = theme ?? null;
+    for (const l of this.links.values()) sendJson(l.dc, { t: "frame", frameId, theme });
     this.emit();
   }
 
@@ -115,8 +119,20 @@ export class BoothSession {
     const roll = (Math.max(0, ...this.photos.keys()) || 0) + 1;
     const delay = 1500; // time for the message to reach everyone; latency skew is a few tens of ms
     const frameId = this.frameId ?? undefined;
-    for (const l of this.links.values()) sendJson(l.dc, { t: "shoot", roll, shots, gap, lead, delay, frameId });
-    this.startRoll(roll, shots, gap, lead, delay, frameId);
+    // The host's order of people, so every phone tiles each shot the same way.
+    const order = this.everyone().map((m) => m.id);
+    for (const l of this.links.values()) sendJson(l.dc, { t: "shoot", roll, shots, gap, lead, delay, frameId, order });
+    this.startRoll(roll, shots, gap, lead, delay, frameId, order);
+  }
+
+  /** The app's own messages to everyone in the room (shared decorating). */
+  send(data: unknown) {
+    for (const l of this.links.values()) sendJson(l.dc, { t: "app", data });
+  }
+
+  onData(fn: (from: Member, data: unknown) => void) {
+    this.appListeners.add(fn);
+    return () => void this.appListeners.delete(fn);
   }
 
   leave() {
@@ -124,6 +140,7 @@ export class BoothSession {
     for (const l of this.links.values()) l.pc.close();
     this.links.clear();
     this.listeners.clear();
+    this.appListeners.clear();
   }
 
   // ---- room server -------------------------------------------------------------------
@@ -196,7 +213,7 @@ export class BoothSession {
     dc.onmessage = (e) => this.onPeer(l, e.data);
     // The host tells a newcomer which frame is picked.
     dc.onopen = () => {
-      if (this.me?.host && this.frameId) sendJson(dc, { t: "frame", frameId: this.frameId });
+      if (this.me?.host && this.frameId) sendJson(dc, { t: "frame", frameId: this.frameId, theme: this.theme ?? undefined });
     };
     this.links.set(member.id, l);
     return l;
@@ -241,16 +258,18 @@ export class BoothSession {
       return;
     }
     const msg = JSON.parse(data) as PeerMsg;
-    if (msg.t === "shoot" && l.peer.member.host) this.startRoll(msg.roll, msg.shots, msg.gap, msg.lead ?? msg.gap, msg.delay, msg.frameId);
+    if (msg.t === "shoot" && l.peer.member.host) this.startRoll(msg.roll, msg.shots, msg.gap, msg.lead ?? msg.gap, msg.delay, msg.frameId, msg.order);
+    else if (msg.t === "app") for (const fn of this.appListeners) fn(l.peer.member, msg.data);
     else if (msg.t === "frame" && l.peer.member.host) {
       this.frameId = msg.frameId;
+      this.theme = msg.theme ?? null;
       this.emit();
     } else if (msg.t === "photo") l.incoming = { roll: msg.roll, shot: msg.shot, size: msg.size, parts: [], got: 0 };
   }
 
-  private startRoll(id: number, shots: number, gap: number, lead: number, delay: number, frameId?: string) {
+  private startRoll(id: number, shots: number, gap: number, lead: number, delay: number, frameId?: string, order?: string[]) {
     const startAt = performance.now() + delay;
-    this.roll = { id, shots, gap, lead, startAt, frameId, members: this.everyone().map((m) => m.id) };
+    this.roll = { id, shots, gap, lead, startAt, frameId, members: order ?? this.everyone().map((m) => m.id) };
     this.lastRoll = this.roll;
     if (frameId) this.frameId = frameId;
     this.emit();

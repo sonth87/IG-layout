@@ -1062,7 +1062,7 @@ export const vi: Record<MessageKey, string> = {
   "booth.room.admit": "Cho vào",
   "booth.room.deny": "Từ chối",
   "booth.room.alone": "Gửi mã cho bạn bè — nhập ở sảnh booth là vào.",
-  "booth.room.frameBy": "Chủ phòng chọn khung",
+  "booth.room.frameBy": "Chủ phòng chọn khung và theme",
   "booth.room.shoot": "Chụp {count} kiểu",
   "booth.room.waitHost": "Chờ chủ phòng bấm chụp…",
   "booth.room.mic": "Micro",
@@ -1146,4 +1146,5 @@ export const vi: Record<MessageKey, string> = {
   "booth.fillAsk": "Chụp ảnh {n}?",
   "booth.retakeBody": "Chỉ ô này thôi: đếm một lần, chụp một tấm, thay vào đúng ô này.",
   "booth.retakeGo": "Mở camera",
+  "booth.share.editing": "{name} đang sửa · {tab}",
 };

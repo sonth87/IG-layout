@@ -582,5 +582,5 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Đồ trang trí vẽ bằng code: dây leo, dây hoa, ruy băng, đèn dây, neon, pháo hoa, pháo que, sao, trăng, confetti — cả bản in / từng ô đồng bộ, trên / dưới ảnh, mật độ, 🎲; e2e `booth-decor.mjs`
 - [ ] Item từ kho IG Layout (sticker, emoji, ánh sáng) kéo thả trên bản in
 - [x] Theme theo nhóm (19 theme / 10 nhóm), mỗi theme đủ bộ + không khí màn chụp / sửa; chọn theme trước khi chụp; e2e `booth-theme.mjs`
-- [ ] Sửa chung trong phòng (D-148)
+- [x] Sửa chung trong phòng (D-148): khung, theme, filter, bố cục, hoạ tiết, chữ, lật đồng bộ giữa các máy; "X đang sửa · thẻ"; mở bản in thì hỏi bản mới nhất; chủ phòng chọn theme cho cả phòng; e2e `booth-room.mjs` mục 5
 - [ ] Thử phòng thật trên 2 điện thoại khác mạng (Wi-Fi ↔ 4G) → có cần TURN?

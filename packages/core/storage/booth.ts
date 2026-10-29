@@ -20,8 +20,9 @@ export interface BoothRoll {
   layout?: import("../booth/layout").LayoutChoice;
   /** Drawn decorations (D-161 step 2). */
   decor?: import("../booth/decor").Decor[];
-  /** Shot together in a group room (D-159): its code and everyone's names, host first. */
-  room?: { code: string; names: string[] };
+  /** Shot together in a group room (D-159): its code, everyone's names (host first), and the
+   * key the room's phones share for it (decorating together, D-148). */
+  room?: { code: string; names: string[]; key?: string };
   createdAt: number;
   updatedAt: number;
   /** Small JPEG of the laid-out frame, for the home screen. */

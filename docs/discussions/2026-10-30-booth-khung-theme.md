@@ -143,3 +143,11 @@ Chủ dự án: "ở bước decorate user có thể zoom phần xem được kh
 - **Chạm ô để chụp (lại)** ngay ở màn Trang trí — ô đã chụp hoặc ô trống (vd. đổi dải 3 → dải 4): hỏi trước **"Chụp lại ảnh 2?" / "Chụp ảnh 4?" — "Chỉ ô này thôi: đếm một lần, chụp một tấm, thay vào đúng ô này."** → Mở camera → đếm 8 s, **chụp đúng 1 tấm** vào ô đó → **quay lại màn Trang trí** (không phải màn kết quả). Ô trống có số thứ tự.
 - Màn kết quả khi còn ô trống: cạnh nút "Chụp bù" có thêm nút Trang trí.
 - Bản chụp chung trong phòng: không chụp lại từng ô (mỗi ô có cả nhóm).
+
+## 10. Sửa chung trong phòng (D-148, 2026-10-30)
+Chủ dự án: "ok làm tiếp đi" (sau đề xuất làm sửa chung tiếp theo).
+- Mọi máy trong phòng có **cùng một bản in**: cùng ảnh, ô ghép theo **thứ tự người của chủ phòng** (gửi kèm lệnh chụp — trước đây mỗi máy tự xếp nên có thể lệch), bắt đầu từ **theme chủ phòng chọn** (chủ phòng giờ chọn **khung + theme** trong phòng; khách thấy "Dải 3 · 3 kiểu · Rừng sáng").
+- Phần **được sửa chung**: khung, theme, filter, bố cục (cả ô đặt tay), hoạ tiết, dòng chữ, ngày giờ, lật ảnh. **Không chung:** zoom, thẻ đang mở, việc lưu / xuất (ai lưu bản của người đó).
+- Cách đồng bộ (`apps/web/src/booth/share.ts`): sửa ở đâu thì gửi phần vừa đổi cho mọi người qua kênh P2P; **mỗi trường có số phiên bản** (bộ đếm + người sửa), bản cao hơn thắng → thứ tự tin đến thế nào thì mọi máy cũng ra giống nhau; hai người sửa cùng một thứ cùng lúc thì một người thắng, các thứ khác nhau thì giữ cả hai. Mở màn trang trí → **hỏi các máy kia bản mới nhất** (vào muộn / đang ở màn khác vẫn bắt kịp); máy đang ở màn khác cũng nhận và cập nhật bản đang mở / bản đã lưu.
+- **"Mai đang sửa · Hoạ tiết"**: dải vàng dưới tiêu đề màn trang trí, cập nhật mỗi 4 giây, ai rời / khoá máy thì tự mất sau ~11 giây.
+- Chưa làm: hoàn tác (booth chưa có hoàn tác nói chung); chụp lại từng ô trong phòng (mỗi ô có cả nhóm).

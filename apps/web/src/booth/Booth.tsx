@@ -20,6 +20,7 @@ import { Setup } from "./Setup";
 import { Shoot } from "./Shoot";
 import { loadThemeFonts, rollRender, withTheme } from "./look";
 import { Mood } from "./Mood";
+import { useSharedRoll } from "./share";
 import { themeById } from "@ig-layout/core/booth/themes";
 import { floorStyle } from "./ui";
 import { SPARE } from "./timing";
@@ -92,6 +93,11 @@ function BoothApp() {
   const shootLook = useMemo(() => ({ theme: themeById(plan.targets && roll ? roll.theme : prefs.theme) }), [plan.targets, roll, prefs.theme]);
   /** The group room we're in (kept across the room, print and decorate screens). */
   const [room, setRoom] = useState<Room | null>(null);
+  /** The Decorate tab on screen (others in the room see "Mai is decorating · Theme"). */
+  const [decorTab, setDecorTab] = useState("theme");
+  const shared = useSharedRoll(room, roll, setRoll, screen === "decorate" ? decorTab : null);
+  /** A change to the print: shared with the room when it's a group print. */
+  const change = (r: BoothRoll) => (room && r.room?.key ? shared.edit(r) : setRoll({ ...r, updatedAt: Date.now() }));
   /** Asking for a name before opening / joining a room. */
   const [askName, setAskName] = useState<{ code: string | null } | null>(null);
 
@@ -277,7 +283,9 @@ function BoothApp() {
       return roll ? (
         <Decorate
           roll={roll}
-          onChange={(r) => setRoll({ ...r, updatedAt: Date.now() })}
+          onChange={change}
+          others={shared.others}
+          onTab={setDecorTab}
           onDone={() => setScreen("result")}
           onRetake={
             room
@@ -294,7 +302,7 @@ function BoothApp() {
         <Result
           roll={roll}
           sound={prefs.sound}
-          onChange={(r) => setRoll({ ...r, updatedAt: Date.now() })}
+          onChange={change}
           onRetake={room ? undefined : retake}
           onDecorate={() => setScreen("decorate")}
           inRoom={!!room}
@@ -313,8 +321,10 @@ function BoothApp() {
         <RoomScreen
           room={room}
           sound={prefs.sound}
+          theme={themeById(prefs.theme).id}
           onRoll={(r) => {
-            setRoll(withTheme(r, themeById(prefs.theme)));
+            // The host's theme: every phone starts from the same print.
+            setRoll(withTheme(r, themeById(room.session.theme ?? prefs.theme)));
             setScreen("result");
           }}
           onLeave={leaveRoom}
@@ -325,7 +335,8 @@ function BoothApp() {
 
   // The mood follows the theme: the roll's while printing / decorating, the picked one
   // while choosing / shooting; the lobby stays the booth's own (Cinema).
-  const moodTheme = screen === "home" ? themeById("cinema") : roll && (screen === "result" || screen === "decorate") ? themeById(roll.theme) : themeById(prefs.theme);
+  const moodTheme =
+    screen === "home" ? themeById("cinema") : roll && (screen === "result" || screen === "decorate") ? themeById(roll.theme) : screen === "room" && room?.session.theme ? themeById(room.session.theme) : themeById(prefs.theme);
   return (
     <>
       <div className="relative z-10 h-full" style={{ "--booth-polaroid": moodTheme.mood.polaroid ?? "#f6efe2" } as React.CSSProperties}>

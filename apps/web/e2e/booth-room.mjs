@@ -93,7 +93,36 @@ for (let i = 2; i < jpg.length - 9; i++)
 check(w === 600 && h === 1800, `saved ${w}×${h}`);
 check((await host.getByRole("button", { name: "Lobby" }).count()) === 0, "no lobby button in a room");
 
-console.log("5. Back to the room, host leaves");
+console.log("5. Decorate together");
+const [g1, g2] = guests;
+await host.getByRole("button", { name: /Decorate/ }).click();
+await g1.getByRole("button", { name: /Decorate/ }).click();
+await g1.locator("[data-others]").getByText("An is decorating · Theme").waitFor({ timeout: 10000 });
+check(true, "guest sees the host decorating (and on which tab)");
+const g1Before = await g1.locator("canvas").first().evaluate((c) => c.toDataURL("image/jpeg", 0.5));
+await host.locator("[data-theme-id='forest']").click();
+await g1.locator("[data-theme-id='forest'][aria-checked='true']").waitFor({ timeout: 10000 });
+await g1.waitForTimeout(600);
+check((await g1.locator("canvas").first().evaluate((c) => c.toDataURL("image/jpeg", 0.5))) !== g1Before, "host picks Woodland → the guest's print changes too");
+await g1.getByRole("tab", { name: "Layout" }).click();
+await g1.getByRole("radio", { name: "Straight" }).click();
+await host.getByRole("tab", { name: "Layout" }).click();
+await host.getByRole("radio", { name: "Straight", checked: true }).waitFor({ timeout: 10000 });
+check(true, "guest sets Straight → the host's print follows");
+await host.locator("[data-others]").getByText("Binh is decorating · Layout").waitFor({ timeout: 10000 });
+check(true, "host sees the guest decorating · Layout");
+// The third phone stayed on the print screen: it got the changes as well.
+await g2.getByRole("button", { name: /Decorate/ }).click();
+await g2.getByRole("tab", { name: "Theme" }).click();
+await g2.locator("[data-theme-id='forest'][aria-checked='true']").waitFor({ timeout: 10000 });
+await g2.getByRole("tab", { name: "Layout" }).click();
+check((await g2.getByRole("radio", { name: "Straight" }).getAttribute("aria-checked")) === "true", "the phone that wasn't decorating has the same print");
+const prints = await Promise.all(all.map((p) => p.locator("canvas").first().evaluate((c) => c.toDataURL("image/jpeg", 0.5))));
+check(new Set(prints).size === 1, "all three prints are the same");
+await host.screenshot({ path: path.join(OUT, "booth-room-together.png") });
+for (const p of all) await p.getByRole("button", { name: "Done" }).click();
+
+console.log("6. Back to the room, host leaves");
 for (const p of all) await p.getByRole("button", { name: /Back to the room/ }).click();
 await host.locator("[data-room-code]").waitFor();
 await host.getByRole("button", { name: "Leave" }).click();

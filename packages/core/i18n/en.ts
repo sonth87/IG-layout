@@ -1063,7 +1063,7 @@ export const en = {
   "booth.room.admit": "Let in",
   "booth.room.deny": "No",
   "booth.room.alone": "Share the code — friends type it in the booth’s lobby.",
-  "booth.room.frameBy": "The host picks the frame",
+  "booth.room.frameBy": "The host picks the frame and theme",
   "booth.room.shoot": "Shoot {count} {count|shot|shots}",
   "booth.room.waitHost": "Waiting for the host to start…",
   "booth.room.mic": "Microphone",
@@ -1147,6 +1147,7 @@ export const en = {
   "booth.fillAsk": "Take photo {n}?",
   "booth.retakeBody": "Just this one: one countdown, one shot, it goes in this cell.",
   "booth.retakeGo": "Open the camera",
+  "booth.share.editing": "{name} is decorating · {tab}",
 } as const;
 
 export type MessageKey = keyof typeof en;

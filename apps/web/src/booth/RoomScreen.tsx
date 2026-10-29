@@ -8,6 +8,7 @@ import type { BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
 import { FramePicker } from "./FramePicker";
+import { ThemePicker } from "./ThemePicker";
 import type { Room } from "./room";
 import { useSession } from "./room";
 import { shutter } from "./Shoot";
@@ -25,7 +26,14 @@ const EMPTY: never[] = [];
 /** Stop waiting for someone's photos after this long (they may have dropped). */
 const RECEIVE_TIMEOUT = 25_000;
 
-export function RoomScreen({ room, sound, onRoll, onLeave }: { room: Room; sound: boolean; onRoll: (roll: BoothRoll) => void; onLeave: () => void }) {
+export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
+  room: Room;
+  sound: boolean;
+  /** The host's own theme (they pick it here for everyone). */
+  theme: string;
+  onRoll: (roll: BoothRoll) => void;
+  onLeave: () => void;
+}) {
   const t = useT();
   useSession(room);
   const s = room.session;
@@ -39,8 +47,8 @@ export function RoomScreen({ room, sound, onRoll, onLeave }: { room: Room; sound
 
   // The host's frame is everyone's: say it once on arrival (newcomers get it on connect).
   useEffect(() => {
-    if (host && !s.frameId) s.setFrame("strip4");
-  }, [host, s]);
+    if (host && !s.frameId) s.setFrame("strip4", theme);
+  }, [host, s, theme]);
 
   // ---- the roll: countdown, flash, then wait for everyone's photos ----
   const [now, setNow] = useState(() => performance.now());
@@ -86,8 +94,10 @@ export function RoomScreen({ room, sound, onRoll, onLeave }: { room: Room; sound
     room.printed.add(last.id);
     void (async () => {
       const f = frameById(last.frameId ?? "strip4");
-      const order = s.everyone().map((m) => m.id);
-      const names = s.everyone().map((m) => m.name);
+      // The host's order (the same on every phone), skipping anyone who left before shooting.
+      const known = new Map(s.everyone().map((m) => [m.id, m.name]));
+      const order = last.members.filter((id) => known.has(id));
+      const names = order.map((id) => known.get(id)!);
       const shots: (Blob | null)[] = [];
       for (let k = 0; k < f.shots; k++) {
         const byMember = s.photos.get(last.id)?.get(k);
@@ -95,7 +105,7 @@ export function RoomScreen({ room, sound, onRoll, onLeave }: { room: Room; sound
         shots.push(blobs.length ? await tileShot(blobs, shotAspect(f, k)) : null);
       }
       const at = Date.now();
-      onRoll({ id: crypto.randomUUID(), frameId: f.id, shots, flip: false, room: { code: room.code, names }, createdAt: at, updatedAt: at, thumbnail: new Blob() });
+      onRoll({ id: crypto.randomUUID(), frameId: f.id, shots, flip: false, room: { code: room.code, names, key: `${room.code}:${s.everyone().find((m) => m.host)?.id ?? ""}:${last.id}` }, createdAt: at, updatedAt: at, thumbnail: new Blob() });
     })();
   }, [last, roll, got, total, timedOut, s, room, onRoll]);
 
@@ -227,12 +237,14 @@ export function RoomScreen({ room, sound, onRoll, onLeave }: { room: Room; sound
           {host ? (
             <div className={roll ? "pointer-events-none opacity-50" : ""}>
               <FramePicker value={frame.id} onChange={(id) => s.setFrame(id)} />
+              <ThemePicker compact value={s.theme ?? theme} onPick={(th) => s.setFrame(frame.id, th.id)} />
             </div>
           ) : (
             <div className="flex items-center gap-3 px-5 py-3" data-host-frame={frame.id}>
               <FrameCanvas frame={frame} images={EMPTY} scale={200 / Math.max(frame.width, frame.height)} className="max-h-20 max-w-20" />
               <span className={`${mono} text-xs font-bold uppercase tracking-[0.12em]`}>
                 {t(`booth.frame.${frame.id}` as Parameters<typeof t>[0])} · {t("booth.shots", { count: frame.shots })}
+                {s.theme && <> · {t(`booth.theme.${s.theme}` as Parameters<typeof t>[0])}</>}
               </span>
             </div>
           )}

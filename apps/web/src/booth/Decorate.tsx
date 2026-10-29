@@ -25,15 +25,22 @@ import { ZoomView } from "./ZoomView";
 type Tab = "frame" | "theme" | "decor" | "filter" | "text";
 const TABS: Tab[] = ["frame", "theme", "decor", "filter", "text"];
 
-export function Decorate({ roll, onChange, onDone, onRetake }: {
+export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab }: {
   roll: BoothRoll;
   onChange: (roll: BoothRoll) => void;
   onDone: () => void;
   /** Shoot one cell again (solo rolls; a group roll has everyone in each cell). */
   onRetake?: (shot: number) => void;
+  /** Group print: the others decorating it now, and which tab they're on. */
+  others?: { id: string; name: string; tab: string }[];
+  onTab?: (tab: string) => void;
 }) {
   const t = useT();
-  const [tab, setTab] = useState<Tab>("theme");
+  const [tab, setTabState] = useState<Tab>("theme");
+  const setTab = (k: Tab) => {
+    setTabState(k);
+    onTab?.(k);
+  };
   const frame = useMemo(() => rollFrame(roll), [roll]);
   const theme = themeById(roll.theme);
   const images = useRollImages(roll);
@@ -56,6 +63,16 @@ export function Decorate({ roll, onChange, onDone, onRetake }: {
         </Btn>
       </header>
 
+      {/* Decorating together: who else is on this print right now. */}
+      {others.length > 0 && (
+        <div role="status" className="flex shrink-0 flex-wrap items-center gap-2 border-b-2 border-[#0b0806] bg-[#eaa63c] px-4 py-1.5 text-[#1d1612]" data-others>
+          {others.map((o) => (
+            <span key={o.id} className={`${mono} text-[11px] font-bold`}>
+              ✎ {t("booth.share.editing", { name: o.name, tab: t(`booth.tab.${o.tab}` as Parameters<typeof t>[0]) })}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
         <div className="min-h-0 flex-1 p-4 lg:p-8">
           <ZoomView label={t("booth.zoomReset")}>
