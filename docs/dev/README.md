@@ -23,8 +23,17 @@ Cloudflare Worker + Durable Object (docs/discussions/2026-10-29-photobooth.md). 
 ```bash
 cd apps/signal && pnpm dev          # ws://localhost:8787 — trang /labs/booth nối vào đây
 node apps/web/e2e/booth.mjs http://localhost:3000/   # 3 trình duyệt cùng phòng (cần worker đang chạy)
-pnpm deploy                          # cần `npx wrangler login` trước; rồi đặt NEXT_PUBLIC_SIGNAL_URL=wss://… cho app web
 ```
+
+Deploy server phòng (chủ dự án, cần tài khoản Cloudflare):
+
+```bash
+cd apps/signal && nvm use 22
+npx wrangler login
+pnpm run deploy        # "pnpm deploy" (không có run) là lệnh khác của pnpm
+```
+
+Địa chỉ hiện tại: `https://ig-layout-signal.sonth.workers.dev` (`/health` → ok). App đọc địa chỉ từ `NEXT_PUBLIC_SIGNAL_URL` (dạng `wss://…`) lúc build: đặt trên Vercel rồi redeploy. Origin được phép: `ALLOWED_ORIGINS` trong `apps/signal/wrangler.jsonc`.
 
 ## Kiểm tra tự động
 

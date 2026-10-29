@@ -375,3 +375,8 @@ Cần chủ dự án thử và chốt (Q-P12 còn mở): hướng kéo (xuống 
 
 ## Thiết kế booth solo (2026-10-29)
 Chủ dự án đồng ý làm bước tham khảo + đề xuất thiết kế → [2026-10-29-booth-thiet-ke.md](2026-10-29-booth-thiet-ke.md) (luồng màn hình, bộ khung, theme, xuất, chuyển sang IG Layout; câu hỏi Q-P14 → Q-P20).
+
+## Deploy (2026-10-29)
+- Chủ dự án đổi Vercel Root Directory → `apps/web`; nhánh `monorepo` merge vào `main` (48/48 e2e qua trước khi merge); Vercel deploy xong sau ~90 s, `/booth` chạy trên https://ig-layout.vercel.app/booth.
+- Chủ dự án deploy `apps/signal` lên Cloudflare: `https://ig-layout-signal.sonth.workers.dev`. Kiểm: `/health` ok; WebSocket từ origin `https://ig-layout.vercel.app` → 101; origin lạ / không origin → 403. Build app trỏ vào server thật rồi chạy `booth.mjs` (3 trình duyệt): vào phòng, 3 × 3 video, chụp → 12/12 ảnh mỗi máy, chủ phòng thoát → phòng đóng.
+- Còn: đặt `NEXT_PUBLIC_SIGNAL_URL` trên Vercel; thử 2 điện thoại thật (Wi-Fi ↔ 4G) ở `/labs/booth` để biết có cần TURN.
