@@ -372,3 +372,6 @@ Tham khảo trước khi làm: [Framer "19 Rope Toggle"](https://www.framer.com/
 - Kiểm tra `e2e/tag.mjs`: tự đung đưa, giật nhẹ không chuyển, kéo xuống → Booth, chạm → về IG Layout.
 
 Cần chủ dự án thử và chốt (Q-P12 còn mở): hướng kéo (xuống / ngang / cả hai), độ "nặng" của dây, chỗ đặt tag trên màn home thật (đang đè lên nội dung góc phải — màn thật phải chừa chỗ).
+
+## Thiết kế booth solo (2026-10-29)
+Chủ dự án đồng ý làm bước tham khảo + đề xuất thiết kế → [2026-10-29-booth-thiet-ke.md](2026-10-29-booth-thiet-ke.md) (luồng màn hình, bộ khung, theme, xuất, chuyển sang IG Layout; câu hỏi Q-P14 → Q-P20).

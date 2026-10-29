@@ -20,8 +20,8 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 ### Photobooth (2026-10-29 — [2026-10-29-photobooth.md](../discussions/2026-10-29-photobooth.md))
 - **Q-P1.** Photobooth là một cách nhập ảnh rồi vào editor (đề xuất), hay một chế độ riêng chỉ ra strip?
 - **Q-P2.** Bản đầu xuất những dạng nào? (Đề xuất: strip gốc 1:3, Post 4:5 hai strip, Story 9:16, ảnh lẻ; GIF / video để sau.)
-- **Q-P3.** Có chụp dư rồi chọn (vd. chụp 8 chọn 4) như tiệm Hàn không?
-- **Q-P4.** Theme bản đầu: Cinema + Classic + Đen trắng — thêm / bớt gì?
+- **Q-P3.** Có chụp dư rồi chọn (vd. chụp 8 chọn 4) như tiệm Hàn không? (Đề xuất 2026-10-29: có, dạng tuỳ chọn "chụp thêm 2 kiểu dự phòng", mặc định tắt; luôn chụp lại được từng ô.)
+- **Q-P4.** Theme bản đầu: Cinema + Classic + Đen trắng — thêm / bớt gì? (Chi tiết từng theme: [2026-10-29-booth-thiet-ke.md](../discussions/2026-10-29-booth-thiet-ke.md) §4.)
 - **Q-P5.** Có làm phòng chụp online không? Nếu có thì chấp nhận dùng một dịch vụ signaling bên ngoài (đổi một phần D-06 / D-37) không, và tối đa bao nhiêu người (đề xuất 4)?
 - **Q-P6.** Làm P1 (solo) trước ở `/labs/photobooth` được không?
 - **Q-P7.** ~~Mô hình bảng ảnh S × P?~~ Tạm theo đề xuất (chủ dự án chưa rõ photobooth nên như nào) — D-147.
@@ -31,6 +31,14 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P11.** Hai app hay một app, server ở đâu? Đề xuất (cập nhật 2026-10-29): **một app** `apps/web` (IG Layout + `/booth`) trên Vercel, **giữ xuất tĩnh**; signaling + TURN trên **Cloudflare** (Worker + Durable Objects + Realtime TURN) ở `apps/signal`. Phương án cũ (bỏ xuất tĩnh + Upstash) để dự phòng — chờ chủ dự án chốt.
 - **Q-P12.** ~~Tag ở đâu?~~ Chỉ ở màn home (2026-10-29). Còn mở: kéo hướng nào để chuyển.
 - **Q-P13.** ~~Thứ tự?~~ Đồng ý: monorepo + tách packages trước, booth sau (2026-10-29).
+- *Thiết kế booth solo (2026-10-29 — [2026-10-29-booth-thiet-ke.md](../discussions/2026-10-29-booth-thiet-ke.md)):*
+- **Q-P14.** Luồng Home → Chọn khung → Chụp → (Chọn ảnh) → Trang trí → Xuất, khung + theme chọn trên cùng một màn có camera xem trước — được không?
+- **Q-P15.** Bộ khung bản đầu: Dải 4, Dải 3, Lưới 2×2, 6 ô, Dải ngang, Polaroid, Post 4:5 (2 dải), Story 9:16 — thêm / bớt?
+- **Q-P16.** Ảnh lưu ra **lật như gương** (giống lúc nhìn camera, giống tiệm Hàn) hay **không lật** (chữ trên áo đọc đúng)? Đề xuất: không lật, có nút đổi.
+- **Q-P17.** Đếm ngược mặc định 3 / 5 / 10 giây? Nghỉ giữa các kiểu bao lâu? Đề xuất: 5 giây kiểu đầu, 3 giây các kiểu sau, nghỉ 2 giây.
+- **Q-P18.** "Mở trong IG Layout" tạo project dạng gì: Post 4:5 có strip, Carousel (strip + từng kiểu), hay hỏi người dùng?
+- **Q-P19.** Có lưu lại các strip đã làm (cuộn phim gần đây ở home booth) như project của IG Layout không, hay chỉ tải về rồi thôi như ONBOOTH / ColorME?
+- **Q-P20.** Video hậu trường / live strip (quay vài giây quanh mỗi lần chụp): để sau (P3) được không?
 
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?

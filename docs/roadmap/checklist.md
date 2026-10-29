@@ -562,5 +562,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Monorepo bước 2: `packages/canvas` — node vẽ dùng chung, lấy store qua `<CanvasHost>`; CanvasStage ở lại editor
 - [x] Tag treo dây: bản thử `/labs/tag` (SwitchTag, chỉnh vật lý bằng thanh trượt; e2e `tag.mjs`)
 - [ ] Chủ dự án thử tag trên điện thoại, chốt hướng kéo (Q-P12) → gắn vào màn home thật khi có /booth
-- [ ] Booth solo: giao diện riêng (cinema), layout strip / lưới / khổ IG, sticker từ packages/canvas, chuyển ảnh sang IG Layout — cần bàn thiết kế trước
+- [x] Booth solo: tham khảo + đề xuất thiết kế (docs/discussions/2026-10-29-booth-thiet-ke.md)
+- [ ] Chủ dự án chốt thiết kế booth solo (Q-P14 → Q-P20, Q-P3, Q-P4)
+- [ ] Booth solo: giao diện riêng (cinema), layout strip / lưới / khổ IG, sticker từ packages/canvas, chuyển ảnh sang IG Layout
 - [ ] Phòng online + sửa chung
