@@ -560,4 +560,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Monorepo bước 1: `apps/web` (app), `apps/signal` (server phòng), `packages/core` (logic dùng chung, không giao diện) — D-150
 - [ ] Chủ dự án đổi Vercel → Settings → Root Directory = `apps/web` (trước khi merge nhánh `monorepo`) — để sau, chạy local trước (chủ dự án, 2026-10-29)
 - [x] Monorepo bước 2: `packages/canvas` — node vẽ dùng chung, lấy store qua `<CanvasHost>`; CanvasStage ở lại editor
-- [ ] Tag treo dây (thử ở /labs, chỉ ở màn home — D-151) → booth solo → phòng online + sửa chung
+- [x] Tag treo dây: bản thử `/labs/tag` (SwitchTag, chỉnh vật lý bằng thanh trượt; e2e `tag.mjs`)
+- [ ] Chủ dự án thử tag trên điện thoại, chốt hướng kéo (Q-P12) → gắn vào màn home thật khi có /booth
+- [ ] Booth solo: giao diện riêng (cinema), layout strip / lưới / khổ IG, sticker từ packages/canvas, chuyển ảnh sang IG Layout — cần bàn thiết kế trước
+- [ ] Phòng online + sửa chung
