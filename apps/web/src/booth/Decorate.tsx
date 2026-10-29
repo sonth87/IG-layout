@@ -10,6 +10,7 @@ import { processImage } from "@ig-layout/core/color/processor";
 import type { BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
+import { DecorPanel } from "./DecorPanel";
 import { LayoutEditor } from "./LayoutEditor";
 import { LayoutPanel } from "./LayoutPanel";
 import { lookOptions, rollFrame, rollFilter, useRollImages } from "./look";
@@ -19,8 +20,8 @@ import { Btn, display, mono, serif } from "./ui";
 // (paper, ink, decoration, caption face — themes.ts), the filter (IG Layout's colour pipeline)
 // and the caption (title, date). Every change redraws the print above; stickers come next.
 
-type Tab = "frame" | "theme" | "filter" | "text";
-const TABS: Tab[] = ["frame", "theme", "filter", "text"];
+type Tab = "frame" | "theme" | "decor" | "filter" | "text";
+const TABS: Tab[] = ["frame", "theme", "decor", "filter", "text"];
 
 export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange: (roll: BoothRoll) => void; onDone: () => void }) {
   const t = useT();
@@ -58,7 +59,7 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
         </div>
 
         <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:w-[460px] lg:overflow-y-auto lg:border-t-0 lg:border-l-2">
-          <div role="tablist" className="grid grid-cols-4 border-b-2 border-[#1d1612]">
+          <div role="tablist" className="grid grid-cols-5 border-b-2 border-[#1d1612]">
             {TABS.map((k) => (
               <button
                 key={k}
@@ -66,7 +67,7 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
                 role="tab"
                 aria-selected={tab === k}
                 onClick={() => setTab(k)}
-                className={`${mono} border-r-2 border-[#1d1612] py-3 text-[11px] font-bold uppercase tracking-[0.15em] last:border-r-0 ${tab === k ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
+                className={`${mono} border-r-2 border-[#1d1612] py-3 text-[10px] font-bold uppercase tracking-[0.08em] last:border-r-0 ${tab === k ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
               >
                 {t(`booth.tab.${k}`)}
               </button>
@@ -108,6 +109,8 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
                 })}
               </div>
             )}
+
+            {tab === "decor" && <DecorPanel value={roll.decor ?? []} onChange={(decor) => set({ decor })} />}
 
             {tab === "filter" && <FilterRow images={images} value={rollFilter(roll)} onChange={(filter) => set({ filter })} />}
 

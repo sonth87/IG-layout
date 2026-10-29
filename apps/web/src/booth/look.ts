@@ -44,7 +44,7 @@ export function rollFrame(roll: Pick<BoothRoll, "frameId" | "layout">) {
 }
 
 export function lookOptions(roll: BoothRoll): RenderOptions {
-  return { theme: themeById(roll.theme), flip: roll.flip, title: roll.title, showDate: roll.showDate, date: new Date(roll.createdAt), fonts: canvasFonts };
+  return { theme: themeById(roll.theme), decor: roll.decor, flip: roll.flip, title: roll.title, showDate: roll.showDate, date: new Date(roll.createdAt), fonts: canvasFonts };
 }
 
 /** The roll's shots, filtered, for drawing (null until decoded). */

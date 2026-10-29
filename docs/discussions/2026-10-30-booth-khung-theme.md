@@ -107,3 +107,11 @@ Xem [open-questions.md](../roadmap/open-questions.md) mục Photobooth (Q-P21 �
 - Thẻ **Bố cục** (thay thẻ Khung) trong màn Trang trí: khung, cách xếp (mỗi lựa chọn là hình thu nhỏ của chính khung đó), hình ô, 🎲 / Căn lại. Bảng dưới trên điện thoại cao tối đa 42 % màn và tự cuộn, để bản in không bị thu nhỏ.
 - Chạm ảnh để chụp lại vẫn đúng ô khi ô nghiêng / chồng (tính theo ô trên cùng, có xoay).
 - Tiếp theo: bước 2 — đồ trang trí vẽ bằng code.
+
+## 7. Bước 2 đã làm: đồ trang trí vẽ bằng code (2026-10-30)
+- `packages/core/booth/decor.ts`, thẻ **Hoạ tiết** trong màn Trang trí (chạm để thêm / bỏ; mỗi cái thêm vào có: **Cả bản in / Từng ô**, **Trên ảnh / Dưới ảnh**, mật độ **• •• •••**, 🎲 vẽ lại).
+- **Cả bản in** (mặc định): dây leo / dây hoa / ruy băng chạy theo **đường lề** — lên mép trái (ghé vào khe giữa các hàng ô), qua mép trên, xuống một đoạn mép phải; đèn dây võng ngang mép trên; neon bao quanh cả khối ô + vài hình neon (tim / sao); pháo hoa, pháo que, sao, trăng, confetti rải vào chỗ trống.
+- **Từng ô (đồng bộ):** cùng một hoạ tiết lặp trên mọi ô, xoay theo ô: dây leo ôm góc trên trái, dây hoa, nơ giữa mép trên, đèn võng mép trên, **neon theo đúng hình ô** (vòm, tim…), pháo hoa ló sau góc, pháo que góc dưới, sao ở hai góc, trăng góc trên phải, confetti quanh mép.
+- **Không che mặt:** hoạ tiết rải ở lớp trên không đặt vào vùng giữa ô (64 %) và vùng chữ; ở lớp dưới thì đặt ngoài ô (để ló ra); hết chỗ thì đặt lên ảnh nhưng vẫn tránh giữa ô, rồi thu nhỏ.
+- Vẽ hoàn toàn bằng code (lá, tua cuốn, hoa 5 cánh, dải băng xoắn, nơ, bóng đèn phát sáng, neon 3 lớp, chùm pháo hoa có đuôi rơi, tia lửa gãy khúc, sao 4 / 5 cánh, trăng khuyết phát sáng) → co giãn theo khổ, không cần tải ảnh.
+- Còn: item từ kho IG Layout kéo thả trên bản in; màu hoạ tiết theo theme (bước 3).

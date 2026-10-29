@@ -1,4 +1,5 @@
 import type { BoothFrame } from "./frames";
+import { drawDecor, type Decor } from "./decor";
 import { shapePath } from "./layout";
 import { THEMES, type BoothTheme, type FontRole } from "./themes";
 
@@ -25,6 +26,8 @@ export interface RenderOptions {
   date?: Date;
   /** Font family per role (unloaded roles fall back to serif / monospace). */
   fonts?: Partial<Record<FontRole, string>>;
+  /** Drawn decorations (decor.ts), behind and over the photos. */
+  decor?: Decor[];
   /** Number the empty cells (picker thumbnails, shots still to take). */
   numbers?: boolean;
 }
@@ -44,6 +47,7 @@ export function renderFrame(canvas: HTMLCanvasElement, frame: BoothFrame, shots:
   paper(c, frame, th);
   decor(c, frame, th);
   if (frame.holes && th.holes) holes(c, frame, th.holes);
+  drawDecor(c, frame, opts.decor, "back");
 
   const shape = frame.shape ?? "rect";
   const cells = [...frame.cells].sort((p, q) => (p.z ?? 0) - (q.z ?? 0));
@@ -103,6 +107,7 @@ export function renderFrame(canvas: HTMLCanvasElement, frame: BoothFrame, shots:
     }
     c.restore();
   }
+  drawDecor(c, frame, opts.decor, "front");
   caption(c, frame, th, opts);
 }
 
