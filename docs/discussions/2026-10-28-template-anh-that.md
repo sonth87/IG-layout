@@ -244,3 +244,16 @@ e2e: `stretch.mjs` (tay nắm bên → chữ to theo, cùng tỉ lệ khung), `c
 
 **Sửa (chủ dự án):** ảnh của chủ dự án không được trộn với ảnh khác. Trước đó khi một chủ đề hết ảnh hoặc không có ảnh vừa khung, bộ chọn lấy ảnh bất kỳ (nên mẫu concert hiện ảnh confetti, mẫu gương hiện ảnh cặp đôi Pexels), và 2 mẫu có gắn kèm chủ đề "city". Giờ `samples.ts` chia **2 kho tách biệt** (ảnh của chủ dự án / ảnh Pexels), không bao giờ lấy chéo; mẫu dùng ảnh chủ dự án hết ảnh thì lặp lại ảnh trong chính chủ đề đó. 20 mẫu chỉ gắn chủ đề concert / mirror / ootd.
 
+---
+
+## Đợt 9 (2026-10-29) — chống tải lại nhầm, nhóm Ăn uống & Đen trắng, bài The Weeknd
+
+**Chủ dự án:** (1) F5 hoặc kéo-để-làm-mới hay bị nhầm khi đang làm → cần xác nhận; (2) thêm chủ đề đồ ăn và ảnh đen trắng; (3) mẫu Concert night: trình phát nhạc đổi thành một bài của The Weeknd (ảnh là từ show The Weeknd).
+
+**Đã làm:**
+- **Tải lại / đóng tab khi đang mở dự án** → trình duyệt hỏi "Rời trang?" (`beforeunload` trong editor; vẫn lưu ngay trước đó). Web không đổi được giao diện hộp thoại này; Safari iOS không hỗ trợ `beforeunload` nên trên iPhone chỉ trông vào lớp chặn dưới.
+- **Chặn kéo-để-làm-mới nhầm:** ngoài `overscroll-behavior: none` cho cả trang, mọi vùng cuộn (`overflow-y-auto`, `overflow-auto`) giờ có `overscroll-behavior-y: contain` — kéo tới đầu danh sách không "truyền" ra trang nữa.
+- **Concert night:** trình phát nhạc "Blinding Lights — The Weeknd"; setlist mẫu "Cháy hết mình": Starboy, The Hills, Save Your Tears, Die For You, Blinding Lights.
+- **Ảnh mẫu:** +20 ảnh đồ ăn (phở / bún, chợ đêm, tráng miệng, bữa cơm nhà) và +20 ảnh đen trắng (cặp đôi, kiến trúc, quán cà phê, biển) từ Pexels → mỗi loại 30. `fetch-samples.mjs` có `--only=food,mono` (chỉ tải chủ đề đó, giữ nguyên các ảnh khác). 2 ảnh còn ám màu được chuyển hẳn sang đen trắng. 3 ảnh đen trắng cũ bị Pexels xếp lại thứ tự (không ảnh hưởng: mẫu chọn ảnh theo chủ đề).
+- **2 nhóm mới:** **Ăn uống** (13: thực đơn, review quán có chấm sao, food tour 4 slide có giá, hoá đơn, thẻ công thức, tuần này ăn gì (lưới 3 × 3), ăn sập thành phố, đêm ăn vặt (chữ cắt neon), bát phở sáng, cà phê dạo (tem), hảo ngọt, số đặc biệt ăn uống, trước / sau khi ăn) và **Đen trắng** (12: bản in triển lãm, tờ in thử, hai tấm song đôi, thơ đánh máy, câu nói lớn, lưới profile, chương I–II–III, noir, bìa mono, photobooth, toàn cảnh, ô vuông có ngày). Thư viện: **436 template**.
+

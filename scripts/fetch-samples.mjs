@@ -17,6 +17,8 @@ const outDir = path.join(root, "public", "samples");
 const manifestPath = path.join(root, "src", "lib", "templates", "samplePhotos.json");
 const key = process.env.PEXELS_API_KEY;
 const force = process.argv.includes("--force");
+/** --only=food,mono: fetch just these themes, keep the others as they are. */
+const only = process.argv.find((a) => a.startsWith("--only="))?.slice(7).split(",");
 if (!key) throw new Error("PEXELS_API_KEY is not set (node --env-file=.env.local …)");
 
 /** Theme → searches; `per` photos taken from each search. */
@@ -24,14 +26,14 @@ const THEMES = {
   travel: { per: 5, queries: ["travel mountains lake", "road trip vintage car", "airplane window travel"] },
   beach: { per: 5, queries: ["beach summer people", "sailboat sea"] },
   city: { per: 4, queries: ["european street old town", "tokyo street night", "paris cafe street"] },
-  food: { per: 5, queries: ["coffee croissant cafe", "brunch table aesthetic"] },
+  food: { per: 5, queries: ["coffee croissant cafe", "brunch table aesthetic", "pho noodle soup bowl", "street food night market", "dessert cake cafe", "home cooked dinner table"] },
   portrait: { per: 5, queries: ["woman portrait golden hour", "street style portrait"] },
   friends: { per: 5, queries: ["friends laughing together", "friends party night"] },
   couple: { per: 5, queries: ["couple romantic", "wedding couple"] },
   autumn: { per: 4, queries: ["autumn leaves park", "pumpkin autumn", "halloween costume party"] },
   nature: { per: 5, queries: ["forest cabin", "mountain landscape mist"] },
   minimal: { per: 5, queries: ["minimal ceramic still life", "minimal interior light shadow"] },
-  mono: { per: 5, queries: ["black and white portrait", "black and white street photography"] },
+  mono: { per: 5, queries: ["black and white portrait", "black and white street photography", "black and white couple", "black and white architecture", "black and white cafe", "black and white beach"] },
   party: { per: 5, queries: ["birthday cake candles", "celebration confetti"] },
   fashion: { per: 5, queries: ["fashion editorial model", "fashion details accessories"] },
   // Seasons and holidays (2026-10-28, second batch).
@@ -58,10 +60,11 @@ async function search(query, page = 1) {
 mkdirSync(outDir, { recursive: true });
 const old = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, "utf8")) : [];
 // The owner's own photos (JPEG, not from Pexels) stay as they are.
-const manifest = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, "utf8")).filter((p) => p.ext === "jpg") : [];
+const manifest = old.filter((p) => p.ext === "jpg" || (only && !only.includes(p.theme)));
 const seen = new Set();
 
 for (const [theme, { per, queries }] of Object.entries(THEMES)) {
+  if (only && !only.includes(theme)) continue;
   let n = 0;
   for (const query of queries) {
     const photos = await search(query);

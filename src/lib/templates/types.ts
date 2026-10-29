@@ -122,6 +122,8 @@ export interface TemplateText {
 export type TemplateCategory =
   | "seasonal"
   | "cutout"
+  | "food"
+  | "mono"
   | "carousel"
   | "travel"
   | "film"
@@ -140,7 +142,7 @@ export type TemplateCategory =
   | "grid";
 
 /** Home order (SCRL-like sections, 2026-10-28). Events in season come before all of these (seasons.ts). */
-export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["carousel", "cutout", "torn", "film", "travel", "scrapbook", "doodle", "teen", "love", "retro", "editorial", "seamless", "collage", "occasion", "story", "minimal", "grid", "seasonal"];
+export const TEMPLATE_CATEGORIES: TemplateCategory[] = ["carousel", "cutout", "food", "mono", "torn", "film", "travel", "scrapbook", "doodle", "teen", "love", "retro", "editorial", "seamless", "collage", "occasion", "story", "minimal", "grid", "seasonal"];
 
 /** Kinds of sample photo a template's preview shows (public/samples, from Pexels). */
 export type SampleTheme = "travel" | "beach" | "city" | "food" | "portrait" | "friends" | "couple" | "autumn" | "nature" | "minimal" | "mono" | "party" | "fashion" | "winter" | "christmas" | "lunar" | "spring" | "flowers" | "school" | "kids" | "retro" | "concert" | "mirror" | "ootd";

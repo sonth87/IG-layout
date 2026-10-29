@@ -6,6 +6,7 @@ import { CUTOUT } from "./cutout";
 import { EDITORIAL } from "./editorial";
 import { EVERYDAY } from "./everyday";
 import { FILM } from "./film";
+import { FOOD, MONO } from "./foodmono";
 import { GRIDS } from "./grids";
 import { OCCASION } from "./occasion";
 import { SCRAPBOOK } from "./scrapbook";
@@ -31,6 +32,8 @@ import { WINTER } from "./winter";
 export const DESIGNS: Template[] = [
   ...AUTUMN,
   ...MOMENTS,
+  ...FOOD,
+  ...MONO,
   ...WINTER,
   ...TET,
   ...HOLIDAYS,
