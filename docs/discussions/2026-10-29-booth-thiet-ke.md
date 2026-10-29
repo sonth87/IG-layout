@@ -1,6 +1,6 @@
 # 2026-10-29 — Booth chụp một mình: tham khảo + đề xuất thiết kế
 
-> Trạng thái: **Đề xuất** — chờ chủ dự án chốt (Q-P14 → Q-P20). Chưa code.
+> Trạng thái: **Đã chốt phần lớn** (D-152 → D-157, 2026-10-29). Còn mở: theme (Q-P4), video hậu trường (Q-P20). Chưa code.
 > Nền: [2026-10-29-photobooth.md](2026-10-29-photobooth.md) (phân tích chung, mô hình ô D-147, monorepo D-150, tag D-151).
 
 ## 1. Tham khảo (2026-10-29)
@@ -59,7 +59,7 @@ Home booth ─► Chọn khung ─► Chụp ─► (Chọn ảnh) ─► Trang 
 
 ### 2.3 Chụp
 - Toàn màn camera, khung xem trước chỉ còn **viền mờ của ô đang chụp** (biết mình sắp vào ô nào, tỉ lệ ô nào).
-- Đếm ngược số to giữa màn + vòng tròn chạy; **loé trắng** (làm đèn cho camera trước) + tiếng màn trập (tắt được).
+- Đếm ngược **8 giây mỗi kiểu, nghỉ 2 giây** (D-154). Số to giữa màn + vòng tròn chạy; **loé trắng** (làm đèn cho camera trước) + tiếng màn trập (tắt được).
 - Sau mỗi kiểu: ảnh vừa chụp **bay xuống dải thumbnail** dưới đáy, nghỉ ~2 giây rồi đếm kiểu tiếp.
 - Nút: **Tạm dừng**, **Chụp lại kiểu vừa rồi**, **Thoát** (hỏi lại như ONBOOTH nếu đã có ảnh).
 - Ảnh chụp ở **độ phân giải gốc của camera**, giữ nguyên khung cảm biến (D-147), cắt vào ô sau.
@@ -138,3 +138,39 @@ Giao diện booth (nút, chữ, màu) luôn theo **Cinema**, không đổi theo 
 
 ## 7. Câu hỏi cho chủ dự án
 Xem [open-questions.md](../roadmap/open-questions.md) mục Photobooth (Q-P14 → Q-P20).
+
+## 8. Chủ dự án trả lời (2026-10-29)
+- Q-P14 luồng: **ok** (D-152).
+- Q-P15 khung: **tối đa 8 khung** (D-152) — giữ đúng 8 khung ở §3.
+- Q-P16: **mặc định không lật**, có nút để lật (D-153).
+- Q-P17: **đếm 8 giây, nghỉ 2 giây** (D-154).
+- Q-P18: **hỏi người dùng**, hoặc cho dạng **"Bất ngờ"** (D-155) — đề xuất: màn hỏi có 4 lựa chọn Post 4:5 · Carousel · Story · 🎁 Bất ngờ; "Bất ngờ" bốc ngẫu nhiên một dạng + một bố cục / template hợp số ảnh, mở editor kèm hoạt ảnh "mở quà"; không ưng thì bấm bốc lại.
+- Q-P19: **có lưu** (D-156).
+- Q-P3 chụp dư: **ok** (D-157).
+- Q-P20: chưa hiểu "video hậu trường" → giải thích bên dưới, chờ trả lời.
+- Q-P4: **thêm vài theme**, ví dụ Candy, Alice… → danh sách đề xuất bên dưới, chờ chọn.
+
+### Video hậu trường là gì (giải thích Q-P20)
+Ở tiệm Hàn (Photoism, Life4Cuts…), máy **quay video suốt lúc mình tạo dáng**; quét QR trên ảnh in là tải được clip đó — thấy cả lúc cười, chỉnh tóc, đổi dáng giữa các kiểu. Trong app có thể làm hai dạng:
+1. **Strip động (live strip):** mỗi ô là một đoạn **2–3 giây quay ngay trước lúc chụp** thay vì ảnh tĩnh → xuất MP4 / GIF, các ô cùng chuyển động trong khung. Hợp Story / Reels.
+2. **Video hậu trường:** ghép các đoạn đó nối nhau (kiểu "đang tạo dáng → tách! → ảnh"), kèm tiếng màn trập.
+Cách làm: trong lúc đếm ngược, máy ghi video camera (MediaRecorder, chỉ giữ vài giây cuối trước mỗi lần chụp) — không tốn thêm thao tác của người dùng. App đã có phần xuất video (mediabunny) nên dùng lại được. Đề xuất vẫn là **để sau** (sau khi booth ảnh tĩnh chạy ổn), nhưng thiết kế màn Chụp chừa chỗ từ đầu.
+
+### Theme đề xuất thêm (Q-P4)
+Theme = màu khung + filter + font + dấu ngày + bộ sticker gợi ý. Tất cả tự vẽ / dùng tài nguyên có sẵn, **không dùng hình nhân vật có bản quyền** (Alice dựa theo truyện gốc — đã hết bản quyền — nhưng tự vẽ, không lấy hình phim Disney).
+
+| Theme | Cảm giác | Khung / chi tiết | Filter | Font |
+|---|---|---|---|---|
+| **Cinema** | rạp phim cũ | nâu đen, lỗ phim kem, dấu vé "SUẤT 20:15" | ấm, hạt phim | serif đậm + mono |
+| **Classic** | tiệm 4 ô Hàn | trắng / đen trơn, logo nhỏ | tự nhiên | sans gọn |
+| **Đen trắng** | ảnh báo cũ | đen, hạt phim | Noir | mono |
+| **Candy** | kẹo ngọt, pastel | hồng – bạc hà – vàng bơ, viền lượn sóng, chấm bi, kẹo mút / kẹo cứng / tim | sáng, hồng nhẹ | tròn, mập |
+| **Alice** | xứ sở thần tiên | giấy cũ, hoa văn lá bài ♠♥♦♣, tách trà, đồng hồ bỏ túi, chìa khoá, viền hoa hồng | ấm dịu, hơi mơ | serif cổ điển, chữ nghiêng |
+| **Y2K** | đầu 2000 | chrome / holographic, ngôi sao lấp lánh, bong bóng chat, viền điện thoại nắp gập | tương phản, ánh tím xanh | pixel / bubble |
+| **Dreamy** | mơ màng | mây, sao, trăng, nền xanh tím nhạt, hiệu ứng loá | mờ sáng, hồng tím | viết tay |
+| **Polaroid / Film** | máy film | viền kem dày, chữ viết tay dưới ảnh, dấu ngày cam kiểu máy film | ấm, phai màu | viết tay + số cam |
+| **Báo / Tạp chí** | bìa tạp chí | tiêu đề lớn, cột chữ giả, mã vạch, "ISSUE 29.10" | tương phản | serif tạp chí |
+| **Tết** (theo mùa) | Tết Việt | đỏ – vàng, hoa mai / đào, bao lì xì, câu chúc | ấm đỏ | serif / thư pháp |
+| **Giáng sinh** (theo mùa) | Noel | xanh – đỏ, tuyết, dây đèn | lạnh nhẹ | serif |
+
+Đề xuất bản đầu: **Cinema, Classic, Đen trắng, Candy, Alice, Y2K** (6 theme); Dreamy, Polaroid, Báo, Tết, Giáng sinh thêm dần (chỉ là dữ liệu + sticker).

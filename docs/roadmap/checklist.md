@@ -563,6 +563,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Tag treo dây: bản thử `/labs/tag` (SwitchTag, chỉnh vật lý bằng thanh trượt; e2e `tag.mjs`)
 - [ ] Chủ dự án thử tag trên điện thoại, chốt hướng kéo (Q-P12) → gắn vào màn home thật khi có /booth
 - [x] Booth solo: tham khảo + đề xuất thiết kế (docs/discussions/2026-10-29-booth-thiet-ke.md)
-- [ ] Chủ dự án chốt thiết kế booth solo (Q-P14 → Q-P20, Q-P3, Q-P4)
+- [x] Chủ dự án chốt thiết kế booth solo (D-152 → D-157)
+- [ ] Còn mở: chọn theme (Q-P4), video hậu trường (Q-P20)
 - [ ] Booth solo: giao diện riêng (cinema), layout strip / lưới / khổ IG, sticker từ packages/canvas, chuyển ảnh sang IG Layout
 - [ ] Phòng online + sửa chung
