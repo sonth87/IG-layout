@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // onnxruntime-web runtime copied at build time (scripts/copy-ort.mjs).
     "public/ort/**",
+    // Cloudflare worker build cache (apps/signal).
+    "apps/*/.wrangler/**",
   ]),
 ]);
 
