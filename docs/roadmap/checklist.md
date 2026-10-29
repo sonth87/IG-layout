@@ -548,3 +548,4 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Chữ cắt báo bản 2: 30 kiểu, kiểu cổ điển như SCRL, phông thư viện, chất liệu giấy, xé nhiều kiểu; bỏ giấy cháy (D-142)
 - [ ] Cân nhắc "Cụm chữ có sẵn" cho chữ cắt báo (như SCRL Cutout Phrases)
 - [x] Kéo khung chữ: mọi tay nắm co giãn chữ (chữ thường + chữ cắt báo, hiện trực tiếp) (D-143, e2e stretch.mjs, cutout.mjs)
+- [x] Ảnh của chủ dự án (sample/3) làm ảnh mẫu: JPG 720 px, bỏ EXIF; +20 template concert / gương / outfit; lọc `?theme=` ở trang thử (D-144)

@@ -18,6 +18,7 @@ import { HOLIDAYS } from "./holidays";
 import { JOURNAL } from "./journal";
 import { LOVE } from "./love";
 import { MINIMAL } from "./minimal";
+import { MOMENTS } from "./moments";
 import { RETRO } from "./retro";
 import { TEEN } from "./teen";
 import { TET } from "./tet";
@@ -29,6 +30,7 @@ import { WINTER } from "./winter";
 
 export const DESIGNS: Template[] = [
   ...AUTUMN,
+  ...MOMENTS,
   ...WINTER,
   ...TET,
   ...HOLIDAYS,

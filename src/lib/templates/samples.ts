@@ -4,7 +4,8 @@ import manifest from "./samplePhotos.json";
 import type { SampleTheme, Template } from "./types";
 
 // Sample photos for template previews (2026-10-28, replaces the drawn landscapes of M18):
-// real photos from Pexels, small WebP files in public/samples (scripts/fetch-samples.mjs).
+// real photos from Pexels, small WebP files in public/samples (scripts/fetch-samples.mjs),
+// plus the owner's own photos (concert, mirror, ootd: JPEG, no EXIF).
 // Each template asks for themes; every photo cell gets a photo of a matching shape.
 
 interface SamplePhoto {
@@ -12,6 +13,8 @@ interface SamplePhoto {
   theme: SampleTheme;
   width: number;
   height: number;
+  /** File type: WebP from Pexels; the owner's own photos are JPEG (2026-10-29). */
+  ext?: "jpg";
 }
 
 const PHOTOS = manifest as SamplePhoto[];
@@ -21,7 +24,7 @@ const assets = new Map<string, ImageAsset>();
 function asset(p: SamplePhoto): ImageAsset {
   let a = assets.get(p.id);
   if (!a) {
-    a = { id: `sample-${p.id}`, blob: new Blob(), url: `/samples/${p.id}.webp`, width: p.width, height: p.height, name: p.id };
+    a = { id: `sample-${p.id}`, blob: new Blob(), url: `/samples/${p.id}.${p.ext ?? "webp"}`, width: p.width, height: p.height, name: p.id };
     assets.set(p.id, a);
   }
   return a;
@@ -93,5 +96,5 @@ export function samplePhotosFor(tpl: Template): ImageAsset[] {
 
 /** Sample photos of some themes (URL and shape), for other previews (grid profile mock-up). */
 export function samplesOf(themes: SampleTheme[]) {
-  return PHOTOS.filter((p) => themes.includes(p.theme)).map((p) => ({ url: `/samples/${p.id}.webp`, width: p.width, height: p.height }));
+  return PHOTOS.filter((p) => themes.includes(p.theme)).map((p) => ({ url: `/samples/${p.id}.${p.ext ?? "webp"}`, width: p.width, height: p.height }));
 }
