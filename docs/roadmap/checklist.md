@@ -551,3 +551,4 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Ảnh của chủ dự án (sample/3) làm ảnh mẫu: JPG 720 px, bỏ EXIF; +20 template concert / gương / outfit; lọc `?theme=` ở trang thử (D-144)
 - [x] Xác nhận khi tải lại trong editor; chặn kéo-để-làm-mới truyền từ vùng cuộn; nhóm Ăn uống + Đen trắng; mẫu concert bài The Weeknd (D-145)
 - [ ] Chủ dự án thử trên iPhone: còn bị kéo-để-làm-mới nhầm không (Safari iOS không có hộp thoại xác nhận)
+- [x] Ăn uống 20 mẫu làm lại + ảnh food / drinks / foodspot; Đen trắng 20 mẫu (D-146)

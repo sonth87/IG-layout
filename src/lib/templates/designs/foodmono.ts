@@ -1,156 +1,312 @@
 import type { Template } from "../types";
-import { art, block, cells, design, icon, INK, KRAFT, photo, strip, t, tape, text, WHITE_FRAME } from "./kit";
+import { art, block, cells, design, icon, INK, photo, strip, t, tape, text, WHITE_FRAME } from "./kit";
 
-// Food and black & white (owner, 2026-10-29): two groups of their own, with more sample
-// photos (food: noodles, night markets, desserts, family dinners; mono: couples, buildings,
-// cafés, beaches).
+// Food & drinks and black & white (owner, 2026-10-29). Food, second round: the look of food
+// accounts — warm creams, mocha and olive, lots of room, small italic serifs, top-down photos
+// edge to edge. Sample themes: food (dishes), drinks, foodspot (cafés, night markets).
 
-const CREAM = "#f6efe2";
-const TOMATO = "#c8452f";
+const CREAM = "#f4ede3";
+const OAT = "#e9dfd1";
+const MOCHA = "#6b4f3a";
+const OLIVE = "#5f6b4e";
+const TERRA = "#c46a4a";
+const MATCHA = "#e6eadb";
 const GREY = "#8a8378";
 const P = 0.8;
+const SMALL = { font: "spaceGrotesk", size: 0.026, letterSpacing: 0.22 } as const;
 const monoStrip = strip(0, 0, 0.3, 0.47, 0.34, 4, -3, P, "#111111");
 
 export const FOOD: Template[] = [
-  design("food-menu", "food", t("Today's menu", "Thực đơn hôm nay"), {
-    themes: ["food"],
-    slides: 1,
-    background: { kind: "color", color: CREAM },
-    shapes: [block(0, 0.06, 0.05, 0.88, 0.003, INK), block(0, 0.06, 0.95, 0.88, 0.003, INK)],
-    slots: [photo(0, 0, 0.5, 0.1, 0.44, 0.56, { mask: "arch" }), photo(1, 0, 0.5, 0.7, 0.44, 0.22)],
-    texts: [
-      text(0, 0.06, 0.09, 0.42, t("Menu", "Thực đơn"), { font: "playfair", size: 0.1, color: INK, align: "left", italic: true, bold: true }),
-      text(0, 0.06, 0.21, 0.42, t("SUNDAY · AT HOME", "CHỦ NHẬT · Ở NHÀ"), { font: "spaceGrotesk", size: 0.026, color: GREY, align: "left", letterSpacing: 0.2 }),
-      ...[t("Beef noodle soup", "Phở bò"), t("Spring rolls", "Nem rán"), t("Grilled fish", "Cá nướng"), t("Mango sticky rice", "Xôi xoài"), t("Iced coffee", "Cà phê sữa đá")].map((w, i) =>
-        text(0, 0.06, 0.32 + i * 0.11, 0.4, w, { font: "cormorant", size: 0.05, color: INK, align: "left", italic: true }),
-      ),
-    ],
-  }),
-  design("food-review", "food", t("Food review", "Review quán"), {
-    format: "story",
-    themes: ["food"],
-    slides: 1,
-    slots: [photo(0, 0, 0, 0, 1, 0.66)],
-    background: { kind: "color", color: "#fff8ef" },
-    widgets: [{ slide: 0, x: 0.08, y: 0.6, w: 0.84, kind: "starRating", variant: "card", fields: { title: t("The corner noodle shop", "Quán phở đầu ngõ"), comment: t("Broth for days. Coming back tomorrow.", "Nước dùng đậm, mai ăn tiếp."), score: t("4.8 / 5", "4,8 / 5") } }],
-  }),
-  design("food-tour", "food", t("Food tour", "Food tour"), {
-    themes: ["food"],
-    slides: 4,
-    background: { kind: "color", color: "#1d1c1a" },
-    slots: [photo(0, 0, 0, 0.3, 1, 0.7), ...[1, 2, 3].map((s) => photo(s, s, 0.06, 0.06, 0.88, 0.72, { mask: "rounded", cornerRadius: 0.03 }))],
-    texts: [
-      text(0, 0.06, 0.05, 0.88, t("FOOD\nTOUR", "FOOD\nTOUR"), { font: "anton", size: 0.13, color: "#ffd84d", align: "left", lineHeight: 0.9 }),
-      text(0, 0.5, 0.16, 0.44, t("3 stops, 1 stomach", "3 điểm, 1 cái bụng"), { font: "patrickHand", size: 0.045, color: "#ffffff", align: "right" }),
-      ...[t("01 · noodles", "01 · bún"), t("02 · grill", "02 · đồ nướng"), t("03 · dessert", "03 · tráng miệng")].map((w, i) => text(i + 1, 0.06, 0.82, 0.6, w, { font: "anton", size: 0.06, color: "#ffffff", align: "left", letterSpacing: 0.04 })),
-      ...[t("35k", "35k"), t("80k", "80k"), t("25k", "25k")].map((w, i) => text(i + 1, 0.66, 0.83, 0.28, w, { font: "beVietnam", size: 0.04, color: INK, bold: true, background: { color: "#ffd84d", padding: 0.5, radius: 0.6 } })),
-    ],
-  }),
-  design("food-receipt", "food", t("The bill", "Hoá đơn"), {
-    themes: ["food"],
-    slides: 1,
-    background: { kind: "color", color: "#e9e4da" },
-    slots: [photo(0, 0, 0.06, 0.06, 0.52, 0.66, { shadow: true, rotation: -3 })],
-    widgets: [{ slide: 0, x: 0.5, y: 0.34, w: 0.44, kind: "receipt", variant: "thermal", rotation: 4, fields: { storeName: t("DINNER WITH YOU", "BỮA TỐI CÙNG CẬU"), line1: t("2x noodles ........ 70k", "2x phở .......... 70k"), line2: t("1x spring rolls ... 40k", "1x nem .......... 40k"), line3: t("laughs ......... free", "tiếng cười ...... 0đ"), total: t("TOTAL: worth it", "TỔNG: đáng lắm") } }],
-  }),
-  design("food-recipe", "food", t("Recipe card", "Thẻ công thức"), {
-    themes: ["food"],
-    slides: 2,
-    background: { kind: "color", color: "#f3efe6" },
-    slots: [photo(0, 0, 0, 0, 1, 1), photo(1, 1, 0.06, 0.06, 0.88, 0.44, { mask: "rounded", cornerRadius: 0.03 })],
-    texts: [text(0, 0.06, 0.8, 0.88, t("homemade, step by step →", "tự nấu, từng bước →"), { font: "beVietnam", size: 0.034, color: INK, bold: true, align: "left", background: { color: "#ffffff", padding: 0.5, radius: 0.5 } })],
-    widgets: [{ slide: 1, x: 0.06, y: 0.54, w: 0.88, kind: "recipeCard", variant: "lined", fields: { dishName: t("Mum's beef noodle soup", "Phở bò của mẹ"), prepTime: t("3 hours", "3 tiếng"), servings: t("4 bowls", "4 bát"), ingredients: t("Beef bones • star anise • ginger • rice noodles", "Xương bò • hoa hồi • gừng • bánh phở"), tip: t("Char the onion and ginger first", "Nướng hành gừng trước cho thơm") } }],
-  }),
-  design("food-week", "food", t("What I ate this week", "Tuần này ăn gì"), {
-    themes: ["food"],
-    slides: 1,
-    background: { kind: "color", color: "#ffffff" },
-    slots: cells(0, 0, [0.04, 0.14, 0.92, 0.82], 3, 3, 0.012),
-    texts: [
-      text(0, 0.04, 0.04, 0.92, t("what I ate this week", "tuần này mình ăn gì"), { font: "anton", size: 0.07, color: INK, cutout: { style: "classic", seed: 5, mess: 0.3, wave: 0.12 } }),
-    ],
-  }),
-  design("food-kraft-polaroids", "food", t("Eating my way around", "Ăn sập thành phố"), {
-    themes: ["food"],
-    slides: 1,
-    background: { kind: "color", color: KRAFT },
-    shapes: [tape(0, 0.3, 0.06, -6), tape(0, 0.74, 0.12, 6), tape(0, 0.46, 0.5, -3)],
-    slots: [photo(0, 0, 0.06, 0.08, 0.44, 0.42, { frame: "polaroid", shadow: true, rotation: -5 }), photo(1, 0, 0.52, 0.13, 0.42, 0.4, { frame: "polaroid", shadow: true, rotation: 4 }), photo(2, 0, 0.26, 0.52, 0.44, 0.42, { frame: "polaroid", shadow: true, rotation: 2 })],
-    texts: [text(0, 0.62, 0.66, 0.34, t("eating my\nway around\nthe city", "ăn sập\nthành phố"), { font: "patrickHand", size: 0.05, color: INK, align: "left", lineHeight: 1.05, rotation: 4 })],
-  }),
-  design("food-street-night", "food", t("Street food night", "Đêm ăn vặt"), {
-    format: "story",
+  design("food-flatlay", "food", t("Top-down", "Chụp từ trên xuống"), {
     themes: ["food"],
     slides: 1,
     slots: [photo(0, 0, 0, 0, 1, 1)],
     texts: [
-      text(0, 0.04, 0.13, 0.92, t("street\nfood\nnight", "đêm\năn vặt"), { font: "anton", size: 0.14, color: INK, lineHeight: 1, cutout: { style: "neon", seed: 6, mess: 0.4, wave: 0.25 } }),
-      text(0, 0.08, 0.8, 0.84, t("📍 the night market", "📍 chợ đêm"), { font: "beVietnam", size: 0.04, color: INK, bold: true, background: { color: "#ffffff", padding: 0.5, radius: 0.6 } }),
+      text(0, 0.05, 0.9, 0.5, t("sunday brunch", "brunch chủ nhật"), { font: "cormorant", size: 0.055, color: "#ffffff", align: "left", italic: true, shadow: true }),
+      text(0, 0.5, 0.915, 0.45, t("10:30 AM", "10:30 SÁNG"), { ...SMALL, color: "#ffffff", align: "right", shadow: true }),
     ],
   }),
-  design("food-bowl", "food", t("Morning bowl", "Bát phở sáng"), {
+  design("food-cafe-diary", "food", t("Café diary", "Nhật ký quán cà phê"), {
+    themes: ["drinks", "food"],
+    slides: 3,
+    background: { kind: "color", color: CREAM },
+    slots: [photo(0, 0, 0.14, 0.12, 0.72, 0.66, { mask: "arch" }), photo(1, 1, 0.08, 0.1, 0.4, 0.58, { mask: "rounded", cornerRadius: 0.02 }), photo(2, 1, 0.52, 0.32, 0.4, 0.58, { mask: "rounded", cornerRadius: 0.02 }), photo(3, 2, 0.1, 0.1, 0.8, 0.6, { mask: "rounded", cornerRadius: 0.02 })],
+    texts: [
+      text(0, 0.1, 0.83, 0.8, t("café diary", "nhật ký cà phê"), { font: "cormorant", size: 0.075, color: MOCHA, italic: true }),
+      text(0, 0.1, 0.92, 0.8, t("NO. 12 · OAT FLAT WHITE", "SỐ 12 · BẠC XỈU SỮA YẾN MẠCH"), { ...SMALL, color: GREY }),
+      text(1, 0.08, 0.76, 0.4, t("slow sip,\nslow morning", "nhâm nhi chậm,\nsáng chậm"), { font: "cormorant", size: 0.05, color: MOCHA, align: "left", italic: true, lineHeight: 1.05 }),
+      text(2, 0.1, 0.76, 0.8, t("★★★★☆  would come back", "★★★★☆  sẽ quay lại"), { ...SMALL, size: 0.03, color: MOCHA, align: "left" }),
+      text(2, 0.1, 0.84, 0.8, t("📍 the quiet corner café", "📍 quán góc phố yên tĩnh"), { font: "cormorant", size: 0.05, color: MOCHA, align: "left", italic: true }),
+    ],
+  }),
+  design("food-latte-circle", "food", t("But first, coffee", "Cà phê trước đã"), {
+    themes: ["drinks"],
+    slides: 1,
+    background: { kind: "color", color: OAT },
+    slots: [photo(0, 0, 0.16, 0.16, 0.68, 0.544, { mask: "circle", shadow: true })],
+    texts: [
+      text(0, 0.1, 0.06, 0.8, t("but first,", "trước hết,"), { font: "cormorant", size: 0.06, color: MOCHA, italic: true }),
+      text(0, 0.1, 0.77, 0.8, t("coffee", "cà phê"), { font: "playfair", size: 0.12, color: MOCHA, italic: true }),
+      text(0, 0.1, 0.92, 0.8, t("LATTE · 07:45", "LATTE · 07:45"), { ...SMALL, color: GREY }),
+    ],
+  }),
+  design("food-menu", "food", t("Menu card", "Thẻ thực đơn"), {
     themes: ["food"],
     slides: 1,
-    background: { kind: "color", color: "#f1e7d6" },
-    slots: [photo(0, 0, 0.14, 0.14, 0.72, 0.576, { mask: "circle", border: { width: 0.02, color: "#ffffff" }, shadow: true })],
+    background: { kind: "color", color: CREAM },
+    shapes: [block(0, 0.06, 0.4, 0.88, 0.003, MOCHA), block(0, 0.06, 0.408, 0.88, 0.0012, MOCHA), block(0, 0.06, 0.94, 0.88, 0.0012, MOCHA)],
+    slots: cells(0, 0, [0, 0, 1, 0.34], 3, 1, 0),
     texts: [
-      text(0, 0.06, 0.04, 0.88, t("good morning", "chào buổi sáng"), { font: "greatVibes", size: 0.08, color: TOMATO }),
-      text(0, 0.06, 0.78, 0.88, t("a bowl of noodles\nfixes everything", "một bát phở\nchữa lành mọi thứ"), { font: "cormorant", size: 0.065, color: INK, italic: true, lineHeight: 1.05 }),
+      text(0, 0.06, 0.43, 0.88, t("Menu", "Thực đơn"), { font: "playfair", size: 0.09, color: MOCHA, italic: true }),
+      text(0, 0.06, 0.54, 0.88, t("SUNDAY · AT HOME", "CHỦ NHẬT · Ở NHÀ"), { ...SMALL, color: GREY }),
+      ...[
+        [t("Beef noodle soup", "Phở bò"), "45"],
+        [t("Crispy spring rolls", "Nem rán giòn"), "30"],
+        [t("Mango sticky rice", "Xôi xoài"), "25"],
+        [t("Iced milk coffee", "Cà phê sữa đá"), "20"],
+      ].map(([w, price], i) => [
+        text(0, 0.12, 0.62 + i * 0.075, 0.6, w as { en: string; vi: string }, { font: "cormorant", size: 0.048, color: INK, align: "left", italic: true }),
+        text(0, 0.72, 0.625 + i * 0.075, 0.16, t(price as string, price as string), { ...SMALL, size: 0.03, color: MOCHA, align: "right" }),
+      ]).flat(),
     ],
   }),
-  design("food-cafe-hopping", "food", t("Café hopping", "Đi cà phê"), {
-    themes: ["food"],
-    slides: 3,
-    background: { kind: "color", color: "#efe6d6" },
-    art: [art("gen-stamps/stamp-10", 0, 0.08, 0.2, 0.5, { rotation: -4 }), art("gen-stamps/stamp-15", 0, 0.5, 0.42, 0.44, { rotation: 5, photo: 1 })],
-    slots: [photo(2, 1, 0.06, 0.06, 0.88, 0.62, WHITE_FRAME), photo(3, 2, 0.06, 0.06, 0.43, 0.6, WHITE_FRAME), photo(4, 2, 0.51, 0.3, 0.43, 0.6, WHITE_FRAME)],
+  design("food-matcha", "food", t("Matcha mood", "Tâm trạng matcha"), {
+    themes: ["drinks"],
+    slides: 1,
+    background: { kind: "color", color: MATCHA },
+    slots: [photo(0, 0, 0.06, 0.06, 0.52, 0.62, { mask: "rounded", cornerRadius: 0.03 }), photo(1, 0, 0.62, 0.06, 0.32, 0.3, { mask: "rounded", cornerRadius: 0.03 }), photo(2, 0, 0.62, 0.38, 0.32, 0.3, { mask: "rounded", cornerRadius: 0.03 })],
     texts: [
-      text(0, 0.06, 0.05, 0.88, t("café hopping", "cà phê dạo"), { font: "greatVibes", size: 0.1, color: "#5b3a24", align: "left" }),
-      text(1, 0.06, 0.74, 0.88, t("stop no. 2 — the one with the cat", "quán số 2 — quán có con mèo"), { font: "patrickHand", size: 0.05, color: "#5b3a24", align: "left" }),
+      text(0, 0.06, 0.74, 0.88, t("matcha mood", "tâm trạng matcha"), { font: "playfair", size: 0.09, color: OLIVE, align: "left", italic: true }),
+      text(0, 0.06, 0.88, 0.88, t("CEREMONIAL GRADE · OAT MILK · LESS SUGAR", "LOẠI THƯỢNG HẠNG · SỮA YẾN MẠCH · ÍT ĐƯỜNG"), { ...SMALL, color: OLIVE, align: "left" }),
+    ],
+  }),
+  design("food-recipe", "food", t("Recipe card", "Thẻ công thức"), {
+    themes: ["food"],
+    slides: 2,
+    background: { kind: "color", color: CREAM },
+    slots: [photo(0, 0, 0, 0, 1, 1), photo(1, 1, 0.06, 0.06, 0.88, 0.42, { mask: "rounded", cornerRadius: 0.02 })],
+    texts: [text(0, 0.06, 0.88, 0.88, t("homemade · recipe inside →", "tự nấu · công thức bên trong →"), { font: "cormorant", size: 0.05, color: "#ffffff", align: "left", italic: true, shadow: true })],
+    widgets: [{ slide: 1, x: 0.06, y: 0.52, w: 0.88, kind: "recipeCard", variant: "lined", fields: { dishName: t("Mum's beef noodle soup", "Phở bò của mẹ"), prepTime: t("3 hours", "3 tiếng"), servings: t("4 bowls", "4 bát"), ingredients: t("Beef bones • star anise • ginger • rice noodles", "Xương bò • hoa hồi • gừng • bánh phở"), tip: t("Char the onion and ginger first", "Nướng hành gừng trước cho thơm") } }],
+  }),
+  design("food-tour", "food", t("Food tour", "Food tour"), {
+    themes: ["food"],
+    slides: 4,
+    background: { kind: "color", color: CREAM },
+    slots: [photo(0, 0, 0, 0, 1, 0.68), ...[1, 2, 3].map((s) => photo(s, s, 0.08, 0.08, 0.84, 0.7, { mask: "rounded", cornerRadius: 0.02 }))],
+    texts: [
+      text(0, 0.06, 0.72, 0.88, t("a little\nfood tour", "food tour\nnho nhỏ"), { font: "playfair", size: 0.085, color: MOCHA, align: "left", italic: true, lineHeight: 1 }),
+      text(0, 0.06, 0.92, 0.88, t("3 STOPS · 1 HAPPY STOMACH", "3 ĐIỂM · 1 CÁI BỤNG VUI"), { ...SMALL, color: GREY, align: "left" }),
+      ...[t("noodles", "bún chả"), t("grill", "đồ nướng"), t("dessert", "tráng miệng")].map((w, i) => text(i + 1, 0.08, 0.81, 0.6, w, { font: "cormorant", size: 0.065, color: MOCHA, align: "left", italic: true })),
+      ...[1, 2, 3].map((s) => text(s, 0.6, 0.83, 0.32, t(`0${s} / 03`, `0${s} / 03`), { ...SMALL, color: GREY, align: "right" })),
+    ],
+  }),
+  design("food-brunch-grid", "food", t("Brunch, four ways", "Bốn góc bữa brunch"), {
+    themes: ["food"],
+    slides: 1,
+    background: { kind: "color", color: "#ffffff" },
+    slots: cells(0, 0, [0.04, 0.04, 0.92, 0.82], 2, 2, 0.012),
+    texts: [
+      text(0, 0.04, 0.9, 0.6, t("brunch club", "hội ăn brunch"), { font: "cormorant", size: 0.055, color: INK, align: "left", italic: true }),
+      text(0, 0.5, 0.91, 0.46, t("EVERY SUNDAY", "MỖI CHỦ NHẬT"), { ...SMALL, color: GREY, align: "right" }),
     ],
   }),
   design("food-sweet-tooth", "food", t("Sweet tooth", "Hảo ngọt"), {
     themes: ["food"],
     slides: 1,
-    background: { kind: "color", color: "#fde8ee" },
-    slots: [photo(0, 0, 0.06, 0.16, 0.42, 0.56, { mask: "arch", border: { width: 0.012, color: "#ffffff" } }), photo(1, 0, 0.52, 0.3, 0.42, 0.56, { mask: "arch", border: { width: 0.012, color: "#ffffff" } })],
-    icons: [icon("doodle-heartFilled", 0, 0.82, 0.06, 0.12, { color: "#e86f9a" }), icon("doodle-sparkle", 0, 0.08, 0.78, 0.1, { color: "#e86f9a" })],
-    texts: [text(0, 0.06, 0.04, 0.7, t("sweet tooth", "hảo ngọt"), { font: "anton", size: 0.09, color: INK, align: "left", cutout: { style: "pastel", seed: 4, mess: 0.4, wave: 0.2 } })],
+    background: { kind: "color", color: "#f7e6e4" },
+    slots: [photo(0, 0, 0.06, 0.2, 0.42, 0.58, { mask: "arch" }), photo(1, 0, 0.52, 0.14, 0.42, 0.58, { mask: "arch" })],
+    texts: [
+      text(0, 0.06, 0.05, 0.88, t("sweet tooth", "hảo ngọt"), { font: "playfair", size: 0.09, color: "#a24b5a", italic: true }),
+      text(0, 0.06, 0.85, 0.88, t("one slice was never enough", "một miếng chưa bao giờ đủ"), { font: "cormorant", size: 0.05, color: "#a24b5a", italic: true }),
+    ],
   }),
-  design("food-issue", "food", t("The food issue", "Số đặc biệt: ăn uống"), {
+  design("food-pho-story", "food", t("Morning bowl", "Bát phở 6 giờ sáng"), {
+    format: "story",
+    themes: ["food"],
+    slides: 1,
+    slots: [photo(0, 0, 0, 0, 1, 1)],
+    texts: [
+      text(0, 0.06, 0.14, 0.88, t("6 a.m.\nnoodles", "phở\n6 giờ sáng"), { font: "playfair", size: 0.11, color: "#ffffff", align: "left", italic: true, shadow: true, lineHeight: 0.95 }),
+      text(0, 0.06, 0.78, 0.7, t("📍 the stall with no name", "📍 quán không tên đầu ngõ"), { font: "beVietnam", size: 0.034, color: INK, align: "left", bold: true, background: { color: "#ffffff", padding: 0.5, radius: 0.6 } }),
+    ],
+  }),
+  design("food-review", "food", t("Review card", "Thẻ review"), {
+    format: "story",
+    themes: ["food", "drinks"],
+    slides: 1,
+    background: { kind: "color", color: CREAM },
+    slots: [photo(0, 0, 0.06, 0.14, 0.88, 0.48, { mask: "rounded", cornerRadius: 0.04 })],
+    widgets: [{ slide: 0, x: 0.06, y: 0.64, w: 0.88, kind: "starRating", variant: "card", fields: { title: t("The corner noodle shop", "Quán phở đầu ngõ"), comment: t("Broth for days. Coming back tomorrow.", "Nước dùng đậm, mai ăn tiếp."), score: t("4.8 / 5", "4,8 / 5") } }],
+  }),
+  design("food-receipt", "food", t("The bill", "Hoá đơn"), {
+    themes: ["food"],
+    slides: 1,
+    background: { kind: "color", color: OAT },
+    slots: [photo(0, 0, 0.06, 0.06, 0.56, 0.7, { mask: "rounded", cornerRadius: 0.02, shadow: true })],
+    widgets: [{ slide: 0, x: 0.5, y: 0.38, w: 0.44, kind: "receipt", variant: "thermal", rotation: 4, fields: { storeName: t("DINNER WITH YOU", "BỮA TỐI CÙNG CẬU"), line1: t("2x noodles ........ 70k", "2x phở .......... 70k"), line2: t("1x spring rolls ... 40k", "1x nem .......... 40k"), line3: t("laughs ......... free", "tiếng cười ...... 0đ"), total: t("TOTAL: worth it", "TỔNG: đáng lắm") } }],
+  }),
+  design("food-coffee-week", "food", t("A week of coffee", "Một tuần cà phê"), {
+    themes: ["drinks"],
+    slides: 1,
+    background: { kind: "color", color: CREAM },
+    slots: cells(0, 0, [0.06, 0.16, 0.88, 0.7], 3, 2, 0.02, P, { mask: "rounded", cornerRadius: 0.015 }),
+    texts: [
+      text(0, 0.06, 0.05, 0.88, t("seven days, seven cups", "bảy ngày, bảy ly"), { font: "cormorant", size: 0.065, color: MOCHA, align: "left", italic: true }),
+      text(0, 0.06, 0.89, 0.88, t("MON  TUE  WED  THU  FRI  SAT", "T2  T3  T4  T5  T6  T7"), { ...SMALL, color: GREY }),
+    ],
+  }),
+  design("food-bubble-tea", "food", t("Bubble tea?", "Trà sữa không?"), {
+    format: "story",
+    themes: ["drinks"],
+    slides: 1,
+    background: { kind: "color", color: "#fde7ef" },
+    slots: [photo(0, 0, 0.14, 0.2, 0.72, 0.5, { mask: "arch", border: { width: 0.014, color: "#ffffff" } })],
+    icons: [icon("doodle-hearts", 0, 0.68, 0.14, 0.2, { color: "#e86f9a" }), icon("doodle-sparkle", 0, 0.1, 0.72, 0.1, { color: "#e86f9a" })],
+    texts: [text(0, 0.06, 0.74, 0.88, t("bubble tea?\nalways yes", "trà sữa không?\nluôn luôn có"), { font: "patrickHand", size: 0.075, color: "#c2306b", lineHeight: 1.05 })],
+  }),
+  design("food-cocktail", "food", t("Friday drinks", "Tối thứ sáu"), {
+    themes: ["drinks"],
+    slides: 2,
+    background: { kind: "color", color: "#1b1512" },
+    slots: [photo(0, 0, 0.1, 0.1, 0.8, 0.66, { mask: "arch" }), photo(1, 1, 0.06, 0.06, 0.43, 0.7), photo(2, 1, 0.51, 0.24, 0.43, 0.7)],
+    texts: [
+      text(0, 0.1, 0.8, 0.8, t("friday drinks", "tối thứ sáu"), { font: "playfair", size: 0.08, color: "#e8c98b", italic: true }),
+      text(0, 0.1, 0.91, 0.8, t("SHAKEN · STIRRED · SHARED", "LẮC · KHUẤY · CHIA NHAU"), { ...SMALL, color: "#a8977a" }),
+    ],
+  }),
+  design("food-cafe-hopping", "food", t("Café hopping", "Cà phê dạo"), {
+    themes: ["foodspot", "drinks"],
+    slides: 3,
+    background: { kind: "color", color: "#efe6d6" },
+    art: [art("gen-stamps/stamp-10", 0, 0.08, 0.2, 0.5, { rotation: -4 }), art("gen-stamps/stamp-15", 0, 0.5, 0.42, 0.44, { rotation: 5, photo: 1 })],
+    slots: [photo(2, 1, 0.06, 0.06, 0.88, 0.62, WHITE_FRAME), photo(3, 2, 0.06, 0.06, 0.43, 0.6, WHITE_FRAME), photo(4, 2, 0.51, 0.3, 0.43, 0.6, WHITE_FRAME)],
+    texts: [
+      text(0, 0.06, 0.05, 0.88, t("café hopping", "cà phê dạo"), { font: "playfair", size: 0.08, color: MOCHA, align: "left", italic: true }),
+      text(1, 0.06, 0.74, 0.88, t("stop no. 2 — the one with the cat", "quán số 2 — quán có con mèo"), { font: "cormorant", size: 0.05, color: MOCHA, align: "left", italic: true }),
+    ],
+  }),
+  design("food-night-market", "food", t("Night market", "Đêm chợ"), {
+    format: "story",
+    themes: ["foodspot"],
+    slides: 1,
+    slots: [photo(0, 0, 0, 0, 1, 1)],
+    texts: [
+      text(0, 0.04, 0.13, 0.92, t("night\nmarket", "đêm\nchợ"), { font: "anton", size: 0.15, color: INK, lineHeight: 1, cutout: { style: "neon", seed: 6, mess: 0.4, wave: 0.25 } }),
+      text(0, 0.08, 0.8, 0.84, t("grilled everything, until midnight", "nướng đủ món, tới nửa đêm"), { font: "beVietnam", size: 0.034, color: INK, bold: true, background: { color: "#ffffff", padding: 0.5, radius: 0.6 } }),
+    ],
+  }),
+  design("food-family-dinner", "food", t("Home cooking", "Cơm nhà"), {
     themes: ["food"],
     slides: 2,
-    background: { kind: "color", color: "#ffffff" },
-    slots: [photo(0, 0, 0, 0, 1, 1), photo(1, 1, 0.06, 0.06, 0.42, 0.56), photo(2, 1, 0.52, 0.38, 0.42, 0.56)],
+    background: { kind: "color", color: "#f3ead9" },
+    shapes: [tape(1, 0.3, 0.06, -6, "#e8d5b5"), tape(1, 0.72, 0.5, 5, "#e8d5b5")],
+    slots: [photo(0, 0, 0, 0, 1, 0.74), photo(1, 1, 0.06, 0.08, 0.5, 0.42, { ...WHITE_FRAME, rotation: -3 }), photo(2, 1, 0.44, 0.52, 0.5, 0.4, { ...WHITE_FRAME, rotation: 3 })],
     texts: [
-      text(0, 0.04, 0.03, 0.92, t("FOOD", "ĂN"), { font: "playfair", size: 0.28, color: "#ffffff", bold: true, shadow: true }),
-      text(0, 0.06, 0.86, 0.88, t("THE TASTE ISSUE · 12 PLACES WE LOVED", "SỐ VỊ GIÁC · 12 QUÁN MÌNH THƯƠNG"), { font: "spaceGrotesk", size: 0.028, color: "#ffffff", align: "left", letterSpacing: 0.18, shadow: true }),
-      text(1, 0.06, 0.68, 0.42, t("“Eat slowly,\nthen order\none more.”", "“Ăn chậm,\nrồi gọi\nthêm món.”"), { font: "cormorant", size: 0.06, color: INK, align: "left", italic: true, lineHeight: 1 }),
+      text(0, 0.06, 0.78, 0.88, t("home cooking", "cơm nhà"), { font: "playfair", size: 0.085, color: TERRA, align: "left", italic: true }),
+      text(0, 0.06, 0.9, 0.88, t("MUM'S KITCHEN · SUNDAY 6 PM", "BẾP CỦA MẸ · 6 GIỜ CHIỀU CHỦ NHẬT"), { ...SMALL, color: GREY, align: "left" }),
+      text(1, 0.06, 0.6, 0.36, t("nothing\ntastes like\nhome", "không gì\nngon bằng\ncơm mẹ nấu"), { font: "cormorant", size: 0.055, color: TERRA, align: "left", italic: true, lineHeight: 1.05 }),
     ],
   }),
   design("food-before-after", "food", t("Before / after", "Trước / sau khi ăn"), {
     themes: ["food"],
     slides: 1,
-    background: { kind: "color", color: "#f4f1ec" },
-    slots: [photo(0, 0, 0.04, 0.18, 0.45, 0.66), photo(1, 0, 0.51, 0.18, 0.45, 0.66)],
+    background: { kind: "color", color: CREAM },
+    slots: [photo(0, 0, 0.04, 0.16, 0.45, 0.66, { mask: "rounded", cornerRadius: 0.02 }), photo(1, 0, 0.51, 0.16, 0.45, 0.66, { mask: "rounded", cornerRadius: 0.02 })],
     texts: [
-      text(0, 0.04, 0.05, 0.92, t("the meal, in two acts", "bữa ăn, hai hồi"), { font: "playfair", size: 0.065, color: INK, bold: true }),
-      text(0, 0.04, 0.87, 0.45, t("BEFORE", "TRƯỚC"), { font: "spaceGrotesk", size: 0.035, color: INK, letterSpacing: 0.25 }),
-      text(0, 0.51, 0.87, 0.45, t("AFTER (oops)", "SAU (hết sạch)"), { font: "spaceGrotesk", size: 0.035, color: INK, letterSpacing: 0.25 }),
+      text(0, 0.04, 0.05, 0.92, t("the meal, in two acts", "bữa ăn, hai hồi"), { font: "cormorant", size: 0.065, color: MOCHA, italic: true }),
+      text(0, 0.04, 0.86, 0.45, t("BEFORE", "TRƯỚC"), { ...SMALL, color: MOCHA }),
+      text(0, 0.51, 0.86, 0.45, t("AFTER (oops)", "SAU (hết sạch)"), { ...SMALL, color: MOCHA }),
+    ],
+  }),
+  design("food-issue", "food", t("The taste issue", "Số đặc biệt: vị giác"), {
+    themes: ["food", "drinks"],
+    slides: 2,
+    background: { kind: "color", color: "#ffffff" },
+    slots: [photo(0, 0, 0, 0, 1, 1), photo(1, 1, 0.06, 0.06, 0.42, 0.56), photo(2, 1, 0.52, 0.38, 0.42, 0.56)],
+    texts: [
+      text(0, 0.04, 0.04, 0.92, t("taste", "vị"), { font: "playfair", size: 0.24, color: "#ffffff", italic: true, shadow: true }),
+      text(0, 0.06, 0.88, 0.88, t("THE TASTE ISSUE · 12 PLACES WE LOVED", "SỐ VỊ GIÁC · 12 QUÁN MÌNH THƯƠNG"), { ...SMALL, color: "#ffffff", align: "left", shadow: true }),
+      text(1, 0.06, 0.68, 0.42, t("“Eat slowly,\nthen order\none more.”", "“Ăn chậm,\nrồi gọi\nthêm món.”"), { font: "cormorant", size: 0.06, color: INK, align: "left", italic: true, lineHeight: 1 }),
     ],
   }),
 ];
 
 export const MONO: Template[] = [
-  design("mono-gallery", "mono", t("Gallery print", "Bản in triển lãm"), {
+  design("mono-full-caption", "mono", t("Noir et blanc", "Noir et blanc"), {
+    themes: ["mono"],
+    slides: 1,
+    slots: [photo(0, 0, 0, 0, 1, 1)],
+    texts: [
+      text(0, 0.05, 0.9, 0.6, t("noir et blanc", "noir et blanc"), { font: "cormorant", size: 0.055, color: "#ffffff", align: "left", italic: true, shadow: true }),
+      text(0, 0.55, 0.915, 0.4, t("NO. 01", "SỐ 01"), { ...SMALL, color: "#ffffff", align: "right", shadow: true }),
+    ],
+  }),
+  design("mono-film-border", "mono", t("Film border", "Viền phim"), {
+    themes: ["mono"],
+    slides: 1,
+    background: { kind: "color", color: "#0c0c0c" },
+    slots: [photo(0, 0, 0.07, 0.12, 0.86, 0.72)],
+    texts: [
+      text(0, 0.07, 0.05, 0.4, t("▶ 24A", "▶ 24A"), { ...SMALL, color: "#e8a33d", align: "left" }),
+      text(0, 0.5, 0.05, 0.43, t("ISO 400 · B&W", "ISO 400 · ĐEN TRẮNG"), { ...SMALL, color: "#e8a33d", align: "right" }),
+      text(0, 0.07, 0.88, 0.86, t("shot on film, developed at home", "chụp phim, tự tráng ở nhà"), { font: "cormorant", size: 0.045, color: "#bdbdbd", align: "left", italic: true }),
+    ],
+  }),
+  design("mono-one-word", "mono", t("One word", "Một chữ"), {
     themes: ["mono"],
     slides: 1,
     background: { kind: "color", color: "#ffffff" },
-    slots: [photo(0, 0, 0.12, 0.1, 0.76, 0.66)],
+    slots: [photo(0, 0, 0, 0, 0.62, 1)],
+    texts: [text(0, 0.62, 0.42, 0.38, t("still.", "lặng."), { font: "playfair", size: 0.1, color: INK, italic: true })],
+  }),
+  design("mono-black-polaroids", "mono", t("Black instants", "Polaroid đen"), {
+    themes: ["mono"],
+    slides: 1,
+    background: { kind: "color", color: "#3a3a3a" },
+    slots: [photo(0, 0, 0.06, 0.08, 0.44, 0.44, { frame: "polaroidBlack", shadow: true, rotation: -5 }), photo(1, 0, 0.5, 0.14, 0.44, 0.44, { frame: "polaroidBlack", shadow: true, rotation: 4 }), photo(2, 0, 0.26, 0.5, 0.46, 0.46, { frame: "polaroidBlack", shadow: true, rotation: -1 })],
+  }),
+  design("mono-street-notes", "mono", t("Street notes", "Ghi chép đường phố"), {
+    themes: ["mono"],
+    slides: 3,
+    background: { kind: "color", color: "#f2f2f0" },
+    slots: [0, 1, 2].map((s) => photo(s, s, 0.08, 0.08, 0.84, 0.74)),
+    texts: [0, 1, 2].flatMap((s) => [
+      text(s, 0.08, 0.86, 0.5, [t("07:12", "07:12"), t("12:40", "12:40"), t("18:05", "18:05")][s], { font: "spaceMono", size: 0.04, color: INK, align: "left" }),
+      text(s, 0.46, 0.865, 0.46, [t("first light", "nắng đầu ngày"), t("lunch crowd", "giờ trưa đông"), t("going home", "đường về")][s], { font: "cormorant", size: 0.045, color: INK, align: "right", italic: true }),
+    ]),
+  }),
+  design("mono-in-grey", "mono", t("You & me, in grey", "Cậu & mình, màu xám"), {
+    themes: ["mono"],
+    slides: 1,
+    background: { kind: "color", color: "#e6e5e1" },
+    slots: [photo(0, 0, 0.06, 0.1, 0.42, 0.62), photo(1, 0, 0.52, 0.28, 0.42, 0.62)],
+    texts: [text(0, 0.06, 0.78, 0.44, t("you & me,\nin grey", "cậu & mình,\nmàu xám"), { font: "cormorant", size: 0.07, color: INK, align: "left", italic: true, lineHeight: 1 })],
+  }),
+  design("mono-lines", "mono", t("Lines & light", "Đường nét & ánh sáng"), {
+    themes: ["mono"],
+    slides: 1,
+    background: { kind: "color", color: "#ffffff" },
+    shapes: [block(0, 0.06, 0.06, 0.88, 0.0015, INK), block(0, 0.06, 0.94, 0.88, 0.0015, INK)],
+    slots: [photo(0, 0, 0.06, 0.1, 0.56, 0.76), photo(1, 0, 0.64, 0.1, 0.3, 0.37), photo(2, 0, 0.64, 0.49, 0.3, 0.37)],
+    texts: [text(0, 0.06, 0.885, 0.88, t("LINES & LIGHT", "ĐƯỜNG NÉT & ÁNH SÁNG"), { ...SMALL, color: INK, align: "left" })],
+  }),
+  design("mono-salt", "mono", t("Salt", "Muối biển"), {
+    format: "story",
+    themes: ["mono"],
+    slides: 1,
+    background: { kind: "color", color: "#f4f4f2" },
+    slots: [photo(0, 0, 0.08, 0.2, 0.84, 0.52)],
     texts: [
-      text(0, 0.12, 0.8, 0.5, t("Untitled, 2026", "Không tên, 2026"), { font: "cormorant", size: 0.045, color: INK, align: "left", italic: true }),
-      text(0, 0.5, 0.805, 0.38, t("silver gelatin print", "bản in bạc"), { font: "spaceGrotesk", size: 0.024, color: GREY, align: "right", letterSpacing: 0.15 }),
+      text(0, 0.08, 0.76, 0.84, t("salt.", "muối."), { font: "playfair", size: 0.12, color: INK, align: "left", italic: true }),
+      text(0, 0.08, 0.86, 0.84, t("the sea, without colour", "biển, không màu"), { font: "cormorant", size: 0.05, color: GREY, align: "left", italic: true }),
     ],
+  }),
+  design("mono-cafe-7am", "mono", t("Café, 7 a.m.", "Quán, 7 giờ sáng"), {
+    themes: ["mono"],
+    slides: 1,
+    background: { kind: "color", color: "#ebeae6" },
+    slots: [photo(0, 0, 0.2, 0.1, 0.6, 0.66, { mask: "arch" })],
+    texts: [text(0, 0.1, 0.82, 0.8, t("café, 7 a.m. — nobody yet", "quán, 7 giờ sáng — chưa ai tới"), { font: "spaceMono", size: 0.036, color: INK })],
   }),
   design("mono-contact", "mono", t("Contact sheet", "Tờ in thử đen trắng"), {
     themes: ["mono"],

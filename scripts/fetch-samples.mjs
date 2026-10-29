@@ -26,7 +26,10 @@ const THEMES = {
   travel: { per: 5, queries: ["travel mountains lake", "road trip vintage car", "airplane window travel"] },
   beach: { per: 5, queries: ["beach summer people", "sailboat sea"] },
   city: { per: 4, queries: ["european street old town", "tokyo street night", "paris cafe street"] },
-  food: { per: 5, queries: ["coffee croissant cafe", "brunch table aesthetic", "pho noodle soup bowl", "street food night market", "dessert cake cafe", "home cooked dinner table"] },
+  food: { per: 5, queries: ["coffee croissant cafe", "brunch table aesthetic", "pho noodle soup bowl", "food flat lay top view", "cake slice plate close up", "home cooked dinner table"] },
+  // Food photos only (2026-10-29): drinks and food places are themes of their own.
+  drinks: { per: 5, queries: ["latte art coffee top view", "matcha latte", "iced coffee aesthetic", "cocktail drink bar", "bubble tea"] },
+  foodspot: { per: 5, queries: ["street food night market", "cozy cafe interior"] },
   portrait: { per: 5, queries: ["woman portrait golden hour", "street style portrait"] },
   friends: { per: 5, queries: ["friends laughing together", "friends party night"] },
   couple: { per: 5, queries: ["couple romantic", "wedding couple"] },
