@@ -16,6 +16,8 @@ export interface BoothRoll {
   filter?: string | null;
   title?: string;
   showDate?: boolean;
+  /** Shot together in a group room (D-159): its code and everyone's names, host first. */
+  room?: { code: string; names: string[] };
   createdAt: number;
   updatedAt: number;
   /** Small JPEG of the laid-out frame, for the home screen. */

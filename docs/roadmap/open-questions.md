@@ -22,7 +22,7 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P2.** Bản đầu xuất những dạng nào? (Đề xuất: strip gốc 1:3, Post 4:5 hai strip, Story 9:16, ảnh lẻ; GIF / video để sau.)
 - **Q-P3.** ~~Chụp dư?~~ Đồng ý đề xuất — D-157.
 - **Q-P4.** Theme: đã làm 6 theme theo đề xuất (Cinema, Classic, Đen trắng, Candy, Alice, Y2K — 2026-10-29, chủ dự án bảo "làm tiếp đi"); chờ chủ dự án xem và đổi / thêm (Dreamy, Polaroid, Báo, Tết, Giáng sinh…).
-- **Q-P5.** Có làm phòng chụp online không? Nếu có thì chấp nhận dùng một dịch vụ signaling bên ngoài (đổi một phần D-06 / D-37) không, và tối đa bao nhiêu người (đề xuất 4)?
+- **Q-P5.** ~~Phòng online?~~ Có: signaling trên Cloudflare (D-150, đã deploy), tối đa **8 người** (D-159).
 - **Q-P6.** Làm P1 (solo) trước ở `/labs/photobooth` được không?
 - **Q-P7.** ~~Mô hình bảng ảnh S × P?~~ Tạm theo đề xuất (chủ dự án chưa rõ photobooth nên như nào) — D-147.
 - **Q-P8.** ~~Sửa riêng hay sửa chung?~~ Còn trong phòng → sửa chung kiểu collaborator — D-148.

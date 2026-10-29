@@ -6,10 +6,19 @@ export type Facing = "user" | "environment";
 /** Why the camera didn't open (getUserMedia's error names, grouped). */
 export type CameraError = "denied" | "none" | "busy" | "insecure" | "other";
 
-export async function openCamera(facing: Facing = "user", label = "?"): Promise<{ stream: MediaStream; fake: boolean; error?: CameraError }> {
+/** `audio`: also the microphone (group rooms: voice); a refused mic still gives the camera. */
+export async function openCamera(facing: Facing = "user", label = "?", audio = false): Promise<{ stream: MediaStream; fake: boolean; error?: CameraError }> {
   if (!navigator.mediaDevices?.getUserMedia) return { stream: fakeCamera(label), fake: true, error: isSecureContext ? "other" : "insecure" };
+  const video = { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 1080 } };
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false });
+    if (audio) {
+      try {
+        return { stream: await navigator.mediaDevices.getUserMedia({ video, audio: { echoCancellation: true, noiseSuppression: true } }), fake: false };
+      } catch {
+        // No mic / mic refused: carry on with the camera only.
+      }
+    }
+    const stream = await navigator.mediaDevices.getUserMedia({ video, audio: false });
     return { stream, fake: false };
   } catch (e) {
     const name = e instanceof DOMException ? e.name : "";

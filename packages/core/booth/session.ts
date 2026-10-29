@@ -19,16 +19,21 @@ export interface Peer {
   link: RTCPeerConnectionState;
 }
 
-/** A shooting run started by the host: `shots` photos, the first after `delay` ms, then every `gap`. */
+/** A shooting run started by the host: `shots` photos, the first `lead` ms after `startAt`,
+ * then every `gap`. `members`: who was in the room when it started (whose photos to expect). */
 export interface Roll {
   id: number;
   shots: number;
   gap: number;
+  lead: number;
   startAt: number; // performance.now() on this device
+  frameId?: string;
+  members: string[];
 }
 
 type PeerMsg =
-  | { t: "shoot"; roll: number; shots: number; gap: number; delay: number }
+  | { t: "shoot"; roll: number; shots: number; gap: number; lead?: number; delay: number; frameId?: string }
+  | { t: "frame"; frameId: string }
   | { t: "photo"; roll: number; shot: number; size: number };
 
 interface Link {
@@ -50,6 +55,10 @@ export class BoothSession {
   me: Member | null = null;
   knocks: { id: string; name: string }[] = [];
   roll: Roll | null = null;
+  /** The last roll started (kept after it ends, to know whose photos to wait for). */
+  lastRoll: Roll | null = null;
+  /** The frame the host picked (the host decides for everyone). */
+  frameId: string | null = null;
   /** photos[roll][shot][memberId] */
   photos = new Map<number, Map<number, Map<string, Blob>>>();
 
@@ -92,13 +101,22 @@ export class BoothSession {
     this.emit();
   }
 
-  /** Host: start a roll for everyone. */
-  shoot(shots = 4, gap = 4000) {
+  /** Host: the frame for everyone (sent now, and to whoever joins later). */
+  setFrame(frameId: string) {
+    if (!this.me?.host) return;
+    this.frameId = frameId;
+    for (const l of this.links.values()) sendJson(l.dc, { t: "frame", frameId });
+    this.emit();
+  }
+
+  /** Host: start a roll for everyone — the first shot `lead` ms after the start, then every `gap`. */
+  shoot(shots = 4, gap = 4000, lead = gap) {
     if (!this.me?.host || this.roll) return;
     const roll = (Math.max(0, ...this.photos.keys()) || 0) + 1;
     const delay = 1500; // time for the message to reach everyone; latency skew is a few tens of ms
-    for (const l of this.links.values()) sendJson(l.dc, { t: "shoot", roll, shots, gap, delay });
-    this.startRoll(roll, shots, gap, delay);
+    const frameId = this.frameId ?? undefined;
+    for (const l of this.links.values()) sendJson(l.dc, { t: "shoot", roll, shots, gap, lead, delay, frameId });
+    this.startRoll(roll, shots, gap, lead, delay, frameId);
   }
 
   leave() {
@@ -176,6 +194,10 @@ export class BoothSession {
       this.emit();
     };
     dc.onmessage = (e) => this.onPeer(l, e.data);
+    // The host tells a newcomer which frame is picked.
+    dc.onopen = () => {
+      if (this.me?.host && this.frameId) sendJson(dc, { t: "frame", frameId: this.frameId });
+    };
     this.links.set(member.id, l);
     return l;
   }
@@ -219,16 +241,21 @@ export class BoothSession {
       return;
     }
     const msg = JSON.parse(data) as PeerMsg;
-    if (msg.t === "shoot" && l.peer.member.host) this.startRoll(msg.roll, msg.shots, msg.gap, msg.delay);
-    else if (msg.t === "photo") l.incoming = { roll: msg.roll, shot: msg.shot, size: msg.size, parts: [], got: 0 };
+    if (msg.t === "shoot" && l.peer.member.host) this.startRoll(msg.roll, msg.shots, msg.gap, msg.lead ?? msg.gap, msg.delay, msg.frameId);
+    else if (msg.t === "frame" && l.peer.member.host) {
+      this.frameId = msg.frameId;
+      this.emit();
+    } else if (msg.t === "photo") l.incoming = { roll: msg.roll, shot: msg.shot, size: msg.size, parts: [], got: 0 };
   }
 
-  private startRoll(id: number, shots: number, gap: number, delay: number) {
+  private startRoll(id: number, shots: number, gap: number, lead: number, delay: number, frameId?: string) {
     const startAt = performance.now() + delay;
-    this.roll = { id, shots, gap, startAt };
+    this.roll = { id, shots, gap, lead, startAt, frameId, members: this.everyone().map((m) => m.id) };
+    this.lastRoll = this.roll;
+    if (frameId) this.frameId = frameId;
     this.emit();
     for (let shot = 0; shot < shots; shot++) {
-      const at = startAt + gap * (shot + 1);
+      const at = startAt + lead + gap * shot;
       setTimeout(async () => {
         const blob = await this.onShot(id, shot);
         if (blob && this.me) {

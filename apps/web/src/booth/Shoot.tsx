@@ -257,7 +257,7 @@ export function Shoot({ camera, facing, frame, plan, base, sound, onSound, onDon
 }
 
 /** A short shutter click: a burst of noise, no sound file to load. */
-function shutter(ctx: { current: AudioContext | null }) {
+export function shutter(ctx: { current: AudioContext | null }) {
   try {
     ctx.current ??= new AudioContext();
     const a = ctx.current;

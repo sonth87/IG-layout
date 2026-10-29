@@ -292,3 +292,18 @@ Chủ dự án: "kéo tag để chuyển trang thấy không mượt — kéo xu
 
 ## 19. Nút phòng chụp chung ở sảnh → bản thử (2026-10-30)
 Chủ dự án: "2 nút start a group room và join đang bị disable, làm sao thử join room được". Phòng chụp chung bên trong booth chưa làm; trong lúc chờ, hai thẻ ở sảnh dẫn tới **bản thử** `/labs/booth` (ghi "Bản thử"): **Tạo phòng chụp chung** → mở bản thử; **Vào phòng bằng mã** → ô nhập 4 ký tự (tự viết hoa, chỉ chữ + số) + nút Vào → `/labs/booth?r=MÃ` (điền sẵn mã).
+
+## 20. Phòng chụp chung trong booth (2026-10-30)
+Chủ dự án thử bản thử `/labs/booth` trên 2 máy: vào được, chụp ok. Góp ý: "UI chưa đẹp khi tạo phòng; nên sinh mã trước, user không tự đặt mã; nhập đúng mã xong join thì lại ở màn chờ có nút tạo phòng mới — hơi kỳ; đã có voice chưa?" (chưa: camera mở với `audio: false`). Chốt: **chủ phòng chọn khung**, **tối đa 8 người** (D-159); voice (D-160).
+
+Đã làm (`apps/web/src/booth/RoomScreen.tsx`, `room.ts`; `packages/core/booth/group.ts`):
+- **Sảnh:** "Tạo phòng chụp chung" → mở phòng ngay, **mã tự sinh**; "Vào phòng bằng mã" → nhập 4 ký tự → Vào → thẳng tới **"Đang gõ cửa phòng AB12…"** (polaroid camera của mình + nút Thôi), không còn màn có nút tạo phòng. **Hỏi tên một lần** (bảng giấy), nhớ cho lần sau. Link `/booth?r=MÃ` (nút "Sao chép link" trong phòng) mở thẳng vào phòng.
+- **Trong phòng:** thanh trên là vé: "PHÒNG · 52XQ" chữ to + Sao chép link + số người /8. Mỗi người là **một polaroid** (video trực tiếp, tên, "· bạn", nhãn ★ Chủ phòng, "đang nối…" khi chưa nối được), nghiêng xen kẽ; 1–4 người 2 cột, 5–8 người 2–4 cột. Chủ phòng thấy thẻ vàng **"Mai muốn vào · Cho vào · Từ chối"**. Một mình trong phòng → gợi ý gửi mã.
+- **Tiếng:** camera mở kèm mic (khử vọng, giảm ồn; không có / từ chối mic vẫn vào bằng camera); video của mình tắt tiếng (không vọng), của người khác phát tiếng; nút 🎙 / 🔇.
+- **Khung:** chủ phòng chọn (bảng khung như chụp một mình), khung gửi tới mọi người và người vào sau; khách chỉ thấy "Chủ phòng chọn khung: Dải 3 · 3 kiểu".
+- **Chụp:** chủ phòng bấm "Chụp N kiểu" → mọi máy cùng đếm **8 giây, nghỉ 2 giây** (D-154), số đếm to giữa màn, loé trắng + tiếng màn trập trên mọi máy; đang ở màn kết quả / trang trí mà chủ phòng bấm chụp thì tự quay về phòng. Mỗi máy chụp camera của mình (độ phân giải gốc, không lật), gửi P2P; "Đang nhận ảnh của mọi người… 9/12"; đủ ảnh (hoặc sau 25 s, ai rớt mạng thì bỏ qua) → **mỗi kiểu = ảnh mọi người ghép vào ô** theo thứ tự chủ phòng trước (chọn số cột / hàng cho ô ảnh gần 4:3 / 3:4 nhất, hàng cuối thiếu thì căn giữa) → bản in như chụp một mình (theme, trang trí, lưu Post / Story, Mở trong IG Layout), lưu vào cuộn phim kèm mã phòng + tên mọi người.
+- Màn kết quả trong phòng: không chụp lại từng ô (ô có cả nhóm), "Lượt mới" → **Về phòng**, không có nút Sảnh.
+- Thoát: hỏi lại; chủ phòng thoát thì phòng đóng với mọi người ("Chủ phòng đã đóng phòng.").
+- Lỗi phòng nói rõ: mã trùng, không có phòng, đủ 8 người, bị từ chối, phòng đóng, mất mạng.
+- Server phòng (Cloudflare) không đổi — phần mới (khung, nhịp chụp) đi qua kênh dữ liệu giữa các máy.
+- Chưa làm: **sửa chung** sau khi chụp (D-148), tắt camera, thử 2 điện thoại khác mạng (TURN).

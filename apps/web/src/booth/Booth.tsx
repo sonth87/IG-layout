@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { openCamera, stopCamera, type Facing } from "@ig-layout/core/booth/camera";
 import type { Camera } from "./CameraView";
 import { frameById } from "@ig-layout/core/booth/frames";
@@ -12,6 +12,10 @@ import { BoothHome } from "./Home";
 import { Pick } from "./Pick";
 import { Decorate } from "./Decorate";
 import { Result } from "./Result";
+import { NamePrompt, RoomScreen } from "./RoomScreen";
+import { openRoom, type Room } from "./room";
+import { randomCode } from "@ig-layout/core/booth/session";
+import { isRoomCode } from "@ig-layout/core/booth/protocol";
 import { Setup } from "./Setup";
 import { Shoot } from "./Shoot";
 import { loadThemeFonts, rollRender } from "./look";
@@ -23,7 +27,7 @@ import { SPARE } from "./timing";
 // (8 s countdown, 2 s rest, D-154) → pick (only with spare shots, D-157) → result (print,
 // save, retake one shot). Rolls are kept on the device (D-156).
 
-type Screen = "home" | "setup" | "shoot" | "pick" | "result" | "decorate";
+type Screen = "home" | "setup" | "shoot" | "pick" | "result" | "decorate" | "room";
 
 /** What the shoot screen takes: a new roll, or some shots of the current one (retake / fill). */
 interface Plan {
@@ -33,6 +37,8 @@ interface Plan {
 }
 
 interface Prefs {
+  /** Shown to the others in a group room. */
+  name?: string;
   frameId: string;
   spare: boolean;
   sound: boolean;
@@ -77,6 +83,10 @@ function BoothApp() {
   /** All shots of a roll with spares, before picking. */
   const [takes, setTakes] = useState<Blob[]>([]);
   const frame = frameById(roll && screen !== "setup" ? roll.frameId : prefs.frameId);
+  /** The group room we're in (kept across the room, print and decorate screens). */
+  const [room, setRoom] = useState<Room | null>(null);
+  /** Asking for a name before opening / joining a room. */
+  const [askName, setAskName] = useState<{ code: string | null } | null>(null);
 
   const setPrefs = (p: Partial<Prefs>) =>
     setPrefsState((old) => {
@@ -121,6 +131,47 @@ function BoothApp() {
     };
   }, [roll]);
 
+  async function enterRoom(code: string | null, name: string) {
+    const r = await openRoom({ code: code ?? randomCode(), name, create: !code });
+    setRoom(r);
+    setRoll(null);
+    setScreen("room");
+  }
+  function startRoom(code: string | null) {
+    if (prefs.name) void enterRoom(code, prefs.name);
+    else setAskName({ code });
+  }
+  function leaveRoom() {
+    room?.leave();
+    setRoom(null);
+    setRoll(null);
+    setScreen("home");
+  }
+  // A link to a room (/booth?r=AB12) opens it straight away (once).
+  const linked = useRef(false);
+  useEffect(() => {
+    if (linked.current) return;
+    linked.current = true;
+    const r = new URLSearchParams(location.search).get("r")?.toUpperCase();
+    if (!r || !isRoomCode(r)) return;
+    history.replaceState(null, "", location.pathname);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reading the URL once on arrival (static export)
+    startRoom(r);
+  });
+  // In a room, a roll started by the host brings everyone back to the room screen.
+  useEffect(() => {
+    if (!room) return;
+    return room.session.subscribe(() => {
+      if (room.session.roll) setScreen("room");
+    });
+  }, [room]);
+  // Leave the room when the booth closes.
+  const roomRef = useRef(room);
+  useEffect(() => {
+    roomRef.current = room;
+  });
+  useEffect(() => () => roomRef.current?.leave(), []);
+
   function newRoll(shots: (Blob | null)[], frameId = prefs.frameId): BoothRoll {
     const now = Date.now();
     return { id: crypto.randomUUID(), frameId, shots, flip: false, createdAt: now, updatedAt: now, thumbnail: new Blob() };
@@ -153,11 +204,13 @@ function BoothApp() {
     setScreen("result");
   }
 
+  const view = (() => {
   switch (screen) {
     case "home":
       return (
         <BoothHome
           onSolo={() => setScreen("setup")}
+          onRoom={startRoom}
           onUpload={upload}
           onOpen={(r) => {
             setRoll(r);
@@ -218,17 +271,48 @@ function BoothApp() {
           roll={roll}
           sound={prefs.sound}
           onChange={(r) => setRoll({ ...r, updatedAt: Date.now() })}
-          onRetake={retake}
+          onRetake={room ? undefined : retake}
           onDecorate={() => setScreen("decorate")}
+          inRoom={!!room}
           onAgain={() => {
             setRoll(null);
-            setScreen("setup");
+            setScreen(room ? "room" : "setup");
           }}
           onHome={() => {
             setRoll(null);
-            setScreen("home");
+            setScreen(room ? "room" : "home");
           }}
         />
       ) : null;
+    case "room":
+      return room ? (
+        <RoomScreen
+          room={room}
+          sound={prefs.sound}
+          onRoll={(r) => {
+            setRoll(r);
+            setScreen("result");
+          }}
+          onLeave={leaveRoom}
+        />
+      ) : null;
   }
+  })();
+
+  return (
+    <>
+      {view}
+      {askName && (
+        <NamePrompt
+          initial={prefs.name ?? ""}
+          onCancel={() => setAskName(null)}
+          onName={(name) => {
+            setPrefs({ name });
+            setAskName(null);
+            void enterRoom(askName.code, name);
+          }}
+        />
+      )}
+    </>
+  );
 }

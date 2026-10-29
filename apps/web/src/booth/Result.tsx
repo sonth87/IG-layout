@@ -16,14 +16,17 @@ import { Btn, Confirm, display, mono, serif } from "./ui";
 const PRINT_MS = 2600;
 const FORMATS: Format[] = ["print", "post", "story"];
 
-export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, onHome }: {
+export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, onHome, inRoom }: {
   roll: BoothRoll;
   sound: boolean;
   onChange: (roll: BoothRoll) => void;
-  onRetake: (shots: number[]) => void;
+  /** Retake / fill shots (solo); a group roll can't (everyone was in each shot). */
+  onRetake?: (shots: number[]) => void;
   onDecorate: () => void;
   onAgain: () => void;
   onHome: () => void;
+  /** Shot in a group room: "New roll" goes back to the room, no lobby button. */
+  inRoom?: boolean;
 }) {
   const t = useT();
   const frame = frameById(roll.frameId);
@@ -36,7 +39,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
   const [saving, setSaving] = useState(false);
   const [format, setFormat] = useState<Format>("print");
   const [handoff, setHandoff] = useState(false);
-  const missing = Array.from({ length: frame.shots }, (_, i) => i).filter((i) => !roll.shots[i]);
+  const missing = !onRetake ? [] : Array.from({ length: frame.shots }, (_, i) => i).filter((i) => !roll.shots[i]);
   const date = new Date(roll.createdAt);
   const printing = !!images && !printed;
 
@@ -99,7 +102,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
                 look={look}
                 numbers
                 className="block max-h-[calc(100dvh-440px)] lg:max-h-[calc(100dvh-150px)] max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]"
-                onCell={printed ? (shot) => setSelected((s) => (s === shot ? null : shot)) : undefined}
+                onCell={printed && onRetake ? (shot) => setSelected((s) => (s === shot ? null : shot)) : undefined}
               />
             </div>
           )}
@@ -110,11 +113,11 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
         <p className={`${mono} text-center text-[11px] font-bold uppercase tracking-[0.2em] ${printing ? "" : missing.length ? "text-[#c8432f]" : "opacity-60"}`} aria-live="polite">
           {printed && !missing.length && selected === null ? t("booth.printDone") : status}
         </p>
-        {printed && !missing.length && selected === null && <p className={`${mono} mt-0.5 text-center text-[10px] opacity-55`}>{t("booth.tapCell")}</p>}
+        {printed && onRetake && !missing.length && selected === null && <p className={`${mono} mt-0.5 text-center text-[10px] opacity-55`}>{t("booth.tapCell")}</p>}
         <div className="mx-auto mt-3 flex max-w-sm flex-col gap-3">
-          {selected !== null && <Btn onClick={() => onRetake([selected])}>↺ {t("booth.retakeShot", { n: selected + 1 })}</Btn>}
+          {selected !== null && onRetake && <Btn onClick={() => onRetake([selected])}>↺ {t("booth.retakeShot", { n: selected + 1 })}</Btn>}
           {missing.length > 0 ? (
-            <Btn tone="main" className="py-4 text-sm" onClick={() => onRetake(missing)}>
+            <Btn tone="main" className="py-4 text-sm" onClick={() => onRetake?.(missing)}>
               {t("booth.fill")}
             </Btn>
           ) : (
@@ -147,19 +150,21 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
               </Btn>
             </>
           )}
-          <div className="grid grid-cols-4 gap-2">
+          <div className={`grid gap-2 ${inRoom ? "grid-cols-3" : "grid-cols-4"}`}>
             <Btn aria-pressed={roll.flip} className={`px-1 py-2.5 text-[9px] tracking-[0.08em] ${roll.flip ? "!bg-[#1d1612] !text-[#f3e9d6]" : ""}`} onClick={() => onChange({ ...roll, flip: !roll.flip })}>
               ⇋<br />
               {t("booth.flip")}
             </Btn>
             <Btn className="px-1 py-2.5 text-[9px] tracking-[0.08em]" onClick={onAgain}>
               ✶<br />
-              {t("booth.again")}
+              {inRoom ? t("booth.room.back") : t("booth.again")}
             </Btn>
-            <Btn className="px-1 py-2.5 text-[9px] tracking-[0.08em]" onClick={onHome}>
-              ⌂<br />
-              {t("booth.home")}
-            </Btn>
+            {!inRoom && (
+              <Btn className="px-1 py-2.5 text-[9px] tracking-[0.08em]" onClick={onHome}>
+                ⌂<br />
+                {t("booth.home")}
+              </Btn>
+            )}
             <Btn tone="danger" className="px-1 py-2.5 text-[9px] tracking-[0.08em]" onClick={() => setDeleting(true)}>
               ✕<br />
               {t("booth.deleteRoll")}
