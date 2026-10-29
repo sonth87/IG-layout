@@ -73,7 +73,14 @@ function loadedUrls() {
 }
 
 export async function registerServiceWorker() {
-  if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
+  if (!("serviceWorker" in navigator)) return;
+  if (process.env.NODE_ENV !== "production") {
+    // A worker left by a production build on this origin (localhost) would keep serving its
+    // old cached code to the dev server: remove it.
+    const regs = await navigator.serviceWorker.getRegistrations().catch(() => []);
+    if (regs.length) await Promise.all(regs.map((r) => r.unregister()));
+    return;
+  }
   try {
     await navigator.serviceWorker.register("/sw.js");
     const registration = await navigator.serviceWorker.ready;

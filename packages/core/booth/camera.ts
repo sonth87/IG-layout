@@ -3,12 +3,25 @@
 
 export type Facing = "user" | "environment";
 
-export async function openCamera(facing: Facing = "user", label = "?"): Promise<{ stream: MediaStream; fake: boolean }> {
+/** Why the camera didn't open (getUserMedia's error names, grouped). */
+export type CameraError = "denied" | "none" | "busy" | "insecure" | "other";
+
+export async function openCamera(facing: Facing = "user", label = "?"): Promise<{ stream: MediaStream; fake: boolean; error?: CameraError }> {
+  if (!navigator.mediaDevices?.getUserMedia) return { stream: fakeCamera(label), fake: true, error: isSecureContext ? "other" : "insecure" };
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false });
     return { stream, fake: false };
-  } catch {
-    return { stream: fakeCamera(label), fake: true };
+  } catch (e) {
+    const name = e instanceof DOMException ? e.name : "";
+    const error: CameraError =
+      name === "NotAllowedError" || name === "SecurityError"
+        ? "denied"
+        : name === "NotFoundError" || name === "OverconstrainedError"
+          ? "none"
+          : name === "NotReadableError" || name === "AbortError"
+            ? "busy"
+            : "other";
+    return { stream: fakeCamera(label), fake: true, error };
   }
 }
 

@@ -31,7 +31,8 @@ await page.getByRole("radio").first().waitFor();
 check((await page.getByRole("radio").count()) === 8, "8 frames");
 await page.getByRole("radio", { name: /Strip of 4/ }).click();
 await page.waitForFunction(() => document.querySelector("video")?.videoWidth > 0, null, { timeout: 10000 });
-check(await page.getByText("No camera").isHidden(), "camera opened (fake device)");
+check(await page.getByText("Try the camera again").isHidden(), "camera opened (fake device)");
+check((await page.locator("video").evaluate((v) => v.style.transform)) === "scaleX(-1)", "front camera shown mirrored");
 await page.screenshot({ path: path.join(OUT, "booth-setup.png") });
 
 // 2. Shoot 4: countdown visible, then shots drop into the tray.
@@ -115,6 +116,24 @@ await page.getByRole("button", { name: "Shoot solo" }).waitFor();
 await page.waitForTimeout(300);
 check((await page.getByRole("button", { name: /Open roll from/ }).count()) === 1, "deleted, 1 roll left");
 await page.screenshot({ path: path.join(OUT, "booth-home.png") });
+
+// 8. Camera blocked: says why, test picture not mirrored, retry.
+console.log("8. Camera blocked");
+// Its own browser: the main one says yes to every camera request.
+const plain = await chromium.launch({ executablePath: chromePath() });
+const blocked = await plain.newContext({ viewport: { width: 390, height: 844 } });
+const bp = await blocked.newPage();
+await bp.goto(new URL("booth", URL_ARG).href);
+await bp.getByRole("button", { name: "Shoot solo" }).click();
+await bp.getByRole("status").waitFor({ timeout: 10000 });
+const why = await bp.getByRole("status").innerText();
+check(/blocking the camera|No camera found/.test(why), `reason shown: ${why.split("\n")[0]}`);
+await bp.waitForFunction(() => document.querySelector("video")?.videoWidth > 0);
+check((await bp.locator("video").evaluate((v) => v.style.transform)) === "", "test picture not mirrored");
+await bp.getByRole("button", { name: /Try the camera again/ }).click();
+await bp.getByRole("status").waitFor({ timeout: 10000 });
+check(true, "retry asks again");
+await plain.close();
 
 check(errors.length === 0, `no console errors ${errors.length ? JSON.stringify(errors) : ""}`);
 await browser.close();

@@ -2,9 +2,11 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { openCamera, stopCamera, type Facing } from "@ig-layout/core/booth/camera";
+import type { Camera } from "./CameraView";
 import { frameById } from "@ig-layout/core/booth/frames";
 import { frameBlob } from "@ig-layout/core/booth/render";
 import { saveRoll, type BoothRoll } from "@ig-layout/core/storage/booth";
+import { registerServiceWorker } from "@/lib/pwa";
 import { boothMono, boothSerif, canvasFonts } from "./fonts";
 import { BoothHome } from "./Home";
 import { Pick } from "./Pick";
@@ -57,9 +59,13 @@ export function Booth() {
 
 function BoothApp() {
   const [screen, setScreen] = useState<Screen>("home");
+  // Same app, same offline worker as IG Layout (opening /booth first installs it too).
+  useEffect(() => void registerServiceWorker(), []);
   const [prefs, setPrefsState] = useState(loadPrefs);
   const [facing, setFacing] = useState<Facing>("user");
-  const [camera, setCamera] = useState<{ stream: MediaStream; fake: boolean } | null>(null);
+  const [camera, setCamera] = useState<Camera | null>(null);
+  /** Bumped by "Try the camera again". */
+  const [cameraTry, setCameraTry] = useState(0);
   const [roll, setRoll] = useState<BoothRoll | null>(null);
   const [plan, setPlan] = useState<Plan>({ count: 4, targets: null });
   /** All shots of a roll with spares, before picking. */
@@ -91,7 +97,7 @@ function BoothApp() {
       stopCamera(stream);
       setCamera(null);
     };
-  }, [wantCamera, facing]);
+  }, [wantCamera, facing, cameraTry]);
 
   // Keep the roll on the device whenever it changes (D-156).
   useEffect(() => {
@@ -163,6 +169,7 @@ function BoothApp() {
           onFrame={(frameId) => setPrefs({ frameId })}
           onSpare={(spare) => setPrefs({ spare })}
           onFacing={() => setFacing((f) => (f === "user" ? "environment" : "user"))}
+          onRetryCamera={() => setCameraTry((n) => n + 1)}
           onBack={() => setScreen("home")}
           onStart={() => {
             setPlan({ count: frameById(prefs.frameId).shots + (prefs.spare ? SPARE : 0), targets: null });

@@ -1,15 +1,22 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
-import type { Facing } from "@ig-layout/core/booth/camera";
+import type { CameraError, Facing } from "@ig-layout/core/booth/camera";
+
+export interface Camera {
+  stream: MediaStream;
+  /** The test picture (no camera): never mirrored. */
+  fake: boolean;
+  error?: CameraError;
+}
 
 // The live camera with a window the shape of the cell the next shot goes into: exactly the
 // part of the picture that ends up in the cell (centre crop of the full sensor frame, as
 // render.ts crops it); the rest is dimmed. The front camera is shown mirrored, like a
-// mirror (the saved photo is not, D-153).
+// mirror (the saved photo is not, D-153); the test picture never is.
 
-export function CameraView({ stream, facing, aspect, videoRef, children }: {
-  stream: MediaStream | null;
+export function CameraView({ camera, facing, aspect, videoRef, children }: {
+  camera: Camera | null;
   facing: Facing;
   /** Cell w / h. */
   aspect: number;
@@ -20,6 +27,7 @@ export function CameraView({ stream, facing, aspect, videoRef, children }: {
   const ownVideo = useRef<HTMLVideoElement>(null);
   const video = videoRef ?? ownVideo;
   const [size, setSize] = useState({ W: 0, H: 0, vw: 0, vh: 0 });
+  const stream = camera?.stream ?? null;
 
   useEffect(() => {
     const v = video.current;
@@ -52,7 +60,7 @@ export function CameraView({ stream, facing, aspect, videoRef, children }: {
     const ch = vw / vh > aspect ? vh : vw / aspect;
     view = { k: Math.min(W / cw, H / ch) * 0.92, cw, ch };
   }
-  const mirror = facing === "user";
+  const mirror = facing === "user" && !camera?.fake;
 
   return (
     <div ref={box} className="relative h-full w-full overflow-hidden bg-black">

@@ -187,3 +187,13 @@ Chủ dự án: "cứ tạm gác video hậu trường lại vì chưa hiểu m�
 - **Dữ liệu dùng chung** ở `packages/core/booth/`: `frames.ts` (8 khung = dữ liệu), `render.ts` (vẽ khung Cinema: lỗ phim, ô trống hình người xám, chữ "Photobooth" + ngày giờ kiểu vé), `camera.ts` (mở camera / camera giả / chụp — trang thử phòng `/labs/booth` cũng dùng), `storage/booth.ts`.
 - Chưa làm (các bước sau): theme khác, filter, sticker, chữ; đổi khung sau khi chụp; xuất Post / Story / Carousel; Mở trong IG Layout; tag ở home IG Layout (chờ Q-P12); phòng online.
 - Kiểm tra: `e2e/booth-solo.mjs` (camera giả của Chromium) — đủ luồng trên, 4 kiểu mất ≈ 39 s đúng 4 × 8 + 3 × 2.
+
+## 10. Tag treo ở home IG Layout (2026-10-29)
+Chủ dự án: "cho thêm cái tag treo ở home để vào booth đi".
+- Home IG Layout (chỉ màn chính, không hiện khi mở nhóm template / tìm kiếm / chi tiết — D-151): tag **màu kem, dây sáng có bóng mờ** (bản tối chìm vào banner ảnh tối). Ghim cách mép phải 64 px: dây đi giữa thanh tab và nút tìm kiếm, tag treo trên banner.
+- Kéo xuống / kéo ngang quá ngưỡng hoặc chạm → `/booth`. Ở sảnh booth có tag ngược lại về IG Layout.
+- Vật lý giữ mặc định của `/labs/tag`; hướng kéo / độ nặng vẫn chờ chủ dự án thử (Q-P12).
+
+## 11. Sửa sau khi chủ dự án thử (2026-10-29)
+- **"Vào booth chẳng có gì, ấn vào một mục thì lỗi"** (`Cannot read properties of undefined (reading 'replace')`): trình duyệt chạy code cũ chưa có chuỗi `booth.*` (khả năng cao: service worker của một bản build production cũ trên localhost giữ cache). Sửa: khi chạy dev, app **tự gỡ service worker** còn sót; thiếu chuỗi thì hiện tên khoá thay vì sập; `/booth` cũng đăng ký service worker như IG Layout.
+- **"Sao chữ ngược hết thế?"**: máy không mở được camera → dùng hình thử, mà hình xem trước camera trước được lật như gương → chữ hình thử bị ngược. Sửa: **hình thử không bao giờ lật**; nói rõ **vì sao** không mở được camera (trình duyệt chặn → bấm biểu tượng camera trên thanh địa chỉ; không có camera; camera đang bị app khác dùng như Zoom / Meet; trang không an toàn) + nút **Thử lại camera**. e2e `booth-solo.mjs` thêm mục 8 (camera bị chặn).

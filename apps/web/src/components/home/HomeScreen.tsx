@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { TemplatePreview } from "@/components/layout/TemplatePreview";
 import { Icon } from "@/components/ui/Icon";
+import { SwitchTag } from "@/components/SwitchTag";
 import { formatRelative } from "@ig-layout/core/format";
 import { listProjects, type ProjectMeta } from "@ig-layout/core/storage/projects";
 import { templateSlides } from "@ig-layout/core/templates/apply";
@@ -370,6 +372,7 @@ function TemplateDetail({ tpl, onBack, onOpen, onUse }: { tpl: Template; onBack:
 
 export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Template) => void }) {
   const t = useT();
+  const router = useRouter();
   const locale = useSettings((s) => s.locale);
   const openProject = useEditor((s) => s.openProject);
   const favorites = useFavorites((s) => s.ids);
@@ -629,6 +632,9 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
           )}
         </Pane>
       )}
+      {/* The hanging tag to the booth (D-151: on the home screen only, not over its sub-screens).
+          Cream tag, light string: it hangs over the banner photo. */}
+      {!top && <SwitchTag tone="dark" kicker={t("booth.switchTo")} label="Photobooth" icon={<span className="text-xl leading-none">🎞</span>} onSwitch={() => router.push("/booth")} />}
       {top?.kind === "detail" && <TemplateDetail key={top.tpl.id} tpl={top.tpl} onBack={pop} onOpen={open} onUse={props.onUseTemplate} />}
     </main>
   );

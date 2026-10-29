@@ -4,7 +4,7 @@ import { FRAMES, frameById, shotAspect } from "@ig-layout/core/booth/frames";
 import type { Facing } from "@ig-layout/core/booth/camera";
 import { useT } from "@/store/settings";
 import { COUNTDOWN_S } from "./timing";
-import { CameraView } from "./CameraView";
+import { CameraView, type Camera } from "./CameraView";
 import { FrameCanvas } from "./FrameCanvas";
 import { Btn, RoundBtn, mono, useFrameName } from "./ui";
 
@@ -14,13 +14,14 @@ import { Btn, RoundBtn, mono, useFrameName } from "./ui";
 const EMPTY: never[] = [];
 
 export function Setup(props: {
-  camera: { stream: MediaStream; fake: boolean } | null;
+  camera: Camera | null;
   facing: Facing;
   frameId: string;
   spare: boolean;
   onFrame: (id: string) => void;
   onSpare: (on: boolean) => void;
   onFacing: () => void;
+  onRetryCamera: () => void;
   onBack: () => void;
   onStart: () => void;
 }) {
@@ -31,7 +32,7 @@ export function Setup(props: {
   return (
     <div className="flex h-full flex-col">
       <div className="relative min-h-0 flex-1">
-        <CameraView stream={props.camera?.stream ?? null} facing={props.facing} aspect={shotAspect(frame, 0)}>
+        <CameraView camera={props.camera} facing={props.facing} aspect={shotAspect(frame, 0)}>
           <div className="absolute inset-x-0 top-0 flex justify-between p-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
             <RoundBtn label={t("common.back")} onClick={props.onBack}>
               ←
@@ -40,7 +41,16 @@ export function Setup(props: {
               ⇄
             </RoundBtn>
           </div>
-          {props.camera?.fake && <p className={`${mono} absolute inset-x-0 bottom-3 text-center text-xs opacity-80`}>{t("booth.noCamera")}</p>}
+          {props.camera?.fake && (
+            <div role="status" className="absolute inset-x-3 bottom-3 flex flex-col items-center gap-2 rounded-lg bg-black/70 p-3 text-center text-sm">
+              <p>
+                {t(`booth.camera.${props.camera.error ?? "other"}`)} {t("booth.camera.test")}
+              </p>
+              <button type="button" onClick={props.onRetryCamera} className={`${mono} rounded-full border border-[#efe6d6]/50 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.15em]`}>
+                ↻ {t("booth.camera.retry")}
+              </button>
+            </div>
+          )}
         </CameraView>
       </div>
 

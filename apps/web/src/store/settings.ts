@@ -84,7 +84,8 @@ export const useSettings = create<SettingsState>()((set, get) => ({
 }));
 
 export function translate(locale: Locale, key: MessageKey, vars?: Record<string, string | number>) {
-  let text: string = DICTS[locale][key] ?? en[key];
+  // A missing key shows the key itself rather than breaking the screen.
+  let text: string = DICTS[locale][key] ?? en[key] ?? key;
   if (vars) {
     // Plurals: "{count|photo|photos}" picks the form by the value of `count`.
     text = text.replace(/\{(\w+)\|([^|}]*)\|([^}]*)\}/g, (_, k: string, one: string, many: string) =>

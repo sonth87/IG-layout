@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { snap, type Facing } from "@ig-layout/core/booth/camera";
 import { shotAspect, type BoothFrame } from "@ig-layout/core/booth/frames";
 import { useT } from "@/store/settings";
-import { CameraView } from "./CameraView";
+import { CameraView, type Camera } from "./CameraView";
 import { COUNTDOWN_S, REST_S } from "./timing";
 import { Confirm, RoundBtn, mono, serif } from "./ui";
 
@@ -24,7 +24,7 @@ interface State {
 }
 
 export function Shoot({ camera, facing, frame, plan, sound, onSound, onDone, onExit }: {
-  camera: { stream: MediaStream; fake: boolean } | null;
+  camera: Camera | null;
   facing: Facing;
   frame: BoothFrame;
   plan: { count: number; targets: number[] | null };
@@ -109,7 +109,7 @@ export function Shoot({ camera, facing, frame, plan, sound, onSound, onDone, onE
 
   return (
     <div className="relative h-full">
-      <CameraView stream={camera?.stream ?? null} facing={facing} aspect={aspect} videoRef={video}>
+      <CameraView camera={camera} facing={facing} aspect={aspect} videoRef={video}>
         {/* Top bar */}
         <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-2 p-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
           <RoundBtn label={t("booth.exit")} onClick={() => (shots.length ? setAsking(true) : onExit())}>

@@ -962,7 +962,6 @@ export const en = {
   "booth.countdown": "{seconds} s countdown, 2 s rest",
   "booth.switchCamera": "Switch camera",
   "booth.start": "Start shooting",
-  "booth.noCamera": "No camera — using a test picture.",
   "booth.shotOf": "Shot {n} of {total}",
   "booth.getReady": "Get ready",
   "booth.pause": "Pause",
@@ -989,6 +988,13 @@ export const en = {
   "booth.deleteRoll": "Delete roll",
   "booth.deleteConfirm": "Delete this roll? This can’t be undone.",
   "booth.saved": "Kept on this device",
+  "booth.camera.denied": "The browser is blocking the camera. Allow it from the camera icon in the address bar, then try again.",
+  "booth.camera.none": "No camera found on this device.",
+  "booth.camera.busy": "The camera is in use by another app (Zoom, Meet, FaceTime…). Close it, then try again.",
+  "booth.camera.insecure": "The camera needs a secure page (https or localhost).",
+  "booth.camera.other": "The camera could not be opened.",
+  "booth.camera.test": "Using a test picture for now.",
+  "booth.camera.retry": "Try the camera again",
 } as const;
 
 export type MessageKey = keyof typeof en;

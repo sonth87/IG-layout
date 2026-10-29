@@ -561,12 +561,13 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] Chủ dự án đổi Vercel → Settings → Root Directory = `apps/web` (trước khi merge nhánh `monorepo`) — để sau, chạy local trước (chủ dự án, 2026-10-29)
 - [x] Monorepo bước 2: `packages/canvas` — node vẽ dùng chung, lấy store qua `<CanvasHost>`; CanvasStage ở lại editor
 - [x] Tag treo dây: bản thử `/labs/tag` (SwitchTag, chỉnh vật lý bằng thanh trượt; e2e `tag.mjs`)
-- [ ] Chủ dự án thử tag trên điện thoại, chốt hướng kéo (Q-P12) → gắn vào màn home thật khi có /booth
+- [ ] Chủ dự án thử tag trên điện thoại, chốt hướng kéo (Q-P12)
 - [x] Booth solo: tham khảo + đề xuất thiết kế (docs/discussions/2026-10-29-booth-thiet-ke.md)
 - [x] Chủ dự án chốt thiết kế booth solo (D-152 → D-157)
 - [ ] Còn mở: chọn theme (Q-P4), video hậu trường (Q-P20)
 - [x] Booth solo bước 1: `/booth` — sảnh (thẻ vé, tải ảnh lên, cuộn phim gần đây, tag về IG Layout), chọn khung với camera bật sẵn (8 khung, ô camera đúng hình ô), chụp tự động (đếm 8 s, nghỉ 2 s, loé trắng, tiếng màn trập, tạm dừng, chụp lại kiểu vừa rồi, hỏi trước khi thoát), chụp dư + chọn, ảnh in trượt ra, lưu JPEG, chạm ảnh → chụp lại / chụp bù, lật ảnh, lưu cuộn trên máy; e2e `booth-solo.mjs`
 - [ ] Booth bước 2: trang trí (theme, filter, sticker, chữ, ngày), đổi khung sau khi chụp
 - [ ] Booth bước 3: xuất Post / Story / Carousel + Mở trong IG Layout (hỏi dạng / "Bất ngờ", D-155)
-- [ ] Booth bước 4: gắn tag vào home IG Layout (chờ Q-P12)
+- [x] Tag treo ở home IG Layout → /booth (chủ dự án, 2026-10-29); booth có tag về IG Layout từ bước 1
+- [ ] Chốt hướng kéo / cảm giác dây (Q-P12) sau khi thử trên điện thoại
 - [ ] Phòng online + sửa chung

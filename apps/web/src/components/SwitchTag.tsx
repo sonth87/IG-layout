@@ -233,7 +233,8 @@ export function SwitchTag({ label, kicker, icon, right = 64, physics = DEFAULT_T
   return (
     <>
       <svg ref={svg} className="pointer-events-none fixed inset-0 z-40 h-full w-full overflow-visible" aria-hidden>
-        <path ref={path} fill="none" stroke={dark ? "#efe6d6" : "#3d4047"} strokeWidth={1.6} strokeLinecap="round" />
+        {/* A faint shadow keeps the light string visible over light content too. */}
+        <path ref={path} fill="none" stroke={dark ? "#efe6d6" : "#3d4047"} strokeWidth={1.6} strokeLinecap="round" style={dark ? { filter: "drop-shadow(0 0 1px rgba(0,0,0,0.55))" } : undefined} />
       </svg>
       <button
         ref={tag}
