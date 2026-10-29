@@ -257,3 +257,14 @@ e2e: `stretch.mjs` (tay nắm bên → chữ to theo, cùng tỉ lệ khung), `c
 - **Ảnh mẫu:** +20 ảnh đồ ăn (phở / bún, chợ đêm, tráng miệng, bữa cơm nhà) và +20 ảnh đen trắng (cặp đôi, kiến trúc, quán cà phê, biển) từ Pexels → mỗi loại 30. `fetch-samples.mjs` có `--only=food,mono` (chỉ tải chủ đề đó, giữ nguyên các ảnh khác). 2 ảnh còn ám màu được chuyển hẳn sang đen trắng. 3 ảnh đen trắng cũ bị Pexels xếp lại thứ tự (không ảnh hưởng: mẫu chọn ảnh theo chủ đề).
 - **2 nhóm mới:** **Ăn uống** (13: thực đơn, review quán có chấm sao, food tour 4 slide có giá, hoá đơn, thẻ công thức, tuần này ăn gì (lưới 3 × 3), ăn sập thành phố, đêm ăn vặt (chữ cắt neon), bát phở sáng, cà phê dạo (tem), hảo ngọt, số đặc biệt ăn uống, trước / sau khi ăn) và **Đen trắng** (12: bản in triển lãm, tờ in thử, hai tấm song đôi, thơ đánh máy, câu nói lớn, lưới profile, chương I–II–III, noir, bìa mono, photobooth, toàn cảnh, ô vuông có ngày). Thư viện: **436 template**.
 
+### Đợt 9b — Ăn uống làm lại, Đen trắng 20 mẫu
+**Chủ dự án:** nhóm ăn uống chưa đẹp; mẫu đầu của đen trắng ("Bản in triển lãm") xấu, đổi; mỗi nhóm khoảng 20 mẫu.
+
+**Nguyên nhân chính:** một nửa ảnh "đồ ăn" là cảnh chợ đêm, quầy bánh, mặt tiền quán → mẫu hiện ảnh quầy kính thay vì món ăn.
+
+**Đã làm:**
+- Ảnh mẫu tách 3 chủ đề: **food** (28, chỉ ảnh cận món: chụp từ trên xuống, bánh, phở, brunch), **drinks** (20: latte art, matcha, cà phê đá, cocktail, trà sữa), **foodspot** (10: chợ đêm, quán cà phê). Đã bỏ 7 ảnh lệch (người cầm ly, quầy bar, bàn ăn bừa).
+- **Ăn uống: 20 mẫu thiết kế lại** theo kiểu tài khoản ẩm thực: tông kem / be / mocha / ô liu, nhiều khoảng trắng, serif nghiêng nhỏ + chữ in hoa giãn rộng, ảnh tràn khung bo nhẹ. Mới: chụp từ trên xuống (tràn khung), nhật ký quán cà phê, cà phê trước đã, thẻ thực đơn có giá, tâm trạng matcha, bốn góc bữa brunch, phở 6 giờ sáng, một tuần cà phê, trà sữa, tối thứ sáu (cocktail), đêm chợ, cơm nhà; giữ (làm lại màu) food tour, công thức, review, hoá đơn, hảo ngọt, cà phê dạo, trước / sau, số đặc biệt.
+- **Đen trắng: 20 mẫu** — bỏ "Bản in triển lãm"; thêm noir et blanc (tràn khung), viền phim, một chữ, polaroid đen, ghi chép đường phố (3 slide có giờ), cậu & mình màu xám, đường nét & ánh sáng, muối biển (story), quán 7 giờ sáng.
+- Thư viện: **450 template**.
+
