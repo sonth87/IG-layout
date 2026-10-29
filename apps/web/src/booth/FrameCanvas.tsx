@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { BoothFrame } from "@ig-layout/core/booth/frames";
+import { cellAt } from "@ig-layout/core/booth/layout";
 import { renderFrame, type RenderOptions, type ShotImage } from "@ig-layout/core/booth/render";
 import { canvasFonts } from "./fonts";
 import { loadThemeFonts } from "./look";
@@ -44,7 +45,7 @@ export function FrameCanvas({ frame, images, scale, look, numbers, className = "
           const r = e.currentTarget.getBoundingClientRect();
           const x = ((e.clientX - r.left) / r.width) * frame.width;
           const y = ((e.clientY - r.top) / r.height) * frame.height;
-          const cell = frame.cells.find((c) => x >= c.x && x <= c.x + c.w && y >= c.y && y <= c.y + c.h);
+          const cell = cellAt(frame.cells.map((c, i) => ({ ...c, rot: c.rot ?? 0, z: c.z ?? i })), x, y);
           if (cell) onCell(cell.shot);
         })
       }

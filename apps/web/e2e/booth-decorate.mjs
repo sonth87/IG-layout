@@ -66,7 +66,7 @@ await page.screenshot({ path: path.join(OUT, "booth-decorate-text.png") });
 check((await page.getByRole("textbox").inputValue()) === "Sinh nhật Mai", "own title");
 
 console.log("4. Frame after the shots");
-await page.getByRole("tab", { name: "Frame" }).click();
+await page.getByRole("tab", { name: "Layout" }).click();
 await page.getByRole("radio", { name: /Grid 2×2/ }).click();
 await page.waitForTimeout(300);
 const ratio = await preview().evaluate((c) => c.width / c.height);

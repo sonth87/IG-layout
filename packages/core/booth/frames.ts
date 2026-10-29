@@ -10,6 +10,9 @@ export interface FrameCell {
   h: number;
   /** Which shot (0-based) this cell shows. */
   shot: number;
+  /** Arranged cells (layout.ts): turn in degrees, stacking order. */
+  rot?: number;
+  z?: number;
 }
 
 export interface BoothFrame {
@@ -26,6 +29,8 @@ export interface BoothFrame {
   holes?: "sides" | "top-bottom";
   /** Shown in the picker: how it's printed / used. */
   size: string;
+  /** Cell outline (layout.ts); rectangle when absent. */
+  shape?: import("./layout").CellShape;
 }
 
 /** Cells in a column (or several columns) of equal cells. */

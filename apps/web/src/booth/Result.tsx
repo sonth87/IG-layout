@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { frameById } from "@ig-layout/core/booth/frames";
 import { deleteRoll, type BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
 import { HandoffSheet } from "./HandoffSheet";
-import { formatBlob, lookOptions, useRollImages, type Format } from "./look";
+import { formatBlob, lookOptions, rollFrame, useRollImages, type Format } from "./look";
 import { Btn, Confirm, display, mono, serif } from "./ui";
 
 // The print (design §2.6, ColorME's printer): a little booth printer — sign, blinking light,
@@ -29,7 +28,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
   inRoom?: boolean;
 }) {
   const t = useT();
-  const frame = frameById(roll.frameId);
+  const frame = useMemo(() => rollFrame(roll), [roll]);
   const images = useRollImages(roll);
   const look = useMemo(() => lookOptions(roll), [roll]);
   // Reduced motion: no feed animation (its end would never come), the print is just there.

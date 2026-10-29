@@ -40,12 +40,12 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P19.** ~~Lưu strip?~~ Có — D-156.
 - **Q-P20.** Video hậu trường: **gác lại** — chủ dự án chưa thấy mục đích (2026-10-29).
 - *Khung tự do, đồ trang trí, theme theo chủ đề (2026-10-30 — [2026-10-30-booth-khung-theme.md](../discussions/2026-10-30-booth-khung-theme.md)):*
-- **Q-P21.** Làm phần này **trước** sửa chung trong phòng (vì sửa chung sẽ đồng bộ chính dữ liệu bố cục / đồ trang trí)? Thứ tự: bố cục → đồ trang trí → theme nhóm + không khí → sửa chung.
-- **Q-P22.** Bảy cách xếp (dọc, ngang, lưới, dọc lệch, ngang lệch, lưới lệch, tự do) + hình ô (chữ nhật, bo góc, polaroid, vòm, tròn, tim, xé giấy) — thêm / bớt?
-- **Q-P23.** Ngẫu nhiên có kiểm soát: nút 🎲 Xáo lại, luật giữ đẹp (không ra lề, không che chữ, chồng ≤ 12 % và không chồng vào giữa ô, nghiêng ±2–6°), ưng thì giữ — được không?
-- **Q-P24.** Đồ trang trí mặc định **cả bản in** (dây leo bò qua khe giữa các ô), chuyển sang **từng ô đồng bộ** được; mặc định nằm trên ảnh nhưng tránh giữa ô — được không?
-- **Q-P25.** Nhóm theme bản đầu: Cinema, Rừng, Candy, Đêm hội, Lãng mạn, Bầu trời (+ Y2K / Alice / Classic / Đen trắng nâng cấp, + Tết / Trung thu / Giáng sinh) — mỗi nhóm 2–3 kiểu. Thêm / bớt?
-- **Q-P26.** Theme đổi cả **không khí màn chụp / sửa** (nền mờ đổi màu + hạt rơi: lá, kẹo, sao, tuyết; polaroid camera đổi màu) nhưng nút giữ kiểu booth — được không?
+- **Q-P21.** ~~Làm phần này **trước** sửa chung trong phòng (vì sửa chung s…~~ Đồng ý — D-161 (2026-10-30).
+- **Q-P22.** ~~Bảy cách xếp (dọc, ngang, lưới, dọc lệch, ngang lệch, lưới l…~~ Đồng ý — D-161 (2026-10-30).
+- **Q-P23.** ~~Ngẫu nhiên có kiểm soát: nút 🎲 Xáo lại, luật giữ đẹp (không…~~ Đồng ý — D-161 (2026-10-30).
+- **Q-P24.** ~~Đồ trang trí mặc định **cả bản in** (dây leo bò qua khe giữa…~~ Đồng ý — D-161 (2026-10-30).
+- **Q-P25.** ~~Nhóm theme bản đầu: Cinema, Rừng, Candy, Đêm hội, Lãng mạn,…~~ Đồng ý — D-161 (2026-10-30).
+- **Q-P26.** ~~Theme đổi cả **không khí màn chụp / sửa** (nền mờ đổi màu +…~~ Đồng ý — D-161 (2026-10-30).
 
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?

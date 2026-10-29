@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { frameById } from "@ig-layout/core/booth/frames";
+import type { PlacedCell } from "@ig-layout/core/booth/layout";
 import type { ShotImage } from "@ig-layout/core/booth/render";
 import { BOOTH_FILTERS, THEMES, themeById } from "@ig-layout/core/booth/themes";
 import { filterById } from "@ig-layout/core/color/filters";
@@ -10,8 +10,9 @@ import { processImage } from "@ig-layout/core/color/processor";
 import type { BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
-import { FramePicker } from "./FramePicker";
-import { lookOptions, rollFilter, useRollImages } from "./look";
+import { LayoutEditor } from "./LayoutEditor";
+import { LayoutPanel } from "./LayoutPanel";
+import { lookOptions, rollFrame, rollFilter, useRollImages } from "./look";
 import { Btn, display, mono, serif } from "./ui";
 
 // Decorate the print (design §2.5, step 2): change the frame after shooting (D-147), the theme
@@ -24,11 +25,13 @@ const TABS: Tab[] = ["frame", "theme", "filter", "text"];
 export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange: (roll: BoothRoll) => void; onDone: () => void }) {
   const t = useT();
   const [tab, setTab] = useState<Tab>("theme");
-  const frame = frameById(roll.frameId);
+  const frame = useMemo(() => rollFrame(roll), [roll]);
   const theme = themeById(roll.theme);
   const images = useRollImages(roll);
   const look = useMemo(() => lookOptions(roll), [roll]);
   const set = (patch: Partial<BoothRoll>) => onChange({ ...roll, ...patch });
+  /** Free layout: the cells while a finger moves one (drawn live, saved on release). */
+  const [draft, setDraft] = useState<PlacedCell[] | null>(null);
 
   return (
     <div className="flex h-full flex-col">
@@ -43,8 +46,15 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
       </header>
 
       <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        <div className="flex min-h-0 flex-1 items-center justify-center p-4 lg:p-8">
-          {images && <FrameCanvas frame={frame} images={images} look={look} scale={Math.min(1, 1000 / Math.max(frame.width, frame.height))} className="max-h-full max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]" />}
+        <div className="flex min-h-0 flex-1 items-center justify-center p-4 [container-type:size] lg:p-8">
+          {images && (
+            <div className="relative shadow-[5px_6px_0_rgba(11,8,6,0.85)]" style={{ width: `min(100cqw, calc(100cqh * ${frame.width / frame.height}))`, aspectRatio: `${frame.width} / ${frame.height}` }}>
+              <FrameCanvas frame={draft ? { ...frame, cells: draft } : frame} images={images} look={look} scale={Math.min(1, 1000 / Math.max(frame.width, frame.height))} className="absolute inset-0 h-full w-full" />
+              {tab === "frame" && roll.layout?.arrange === "free" && (
+                <LayoutEditor frame={frame} onLive={setDraft} onChange={(cells) => set({ layout: { ...roll.layout, cells } })} />
+              )}
+            </div>
+          )}
         </div>
 
         <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:w-[460px] lg:overflow-y-auto lg:border-t-0 lg:border-l-2">
@@ -63,8 +73,17 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
             ))}
           </div>
 
-          <div className="min-h-[178px]">
-            {tab === "frame" && <FramePicker value={roll.frameId} look={look} onChange={(frameId) => set({ frameId })} />}
+          <div className="max-h-[42dvh] min-h-[178px] overflow-y-auto lg:max-h-none">
+            {tab === "frame" && (
+              <LayoutPanel
+                frameId={roll.frameId}
+                layout={roll.layout ?? {}}
+                look={look}
+                // Another frame: hand-placed cells don't fit it any more.
+                onFrame={(frameId) => set({ frameId, layout: { ...roll.layout, cells: undefined } })}
+                onLayout={(layout) => set({ layout })}
+              />
+            )}
 
             {tab === "theme" && (
               <div role="radiogroup" aria-label={t("booth.tab.theme")} className="flex gap-3 overflow-x-auto px-5 pt-4 pb-4 lg:flex-wrap lg:overflow-visible">

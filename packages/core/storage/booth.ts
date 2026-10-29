@@ -16,6 +16,8 @@ export interface BoothRoll {
   filter?: string | null;
   title?: string;
   showDate?: boolean;
+  /** Layout (D-161): arrangement, cell shape, seed of the random ones, hand-placed cells. */
+  layout?: import("../booth/layout").LayoutChoice;
   /** Shot together in a group room (D-159): its code and everyone's names, host first. */
   room?: { code: string; names: string[] };
   createdAt: number;

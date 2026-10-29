@@ -1,6 +1,6 @@
 # 2026-10-30 — Booth: khung tự do, đồ trang trí, theme theo chủ đề
 
-> Trạng thái: **Đề xuất** — chờ chủ dự án chốt (Q-P21 → Q-P26). Chưa code.
+> Trạng thái: **Đã chốt** ("ok tất", D-161, 2026-10-30). Bước 1 (bố cục) đã làm — §6.
 > Nền: [2026-10-29-booth-thiet-ke.md](2026-10-29-booth-thiet-ke.md) (khung D-152, theme §8 / §13, phòng D-159).
 
 ## Ý của chủ dự án (2026-10-30)
@@ -98,3 +98,12 @@ Nhóm đề xuất bản đầu:
 
 ## Câu hỏi cho chủ dự án
 Xem [open-questions.md](../roadmap/open-questions.md) mục Photobooth (Q-P21 → Q-P26).
+
+## 6. Bước 1 đã làm: bố cục (2026-10-30)
+- `packages/core/booth/layout.ts`: khung vẫn là khổ + số kiểu + ô thẳng (8 khung cũ: dọc = dải, ngang = dải ngang, lưới = 2 × 2 / 6 ô); **cách xếp** đặt lên trên: **Thẳng · So le** (xen trái / phải hoặc lên / xuống theo chiều khung, nghiêng xen kẽ, to hơn 6 % cho mép chạm nhau) **· Rải** (mỗi ô dịch / nghiêng / to nhỏ riêng, thứ tự trên dưới ngẫu nhiên) **· Tự do** (đặt bằng tay) → đủ 7 cách xếp đã bàn (dọc / ngang / lưới × thẳng / lệch + tự do).
+- **Luật cho ngẫu nhiên** (kiểm từng ô, thử tối đa 40 lần, mỗi lần dịu hơn; cuối cùng về ô thẳng): trong lề 3 %, không chạm vùng chữ, chồng nhau ≤ 12 % cạnh nhỏ nhất, **vùng giữa ô (60 %) không bị ô nào chồng lên**, nghiêng 2–6°. Ngẫu nhiên theo **hạt giống** lưu trong cuộn → không tự đổi; 🎲 Xáo lại = hạt giống mới.
+- **Hình ô:** vuông, bo góc, polaroid (thẻ trắng, mép dưới dày), vòm, tròn, tim, xé giấy (mép răng cưa cố định theo ô). Ô nghiêng / polaroid có bóng mềm để ô trên đọc ra là "nằm trên". Theme có viền ô thì viền theo đúng hình ô.
+- **Tự do:** chạm một ô → lên trên cùng, khung vàng; kéo để di chuyển (hít tâm vào giữa bản in / tâm các ô khác), góc dưới phải để phóng to – thu nhỏ (giữ tỉ lệ), núm trên để xoay (hít 0°); bản in vẽ lại theo tay, lưu khi nhấc tay; **Căn lại** về ô thẳng. Đổi khung khác → bỏ vị trí tay đã đặt.
+- Thẻ **Bố cục** (thay thẻ Khung) trong màn Trang trí: khung, cách xếp (mỗi lựa chọn là hình thu nhỏ của chính khung đó), hình ô, 🎲 / Căn lại. Bảng dưới trên điện thoại cao tối đa 42 % màn và tự cuộn, để bản in không bị thu nhỏ.
+- Chạm ảnh để chụp lại vẫn đúng ô khi ô nghiêng / chồng (tính theo ô trên cùng, có xoay).
+- Tiếp theo: bước 2 — đồ trang trí vẽ bằng code.

@@ -1,4 +1,5 @@
 import type { BoothFrame } from "./frames";
+import { shapePath } from "./layout";
 import { THEMES, type BoothTheme, type FontRole } from "./themes";
 
 // Draws a booth frame (D-152) with its shots in a theme (themes.ts): the previews and the
@@ -44,32 +45,61 @@ export function renderFrame(canvas: HTMLCanvasElement, frame: BoothFrame, shots:
   decor(c, frame, th);
   if (frame.holes && th.holes) holes(c, frame, th.holes);
 
-  for (const box of frame.cells) {
+  const shape = frame.shape ?? "rect";
+  const cells = [...frame.cells].sort((p, q) => (p.z ?? 0) - (q.z ?? 0));
+  for (const box of cells) {
     const img = shots[box.shot];
+    const rot = box.rot ?? 0;
+    // Each cell is drawn around its centre (turned prints, shapes).
+    c.save();
+    c.translate(box.x + box.w / 2, box.y + box.h / 2);
+    if (rot) c.rotate((rot * Math.PI) / 180);
+    let w = box.w;
+    let h = box.h;
+    let oy = 0;
+    // A turned or polaroid print casts a soft shadow, so prints on top read as on top.
+    const lifted = rot !== 0 || shape === "polaroid";
+    if (shape === "polaroid") {
+      // A white card, the photo inset with a deep bottom edge.
+      if (lifted) shadow(c, Math.min(w, h));
+      c.fillStyle = "#fbfaf6";
+      c.fillRect(-w / 2, -h / 2, w, h);
+      c.shadowColor = "transparent";
+      const side = Math.min(w, h) * 0.05;
+      const foot = Math.min(w, h) * 0.16;
+      oy = (side - foot) / 2;
+      w -= side * 2;
+      h -= side + foot;
+    }
     // A bordered theme draws the border on the cell and the photo inside it, so the gaps
     // between cells stay.
     const b = th.cellBorder;
-    const cell = b ? { ...box, x: box.x + b.width, y: box.y + b.width, w: box.w - b.width * 2, h: box.h - b.width * 2 } : box;
-    if (b) {
+    const radius = th.cellRadius ?? 0;
+    if (b && shape !== "polaroid") {
+      if (lifted) shadow(c, Math.min(w, h));
       c.fillStyle = b.color;
-      rounded(c, box, (th.cellRadius ?? 0) + b.width);
+      shapePath(c, shape, w, h, box.shot + 1, radius + b.width);
       c.fill();
+      c.shadowColor = "transparent";
+      w -= b.width * 2;
+      h -= b.width * 2;
+    } else if (lifted && shape !== "polaroid") {
+      shadow(c, Math.min(w, h));
+      c.fillStyle = th.empty;
+      shapePath(c, shape, w, h, box.shot + 1, radius);
+      c.fill();
+      c.shadowColor = "transparent";
     }
-    c.save();
-    rounded(c, cell, th.cellRadius ?? 0);
+    c.translate(0, oy);
+    shapePath(c, shape, w, h, box.shot + 1, shape === "rect" ? radius : 0);
     c.clip();
     if (img) {
       // Cover: fill the cell, crop the centre.
-      const k = Math.max(cell.w / img.width, cell.h / img.height);
-      const w = img.width * k;
-      const h = img.height * k;
-      if (opts.flip) {
-        c.translate(cell.x * 2 + cell.w, 0);
-        c.scale(-1, 1);
-      }
-      c.drawImage(img.source, cell.x + (cell.w - w) / 2, cell.y + (cell.h - h) / 2, w, h);
+      const k = Math.max(w / img.width, h / img.height);
+      if (opts.flip) c.scale(-1, 1);
+      c.drawImage(img.source, (-img.width * k) / 2, (-img.height * k) / 2, img.width * k, img.height * k);
     } else {
-      empty(c, cell, th, opts.numbers ? cell.shot + 1 : null, font(opts, "mono"));
+      empty(c, { x: -w / 2, y: -h / 2, w, h }, th, opts.numbers ? box.shot + 1 : null, font(opts, "mono"));
     }
     c.restore();
   }
@@ -80,10 +110,10 @@ function font(opts: RenderOptions, role: FontRole) {
   return opts.fonts?.[role] ?? (role === "mono" ? "monospace" : "serif");
 }
 
-function rounded(c: CanvasRenderingContext2D, b: Box, r: number) {
-  c.beginPath();
-  if (r > 0) c.roundRect(b.x, b.y, b.w, b.h, r);
-  else c.rect(b.x, b.y, b.w, b.h);
+function shadow(c: CanvasRenderingContext2D, size: number) {
+  c.shadowColor = "rgba(0,0,0,0.28)";
+  c.shadowBlur = size * 0.05;
+  c.shadowOffsetY = size * 0.02;
 }
 
 /** What the paper and its decoration need: a size, and where the caption goes (kept clear). */

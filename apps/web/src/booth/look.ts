@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { frameById } from "@ig-layout/core/booth/frames";
+import { layoutFrame } from "@ig-layout/core/booth/layout";
 import { paintBackdrop, renderFrame, type RenderOptions, type ShotImage } from "@ig-layout/core/booth/render";
 import { themeById } from "@ig-layout/core/booth/themes";
 import { filterById } from "@ig-layout/core/color/filters";
@@ -37,6 +38,11 @@ export function filtered(img: ShotImage, filterId: string | undefined): ShotImag
   return out ? { source: out, width: out.width, height: out.height } : img;
 }
 
+/** The roll's frame with its layout (arrangement, shape) applied. */
+export function rollFrame(roll: Pick<BoothRoll, "frameId" | "layout">) {
+  return layoutFrame(frameById(roll.frameId), roll.layout);
+}
+
 export function lookOptions(roll: BoothRoll): RenderOptions {
   return { theme: themeById(roll.theme), flip: roll.flip, title: roll.title, showDate: roll.showDate, date: new Date(roll.createdAt), fonts: canvasFonts };
 }
@@ -52,7 +58,7 @@ export function useRollImages(roll: BoothRoll) {
 export async function rollRender(roll: BoothRoll) {
   const filterId = rollFilter(roll);
   const images = (await shotImages(roll.shots)).map((i) => (i ? filtered(i, filterId) : null));
-  return { frame: frameById(roll.frameId), images, opts: lookOptions(roll) };
+  return { frame: rollFrame(roll), images, opts: lookOptions(roll) };
 }
 
 /** Load the faces this roll's theme uses (canvas can't wait for fonts by itself). */
