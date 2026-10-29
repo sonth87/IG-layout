@@ -166,7 +166,7 @@ export const MOMENTS: Template[] = [
     ],
   }),
   design("ootd-city-girl", "teen", t("City girl", "Cô gái thành phố"), {
-    themes: ["ootd", "city"],
+    themes: ["ootd"],
     slides: 1,
     background: { kind: "color", color: "#ffe1ee" },
     slots: [photo(0, 0, 0.18, 0.14, 0.64, 0.66, { mask: "arch", border: { width: 0.014, color: "#ffffff" } })],
@@ -205,7 +205,7 @@ export const MOMENTS: Template[] = [
     ],
   }),
   design("ootd-city-diary", "travel", t("City diary", "Nhật ký thành phố"), {
-    themes: ["ootd", "city"],
+    themes: ["ootd"],
     slides: 2,
     background: { kind: "color", color: "#efe6d6" },
     art: [art("gen-stamps/stamp-6", 0, 0.58, 0.58, 0.36, { rotation: 6, photo: 1 }), art("vintage-maps-compass/compass-rose-1595", 1, 0.66, 0.68, 0.28)],
