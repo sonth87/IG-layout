@@ -1,0 +1,166 @@
+// Booth solo (/booth, D-152…D-157): lobby → frame (camera window = cell shape) → 4 shots on
+// their own (8 s countdown, 2 s rest) → the print slides out → save a 600 × 1800 JPEG →
+// tap a photo, retake it → flip → the roll is in "Recent rolls" after a reload → spares:
+// 1 + 2 shots, pick one → delete. Chromium's fake camera stands in for the real one.
+import { chromium } from "playwright-core";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { chromePath, OUT, URL_ARG } from "./lib.mjs";
+
+const browser = await chromium.launch({
+  executablePath: chromePath(),
+  args: ["--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream", "--autoplay-policy=no-user-gesture-required"],
+});
+const context = await browser.newContext({ viewport: { width: 390, height: 844 }, acceptDownloads: true, permissions: ["camera"] });
+const page = await context.newPage();
+const errors = [];
+page.on("pageerror", (e) => errors.push(String(e)));
+page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+let failed = 0;
+const check = (ok, label) => {
+  console.log(`  ${ok ? "✓" : "✗"} ${label}`);
+  if (!ok) failed++;
+};
+
+await page.goto(new URL("booth", URL_ARG).href);
+await page.getByRole("button", { name: "Shoot solo" }).click();
+
+// 1. Frame screen: camera on, 8 frames, window shaped like the first cell.
+console.log("1. Frame");
+await page.getByRole("radio").first().waitFor();
+check((await page.getByRole("radio").count()) === 8, "8 frames");
+await page.getByRole("radio", { name: /Strip of 4/ }).click();
+await page.waitForFunction(() => document.querySelector("video")?.videoWidth > 0, null, { timeout: 10000 });
+check(await page.getByText("Try the camera again").isHidden(), "camera opened (fake device)");
+check((await page.locator("video.absolute").evaluate((v) => v.style.transform)) === "scaleX(-1)", "front camera shown mirrored");
+await page.screenshot({ path: path.join(OUT, "booth-setup.png") });
+
+// 1b. Two views: the whole frame big (camera playing in cell 1), me in the corner; tap the
+// corner to swap, drag it to another corner.
+console.log("1b. Two views");
+check((await page.locator("video").count()) === 2, "frame view plays the camera in its cell + the corner polaroid");
+const pip = () => page.getByRole("button", { name: /Show me big|Show the whole frame/ });
+check((await pip().getAttribute("aria-label")) === "Show me big", "frame view is the main one while choosing");
+await pip().click();
+await page.waitForTimeout(400);
+check((await pip().getAttribute("aria-label")) === "Show the whole frame", "tap the corner → swapped");
+await page.screenshot({ path: path.join(OUT, "booth-setup-me.png") });
+let pb = await pip().boundingBox();
+await page.mouse.move(pb.x + pb.width / 2, pb.y + pb.height / 2);
+await page.mouse.down();
+await page.mouse.move(60, 160, { steps: 8 });
+await page.mouse.up();
+await page.waitForTimeout(400);
+pb = await pip().boundingBox();
+check(pb.x < 40 && pb.y < 200 && (await pip().getAttribute("aria-label")) === "Show the whole frame", `dragged → top-left corner, no swap (${Math.round(pb.x)}, ${Math.round(pb.y)})`);
+await page.mouse.move(pb.x + pb.width / 2, pb.y + pb.height / 2);
+await page.mouse.down();
+await page.mouse.move(370, 520, { steps: 8 });
+await page.mouse.up();
+await page.waitForTimeout(400);
+
+// 2. Shoot 4: countdown visible, then shots drop into the tray.
+console.log("2. Shoot");
+const t0 = Date.now();
+await page.getByRole("button", { name: "Start shooting" }).click();
+await page.getByText("Shot 1 of 4").waitFor();
+await page.waitForTimeout(1500);
+const num = await page.locator("[data-countdown]").textContent();
+check(Number(num) >= 6 && Number(num) <= 8, `countdown runs (${num})`);
+await page.screenshot({ path: path.join(OUT, "booth-countdown.png") });
+check((await pip().getAttribute("aria-label")) === "Show me big" ? false : true, "shooting: me big, the frame in the corner");
+await page.locator("img[data-shot='0']").waitFor({ timeout: 12000 });
+const first = (Date.now() - t0) / 1000;
+check(first > 7.5 && first < 11, `first shot after ~8 s (${first.toFixed(1)} s)`);
+await page.getByText("Printing…").waitFor({ timeout: 45000 });
+const total = (Date.now() - t0) / 1000;
+check(total > 36 && total < 48, `4 shots ≈ 4 × 8 + 3 × 2 s (${total.toFixed(1)} s)`);
+
+// 3. Print, save.
+console.log("3. Result");
+await page.getByText("Tap a photo to retake it.").waitFor({ timeout: 5000 });
+await page.screenshot({ path: path.join(OUT, "booth-result.png") });
+const [download] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: /Save photo/ }).click()]);
+const file = path.join(OUT, "booth-strip.jpg");
+await download.saveAs(file);
+const jpg = readFileSync(file);
+// JPEG SOF0/SOF2 marker: height, width.
+let w = 0,
+  h = 0;
+for (let i = 2; i < jpg.length - 9; i++) {
+  if (jpg[i] === 0xff && (jpg[i + 1] === 0xc0 || jpg[i + 1] === 0xc2)) {
+    h = jpg.readUInt16BE(i + 5);
+    w = jpg.readUInt16BE(i + 7);
+    break;
+  }
+}
+check(download.suggestedFilename().startsWith("booth_") && w === 600 && h === 1800, `saved ${download.suggestedFilename()} ${w}×${h}`);
+
+// 4. Tap the 2nd photo → retake just that one → back to the print.
+console.log("4. Retake one shot");
+const canvas = page.locator("canvas").first();
+const box = await canvas.boundingBox();
+// strip4: cell 2 spans y 420…780 of 1800.
+await page.mouse.click(box.x + box.width / 2, box.y + box.height * (600 / 1800));
+await page.getByRole("button", { name: /Retake shot 2/ }).click();
+await page.getByText("Shot 1 of 1").waitFor();
+await page.getByText("Tap a photo to retake it.").waitFor({ timeout: 20000 });
+check(true, "retook shot 2 only (1 shot), back to the print");
+
+// 5. Flip, then the roll survives a reload.
+console.log("5. Flip, recent rolls");
+await page.getByRole("button", { name: /Flip photos/ }).click();
+check((await page.getByRole("button", { name: /Flip photos/ }).getAttribute("aria-pressed")) === "true", "flip on");
+await page.waitForTimeout(600);
+await page.reload();
+await page.getByText("Recent rolls").waitFor({ timeout: 5000 });
+check((await page.getByRole("button", { name: /Open roll from/ }).count()) === 1, "1 roll in Recent rolls after reload");
+await page.getByRole("button", { name: /Open roll from/ }).click();
+await page.getByRole("button", { name: /Flip photos/ }).waitFor();
+check((await page.getByRole("button", { name: /Flip photos/ }).getAttribute("aria-pressed")) === "true", "reopened roll keeps flip");
+
+// 6. Spares: Polaroid (1 shot) + 2 spares → pick 1.
+console.log("6. Spare shots");
+await page.getByRole("button", { name: "New roll" }).click();
+await page.getByRole("radio", { name: /Polaroid/ }).click();
+await page.getByText("2 spare shots").click();
+await page.getByRole("button", { name: "Start shooting" }).click();
+await page.getByText("Shot 1 of 3").waitFor();
+await page.getByText("Pick 1 shot").waitFor({ timeout: 40000 });
+check((await page.locator("button[aria-pressed] img").count()) === 3, "3 shots to pick from");
+await page.locator("button[aria-pressed]").nth(2).click();
+await page.getByRole("button", { name: /Next · 1\/1/ }).click();
+await page.getByText("Tap a photo to retake it.").waitFor({ timeout: 8000 });
+check(true, "picked → print");
+
+// 7. Delete the roll → lobby has 1 roll.
+console.log("7. Delete");
+await page.getByRole("button", { name: "Delete roll" }).click();
+await page.getByRole("alertdialog").getByRole("button", { name: "Delete" }).click();
+await page.getByRole("button", { name: "Shoot solo" }).waitFor();
+await page.waitForTimeout(300);
+check((await page.getByRole("button", { name: /Open roll from/ }).count()) === 1, "deleted, 1 roll left");
+await page.screenshot({ path: path.join(OUT, "booth-home.png") });
+
+// 8. Camera blocked: says why, test picture not mirrored, retry.
+console.log("8. Camera blocked");
+// Its own browser: the main one says yes to every camera request.
+const plain = await chromium.launch({ executablePath: chromePath() });
+const blocked = await plain.newContext({ viewport: { width: 390, height: 844 } });
+const bp = await blocked.newPage();
+await bp.goto(new URL("booth", URL_ARG).href);
+await bp.getByRole("button", { name: "Shoot solo" }).click();
+await bp.getByRole("status").waitFor({ timeout: 10000 });
+const why = await bp.getByRole("status").innerText();
+check(/blocking the camera|No camera found/.test(why), `reason shown: ${why.split("\n")[0]}`);
+await bp.waitForFunction(() => document.querySelector("video")?.videoWidth > 0);
+check((await bp.locator("video.absolute").evaluate((v) => v.style.transform)) === "", "test picture not mirrored");
+await bp.getByRole("button", { name: /Try the camera again/ }).click();
+await bp.getByRole("status").waitFor({ timeout: 10000 });
+check(true, "retry asks again");
+await plain.close();
+
+check(errors.length === 0, `no console errors ${errors.length ? JSON.stringify(errors) : ""}`);
+await browser.close();
+console.log(failed ? `FAILED ${failed}` : "ALL PASSED");
+process.exit(failed ? 1 : 0);

@@ -1,0 +1,16 @@
+{
+  "name": "@ig-layout/canvas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Konva / react-konva nodes that draw a project (photos, text, cut-out letters, shapes, icons, stickers, frames, background) and their touch / drag handling. No app UI: the host app passes its store through <CanvasHost>.",
+  "dependencies": {
+    "@ig-layout/core": "workspace:*",
+    "konva": "^10.8.0",
+    "react": "19.3.0",
+    "react-konva": "^19.3.0",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@types/react": "^19"
+  }
+}

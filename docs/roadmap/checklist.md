@@ -557,4 +557,21 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Bản thử phòng chụp chung: `apps/signal` (Cloudflare Durable Object) + `/labs/booth`; e2e `booth.mjs` 3 trình duyệt chạy local
 - [ ] Chủ dự án `wrangler login` → deploy worker, đặt `NEXT_PUBLIC_SIGNAL_URL` trên Vercel
 - [ ] Thử trên điện thoại thật: cùng Wi-Fi, Wi-Fi ↔ 4G (cần TURN không?)
-- [ ] Monorepo đầy đủ (apps/web, packages/*) — D-150, D-151
+- [x] Monorepo bước 1: `apps/web` (app), `apps/signal` (server phòng), `packages/core` (logic dùng chung, không giao diện) — D-150
+- [ ] Chủ dự án đổi Vercel → Settings → Root Directory = `apps/web` (trước khi merge nhánh `monorepo`) — để sau, chạy local trước (chủ dự án, 2026-10-29)
+- [x] Monorepo bước 2: `packages/canvas` — node vẽ dùng chung, lấy store qua `<CanvasHost>`; CanvasStage ở lại editor
+- [x] Tag treo dây: bản thử `/labs/tag` (SwitchTag, chỉnh vật lý bằng thanh trượt; e2e `tag.mjs`)
+- [ ] Chủ dự án thử tag trên điện thoại, chốt hướng kéo (Q-P12)
+- [x] Booth solo: tham khảo + đề xuất thiết kế (docs/discussions/2026-10-29-booth-thiet-ke.md)
+- [x] Chủ dự án chốt thiết kế booth solo (D-152 → D-157)
+- [ ] Còn mở: chọn theme (Q-P4), video hậu trường (Q-P20)
+- [x] Booth solo bước 1: `/booth` — sảnh (thẻ vé, tải ảnh lên, cuộn phim gần đây, tag về IG Layout), chọn khung với camera bật sẵn (8 khung, ô camera đúng hình ô), chụp tự động (đếm 8 s, nghỉ 2 s, loé trắng, tiếng màn trập, tạm dừng, chụp lại kiểu vừa rồi, hỏi trước khi thoát), chụp dư + chọn, ảnh in trượt ra, lưu JPEG, chạm ảnh → chụp lại / chụp bù, lật ảnh, lưu cuộn trên máy; e2e `booth-solo.mjs`
+- [x] Booth bước 2a: màn Trang trí — đổi khung sau khi chụp, 6 theme (Cinema, Classic, Đen trắng, Candy, Alice, Y2K), filter dùng chung IG Layout, dòng chữ + ngày giờ; e2e `booth-decorate.mjs`
+- [x] Booth trên máy tính: bố cục hai cột (camera / bản in bên trái, lựa chọn bên phải), phím tắt, ẩn đổi camera khi chỉ có 1; e2e `booth-desktop.mjs`
+- [ ] Booth bước 2b: sticker (kéo, xoay, phóng to — packages/canvas)
+- [ ] Chủ dự án duyệt / đổi danh sách theme (Q-P4)
+- [x] Booth bước 3: lưu dạng Bản in / Post 4:5 / Story 9:16; Mở trong IG Layout (Post, Carousel, Story, Bất ngờ — D-155); e2e `booth-handoff.mjs`
+- [x] Tag: mặt riêng cho từng app (dải ảnh booth / thẻ lưới IG Layout), nhỏ hơn, trọng lực theo độ nghiêng điện thoại
+- [x] Tag treo ở home IG Layout → /booth (chủ dự án, 2026-10-29); booth có tag về IG Layout từ bước 1
+- [ ] Chốt hướng kéo / cảm giác dây (Q-P12) sau khi thử trên điện thoại
+- [ ] Phòng online + sửa chung

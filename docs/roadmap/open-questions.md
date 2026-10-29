@@ -20,8 +20,8 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 ### Photobooth (2026-10-29 — [2026-10-29-photobooth.md](../discussions/2026-10-29-photobooth.md))
 - **Q-P1.** Photobooth là một cách nhập ảnh rồi vào editor (đề xuất), hay một chế độ riêng chỉ ra strip?
 - **Q-P2.** Bản đầu xuất những dạng nào? (Đề xuất: strip gốc 1:3, Post 4:5 hai strip, Story 9:16, ảnh lẻ; GIF / video để sau.)
-- **Q-P3.** Có chụp dư rồi chọn (vd. chụp 8 chọn 4) như tiệm Hàn không?
-- **Q-P4.** Theme bản đầu: Cinema + Classic + Đen trắng — thêm / bớt gì?
+- **Q-P3.** ~~Chụp dư?~~ Đồng ý đề xuất — D-157.
+- **Q-P4.** Theme: đã làm 6 theme theo đề xuất (Cinema, Classic, Đen trắng, Candy, Alice, Y2K — 2026-10-29, chủ dự án bảo "làm tiếp đi"); chờ chủ dự án xem và đổi / thêm (Dreamy, Polaroid, Báo, Tết, Giáng sinh…).
 - **Q-P5.** Có làm phòng chụp online không? Nếu có thì chấp nhận dùng một dịch vụ signaling bên ngoài (đổi một phần D-06 / D-37) không, và tối đa bao nhiêu người (đề xuất 4)?
 - **Q-P6.** Làm P1 (solo) trước ở `/labs/photobooth` được không?
 - **Q-P7.** ~~Mô hình bảng ảnh S × P?~~ Tạm theo đề xuất (chủ dự án chưa rõ photobooth nên như nào) — D-147.
@@ -31,6 +31,14 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P11.** Hai app hay một app, server ở đâu? Đề xuất (cập nhật 2026-10-29): **một app** `apps/web` (IG Layout + `/booth`) trên Vercel, **giữ xuất tĩnh**; signaling + TURN trên **Cloudflare** (Worker + Durable Objects + Realtime TURN) ở `apps/signal`. Phương án cũ (bỏ xuất tĩnh + Upstash) để dự phòng — chờ chủ dự án chốt.
 - **Q-P12.** ~~Tag ở đâu?~~ Chỉ ở màn home (2026-10-29). Còn mở: kéo hướng nào để chuyển.
 - **Q-P13.** ~~Thứ tự?~~ Đồng ý: monorepo + tách packages trước, booth sau (2026-10-29).
+- *Thiết kế booth solo (2026-10-29 — [2026-10-29-booth-thiet-ke.md](../discussions/2026-10-29-booth-thiet-ke.md)):*
+- **Q-P14.** ~~Luồng?~~ Ok — D-152.
+- **Q-P15.** ~~Bộ khung?~~ Tối đa 8 khung — D-152.
+- **Q-P16.** ~~Lật gương?~~ Mặc định không lật, có nút lật — D-153.
+- **Q-P17.** ~~Đếm ngược?~~ 8 giây, nghỉ 2 giây — D-154.
+- **Q-P18.** ~~Mở trong IG Layout dạng gì?~~ Hỏi người dùng, kèm lựa chọn "Bất ngờ" — D-155.
+- **Q-P19.** ~~Lưu strip?~~ Có — D-156.
+- **Q-P20.** Video hậu trường: **gác lại** — chủ dự án chưa thấy mục đích (2026-10-29).
 
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?

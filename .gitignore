@@ -11,14 +11,14 @@ node_modules/
 !.yarn/versions
 
 # testing
-/coverage
+coverage/
 
 # next.js
-/.next/
-/out/
+.next/
+out/
 
 # production
-/build
+build/
 
 # misc
 .DS_Store
@@ -41,9 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 # e2e output
-/e2e/.out/
-public/ort/
-public/emoji/
+apps/web/e2e/.out/
+apps/web/public/ort/
+apps/web/public/emoji/
 
 # Reference screenshots / videos of other apps (not ours: never committed)
 /refs/
@@ -54,7 +54,7 @@ public/emoji/
 /assets/_review/
 
 # Generated at build (scripts/build-licenses.mjs)
-/public/licenses.txt
+apps/web/public/licenses.txt
 
 /sample
 

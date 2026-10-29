@@ -8,10 +8,10 @@ Yêu cầu: Node 20+, pnpm 10.
 pnpm install
 pnpm dev      # http://localhost:3000
 pnpm lint
-pnpm build    # xuất trang tĩnh ra out/
+pnpm build    # xuất trang tĩnh ra apps/web/out/
 ```
 
-Xem bản build: phục vụ thư mục `out/` bằng bất kỳ static server nào, ví dụ `python3 -m http.server 4321 -d out`.
+Xem bản build: phục vụ thư mục `apps/web/out/` bằng bất kỳ static server nào, ví dụ `python3 -m http.server 4321 -d apps/web/out`.
 
 Thử trên điện thoại (cùng mạng Wi-Fi): `pnpm dev -H 0.0.0.0` rồi mở `http://<IP-máy>:3000`.
 Lưu ý: share sheet ("Save images") và cài PWA cần **HTTPS** (hoặc localhost) — dùng tunnel (ví dụ cloudflared) hoặc deploy thử.
@@ -22,18 +22,37 @@ Cloudflare Worker + Durable Object (docs/discussions/2026-10-29-photobooth.md). 
 
 ```bash
 cd apps/signal && pnpm dev          # ws://localhost:8787 — trang /labs/booth nối vào đây
-node e2e/booth.mjs http://localhost:3000/   # 3 trình duyệt cùng phòng (cần worker đang chạy)
+node apps/web/e2e/booth.mjs http://localhost:3000/   # 3 trình duyệt cùng phòng (cần worker đang chạy)
 pnpm deploy                          # cần `npx wrangler login` trước; rồi đặt NEXT_PUBLIC_SIGNAL_URL=wss://… cho app web
 ```
 
 ## Kiểm tra tự động
 
-`pnpm build && pnpm e2e` — chạy Chromium headless qua các luồng chính (xem [e2e/README.md](../../e2e/README.md)). Chạy trên bản deploy: `node e2e/run.mjs https://ig-layout.vercel.app/`. **Chạy trước khi merge vào `main`.**
+`pnpm build && pnpm e2e` — chạy Chromium headless qua các luồng chính (xem [apps/web/e2e/README.md](../../apps/web/e2e/README.md)). Chạy trên bản deploy: `node apps/web/e2e/run.mjs https://ig-layout.vercel.app/`. **Chạy trước khi merge vào `main`.**
 
 ## Cấu trúc thư mục
 
+Monorepo pnpm workspace (D-150, 2026-10-29). Lệnh `pnpm dev / build / e2e` ở thư mục gốc chạy cho `apps/web`; `pnpm lint` lint cả workspace (một file `eslint.config.mjs` ở gốc).
+
 ```
-src/
+apps/web/          app Next.js (IG Layout + photobooth ở route /booth) — giao diện, store, trang, PWA
+                   Booth: apps/web/src/booth/ (giao diện riêng, không dùng component của editor — D-150);
+                   dữ liệu khung / vẽ / camera ở packages/core/booth/, cuộn phim ở packages/core/storage/booth.ts
+apps/signal/       server phòng chụp chung: Cloudflare Worker + Durable Object
+packages/core/     logic dùng chung, KHÔNG có giao diện: import bằng "@ig-layout/core/<thư mục>/<file>"
+                   (app web biên dịch thẳng mã nguồn — transpilePackages). Không import ngược từ apps/*.
+packages/canvas/   các node Konva vẽ project (ảnh, chữ, chữ cắt báo, hình, icon, sticker, khung, nền) + chạm / kéo.
+                   Không gọi store của app: app bọc các layer trong <Stage> bằng <CanvasHost store={…}> (host.tsx,
+                   interface CanvasState). Editor đưa useEditor; booth sẽ đưa store riêng. CanvasStage (pinch,
+                   hít, crop, chọn) vẫn là của editor: apps/web/src/components/editor/canvas/CanvasStage.tsx.
+assets/            nguồn tài sản thư viện (sticker, khung…) — script ở apps/web/scripts/assets ghi ra apps/web/public/packs
+docs/
+```
+
+Chi tiết `apps/web/src` (phần `lib/` bên dưới nay là `packages/core/`, trừ `pwa.ts` và `text/webfonts.ts` gắn với Next nên ở lại `apps/web/src/lib/`):
+
+```
+apps/web/src/
   app/                  layout, page, manifest (PWA), globals.css (biến theme)
   components/
     App.tsx             điều hướng giữa các màn: Projects, New, Settings, Editor
@@ -56,7 +75,7 @@ src/
     HelpScreen.tsx      hướng dẫn ngắn trong app
     ui/Icon.tsx
     ui/Dialog.tsx       ConfirmDialog, PromptDialog (thay prompt / confirm)
-  lib/
+  lib/                → packages/core/ (xem trên)
     project/types.ts    mô hình dữ liệu (tọa độ theo pixel xuất)
     project/placement.ts  đặt ảnh ban đầu (1 ảnh → panorama, nhiều ảnh → mỗi slide 1 ảnh, thêm sau → nổi trên slide đang xem)
     project/geometry.ts   cover crop, nắn thẳng, bounds khi xoay, slide của phần tử
@@ -65,16 +84,16 @@ src/
     project/layout.ts     vị trí slide / ô (Post, Story: 1 hàng; Grid: 3 × N + khe), thứ tự xuất, vùng an toàn Story
     project/slides.ts     thêm / xóa / đổi chỗ slide; Grid: thêm / bớt hàng, bật / tắt bù khe
     project/migrate.ts    nâng cấp dữ liệu project cũ
-    templates/          types, library (layout cho LayoutPicker), designs/ (template thiết kế sẵn cho trang chủ, mỗi nhóm một file, hàm dựng chung ở kit.ts; khung / sticker thư viện dùng trong template được trích vào packArt.json bằng scripts/build-template-art.mjs), seasons (lịch mùa / sự kiện cho trang chủ; thử ngày khác bằng `?today=YYYY-MM-DD`), widgetSpec (widget trong template, nạp lười), samples (ảnh mẫu theo chủ đề cho ô xem trước — public/samples, tải bằng `node --env-file=.env.local scripts/fetch-samples.mjs [--only=food,mono]`, cần PEXELS_API_KEY trong .env.local; ảnh JPG của chủ dự án — `ext: "jpg"` trong samplePhotos.json — được giữ lại), apply (template → phần tử)
+    templates/          types, library (layout cho LayoutPicker), designs/ (template thiết kế sẵn cho trang chủ, mỗi nhóm một file, hàm dựng chung ở kit.ts; khung / sticker thư viện dùng trong template được trích vào packArt.json bằng apps/web/scripts/build-template-art.mjs), seasons (lịch mùa / sự kiện cho trang chủ; thử ngày khác bằng `?today=YYYY-MM-DD`), widgetSpec (widget trong template, nạp lười), samples (ảnh mẫu theo chủ đề cho ô xem trước — apps/web/public/samples, tải bằng `node --env-file=.env.local apps/web/scripts/fetch-samples.mjs [--only=food,mono]`, cần PEXELS_API_KEY trong .env.local; ảnh JPG của chủ dự án — `ext: "jpg"` trong samplePhotos.json — được giữ lại), apply (template → phần tử)
     color/              params (thông số màu), filters (danh sách filter + công thức filter v2), lut (công thức → bảng tra màu 3D), processor (WebGL + cache), filmfx (Film FX: lớp phủ + dấu ngày + máy ảnh retro)
-    text/cutout.ts      chữ cắt báo (D-141, D-142): xếp chữ, hàm vẽ dùng chung (canvas Konva, xuất ảnh, xem trước template); kiểu ở text/cutoutStyles.ts, phông thư viện dùng tới ở text/cutoutFonts.json (sinh bởi scripts/build-template-art.mjs)
+    text/cutout.ts      chữ cắt báo (D-141, D-142): xếp chữ, hàm vẽ dùng chung (canvas Konva, xuất ảnh, xem trước template); kiểu ở text/cutoutStyles.ts, phông thư viện dùng tới ở text/cutoutFonts.json (sinh bởi apps/web/scripts/build-template-art.mjs)
     text/fonts.ts       danh sách 78 font (nhóm, độ đậm) + chờ font tải; text/webfonts.ts khai báo next/font (đi cùng trình chỉnh sửa)
     elements/           create (tạo chữ / hình / icon / sticker / lớp phủ / khung), stickers (SVG tự vẽ), overlays (lớp phủ sinh bằng code), resize (co giãn cỡ chữ, viền theo tỉ lệ), shapes (vẽ hình), icons (Lucide)
   app/fonts.ts          khai báo 6 font (next/font), dùng chung cho giao diện và canvas
     image/import.ts     đọc ảnh, xoay theo EXIF, thu nhỏ (D-29)
     motion/motion.ts    chuyển động: trạng thái theo thời gian (vào / ra / liên tục / Ken Burns), áp lên Konva và trả về
     video/              import (nén bằng Mediabunny), music (nhạc nền), analyze (dải hình + sóng âm), reel (video 9:16), playback (đồng hồ chung + <video> ẩn mỗi phần tử), export (slide có video → MP4), frames (khung giải mã khi xuất)
-    image/removeBg*.ts  xoá nền: worker (Transformers.js + ormbg) và phía giao diện; runtime ONNX copy vào public/ort bởi scripts/copy-ort.mjs (chạy trong `pnpm dev` / `pnpm build`)
+    image/removeBg*.ts  xoá nền: worker (Transformers.js + ormbg) và phía giao diện; runtime ONNX copy vào apps/web/public/ort bởi apps/web/scripts/copy-ort.mjs (chạy trong `pnpm dev` / `pnpm build`)
     export/slices.ts    cắt canvas theo ranh giới slide → JPEG
     export/deliver.ts   share sheet / ZIP / tải từng ảnh
     storage/db.ts       IndexedDB: projects (thông tin), states (doc + lịch sử), assets (ảnh)
@@ -86,11 +105,11 @@ src/
   store/editor.ts       Zustand: project đang mở, ảnh, lịch sử undo / redo
   store/autosave.ts     tự lưu sau mỗi bước (debounce) + ảnh thu nhỏ slide 1
   store/settings.ts     theme, ngôn ngữ (localStorage) + useT()
-public/sw.js           service worker (offline; chỉ "/" làm bản offline)
-public/labs/video.html trang thử nghiệm video M13 (độc lập, không thuộc app)
-src/app/labs/filters  trang thử filter v2 (/labs/filters — dùng chính bộ xử lý màu của app, không có link trong app); ảnh mẫu ở public/labs/filter-samples
-src/app/labs/templates  trang thử template (/labs/templates?cat=grid, ?event=christmas, ?cutout=1 xem các kiểu chữ cắt báo, ?theme=ootd lọc theo chủ đề ảnh — mọi template của trang chủ, cả dải carousel; không có link trong app)
-scripts/              copy-ort.mjs (runtime ONNX), build-emoji.mjs (sticker emoji) — chạy trong pnpm dev / build; đổi tên CACHE khi đổi chiến lược cache
+apps/web/public/sw.js           service worker (offline; chỉ "/" làm bản offline)
+apps/web/public/labs/video.html trang thử nghiệm video M13 (độc lập, không thuộc app)
+apps/web/src/app/labs/filters  trang thử filter v2 (/labs/filters — dùng chính bộ xử lý màu của app, không có link trong app); ảnh mẫu ở apps/web/public/labs/filter-samples
+apps/web/src/app/labs/templates  trang thử template (/labs/templates?cat=grid, ?event=christmas, ?cutout=1 xem các kiểu chữ cắt báo, ?theme=ootd lọc theo chủ đề ảnh — mọi template của trang chủ, cả dải carousel; không có link trong app)
+apps/web/scripts/              copy-ort.mjs (runtime ONNX), build-emoji.mjs (sticker emoji) — chạy trong pnpm dev / build; đổi tên CACHE khi đổi chiến lược cache
 ```
 
 ## Deploy
@@ -113,7 +132,7 @@ scripts/              copy-ort.mjs (runtime ONNX), build-emoji.mjs (sticker emoj
 - Công cụ có ✕ / ✓ sửa trên `draft` (`beginDraft` → `updateDraft` → `applyDraft` / `cancelDraft`); hiển thị dùng `useViewDoc()` (= draft ?? doc).
 - Đổi cấu trúc `ProjectDoc` → cập nhật `migrate.ts` để project đã lưu vẫn mở được.
 - Kiểm tra tự động đọc store qua `window.__igEditor` (chỉ đọc).
-- Hiệu năng: khi chỉnh, ảnh luôn vẽ từ bản xem trước ≤ 1600 px; chỉ khi xuất (`exporting`) mới dùng ảnh đầy đủ. Đo lại bằng `node e2e/perf.mjs <url>` khi đổi phần vẽ.
+- Hiệu năng: khi chỉnh, ảnh luôn vẽ từ bản xem trước ≤ 1600 px; chỉ khi xuất (`exporting`) mới dùng ảnh đầy đủ. Đo lại bằng `node apps/web/e2e/perf.mjs <url>` khi đổi phần vẽ.
 - Mọi chữ hiển thị đi qua `useT()`; thêm key vào **cả** `en.ts` và `vi.ts` (TypeScript báo lỗi nếu thiếu bên `vi`).
 - Service worker chỉ chạy ở bản build (`pnpm build`), không chạy ở `pnpm dev`.
 - Thứ gì không được xuất ra ảnh (đường chia slide, khung chọn) phải nằm ở layer khác layer nội dung.

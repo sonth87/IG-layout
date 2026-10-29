@@ -1,5 +1,5 @@
 import { DurableObject } from "cloudflare:workers";
-import { isRoomCode, MAX_MEMBERS, type ClientMsg, type Member, type ServerMsg } from "./protocol";
+import { isRoomCode, MAX_MEMBERS, type ClientMsg, type Member, type ServerMsg } from "@ig-layout/core/booth/protocol";
 
 // Booth signaling (docs/discussions/2026-10-29-photobooth.md).
 //   GET /room/AB12?create=1&name=…  → WebSocket; creates room AB12 ("taken" if it exists)

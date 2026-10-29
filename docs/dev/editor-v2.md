@@ -24,7 +24,7 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Thanh công cụ khối** (tạm, đủ cho M14): **Bố cục** (mở bộ chọn kiểu chia) · **Xong**; Xoá / Nhân bản / Khoá ở thanh nổi; ⋯ có các mục lớp. Thanh đầy đủ theo product/07 mục 5 làm ở M17.
 
-**Kiểm thử:** `e2e/m14.mjs` (dữ liệu khối, quy tắc chạm 2/3/5/6, kéo không chọn không đụng phần tử, dời khối kèm ô + một lần hoàn tác, thanh cạnh, nút xoay, khung toàn ảnh + phóng bằng góc, thước đo, nhân bản / xoá khối, chuyển đổi dự án cũ từ IndexedDB). m3, m8 được sửa theo quy tắc mới (chạm lần đầu chọn khối; chụm khi không chọn = zoom canvas; khoá vẫn chọn được). `SUITES=m14.mjs node e2e/run.mjs` để chạy riêng.
+**Kiểm thử:** `apps/web/e2e/m14.mjs` (dữ liệu khối, quy tắc chạm 2/3/5/6, kéo không chọn không đụng phần tử, dời khối kèm ô + một lần hoàn tác, thanh cạnh, nút xoay, khung toàn ảnh + phóng bằng góc, thước đo, nhân bản / xoá khối, chuyển đổi dự án cũ từ IndexedDB). m3, m8 được sửa theo quy tắc mới (chạm lần đầu chọn khối; chụm khi không chọn = zoom canvas; khoá vẫn chọn được). `SUITES=m14.mjs node apps/web/e2e/run.mjs` để chạy riêng.
 
 ## 0b. Đã cài ở M15 (2026-10-17, D-93)
 
@@ -40,7 +40,7 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Chụm hai ngón** giờ nghe bằng listener gốc (`touchmove/touchend`) trên **cả vùng cuộn**, không qua sự kiện Konva: ngón đặt lên tay nắm khung chọn (Konva chặn lan truyền) hoặc lên nút dưới slide vẫn bắt đầu chụm được; khi bắt đầu chụm, thao tác tay nắm đang dở bị dừng (`stopTransform`).
 
-**Kiểm thử:** `e2e/m15.mjs` theo 8 tiêu chí của product/05.
+**Kiểm thử:** `apps/web/e2e/m15.mjs` theo 8 tiêu chí của product/05.
 
 ## 0c. Đã cài ở M16 (2026-10-17, D-95)
 
@@ -52,7 +52,7 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 **Ô của khối** không có tay nắm, không dời / chụm riêng (`SelectionTransformer.fixed`, `onPointerMove`, `startPinch` coi `parentId` như khoá) — trừ khi ô có ảnh thì vẫn dời / phóng ảnh bên trong như M14.
 
-**Kiểm thử:** `e2e/m16.mjs` (ví dụ G H / I J K / L với 1, 3, 7 ảnh; một bước hoàn tác; Thay; nút Ảnh tự do, giới hạn 10).
+**Kiểm thử:** `apps/web/e2e/m16.mjs` (ví dụ G H / I J K / L với 1, 3, 7 ảnh; một bước hoàn tác; Thay; nút Ảnh tự do, giới hạn 10).
 
 ## 0d. Đã cài ở M17 (2026-10-17, D-96) — phần thanh công cụ, Vị trí, khối
 
@@ -84,8 +84,8 @@ Khi bắt tay vào code, một số thiết kế ở các mục dưới được
 
 Code hiện tại (sau M13) có các điểm sau liên quan trực tiếp tới Editor v2:
 
-- `src/lib/project/types.ts` định nghĩa `ProjectDoc` với một mảng phẳng `elements: CanvasElement[]`. Ô của layout là `ImageElement` có `slot: true`; không có thực thể nào gom các ô của một layout lại.
-- `src/store/editor.ts` giữ trạng thái chọn bằng một `selectedId: string | null`.
+- `packages/core/project/types.ts` định nghĩa `ProjectDoc` với một mảng phẳng `elements: CanvasElement[]`. Ô của layout là `ImageElement` có `slot: true`; không có thực thể nào gom các ô của một layout lại.
+- `apps/web/src/store/editor.ts` giữ trạng thái chọn bằng một `selectedId: string | null`.
 - Cử chỉ được xử lý rải rác: `canvas/interaction.ts` (quy tắc chạm / kéo theo cảm ứng hay chuột), `canvas/CanvasStage.tsx` (chụm hai ngón: chọn phần tử dưới ngón, phóng ảnh trong ô, hoặc phóng canvas), `canvas/ImageNode.tsx` (kéo ô = dời ảnh trong ô).
 - Zoom: `Editor.tsx` tính `baseScale` theo chiều cao vùng làm việc để vừa **một** slide; `zoom` từ `minZoom` (thấy cả dải) đến 4.
 - Stage Konva chỉ to bằng vùng nhìn và dời theo cuộn (D-69); `layerRegion()` dùng khi cần ảnh của một vùng.
@@ -312,12 +312,12 @@ components/editor/
 
 ## 10. Kế hoạch kiểm thử
 
-Mỗi mốc thêm một bộ e2e trong `e2e/` (chạy bằng `pnpm e2e`) bám đúng các mục "Tiêu chí nghiệm thu" của tài liệu product tương ứng. Các bài khó cần chạm thật dùng CDP `Input.dispatchTouchEvent` như các bộ hiện có (m8, m9, m10). Ngoài e2e:
+Mỗi mốc thêm một bộ e2e trong `apps/web/e2e/` (chạy bằng `pnpm e2e`) bám đúng các mục "Tiêu chí nghiệm thu" của tài liệu product tương ứng. Các bài khó cần chạm thật dùng CDP `Input.dispatchTouchEvent` như các bộ hiện có (m8, m9, m10). Ngoài e2e:
 
 - **Test đơn vị** (hàm thuần): `onTap` theo bảng mục 3; `fillTargets` theo ví dụ mục 6; chuyển đổi dữ liệu cũ (mục 2.3); tính `fitAll` / `minScale`.
 - **So sánh ảnh xuất** trước / sau chuyển đổi dữ liệu cũ cho mọi template hiện có.
 - **Ảnh chụp màn hình** mỗi màn ở cả chế độ sáng và tối, đính kèm khi báo cáo mốc.
-- **Hiệu năng:** `e2e/drag-perf.mjs` phải giữ khung chậm nhất khi kéo ≤ 30 ms (CPU chậm 4×) sau khi thêm `LayoutNode`.
+- **Hiệu năng:** `apps/web/e2e/drag-perf.mjs` phải giữ khung chậm nhất khi kéo ≤ 30 ms (CPU chậm 4×) sau khi thêm `LayoutNode`.
 
 ## 11. Rủi ro
 

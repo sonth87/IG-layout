@@ -344,3 +344,34 @@ Chủ dự án: "ok, thử đi xem nào" → làm bản thử trên nhánh `boot
 - Chưa có TURN → người ở mạng chặn nối thẳng sẽ thấy "không nối được (cần TURN?)".
 - Đồng bộ đếm ngược theo "sau X ms" → lệch bằng độ trễ mạng (vài chục ms), chưa bù.
 - Chưa giới hạn số lần thử mã phòng; WebSocket của thành viên vẫn mở suốt (chưa đóng sau khi nối P2P); không có mic; rớt mạng chưa tự nối lại.
+
+## Tái cấu trúc monorepo — bước 1 (2026-10-29)
+Chủ dự án nhắc: thứ tự đã chốt là **tái cấu trúc trước, chức năng sau** (Q-P13); bản thử phòng ở trên làm trước là lệch thứ tự. Đã làm bước 1 trên nhánh `monorepo`:
+- `apps/web` — app Next.js cũ (giao diện, store, trang, PWA, scripts, e2e). Booth sẽ là route trong app này.
+- `packages/core` — toàn bộ `src/lib` cũ (logic, không giao diện), import `@ig-layout/core/...`; app web biên dịch thẳng mã nguồn (`transpilePackages`). Ở lại app web: `pwa.ts`, `text/webfonts.ts` (gắn với Next). Kiểu `Locale` chuyển vào `core/i18n/locale.ts`. Phiên booth nhận địa chỉ server từ app (không đọc biến môi trường Next trong core).
+- `apps/signal` — server phòng, dùng chung kiểu tin nhắn `core/booth/protocol.ts`.
+- `assets/` (nguồn tài sản) giữ ở gốc; chưa tách `packages/assets` vì chỉ có một app web phục vụ `public/packs` — tách khi cần.
+- ESLint một cấu hình ở gốc cho cả workspace.
+- Cần chủ dự án: Vercel → Root Directory = `apps/web` (Vercel tự cài workspace từ gốc). Chưa đổi thì deploy từ `main` sẽ hỏng → chưa merge.
+
+## Tái cấu trúc — bước 2: `packages/canvas` (2026-10-29)
+Chủ dự án: "chưa cần đẩy lên Vercel, cứ làm tiếp để chạy được local trước".
+- 14 file node / hook vẽ (ImageNode, TextNode, CutoutTextNode, ShapeIconNodes, BackgroundNode, FrameArtNode, LayoutNode, useFx, useProcessedImage, useHtmlImage, useNodeHandlers, interaction, selection, followers) chuyển sang `packages/canvas`.
+- Trước đây chúng gọi thẳng `useEditor`. Nay đọc qua `<CanvasHost store>` (React context, `host.tsx`) với interface hẹp `CanvasState`: doc / draft, assets, selectedId, compare, exporting, drawing, cropping, editingTextId và 5 hàm (select, updateElement, updateLive, setDerived, setEditingText). Store editor thoả sẵn interface này, không phải sửa.
+- `CanvasStage` ở lại editor (gắn với pinch, hít, crop, thanh công cụ). Booth sẽ có stage riêng gọn hơn, dùng lại cùng các node → sticker / chữ / khung vẽ y hệt IG Layout.
+- Kiểm tra: type-check, lint, build, 42 bài e2e, bài phòng 3 người — đều qua.
+
+## Tag treo dây — bản thử `/labs/tag` (2026-10-29)
+Tham khảo trước khi làm: [Framer "19 Rope Toggle"](https://www.framer.com/marketplace/components/19-rope-toggle/) (dây kéo đèn đổi sáng / tối: kéo quá ngưỡng mới đổi, giật nhẹ chỉ đung đưa, có bàn phím), [Tether](https://21st.dev/@ham7a311/components/tether.md) (thẻ đeo trên dây, cầm lên kéo đi), [Kokonut Pull Cord](https://21st.dev/@kokonutd/components/kokonut-pull-cord.md), [practical-ui-physics](https://github.com/desandro/practical-ui-physics).
+
+Đã làm (`apps/web/src/components/SwitchTag.tsx`, trang thử `TagLab.tsx`):
+- Dây Verlet 9 điểm treo từ mép trên, cách phải 64 px; tag 96 × 104 có lỗ xỏ dây, nghiêng theo đoạn dây cuối. Một cú đung đưa nhỏ khi vào trang + gió nhẹ (tắt được); chuột / bút lướt qua thì gạt được dây (cảm ứng không có hover). Mép màn hình là tường — tag không văng ra ngoài.
+- Chuyển app: **kéo xuống quá ngưỡng** (mặc định thêm 70 px) rồi thả, hoặc **kéo ngang vào giữa** 150 px, hoặc **chạm / Enter**. Giật nhẹ chỉ đung đưa. Khi kéo, app kia **ló vào theo tay** (tới 18 % màn), qua ngưỡng có rung nhẹ (Android); thả thì trượt hẳn sang. Bật "giảm chuyển động" → không đung đưa.
+- Tag tông sáng trên IG Layout, tông kem trên Booth (màn mô phỏng kiểu phim: lỗ phim hai bên, chữ serif + mono).
+- Nút "Chỉnh": thanh trượt độ dài dây, trọng lực, độ cản, ngưỡng kéo xuống / ngang — để chủ dự án thử trên điện thoại và chốt.
+- Kiểm tra `e2e/tag.mjs`: tự đung đưa, giật nhẹ không chuyển, kéo xuống → Booth, chạm → về IG Layout.
+
+Cần chủ dự án thử và chốt (Q-P12 còn mở): hướng kéo (xuống / ngang / cả hai), độ "nặng" của dây, chỗ đặt tag trên màn home thật (đang đè lên nội dung góc phải — màn thật phải chừa chỗ).
+
+## Thiết kế booth solo (2026-10-29)
+Chủ dự án đồng ý làm bước tham khảo + đề xuất thiết kế → [2026-10-29-booth-thiet-ke.md](2026-10-29-booth-thiet-ke.md) (luồng màn hình, bộ khung, theme, xuất, chuyển sang IG Layout; câu hỏi Q-P14 → Q-P20).

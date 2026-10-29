@@ -5,7 +5,7 @@
 
 ## Đã cài đặt (M1)
 
-DB `ig-layout` (v1), 3 store: `projects` (thông tin hiển thị + ảnh thu nhỏ + dung lượng), `states` (doc + lịch sử `past` / `future`), `assets` (ảnh đã thu nhỏ, index theo `projectId`). Code: `src/lib/storage/`.
+DB `ig-layout` (v1), 3 store: `projects` (thông tin hiển thị + ảnh thu nhỏ + dung lượng), `states` (doc + lịch sử `past` / `future`), `assets` (ảnh đã thu nhỏ, index theo `projectId`). Code: `packages/core/storage/`.
 Lưu ý: khi lưu, các bước lịch sử được ghi riêng rẽ (không còn chia sẻ phần chung như trong bộ nhớ) — cần theo dõi dung lượng nếu lịch sử rất dài.
 
 ## Cần lưu gì
