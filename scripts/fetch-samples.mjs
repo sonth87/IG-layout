@@ -57,7 +57,8 @@ async function search(query, page = 1) {
 
 mkdirSync(outDir, { recursive: true });
 const old = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, "utf8")) : [];
-const manifest = [];
+// The owner's own photos (JPEG, not from Pexels) stay as they are.
+const manifest = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, "utf8")).filter((p) => p.ext === "jpg") : [];
 const seen = new Set();
 
 for (const [theme, { per, queries }] of Object.entries(THEMES)) {

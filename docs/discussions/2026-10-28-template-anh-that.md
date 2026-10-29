@@ -225,3 +225,20 @@ Mỗi kiểu có: bộ phông (4–8 phông trong 78 phông sẵn có, đều c�
 
 e2e: `stretch.mjs` (tay nắm bên → chữ to theo, cùng tỉ lệ khung), `cutout.mjs` (3b).
 
+---
+
+## Đợt 8 (2026-10-29) — ảnh của chủ dự án + 20 template
+
+**Chủ dự án:** thêm các ảnh trong `sample/3` làm ảnh xem trước cho template mới (đổi sang JPG, nén nhỏ), thêm ~20 template.
+
+**Ảnh:** 14 ảnh (13 HEIC + 1 JPG, 34 MB) → JPG cạnh dài 720 px, chất lượng 76 (mozjpeg, progressive), **xoá hết EXIF** (GPS, máy chụp, giờ) → **724 KB** tổng, ở `public/samples/` và `samplePhotos.json` (`ext: "jpg"`). 3 chủ đề mới: **concert** (3: sân khấu, vé, sân vận động), **mirror** (2: selfie đôi trước gương), **ootd** (9: outfit dạo phố). `fetch-samples.mjs` giữ lại các ảnh này khi tải lại ảnh Pexels; `licenses.txt` ghi rõ đây là ảnh của chủ dự án.
+- Lưu ý: ảnh nằm trong `public/` nên **công khai** trên bản deploy.
+
+**20 template** (`designs/moments.ts`, rải vào nhiều nhóm):
+- Concert (6): Đêm concert (story, chữ cắt neon + trình phát nhạc), Cuống vé (sổ tay, chữ cắt kiểu vé), Cháy hết mình (3 slide, có setlist), Concert trên phim, Ngày đi show (story, đếm ngược), Concert ảnh xé.
+- Gương (3): Fit check (story, chữ cắt cổ điển), Gương và tụi mình (tình yêu), Gương & máy ảnh số (retro).
+- Outfit (11): Bìa OOTD (tạp chí, mũi tên chú thích món đồ), Một tuần outfit (4 slide), Lưới outfit (lưới profile "fit của hôm nay"), Polaroid outfit, Outfit hôm nay (chữ cắt), Hai kiểu tạo dáng (story), Cô gái thành phố (teen), Trưng bày (khung tranh), Outfit liền mạch, Ghi chú outfit (vẽ tay), Nhật ký thành phố (du lịch).
+- Thư viện: **411 template**.
+
+**Trang thử:** thêm lọc theo chủ đề ảnh `/labs/templates?theme=concert,mirror,ootd`.
+

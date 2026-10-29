@@ -41,7 +41,10 @@ if (existsSync(catalog)) {
 const samples = path.join(root, "src", "lib", "templates", "samplePhotos.json");
 if (existsSync(samples)) {
   out.push("=".repeat(72), "Template sample photos — Pexels License (https://www.pexels.com/license/)", "");
-  for (const p of JSON.parse(readFileSync(samples, "utf8"))) out.push(`${p.author} — ${p.url}`);
+  const list = JSON.parse(readFileSync(samples, "utf8"));
+  for (const p of list.filter((p) => p.url)) out.push(`${p.author} — ${p.url}`);
+  // The owner's own photos (concert, mirror, ootd; 2026-10-29): not from Pexels.
+  if (list.some((p) => !p.url)) out.push("", "Photos concert-*, mirror-*, ootd-*: the IG Layout owner's own, used with permission for previews only.");
   out.push("");
 }
 

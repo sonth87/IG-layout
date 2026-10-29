@@ -8,14 +8,14 @@ import { samplePhotosFor } from "@/lib/templates/samples";
 import { EVENTS, type EventId } from "@/lib/templates/seasons";
 import type { CutoutText } from "@/lib/project/types";
 import { CUTOUT_STYLES, loadCutoutFonts, cutoutLayout, cutoutStyle, DEFAULT_CUTOUT, drawCutout } from "@/lib/text/cutout";
-import { DEFAULT_OPTIONS, TEMPLATE_CATEGORIES, type Template, type TemplateCategory } from "@/lib/templates/types";
+import { DEFAULT_OPTIONS, type SampleTheme, TEMPLATE_CATEGORIES, type Template, type TemplateCategory } from "@/lib/templates/types";
 import { useSettings, useT } from "@/store/settings";
 
 // Template lab (/labs/templates, 2026-10-28): every home template at once, by group or by
 // event, with the whole carousel strip — to review the library on a phone.
 // Filters live in the URL (?cat=film, ?event=christmas) so a view can be shared.
 
-type Filter = { cat: TemplateCategory | "all" } | { event: EventId } | { cutout: true };
+type Filter = { cat: TemplateCategory | "all" } | { event: EventId } | { cutout: true } | { theme: SampleTheme[] };
 
 const SAMPLES = ["Happy birthday!", "Chúc mừng năm mới", "weekend mood"];
 
@@ -112,16 +112,18 @@ export function TemplateLab() {
     const q = new URLSearchParams(location.search);
     const event = q.get("event");
     const cat = q.get("cat");
+    const theme = q.get("theme");
     if (q.get("cutout")) setFilter({ cutout: true });
+    else if (theme) setFilter({ theme: theme.split(",") as SampleTheme[] });
     else if (event) setFilter({ event: event as EventId });
     else if (cat) setFilter({ cat: cat as TemplateCategory });
   }, []);
   const choose = (f: Filter) => {
     setFilter(f);
-    history.replaceState(null, "", `?${"cutout" in f ? "cutout=1" : "event" in f ? `event=${f.event}` : `cat=${f.cat}`}`);
+    history.replaceState(null, "", `?${"theme" in f ? `theme=${f.theme.join(",")}` : "cutout" in f ? "cutout=1" : "event" in f ? `event=${f.event}` : `cat=${f.cat}`}`);
   };
   const shown = useMemo(
-    () => ("cutout" in filter ? [] : DESIGNS.filter((d) => ("event" in filter ? d.design?.events?.includes(filter.event) : filter.cat === "all" || d.design?.category === filter.cat))),
+    () => ("theme" in filter ? DESIGNS.filter((d) => d.design?.themes?.some((th) => filter.theme.includes(th))) : "cutout" in filter ? [] : DESIGNS.filter((d) => ("event" in filter ? d.design?.events?.includes(filter.event) : filter.cat === "all" || d.design?.category === filter.cat))),
     [filter],
   );
   const count = (c: TemplateCategory) => DESIGNS.filter((d) => d.design?.category === c).length;
