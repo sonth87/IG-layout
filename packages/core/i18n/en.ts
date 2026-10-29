@@ -1002,6 +1002,23 @@ export const en = {
   "booth.you": "you",
   "booth.setupTitle": "Pick your frame",
   "booth.printDone": "Fresh off the press!",
+  "booth.decorate": "Decorate",
+  "booth.done": "Done",
+  "booth.tab.frame": "Frame",
+  "booth.tab.theme": "Theme",
+  "booth.tab.filter": "Filter",
+  "booth.tab.text": "Text",
+  "booth.theme.cinema": "Cinema",
+  "booth.theme.classic": "Classic",
+  "booth.theme.mono": "Black & white",
+  "booth.theme.candy": "Candy",
+  "booth.theme.alice": "Alice",
+  "booth.theme.y2k": "Y2K",
+  "booth.filter.none": "None",
+  "booth.text.title": "Title",
+  "booth.text.placeholder": "Leave empty for no title",
+  "booth.text.reset": "Theme’s title",
+  "booth.text.date": "Date and time",
 } as const;
 
 export type MessageKey = keyof typeof en;

@@ -2,17 +2,18 @@
 
 import { useEffect, useRef } from "react";
 import type { BoothFrame } from "@ig-layout/core/booth/frames";
-import { renderFrame, type ShotImage } from "@ig-layout/core/booth/render";
+import { renderFrame, type RenderOptions, type ShotImage } from "@ig-layout/core/booth/render";
 import { canvasFonts } from "./fonts";
+import { loadThemeFonts } from "./look";
 
 /** A frame drawn with its shots (the same drawing as the saved file), sized by CSS. */
-export function FrameCanvas({ frame, images, scale, flip, date, numbers, className = "", onCell }: {
+export function FrameCanvas({ frame, images, scale, look, numbers, className = "", onCell }: {
   frame: BoothFrame;
   images: (ShotImage | null)[];
   /** Drawing scale (pick from the size it's shown at × devicePixelRatio). */
   scale: number;
-  flip?: boolean;
-  date?: Date;
+  /** Theme, caption, flip… (lookOptions). */
+  look?: RenderOptions;
   numbers?: boolean;
   className?: string;
   /** Tap on a cell: which shot it shows. */
@@ -22,11 +23,15 @@ export function FrameCanvas({ frame, images, scale, flip, date, numbers, classNa
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    const draw = () => renderFrame(canvas, frame, images, { scale, flip, date, numbers, fonts: canvasFonts });
+    let gone = false;
+    const draw = () => !gone && renderFrame(canvas, frame, images, { fonts: canvasFonts, ...look, scale, numbers });
     draw();
-    // Redraw once the booth fonts arrive (the first draw may use the fallback).
-    void document.fonts.load(`700 20px ${canvasFonts.serif}`).then(draw, () => {});
-  }, [frame, images, scale, flip, date, numbers]);
+    // Redraw once the faces arrive (the first draw may use the fallback).
+    void Promise.all([document.fonts.load(`700 20px ${canvasFonts.serif}`).catch(() => []), loadThemeFonts(look?.theme?.id)]).then(draw);
+    return () => {
+      gone = true;
+    };
+  }, [frame, images, scale, look, numbers]);
 
   return (
     <canvas

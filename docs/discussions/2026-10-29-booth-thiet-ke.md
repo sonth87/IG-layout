@@ -213,3 +213,24 @@ Chủ dự án: "giao diện trông boring thế? … onboothvn làm giao diện
 - **Kết quả:** **máy in** (thân nâu, biển "Photobooth" phát sáng, đèn hổ phách nhấp nháy khi in → xanh khi xong, khe in); ảnh **bị đẩy ra từng nấc như mô-tơ** (hơi lắc), kèm **tiếng mô-tơ** (Web Audio, theo nút tiếng); in xong ảnh hơi nghiêng; "Ảnh nóng hổi đây!"; các nút phụ gọn một hàng.
 - Giảm chuyển động (prefers-reduced-motion): tắt các chuyển động, ảnh in hiện ngay.
 - Lỗi gặp khi làm: một selector CSS có ký tự `[` trong chuỗi làm bộ dịch CSS của Tailwind bỏ mất mọi `@keyframes` phía sau (ảnh in đứng yên, kẹt "Đang in…") → bỏ ký tự đó, ghi chú trong `globals.css`.
+
+## 13. Bước 2a: Trang trí (2026-10-29)
+Chủ dự án: "làm tiếp đi" → làm bước 2 theo đề xuất; **6 theme bản đầu theo đề xuất §8** (chưa được duyệt riêng — Q-P4 vẫn mở để đổi). Sticker để bước 2b (cần phần chạm / kéo / xoay của packages/canvas).
+
+- Màn **Trang trí** (nút ✎ cạnh Lưu ảnh): bản in to ở trên, 4 thẻ dưới:
+  - **Khung** — đổi khung sau khi chụp (D-147); khung cần nhiều kiểu hơn → ô thiếu → "Chụp bù".
+  - **Theme** — mỗi thẻ là bản in thu nhỏ bằng chính ảnh của mình trong theme đó. Chọn theme thì filter về filter gợi ý của theme (vẫn đổi được).
+  - **Filter** — "Không" + 11 filter chọn từ bộ của IG Layout (Honey 400, Cotton, Blossom, Peach, Snapshot, Flash, Kyoto, Tokyo 90, Aero Pink, Noir, Sepia), xem trước trên ảnh đầu; chạy đúng pipeline màu của IG Layout (`packages/core/color`, WebGL).
+  - **Chữ** — dòng chữ riêng (để trống = không có chữ), bật / tắt ngày giờ, nút về chữ theo theme.
+- **Theme = dữ liệu** (`packages/core/booth/themes.ts`): màu giấy (màu hoặc dải chuyển), mực, nhấn, ô trống, lỗ phim, kiểu trang trí vẽ bằng code (chấm bi / chất bài ♠♥♣♦ + viền đôi / lấp lánh 4 cánh / hạt phim), viền + bo ô, font chữ tiêu đề, filter gợi ý:
+  | Theme | Giấy | Trang trí | Chữ | Filter gợi ý |
+  |---|---|---|---|---|
+  | Cinema | nâu đen, lỗ phim kem | — | Fraunces | — |
+  | Classic | trắng | — | Be Vietnam Pro, chữ thường | — |
+  | Đen trắng | đen, lỗ phim | hạt phim | mono, chữ hoa | Noir |
+  | Candy | hồng | chấm bi trắng + bạc hà (tránh vùng chữ), viền trắng bo tròn | Coiny | Blossom |
+  | Alice | giấy cũ chuyển màu | chất bài đỏ / đen quanh mép + viền đôi | Cormorant nghiêng "Wonderland" | Peach |
+  | Y2K | tím – trắng – xanh | lấp lánh hồng / trắng, viền trắng bo | Bungee chữ hoa | Aero Pink |
+- Ô có viền: ảnh thụt vào trong viền, khe giữa các ô giữ nguyên.
+- Font theme (Coiny, Cormorant Garamond, Bungee — đều có tiếng Việt) chỉ tải khi bản in dùng tới.
+- Lưu vào cuộn phim: theme, filter, chữ, ngày giờ (mở lại còn nguyên); ảnh lưu ra và ảnh thu nhỏ ở sảnh vẽ đúng theme + filter.

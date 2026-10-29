@@ -1,18 +1,16 @@
 "use client";
 
-import { FRAMES, frameById, shotAspect } from "@ig-layout/core/booth/frames";
+import { frameById, shotAspect } from "@ig-layout/core/booth/frames";
 import type { Facing } from "@ig-layout/core/booth/camera";
 import { useT } from "@/store/settings";
 import { CameraView, type Camera } from "./CameraView";
-import { FrameCanvas } from "./FrameCanvas";
+import { FramePicker } from "./FramePicker";
 import { COUNTDOWN_S } from "./timing";
-import { Btn, Label, display, mono, serif, useFrameName } from "./ui";
+import { Btn, Label, display, mono, serif } from "./ui";
 
 // Choose a frame with the camera already on (design §2.2, D-152): the camera sits in a
 // polaroid the shape of the frame's first cell, so you see your framing before the first
 // shot. Below, the frames as paper cards on a ticket-coloured sheet.
-
-const EMPTY: never[] = [];
 
 export function Setup(props: {
   camera: Camera | null;
@@ -27,7 +25,6 @@ export function Setup(props: {
   onStart: () => void;
 }) {
   const t = useT();
-  const frameName = useFrameName();
   const frame = frameById(props.frameId);
 
   return (
@@ -61,29 +58,7 @@ export function Setup(props: {
 
       <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(1rem,env(safe-area-inset-bottom))] text-[#1d1612]">
         <Label className="px-5 pt-4">{t("booth.frame")}</Label>
-        <div role="radiogroup" aria-label={t("booth.frame")} className="flex gap-3 overflow-x-auto px-5 pt-3 pb-4">
-          {FRAMES.map((f) => {
-            const on = f.id === frame.id;
-            return (
-              <button
-                key={f.id}
-                type="button"
-                role="radio"
-                aria-checked={on}
-                onClick={() => props.onFrame(f.id)}
-                className={`flex w-[88px] shrink-0 flex-col items-center gap-1.5 border-2 border-[#1d1612] p-2 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-1 bg-[#1d1612] text-[#f3e9d6] shadow-[4px_4px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[3px_3px_0_#0b0806]"}`}
-              >
-                <span className="flex h-[72px] items-center">
-                  <FrameCanvas frame={f} images={EMPTY} scale={160 / Math.max(f.width, f.height)} className="max-h-[72px] max-w-[68px]" />
-                </span>
-                <span className={`${mono} text-[10px] font-bold uppercase leading-tight tracking-wider`}>{frameName(f.id)}</span>
-                <span className={`${mono} text-[9px] opacity-60`}>
-                  {f.size} · {t("booth.shots", { count: f.shots })}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+        <FramePicker value={frame.id} onChange={props.onFrame} />
         <div className="flex flex-col gap-3 px-5">
           <label className={`${mono} flex cursor-pointer items-center gap-3 text-xs`}>
             <input type="checkbox" className="peer sr-only" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />

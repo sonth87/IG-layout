@@ -10,6 +10,12 @@ export interface BoothRoll {
   /** Full-resolution shots, in order (null = not taken yet). */
   shots: (Blob | null)[];
   flip: boolean;
+  /** Decoration (step 2): theme id (default Cinema), filter id (null = none, undefined =
+   * the theme's), caption title (undefined = the theme's), date under it (default on). */
+  theme?: string;
+  filter?: string | null;
+  title?: string;
+  showDate?: boolean;
   createdAt: number;
   updatedAt: number;
   /** Small JPEG of the laid-out frame, for the home screen. */

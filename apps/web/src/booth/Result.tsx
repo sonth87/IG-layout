@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { frameById } from "@ig-layout/core/booth/frames";
 import { frameBlob } from "@ig-layout/core/booth/render";
 import { deleteRoll, type BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
-import { canvasFonts } from "./fonts";
 import { FrameCanvas } from "./FrameCanvas";
-import { useShotImages } from "./images";
+import { lookOptions, rollRender, useRollImages } from "./look";
 import { Btn, Confirm, display, mono, serif } from "./ui";
 
 // The print (design §2.6, ColorME's printer): a little booth printer — sign, blinking light,
@@ -16,17 +15,19 @@ import { Btn, Confirm, display, mono, serif } from "./ui";
 
 const PRINT_MS = 2600;
 
-export function Result({ roll, sound, onChange, onRetake, onAgain, onHome }: {
+export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, onHome }: {
   roll: BoothRoll;
   sound: boolean;
   onChange: (roll: BoothRoll) => void;
   onRetake: (shots: number[]) => void;
+  onDecorate: () => void;
   onAgain: () => void;
   onHome: () => void;
 }) {
   const t = useT();
   const frame = frameById(roll.frameId);
-  const images = useShotImages(roll.shots);
+  const images = useRollImages(roll);
+  const look = useMemo(() => lookOptions(roll), [roll]);
   // Reduced motion: no feed animation (its end would never come), the print is just there.
   const [printed, setPrinted] = useState(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
   const [selected, setSelected] = useState<number | null>(null);
@@ -46,7 +47,8 @@ export function Result({ roll, sound, onChange, onRetake, onAgain, onHome }: {
     if (!images) return;
     setSaving(true);
     try {
-      const blob = await frameBlob(frame, images, { flip: roll.flip, date, fonts: canvasFonts });
+      const r = await rollRender(roll);
+      const blob = await frameBlob(r.frame, r.images, r.opts);
       const pad = (n: number) => String(n).padStart(2, "0");
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
@@ -92,8 +94,7 @@ export function Result({ roll, sound, onChange, onRetake, onAgain, onHome }: {
                 frame={frame}
                 images={images}
                 scale={Math.min(1, 1200 / Math.max(frame.width, frame.height))}
-                flip={roll.flip}
-                date={date}
+                look={look}
                 numbers
                 className="block max-h-[calc(100dvh-340px)] max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]"
                 onCell={printed ? (shot) => setSelected((s) => (s === shot ? null : shot)) : undefined}
@@ -115,9 +116,14 @@ export function Result({ roll, sound, onChange, onRetake, onAgain, onHome }: {
               {t("booth.fill")}
             </Btn>
           ) : (
-            <Btn tone="main" className="py-4 text-sm" disabled={!images || saving} onClick={save}>
-              ↓ {t("booth.save")}
-            </Btn>
+            <div className="grid grid-cols-[1fr_auto] gap-3">
+              <Btn tone="main" className="py-4 text-sm" disabled={!images || saving} onClick={save}>
+                ↓ {t("booth.save")}
+              </Btn>
+              <Btn className="py-4 text-sm" onClick={onDecorate}>
+                ✎ {t("booth.decorate")}
+              </Btn>
+            </div>
           )}
           <div className="grid grid-cols-4 gap-2">
             <Btn aria-pressed={roll.flip} className={`px-1 py-2.5 text-[9px] tracking-[0.08em] ${roll.flip ? "!bg-[#1d1612] !text-[#f3e9d6]" : ""}`} onClick={() => onChange({ ...roll, flip: !roll.flip })}>

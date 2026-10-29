@@ -7,13 +7,14 @@ import { frameById } from "@ig-layout/core/booth/frames";
 import { frameBlob } from "@ig-layout/core/booth/render";
 import { saveRoll, type BoothRoll } from "@ig-layout/core/storage/booth";
 import { registerServiceWorker } from "@/lib/pwa";
-import { boothMono, boothSerif, canvasFonts } from "./fonts";
+import { boothMono, boothSerif } from "./fonts";
 import { BoothHome } from "./Home";
 import { Pick } from "./Pick";
+import { Decorate } from "./Decorate";
 import { Result } from "./Result";
 import { Setup } from "./Setup";
 import { Shoot } from "./Shoot";
-import { shotImages } from "./images";
+import { loadThemeFonts, rollRender } from "./look";
 import { floorStyle } from "./ui";
 import { SPARE } from "./timing";
 
@@ -22,7 +23,7 @@ import { SPARE } from "./timing";
 // (8 s countdown, 2 s rest, D-154) → pick (only with spare shots, D-157) → result (print,
 // save, retake one shot). Rolls are kept on the device (D-156).
 
-type Screen = "home" | "setup" | "shoot" | "pick" | "result";
+type Screen = "home" | "setup" | "shoot" | "pick" | "result" | "decorate";
 
 /** What the shoot screen takes: a new roll, or some shots of the current one (retake / fill). */
 interface Plan {
@@ -109,10 +110,10 @@ function BoothApp() {
     if (!roll) return;
     let gone = false;
     void (async () => {
-      const f = frameById(roll.frameId);
-      const images = await shotImages(roll.shots);
+      const { frame: f, images, opts } = await rollRender(roll);
+      await loadThemeFonts(roll.theme);
       if (gone) return;
-      const thumbnail = await frameBlob(f, images, { scale: 360 / Math.max(f.width, f.height), flip: roll.flip, date: new Date(roll.createdAt), fonts: canvasFonts });
+      const thumbnail = await frameBlob(f, images, { ...opts, scale: 360 / Math.max(f.width, f.height) });
       if (!gone) await saveRoll({ ...roll, thumbnail });
     })();
     return () => {
@@ -208,6 +209,8 @@ function BoothApp() {
           }}
         />
       );
+    case "decorate":
+      return roll ? <Decorate roll={roll} onChange={(r) => setRoll({ ...r, updatedAt: Date.now() })} onDone={() => setScreen("result")} /> : null;
     case "result":
       return roll ? (
         <Result
@@ -215,6 +218,7 @@ function BoothApp() {
           sound={prefs.sound}
           onChange={(r) => setRoll({ ...r, updatedAt: Date.now() })}
           onRetake={retake}
+          onDecorate={() => setScreen("decorate")}
           onAgain={() => {
             setRoll(null);
             setScreen("setup");
