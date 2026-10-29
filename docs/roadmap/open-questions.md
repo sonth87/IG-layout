@@ -17,6 +17,21 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-F5.** Chủ dự án gửi 5–8 ảnh mẫu chỉnh bằng VSCO (thêm thẳng vào trang thử `/labs/filters`, ô "Ảnh đối chiếu") — đã đồng ý, chờ ảnh.
 - **Q-F6.** "Áp dụng cho tất cả ảnh" có áp cả Film FX / máy ảnh không? (Đã làm theo hướng có — D-133 đề xuất.)
 
+### Photobooth (2026-10-29 — [2026-10-29-photobooth.md](../discussions/2026-10-29-photobooth.md))
+- **Q-P1.** Photobooth là một cách nhập ảnh rồi vào editor (đề xuất), hay một chế độ riêng chỉ ra strip?
+- **Q-P2.** Bản đầu xuất những dạng nào? (Đề xuất: strip gốc 1:3, Post 4:5 hai strip, Story 9:16, ảnh lẻ; GIF / video để sau.)
+- **Q-P3.** Có chụp dư rồi chọn (vd. chụp 8 chọn 4) như tiệm Hàn không?
+- **Q-P4.** Theme bản đầu: Cinema + Classic + Đen trắng — thêm / bớt gì?
+- **Q-P5.** Có làm phòng chụp online không? Nếu có thì chấp nhận dùng một dịch vụ signaling bên ngoài (đổi một phần D-06 / D-37) không, và tối đa bao nhiêu người (đề xuất 4)?
+- **Q-P6.** Làm P1 (solo) trước ở `/labs/photobooth` được không?
+- **Q-P7.** ~~Mô hình bảng ảnh S × P?~~ Tạm theo đề xuất (chủ dự án chưa rõ photobooth nên như nào) — D-147.
+- **Q-P8.** ~~Sửa riêng hay sửa chung?~~ Còn trong phòng → sửa chung kiểu collaborator — D-148.
+- **Q-P9.** ~~Mã QR?~~ Không, chỉ cần mã phòng 4 ký tự chữ + số — D-149.
+- **Q-P10.** ~~Trong project này hay tách?~~ Trong project này, nhưng tái cấu trúc monorepo (chủ dự án, 2026-10-29).
+- **Q-P11.** Hai app hay một app, server ở đâu? Đề xuất (cập nhật 2026-10-29): **một app** `apps/web` (IG Layout + `/booth`) trên Vercel, **giữ xuất tĩnh**; signaling + TURN trên **Cloudflare** (Worker + Durable Objects + Realtime TURN) ở `apps/signal`. Phương án cũ (bỏ xuất tĩnh + Upstash) để dự phòng — chờ chủ dự án chốt.
+- **Q-P12.** ~~Tag ở đâu?~~ Chỉ ở màn home (2026-10-29). Còn mở: kéo hướng nào để chuyển.
+- **Q-P13.** ~~Thứ tự?~~ Đồng ý: monorepo + tách packages trước, booth sau (2026-10-29).
+
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?
 

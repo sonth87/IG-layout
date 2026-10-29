@@ -16,6 +16,16 @@ Xem bản build: phục vụ thư mục `out/` bằng bất kỳ static server n
 Thử trên điện thoại (cùng mạng Wi-Fi): `pnpm dev -H 0.0.0.0` rồi mở `http://<IP-máy>:3000`.
 Lưu ý: share sheet ("Save images") và cài PWA cần **HTTPS** (hoặc localhost) — dùng tunnel (ví dụ cloudflared) hoặc deploy thử.
 
+## Server phòng chụp chung (apps/signal)
+
+Cloudflare Worker + Durable Object (docs/discussions/2026-10-29-photobooth.md). Wrangler cần **Node 22+** (`apps/signal/.nvmrc`).
+
+```bash
+cd apps/signal && pnpm dev          # ws://localhost:8787 — trang /labs/booth nối vào đây
+node e2e/booth.mjs http://localhost:3000/   # 3 trình duyệt cùng phòng (cần worker đang chạy)
+pnpm deploy                          # cần `npx wrangler login` trước; rồi đặt NEXT_PUBLIC_SIGNAL_URL=wss://… cho app web
+```
+
 ## Kiểm tra tự động
 
 `pnpm build && pnpm e2e` — chạy Chromium headless qua các luồng chính (xem [e2e/README.md](../../e2e/README.md)). Chạy trên bản deploy: `node e2e/run.mjs https://ig-layout.vercel.app/`. **Chạy trước khi merge vào `main`.**

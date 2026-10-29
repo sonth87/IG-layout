@@ -552,3 +552,9 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Xác nhận khi tải lại trong editor; chặn kéo-để-làm-mới truyền từ vùng cuộn; nhóm Ăn uống + Đen trắng; mẫu concert bài The Weeknd (D-145)
 - [ ] Chủ dự án thử trên iPhone: còn bị kéo-để-làm-mới nhầm không (Safari iOS không có hộp thoại xác nhận)
 - [x] Ăn uống 20 mẫu làm lại + ảnh food / drinks / foodspot; Đen trắng 20 mẫu (D-146)
+
+### Photobooth (docs/discussions/2026-10-29-photobooth.md)
+- [x] Bản thử phòng chụp chung: `apps/signal` (Cloudflare Durable Object) + `/labs/booth`; e2e `booth.mjs` 3 trình duyệt chạy local
+- [ ] Chủ dự án `wrangler login` → deploy worker, đặt `NEXT_PUBLIC_SIGNAL_URL` trên Vercel
+- [ ] Thử trên điện thoại thật: cùng Wi-Fi, Wi-Fi ↔ 4G (cần TURN không?)
+- [ ] Monorepo đầy đủ (apps/web, packages/*) — D-150, D-151
