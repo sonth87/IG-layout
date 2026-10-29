@@ -28,7 +28,7 @@ export function Pick({ takes, need, onDone }: { takes: Blob[]; need: number; onD
       </div>
       {/* The contact sheet: dark film with frame numbers. */}
       <div className="min-h-0 flex-1 overflow-y-auto bg-[#1d1612] p-4">
-        <div className="grid grid-cols-2 gap-x-3 gap-y-5">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-x-3 gap-y-5 md:grid-cols-3 lg:grid-cols-4">
           {urls.map((u, i) => {
             const n = order.indexOf(i);
             return (
@@ -49,7 +49,7 @@ export function Pick({ takes, need, onDone }: { takes: Blob[]; need: number; onD
         </div>
       </div>
       <div className="shrink-0 border-t-2 border-[#0b0806] px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
-        <Btn tone="main" className="w-full py-4 text-sm" disabled={order.length !== need} onClick={() => onDone(order)}>
+        <Btn tone="main" className="mx-auto block w-full max-w-sm py-4 text-sm" disabled={order.length !== need} onClick={() => onDone(order)}>
           {t("booth.next")} · {order.length}/{need}
         </Btn>
       </div>

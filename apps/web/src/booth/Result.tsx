@@ -2,11 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { frameById } from "@ig-layout/core/booth/frames";
-import { frameBlob } from "@ig-layout/core/booth/render";
 import { deleteRoll, type BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
-import { lookOptions, rollRender, useRollImages } from "./look";
+import { HandoffSheet } from "./HandoffSheet";
+import { formatBlob, lookOptions, useRollImages, type Format } from "./look";
 import { Btn, Confirm, display, mono, serif } from "./ui";
 
 // The print (design §2.6, ColorME's printer): a little booth printer — sign, blinking light,
@@ -14,6 +14,7 @@ import { Btn, Confirm, display, mono, serif } from "./ui";
 // to save, flip (D-153), tap a photo to retake it, take the missing ones, new roll.
 
 const PRINT_MS = 2600;
+const FORMATS: Format[] = ["print", "post", "story"];
 
 export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, onHome }: {
   roll: BoothRoll;
@@ -33,6 +34,8 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
   const [selected, setSelected] = useState<number | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [format, setFormat] = useState<Format>("print");
+  const [handoff, setHandoff] = useState(false);
   const missing = Array.from({ length: frame.shots }, (_, i) => i).filter((i) => !roll.shots[i]);
   const date = new Date(roll.createdAt);
   const printing = !!images && !printed;
@@ -47,12 +50,11 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
     if (!images) return;
     setSaving(true);
     try {
-      const r = await rollRender(roll);
-      const blob = await frameBlob(r.frame, r.images, r.opts);
+      const blob = await formatBlob(roll, format);
       const pad = (n: number) => String(n).padStart(2, "0");
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = `booth_${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}.jpg`;
+      a.download = `booth_${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${format === "print" ? "" : `_${format}`}.jpg`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
     } finally {
@@ -63,10 +65,10 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
   const status = printing ? t("booth.printing") : missing.length ? t("booth.missing", { count: missing.length }) : selected !== null ? t("booth.retakeShot", { n: selected + 1 }) : t("booth.tapCell");
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="relative flex min-h-0 flex-1 flex-col items-center px-5 pt-[max(0.75rem,env(safe-area-inset-top))]">
+    <div className="flex h-full flex-col lg:flex-row">
+      <div className="relative flex min-h-0 flex-1 flex-col items-center px-5 pt-[max(0.75rem,env(safe-area-inset-top))] lg:pt-8">
         {/* The printer. */}
-        <div className="relative z-10 w-full max-w-[340px] shrink-0 rounded-t-[18px] border-2 border-[#0b0806] bg-[#3a2a20] px-4 pt-3 pb-4 shadow-[5px_5px_0_#0b0806]">
+        <div className="relative z-10 w-full max-w-[340px] shrink-0 rounded-t-[18px] lg:max-w-[640px] border-2 border-[#0b0806] bg-[#3a2a20] px-4 pt-3 pb-4 shadow-[5px_5px_0_#0b0806]">
           <div className="flex items-center justify-between">
             <span aria-hidden className="flex gap-1.5">
               <span className={`h-2.5 w-2.5 rounded-full border border-[#0b0806] ${printing ? "animate-[booth-led_0.5s_steps(2)_infinite] bg-[#eaa63c]" : "bg-[#6fbf73]"}`} />
@@ -84,7 +86,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
         </div>
 
         {/* The print, clipped at the slot so it seems to come out of it. */}
-        <div className="-mt-2.5 flex min-h-0 w-full max-w-[300px] flex-1 justify-center overflow-hidden" onClick={() => setPrinted(true)}>
+        <div className="-mt-2.5 flex min-h-0 w-full max-w-[300px] flex-1 justify-center overflow-hidden lg:max-w-[600px]" onClick={() => setPrinted(true)}>
           {images && (
             <div
               className={`h-fit max-h-full transition-transform duration-500 ${printed ? "rotate-[-1.5deg]" : "animate-[booth-feed_2.6s_linear_both]"}`}
@@ -96,7 +98,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
                 scale={Math.min(1, 1200 / Math.max(frame.width, frame.height))}
                 look={look}
                 numbers
-                className="block max-h-[calc(100dvh-340px)] max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]"
+                className="block max-h-[calc(100dvh-440px)] lg:max-h-[calc(100dvh-150px)] max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]"
                 onCell={printed ? (shot) => setSelected((s) => (s === shot ? null : shot)) : undefined}
               />
             </div>
@@ -104,7 +106,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
         </div>
       </div>
 
-      <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] text-[#1d1612]">
+      <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:flex lg:w-[420px] lg:flex-col lg:justify-center lg:border-t-0 lg:border-l-2 lg:px-8">
         <p className={`${mono} text-center text-[11px] font-bold uppercase tracking-[0.2em] ${printing ? "" : missing.length ? "text-[#c8432f]" : "opacity-60"}`} aria-live="polite">
           {printed && !missing.length && selected === null ? t("booth.printDone") : status}
         </p>
@@ -116,14 +118,34 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
               {t("booth.fill")}
             </Btn>
           ) : (
-            <div className="grid grid-cols-[1fr_auto] gap-3">
-              <Btn tone="main" className="py-4 text-sm" disabled={!images || saving} onClick={save}>
-                ↓ {t("booth.save")}
+            <>
+              {/* Save as: the print itself, or the print on an Instagram-sized sheet. */}
+              <div role="radiogroup" aria-label={t("booth.saveAs")} className="grid grid-cols-3 border-2 border-[#1d1612]">
+                {FORMATS.map((f) => (
+                  <button
+                    key={f}
+                    type="button"
+                    role="radio"
+                    aria-checked={format === f}
+                    onClick={() => setFormat(f)}
+                    className={`${mono} border-r-2 border-[#1d1612] py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] last:border-r-0 ${format === f ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
+                  >
+                    {t(`booth.format.${f}`)}
+                  </button>
+                ))}
+              </div>
+              <div className="grid grid-cols-[1fr_auto] gap-3">
+                <Btn tone="main" className="py-4 text-sm" disabled={!images || saving} onClick={save}>
+                  ↓ {t("booth.save")}
+                </Btn>
+                <Btn className="py-4 text-sm" onClick={onDecorate}>
+                  ✎ {t("booth.decorate")}
+                </Btn>
+              </div>
+              <Btn tone="ink" className="py-3" disabled={!images} onClick={() => setHandoff(true)}>
+                ▦ {t("booth.openInLayout")}
               </Btn>
-              <Btn className="py-4 text-sm" onClick={onDecorate}>
-                ✎ {t("booth.decorate")}
-              </Btn>
-            </div>
+            </>
           )}
           <div className="grid grid-cols-4 gap-2">
             <Btn aria-pressed={roll.flip} className={`px-1 py-2.5 text-[9px] tracking-[0.08em] ${roll.flip ? "!bg-[#1d1612] !text-[#f3e9d6]" : ""}`} onClick={() => onChange({ ...roll, flip: !roll.flip })}>
@@ -146,6 +168,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
         </div>
       </div>
 
+      {handoff && <HandoffSheet roll={roll} onClose={() => setHandoff(false)} />}
       {deleting && (
         <Confirm
           title={t("booth.deleteConfirm")}

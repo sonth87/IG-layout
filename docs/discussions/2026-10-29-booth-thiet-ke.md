@@ -246,3 +246,39 @@ Chủ dự án chốt hướng (D-158): **hai cách xem — "xem mình" (polaroi
 - Mặc định: **chọn khung → xem cả khung** (thấy cách xếp ô); **chụp → xem mình** (tạo dáng), khung ở góc cho biết đang chụp ô nào. Chụp lại / chụp bù: khung ở góc hiện cả cuộn hiện có.
 - Hình thu nhỏ khung trong danh sách: to hơn, vẽ trên **giấy trắng** (theme Classic, không chữ) để thấy rõ cách xếp ô.
 - e2e `booth-solo.mjs` mục 1b: khung là cách xem chính lúc chọn, chạm góc → đổi, kéo → sang góc trên trái và không đổi; lúc chụp → xem mình.
+
+## 15. Tag chuyển app: mặt riêng cho từng app, nhỏ hơn, theo độ nghiêng điện thoại (2026-10-29)
+Chủ dự án: "tag … thay đổi cho đẹp đi, và đặc trưng cho 2 loại, nhỏ hơn chút; nếu được thì trên mobile có trọng lực theo hướng điện thoại (con quay hồi chuyển)".
+- **Mỗi tag là app kia thu nhỏ** (`components/TagFaces.tsx`, chỉ CSS):
+  - Ở IG Layout → sang booth: **một dải ảnh photobooth tí hon** 54 × 92 — nền phim tối, lỗ phim hai bên, 3 "ảnh" màu ấm có bóng người, chữ BOOTH + gạch đỏ.
+  - Ở booth → về IG Layout: **thẻ trắng bo góc 68 × 84 với lưới 3 × 3** kiểu trang cá nhân (màu nhấn hổ phách của IG Layout) + "IG Layout".
+  - Cũ: thẻ chữ 96 × 104. Dây ngắn hơn (84 px), móc dây là khoen tròn nhỏ.
+- **Trọng lực theo điện thoại** (màn cảm ứng): đọc `deviceorientation` — nghiêng (gamma) kéo trọng lực sang ngang, có tính cả khi xoay màn hình; đặt máy nằm phẳng thì giữ thẳng xuống; làm mượt để tay run không giật. iOS phải xin quyền: hỏi **một lần** ở lần chạm tag đầu tiên, nhớ câu trả lời; Android / khác chạy luôn. Giảm chuyển động → tắt.
+- e2e `tag.mjs`: thêm nghiêng máy sang trái → tag lệch ≈ 77 px sang trái.
+- Ghi chú: dev server bật từ trước có lúc không cập nhật phần server của `SwitchTag` (trả HTML tag cũ → lỗi hydration). Kiểm bằng bản build tĩnh thì đúng; gặp lại thì tắt `pnpm dev` và bật lại.
+
+## 16. Bước 3: khổ Instagram + Mở trong IG Layout (2026-10-29)
+Chủ dự án: "ok rồi, tạm thế, làm tiếp đi" (tag) → làm bước 3 trước sticker (đưa ảnh sang editor là có ngay sticker / chữ / layout của IG Layout).
+- **Lưu dạng** (ở màn kết quả, trên nút Lưu ảnh): **Bản in** (đúng khổ khung) · **Post 4:5** (1080 × 1350) · **Story 9:16** (1080 × 1920). Post / Story: bản in đặt trên **giấy của theme** (màu + trang trí), hơi nghiêng, bóng mềm; khung dạng dải (dải 3 / dải 4) trong Post thì **hai dải cạnh nhau**, nghiêng ngược nhau — như hai dải trên tờ in 4 × 6 ngoài tiệm. Tên file có hậu tố `_post` / `_story`.
+- **Mở trong IG Layout** (nút ▦): bảng hỏi dạng (D-155):
+  | Lựa chọn | Tạo ra |
+  |---|---|
+  | Post 4:5 | 1 slide, bản in trên giấy theme |
+  | Carousel | slide 1 = bản in (Post), các slide sau = từng kiểu (đã áp filter / lật như bản in), tối đa 20 slide |
+  | Story 9:16 | 1 story, bản in trên giấy theme |
+  | 🎁 Bất ngờ | các kiểu xếp vào **một bố cục IG Layout bốc ngẫu nhiên** trong số bố cục vừa đúng số ảnh (không có thì bố cục theo ảnh); hộp quà lắc rồi mở |
+  Project tạo bằng chính store của editor (cùng một app), tên "Photobooth <ngày>", **lưu ngay** (autosave của editor chỉ chạy khi màn editor mở), rồi chuyển sang `/` → editor mở project đó. Ảnh đi qua bộ nhớ máy, không qua mạng.
+- Chưa làm: "bốc lại" cho Bất ngờ (đề xuất §8) — trong editor đổi bố cục bằng nút Layout như mọi project.
+
+## 17. Giao diện máy tính (2026-10-29)
+Chủ dự án: "hỗ trợ giao diện máy tính nữa nhé, vì máy tính cũng có camera". Xem trước ở 1280 × 800: mọi màn là bản điện thoại kéo giãn (bảng chọn khung + nút trải hết bề ngang, bản in ở kết quả / trang trí bị thu nhỏ).
+- Từ màn rộng (≥ 1024 px, `lg`): **hai cột** — nội dung chính bên trái, bảng lựa chọn bên phải:
+  - Sảnh: vé bên trái, **cuộn phim gần đây** cột phải (xếp lưới, không cuộn ngang).
+  - Chọn khung: camera / cả khung bên trái; khung (xếp lưới) + chụp dư + nút bắt đầu ở cột phải 440 px.
+  - Kết quả: máy in + bản in bên trái (bản in cao gần hết màn), nút ở cột phải 420 px.
+  - Trang trí: bản in bên trái, các thẻ ở cột phải 460 px (theme / filter xếp lưới).
+  - Chọn ảnh (contact sheet): 3–4 cột.
+- Hình nhỏ ở góc (hai cách xem) to hơn khi chỗ rộng (210 × 260 thay vì 118 × 150).
+- **Phím tắt** (hiện gợi ý chỉ khi có chuột): Enter = bắt đầu chụp; lúc chụp Space = tạm dừng / tiếp, R = chụp lại kiểu vừa rồi, Esc = thoát (hỏi lại nếu đã có ảnh).
+- Máy chỉ có **1 camera** (đa số máy tính) → ẩn nút đổi camera.
+- Webcam máy tính là camera trước → vẫn lật như gương lúc xem, ảnh lưu ra không lật (D-153).

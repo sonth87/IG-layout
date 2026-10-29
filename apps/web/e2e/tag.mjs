@@ -53,8 +53,22 @@ await page.mouse.click(p.x, p.y);
 await tag.waitFor({ timeout: 3000 });
 console.log("tap → IG Layout");
 
+// Tilt (phone): gravity follows the phone — rolling it right swings the tag right.
+const phone = await browser.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+await phone.goto(new URL("labs/tag", URL_ARG).href);
+const ptag = phone.getByRole("button", { name: "Chuyển sang Photobooth" });
+await ptag.waitFor();
+await phone.waitForTimeout(1500);
+const flat = await box(ptag);
+await phone.evaluate(() => dispatchEvent(new DeviceOrientationEvent("deviceorientation", { alpha: 0, beta: 80, gamma: -45 })));
+await phone.waitForTimeout(1500);
+const tilted = await box(ptag);
+console.log("tilt left: Δx", (tilted.x - flat.x).toFixed(1));
+await phone.screenshot({ path: path.join(OUT, "tag-tilt.png") });
+const tiltOk = tilted.x - flat.x < -15;
+
 await browser.close();
-if (errors.length || !stillLayout || Math.abs(b.x - a.x) < 0.5) {
+if (!tiltOk || errors.length || !stillLayout || Math.abs(b.x - a.x) < 0.5) {
   console.error("FAIL", errors);
   process.exit(1);
 }

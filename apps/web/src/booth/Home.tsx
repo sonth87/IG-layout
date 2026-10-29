@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { listRolls, type BoothRoll } from "@ig-layout/core/storage/booth";
 import { SwitchTag } from "@/components/SwitchTag";
+import { LAYOUT_TAG, LayoutTagFace } from "@/components/TagFaces";
 import { useSettings, useT } from "@/store/settings";
 import { Bulbs, Label, Paper, Perforation, Ticker, display, mono, serif } from "./ui";
 
@@ -24,9 +25,10 @@ export function BoothHome({ onSolo, onUpload, onOpen }: { onSolo: () => void; on
   return (
     <div className="h-full overflow-y-auto pb-16">
       <Ticker items={t("booth.ticker").split("|")} />
-      <div className="mx-auto max-w-md px-5">
+      {/* Phone: one column. Computer: the ticket on the left, recent prints on the right. */}
+      <div className="mx-auto max-w-md px-5 lg:grid lg:max-w-5xl lg:grid-cols-[28rem_1fr] lg:gap-x-14 lg:px-10">
         {/* The sign; its right side is kept clear for the hanging tag. */}
-        <div className="mt-7 mr-24 animate-[booth-pop_0.5s_ease-out]">
+        <div className="mt-7 mr-20 animate-[booth-pop_0.5s_ease-out] lg:col-start-1">
           <Bulbs>
             <p className={`${mono} text-center text-[10px] font-bold uppercase tracking-[0.35em] text-[#eaa63c]`}>{t("booth.kicker")}</p>
             <h1 className={`${serif} text-center text-[32px] leading-none text-[#f3e9d6] [text-shadow:0_0_18px_rgba(234,166,60,0.45)]`} style={display}>
@@ -34,9 +36,9 @@ export function BoothHome({ onSolo, onUpload, onOpen }: { onSolo: () => void; on
             </h1>
           </Bulbs>
         </div>
-        <p className={`${mono} mt-5 pr-24 text-sm leading-relaxed opacity-80`}>{t("booth.tagline")}</p>
+        <p className={`${mono} mt-5 pr-20 text-sm leading-relaxed opacity-80 lg:col-start-1`}>{t("booth.tagline")}</p>
 
-        <Paper notch tilt={-0.8} className="mt-7">
+        <Paper notch tilt={-0.8} className="mt-7 lg:col-start-1">
           <div className="px-5 pt-5 pb-6">
             <Label className="text-center">{t("booth.admit")}</Label>
             <button
@@ -79,18 +81,18 @@ export function BoothHome({ onSolo, onUpload, onOpen }: { onSolo: () => void; on
         </Paper>
 
         {rolls.length > 0 && (
-          <section className="mt-10">
+          <section className="mt-10 lg:col-start-2 lg:row-span-4 lg:row-start-1 lg:mt-28">
             <p className={`${mono} text-[11px] font-bold uppercase tracking-[0.3em] text-[#eaa63c]`}>{t("booth.recent")}</p>
-            <div className="mt-4 flex gap-4 overflow-x-auto px-1 pt-2 pb-4">
+            <div className="mt-4 flex gap-4 overflow-x-auto px-1 pt-2 pb-4 lg:flex-wrap lg:gap-6 lg:overflow-visible">
               {rolls.map((r, i) => (
                 <RollThumb key={r.id} roll={r} tilt={i % 2 ? 2.5 : -2} label={t("booth.openRoll", { date: new Date(r.createdAt).toLocaleString(locale === "vi" ? "vi-VN" : "en-GB") })} onOpen={() => onOpen(r)} />
               ))}
             </div>
           </section>
         )}
-        <p className={`${mono} mt-8 text-center text-[10px] uppercase tracking-[0.25em] opacity-45`}>{t("booth.privacy")}</p>
+        <p className={`${mono} mt-8 text-center text-[10px] uppercase tracking-[0.25em] opacity-45 lg:col-start-1`}>{t("booth.privacy")}</p>
       </div>
-      <SwitchTag tone="dark" kicker={t("booth.switchTo")} label="IG Layout" icon={<span className="text-xl leading-none">▦</span>} onSwitch={() => router.push("/")} />
+      <SwitchTag label={`${t("booth.switchTo")} IG Layout`} face={<LayoutTagFace />} {...LAYOUT_TAG} string="#f3e9d6" onSwitch={() => router.push("/")} />
     </div>
   );
 }

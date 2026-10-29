@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { DEFAULT_TAG, SwitchTag, type TagPhysics } from "@/components/SwitchTag";
+import { BOOTH_TAG, BoothTagFace, LAYOUT_TAG, LayoutTagFace } from "@/components/TagFaces";
 
 // Tag lab (/labs/tag, 2026-10-29): the hanging tag that switches IG Layout ↔ booth (D-151),
 // on two stand-in home screens, with its physics on sliders to find what feels right on a
@@ -49,10 +50,10 @@ export function TagLab() {
       {!switching && (
         <SwitchTag
           key={app}
-          tone={app === "booth" ? "dark" : "light"}
-          kicker="Chuyển sang"
-          label={app === "layout" ? "Photobooth" : "IG Layout"}
-          icon={<span className="text-xl leading-none">{app === "layout" ? "🎞" : "▦"}</span>}
+          label={app === "layout" ? "Chuyển sang Photobooth" : "Chuyển sang IG Layout"}
+          face={app === "layout" ? <BoothTagFace /> : <LayoutTagFace />}
+          {...(app === "layout" ? BOOTH_TAG : LAYOUT_TAG)}
+          string={app === "layout" ? "#3d4047" : "#efe6d6"}
           physics={physics}
           onProgress={setPeek}
           onSwitch={switchApp}

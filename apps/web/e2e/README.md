@@ -28,6 +28,9 @@ node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 | `m13c.mjs` | Nhạc nền (chọn, âm lượng, phát cùng project, trộn vào video, mở lại), xuất: ảnh tĩnh JPEG / video & chuyển động MP4 có tiếng, video 9:16 (1080×1920, độ dài = các slide + lướt, có tiếng) |
 | `booth-solo.mjs` | Booth `/booth` (camera giả của Chromium): sảnh, 8 khung, ô camera đúng hình ô, đếm 8 giây + nghỉ 2 giây, tự chụp đủ 4 kiểu, ảnh in trượt ra, lưu JPEG 600×1800, chạm ảnh → chụp lại riêng kiểu đó, lật ảnh, cuộn phim còn sau khi tải lại, chụp dư 1 + 2 → chọn, xoá cuộn |
 | `booth-decorate.mjs` | Booth trang trí: tải 4 ảnh lên → Trang trí: 6 theme vẽ khác nhau, filter Noir làm ảnh xám, dòng chữ riêng + tắt ngày giờ, đổi sang Lưới 2×2 sau khi chụp → lưu JPEG 1200×1800 → theme / filter / chữ còn sau khi tải lại |
+| `booth-handoff.mjs` | Booth bước 3: lưu dạng Post 4:5 (1080×1350) / Story (1080×1920); Mở trong IG Layout → Carousel (bản in + 4 kiểu = 5 slide), Story, Bất ngờ (bố cục bốc ngẫu nhiên) — vào editor, project được lưu |
+| `booth-desktop.mjs` | Booth trên máy tính 1280×800: chọn khung ở cột phải cạnh camera, 1 camera → không có nút đổi camera, hình góc to hơn, Enter bắt đầu, Space tạm dừng, Esc thoát; bản in bên trái, nút bên phải |
+| `tag.mjs` | Tag treo `/labs/tag`: đung đưa, giật nhẹ không chuyển, kéo quá ngưỡng → booth, chạm → về, nghiêng điện thoại → tag ngả theo |
 | `drag-perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian khung hình khi kéo / chụm trên điện thoại giả lập, CPU chậm 4× |
 | `perf.mjs` | (không nằm trong `pnpm e2e`) đo thời gian nhập 20 ảnh 4000 px, thời gian vẽ lại, bộ nhớ canvas |
 | `sheets.mjs` | Chạm ra ngoài đóng hẳn sheet của phần tử, chọn lại không tự bật lại; ảnh panorama thêm vào không khoá (D-134) |

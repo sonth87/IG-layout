@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { frameById } from "@ig-layout/core/booth/frames";
-import type { RenderOptions, ShotImage } from "@ig-layout/core/booth/render";
+import { paintBackdrop, renderFrame, type RenderOptions, type ShotImage } from "@ig-layout/core/booth/render";
 import { themeById } from "@ig-layout/core/booth/themes";
 import { filterById } from "@ig-layout/core/color/filters";
 import { NO_ADJUST, shaderParams } from "@ig-layout/core/color/params";
@@ -59,4 +59,66 @@ export async function rollRender(roll: BoothRoll) {
 export function loadThemeFonts(themeId: string | undefined) {
   const th = themeById(themeId);
   return Promise.all([th.title.font, th.sub.font].map((r) => document.fonts.load(`${th.title.weight} 20px ${canvasFonts[r]}`).catch(() => []))).then(() => {});
+}
+
+export type Format = "print" | "post" | "story";
+const FORMAT_SIZE = { post: { width: 1080, height: 1350 }, story: { width: 1080, height: 1920 } };
+
+function toBlob(canvas: HTMLCanvasElement): Promise<Blob> {
+  return new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("toBlob failed"))), "image/jpeg", 0.92));
+}
+
+/** The print in an Instagram size (step 3): on the theme's paper, a little tilted with a soft
+ * shadow; a strip in a Post goes twice, side by side, like the two strips of a 4 × 6 print. */
+export async function formatCanvas(roll: BoothRoll, format: Format): Promise<HTMLCanvasElement> {
+  const { frame, images, opts } = await rollRender(roll);
+  await loadThemeFonts(roll.theme);
+  const print = document.createElement("canvas");
+  renderFrame(print, frame, images, opts);
+  if (format === "print") return print;
+  const { width: W, height: H } = FORMAT_SIZE[format];
+  const out = document.createElement("canvas");
+  const c = paintBackdrop(out, W, H, opts.theme);
+  const twice = format === "post" && frame.width / frame.height < 0.5;
+  const copies = twice ? [-1, 1] : [0];
+  // Fit: two strips share the width; otherwise one print within 84 % of the sheet.
+  const maxW = twice ? W * 0.4 : W * 0.84;
+  const k = Math.min(maxW / print.width, (H * 0.84) / print.height);
+  const w = print.width * k;
+  const h = print.height * k;
+  for (const side of copies) {
+    c.save();
+    c.translate(W / 2 + side * (w / 2 + W * 0.03), H / 2);
+    c.rotate(((side || -1) * 1.5 * Math.PI) / 180);
+    c.shadowColor = "rgba(0,0,0,0.32)";
+    c.shadowBlur = 28;
+    c.shadowOffsetY = 12;
+    c.drawImage(print, -w / 2, -h / 2, w, h);
+    c.restore();
+  }
+  return out;
+}
+
+export async function formatBlob(roll: BoothRoll, format: Format) {
+  return toBlob(await formatCanvas(roll, format));
+}
+
+/** Each shot as it looks in the print (filter, flip), for IG Layout. */
+export async function shotBlobs(roll: BoothRoll): Promise<Blob[]> {
+  const { images, opts } = await rollRender(roll);
+  const out: Blob[] = [];
+  for (const img of images) {
+    if (!img) continue;
+    const c = document.createElement("canvas");
+    c.width = img.width;
+    c.height = img.height;
+    const g = c.getContext("2d")!;
+    if (opts.flip) {
+      g.translate(img.width, 0);
+      g.scale(-1, 1);
+    }
+    g.drawImage(img.source, 0, 0);
+    out.push(await toBlob(c));
+  }
+  return out;
 }

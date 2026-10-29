@@ -240,3 +240,11 @@ img {
   [class*="booth-pop"], [class*="booth-drop"], [class*="booth-print"], [class*="booth-marquee"],
   [class*="booth-bulbs"], [class*="booth-led"], [class*="booth-feed"] { animation: none !important; }
 }
+@keyframes booth-gift {
+  0%, 100% { transform: rotate(0) scale(1); }
+  20% { transform: rotate(-14deg) scale(1.1); }
+  40% { transform: rotate(12deg) scale(1.15); }
+  60% { transform: rotate(-8deg) scale(1.2); }
+  80% { transform: scale(1.5); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}

@@ -11,8 +11,6 @@ export type ViewKind = "me" | "frame";
 type Corner = "tl" | "tr" | "bl" | "br";
 
 const KEY = "ig-layout:booth-pip";
-const W = 118;
-const H = 150;
 const M = 12;
 
 function loadCorner(): Corner {
@@ -46,6 +44,8 @@ export function DualView({ main, onSwap, me, frame, overlay, label }: {
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+  // Bigger in the corner of a computer screen.
+  const [W, H] = size.w >= 700 && size.h >= 560 ? [210, 260] : [118, 150];
   const small = main === "me" ? "frame" : "me";
   const view = (k: ViewKind, isSmall: boolean) => (k === "me" ? me(isSmall) : frame(isSmall));
 

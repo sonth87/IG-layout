@@ -567,9 +567,11 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] Còn mở: chọn theme (Q-P4), video hậu trường (Q-P20)
 - [x] Booth solo bước 1: `/booth` — sảnh (thẻ vé, tải ảnh lên, cuộn phim gần đây, tag về IG Layout), chọn khung với camera bật sẵn (8 khung, ô camera đúng hình ô), chụp tự động (đếm 8 s, nghỉ 2 s, loé trắng, tiếng màn trập, tạm dừng, chụp lại kiểu vừa rồi, hỏi trước khi thoát), chụp dư + chọn, ảnh in trượt ra, lưu JPEG, chạm ảnh → chụp lại / chụp bù, lật ảnh, lưu cuộn trên máy; e2e `booth-solo.mjs`
 - [x] Booth bước 2a: màn Trang trí — đổi khung sau khi chụp, 6 theme (Cinema, Classic, Đen trắng, Candy, Alice, Y2K), filter dùng chung IG Layout, dòng chữ + ngày giờ; e2e `booth-decorate.mjs`
+- [x] Booth trên máy tính: bố cục hai cột (camera / bản in bên trái, lựa chọn bên phải), phím tắt, ẩn đổi camera khi chỉ có 1; e2e `booth-desktop.mjs`
 - [ ] Booth bước 2b: sticker (kéo, xoay, phóng to — packages/canvas)
 - [ ] Chủ dự án duyệt / đổi danh sách theme (Q-P4)
-- [ ] Booth bước 3: xuất Post / Story / Carousel + Mở trong IG Layout (hỏi dạng / "Bất ngờ", D-155)
+- [x] Booth bước 3: lưu dạng Bản in / Post 4:5 / Story 9:16; Mở trong IG Layout (Post, Carousel, Story, Bất ngờ — D-155); e2e `booth-handoff.mjs`
+- [x] Tag: mặt riêng cho từng app (dải ảnh booth / thẻ lưới IG Layout), nhỏ hơn, trọng lực theo độ nghiêng điện thoại
 - [x] Tag treo ở home IG Layout → /booth (chủ dự án, 2026-10-29); booth có tag về IG Layout từ bước 1
 - [ ] Chốt hướng kéo / cảm giác dây (Q-P12) sau khi thử trên điện thoại
 - [ ] Phòng online + sửa chung

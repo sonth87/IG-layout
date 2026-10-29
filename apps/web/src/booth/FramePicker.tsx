@@ -15,7 +15,7 @@ export function FramePicker({ value, onChange, look }: { value: string; onChange
   const t = useT();
   const frameName = useFrameName();
   return (
-    <div role="radiogroup" aria-label={t("booth.frame")} className="flex gap-3 overflow-x-auto px-5 pt-3 pb-4">
+    <div role="radiogroup" aria-label={t("booth.frame")} className="flex gap-3 overflow-x-auto px-5 pt-3 pb-4 lg:flex-wrap lg:overflow-visible">
       {FRAMES.map((f) => {
         const on = f.id === value;
         return (

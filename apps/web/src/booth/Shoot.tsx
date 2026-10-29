@@ -123,6 +123,24 @@ export function Shoot({ camera, facing, frame, plan, base, sound, onSound, onDon
     setSt({ phase: "count", until: performance.now() + COUNTDOWN_S * 1000, paused: null });
   }
 
+  // Computer: Space pauses, R retakes the last shot, Esc exits (asks first once there are shots).
+  const keys = useRef({ togglePause, retakeLast, exit: () => (shots.length ? setAsking(true) : onExit()) });
+  useEffect(() => {
+    keys.current = { togglePause, retakeLast, exit: () => (shots.length ? setAsking(true) : onExit()) };
+  });
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      if ((e.target as HTMLElement).closest("input")) return;
+      if (e.key === " ") keys.current.togglePause();
+      else if (e.key === "r" || e.key === "R") keys.current.retakeLast();
+      else if (e.key === "Escape") keys.current.exit();
+      else return;
+      e.preventDefault();
+    };
+    addEventListener("keydown", key);
+    return () => removeEventListener("keydown", key);
+  }, []);
+
   const urls = useMemo(() => shots.map((b) => URL.createObjectURL(b)), [shots]);
   useEffect(() => () => urls.forEach((u) => URL.revokeObjectURL(u)), [urls]);
 
@@ -212,6 +230,7 @@ export function Shoot({ camera, facing, frame, plan, base, sound, onSound, onDon
             <img key={u} src={u} alt="" data-shot={i} className="h-14 w-auto animate-[booth-drop_0.45s_ease-out] border-[3px] border-[#f6efe2] shadow-[3px_3px_0_#0b0806]" style={{ rotate: `${i % 2 ? 3 : -3}deg` }} />
           ))}
         </div>
+        <p className={`${mono} ml-auto hidden shrink-0 text-[10px] uppercase tracking-[0.15em] opacity-50 [@media(pointer:fine)]:block`}>{t("booth.keys.shoot")}</p>
         {shots.length > 0 && shots.length < plan.count && (
           <Btn className="shrink-0 py-2.5 text-[10px]" onClick={retakeLast}>
             ↺ {t("booth.retakeLast")}

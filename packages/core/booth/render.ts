@@ -86,7 +86,10 @@ function rounded(c: CanvasRenderingContext2D, b: Box, r: number) {
   else c.rect(b.x, b.y, b.w, b.h);
 }
 
-function paper(c: CanvasRenderingContext2D, f: BoothFrame, th: BoothTheme) {
+/** What the paper and its decoration need: a size, and where the caption goes (kept clear). */
+type Sheet = Pick<BoothFrame, "width" | "height"> & { foot?: Box };
+
+function paper(c: CanvasRenderingContext2D, f: Sheet, th: BoothTheme) {
   if (Array.isArray(th.bg)) {
     const g = c.createLinearGradient(0, 0, f.width * 0.3, f.height);
     th.bg.forEach((col, i) => g.addColorStop(i / (th.bg.length - 1), col));
@@ -100,7 +103,7 @@ function rng(seed: number) {
   return () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
 }
 
-function decor(c: CanvasRenderingContext2D, f: BoothFrame, th: BoothTheme) {
+function decor(c: CanvasRenderingContext2D, f: Sheet, th: BoothTheme) {
   const unit = Math.min(f.width, f.height) / 600;
   if (th.decor === "dots") {
     // Polka dots, alternating white and the theme's accent.
@@ -109,7 +112,7 @@ function decor(c: CanvasRenderingContext2D, f: BoothFrame, th: BoothTheme) {
       for (let x = (row % 2 ? step / 2 : 0) + step / 4; x < f.width; x += step) {
         // Not behind the caption: it stays readable.
         const ft = f.foot;
-        if (x > ft.x - 8 * unit && x < ft.x + ft.w + 8 * unit && y > ft.y && y < ft.y + ft.h) continue;
+        if (ft && x > ft.x - 8 * unit && x < ft.x + ft.w + 8 * unit && y > ft.y && y < ft.y + ft.h) continue;
         c.fillStyle = (row + Math.round(x / step)) % 3 === 0 ? th.accent : "#ffffff";
         c.globalAlpha = 0.75;
         c.beginPath();
@@ -253,6 +256,16 @@ function caption(c: CanvasRenderingContext2D, f: BoothFrame, th: BoothTheme, opt
     c.fillStyle = th.accent;
     c.fillRect(cx - unit * 0.12, ty - title * 0.75, unit * 0.24, Math.max(2, unit * 0.015));
   }
+}
+
+/** The theme's paper and decoration on a sheet of any size (Post / Story backgrounds). */
+export function paintBackdrop(canvas: HTMLCanvasElement, width: number, height: number, theme: BoothTheme = THEMES[0]) {
+  canvas.width = width;
+  canvas.height = height;
+  const c = canvas.getContext("2d")!;
+  paper(c, { width, height }, theme);
+  decor(c, { width, height }, theme);
+  return c;
 }
 
 export function frameBlob(frame: BoothFrame, shots: (ShotImage | null)[], opts: RenderOptions = {}): Promise<Blob> {

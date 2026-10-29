@@ -42,83 +42,85 @@ export function Decorate({ roll, onChange, onDone }: { roll: BoothRoll; onChange
         </Btn>
       </header>
 
-      <div className="flex min-h-0 flex-1 items-center justify-center p-4">
-        {images && <FrameCanvas frame={frame} images={images} look={look} scale={Math.min(1, 1000 / Math.max(frame.width, frame.height))} className="max-h-full max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]" />}
-      </div>
-
-      <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[#1d1612]">
-        <div role="tablist" className="grid grid-cols-4 border-b-2 border-[#1d1612]">
-          {TABS.map((k) => (
-            <button
-              key={k}
-              type="button"
-              role="tab"
-              aria-selected={tab === k}
-              onClick={() => setTab(k)}
-              className={`${mono} border-r-2 border-[#1d1612] py-3 text-[11px] font-bold uppercase tracking-[0.15em] last:border-r-0 ${tab === k ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
-            >
-              {t(`booth.tab.${k}`)}
-            </button>
-          ))}
+      <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
+        <div className="flex min-h-0 flex-1 items-center justify-center p-4 lg:p-8">
+          {images && <FrameCanvas frame={frame} images={images} look={look} scale={Math.min(1, 1000 / Math.max(frame.width, frame.height))} className="max-h-full max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]" />}
         </div>
 
-        <div className="min-h-[178px]">
-          {tab === "frame" && <FramePicker value={roll.frameId} look={look} onChange={(frameId) => set({ frameId })} />}
+        <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:w-[460px] lg:overflow-y-auto lg:border-t-0 lg:border-l-2">
+          <div role="tablist" className="grid grid-cols-4 border-b-2 border-[#1d1612]">
+            {TABS.map((k) => (
+              <button
+                key={k}
+                type="button"
+                role="tab"
+                aria-selected={tab === k}
+                onClick={() => setTab(k)}
+                className={`${mono} border-r-2 border-[#1d1612] py-3 text-[11px] font-bold uppercase tracking-[0.15em] last:border-r-0 ${tab === k ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
+              >
+                {t(`booth.tab.${k}`)}
+              </button>
+            ))}
+          </div>
 
-          {tab === "theme" && (
-            <div role="radiogroup" aria-label={t("booth.tab.theme")} className="flex gap-3 overflow-x-auto px-5 pt-4 pb-4">
-              {THEMES.map((th) => {
-                const on = th.id === theme.id;
-                return (
-                  <button
-                    key={th.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={on}
-                    // A new theme brings its own filter (still changeable after).
-                    onClick={() => set({ theme: th.id, filter: undefined })}
-                    className={`flex w-[92px] shrink-0 flex-col items-center gap-2 border-2 border-[#1d1612] p-2 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-1 bg-[#1d1612] text-[#f3e9d6] shadow-[4px_4px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[3px_3px_0_#0b0806]"}`}
-                  >
-                    <span className="flex h-[96px] items-center">
-                      {images && <FrameCanvas frame={frame} images={images} look={{ ...look, theme: th, title: undefined }} scale={190 / Math.max(frame.width, frame.height)} className="max-h-[96px] max-w-[76px]" />}
-                    </span>
-                    <span className={`${mono} text-[10px] font-bold uppercase tracking-wider`}>{t(`booth.theme.${th.id}` as Parameters<typeof t>[0])}</span>
-                  </button>
-                );
-              })}
-            </div>
-          )}
+          <div className="min-h-[178px]">
+            {tab === "frame" && <FramePicker value={roll.frameId} look={look} onChange={(frameId) => set({ frameId })} />}
 
-          {tab === "filter" && <FilterRow images={images} value={rollFilter(roll)} onChange={(filter) => set({ filter })} />}
-
-          {tab === "text" && (
-            <div className="flex flex-col gap-4 px-5 pt-4 pb-3">
-              <label className="flex flex-col gap-1.5">
-                <span className={`${mono} text-[11px] font-bold uppercase tracking-[0.25em] text-[#c8432f]`}>{t("booth.text.title")}</span>
-                <input
-                  value={roll.title ?? theme.title.text}
-                  maxLength={28}
-                  placeholder={t("booth.text.placeholder")}
-                  onChange={(e) => set({ title: e.target.value })}
-                  className={`${mono} border-2 border-[#1d1612] bg-[#fbf6ec] px-3 py-3 text-base outline-none focus:shadow-[3px_3px_0_#c8432f]`}
-                />
-              </label>
-              <div className="flex items-center justify-between gap-3">
-                <label className={`${mono} flex cursor-pointer items-center gap-3 text-xs`}>
-                  <input type="checkbox" className="peer sr-only" checked={roll.showDate !== false} onChange={(e) => set({ showDate: e.target.checked })} />
-                  <span aria-hidden className="flex h-6 w-6 items-center justify-center border-2 border-[#1d1612] bg-[#fbf6ec] text-sm font-bold text-[#c8432f] peer-focus-visible:outline peer-focus-visible:outline-2">
-                    {roll.showDate !== false ? "✕" : ""}
-                  </span>
-                  {t("booth.text.date")}
-                </label>
-                {roll.title !== undefined && (
-                  <button type="button" className={`${mono} text-[11px] font-bold uppercase tracking-[0.12em] underline underline-offset-4`} onClick={() => set({ title: undefined })}>
-                    ↺ {t("booth.text.reset")}
-                  </button>
-                )}
+            {tab === "theme" && (
+              <div role="radiogroup" aria-label={t("booth.tab.theme")} className="flex gap-3 overflow-x-auto px-5 pt-4 pb-4 lg:flex-wrap lg:overflow-visible">
+                {THEMES.map((th) => {
+                  const on = th.id === theme.id;
+                  return (
+                    <button
+                      key={th.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={on}
+                      // A new theme brings its own filter (still changeable after).
+                      onClick={() => set({ theme: th.id, filter: undefined })}
+                      className={`flex w-[92px] shrink-0 flex-col items-center gap-2 border-2 border-[#1d1612] p-2 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-1 bg-[#1d1612] text-[#f3e9d6] shadow-[4px_4px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[3px_3px_0_#0b0806]"}`}
+                    >
+                      <span className="flex h-[96px] items-center">
+                        {images && <FrameCanvas frame={frame} images={images} look={{ ...look, theme: th, title: undefined }} scale={190 / Math.max(frame.width, frame.height)} className="max-h-[96px] max-w-[76px]" />}
+                      </span>
+                      <span className={`${mono} text-[10px] font-bold uppercase tracking-wider`}>{t(`booth.theme.${th.id}` as Parameters<typeof t>[0])}</span>
+                    </button>
+                  );
+                })}
               </div>
-            </div>
-          )}
+            )}
+
+            {tab === "filter" && <FilterRow images={images} value={rollFilter(roll)} onChange={(filter) => set({ filter })} />}
+
+            {tab === "text" && (
+              <div className="flex flex-col gap-4 px-5 pt-4 pb-3">
+                <label className="flex flex-col gap-1.5">
+                  <span className={`${mono} text-[11px] font-bold uppercase tracking-[0.25em] text-[#c8432f]`}>{t("booth.text.title")}</span>
+                  <input
+                    value={roll.title ?? theme.title.text}
+                    maxLength={28}
+                    placeholder={t("booth.text.placeholder")}
+                    onChange={(e) => set({ title: e.target.value })}
+                    className={`${mono} border-2 border-[#1d1612] bg-[#fbf6ec] px-3 py-3 text-base outline-none focus:shadow-[3px_3px_0_#c8432f]`}
+                  />
+                </label>
+                <div className="flex items-center justify-between gap-3">
+                  <label className={`${mono} flex cursor-pointer items-center gap-3 text-xs`}>
+                    <input type="checkbox" className="peer sr-only" checked={roll.showDate !== false} onChange={(e) => set({ showDate: e.target.checked })} />
+                    <span aria-hidden className="flex h-6 w-6 items-center justify-center border-2 border-[#1d1612] bg-[#fbf6ec] text-sm font-bold text-[#c8432f] peer-focus-visible:outline peer-focus-visible:outline-2">
+                      {roll.showDate !== false ? "✕" : ""}
+                    </span>
+                    {t("booth.text.date")}
+                  </label>
+                  {roll.title !== undefined && (
+                    <button type="button" className={`${mono} text-[11px] font-bold uppercase tracking-[0.12em] underline underline-offset-4`} onClick={() => set({ title: undefined })}>
+                      ↺ {t("booth.text.reset")}
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -144,7 +146,7 @@ function FilterRow({ images, value, onChange }: { images: (ShotImage | null)[] |
   const ids: (string | null)[] = [null, ...BOOTH_FILTERS];
 
   return (
-    <div role="radiogroup" aria-label={t("booth.tab.filter")} className="flex gap-3 overflow-x-auto px-5 pt-4 pb-4">
+    <div role="radiogroup" aria-label={t("booth.tab.filter")} className="flex gap-3 overflow-x-auto px-5 pt-4 pb-4 lg:flex-wrap lg:overflow-visible">
       {ids.map((id) => {
         const on = (id ?? undefined) === value;
         return (
