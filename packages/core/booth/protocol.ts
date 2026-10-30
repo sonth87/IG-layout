@@ -22,15 +22,17 @@ export interface Member {
 export type ClientMsg =
   | { t: "admit"; id: string } // host only
   | { t: "deny"; id: string } // host only
+  | { t: "leave" } // explicit leave (as opposed to F5 / network drop)
   | { t: "signal"; to: string; data: unknown }; // members only
 
 /** Room → page. */
 export type ServerMsg =
   | { t: "hosting"; you: Member } // you created the room
   | { t: "waiting" } // knocked; the host decides
-  | { t: "welcome"; you: Member; members: Member[] } // admitted; `members` excludes you
+  | { t: "welcome"; you: Member; members: Member[]; away?: Member[] } // admitted (or reconnected); `members` excludes you
   | { t: "knock"; id: string; name: string } // to the host: someone wants in
   | { t: "joined"; member: Member }
+  | { t: "away"; member: Member } // someone refreshed / dropped temporarily
   | { t: "left"; id: string }
   | { t: "signal"; from: string; data: unknown }
   | { t: "error"; code: "taken" | "not-found" | "full" | "denied" | "closed" | "bad-request" };

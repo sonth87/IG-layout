@@ -57,8 +57,8 @@ async function shotAssets(roll: BoothRoll, video: LiveMode | null) {
 /** The print on slide `slide` (and the theme's paper as the background, if wanted). */
 async function placePrint(roll: BoothRoll, format: "post" | "story", slide: number, backdrop: boolean, video: LiveMode | null) {
   const { print, theme } = await printCanvas(roll);
-  const still = await toBlob(print);
-  const printAsset = video ? videoAsset(await printVideo(roll, video), still, "photobooth.mp4") : await asset(still, "photobooth.jpg");
+  const still = await toBlob(print, "image/png");
+  const printAsset = video ? videoAsset(await printVideo(roll, video), still, "photobooth.mp4") : await asset(still, "photobooth.png");
   const ed = useEditor.getState();
   const doc = ed.doc!;
   const rect = slideRect(doc, slide);

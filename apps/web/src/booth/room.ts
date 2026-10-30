@@ -17,10 +17,10 @@ export interface Room {
   /** Rolls already turned into a print (the room screen comes and goes; a roll is printed once). */
   printed: Set<number>;
   setMic: (on: boolean) => void;
-  leave: () => void;
+  leave: (explicit?: boolean) => void;
 }
 
-export async function openRoom(opts: { code: string; name: string; create: boolean }): Promise<Room> {
+export async function openRoom(opts: { code: string; name: string; create: boolean; id?: string }): Promise<Room> {
   const cam = await openCamera("user", opts.name.slice(0, 1).toUpperCase() || "?", true);
   const video = document.createElement("video");
   video.muted = true;
@@ -32,6 +32,7 @@ export async function openRoom(opts: { code: string; name: string; create: boole
     code: opts.code,
     name: opts.name,
     create: opts.create,
+    id: opts.id,
     stream: cam.stream,
     // Not mirrored (D-153), full resolution.
     onShot: () => snap(video),
@@ -43,8 +44,8 @@ export async function openRoom(opts: { code: string; name: string; create: boole
     fake: cam.fake,
     printed: new Set(),
     setMic: (on) => cam.stream.getAudioTracks().forEach((t) => (t.enabled = on)),
-    leave: () => {
-      session.leave();
+    leave: (explicit = true) => {
+      session.leave(explicit);
       stopCamera(cam.stream);
       video.srcObject = null;
     },

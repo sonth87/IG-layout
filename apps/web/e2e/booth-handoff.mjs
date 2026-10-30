@@ -17,10 +17,9 @@ const check = (ok, label) => {
   console.log(`  ${ok ? "✓" : "✗"} ${label}`);
   if (!ok) failed++;
 };
-const jpegSize = (file) => {
-  const jpg = readFileSync(file);
-  for (let i = 2; i < jpg.length - 9; i++) if (jpg[i] === 0xff && (jpg[i + 1] === 0xc0 || jpg[i + 1] === 0xc2)) return [jpg.readUInt16BE(i + 7), jpg.readUInt16BE(i + 5)];
-  return [0, 0];
+const pngSize = (file) => {
+  const png = readFileSync(file);
+  return [png.readUInt32BE(16), png.readUInt32BE(20)];
 };
 const projects = () =>
   page.evaluate(
@@ -43,15 +42,12 @@ await page.goto(new URL("booth", URL_ARG).href);
 await page.locator("input[type=file]").setInputFiles(["p3.jpg", "p4.jpg", "portrait.jpg", "panorama.jpg"].map((f) => path.join(FIXTURES, f)));
 await page.getByText("Fresh off the press!").waitFor({ timeout: 8000 });
 
-console.log("1. Save as Post / Story");
-for (const [name, size] of [["Post 4:5", [1080, 1350]], ["Story 9:16", [1080, 1920]]]) {
-  await page.getByRole("radiogroup", { name: "Save as" }).getByRole("radio", { name }).click();
-  const [dl] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: /Save photo/ }).click()]);
-  const file = path.join(OUT, `booth-${size[1]}.jpg`);
-  await dl.saveAs(file);
-  const [w, h] = jpegSize(file);
-  check(w === size[0] && h === size[1], `${name}: ${dl.suggestedFilename()} ${w}×${h}`);
-}
+console.log("1. Save print as PNG");
+const [dl] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: /Save photo/ }).click()]);
+const file = path.join(OUT, "booth-print.png");
+await dl.saveAs(file);
+const [w, h] = pngSize(file);
+check(dl.suggestedFilename().endsWith(".png") && w === 600 && h === 1800, `Print PNG: ${dl.suggestedFilename()} ${w}×${h}`);
 
 console.log("2. Open in IG Layout");
 for (const [kind, expect] of [

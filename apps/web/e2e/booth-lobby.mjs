@@ -60,8 +60,8 @@ check((await lobby()) === "noel", `swipe right → previous (${await lobby()})`)
 await swipe(220);
 await swipe(220);
 check((await lobby()) === "glitch", `round the end → glitch (${await lobby()})`);
-await swipe(-40, 4);
-check((await lobby()) === "glitch", "a short drag springs back");
+await swipe(-80, 4);
+check((await lobby()) === "glitch", "a drag under 25% springs back");
 const shift = await page.locator("[data-lobby]").evaluate((el) => el.style.getPropertyValue("--drag"));
 check(shift === "0px", `…all the way (${shift})`);
 
@@ -89,9 +89,9 @@ await dp.keyboard.press("ArrowRight");
 await dp.waitForTimeout(700);
 const after = await dp.locator("[data-lobby]").getAttribute("data-lobby");
 check(IDS.indexOf(after) === (IDS.indexOf(before) + 1) % 6, `→ goes to the next (${before} → ${after})`);
-await dp.getByRole("button", { name: "Previous scene" }).click();
+await dp.keyboard.press("ArrowLeft");
 await dp.waitForTimeout(700);
-check((await dp.locator("[data-lobby]").getAttribute("data-lobby")) === before, "the ‹ arrow goes back");
+check((await dp.locator("[data-lobby]").getAttribute("data-lobby")) === before, "← goes back");
 for (const id of IDS) {
   await dp.getByRole("radio", { name: new RegExp(`^${{ cinema: "Cinema", noel: "Christmas", tet: "Tết", halloween: "Halloween", cyber: "Cyberpunk", glitch: "Glitch" }[id]}$`) }).click();
   await dp.waitForTimeout(900);

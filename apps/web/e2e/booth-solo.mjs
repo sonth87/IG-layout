@@ -114,20 +114,12 @@ console.log("3. Result");
 await page.getByText("Tap a photo to retake it.").waitFor({ timeout: 5000 });
 await page.screenshot({ path: path.join(OUT, "booth-result.png") });
 const [download] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: /Save photo/ }).click()]);
-const file = path.join(OUT, "booth-strip.jpg");
+const file = path.join(OUT, "booth-strip.png");
 await download.saveAs(file);
-const jpg = readFileSync(file);
-// JPEG SOF0/SOF2 marker: height, width.
-let w = 0,
-  h = 0;
-for (let i = 2; i < jpg.length - 9; i++) {
-  if (jpg[i] === 0xff && (jpg[i + 1] === 0xc0 || jpg[i + 1] === 0xc2)) {
-    h = jpg.readUInt16BE(i + 5);
-    w = jpg.readUInt16BE(i + 7);
-    break;
-  }
-}
-check(download.suggestedFilename().startsWith("booth_") && w === 600 && h === 1800, `saved ${download.suggestedFilename()} ${w}×${h}`);
+const png = readFileSync(file);
+const w = png.readUInt32BE(16);
+const h = png.readUInt32BE(20);
+check(download.suggestedFilename().startsWith("booth_") && download.suggestedFilename().endsWith(".png") && w === 600 && h === 1800, `saved ${download.suggestedFilename()} ${w}×${h}`);
 
 // 4. Tap the 2nd photo → retake just that one → back to the print.
 console.log("4. Retake one shot");

@@ -79,17 +79,11 @@ check(true, "every phone gets the print");
 const sizes = await Promise.all(all.map((p) => p.locator("canvas").first().evaluate((c) => (c.width / c.height).toFixed(3))));
 check(sizes.every((s) => s === (600 / 1800).toFixed(3)), `same frame everywhere (${sizes.join(", ")})`);
 const [dl] = await Promise.all([guests[0].waitForEvent("download"), guests[0].getByRole("button", { name: /Save photo/ }).click()]);
-const file = path.join(OUT, "booth-room.jpg");
+const file = path.join(OUT, "booth-room.png");
 await dl.saveAs(file);
-const jpg = readFileSync(file);
-let w = 0,
-  h = 0;
-for (let i = 2; i < jpg.length - 9; i++)
-  if (jpg[i] === 0xff && (jpg[i + 1] === 0xc0 || jpg[i + 1] === 0xc2)) {
-    h = jpg.readUInt16BE(i + 5);
-    w = jpg.readUInt16BE(i + 7);
-    break;
-  }
+const png = readFileSync(file);
+const w = png.readUInt32BE(16);
+const h = png.readUInt32BE(20);
 check(w === 600 && h === 1800, `saved ${w}×${h}`);
 check((await host.getByRole("button", { name: "Lobby" }).count()) === 0, "no lobby button in a room");
 
@@ -122,13 +116,36 @@ check(new Set(prints).size === 1, "all three prints are the same");
 await host.screenshot({ path: path.join(OUT, "booth-room-together.png") });
 for (const p of all) await p.getByRole("button", { name: "Done" }).click();
 
-console.log("6. Back to the room, host leaves");
+console.log("6. Back to the room, refresh & reconnect, host leaves");
 for (const p of all) await p.getByRole("button", { name: /Back to the room/ }).click();
 await host.locator("[data-room-code]").waitFor();
+check(new URL(host.url()).searchParams.get("r") === code, `room URL carries ?r=${code}`);
+
+// Host refreshes (F5): guests stay in the room and host reconnects automatically.
+await host.reload();
+await host.locator("[data-room-code]").waitFor({ timeout: 10000 });
+for (const p of all) {
+  await p.waitForFunction(() => document.querySelectorAll("[data-person] video").length === 3 && [...document.querySelectorAll("[data-person] video")].every((v) => v.videoWidth > 0), null, { timeout: 20000 });
+}
+check(true, "host refreshed (F5) → guests stayed in room and host reconnected");
+
+// Guest refreshes (F5): rejoins automatically without knocking again.
+await g1.reload();
+await g1.locator("[data-room-code]").waitFor({ timeout: 10000 });
+for (const p of all) {
+  await p.waitForFunction(() => document.querySelectorAll("[data-person] video").length === 3 && [...document.querySelectorAll("[data-person] video")].every((v) => v.videoWidth > 0), null, { timeout: 20000 });
+}
+check(true, "guest refreshed (F5) → auto-rejoined without knocking again");
+
 await host.getByRole("button", { name: "Leave" }).click();
 await host.getByRole("alertdialog").getByRole("button", { name: "Leave" }).click();
 for (const g of guests) await g.getByText("The host closed the room.").waitFor({ timeout: 10000 });
 check(true, "host left → room closed for the guests");
+
+// Opening the old link after the session ended bounces back to Home lobby.
+await g1.goto(new URL(`booth?r=${code}`, URL_ARG).href);
+await g1.getByRole("button", { name: "Start a group room" }).waitFor({ timeout: 10000 });
+check(new URL(g1.url()).searchParams.get("r") === null, "opening ended room URL bounces to Home and strips ?r=");
 
 check(errors.length === 0, `no page errors ${errors.length ? JSON.stringify(errors) : ""}`);
 await browser.close();

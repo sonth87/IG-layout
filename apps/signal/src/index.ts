@@ -42,25 +42,76 @@ interface Seat extends Member {
   admitted: boolean;
 }
 
+const RECONNECT_MS = 30_000;
+const EMPTY_GRACE_MS = 6_000;
+
 export class Room extends DurableObject<Env> {
+  /** Admitted seats that disconnected unexpectedly (e.g. F5 refresh) and may reconnect shortly. */
+  private away = new Map<string, { seat: Seat; timer: ReturnType<typeof setTimeout> }>();
+  private emptyTimer: ReturnType<typeof setTimeout> | null = null;
+
   async fetch(req: Request): Promise<Response> {
     const url = new URL(req.url);
     const name = (url.searchParams.get("name") ?? "").trim().slice(0, 24) || "?";
     const create = url.searchParams.has("create");
+    const seatId = (url.searchParams.get("id") ?? "").trim().slice(0, 16);
     const pair = new WebSocketPair();
     const [client, server] = [pair[0], pair[1]];
     this.ctx.acceptWebSocket(server);
 
-    const seats = this.seats();
-    const host = seats.find((s) => s.host);
     const fail = (code: Extract<ServerMsg, { t: "error" }>["code"]) => {
       send(server, { t: "error", code });
       server.close(4000, code);
     };
-    const seat: Seat = { id: crypto.randomUUID().slice(0, 8), name, host: create, admitted: create };
+
+    // Reconnecting after an accidental page refresh (F5) or brief drop.
+    if (seatId && this.away.has(seatId)) {
+      const saved = this.away.get(seatId)!;
+      clearTimeout(saved.timer);
+      this.away.delete(seatId);
+      if (this.emptyTimer) {
+        clearTimeout(this.emptyTimer);
+        this.emptyTimer = null;
+      }
+      const connectedAdmitted = this.seats().filter((s) => s.admitted);
+      const seat: Seat = {
+        id: saved.seat.id,
+        name: name !== "?" ? name : saved.seat.name,
+        host: saved.seat.host,
+        admitted: true,
+      };
+      server.serializeAttachment(seat);
+      send(server, {
+        t: "welcome",
+        you: member(seat),
+        members: connectedAdmitted.map(member),
+        away: [...this.away.values()].map((a) => member(a.seat)),
+      });
+      if (seat.host) {
+        for (const k of this.seats().filter((s) => !s.admitted)) {
+          send(server, { t: "knock", id: k.id, name: k.name });
+        }
+      }
+      for (const s of connectedAdmitted) this.sendTo(s.id, { t: "joined", member: member(seat) });
+      return new Response(null, { status: 101, webSocket: client });
+    }
+
+    const seats = this.seats();
+    const connectedAdmitted = seats.filter((s) => s.admitted);
+    if (connectedAdmitted.length === 0) {
+      if (!create) {
+        fail("not-found");
+        return new Response(null, { status: 101, webSocket: client });
+      }
+      this.clearAway();
+    }
+
+    const host = seats.find((s) => s.host) ?? [...this.away.values()].map((a) => a.seat).find((s) => s.host);
+    const totalAdmitted = connectedAdmitted.length + this.away.size;
+    const seat: Seat = { id: seatId || crypto.randomUUID().slice(0, 8), name, host: create, admitted: create };
     if (create && host) fail("taken");
     else if (!create && !host) fail("not-found");
-    else if (!create && seats.filter((s) => s.admitted).length >= MAX_MEMBERS) fail("full");
+    else if (!create && totalAdmitted >= MAX_MEMBERS) fail("full");
     else {
       server.serializeAttachment(seat);
       if (create) send(server, { t: "hosting", you: member(seat) });
@@ -80,7 +131,12 @@ export class Room extends DurableObject<Env> {
     } catch {
       return send(ws, { t: "error", code: "bad-request" });
     }
-    if (!me?.admitted) return;
+    if (!me) return;
+    if (msg.t === "leave") {
+      this.leaveExplicit(ws, me);
+      return;
+    }
+    if (!me.admitted) return;
     if (msg.t === "signal") {
       const to = this.socket(msg.to);
       if (to && seatOf(to)?.admitted) send(to, { t: "signal", from: me.id, data: msg.data });
@@ -94,10 +150,15 @@ export class Room extends DurableObject<Env> {
         return;
       }
       const members = this.seats().filter((s) => s.admitted);
-      if (members.length >= MAX_MEMBERS) return send(ws2, { t: "error", code: "full" });
+      if (members.length + this.away.size >= MAX_MEMBERS) return send(ws2, { t: "error", code: "full" });
       seat.admitted = true;
       ws2.serializeAttachment(seat);
-      send(ws2, { t: "welcome", you: member(seat), members: members.map(member) });
+      send(ws2, {
+        t: "welcome",
+        you: member(seat),
+        members: members.map(member),
+        away: [...this.away.values()].map((a) => member(a.seat)),
+      });
       for (const s of members) this.sendTo(s.id, { t: "joined", member: member(seat) });
     }
   }
@@ -110,18 +171,76 @@ export class Room extends DurableObject<Env> {
     this.gone(ws);
   }
 
-  /** Someone left. The host leaving closes the room (the photos are on everyone's phone already). */
+  /** Explicit leave (clicked Leave / Cancel): closes room immediately if host, or removes member. */
+  private leaveExplicit(ws: WebSocket, seat: Seat) {
+    ws.serializeAttachment(null);
+    const saved = this.away.get(seat.id);
+    if (saved) {
+      clearTimeout(saved.timer);
+      this.away.delete(seat.id);
+    }
+    if (seat.host) {
+      this.closeRoom(ws);
+      return;
+    }
+    if (seat.admitted) {
+      for (const other of this.ctx.getWebSockets()) {
+        if (other !== ws && seatOf(other)?.admitted) send(other, { t: "left", id: seat.id });
+      }
+      if (this.seats().filter((s) => s.admitted).length === 0) this.clearAway();
+    } else {
+      this.toHost({ t: "left", id: seat.id });
+    }
+  }
+
+  /** Unexpected socket close (F5 refresh / drop): hold admitted seats briefly so they can rejoin. */
   private gone(ws: WebSocket) {
     const seat = seatOf(ws);
     if (!seat) return;
     ws.serializeAttachment(null);
+    if (!seat.admitted) {
+      this.toHost({ t: "left", id: seat.id });
+      return;
+    }
     for (const other of this.ctx.getWebSockets()) {
-      if (other === ws || !seatOf(other)) continue;
+      if (other !== ws && seatOf(other)?.admitted) send(other, { t: "away", member: member(seat) });
+    }
+    const existing = this.away.get(seat.id);
+    if (existing) clearTimeout(existing.timer);
+    const timer = setTimeout(() => {
+      this.away.delete(seat.id);
       if (seat.host) {
-        send(other, { t: "error", code: "closed" });
-        other.serializeAttachment(null);
-        other.close(4000, "closed");
-      } else if (seat.admitted && seatOf(other)?.admitted) send(other, { t: "left", id: seat.id });
+        this.closeRoom();
+      } else {
+        for (const other of this.ctx.getWebSockets()) {
+          if (seatOf(other)?.admitted) send(other, { t: "left", id: seat.id });
+        }
+      }
+    }, RECONNECT_MS);
+    this.away.set(seat.id, { seat, timer });
+
+    if (this.seats().filter((s) => s.admitted).length === 0) {
+      if (this.emptyTimer) clearTimeout(this.emptyTimer);
+      this.emptyTimer = setTimeout(() => this.clearAway(), EMPTY_GRACE_MS);
+    }
+  }
+
+  private closeRoom(except?: WebSocket) {
+    this.clearAway();
+    for (const other of this.ctx.getWebSockets()) {
+      if (other === except || !seatOf(other)) continue;
+      send(other, { t: "error", code: "closed" });
+      other.serializeAttachment(null);
+      other.close(4000, "closed");
+    }
+  }
+
+  private clearAway() {
+    for (const a of this.away.values()) clearTimeout(a.timer);
+    this.away.clear();
+    if (this.emptyTimer) {
+      clearTimeout(this.emptyTimer);
+      this.emptyTimer = null;
     }
   }
 

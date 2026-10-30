@@ -66,6 +66,32 @@ function loadPrefs(): Prefs {
   }
 }
 
+interface SavedRoomSession {
+  code: string;
+  id: string;
+  name: string;
+}
+
+const ROOM_SESSION_KEY = "ig-layout:booth-room";
+
+function loadRoomSession(): SavedRoomSession | null {
+  try {
+    const raw = sessionStorage.getItem(ROOM_SESSION_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as SavedRoomSession;
+    return parsed && isRoomCode(parsed.code) && parsed.id && parsed.name ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveRoomSession(s: SavedRoomSession | null) {
+  try {
+    if (s) sessionStorage.setItem(ROOM_SESSION_KEY, JSON.stringify(s));
+    else sessionStorage.removeItem(ROOM_SESSION_KEY);
+  } catch {}
+}
+
 export function Booth() {
   // Prefs live in localStorage: render on the client only (no flash of the defaults).
   const isClient = useSyncExternalStore(
@@ -104,7 +130,7 @@ function BoothApp() {
   /** A change to the print: shared with the room when it's a group print. */
   const change = (r: BoothRoll) => (room && r.room?.key ? shared.edit(r) : setRoll({ ...r, updatedAt: Date.now() }));
   /** Asking for a name before opening / joining a room. */
-  const [askName, setAskName] = useState<{ code: string | null } | null>(null);
+  const [askName, setAskName] = useState<{ code: string | null; viaLink?: boolean } | null>(null);
 
   const setPrefs = (p: Partial<Prefs>) =>
     setPrefsState((old) => {
@@ -149,32 +175,58 @@ function BoothApp() {
     };
   }, [roll]);
 
-  async function enterRoom(code: string | null, name: string) {
-    const r = await openRoom({ code: code ?? randomCode(), name, create: !code });
+  async function enterRoom(code: string | null, name: string, viaLink = false) {
+    const actualCode = (code ?? randomCode()).toUpperCase();
+    const saved = loadRoomSession();
+    const id = saved?.code === actualCode ? saved.id : crypto.randomUUID().slice(0, 8);
+    saveRoomSession({ code: actualCode, id, name });
+    history.replaceState(null, "", `${location.pathname}?r=${actualCode}`);
+    const r = await openRoom({ code: actualCode, name, create: !code, id });
+    if (viaLink) {
+      const bounceIfEnded = () => {
+        if (r.session.status === "in" || r.session.status === "waiting") {
+          unsub();
+        } else if (r.session.status === "error" && (r.session.error === "not-found" || r.session.error === "closed")) {
+          unsub();
+          r.leave(false);
+          saveRoomSession(null);
+          history.replaceState(null, "", location.pathname);
+          setRoom((cur) => (cur === r ? null : cur));
+          setRoll(null);
+          setScreen("home");
+        }
+      };
+      const unsub = r.session.subscribe(bounceIfEnded);
+      bounceIfEnded();
+    }
     setRoom(r);
     setRoll(null);
     setScreen("room");
   }
-  function startRoom(code: string | null) {
-    if (prefs.name) void enterRoom(code, prefs.name);
-    else setAskName({ code });
+  function startRoom(code: string | null, viaLink = false) {
+    const norm = code?.toUpperCase() ?? null;
+    const saved = norm ? loadRoomSession() : null;
+    const knownName = (saved?.code === norm ? saved.name : undefined) ?? prefs.name;
+    if (knownName) void enterRoom(norm, knownName, viaLink);
+    else setAskName({ code: norm, viaLink });
   }
   function leaveRoom() {
-    room?.leave();
+    room?.leave(true);
+    saveRoomSession(null);
+    history.replaceState(null, "", location.pathname);
     setRoom(null);
     setRoll(null);
     setScreen("home");
   }
-  // A link to a room (/booth?r=AB12) opens it straight away (once).
+  // A link to a room (/booth?r=AB12) opens or reconnects it straight away (once).
   const linked = useRef(false);
   useEffect(() => {
     if (linked.current) return;
     linked.current = true;
     const r = new URLSearchParams(location.search).get("r")?.toUpperCase();
     if (!r || !isRoomCode(r)) return;
-    history.replaceState(null, "", location.pathname);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reading the URL once on arrival (static export)
-    startRoom(r);
+    startRoom(r, true);
   });
   // In a room, a roll started by the host brings everyone back to the room screen.
   useEffect(() => {
@@ -183,12 +235,24 @@ function BoothApp() {
       if (room.session.roll) setScreen("room");
     });
   }, [room]);
-  // Leave the room when the booth closes.
+  // Leave the room when the booth unmounts.
   const roomRef = useRef(room);
   useEffect(() => {
     roomRef.current = room;
   });
-  useEffect(() => () => roomRef.current?.leave(), []);
+  useEffect(() => () => roomRef.current?.leave(false), []);
+
+  // Warn before accidentally refreshing or closing the tab while in a room or mid-shoot.
+  const warnUnload = (!!room && room.session.status !== "error") || screen === "shoot" || screen === "pick";
+  useEffect(() => {
+    if (!warnUnload) return;
+    const onBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", onBeforeUnload);
+    return () => window.removeEventListener("beforeunload", onBeforeUnload);
+  }, [warnUnload]);
 
   const pickLobby = useCallback((l: LobbyTheme) => setPrefs({ theme: l.print }), []);
 
@@ -370,11 +434,14 @@ function BoothApp() {
       {askName && (
         <NamePrompt
           initial={prefs.name ?? ""}
-          onCancel={() => setAskName(null)}
+          onCancel={() => {
+            if (askName.viaLink) history.replaceState(null, "", location.pathname);
+            setAskName(null);
+          }}
           onName={(name) => {
             setPrefs({ name });
             setAskName(null);
-            void enterRoom(askName.code, name);
+            void enterRoom(askName.code, name, askName.viaLink);
           }}
         />
       )}

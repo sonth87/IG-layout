@@ -16,7 +16,7 @@ export function Drift({ particles, colors, count, className = "", active = true 
 
   useEffect(() => {
     const canvas = ref.current;
-    if (!canvas || particles === "none" || !active) return;
+    if (!canvas || particles === "none") return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const c = canvas.getContext("2d")!;
     let W = 0;
@@ -50,7 +50,7 @@ export function Drift({ particles, colors, count, className = "", active = true 
       last = now;
       c.clearRect(0, 0, W, H);
       for (const b of bits) {
-        if (!reduced) {
+        if (!reduced && active) {
           if (rain) {
             b.y += b.v * dt;
             b.x -= b.v * 0.18 * dt;
@@ -118,9 +118,9 @@ export function Drift({ particles, colors, count, className = "", active = true 
         c.restore();
       }
       c.globalAlpha = 1;
-      raf = requestAnimationFrame(draw);
+      if (active && !reduced) raf = requestAnimationFrame(draw);
     };
-    raf = requestAnimationFrame(draw);
+    draw(last);
     addEventListener("resize", size);
     return () => {
       cancelAnimationFrame(raf);

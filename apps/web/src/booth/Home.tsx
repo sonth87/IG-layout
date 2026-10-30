@@ -86,27 +86,31 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen, onTheme, preview }
 
 const SNAP_MS = 420;
 
-/** The shown scene and its two neighbours side by side; a drag moves them with the finger. All
- * positions come from two CSS variables (--pos per page, --drag on the row), so a drag never
- * re-renders React. */
+/** The shown scene and its two neighbours stacked in the same spot; a drag wipes a vertical
+ * split line across the screen (--clip-prev / --clip-next on the row), so one side shows the
+ * old theme and the other side shows the new theme without re-rendering React. */
 function Pager({ value, onChange, page }: { value: LobbyId; onChange: (id: LobbyId) => void; page: (t: LobbyTheme, active: boolean) => ReactNode }) {
-  const t = useT();
   const row = useRef<HTMLDivElement>(null);
   const i = LOBBIES.findIndex((l) => l.id === value);
   const n = LOBBIES.length;
   const at = (k: number) => LOBBIES[(((i + k) % n) + n) % n];
-  const drag = useRef<{ x: number; y: number; t: number; id: number; on: boolean } | null>(null);
+  const drag = useRef<{ x: number; y: number; id: number; on: boolean } | null>(null);
   const moved = useRef(false);
   const busy = useRef(false);
 
   const setDrag = (px: number, animate: boolean) => {
     const el = row.current;
     if (!el) return;
+    const w = el.clientWidth || 1;
+    const prev = Math.max(0, Math.min(100, (1 - px / w) * 100));
+    const next = Math.max(0, Math.min(100, (1 + px / w) * 100));
     el.dataset.snap = animate ? "1" : "";
     el.style.setProperty("--drag", `${px}px`);
+    el.style.setProperty("--clip-prev", `${prev}%`);
+    el.style.setProperty("--clip-next", `${next}%`);
   };
 
-  /** Slide to the neighbour (dir ±1), then make it the shown one. */
+  /** Wipe to the neighbour (dir ±1), then make it the shown one. */
   const go = useCallback(
     (dir: 1 | -1) => {
       const el = row.current;
@@ -142,10 +146,10 @@ function Pager({ value, onChange, page }: { value: LobbyId; onChange: (id: Lobby
       ref={row}
       data-lobby={value}
       className="group/pager absolute inset-0 touch-pan-y overflow-hidden"
-      style={{ ["--drag" as string]: "0px" }}
+      style={{ ["--drag" as string]: "0px", ["--clip-prev" as string]: "100%", ["--clip-next" as string]: "100%" }}
       onPointerDown={(e) => {
         if (e.button !== 0 || busy.current || (e.target as HTMLElement).closest("input, textarea")) return;
-        drag.current = { x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId, on: false };
+        drag.current = { x: e.clientX, y: e.clientY, id: e.pointerId, on: false };
         moved.current = false;
       }}
       onPointerMove={(e) => {
@@ -169,9 +173,8 @@ function Pager({ value, onChange, page }: { value: LobbyId; onChange: (id: Lobby
         drag.current = null;
         if (!d?.on) return;
         const dx = e.clientX - d.x;
-        const v = dx / Math.max(1, performance.now() - d.t);
         const w = row.current?.clientWidth ?? 1;
-        if (Math.abs(dx) > w * 0.22 || Math.abs(v) > 0.45) go(dx < 0 ? 1 : -1);
+        if (Math.abs(dx) >= w * 0.25) go(dx < 0 ? 1 : -1);
         else setDrag(0, true);
       }}
       onPointerCancel={() => {
@@ -189,36 +192,20 @@ function Pager({ value, onChange, page }: { value: LobbyId; onChange: (id: Lobby
     >
       {[-1, 0, 1].map((k) => {
         const th = at(k);
+        const clip = k < 0 ? "inset(0 var(--clip-prev) 0 0)" : k > 0 ? "inset(0 0 0 var(--clip-next))" : undefined;
         return (
           <div
             key={th.id}
             data-page={th.id}
             aria-hidden={k !== 0 || undefined}
             inert={k !== 0}
-            className="absolute inset-0 group-data-[snap=1]/pager:transition-transform group-data-[snap=1]/pager:duration-[420ms] group-data-[snap=1]/pager:ease-[cubic-bezier(0.2,0.8,0.2,1)]"
-            style={{ ["--pos" as string]: k, transform: "translateX(calc(var(--pos) * 100% + var(--drag)))" }}
+            className={`absolute inset-0 ${k === 0 ? "z-0" : "pointer-events-none z-10 group-data-[snap=1]/pager:transition-[clip-path] group-data-[snap=1]/pager:duration-[420ms] group-data-[snap=1]/pager:ease-[cubic-bezier(0.2,0.8,0.2,1)]"}`}
+            style={clip ? { clipPath: clip } : undefined}
           >
             {page(th, k === 0)}
           </div>
         );
       })}
-      {/* Computer: arrows on the edges. */}
-      {(
-        [
-          [-1, "left-3", "‹", t("booth.lobby.prev")],
-          [1, "right-3", "›", t("booth.lobby.next")],
-        ] as const
-      ).map(([dir, side, glyph, label]) => (
-        <button
-          key={dir}
-          type="button"
-          aria-label={label}
-          onClick={() => go(dir)}
-          className={`absolute top-1/2 z-20 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white/40 bg-black/30 text-3xl text-white backdrop-blur-sm transition-colors hover:bg-black/50 md:flex ${side}`}
-        >
-          {glyph}
-        </button>
-      ))}
     </div>
   );
 }
@@ -273,21 +260,21 @@ function Squares({ value, onPick }: { value: LobbyId; onPick: (id: LobbyId) => v
 
 const v = (k: keyof LobbyTheme["vars"]) => `var(--l-${k})`;
 
-/** The page: the scene (moving a little slower than the page while swiped) and in front, the
- * band, the sign, the line under it and the ticket (a little faster). */
+/** The page: the scene and in front, the band, the sign, the line under it and the ticket,
+ * all stationary so a split-screen wipe shows half old theme and half new theme in place. */
 const LobbyPage = memo(function LobbyPage({ theme, active, ways, code, onCode }: { theme: LobbyTheme; active: boolean; ways: Ways; code: string; onCode: (c: string) => void }) {
   const t = useT();
   return (
     <div className="absolute inset-0 overflow-hidden" style={lobbyVars(theme)}>
-      <div className="absolute inset-0" style={{ transform: "translateX(calc(var(--pos) * -35% + var(--drag) * -0.35))" }}>
+      <div className="absolute inset-0">
         <Scene id={theme.id} active={active} />
       </div>
-      <div className="relative" style={{ transform: "translateX(calc(var(--pos) * 6% + var(--drag) * 0.06))" }}>
+      <div className="relative">
         <Band text={t((theme.id === "cinema" ? "booth.ticker" : `booth.lobby.${theme.id}.ticker`) as MessageKey)} />
         {/* One column on the stage, centred; it grows with the screen (phone → tablet → computer). */}
         <div className="mx-auto flex max-w-md flex-col px-5 pt-[min(3rem,5dvh)] md:max-w-xl md:pt-[min(5rem,7dvh)] lg:max-w-2xl">
           {/* The sign; on a phone its right side is kept clear for the hanging tag. */}
-          <div className="mr-24 animate-[booth-pop_0.5s_ease-out] md:mx-auto md:w-[min(100%,34rem)]">
+          <div className="mr-24 md:mx-auto md:w-[min(100%,34rem)]">
             <Sign theme={theme} kicker={t((theme.id === "cinema" ? "booth.kicker" : `booth.lobby.${theme.id}.kicker`) as MessageKey)} title={t("booth.title")} />
           </div>
           <p className={`${mono} mt-5 pr-20 text-sm leading-relaxed opacity-90 md:pr-0 md:text-center md:text-base`} style={{ color: v("onScene"), textShadow: "0 1px 6px rgba(0,0,0,0.6)" }}>

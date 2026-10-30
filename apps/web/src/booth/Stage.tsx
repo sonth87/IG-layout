@@ -123,7 +123,7 @@ const DUST = Array.from({ length: 26 }, (_, i) => ({
 
 export function Stage() {
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden" style={{ background: "#120907" }}>
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden" style={{ background: "#120907" }}>
       {/* Back wall: dark, warmed where the light falls. */}
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 60% at 50% 38%, #3d1e14 0%, #22120c 50%, #110806 100%)" }} />
       {/* The spotlight: soft-edged, fading as it falls. */}

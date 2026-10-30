@@ -7,7 +7,7 @@ import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
 import { HandoffSheet } from "./HandoffSheet";
 import { hasClips, liveGif, liveVideo, useLivePlayer } from "./live";
-import { formatBlob, lookOptions, rollFrame, useRollImages, useStickersLoaded, type Format } from "./look";
+import { formatBlob, lookOptions, rollFrame, useRollImages, useStickersLoaded } from "./look";
 import { Btn, Confirm, display, mono, serif } from "./ui";
 
 // The print (design §2.6, ColorME's printer): a little booth printer — sign, blinking light,
@@ -16,7 +16,6 @@ import { Btn, Confirm, display, mono, serif } from "./ui";
 // with clips (D-163) can also be a moving print: still / live / boomerang, saved as an MP4.
 
 const PRINT_MS = 2600;
-const FORMATS: Format[] = ["print", "post", "story"];
 type Kind = "still" | LiveMode;
 const KINDS: Kind[] = ["still", "loop", "boomerang"];
 
@@ -42,7 +41,6 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
   const [selected, setSelected] = useState<number | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [format, setFormat] = useState<Format>("print");
   const [handoff, setHandoff] = useState(false);
   const moving = hasClips(roll);
   const [kind, setKind] = useState<Kind>("still");
@@ -67,11 +65,11 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
     if (!images) return;
     setSaving(true);
     try {
-      const blob = !live ? await formatBlob(roll, format) : gif ? await liveGif(roll, format, kind as LiveMode, setMaking) : await liveVideo(roll, format, kind as LiveMode, setMaking);
+      const blob = !live ? await formatBlob(roll, "print", "image/png") : gif ? await liveGif(roll, "print", kind as LiveMode, setMaking) : await liveVideo(roll, "print", kind as LiveMode, setMaking);
       const pad = (n: number) => String(n).padStart(2, "0");
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = `booth_${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${format === "print" ? "" : `_${format}`}${live ? `_${kind}.${gif ? "gif" : "mp4"}` : ".jpg"}`;
+      a.download = `booth_${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${live ? `_${kind}.${gif ? "gif" : "mp4"}` : ".png"}`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 30_000);
     } finally {
@@ -81,7 +79,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
   }
 
   // Room for the extra row of choices when the roll can move.
-  const printHeight = moving ? "max-h-[calc(100dvh-490px)] lg:max-h-[calc(100dvh-150px)]" : "max-h-[calc(100dvh-440px)] lg:max-h-[calc(100dvh-150px)]";
+  const printHeight = moving ? "max-h-[calc(100dvh-440px)] lg:max-h-[calc(100dvh-150px)]" : "max-h-[calc(100dvh-390px)] lg:max-h-[calc(100dvh-150px)]";
   const status = printing ? t("booth.printing") : missing.length ? t("booth.missing", { count: missing.length }) : selected !== null ? t("booth.retakeShot", { n: selected + 1 }) : t("booth.tapCell");
 
   return (
@@ -166,21 +164,6 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
                   ))}
                 </div>
               )}
-              {/* Save as: the print itself, or the print on an Instagram-sized sheet. */}
-              <div role="radiogroup" aria-label={t("booth.saveAs")} className="grid grid-cols-3 border-2 border-[#1d1612]">
-                {FORMATS.map((f) => (
-                  <button
-                    key={f}
-                    type="button"
-                    role="radio"
-                    aria-checked={format === f}
-                    onClick={() => setFormat(f)}
-                    className={`${mono} border-r-2 border-[#1d1612] py-2 text-xs font-bold uppercase tracking-[0.1em] last:border-r-0 ${format === f ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
-                  >
-                    {t(`booth.format.${f}`)}
-                  </button>
-                ))}
-              </div>
               <div className="grid grid-cols-[1fr_auto] gap-3">
                 <Btn tone="main" className="py-4 text-[15px]" disabled={!images || saving} onClick={() => void save()}>
                   {making !== null ? t("booth.making", { pct: Math.round(making * 100) }) : live ? `↓ ${t("booth.saveVideo")}` : `↓ ${t("booth.save")}`}

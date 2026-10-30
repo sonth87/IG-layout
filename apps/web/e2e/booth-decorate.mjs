@@ -76,18 +76,11 @@ await page.getByRole("button", { name: "Done" }).click();
 console.log("5. Save");
 await page.getByText("Fresh off the press!").waitFor({ timeout: 8000 });
 const [download] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: /Save photo/ }).click()]);
-const file = path.join(OUT, "booth-decorated.jpg");
+const file = path.join(OUT, "booth-decorated.png");
 await download.saveAs(file);
-const jpg = readFileSync(file);
-let w = 0,
-  h = 0;
-for (let i = 2; i < jpg.length - 9; i++) {
-  if (jpg[i] === 0xff && (jpg[i + 1] === 0xc0 || jpg[i + 1] === 0xc2)) {
-    h = jpg.readUInt16BE(i + 5);
-    w = jpg.readUInt16BE(i + 7);
-    break;
-  }
-}
+const png = readFileSync(file);
+const w = png.readUInt32BE(16);
+const h = png.readUInt32BE(20);
 check(w === 1200 && h === 1800, `saved ${w}×${h}`);
 
 console.log("6. Reload");

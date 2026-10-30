@@ -189,8 +189,8 @@ export function drawOnSheet(c: CanvasRenderingContext2D, print: HTMLCanvasElemen
   }
 }
 
-export async function formatBlob(roll: BoothRoll, format: Format) {
-  return toBlob(await formatCanvas(roll, format));
+export async function formatBlob(roll: BoothRoll, format: Format = "print", type = "image/jpeg") {
+  return toBlob(await formatCanvas(roll, format), type);
 }
 
 /** Each shot as it looks in the print (filter, flip), for IG Layout. */

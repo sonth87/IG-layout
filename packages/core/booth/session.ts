@@ -55,6 +55,8 @@ export class BoothSession {
   error: ErrorCode | null = null;
   me: Member | null = null;
   knocks: { id: string; name: string }[] = [];
+  /** Admitted members temporarily disconnected (e.g. refreshing page). */
+  away = new Map<string, Member>();
   roll: Roll | null = null;
   /** The last roll started (kept after it ends, to know whose photos to wait for). */
   lastRoll: Roll | null = null;
@@ -67,15 +69,17 @@ export class BoothSession {
   readonly stream: MediaStream;
   private ws: WebSocket;
   private links = new Map<string, Link>();
+  private rollTimers: ReturnType<typeof setTimeout>[] = [];
   private listeners = new Set<() => void>();
   private onShot: (roll: number, shot: number) => Promise<Blob | null>;
   private appListeners = new Set<(from: Member, data: unknown) => void>();
 
-  constructor(opts: { server: string; code: string; name: string; create: boolean; stream: MediaStream; onShot: (roll: number, shot: number) => Promise<Blob | null> }) {
+  constructor(opts: { server: string; code: string; name: string; create: boolean; id?: string; stream: MediaStream; onShot: (roll: number, shot: number) => Promise<Blob | null> }) {
     this.stream = opts.stream;
     this.onShot = opts.onShot;
     const q = new URLSearchParams({ name: opts.name });
     if (opts.create) q.set("create", "1");
+    if (opts.id) q.set("id", opts.id);
     this.ws = new WebSocket(`${opts.server}/room/${opts.code}?${q}`);
     this.ws.onmessage = (e) => this.onServer(JSON.parse(e.data) as ServerMsg);
     this.ws.onclose = () => {
@@ -92,9 +96,11 @@ export class BoothSession {
     return [...this.links.values()].map((l) => l.peer);
   }
 
-  /** Everyone in shooting order: host first, then by arrival. */
+  /** Everyone in shooting order: host first, then by arrival (including temporarily away members). */
   everyone(): Member[] {
-    const all = [...(this.me ? [this.me] : []), ...this.peers().map((p) => p.member)];
+    const active = [...(this.me ? [this.me] : []), ...this.peers().map((p) => p.member)];
+    const seen = new Set(active.map((m) => m.id));
+    const all = [...active, ...[...this.away.values()].filter((m) => !seen.has(m.id))];
     return all.sort((a, b) => Number(b.host) - Number(a.host));
   }
 
@@ -135,10 +141,13 @@ export class BoothSession {
     return () => void this.appListeners.delete(fn);
   }
 
-  leave() {
+  leave(explicit = true) {
+    this.cancelRoll();
+    if (explicit) this.toServer({ t: "leave" });
     this.ws.close();
     for (const l of this.links.values()) l.pc.close();
     this.links.clear();
+    this.away.clear();
     this.listeners.clear();
     this.appListeners.clear();
   }
@@ -157,16 +166,28 @@ export class BoothSession {
       case "welcome":
         this.me = msg.you;
         this.status = "in";
+        this.away = new Map((msg.away ?? []).map((m) => [m.id, m]));
         // The newcomer calls everyone already there (so two people never offer at once).
         for (const m of msg.members) void this.call(m);
         break;
       case "knock":
-        this.knocks = [...this.knocks, { id: msg.id, name: msg.name }];
+        this.knocks = [...this.knocks.filter((k) => k.id !== msg.id), { id: msg.id, name: msg.name }];
         break;
       case "joined":
+        this.away.delete(msg.member.id);
+        this.links.get(msg.member.id)?.pc.close();
+        this.links.delete(msg.member.id);
         this.link(msg.member); // they call us; this keeps their name for when the offer comes
         break;
+      case "away":
+        this.links.get(msg.member.id)?.pc.close();
+        this.links.delete(msg.member.id);
+        this.away.set(msg.member.id, msg.member);
+        if (this.roll) this.cancelRoll();
+        break;
       case "left":
+        this.away.delete(msg.id);
+        this.knocks = this.knocks.filter((k) => k.id !== msg.id);
         this.links.get(msg.id)?.pc.close();
         this.links.delete(msg.id);
         break;
@@ -268,6 +289,7 @@ export class BoothSession {
   }
 
   private startRoll(id: number, shots: number, gap: number, lead: number, delay: number, frameId?: string, order?: string[]) {
+    this.cancelRoll();
     const startAt = performance.now() + delay;
     this.roll = { id, shots, gap, lead, startAt, frameId, members: order ?? this.everyone().map((m) => m.id) };
     this.lastRoll = this.roll;
@@ -275,17 +297,30 @@ export class BoothSession {
     this.emit();
     for (let shot = 0; shot < shots; shot++) {
       const at = startAt + lead + gap * shot;
-      setTimeout(async () => {
+      const timer = setTimeout(async () => {
+        if (this.roll?.id !== id) return;
         const blob = await this.onShot(id, shot);
+        if (this.roll?.id !== id) return;
         if (blob && this.me) {
           this.addPhoto(id, shot, this.me.id, blob);
           for (const l of this.links.values()) void sendBlob(l.dc, { t: "photo", roll: id, shot, size: blob.size }, blob);
         }
-        if (shot === shots - 1) {
+        if (shot === shots - 1 && this.roll?.id === id) {
           this.roll = null;
           this.emit();
         }
       }, at - performance.now());
+      this.rollTimers.push(timer);
+    }
+  }
+
+  private cancelRoll() {
+    for (const t of this.rollTimers) clearTimeout(t);
+    this.rollTimers = [];
+    if (this.roll) {
+      this.photos.delete(this.roll.id);
+      if (this.lastRoll?.id === this.roll.id) this.lastRoll = null;
+      this.roll = null;
     }
   }
 

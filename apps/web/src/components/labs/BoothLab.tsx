@@ -49,7 +49,7 @@ export function BoothLab() {
     if (r) setCode(r.toUpperCase());
   }, []);
   useEffect(() => session?.subscribe(rerender), [session]);
-  useEffect(() => () => session?.leave(), [session]);
+  useEffect(() => () => session?.leave(false), [session]);
 
   async function start(create: boolean) {
     const { stream, fake } = await openCamera("user", name || "?");

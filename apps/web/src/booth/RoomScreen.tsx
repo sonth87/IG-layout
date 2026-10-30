@@ -176,6 +176,11 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
       <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
         {/* Everyone. */}
         <div className="relative min-h-0 flex-1 overflow-y-auto px-4 pt-4 pb-6">
+          {[...s.away.values()].map((m) => (
+            <div key={`away-${m.id}`} role="status" data-away={m.name} className="mx-auto mb-3 flex max-w-lg animate-[booth-pop_0.25s_ease-out] items-center justify-between gap-3 border-2 border-[#1d1612] bg-[#f3e9d6] px-3 py-2 text-[#1d1612] shadow-[4px_4px_0_#0b0806]">
+              <span className={`${mono} text-xs font-bold`}>{t(m.host ? "booth.room.hostAway" : "booth.room.memberAway", { name: m.name })}</span>
+            </div>
+          ))}
           {host &&
             s.knocks.map((k) => (
               <div key={k.id} className="mx-auto mb-3 flex max-w-lg animate-[booth-pop_0.25s_ease-out] items-center justify-between gap-3 border-2 border-[#1d1612] bg-[#eaa63c] px-3 py-2 text-[#1d1612] shadow-[4px_4px_0_#0b0806]">
@@ -194,6 +199,7 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
             {people.map((m, i) => {
               const self = m.id === s.me?.id;
               const peer = peers.get(m.id);
+              const isAway = s.away.has(m.id);
               return (
                 <Polaroid
                   key={m.id}
@@ -205,7 +211,15 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
                   host={m.host}
                   you={self ? t("booth.room.you") : undefined}
                   hostLabel={t("booth.room.host")}
-                  status={!self && peer && peer.link !== "connected" ? (peer.link === "failed" ? t("booth.room.noLink") : t("booth.room.connecting")) : undefined}
+                  status={
+                    isAway
+                      ? t("booth.room.reconnecting")
+                      : !self && peer && peer.link !== "connected"
+                        ? peer.link === "failed"
+                          ? t("booth.room.noLink")
+                          : t("booth.room.connecting")
+                        : undefined
+                  }
                 />
               );
             })}
@@ -250,7 +264,7 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
           )}
           <div className="flex items-stretch gap-2 px-5 pt-1 lg:mt-auto lg:pb-4">
             {host ? (
-              <Btn tone="main" className="flex-1 py-4 text-sm" disabled={!!roll || receiving} onClick={() => s.shoot(frame.shots, (COUNTDOWN_S + REST_S) * 1000, COUNTDOWN_S * 1000)}>
+              <Btn tone="main" className="flex-1 py-4 text-sm" disabled={!!roll || receiving || s.away.size > 0} onClick={() => s.shoot(frame.shots, (COUNTDOWN_S + REST_S) * 1000, COUNTDOWN_S * 1000)}>
                 ✶ {t("booth.room.shoot", { count: frame.shots })}
               </Btn>
             ) : (

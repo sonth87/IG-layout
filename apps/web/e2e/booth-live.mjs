@@ -58,14 +58,13 @@ check(download.suggestedFilename().endsWith("_loop.mp4"), `named ${download.sugg
 check(/codec_name=h264\|width=600\|height=1800/.test(info), `H.264 600×1800 (${info.split("\n")[0]})`);
 check(dur > 6 && dur < 14, `about 3 loops (${dur} s)`);
 
-console.log("4. Boomerang as a Story");
+console.log("4. Boomerang");
 await kinds.getByRole("radio", { name: "Boomerang" }).click();
-await page.getByRole("radiogroup", { name: "Save as" }).getByRole("radio", { name: "Story" }).click();
 [download] = await Promise.all([page.waitForEvent("download", { timeout: 120000 }), page.getByRole("button", { name: /Save video/ }).click()]);
-file = path.join(OUT, "booth-boomerang-story.mp4");
+file = path.join(OUT, "booth-boomerang.mp4");
 await download.saveAs(file);
 info = probe(file);
-check(/width=1080\|height=1920/.test(info) && download.suggestedFilename().endsWith("_story_boomerang.mp4"), `Story 1080×1920 boomerang (${download.suggestedFilename()})`);
+check(/width=600\|height=1800/.test(info) && download.suggestedFilename().endsWith("_boomerang.mp4"), `600×1800 boomerang (${download.suggestedFilename()})`);
 
 console.log("5. GIF");
 [download] = await Promise.all([page.waitForEvent("download", { timeout: 120000 }), page.getByRole("button", { name: "↓ GIF" }).click()]);

@@ -1228,4 +1228,7 @@ export const vi: Record<MessageKey, string> = {
   "booth.sticker.remove": "Xoá",
   "booth.handoff.backdrop": "Kèm nền theme",
   "booth.handoff.backdropHint": "Bản in là ảnh kéo thả được; nền đổi hoặc bỏ được trong IG Layout.",
+  "booth.room.reconnecting": "đang nối lại…",
+  "booth.room.hostAway": "Chủ phòng ({name}) đang tải lại trang — tạm dừng chờ kết nối lại…",
+  "booth.room.memberAway": "{name} đang tải lại trang — tạm dừng chờ kết nối lại…",
 };
