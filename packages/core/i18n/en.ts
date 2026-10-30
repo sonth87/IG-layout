@@ -967,6 +967,7 @@ export const en = {
   "booth.soon": "Coming soon",
   "booth.upload": "Have photos already? Upload them",
   "booth.recent": "Recent rolls",
+  "booth.recentAll": "All recent rolls ({count})",
   "booth.openRoll": "Open roll from {date}",
   "booth.switchTo": "Switch to",
   "booth.frame": "Frame",

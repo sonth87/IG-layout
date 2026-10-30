@@ -4,7 +4,9 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState, type CSSProper
 import { flushSync } from "react-dom";
 import { isRoomCode } from "@ig-layout/core/booth/protocol";
 import { listRolls, type BoothRoll } from "@ig-layout/core/storage/booth";
+import { frameBlob } from "@ig-layout/core/booth/render";
 import type { MessageKey } from "@ig-layout/core/i18n/en";
+import { loadThemeFonts, rollRender } from "./look";
 import { useAppSwitch } from "@/components/AppSwitch";
 import { SwitchTag } from "@/components/SwitchTag";
 import { LAYOUT_TAG, LayoutTagFace } from "@/components/TagFaces";
@@ -35,10 +37,46 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen, onTheme, preview }
   const toLayout = useAppSwitch("layout");
   const locale = useSettings((s) => s.locale);
   const [rolls, setRolls] = useState<BoothRoll[]>([]);
+  const [thumbs, setThumbs] = useState<Record<string, string>>({});
   const [lobby, setLobby] = useState<LobbyId>(loadLobby);
   const [code, setCode] = useState("");
   useEffect(() => {
-    void listRolls().then(setRolls, () => {});
+    let gone = false;
+    const urls: string[] = [];
+    void listRolls().then(
+      async (list) => {
+        if (gone) return;
+        const map: Record<string, string> = {};
+        for (const r of list) {
+          if (r.thumbnail?.size) {
+            const u = URL.createObjectURL(r.thumbnail);
+            urls.push(u);
+            map[r.id] = u;
+          }
+        }
+        setRolls(list);
+        setThumbs(map);
+        for (const r of list) {
+          if (map[r.id]) continue;
+          try {
+            const { frame: f, images, opts } = await rollRender(r);
+            await loadThemeFonts(r.theme);
+            const blob = await frameBlob(f, images, { ...opts, scale: 360 / Math.max(f.width, f.height) });
+            if (gone) return;
+            if (blob.size) {
+              const u = URL.createObjectURL(blob);
+              urls.push(u);
+              setThumbs((prev) => ({ ...prev, [r.id]: u }));
+            }
+          } catch {}
+        }
+      },
+      () => {},
+    );
+    return () => {
+      gone = true;
+      for (const u of urls) URL.revokeObjectURL(u);
+    };
   }, []);
   const pick = useCallback(
     (id: LobbyId) => {
@@ -59,7 +97,12 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen, onTheme, preview }
       {rolls.length > 0 && !preview && (
         <RollShelf
           title={t("booth.recent")}
+          expandLabel={t("booth.recentAll", { count: rolls.length })}
+          closeLabel={t("booth.done")}
           rolls={rolls}
+          thumbs={thumbs}
+          theme={lobbyById(lobby)}
+          locale={locale}
           label={(r) => t("booth.openRoll", { date: new Date(r.createdAt).toLocaleString(locale === "vi" ? "vi-VN" : "en-GB") })}
           onOpen={onOpen}
         />
@@ -133,7 +176,7 @@ function Pager({ value, onChange, page }: { value: LobbyId; onChange: (id: Lobby
   // A computer: ← → (not while typing a code).
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement).closest("input, textarea")) return;
+      if ((e.target as HTMLElement).closest("input, textarea, [role='dialog']")) return;
       if (e.key === "ArrowRight") go(1);
       else if (e.key === "ArrowLeft") go(-1);
     };
@@ -480,73 +523,368 @@ function Ornament({ id }: { id: LobbyId }) {
 
 /** Recent prints peeking up from the bottom edge of the stage (owner, 2026-10-30): each shows
  * its top; the one under the mouse (computer) or held / tapped (phone) rises all the way, a tap
- * elsewhere lowers it, a tap on a raised one opens it. The wheel scrolls the row sideways. */
-function RollShelf({ title, rolls, label, onOpen }: { title: string; rolls: BoothRoll[]; label: (r: BoothRoll) => string; onOpen: (r: BoothRoll) => void }) {
+ * elsewhere lowers it, a tap on a raised one opens it. The wheel or horizontal drag scrolls the
+ * row sideways, and a subtle button at the top-right opens all rolls in a themed bottom sheet. */
+function RollShelf({
+  title,
+  expandLabel,
+  closeLabel,
+  rolls,
+  thumbs,
+  theme,
+  locale,
+  label,
+  onOpen,
+}: {
+  title: string;
+  expandLabel: string;
+  closeLabel: string;
+  rolls: BoothRoll[];
+  thumbs: Record<string, string>;
+  theme: LobbyTheme;
+  locale: string;
+  label: (r: BoothRoll) => string;
+  onOpen: (r: BoothRoll) => void;
+}) {
   const row = useRef<HTMLDivElement>(null);
+  const chevronRef = useRef<SVGSVGElement>(null);
   const [up, setUp] = useState<string | null>(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
   const hold = useRef(0);
+  const dragScroll = useRef<{ id: number; startX: number; startY: number; startScroll: number; moved: boolean; opened: boolean } | null>(null);
+
+  useEffect(() => {
+    const svg = chevronRef.current;
+    if (!svg || typeof svg.animate !== "function") return;
+    const anim = svg.animate(
+      [
+        { transform: "translateY(0px)", opacity: 0.42, offset: 0 },
+        { transform: "translateY(0px)", opacity: 0.42, offset: 0.52 },
+        { transform: "translateY(-6px)", opacity: 0.95, offset: 0.72 },
+        { transform: "translateY(-2px)", opacity: 0.55, offset: 0.84 },
+        { transform: "translateY(-5px)", opacity: 0.9, offset: 0.93 },
+        { transform: "translateY(0px)", opacity: 0.42, offset: 1 },
+      ],
+      { duration: 2800, iterations: Infinity, easing: "ease-in-out" },
+    );
+    return () => anim.cancel();
+  }, []);
+
   useEffect(() => {
     const outside = (e: PointerEvent) => {
       if (!(e.target as Element).closest?.("[data-roll]")) setUp(null);
     };
-    addEventListener("pointerdown", outside);
-    const el = row.current;
-    const wheel = (e: WheelEvent) => {
-      if (!el || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-      e.preventDefault();
-      el.scrollLeft += e.deltaY;
+    const move = (e: PointerEvent) => {
+      const d = dragScroll.current;
+      if (!d || d.id !== e.pointerId) return;
+      const dx = e.clientX - d.startX;
+      const dy = e.clientY - d.startY;
+      if (!d.opened && dy < -24 && Math.abs(dy) > Math.abs(dx) * 1.2) {
+        d.moved = true;
+        d.opened = true;
+        window.clearTimeout(hold.current);
+        setUp(null);
+        setSheetOpen(true);
+        return;
+      }
+      if (!d.moved && Math.abs(dx) > 6) {
+        d.moved = true;
+        window.clearTimeout(hold.current);
+      }
+      if (d.moved && !d.opened && row.current) row.current.scrollLeft = d.startScroll - dx;
     };
-    el?.addEventListener("wheel", wheel, { passive: false });
+    const end = (e: PointerEvent) => {
+      if (dragScroll.current?.id === e.pointerId) {
+        setTimeout(() => {
+          dragScroll.current = null;
+        }, 0);
+      }
+    };
+    addEventListener("pointerdown", outside);
+    addEventListener("pointermove", move);
+    addEventListener("pointerup", end);
+    addEventListener("pointercancel", end);
     return () => {
       removeEventListener("pointerdown", outside);
-      el?.removeEventListener("wheel", wheel);
+      removeEventListener("pointermove", move);
+      removeEventListener("pointerup", end);
+      removeEventListener("pointercancel", end);
     };
   }, []);
+
+  const startDrag = (e: React.PointerEvent) => {
+    e.stopPropagation();
+    dragScroll.current = {
+      id: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      startScroll: row.current?.scrollLeft ?? 0,
+      moved: false,
+      opened: false,
+    };
+  };
+
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30">
-      {/* Just above the lowered prints. */}
-      <p className={`${mono} pointer-events-none absolute inset-x-0 bottom-[84px] text-center text-[10px] font-bold uppercase tracking-[0.3em] text-white/80 [text-shadow:0_1px_4px_rgba(0,0,0,0.8)]`}>{title}</p>
-      {/* Tall enough for a raised print; the lowered ones run off the bottom edge. Only the
-          prints catch taps — the rest of the strip lets a swipe through to the scene. */}
-      <div ref={row} className="no-scrollbar h-[200px] overflow-x-auto overflow-y-hidden">
-        <div className="mx-auto flex h-full w-max items-end gap-5 px-6">
-          {rolls.map((r, i) => {
-            const raised = up === r.id;
-            return (
-              <div
-                key={r.id}
-                data-roll={raised ? "up" : "down"}
-                className="pointer-events-auto shrink-0 transition-transform duration-300 ease-out"
-                style={{ transform: raised ? "translateY(-14px)" : "translateY(58%)" }}
-                onPointerEnter={(e) => e.pointerType === "mouse" && setUp(r.id)}
-                onPointerLeave={(e) => e.pointerType === "mouse" && setUp((u) => (u === r.id ? null : u))}
-                onPointerDown={(e) => {
-                  if (e.pointerType === "mouse" || raised) return;
-                  hold.current = window.setTimeout(() => setUp(r.id), 250);
-                }}
-                onPointerUp={() => window.clearTimeout(hold.current)}
-                onClickCapture={(e) => {
-                  // A lowered print: the first tap only raises it.
-                  if (!raised) {
-                    e.stopPropagation();
-                    setUp(r.id);
-                  }
-                }}
-              >
-                <RollThumb roll={r} tilt={i % 2 ? 2.5 : -2} label={label(r)} onOpen={() => onOpen(r)} />
-              </div>
-            );
-          })}
+    <>
+      <div
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-30"
+        onWheel={(e) => {
+          const el = row.current;
+          if (!el) return;
+          const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          if (delta !== 0) el.scrollLeft += delta;
+        }}
+      >
+        {/* Bottom hit zone so wheel/trackpad/drag works in the gaps between lowered prints too. */}
+        <div aria-hidden className="pointer-events-auto absolute inset-x-0 bottom-0 h-[68px] touch-none" onPointerDown={startDrag} />
+        {/* Pull/tap handle right above the lowered prints: animated "^" chevron over the title. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-[96px] flex justify-center">
+          <button
+            type="button"
+            data-recent-expand
+            aria-label={expandLabel}
+            onPointerDown={startDrag}
+            onClick={() => setSheetOpen(true)}
+            className="group/recent pointer-events-auto flex touch-none flex-col items-center gap-1.5 px-4 py-1 text-white/80 transition-colors hover:text-white [filter:drop-shadow(0_1px_4px_rgba(0,0,0,0.85))]"
+          >
+            <svg
+              ref={chevronRef}
+              aria-hidden
+              viewBox="0 0 16 9"
+              className="h-2 w-3.5 fill-none stroke-current stroke-[1.8] text-white/60 transition-transform group-hover/recent:-translate-y-0.5 group-hover/recent:text-white/90"
+            >
+              <path d="M2 7 L8 2 L14 7" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className={`${mono} text-center text-[10px] font-bold uppercase tracking-[0.3em]`}>{title}</span>
+          </button>
+        </div>
+        {/* Tall enough for a raised print; the lowered ones run off the bottom edge. */}
+        <div ref={row} className="no-scrollbar relative h-[200px] overflow-x-auto overflow-y-hidden">
+          <div className="mx-auto flex h-full w-max items-end gap-5 px-6">
+            {rolls.map((r, i) => {
+              const raised = up === r.id;
+              return (
+                <div
+                  key={r.id}
+                  data-roll={raised ? "up" : "down"}
+                  className="pointer-events-auto shrink-0 touch-none transition-transform duration-300 ease-out"
+                  style={{ transform: raised ? "translateY(-14px)" : "translateY(58%)" }}
+                  onPointerEnter={(e) => e.pointerType === "mouse" && setUp(r.id)}
+                  onPointerLeave={(e) => e.pointerType === "mouse" && setUp((u) => (u === r.id ? null : u))}
+                  onPointerDown={(e) => {
+                    startDrag(e);
+                    if (e.pointerType === "mouse" || raised) return;
+                    hold.current = window.setTimeout(() => setUp(r.id), 250);
+                  }}
+                  onPointerUp={() => window.clearTimeout(hold.current)}
+                  onClickCapture={(e) => {
+                    if (dragScroll.current?.moved) {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      dragScroll.current = null;
+                      return;
+                    }
+                    // A lowered print: the first tap only raises it.
+                    if (!raised) {
+                      e.stopPropagation();
+                      setUp(r.id);
+                    }
+                  }}
+                >
+                  <RollThumb url={thumbs[r.id]} tilt={i % 2 ? 2.5 : -2} label={label(r)} onOpen={() => onOpen(r)} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
+      {sheetOpen && (
+        <RollSheet
+          title={title}
+          closeLabel={closeLabel}
+          rolls={rolls}
+          thumbs={thumbs}
+          theme={theme}
+          locale={locale}
+          label={label}
+          onClose={() => setSheetOpen(false)}
+          onOpen={(r) => {
+            setSheetOpen(false);
+            onOpen(r);
+          }}
+        />
+      )}
+    </>
+  );
+}
+
+/** Bottom sheet displaying all recent rolls, styled to match the active Home lobby theme. */
+function RollSheet({
+  title,
+  closeLabel,
+  rolls,
+  thumbs,
+  theme,
+  locale,
+  label,
+  onClose,
+  onOpen,
+}: {
+  title: string;
+  closeLabel: string;
+  rolls: BoothRoll[];
+  thumbs: Record<string, string>;
+  theme: LobbyTheme;
+  locale: string;
+  label: (r: BoothRoll) => string;
+  onClose: () => void;
+  onOpen: (r: BoothRoll) => void;
+}) {
+  const [shown, setShown] = useState(false);
+  const closing = useRef(false);
+
+  const close = useCallback(() => {
+    if (closing.current) return;
+    closing.current = true;
+    setShown(false);
+    setTimeout(onClose, 360);
+  }, [onClose]);
+
+  useEffect(() => {
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => setShown(true));
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    addEventListener("keydown", onKey);
+    return () => removeEventListener("keydown", onKey);
+  }, [close]);
+
+  const sheetMotion: CSSProperties = {
+    transform: shown ? "translateY(0)" : "translateY(100%)",
+    transition: "transform 460ms cubic-bezier(0.22, 0.85, 0.28, 1)",
+  };
+
+  const grid = (
+    <div className="overflow-y-auto overscroll-contain px-5 pt-6 pb-[max(1.75rem,env(safe-area-inset-bottom))]">
+      <div className="grid grid-cols-2 place-items-center gap-x-4 gap-y-7 sm:grid-cols-3 md:grid-cols-4">
+        {rolls.map((r, i) => {
+          const dateText = new Date(r.createdAt).toLocaleString(locale === "vi" ? "vi-VN" : "en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          return (
+            <div key={r.id} className="flex flex-col items-center gap-2.5">
+              <div className="transition-transform duration-200 hover:-translate-y-1">
+                <RollThumb url={thumbs[r.id]} tilt={i % 2 ? 1.8 : -1.8} label={label(r)} onOpen={() => onOpen(r)} />
+              </div>
+              <span
+                className={`${mono} rounded px-2 py-0.5 text-[10px] font-bold tracking-[0.08em] opacity-85`}
+                style={{ background: v("second"), color: v("secondInk"), border: `1px solid ${v("edge")}` }}
+              >
+                {dateText}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+      data-roll-sheet={theme.id}
+      style={{
+        ...lobbyVars(theme),
+        opacity: shown ? 1 : 0,
+        transition: "opacity 340ms ease-out",
+      }}
+      className="fixed inset-0 z-40 flex flex-col justify-end bg-black/60 backdrop-blur-[2px]"
+      onClick={close}
+    >
+      {theme.ticket === "window" ? (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={sheetMotion}
+          className="mx-auto flex max-h-[78dvh] w-full max-w-2xl flex-col border-2 border-t-white border-r-black border-b-black border-l-white bg-[#c3c3c3] p-[3px] text-[#0b0b0b] shadow-[0_-5px_0_#00ff9c]"
+        >
+          <div className={`${mono} flex shrink-0 items-center justify-between bg-gradient-to-r from-[#000080] to-[#1084d0] px-2.5 py-1 text-[11px] font-bold text-white`}>
+            <span>🎞 RECENT_ROLLS.EXE ({rolls.length})</span>
+            <button
+              type="button"
+              aria-label={closeLabel}
+              onClick={close}
+              className="flex h-4 w-4 items-center justify-center border border-t-white border-r-black border-b-black border-l-white bg-[#c3c3c3] text-[10px] leading-none text-black active:border-t-black active:border-l-black"
+            >
+              ×
+            </button>
+          </div>
+          {grid}
+        </div>
+      ) : (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            ...sheetMotion,
+            background: v("paper"),
+            color: v("ink"),
+            borderColor: v("edge"),
+            boxShadow: theme.id === "cyber" ? "0 -4px 24px rgba(255,43,214,0.5), 0 0 14px rgba(45,246,255,0.4)" : `0 -6px 0 ${theme.vars.shadow}`,
+          }}
+          className="relative mx-auto flex max-h-[78dvh] w-full max-w-2xl flex-col overflow-hidden rounded-t-2xl border-x-2 border-t-2"
+        >
+          {theme.id === "tet" && <div aria-hidden className="pointer-events-none absolute inset-2 rounded-t-xl border-2 border-double border-[#ffd76a]/60" />}
+          {theme.id === "cyber" &&
+            ["top-2 left-2 border-t-2 border-l-2", "top-2 right-2 border-t-2 border-r-2"].map((c) => (
+              <span key={c} aria-hidden className={`pointer-events-none absolute z-10 h-4 w-4 border-[#2df6ff] ${c}`} />
+            ))}
+          <div
+            className="flex shrink-0 items-center justify-between border-b-2 px-5 py-3"
+            style={{ background: v("band"), color: v("bandInk"), borderColor: v("edge") }}
+          >
+            <div className="flex items-center gap-2">
+              <span aria-hidden className="text-xs">✶</span>
+              <span className={`${mono} text-xs font-bold uppercase tracking-[0.25em]`}>{title}</span>
+              <span
+                className={`${mono} rounded-sm px-1.5 py-0.5 text-[10px] font-bold`}
+                style={{ background: v("main"), color: v("mainInk") }}
+              >
+                {rolls.length}
+              </span>
+            </div>
+            <button
+              type="button"
+              aria-label={closeLabel}
+              onClick={close}
+              className={`${mono} flex h-7 w-7 items-center justify-center border-2 text-xs font-bold transition-transform active:scale-95`}
+              style={{ background: v("second"), color: v("secondInk"), borderColor: v("edge") }}
+            >
+              ✕
+            </button>
+          </div>
+          {grid}
+        </div>
+      )}
     </div>
   );
 }
 
 /** A print pinned with a bit of tape. */
-function RollThumb({ roll, label, tilt, onOpen }: { roll: BoothRoll; label: string; tilt: number; onOpen: () => void }) {
-  const url = useMemo(() => (roll.thumbnail.size ? URL.createObjectURL(roll.thumbnail) : null), [roll.thumbnail]);
-  useEffect(() => () => void (url && URL.revokeObjectURL(url)), [url]);
+function RollThumb({ url, label, tilt, onOpen }: { url?: string; label: string; tilt: number; onOpen: () => void }) {
   return (
     <button type="button" aria-label={label} onClick={onOpen} className="relative shrink-0 transition-transform active:scale-95" style={{ transform: `rotate(${tilt}deg)` }}>
       <span aria-hidden className="absolute -top-2 left-1/2 z-10 h-4 w-10 -translate-x-1/2 rotate-[-4deg] bg-[#eaa63c]/70" />

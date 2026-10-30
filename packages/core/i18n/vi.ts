@@ -966,6 +966,7 @@ export const vi: Record<MessageKey, string> = {
   "booth.soon": "Sắp có",
   "booth.upload": "Có ảnh sẵn? Tải lên",
   "booth.recent": "Cuộn phim gần đây",
+  "booth.recentAll": "Xem tất cả cuộn phim ({count})",
   "booth.openRoll": "Mở cuộn ngày {date}",
   "booth.switchTo": "Chuyển sang",
   "booth.frame": "Khung",

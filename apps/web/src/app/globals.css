@@ -234,6 +234,17 @@ img {
   90% { transform: translateY(-8%); }
   100% { transform: translateY(0); }
 }
+/* Upward slide nudge on the "^" chevron above Recent rolls to hint pull/tap up. */
+@keyframes booth-nudge-up {
+  0%, 45%, 100% { transform: translateY(0); opacity: 0.45; }
+  65% { transform: translateY(-6px); opacity: 0.9; }
+  80% { transform: translateY(-2px); opacity: 0.55; }
+  92% { transform: translateY(-5px); opacity: 0.85; }
+}
+@keyframes booth-sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
 /* Reduced motion: no booth movement (the flash only fades, it stays). No "[" in these
    selectors: Tailwind's CSS parser would lose everything after it. */
 @media (prefers-reduced-motion: reduce) {
