@@ -241,3 +241,11 @@ Chủ dự án: "mở IG layout thì có thể cho chọn là mở sang theo d�
   - Bất ngờ: các clip điền vào bố cục bốc ngẫu nhiên.
 - Clip quay ở 480 px nên slide clip trong Carousel kém nét hơn ảnh (trừ lúc dừng ở ảnh gốc). Nếu cần nét hơn thì tăng cỡ clip lúc quay (đổi lấy dung lượng / độ mượt trên điện thoại) — chờ chủ dự án thử trên máy thật.
 - e2e `booth-live.mjs` mục 7: mở Carousel dạng video → 2 bản in động + 3 clip là video trong IG Layout.
+
+## 13. Trang thử Live Photo / Motion Photo (2026-10-30)
+Chủ dự án: "cứ làm thử cái live photo/motion photo xem sao, tôi sẽ test trực tiếp trên máy thật rồi báo lại, nếu không được thì có thể bỏ".
+- Trang **`/labs/livephoto`** (https://ig-layout.vercel.app/labs/livephoto): chọn một cuộn có clip (chụp trong booth trước), lấy **bản in** hoặc **một kiểu**, bấm tạo, rồi **Chia sẻ / Lưu vào Ảnh** hoặc **Tải về**. Tạo và chia sẻ là hai lần bấm, vì điện thoại chỉ mở bảng chia sẻ ngay sau một lần chạm.
+- **Android · Motion Photo** (`packages/core/booth/livephoto.ts`): **một tệp** `PXL_….MP.jpg` = ảnh JPEG + khối XMP theo định dạng Motion Photo của Google (`GCamera:MotionPhoto`, `Container:Directory`, kèm cả thẻ `MicroVideo` cũ cho máy đời trước) + video MP4 nối vào đuôi; mốc ảnh = lúc bấm máy (1,5 s). Google Photos đọc định dạng này; Samsung Gallery có định dạng riêng nên chưa chắc.
+- **iPhone · Live Photo**: **hai tệp** `IMG_….JPG` + `IMG_….MOV` có **cùng một mã** (UUID): trong JPEG nằm ở MakerNote của Apple (thẻ 17), trong MOV ở metadata `com.apple.quicktime.content.identifier`. Chưa có track `still-image-time` như máy Apple tự quay (phức tạp hơn; thêm sau nếu iPhone đã nhận cặp tệp nhưng chưa coi là Live Photo).
+  - Rủi ro đã nói từ trước: web không có cách ghi thẳng Live Photo vào app Ảnh; "Lưu 2 mục" qua bảng chia sẻ có thể ra 2 mục riêng. Đây là chỗ cần thử thật.
+- Cấu trúc tệp đã kiểm tra tự động (e2e `booth-livephoto.mjs`, ffprobe): XMP đúng, MP4 nằm đúng ở đuôi và phát được, MakerNote có mã, ffprobe đọc được mã trong MOV và khớp với JPEG. **Chưa thử trên điện thoại thật** — chờ chủ dự án.

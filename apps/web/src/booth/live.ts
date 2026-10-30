@@ -135,9 +135,11 @@ async function stepper(roll: BoothRoll, format: Format, mode: LiveMode, maxSide 
 
 /** Encodes `canvas` as an MP4: `steps` pictures at the clips' rate, `repeats` times, each
  * drawn by `draw(step)` just before it's needed. */
-async function encode(canvas: HTMLCanvasElement, steps: number, fps: number, repeats: number, draw: (step: number) => Promise<void>, onProgress?: (p: number) => void) {
+async function encode(canvas: HTMLCanvasElement, steps: number, fps: number, repeats: number, draw: (step: number) => Promise<void>, onProgress?: (p: number) => void, container: "mp4" | "mov" = "mp4") {
   const mb = await import("mediabunny");
-  const output = new mb.Output({ format: new mb.Mp4OutputFormat({ fastStart: "in-memory" }), target: new mb.BufferTarget() });
+  // MOV (Live Photo trial): the movie box last, so metadata can be added without moving data.
+  const format = container === "mov" ? new mb.MovOutputFormat({ fastStart: false }) : new mb.Mp4OutputFormat({ fastStart: "in-memory" });
+  const output = new mb.Output({ format, target: new mb.BufferTarget() });
   const source = new mb.CanvasSource(canvas, { codec: "avc", bitrate: BITRATE, keyFrameInterval: 2 });
   output.addVideoTrack(source, { frameRate: VIDEO_FPS });
   await output.start();
@@ -152,7 +154,7 @@ async function encode(canvas: HTMLCanvasElement, steps: number, fps: number, rep
   }
   source.close();
   await output.finalize();
-  return { blob: new Blob([output.target.buffer!], { type: "video/mp4" }), duration: total / VIDEO_FPS };
+  return { blob: new Blob([output.target.buffer!], { type: container === "mov" ? "video/quicktime" : "video/mp4" }), duration: total / VIDEO_FPS };
 }
 
 /** The moving print as an MP4. */
@@ -164,17 +166,29 @@ export async function liveVideo(roll: BoothRoll, format: Format, mode: LiveMode,
 }
 
 /** The moving print alone, one cycle, as an MP4 with its length (for IG Layout, which loops it). */
-export async function printVideo(roll: BoothRoll, mode: LiveMode) {
+export async function printVideo(roll: BoothRoll, mode: LiveMode, container: "mp4" | "mov" = "mp4") {
   const st = await stepper(roll, "print", mode);
-  const res = await encode(st.out, st.length, st.fps, 1, st.draw);
+  const res = await encode(st.out, st.length, st.fps, 1, st.draw, undefined, container);
   const size = { width: st.out.width, height: st.out.height };
   st.dispose();
   return { ...res, ...size };
 }
 
+/** Seconds into a cycle where the shutter is (the photo of a Live / Motion Photo). */
+export function shutterSeconds(roll: BoothRoll, mode: LiveMode) {
+  const clips = roll.clips ?? [];
+  const { seqs } = liveSequences(
+    clips.map((c) => (c ? { frames: c.frames.length, shutter: c.shutter } : null)),
+    mode,
+  );
+  const seq = seqs.find((x) => x);
+  const fps = clips.find((c) => c)?.fps ?? 12;
+  return seq ? Math.max(0, seq.indexOf(STILL)) / fps : 0;
+}
+
 /** One shot's clip as an MP4 the size of the shot (long side ≤ 1080), filtered and flipped
  * like the print; one cycle (IG Layout loops it). */
-export async function clipVideo(roll: BoothRoll, cell: number, mode: LiveMode) {
+export async function clipVideo(roll: BoothRoll, cell: number, mode: LiveMode, container: "mp4" | "mov" = "mp4") {
   const { images } = await rollRender(roll);
   const still = images[cell];
   if (!still) throw new Error("no shot");
@@ -193,7 +207,7 @@ export async function clipVideo(roll: BoothRoll, cell: number, mode: LiveMode) {
     }
     c.drawImage(img.source, 0, 0, out.width, out.height);
     c.restore();
-  });
+  }, undefined, container);
   const size = { width: out.width, height: out.height };
   out.width = out.height = 0;
   return { ...res, ...size };
