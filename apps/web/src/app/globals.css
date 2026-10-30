@@ -238,7 +238,7 @@ img {
    selectors: Tailwind's CSS parser would lose everything after it. */
 @media (prefers-reduced-motion: reduce) {
   [class*="booth-pop"], [class*="booth-drop"], [class*="booth-print"], [class*="booth-marquee"],
-  [class*="booth-bulbs"], [class*="booth-led"], [class*="booth-feed"], [class*="booth-dust"] { animation: none !important; }
+  [class*="booth-bulbs"], [class*="booth-led"], [class*="booth-feed"], [class*="booth-dust"], [class*="lobby-"] { animation: none !important; }
 }
 @keyframes booth-gift {
   0%, 100% { transform: rotate(0) scale(1); }
@@ -252,4 +252,77 @@ img {
 @keyframes booth-dust {
   0%, 100% { transform: translate(0, 0); opacity: 0.15; }
   50% { transform: translate(6px, -14px); opacity: 0.55; }
+}
+
+/* Booth lobby scenes (D-164, booth/lobby/scenes.tsx). Slow, small, never more than three
+   flashes a second; all off with "reduce motion" (above). */
+@keyframes lobby-twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+@keyframes lobby-sway {
+  from { transform: rotate(-4deg); }
+  to { transform: rotate(4deg); }
+}
+@keyframes lobby-flicker {
+  0%, 100% { opacity: 1; }
+  30% { opacity: 0.8; }
+  45% { opacity: 0.95; }
+  70% { opacity: 0.76; }
+  85% { opacity: 1; }
+}
+@keyframes lobby-bat {
+  0% { transform: translate(-12vw, 0); }
+  25% { transform: translate(25vw, -4vh); }
+  50% { transform: translate(60vw, 3vh); }
+  75% { transform: translate(90vw, -2vh); }
+  100% { transform: translate(112vw, 0); }
+}
+@keyframes lobby-flap {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0.5); }
+}
+@keyframes lobby-cloud {
+  from { transform: translateX(0); }
+  to { transform: translateX(-150vw); }
+}
+@keyframes lobby-spider {
+  from { transform: translateY(-36px); }
+  to { transform: translateY(24px); }
+}
+@keyframes lobby-fog {
+  from { transform: translateX(-6%); }
+  to { transform: translateX(6%); }
+}
+@keyframes lobby-neon {
+  0%, 90%, 92.5%, 100% { opacity: 1; }
+  91%, 94% { opacity: 0.35; }
+}
+@keyframes lobby-grid {
+  from { background-position: 0 0; }
+  to { background-position: 0 60px; }
+}
+@keyframes lobby-code {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
+}
+@keyframes lobby-glitch {
+  0% { transform: none; }
+  90% { transform: translate(-6px, 2px) skewX(10deg); }
+  93% { transform: translate(5px, -1px); }
+  95% { transform: none; }
+}
+@keyframes lobby-block {
+  0% { opacity: 0; transform: none; }
+  40% { opacity: 0.6; }
+  45% { opacity: 0.6; transform: translateX(14px); }
+  50% { opacity: 0; transform: none; }
+}
+@keyframes lobby-scan {
+  from { transform: translateY(-20vh); }
+  to { transform: translateY(110vh); }
+}
+@keyframes lobby-neon-sign {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.7; }
 }

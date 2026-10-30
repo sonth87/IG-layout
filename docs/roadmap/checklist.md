@@ -588,6 +588,6 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Sảnh trên điện thoại xếp một cột (D-164); luồng chụp kiểu ONBOOTH (D-162): chụp dư mặc định theo bảng (4 ô → 7 kiểu…, 1 ô chụp luôn), chọn đếm 3 / 5 / 8 s, số đếm ở thẻ góc + gợi ý tạo dáng, ảnh vừa chụp hiện to 2 s (chạm để chụp lại), ô chờ đánh số; e2e `booth-solo.mjs`
 - [x] Ảnh động (D-163): quay clip quanh mỗi kiểu, xem trước Động / Boomerang trên màn kết quả, xuất MP4 (bản in / Post / Story) + GIF; e2e `booth-live.mjs`
 - [ ] Trang thử Live Photo (iPhone) / Motion Photo (Android) trên máy thật; ảnh động trong phòng; Mở trong IG Layout với ô video
-- [ ] Theme sảnh (D-164): khung vuốt + ô màu, nhớ theme; Noel, Tết, Halloween, Cyberpunk, Glitch + theme bản in đi kèm
+- [x] Theme sảnh (D-164): 6 cảnh (Rạp phim, Giáng sinh, Tết, Halloween, Cyberpunk, Glitch) vuốt ngang có parallax + ô màu góc trái, nhớ cảnh, cảnh → theme bản in (thêm Halloween, Glitch); e2e `booth-lobby.mjs`
 - [ ] Khung / template IG trong booth (D-164): khung rời làm ô → bộ sưu tập theo theme → template IG làm khung
 - [ ] Duo (chờ Q-P30)

@@ -77,16 +77,19 @@ export function Ticker({ items }: { items: string[] }) {
   );
 }
 
-/** A frame of light bulbs that chase around (the marquee sign). */
-export function Bulbs({ children, className = "" }: { children: ReactNode; className?: string }) {
+/** A frame of light bulbs that chase around (the marquee sign). Lobby themes (D-164) give it
+ * their board colour and bulb colours (several colours take turns along the row). */
+export function Bulbs({ children, className = "", colors = ["#ffd88a"], board = "#2a1d16" }: { children: ReactNode; className?: string; colors?: string[]; board?: string }) {
+  const n = colors.length;
   const dots = (dir: "x" | "y") =>
     ({
-      backgroundImage: "radial-gradient(circle, #ffd88a 0 3px, #eaa63c 3.5px, transparent 4.5px)",
-      backgroundSize: dir === "x" ? "18px 12px" : "12px 18px",
+      backgroundImage: colors.map((c) => `radial-gradient(circle, ${c} 0 3px, color-mix(in srgb, ${c} 70%, #000) 3.5px, transparent 4.5px)`).join(", "),
+      backgroundSize: colors.map(() => (dir === "x" ? `${18 * n}px 12px` : `12px ${18 * n}px`)).join(", "),
+      backgroundPosition: colors.map((_, i) => (dir === "x" ? `${i * 18}px 0` : `0 ${i * 18}px`)).join(", "),
       backgroundRepeat: dir === "x" ? "repeat-x" : "repeat-y",
     }) satisfies CSSProperties;
   return (
-    <div className={`relative rounded-[14px] border-2 border-[#0b0806] bg-[#2a1d16] p-4 shadow-[5px_5px_0_#0b0806] ${className}`}>
+    <div className={`relative rounded-[14px] border-2 border-[#0b0806] p-4 shadow-[5px_5px_0_#0b0806] ${className}`} style={{ background: board }}>
       <span aria-hidden className="absolute inset-x-3 top-0.5 h-3 animate-[booth-bulbs_1.2s_steps(2)_infinite]" style={dots("x")} />
       <span aria-hidden className="absolute inset-x-3 bottom-0.5 h-3 animate-[booth-bulbs_1.2s_steps(2)_infinite_0.6s]" style={dots("x")} />
       <span aria-hidden className="absolute inset-y-3 left-0.5 w-3 animate-[booth-bulbs_1.2s_steps(2)_infinite_0.6s]" style={dots("y")} />

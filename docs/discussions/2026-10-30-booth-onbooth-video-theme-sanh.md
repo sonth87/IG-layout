@@ -213,3 +213,21 @@ Muốn **hai người "đứng chung một phông"** thật thì mới cần tá
   - Tên file: `booth_…_loop.mp4`, `…_story_boomerang.mp4`, `…_boomerang.gif`.
 - **Chưa làm**: Live Photo (iPhone) / Motion Photo (Android) — cần trang thử trên máy thật; video hậu trường; ảnh động trong phòng chụp chung; "Mở trong IG Layout" với ô là video.
 - e2e `booth-live.mjs` (ffprobe): có lựa chọn, bản in chuyển động thật, MP4 600 × 1800 H.264 ~10,5 s, Boomerang Story 1080 × 1920, GIF 720 px > 30 khung, còn sau khi tải lại. `tag-switch.mjs`: dời điểm lấy mẫu màu (tấm vé ở sảnh dài ra sau khi xếp dọc, che điểm cũ). Toàn bộ test booth qua.
+
+## 11. Đã làm: theme sảnh (D-164, 2026-10-30)
+Tham khảo trước khi làm: các cảnh Giáng sinh vẽ bằng CSS / SVG trên CodePen (dây đèn nhấp nháy, cây thông, tuyết rơi, cửa sổ đêm tuyết); mẫu onboarding vuốt có **parallax nhiều lớp** (nền chạy chậm hơn nội dung) và chỉ báo trang mà **trang đang xem phải khác hẳn** các trang còn lại (Baymard); WCAG 2.3.1 cho cảnh Glitch (không quá 3 lần loé / giây, loé chỉ ở vùng nhỏ, ưu tiên lệch vị trí thay vì đổi sáng tối).
+- **6 cảnh** (`apps/web/src/booth/lobby/scenes.tsx`), vẽ bằng SVG / CSS, không dùng ảnh:
+  - **Rạp phim** (cảnh cũ).
+  - **Giáng sinh**: đêm xanh, trăng, đồi tuyết có thông nhỏ và căn nhà sáng đèn, dây đèn nhiều màu nhấp nháy chậm phía trên, cây thông có quả châu lấp lánh + ngôi sao, hộp quà, tuyết rơi. Vé có nơ đỏ, bảng hiệu bóng đèn nhiều màu.
+  - **Tết**: nền đỏ son hoạ tiết mây vàng mờ, đèn lồng chữ 福 đung đưa, cành mai vàng, cánh mai rơi. Vé là tấm đỏ viền vàng đôi (kiểu bao lì xì), nút chính vàng.
+  - **Halloween**: trăng to có mây trôi qua, dơi bay vỗ cánh, ngôi nhà ma trên đồi đèn chập chờn, hàng rào, cây trơ cành, mạng nhện góc + nhện đu dây, bí ngô khắc mặt sáng lập loè, sương trôi. Vé có con dơi ở góc.
+  - **Cyberpunk**: mặt trời sọc kiểu synthwave, hai lớp nhà cao tầng có cửa sổ sáng, biển neon "ẢNH", "24H"… thỉnh thoảng chập, sàn lưới neon chạy về phía người xem, mưa xiên. Vé tối viền neon xanh + bóng hồng, góc kiểu HUD; bảng hiệu ống neon.
+  - **Glitch**: màn CRT tối, cột số 0 / 1 chạy, chữ lớn "B00TH" tách kênh màu thỉnh thoảng giật, khối màu vỡ hiện chớp nhoáng (mỗi khối một chu kỳ 2,6–5,6 s), scanline, dải sáng quét. Bảng hiệu và vé là cửa sổ kiểu hệ điều hành cũ ("PHOTOBOOTH.EXE", "SHOOT.EXE").
+  - (Bỏ chữ "ERROR" ở cảnh Glitch — người dùng có thể tưởng app lỗi.)
+- **Vé + bảng hiệu theo cảnh** (`lobby/themes.ts`): màu giấy, chữ, nút chính / phụ, ô nhập mã, viền, bóng, bảng hiệu, dải chữ chạy (câu riêng mỗi cảnh, song ngữ), dòng nhỏ trên bảng hiệu ("Giáng sinh an lành", "Chúc mừng năm mới", "Mở cửa tới nửa đêm", "Neo Sài Gòn · 24/7", "Hệ thống sẵn sàng_").
+- **Đổi cảnh**: vuốt ngang ở bất cứ đâu (trừ ô nhập mã) → cảnh đi theo ngón tay, **nền chạy chậm hơn (35 %), vé chạy nhanh hơn chút (6 %)**; thả quá ~22 % bề ngang hoặc vuốt nhanh thì sang cảnh, không thì bật về; vòng tròn (Glitch → Rạp phim). Kéo không tính là chạm (không bấm nhầm nút). Máy tính: phím ← →, nút ‹ › hai bên. Giảm chuyển động: không trượt, không chuyển động trong cảnh.
+- **Ô vuông góc trái** (trên nền mờ để cảnh nào cũng thấy rõ): mỗi cảnh một ô hai màu, ô đang xem to hơn, nghiêng, viền trắng; chạm ô để nhảy thẳng; đổi cảnh thì tên cảnh hiện 1,6 s.
+- **Nhớ cảnh** (máy này), mở lại vẫn ở cảnh đó; trang xem trước booth trong IG Layout cũng hiện đúng cảnh.
+- **Cảnh → theme bản in**: Rạp phim → Cinema, Giáng sinh → Giáng sinh, Tết → Tết, Cyberpunk → Cyberpunk, và **2 theme bản in mới**: **Halloween** (tím đêm, chữ cam, vòm, trăng + sao, đom đóm cam) và **Glitch** (đen, chữ xanh lục "B00TH.EXE", lưới, neon). Cuộn mới bắt đầu trong theme đó, màn chọn khung có không khí theo theme.
+- Hiệu năng: chỉ cảnh đang xem chuyển động; hai cảnh kề sẵn sàng (vuốt không giật) nhưng tạm dừng; vuốt chỉ đổi biến CSS, không vẽ lại React.
+- e2e `booth-lobby.mjs` mới; `tag-switch.mjs` lấy mẫu ở lề trái (giữa màn trang chủ IG Layout giờ có thẻ Halloween màu tối, làm bài test báo nháy giả). Toàn bộ test booth qua.

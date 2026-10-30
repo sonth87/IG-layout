@@ -17,8 +17,9 @@ const check = (ok, label) => {
   console.log(`  ${ok ? "✓" : "✗"} ${label}`);
   if (!ok) failed++;
 };
-// Below the ticket, on the dark stage floor (the ticket grew when its buttons stacked, D-164).
-const centre = { x: 195, y: 800 };
+// The left margin: IG Layout's plain page (its cards change with the season and can be dark),
+// the booth's dark curtain edge.
+const centre = { x: 6, y: 514 };
 /** Brightness at a point, from a 1 px screenshot (0…255). */
 async function light() {
   const png = await page.screenshot({ clip: { ...centre, width: 1, height: 1 } });

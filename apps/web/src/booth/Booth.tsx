@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { openCamera, stopCamera, type Facing } from "@ig-layout/core/booth/camera";
 import type { Camera } from "./CameraView";
 import { frameById } from "@ig-layout/core/booth/frames";
@@ -24,6 +24,7 @@ import { useSharedRoll } from "./share";
 import { themeById } from "@ig-layout/core/booth/themes";
 import { floorStyle } from "./ui";
 import { COUNTDOWN_S, takesFor } from "./timing";
+import type { LobbyTheme } from "./lobby/themes";
 
 // The booth app (/booth, D-150 / D-152): its own screens and look (Cinema), sharing logic and
 // assets with IG Layout through packages/core. Flow: lobby → frame (camera on) → shoot
@@ -189,6 +190,8 @@ function BoothApp() {
   });
   useEffect(() => () => roomRef.current?.leave(), []);
 
+  const pickLobby = useCallback((l: LobbyTheme) => setPrefs({ theme: l.print }), []);
+
   function newRoll(shots: (Blob | null)[], frameId = prefs.frameId, clips?: (BoothClip | null)[]): BoothRoll {
     const now = Date.now();
     return withTheme({ id: crypto.randomUUID(), frameId, shots, clips, flip: false, createdAt: now, updatedAt: now, thumbnail: new Blob() }, themeById(prefs.theme));
@@ -231,6 +234,8 @@ function BoothApp() {
     case "home":
       return (
         <BoothHome
+          // A lobby scene starts new rolls in its print theme (D-164).
+          onTheme={pickLobby}
           onSolo={() => setScreen("setup")}
           onRoom={startRoom}
           onUpload={upload}
