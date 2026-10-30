@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { stickerAspect, type BoothSticker } from "@ig-layout/core/booth/stickers";
+import { Handles, OUTLINE } from "./Handles";
 
 // Stickers on the print (2026-10-30): tap one to pick it; drag to move, the corner to resize,
 // the knob to turn (snaps to 0°), × to remove. Drawn live, saved when the finger lifts.
@@ -33,7 +34,7 @@ export function StickerEditor({ width, height, stickers, selected, onSelect, onL
     return { x: r.left + (s.x / width) * r.width, y: r.top + (s.y / height) * r.height };
   };
 
-  function start(e: React.PointerEvent, i: number, kind: Drag["kind"]) {
+  function start(e: PointerEvent, i: number, kind: Drag["kind"]) {
     e.stopPropagation();
     e.preventDefault();
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
@@ -42,7 +43,7 @@ export function StickerEditor({ width, height, stickers, selected, onSelect, onL
     drag.current = { kind, i, sx: e.clientX, sy: e.clientY, start: list[i], k: width / r.width };
   }
 
-  function move(e: React.PointerEvent) {
+  function move(e: PointerEvent) {
     const d = drag.current;
     if (!d) return;
     const s = d.start;
@@ -82,25 +83,17 @@ export function StickerEditor({ width, height, stickers, selected, onSelect, onL
             data-sticker={s.key}
             onPointerDown={(e) => start(e, i, "move")}
             className={`absolute cursor-move ${on ? "outline outline-2 outline-[#eaa63c]" : ""}`}
-            style={{ left: pct(s.x - s.w / 2, width), top: pct(s.y - h / 2, height), width: pct(s.w, width), height: pct(h, height), transform: `rotate(${s.rot}deg)`, zIndex: 10 + i }}
+            style={{ left: pct(s.x - s.w / 2, width), top: pct(s.y - h / 2, height), width: pct(s.w, width), height: pct(h, height), transform: `rotate(${s.rot}deg)`, zIndex: 10 + i, ...OUTLINE }}
           >
             {on && (
-              <>
-                <span aria-label="Turn" data-turn onPointerDown={(e) => start(e, i, "turn")} className="absolute -top-7 left-1/2 h-5 w-5 -translate-x-1/2 cursor-grab rounded-full border-2 border-[#1d1612] bg-[#eaa63c]" />
-                <span aria-label="Scale" data-scale onPointerDown={(e) => start(e, i, "scale")} className="absolute -right-2.5 -bottom-2.5 h-5 w-5 cursor-nwse-resize border-2 border-[#1d1612] bg-[#f3e9d6]" />
-                <button
-                  type="button"
-                  aria-label="Remove"
-                  onPointerDown={(e) => e.stopPropagation()}
-                  onClick={() => {
-                    onSelect(null);
-                    onChange(list.filter((x) => x.id !== s.id));
-                  }}
-                  className="absolute -top-3 -left-3 flex h-6 w-6 items-center justify-center rounded-full border-2 border-[#1d1612] bg-[#c8432f] text-xs font-bold text-[#f3e9d6]"
-                >
-                  ✕
-                </button>
-              </>
+              <Handles
+                onTurn={(e) => start(e, i, "turn")}
+                onScale={(e) => start(e, i, "scale")}
+                onRemove={() => {
+                  onSelect(null);
+                  onChange(list.filter((x) => x.id !== s.id));
+                }}
+              />
             )}
           </div>
         );

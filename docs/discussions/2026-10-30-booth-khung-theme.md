@@ -206,3 +206,4 @@ Chủ dự án (ảnh chụp iPhone): "lúc vào chụp ảnh, cái nút chụp 
 
 ## 18. Sticker khi đang zoom (2026-10-30)
 Chủ dự án: "thêm sticker rồi zoom lên thì không resize / xoay / di chuyển được sticker, phải zoom out mới thao tác được". Khi đã zoom, kéo 1 ngón là để dời bản in — trừ ô đang đặt tay (bố cục Tự do); sticker và núm của nó chưa nằm trong ngoại lệ đó. Sửa: kéo 1 ngón trên **sticker (cả núm xoay / góc phóng / nút xoá)** luôn là thao tác sticker, kể cả khi zoom; kéo chỗ trống mới dời bản in; 2 ngón vẫn là zoom. e2e `booth-sticker.mjs`: zoom rồi kéo sticker (bản in không trôi) và phóng ở góc.
+- (tiếp, 2026-10-30) "Khi zoom thì cả handle resize và xoay cũng bị zoom theo, trông to quá" → núm xoay, góc phóng, nút xoá và viền chọn **giữ nguyên cỡ trên màn hình** ở mọi mức zoom (ZoomView đưa tỉ lệ nghịch `--inv`, mỗi núm thu lại quanh điểm nó bám — `Handles.tsx`, dùng chung cho sticker và ô ở bố cục Tự do). e2e: zoom rồi núm vẫn ~22 px.

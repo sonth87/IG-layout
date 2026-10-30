@@ -70,6 +70,7 @@ await page.mouse.up();
 const zs2 = await st.boundingBox();
 check(Number(await page.locator("[data-zoom]").getAttribute("data-zoom")) > 1.2 && Math.abs(zs2.x - zs.x - 30) < 6, `zoomed in: the sticker moves, the print doesn't pan (${Math.round(zs2.x - zs.x)} px)`);
 const zk = await st.locator("[data-scale]").boundingBox();
+check(zk.width < 28 && (await st.locator("[data-turn]").boundingBox()).width < 28, `zoomed in: handles keep their size on screen (${Math.round(zk.width)} px)`);
 await page.mouse.move(zk.x + zk.width / 2, zk.y + zk.height / 2);
 await page.mouse.down();
 await page.mouse.move(zk.x + 30, zk.y + 15, { steps: 6 });

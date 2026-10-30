@@ -7,6 +7,7 @@ import { mono } from "./ui";
 // pinch) zooms around the fingers / pointer, two fingers (or one, once zoomed in — except on
 // a cell being placed by hand) pan, "100 %" in the corner resets. Only on this screen, only
 // on this device: in a room, everyone has their own zoom. A drag never counts as a tap.
+// The content gets `--inv` (1 / zoom) so handles and outlines can keep their screen size.
 
 const MIN = 1;
 const MAX = 5;
@@ -92,7 +93,7 @@ export function ZoomView({ children, label }: { children: (step: number) => Reac
       }}
       data-zoom={z.k.toFixed(2)}
     >
-      <div className="flex h-full w-full items-center justify-center [container-type:size]" style={{ transform: `translate(${z.x}px, ${z.y}px) scale(${z.k})`, transformOrigin: "50% 50%" }}>
+      <div className="flex h-full w-full items-center justify-center [container-type:size]" style={{ transform: `translate(${z.x}px, ${z.y}px) scale(${z.k})`, transformOrigin: "50% 50%", ["--inv" as string]: 1 / z.k }}>
         {children(Math.max(1, Math.ceil(z.k - 0.15)))}
       </div>
       {z.k > 1.01 && (

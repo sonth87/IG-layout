@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import type { Laid, PlacedCell } from "@ig-layout/core/booth/layout";
+import { Handles, OUTLINE } from "./Handles";
 
 // Free arrangement (D-161): over the print, each cell can be picked (it comes to the top),
 // dragged, scaled from its corner and turned from its knob. Snaps: centres to the sheet's
@@ -30,7 +31,7 @@ export function LayoutEditor({ frame, onChange, onLive }: { frame: Laid; onChang
   const pct = (v: number, of: number) => `${(v / of) * 100}%`;
   const put = (i: number, c: PlacedCell) => setCells((all) => all.map((x, j) => (j === i ? c : x)));
 
-  function start(e: React.PointerEvent, i: number, kind: Drag["kind"]) {
+  function start(e: PointerEvent, i: number, kind: Drag["kind"]) {
     e.stopPropagation();
     e.preventDefault();
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
@@ -43,7 +44,7 @@ export function LayoutEditor({ frame, onChange, onLive }: { frame: Laid; onChang
     drag.current = { kind, id: i, sx: e.clientX, sy: e.clientY, start: c, k: frame.width / r.width };
   }
 
-  function move(e: React.PointerEvent) {
+  function move(e: PointerEvent) {
     const d = drag.current;
     if (!d) return;
     const dx = (e.clientX - d.sx) * d.k;
@@ -98,17 +99,9 @@ export function LayoutEditor({ frame, onChange, onLive }: { frame: Laid; onChang
           data-cell={i}
           onPointerDown={(e) => start(e, i, "move")}
           className={`absolute cursor-move ${sel === i ? "outline outline-2 outline-[#eaa63c]" : "outline outline-1 outline-dashed outline-white/50"}`}
-          style={{ left: pct(c.x, frame.width), top: pct(c.y, frame.height), width: pct(c.w, frame.width), height: pct(c.h, frame.height), transform: `rotate(${c.rot}deg)`, zIndex: c.z + 1 }}
+          style={{ left: pct(c.x, frame.width), top: pct(c.y, frame.height), width: pct(c.w, frame.width), height: pct(c.h, frame.height), transform: `rotate(${c.rot}deg)`, zIndex: c.z + 1, ...OUTLINE }}
         >
-          {sel === i && (
-            <>
-              {/* Turn: the knob above the top edge. */}
-              <span aria-label="Turn" data-turn onPointerDown={(e) => start(e, i, "turn")} className="absolute -top-7 left-1/2 h-5 w-5 -translate-x-1/2 cursor-grab rounded-full border-2 border-[#1d1612] bg-[#eaa63c]" />
-              <span aria-hidden className="absolute -top-2 left-1/2 h-2 w-0.5 -translate-x-1/2 bg-[#eaa63c]" />
-              {/* Scale: the bottom-right corner. */}
-              <span aria-label="Scale" data-scale onPointerDown={(e) => start(e, i, "scale")} className="absolute -right-2.5 -bottom-2.5 h-5 w-5 cursor-nwse-resize border-2 border-[#1d1612] bg-[#f3e9d6]" />
-            </>
-          )}
+          {sel === i && <Handles onTurn={(e) => start(e, i, "turn")} onScale={(e) => start(e, i, "scale")} />}
         </div>
       ))}
     </div>
