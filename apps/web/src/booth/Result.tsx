@@ -224,7 +224,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
         </div>
       </div>
 
-      {handoff && <HandoffSheet roll={roll} onClose={() => setHandoff(false)} />}
+      {handoff && <HandoffSheet roll={roll} live={live ? (kind as LiveMode) : null} onClose={() => setHandoff(false)} />}
       {deleting && (
         <Confirm
           title={t("booth.deleteConfirm")}

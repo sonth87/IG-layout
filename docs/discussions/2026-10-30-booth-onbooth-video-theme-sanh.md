@@ -231,3 +231,13 @@ Tham khảo trước khi làm: các cảnh Giáng sinh vẽ bằng CSS / SVG tr�
 - **Cảnh → theme bản in**: Rạp phim → Cinema, Giáng sinh → Giáng sinh, Tết → Tết, Cyberpunk → Cyberpunk, và **2 theme bản in mới**: **Halloween** (tím đêm, chữ cam, vòm, trăng + sao, đom đóm cam) và **Glitch** (đen, chữ xanh lục "B00TH.EXE", lưới, neon). Cuộn mới bắt đầu trong theme đó, màn chọn khung có không khí theo theme.
 - Hiệu năng: chỉ cảnh đang xem chuyển động; hai cảnh kề sẵn sàng (vuốt không giật) nhưng tạm dừng; vuốt chỉ đổi biến CSS, không vẽ lại React.
 - e2e `booth-lobby.mjs` mới; `tag-switch.mjs` lấy mẫu ở lề trái (giữa màn trang chủ IG Layout giờ có thẻ Halloween màu tối, làm bài test báo nháy giả). Toàn bộ test booth qua.
+
+## 12. Đã làm: Mở trong IG Layout dạng ảnh hoặc video (2026-10-30)
+Chủ dự án: "mở IG layout thì có thể cho chọn là mở sang theo dạng ảnh hay dạng video".
+- Bảng "Mở trong IG Layout" có thêm hàng **Ảnh · ▶ Video** (chỉ khi cuộn có clip). Mặc định theo màn kết quả: đang xem Động / Boomerang thì mở sẵn ở Video (và chạy theo đúng kiểu đó), đang xem Ảnh thì ở Ảnh.
+- **Video**: bản in là **video bản in chuyển động** (một vòng, IG Layout tự lặp; ảnh tĩnh của bản in làm ảnh bìa), mỗi kiểu là **clip của nó** (đã áp filter, lật như bản in, cạnh dài ≤ 1080, giữ ảnh gốc nét lúc bấm máy). Đều là phần tử video thường của IG Layout → phát, cắt đoạn, xuất MP4 như video người dùng tự nhập.
+  - Post / Story: bản in động trên nền giấy theme (dải ảnh trong Post vẫn 2 bản cạnh nhau).
+  - Carousel: slide đầu bản in động, các slide sau mỗi slide một clip.
+  - Bất ngờ: các clip điền vào bố cục bốc ngẫu nhiên.
+- Clip quay ở 480 px nên slide clip trong Carousel kém nét hơn ảnh (trừ lúc dừng ở ảnh gốc). Nếu cần nét hơn thì tăng cỡ clip lúc quay (đổi lấy dung lượng / độ mượt trên điện thoại) — chờ chủ dự án thử trên máy thật.
+- e2e `booth-live.mjs` mục 7: mở Carousel dạng video → 2 bản in động + 3 clip là video trong IG Layout.

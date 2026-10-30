@@ -1,7 +1,8 @@
 // Booth moving prints (D-163): a clip is kept around each shot → on the print, Photo / Live /
 // Boomerang; Live plays (the canvas changes) → save an MP4 of the print (ffprobe: H.264, size,
 // length), Boomerang as a Story (1080 × 1920), a GIF (long side 720) → the clips survive a
-// reload. Uses ffprobe.
+// reload → open in IG Layout as video (the moving print + every clip are video elements).
+// Uses ffprobe.
 import { chromium } from "playwright-core";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
@@ -81,6 +82,25 @@ await page.reload();
 await openRoll(page);
 await page.getByRole("radiogroup", { name: "Still or moving" }).waitFor({ timeout: 8000 });
 check(true, "the clips are still there after a reload");
+
+console.log("7. Open in IG Layout as video");
+await page.getByText("Fresh off the press!").waitFor({ timeout: 8000 });
+await page.getByRole("button", { name: /Open in IG Layout/ }).click();
+const as = page.getByRole("dialog").getByRole("radiogroup", { name: "Open as" });
+check((await as.getByRole("radio", { name: "Photos" }).getAttribute("aria-checked")) === "true", "photos by default (the print was still)");
+await as.getByRole("radio", { name: /Video/ }).click();
+await page.getByRole("dialog").getByRole("button", { name: /Carousel/ }).click();
+await page.waitForURL((u) => !u.pathname.includes("booth"), { timeout: 60000 });
+await page.waitForFunction(() => window.__igEditor?.getState().doc, null, { timeout: 15000 });
+const vids = await page.evaluate(() => {
+  const s = window.__igEditor.getState();
+  return s.doc.elements.filter((e) => e.type === "image" && s.assets[e.assetId]?.video).map((e) => Math.round(s.assets[e.assetId].video.duration * 10) / 10);
+});
+// A strip in a Post goes twice, side by side: 2 moving prints + 3 clips.
+check(vids.length === 5, `the moving print (×2, a strip in a Post) + 3 clips are videos in IG Layout (${JSON.stringify(vids)} s)`);
+await page.locator("canvas").first().waitFor({ timeout: 15000 });
+await page.waitForTimeout(2000);
+await page.screenshot({ path: path.join(OUT, "booth-live-handoff.png") });
 
 check(errors.length === 0, `no console errors ${errors.length ? JSON.stringify(errors) : ""}`);
 await browser.close();

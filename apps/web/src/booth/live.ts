@@ -47,21 +47,20 @@ function painter(roll: BoothRoll, mode: LiveMode) {
     return { source: src, width: src.width, height: src.height };
   }
 
-  /** The shots for `step` (stills where a cell has no clip, or holds its photo). */
-  async function shots(stills: (ShotImage | null)[], step: number) {
-    return Promise.all(
-      stills.map(async (still, cell) => {
-        const seq = seqs[cell];
-        const clip = clips[cell];
-        if (!seq || !clip) return still;
-        const i = seq[step % length];
-        return i === STILL ? still : ((await frameAt(clip, i, cell)) ?? still);
-      }),
-    );
+  /** Shot `cell` at `step` (its still where it has no clip, or holds its photo). */
+  async function one(still: ShotImage | null, cell: number, step: number) {
+    const seq = seqs[cell];
+    const clip = clips[cell];
+    if (!seq || !clip) return still;
+    const i = seq[step % length];
+    return i === STILL ? still : ((await frameAt(clip, i, cell)) ?? still);
   }
 
+  /** The shots for `step`. */
+  const shots = (stills: (ShotImage | null)[], step: number) => Promise.all(stills.map((still, cell) => one(still, cell, step)));
+
   const fps = clips.find((c) => c)?.fps ?? 12;
-  return { length, fps, shots };
+  return { length, fps, shots, one };
 }
 
 /** Plays the moving print on `canvas` (null: not playing). */
@@ -134,28 +133,70 @@ async function stepper(roll: BoothRoll, format: Format, mode: LiveMode, maxSide 
   };
 }
 
-/** The moving print as an MP4. */
-export async function liveVideo(roll: BoothRoll, format: Format, mode: LiveMode, onProgress?: (p: number) => void): Promise<Blob> {
+/** Encodes `canvas` as an MP4: `steps` pictures at the clips' rate, `repeats` times, each
+ * drawn by `draw(step)` just before it's needed. */
+async function encode(canvas: HTMLCanvasElement, steps: number, fps: number, repeats: number, draw: (step: number) => Promise<void>, onProgress?: (p: number) => void) {
   const mb = await import("mediabunny");
-  const st = await stepper(roll, format, mode);
   const output = new mb.Output({ format: new mb.Mp4OutputFormat({ fastStart: "in-memory" }), target: new mb.BufferTarget() });
-  const source = new mb.CanvasSource(st.out, { codec: "avc", bitrate: BITRATE, keyFrameInterval: 2 });
+  const source = new mb.CanvasSource(canvas, { codec: "avc", bitrate: BITRATE, keyFrameInterval: 2 });
   output.addVideoTrack(source, { frameRate: VIDEO_FPS });
   await output.start();
-
-  const per = VIDEO_FPS / st.fps;
-  const total = Math.round(st.length * LIVE_REPEATS[mode] * per);
+  const per = VIDEO_FPS / fps;
+  const total = Math.round(steps * repeats * per);
   let drawn = -1;
   for (let k = 0; k < total; k++) {
-    const step = Math.floor(k / per) % st.length;
-    if (step !== drawn) await st.draw((drawn = step));
+    const step = Math.floor(k / per) % steps;
+    if (step !== drawn) await draw((drawn = step));
     await source.add(k / VIDEO_FPS, 1 / VIDEO_FPS);
     onProgress?.((k + 1) / total);
   }
   source.close();
   await output.finalize();
+  return { blob: new Blob([output.target.buffer!], { type: "video/mp4" }), duration: total / VIDEO_FPS };
+}
+
+/** The moving print as an MP4. */
+export async function liveVideo(roll: BoothRoll, format: Format, mode: LiveMode, onProgress?: (p: number) => void, repeats = LIVE_REPEATS[mode]): Promise<Blob> {
+  const st = await stepper(roll, format, mode);
+  const { blob } = await encode(st.out, st.length, st.fps, repeats, st.draw, onProgress);
   st.dispose();
-  return new Blob([output.target.buffer!], { type: "video/mp4" });
+  return blob;
+}
+
+/** The moving print alone, one cycle, as an MP4 with its length (for IG Layout, which loops it). */
+export async function printVideo(roll: BoothRoll, mode: LiveMode) {
+  const st = await stepper(roll, "print", mode);
+  const res = await encode(st.out, st.length, st.fps, 1, st.draw);
+  const size = { width: st.out.width, height: st.out.height };
+  st.dispose();
+  return { ...res, ...size };
+}
+
+/** One shot's clip as an MP4 the size of the shot (long side ≤ 1080), filtered and flipped
+ * like the print; one cycle (IG Layout loops it). */
+export async function clipVideo(roll: BoothRoll, cell: number, mode: LiveMode) {
+  const { images } = await rollRender(roll);
+  const still = images[cell];
+  if (!still) throw new Error("no shot");
+  const paint = painter(roll, mode);
+  const k = Math.min(1, 1080 / Math.max(still.width, still.height));
+  const out = document.createElement("canvas");
+  out.width = Math.round((still.width * k) / 2) * 2;
+  out.height = Math.round((still.height * k) / 2) * 2;
+  const c = out.getContext("2d")!;
+  const res = await encode(out, paint.length, paint.fps, 1, async (step) => {
+    const img = (await paint.one(still, cell, step)) ?? still;
+    c.save();
+    if (roll.flip) {
+      c.translate(out.width, 0);
+      c.scale(-1, 1);
+    }
+    c.drawImage(img.source, 0, 0, out.width, out.height);
+    c.restore();
+  });
+  const size = { width: out.width, height: out.height };
+  out.width = out.height = 0;
+  return { ...res, ...size };
 }
 
 /** Long side of a GIF: small enough to send in a chat. */

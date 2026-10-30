@@ -5,11 +5,15 @@ import { useRouter } from "next/navigation";
 import { formatShortDate } from "@ig-layout/core/format";
 import type { BoothRoll } from "@ig-layout/core/storage/booth";
 import { useSettings, useT } from "@/store/settings";
+import type { LiveMode } from "@ig-layout/core/booth/live";
 import { openInLayout, type Handoff } from "./handoff";
+import { hasClips } from "./live";
 import { Label, Paper, display, mono, serif } from "./ui";
 
 // "Open in IG Layout" (D-155): ask what to make — Post, Carousel, Story, or a surprise —
-// build the project, then go to the editor. The surprise unwraps a gift first.
+// build the project, then go to the editor. The surprise unwraps a gift first. A roll with
+// clips opens as photos or as video (owner, 2026-10-30) — starting on what the result screen
+// was showing.
 
 const BACKDROP_KEY = "ig-layout:booth-backdrop";
 
@@ -20,12 +24,14 @@ const KINDS: { kind: Handoff; icon: string }[] = [
   { kind: "surprise", icon: "🎁" },
 ];
 
-export function HandoffSheet({ roll, onClose }: { roll: BoothRoll; onClose: () => void }) {
+export function HandoffSheet({ roll, onClose, live = null }: { roll: BoothRoll; onClose: () => void; /** Shown moving on the result screen (how it plays). */ live?: LiveMode | null }) {
   const t = useT();
   const locale = useSettings((s) => s.locale);
   const router = useRouter();
   const [working, setWorking] = useState<Handoff | null>(null);
   const [failed, setFailed] = useState(false);
+  const moving = hasClips(roll);
+  const [video, setVideo] = useState(moving && !!live);
   // The theme's paper as the slide's background, or not (remembered).
   const [backdrop, setBackdrop] = useState(() => {
     try {
@@ -40,7 +46,7 @@ export function HandoffSheet({ roll, onClose }: { roll: BoothRoll; onClose: () =
     setFailed(false);
     try {
       const wait = kind === "surprise" ? new Promise((r) => setTimeout(r, 900)) : null;
-      await openInLayout(roll, kind, t("booth.projectName", { date: formatShortDate(roll.createdAt, locale) }), backdrop);
+      await openInLayout(roll, kind, t("booth.projectName", { date: formatShortDate(roll.createdAt, locale) }), backdrop, video ? (live ?? "loop") : null);
       await wait;
       router.push("/");
     } catch (e) {
@@ -60,7 +66,7 @@ export function HandoffSheet({ roll, onClose }: { roll: BoothRoll; onClose: () =
                 {working === "surprise" ? "🎁" : "▦"}
               </span>
               <p className={`${mono} text-xs font-bold uppercase tracking-[0.2em]`} role="status">
-                {t("booth.handoff.working")}
+                {t(video ? "booth.handoff.workingVideo" : "booth.handoff.working")}
               </p>
             </div>
           ) : (
@@ -69,6 +75,26 @@ export function HandoffSheet({ roll, onClose }: { roll: BoothRoll; onClose: () =
               <h2 className={`${serif} mt-1 text-center text-2xl leading-tight`} style={display}>
                 {t("booth.handoff.title")}
               </h2>
+              {/* Photos or video (only a roll with clips can move). */}
+              {moving && (
+                <>
+                  <div role="radiogroup" aria-label={t("booth.handoff.as")} className="mt-4 grid grid-cols-2 border-2 border-[#1d1612]">
+                    {([false, true] as const).map((v) => (
+                      <button
+                        key={String(v)}
+                        type="button"
+                        role="radio"
+                        aria-checked={video === v}
+                        onClick={() => setVideo(v)}
+                        className={`${mono} border-r-2 border-[#1d1612] py-2 text-xs font-bold uppercase tracking-[0.1em] last:border-r-0 ${video === v ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
+                      >
+                        {v ? `▶ ${t("booth.handoff.asVideo")}` : t("booth.handoff.asPhoto")}
+                      </button>
+                    ))}
+                  </div>
+                  <p className={`${mono} mt-1.5 text-center text-[10px] opacity-60`}>{t(video ? "booth.handoff.asVideoHint" : "booth.handoff.asPhotoHint")}</p>
+                </>
+              )}
               <div className="mt-4 grid grid-cols-2 gap-3">
                 {KINDS.map(({ kind, icon }) => (
                   <button
