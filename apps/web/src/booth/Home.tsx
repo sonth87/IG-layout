@@ -13,7 +13,7 @@ import { LAYOUT_TAG, LayoutTagFace } from "@/components/TagFaces";
 import { useSettings, useT } from "@/store/settings";
 import { Bulbs, Label, display, mono, serif } from "./ui";
 import { Scene } from "./lobby/scenes";
-import { LOBBIES, loadLobby, lobbyById, lobbyVars, saveLobby, type LobbyId, type LobbyTheme } from "./lobby/themes";
+import { LOBBIES, loadLobby, lobbyById, lobbyVars, saveLobby, seasonalLobby, type LobbyId, type LobbyTheme } from "./lobby/themes";
 
 // The booth lobby (design §2.1, D-164): a scene — the cinema it started as, or Christmas,
 // Tết, Halloween, cyberpunk, glitch — with its sign and a ticket with the ways in (solo,
@@ -86,6 +86,14 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen, onTheme, preview }
     },
     [onTheme],
   );
+  // In season, the season's scene the first time the lobby opens (D-165) — not for IG
+  // Layout's peek, which only looks.
+  useEffect(() => {
+    if (preview) return;
+    const id = seasonalLobby();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- once, on arrival (reads the date and the device's storage)
+    if (id) pick(id);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once
   const file = useRef<HTMLInputElement>(null);
   const ways = useMemo(() => ({ onSolo, onRoom, onUpload: () => file.current?.click() }), [onSolo, onRoom]);
   const page = (th: LobbyTheme, active: boolean) => <LobbyPage theme={th} active={active} ways={ways} code={code} onCode={setCode} />;

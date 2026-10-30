@@ -15,7 +15,7 @@ const check = (ok, label) => {
   if (!ok) failed++;
 };
 
-await page.goto(new URL("booth", URL_ARG).href);
+await page.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
 await page.getByRole("button", { name: /Shoot solo/ }).click();
 await page.waitForFunction(() => document.querySelector("video")?.videoWidth > 0, null, { timeout: 10000 });
 await page.waitForTimeout(600);
@@ -42,7 +42,7 @@ check((await page.getByRole("alertdialog").count()) === 0, "Esc with no shots ye
 await page.getByRole("button", { name: /Start shooting/ }).waitFor({ timeout: 3000 });
 
 console.log("3. Result");
-await page.goto(new URL("booth", URL_ARG).href);
+await page.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
 await page.locator("input[type=file]").setInputFiles(["p3.jpg", "p4.jpg", "portrait.jpg", "panorama.jpg"].map((f) => path.join(FIXTURES, f)));
 await page.getByText("Fresh off the press!").waitFor({ timeout: 8000 });
 const print = await page.locator("canvas").first().boundingBox();

@@ -9,6 +9,8 @@ node e2e/run.mjs https://ig-layout.vercel.app/   # chạy trên bản deploy
 node e2e/m3.mjs http://localhost:4321/     # chạy một bộ
 ```
 
+Các bộ booth mở `/booth?today=2026-06-15` (ngoài mùa): sảnh tự mở cảnh theo mùa (D-165) và đổi theme bản in mặc định, nên ngày thật làm kết quả đổi theo lịch.
+
 | File | Nội dung |
 |---|---|
 | `m1.mjs` | Projects: tạo, tự lưu, tải lại, undo sau khi mở lại, đổi tên, theme / ngôn ngữ, offline, xóa |

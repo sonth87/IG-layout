@@ -266,3 +266,9 @@ Chủ dự án (ảnh iPhone): "lúc select ảnh sao mấy cái vòng tròn ngo
 - **Sai / không chạy:** (1) mã trong ảnh không phải thẻ EXIF `0x859c` mà là thẻ 17 trong MakerNote của Apple (`Apple:ContentIdentifier`), piexifjs không ghi được vào đó; (2) `ffmpeg -metadata com.apple.quicktime.content.identifier=…` khi xuất MOV bỏ khoá lạ nếu thiếu `-movflags use_metadata_tags`; (3) ffmpeg.wasm (~30 MB, mã hoá phần mềm) không cần — đã có mediabunny (WebCodecs); (4) cách dùng server trái nguyên tắc không server / ảnh không rời máy; (5) LivePhotosKit JS chỉ là trình phát trên web, không tạo tệp.
 - **Thiếu ở cả hai:** track metadata `still-image-time` trong video — bước tiếp theo nếu iPhone nhận cặp tệp nhưng không ra Live Photo.
 - **Ý có ích:** chuyển cặp tệp bằng **AirDrop** (từ Mac sang iPhone) — đã thêm vào hướng dẫn ở trang thử.
+
+## 15. Chủ dự án trả lời Q-P27, Q-P31, Q-P32, Q-P33 (2026-10-30)
+- **Q-P27:** theme "chưa đã mắt" vì **đơn giản quá, thiếu item, chưa đa dạng** — liên quan khung, template, sticker, hình… bên IG Layout; **UI để đưa kho IG sang cần nghiên cứu thêm**, vì đưa sang sẽ rất nhiều (D-167).
+- **Q-P31:** có, theo mùa (D-165) → đã làm: trong mùa Halloween (7/10 – 1/11), Giáng sinh (25/11 – 27/12), Tết (3 tuần trước – 1 tuần sau mùng 1) lần đầu mở sảnh tự sang cảnh đó (và theme bản in đi kèm), mỗi mùa mỗi năm một lần; chọn cảnh khác thì giữ. Các bộ e2e booth chạy với `?today=2026-06-15` (ngoài mùa) để kết quả không đổi theo ngày thật.
+- **Q-P32:** chủ dự án hỏi "ô vuông là ô gì" → là dãy ô vuông nhỏ chỉ cảnh sảnh (ý của chủ dự án ở mục 5 hôm trước), góc trái vì góc phải có tag; chờ góp ý.
+- **Q-P33:** có, **5–7 theme bản in mỗi cảnh** (D-166).

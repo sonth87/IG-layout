@@ -1,7 +1,8 @@
 // Booth lobby scenes (D-164): six scenes (cinema, Christmas, Tết, Halloween, cyberpunk, glitch);
 // a swipe left / right moves to the next / previous one (a short drag springs back, and is no
 // tap); the squares in the corner jump to any; the scene is remembered after a reload; picking
-// one starts new rolls in its print theme; ← → on a computer. Screenshots of every scene on a
+// one starts new rolls in its print theme; in season (Christmas, Tết, Halloween) the season's
+// scene opens once; ← → on a computer. Screenshots of every scene on a
 // phone and a computer.
 import { chromium } from "playwright-core";
 import path from "node:path";
@@ -35,7 +36,8 @@ async function swipe(dx, steps = 8) {
   await page.waitForTimeout(600);
 }
 
-await page.goto(new URL("booth", URL_ARG).href);
+// Out of season first (no scene of its own in June).
+await page.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
 await page.locator("[data-lobby]").waitFor();
 
 console.log("1. Scenes, squares");
@@ -77,6 +79,21 @@ await page.getByRole("button", { name: "Shoot solo" }).click();
 await page.getByRole("heading", { name: "Pick your frame" }).waitFor();
 check((await page.locator("canvas[data-mood='fireflies']").count()) === 1, "frame screen in the Halloween mood");
 await ctx.close();
+
+console.log("3b. In season");
+const sp = await browser.newPage();
+await sp.goto(new URL("booth?today=2026-12-20", URL_ARG).href);
+await sp.locator("[data-lobby]").waitFor();
+check((await sp.locator("[data-lobby]").getAttribute("data-lobby")) === "noel", "20 December → opens on Christmas");
+await sp.getByRole("radiogroup", { name: "Lobby scene" }).getByRole("radio").nth(4).click();
+await sp.waitForTimeout(400);
+await sp.reload();
+await sp.locator("[data-lobby]").waitFor();
+check((await sp.locator("[data-lobby]").getAttribute("data-lobby")) === "cyber", "…only once: a scene picked after that stays");
+await sp.goto(new URL("booth?today=2027-02-01", URL_ARG).href);
+await sp.locator("[data-lobby]").waitFor();
+check((await sp.locator("[data-lobby]").getAttribute("data-lobby")) === "tet", "1 February 2027 (Tết on 6 Feb) → Tết");
+await sp.close();
 
 console.log("4. Computer");
 const desk = await browser.newContext({ viewport: { width: 1280, height: 800 } });

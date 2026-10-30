@@ -46,14 +46,14 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P24.** ~~Đồ trang trí mặc định **cả bản in** (dây leo bò qua khe giữa…~~ Đồng ý — D-161 (2026-10-30).
 - **Q-P25.** ~~Nhóm theme bản đầu: Cinema, Rừng, Candy, Đêm hội, Lãng mạn,…~~ Đồng ý — D-161 (2026-10-30).
 - **Q-P26.** ~~Theme đổi cả **không khí màn chụp / sửa** (nền mờ đổi màu +…~~ Đồng ý — D-161 (2026-10-30).
-- **Q-P27.** Theme "chưa thực sự đã mắt" (2026-10-30): thiếu nhất ở đâu — (a) nền còn phẳng, muốn **ảnh minh hoạ / texture thật** (giấy, vải, gỗ, bầu trời…); (b) **chữ tiêu đề** cần hiệu ứng (viền, bóng, chuyển màu, chữ uốn); (c) **đồ trang trí** cần to / dày / nhiều lớp hơn; (d) ảnh trong ô cần **viền / khung** đậm chất theme hơn (tem, film, khung tranh); (e) cần **sticker nhân vật / hình minh hoạ** theo chủ đề? Có app / tiệm nào anh/chị thấy đẹp để mình tham khảo không?
+- **Q-P27.** ~~Theme "chưa thực sự đã mắt" (2026-10-30): thiếu nhất ở đâu — (a) nền c…~~ Đơn giản quá, thiếu item / đa dạng → liên quan kho IG; nghiên cứu UI đưa kho sang — D-167 (2026-10-30).
 - *ONBOOTH solo / Duo, ảnh động, theme sảnh, khung IG (2026-10-30 — [2026-10-30-booth-onbooth-video-theme-sanh.md](../discussions/2026-10-30-booth-onbooth-video-theme-sanh.md)):*
 - **Q-P28.** ~~Chụp dư gấp đôi số ô?~~ Không — theo bảng + chọn 3 / 5 / 8 s — D-162.
 - **Q-P29.** ~~Ảnh động MP4 + Boomerang trước…~~ Đồng ý — D-163.
 - **Q-P30.** Duo của ONBOOTH là "mỗi người 2 tấm" hay "hai người chung một ô (chia đôi)"? Cần thử tới màn kết quả với 2 máy có camera. Đề xuất mình làm **chung một ô**. (2026-10-30: chủ dự án hỏi có phải tách người khỏi nền rồi ghép không → không, xem §8 bài 2026-10-30-booth-onbooth-video-theme-sanh; chờ trả lời.)
-- **Q-P31.** Theme sảnh: 6 theme (Cinema, Noel, Tết, Halloween, Cyberpunk, Glitch) như bảng §5 — ok? ~~6 theme ok~~ (D-164); **nhớ theme lần trước** (D-164) — còn mở: có tự gợi ý theme theo mùa không?
-- **Q-P32.** Ô vuông chỉ theme đặt ở **góc trên trái** (tag IG Layout đã ở góc phải) — ok? Chạm ô để nhảy thẳng tới theme?
-- **Q-P33.** Chọn theme sảnh thì **cuộn mới mặc định theme bản in cùng chủ đề** (vẫn đổi được)? Mỗi theme sảnh kèm 2–3 theme bản in mới?
+- **Q-P31.** ~~Theme sảnh: 6 theme (Cinema, Noel, Tết, Halloween, Cyberpunk, Glitch) …~~ Có, theo mùa — D-165.
+- **Q-P32.** ~~Ô vuông chỉ theme đặt ở **góc trên trái** (tag IG Layout đã ở góc phải…~~ Là dãy ô vuông nhỏ chỉ cảnh sảnh (ý của chủ dự án ở mục 5); đã giải thích, chờ góp ý chỗ đặt.
+- **Q-P33.** ~~Chọn theme sảnh thì **cuộn mới mặc định theme bản in cùng chủ đề** (vẫ…~~ Có, 5–7 theme mỗi cảnh — D-166.
 - **Q-P34.** ~~Khung IG trong booth theo 3 mức~~ Đồng ý — D-164.
 - **Q-P35.** Thứ tự làm §7 (sảnh dọc → luồng chụp → ảnh động → theme sảnh → khung IG → Duo) — ok, hay ưu tiên theme Noel trước vì sắp tới mùa?
 

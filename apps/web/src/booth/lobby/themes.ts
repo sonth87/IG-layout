@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { activeEvents, homeToday, type EventId } from "@ig-layout/core/templates/seasons";
 
 // Lobby themes (D-164): the booth's front in a few moods — the cinema it started as, and
 // Christmas, Tết, Halloween, cyberpunk, glitch. Each is a scene (scenes.tsx) and the colours
@@ -120,6 +121,27 @@ export function saveLobby(id: LobbyId) {
   try {
     localStorage.setItem(KEY, id);
   } catch {}
+}
+
+const SEASON_KEY = "ig-layout:booth-lobby-season";
+/** Events with a scene of their own (the same windows as IG Layout's seasonal home). */
+const SEASONS: Partial<Record<EventId, LobbyId>> = { halloween: "halloween", christmas: "noel", tet: "tet" };
+
+/** In season (D-165): the season's scene, once — the first time the lobby opens in that
+ * season (Halloween, Christmas, Tết, each year); after that, whatever was picked stays.
+ * `?today=2026-12-20` tries another date. Null when there's nothing to switch to. */
+export function seasonalLobby(): LobbyId | null {
+  const today = homeToday();
+  const event = activeEvents(today).find((e) => SEASONS[e.id]);
+  if (!event) return null;
+  const key = `${event.id}-${today.getFullYear()}`;
+  try {
+    if (localStorage.getItem(SEASON_KEY) === key) return null;
+    localStorage.setItem(SEASON_KEY, key);
+  } catch {
+    return null;
+  }
+  return SEASONS[event.id]!;
 }
 
 /** The theme's colours as CSS variables on its page. */

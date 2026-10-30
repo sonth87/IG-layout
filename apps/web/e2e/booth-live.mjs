@@ -25,7 +25,7 @@ const check = (ok, label) => {
 };
 const probe = (file) => execFileSync("ffprobe", ["-v", "error", "-show_entries", "stream=codec_name,width,height", "-show_entries", "format=duration", "-of", "compact", file]).toString();
 
-await page.goto(new URL("booth", URL_ARG).href);
+await page.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
 await page.getByRole("button", { name: "Shoot solo" }).click();
 await page.waitForFunction(() => document.querySelector("video")?.videoWidth > 0, null, { timeout: 10000 });
 

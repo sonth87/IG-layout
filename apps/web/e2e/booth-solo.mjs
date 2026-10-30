@@ -23,7 +23,7 @@ const check = (ok, label) => {
   if (!ok) failed++;
 };
 
-await page.goto(new URL("booth", URL_ARG).href);
+await page.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
 // 0. Lobby on a phone: the ways in are one column (D-164).
 const room = await page.getByRole("button", { name: "Start a group room" }).boundingBox();
 const join = await page.getByRole("textbox", { name: /Join/ }).boundingBox();
@@ -189,7 +189,7 @@ console.log("8. Camera blocked");
 const plain = await chromium.launch({ executablePath: chromePath() });
 const blocked = await plain.newContext({ viewport: { width: 390, height: 844 } });
 const bp = await blocked.newPage();
-await bp.goto(new URL("booth", URL_ARG).href);
+await bp.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
 await bp.getByRole("button", { name: "Shoot solo" }).click();
 await bp.getByRole("status").waitFor({ timeout: 10000 });
 const why = await bp.getByRole("status").innerText();

@@ -25,7 +25,7 @@ async function cellPoint(i) {
   return { x: b.x + b.width / 2, y: b.y + b.height * ((40 + i * 380 + 180) / 1800) };
 }
 
-await page.goto(new URL("booth", URL_ARG).href);
+await page.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
 await page.locator("input[type=file]").setInputFiles(["p3.jpg", "p4.jpg", "portrait.jpg"].map((f) => path.join(FIXTURES, f)));
 await page.getByText("Fresh off the press!").waitFor({ timeout: 8000 });
 await page.getByRole("button", { name: /Decorate/ }).click();

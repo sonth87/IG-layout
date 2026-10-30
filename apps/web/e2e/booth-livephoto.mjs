@@ -28,7 +28,7 @@ console.log("1. A roll with clips");
 await page.goto(new URL("labs/livephoto", URL_ARG).href);
 await page.getByText("Chưa có cuộn phim nào có clip").waitFor();
 check(true, "no roll yet → says to shoot one");
-await page.goto(new URL("booth", URL_ARG).href);
+await page.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
 await page.getByRole("button", { name: "Shoot solo" }).click();
 await page.waitForFunction(() => document.querySelector("video")?.videoWidth > 0, null, { timeout: 10000 });
 await page.getByRole("button", { name: "Start shooting" }).click();

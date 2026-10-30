@@ -24,7 +24,7 @@ async function open() {
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, permissions: ["camera", "microphone"], acceptDownloads: true });
   const p = await ctx.newPage();
   p.on("pageerror", (e) => errors.push(String(e)));
-  await p.goto(new URL("booth", URL_ARG).href);
+  await p.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
   return p;
 }
 async function name(p, n) {

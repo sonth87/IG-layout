@@ -17,7 +17,7 @@ const check = (ok, label) => {
 const print = () => page.locator("canvas").first();
 const pixels = () => print().evaluate((c) => c.toDataURL("image/jpeg", 0.5).length + ":" + c.toDataURL("image/jpeg", 0.5).slice(-80));
 
-await page.goto(new URL("booth", URL_ARG).href);
+await page.goto(new URL("booth?today=2026-06-15", URL_ARG).href);
 await page.locator("input[type=file]").setInputFiles(["p3.jpg", "p4.jpg", "portrait.jpg", "panorama.jpg"].map((f) => path.join(FIXTURES, f)));
 await page.getByText("Fresh off the press!").waitFor({ timeout: 8000 });
 await page.getByRole("button", { name: /Decorate/ }).click();
