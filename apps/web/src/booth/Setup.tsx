@@ -10,7 +10,7 @@ import { DualView, type ViewKind } from "./DualView";
 import { FrameLive } from "./FrameLive";
 import { FramePicker } from "./FramePicker";
 import { ThemePicker } from "./ThemePicker";
-import { COUNTDOWN_S } from "./timing";
+import { COUNTDOWNS, REST_S, takesFor } from "./timing";
 import { Btn, Label, display, mono, serif } from "./ui";
 
 // Choose a frame with the camera already on (design §2.2, D-152): the camera plays in the
@@ -27,8 +27,10 @@ export function Setup(props: {
   facing: Facing;
   frameId: string;
   spare: boolean;
+  countdown: number;
   onFrame: (id: string) => void;
   onSpare: (on: boolean) => void;
+  onCountdown: (seconds: number) => void;
   theme: string;
   onTheme: (id: string) => void;
   onFacing: () => void;
@@ -114,20 +116,39 @@ export function Setup(props: {
             <FramePicker value={frame.id} onChange={props.onFrame} look={PICKER_LOOK} />
             <Label className="px-5">{t("booth.tab.theme")}</Label>
             <ThemePicker compact value={props.theme} onPick={(th) => props.onTheme(th.id)} />
-            <label className={`${mono} relative mx-5 mb-3 flex cursor-pointer items-center gap-3 text-xs`}>
-              <input type="checkbox" className="peer absolute top-0 left-0 h-6 w-6 cursor-pointer opacity-0" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />
-              <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[#1d1612] bg-[#f3e9d6] text-sm font-bold text-[#c8432f] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">
-                {props.spare ? "✕" : ""}
-              </span>
-              {t("booth.spare")}
-            </label>
+            {/* Countdown (D-162): picked before shooting, kept for next time. */}
+            <Label className="px-5">{t("booth.countdownPick")}</Label>
+            <div role="radiogroup" aria-label={t("booth.countdownPick")} className="mx-5 mb-4 grid grid-cols-3 gap-2">
+              {COUNTDOWNS.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  role="radio"
+                  aria-checked={props.countdown === s}
+                  onClick={() => props.onCountdown(s)}
+                  className={`${mono} border-2 border-[#1d1612] py-2 text-sm font-bold shadow-[2px_2px_0_#0b0806] ${props.countdown === s ? "bg-[#1d1612] text-[#f3e9d6]" : "bg-[#e7d9bd]"}`}
+                >
+                  {t("booth.seconds", { seconds: s })}
+                </button>
+              ))}
+            </div>
+            {/* Spare shots (D-162): a 1-cell frame just shoots once. */}
+            {frame.shots > 1 && (
+              <label className={`${mono} relative mx-5 mb-3 flex cursor-pointer items-center gap-3 text-xs`}>
+                <input type="checkbox" className="peer absolute top-0 left-0 h-6 w-6 cursor-pointer opacity-0" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />
+                <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[#1d1612] bg-[#f3e9d6] text-sm font-bold text-[#c8432f] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">
+                  {props.spare ? "✕" : ""}
+                </span>
+                {t("booth.spare", { takes: takesFor(frame.shots, true), cells: frame.shots })}
+              </label>
+            )}
           </div>
           <div className="shrink-0 border-t-2 border-dashed border-[#1d1612]/25 px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_16px_rgba(243,233,214,0.9)]">
             <Btn tone="main" className="w-full py-4 text-[15px]" disabled={!props.camera} onClick={props.onStart}>
               ✶ {t("booth.start")}
             </Btn>
             <p className={`${mono} mt-2 text-center text-[10px] uppercase tracking-[0.2em] opacity-55`}>
-              {t("booth.countdown", { seconds: COUNTDOWN_S })}
+              {t("booth.countdown", { seconds: props.countdown, takes: takesFor(frame.shots, props.spare), rest: REST_S })}
               <span className="hidden [@media(pointer:fine)]:inline"> · {t("booth.keys.start")}</span>
             </p>
           </div>

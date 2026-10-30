@@ -1,7 +1,8 @@
-// Booth solo (/booth, D-152…D-157): lobby → frame (camera window = cell shape) → 4 shots on
-// their own (8 s countdown, 2 s rest) → the print slides out → save a 600 × 1800 JPEG →
-// tap a photo, retake it → flip → the roll is in "Recent rolls" after a reload → spares:
-// 1 + 2 shots, pick one → delete. Chromium's fake camera stands in for the real one.
+// Booth solo (/booth, D-152…D-157, D-162): lobby (one column on a phone) → frame (camera
+// window = cell shape, countdown 3 / 5 / 8 s, spares on: strip of 4 → 7 shots) → 7 shots on
+// their own (3 s countdown on a corner card, the shot shown big for the 2 s rest, numbered
+// slots) → pick 4 → the print slides out → save a 600 × 1800 JPEG → tap a photo, retake it →
+// flip → the roll is in "Recent rolls" after a reload → Polaroid: no spares, 1 shot → delete. Chromium's fake camera stands in for the real one.
 import { chromium } from "playwright-core";
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -23,6 +24,11 @@ const check = (ok, label) => {
 };
 
 await page.goto(new URL("booth", URL_ARG).href);
+// 0. Lobby on a phone: the ways in are one column (D-164).
+const room = await page.getByRole("button", { name: "Start a group room" }).boundingBox();
+const join = await page.getByRole("textbox", { name: /Join/ }).boundingBox();
+check(room && join && join.y > room.y + room.height - 2, `group room / join are stacked (room bottom ${room && Math.round(room.y + room.height)}, code y ${join && Math.round(join.y)})`);
+await page.screenshot({ path: path.join(OUT, "booth-lobby-phone.png") });
 await page.getByRole("button", { name: "Shoot solo" }).click();
 
 // 1. Frame screen: camera on, 8 frames, window shaped like the first cell.
@@ -61,22 +67,42 @@ await page.mouse.move(370, 520, { steps: 8 });
 await page.mouse.up();
 await page.waitForTimeout(400);
 
-// 2. Shoot 4: countdown visible, then shots drop into the tray.
+// 1c. Countdown 3 s; spares on by default: strip of 4 → 7 shots (D-162).
+check(await page.getByText("7 shots, then pick the best 4").isVisible(), "spares on by default: 7 shots for 4 cells");
+await page.getByRole("radio", { name: "3 s", exact: true }).click();
+check((await page.getByRole("radio", { name: "3 s", exact: true }).getAttribute("aria-checked")) === "true", "3 s countdown picked");
+check(await page.getByText(/7 shots · 3 s countdown/).isVisible(), "summary under the button");
+
+// 2. Shoot 7: countdown on a corner card, the shot shown big, numbered slots.
 console.log("2. Shoot");
 const t0 = Date.now();
 await page.getByRole("button", { name: "Start shooting" }).click();
-await page.getByText("Shot 1 of 4").waitFor();
-await page.waitForTimeout(1500);
+await page.getByText("Shot 1 of 7").waitFor();
+check((await page.locator("span[aria-hidden].border-dashed").count()) === 7, "7 numbered slots");
+await page.locator("[data-countdown]").waitFor();
 const num = await page.locator("[data-countdown]").textContent();
-check(Number(num) >= 6 && Number(num) <= 8, `countdown runs (${num})`);
+check(Number(num) >= 1 && Number(num) <= 3, `countdown runs (${num})`);
+const card = await page.locator("[data-countdown]").boundingBox();
+check(card && card.x > 390 / 2 && card.y < 260, `countdown in the top-right corner (${card && Math.round(card.x)}, ${card && Math.round(card.y)})`);
 await page.screenshot({ path: path.join(OUT, "booth-countdown.png") });
 check((await pip().getAttribute("aria-label")) === "Show me big" ? false : true, "shooting: me big, the frame in the corner");
-await page.locator("img[data-shot='0']").waitFor({ timeout: 12000 });
+await page.locator("img[data-shot='0']").waitFor({ timeout: 6000 });
 const first = (Date.now() - t0) / 1000;
-check(first > 7.5 && first < 11, `first shot after ~8 s (${first.toFixed(1)} s)`);
-await page.getByText("Printing…").waitFor({ timeout: 45000 });
+check(first > 2.5 && first < 5.5, `first shot after ~3 s (${first.toFixed(1)} s)`);
+await page.getByText("Next shot coming up…").waitFor({ timeout: 1500 });
+await page.screenshot({ path: path.join(OUT, "booth-review.png") });
+check(true, "the shot just taken is shown big");
+// Tap it → take it again: back to 1 shot taken... the slot 1 is empty again.
+await page.getByRole("button", { name: "Retake that one" }).first().click();
+await page.waitForTimeout(200);
+check((await page.locator("img[data-shot='0']").count()) === 0, "tap the shown shot → it's taken again");
+await page.getByText(/^Pick 4 shots/).waitFor({ timeout: 60000 });
 const total = (Date.now() - t0) / 1000;
-check(total > 36 && total < 48, `4 shots ≈ 4 × 8 + 3 × 2 s (${total.toFixed(1)} s)`);
+check(total > 30 && total < 50, `7 shots (+1 retake) ≈ 8 × 3 + 7 × 2 s (${total.toFixed(1)} s)`);
+check((await page.locator("button[aria-pressed] img").count()) === 7, "7 shots to pick from");
+for (const i of [6, 4, 2, 0]) await page.locator("button[aria-pressed]").nth(i).click();
+await page.getByRole("button", { name: /Next · 4\/4/ }).click();
+await page.getByText("Printing…").waitFor({ timeout: 5000 });
 
 // 3. Print, save.
 console.log("3. Result");
@@ -135,22 +161,21 @@ await openRoll(page);
 await page.getByRole("button", { name: /Flip photos/ }).waitFor();
 check((await page.getByRole("button", { name: /Flip photos/ }).getAttribute("aria-pressed")) === "true", "reopened roll keeps flip");
 
-// 6. Spares: Polaroid (1 shot) + 2 spares → pick 1.
+// 6. Spares: ticking keeps the frame in view; Polaroid (1 cell) just shoots once.
 console.log("6. Spare shots");
 await page.getByRole("button", { name: "New roll" }).click();
-await page.getByRole("radio", { name: /Polaroid/ }).click();
-await page.getByText("2 spare shots").click();
+await page.getByRole("radio", { name: /Strip of 3/ }).click();
+await page.getByText("6 shots, then pick the best 3").click();
+await page.getByText("6 shots, then pick the best 3").click();
 // Ticking it must not scroll the booth's frame away (owner, 2026-10-30: the top bar vanished).
 const top = await page.getByRole("heading", { name: "Pick your frame" }).boundingBox();
 check(top && top.y >= 0, `ticking "spare shots" keeps the top bar in view (y ${top && Math.round(top.y)})`);
+await page.getByRole("radio", { name: /Polaroid/ }).click();
+check((await page.getByText(/then pick the best/).count()) === 0, "Polaroid: no spare option");
 await page.getByRole("button", { name: "Start shooting" }).click();
-await page.getByText("Shot 1 of 3").waitFor();
-await page.getByText("Pick 1 shot").waitFor({ timeout: 40000 });
-check((await page.locator("button[aria-pressed] img").count()) === 3, "3 shots to pick from");
-await page.locator("button[aria-pressed]").nth(2).click();
-await page.getByRole("button", { name: /Next · 1\/1/ }).click();
-await page.getByText("Tap a photo to retake it.").waitFor({ timeout: 8000 });
-check(true, "picked → print");
+await page.getByText("Shot 1 of 1").waitFor();
+await page.getByText("Tap a photo to retake it.").waitFor({ timeout: 15000 });
+check(true, "1 shot → print");
 
 // 7. Delete the roll → lobby has 1 roll.
 console.log("7. Delete");

@@ -64,13 +64,14 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen, preview }: { onSol
                 ✶
               </span>
             </button>
-            {/* Group room (D-159): create one (the code is made for you) or join with a code. */}
-            <div className="mt-3 grid grid-cols-2 gap-3">
-              <button type="button" onClick={() => onRoom(null)} className={`${mono} flex min-h-16 items-center justify-center border-2 border-[#1d1612] bg-[#e7d9bd] px-2 text-center text-[11px] font-bold uppercase leading-snug tracking-[0.12em] shadow-[3px_3px_0_#0b0806] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0_#0b0806]`}>
+            {/* Group room (D-159): create one (the code is made for you) or join with a code. One
+                column on a phone (D-164), side by side from a wider screen. */}
+            <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <button type="button" onClick={() => onRoom(null)} className={`${mono} flex min-h-13 sm:min-h-16 items-center justify-center border-2 border-[#1d1612] bg-[#e7d9bd] px-2 text-center text-[11px] font-bold uppercase leading-snug tracking-[0.12em] shadow-[3px_3px_0_#0b0806] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0_#0b0806]`}>
                 {t("booth.room")}
               </button>
               <form
-                className="flex min-h-16 flex-col justify-center gap-1.5 border-2 border-[#1d1612] bg-[#e7d9bd] p-1.5 shadow-[3px_3px_0_#0b0806]"
+                className="flex min-h-13 flex-col justify-center gap-1.5 border-2 border-[#1d1612] bg-[#e7d9bd] p-1.5 shadow-[3px_3px_0_#0b0806]"
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (isRoomCode(code)) onRoom(code);
@@ -84,9 +85,9 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen, preview }: { onSol
                     placeholder={t("booth.codePlaceholder")}
                     aria-label={t("booth.join")}
                     autoCapitalize="characters"
-                    className={`${mono} w-0 min-w-0 flex-1 border-2 border-[#1d1612] bg-[#fbf6ec] px-1.5 py-1 text-center text-sm font-bold tracking-[0.2em] outline-none`}
+                    className={`${mono} w-0 min-w-0 flex-1 border-2 border-[#1d1612] bg-[#fbf6ec] px-1.5 py-1.5 text-center text-sm font-bold tracking-[0.2em] outline-none`}
                   />
-                  <button type="submit" disabled={!isRoomCode(code)} className={`${mono} border-2 border-[#1d1612] bg-[#c8432f] px-2 text-[10px] font-bold uppercase text-[#f3e9d6] disabled:opacity-40`}>
+                  <button type="submit" disabled={!isRoomCode(code)} className={`${mono} border-2 border-[#1d1612] bg-[#c8432f] px-4 text-[11px] font-bold uppercase text-[#f3e9d6] disabled:opacity-40 sm:px-2 sm:text-[10px]`}>
                     {t("booth.go")}
                   </button>
                 </span>

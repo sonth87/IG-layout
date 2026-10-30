@@ -8,7 +8,7 @@ import { chromePath, FIXTURES, OUT, URL_ARG } from "./lib.mjs";
 
 const browser = await chromium.launch({ executablePath: chromePath(), args: ["--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream"] });
 const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
-await context.addInitScript(() => localStorage.setItem("ig-layout:booth", JSON.stringify({ frameId: "strip3", spare: false, sound: false })));
+await context.addInitScript(() => localStorage.setItem("ig-layout:booth", JSON.stringify({ frameId: "strip3", spares: false, sound: false })));
 const page = await context.newPage();
 const errors = [];
 page.on("pageerror", (e) => errors.push(String(e)));

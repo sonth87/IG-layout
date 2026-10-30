@@ -113,7 +113,7 @@ check((await page.getByRole("radio", { name: /3 \+ title/ }).count()) === 1 && (
 await page.getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: /New roll/ }).click();
 await page.getByRole("button", { name: /Start shooting/ }).click();
-await page.getByText("Shot 1 of 4").waitFor();
+await page.getByText("Shot 1 of 7").waitFor();
 await page.locator("[data-countdown]").waitFor();
 const t0 = Date.now();
 const now = await page.getByRole("button", { name: /Shoot now/ }).boundingBox();

@@ -4,17 +4,23 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { snap, type Facing } from "@ig-layout/core/booth/camera";
 import { shotAspect, type BoothFrame } from "@ig-layout/core/booth/frames";
 import type { RenderOptions } from "@ig-layout/core/booth/render";
+import type { MessageKey } from "@ig-layout/core/i18n/en";
 import { useT } from "@/store/settings";
 import { CameraView, type Camera } from "./CameraView";
 import { DualView, type ViewKind } from "./DualView";
 import { FrameLive } from "./FrameLive";
-import { COUNTDOWN_S, REST_S } from "./timing";
+import { REST_S } from "./timing";
 import { Btn, Confirm, display, mono, serif } from "./ui";
 
-// Shooting (design §2.3, D-154): an 8 s countdown per shot, a white flash (light for the front
-// camera) and a shutter click, 2 s rest, next shot — on its own until the roll is done. Pause,
-// retake the last shot, exit (asks first once there are shots). Each shot is a full-resolution
-// frame from the camera, not mirrored (D-153); render.ts crops it into the cell.
+// Shooting (design §2.3, D-162, learnt from ONBOOTH): a 3 / 5 / 8 s countdown per shot on a
+// little card in the corner (it doesn't cover the face) with a pose idea, a white flash (light
+// for the front camera) and a shutter click, then the shot just taken shown big for the 2 s rest
+// (tap it to retake it), next shot — on its own until the roll is done. Numbered slots below
+// show how many are left. Pause, exit (asks first once there are shots). Each shot is a
+// full-resolution frame from the camera, not mirrored (D-153); render.ts crops it into the cell.
+
+/** Pose ideas, one per shot (booth.pose.0 … booth.pose.N-1). */
+const POSES = 16;
 
 type Phase = "wait" | "count" | "rest";
 
@@ -26,7 +32,7 @@ interface State {
   paused: number | null;
 }
 
-export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound, onDone, onExit }: {
+export function Shoot({ camera, facing, frame, plan, base, look, countdown, sound, onSound, onDone, onExit }: {
   camera: Camera | null;
   facing: Facing;
   frame: BoothFrame;
@@ -35,6 +41,8 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
   base?: (Blob | null)[];
   /** The theme the roll is shot in (the whole-frame view is drawn in it). */
   look?: RenderOptions;
+  /** Seconds counted down before each shot (D-162). */
+  countdown: number;
   sound: boolean;
   onSound: (on: boolean) => void;
   onDone: (shots: Blob[]) => void;
@@ -52,6 +60,8 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
   const [landed, setLanded] = useState<{ shot: number; n: number } | null>(null);
   const busy = useRef(false);
   const audio = useRef<AudioContext | null>(null);
+  // Where the pose ideas start: a different run each roll.
+  const [poseSeed] = useState(() => Math.floor(Math.random() * POSES));
 
   // Which cell the next shot goes into: its shape is the window on the camera.
   const shotIndex = plan.targets ? plan.targets[Math.min(shots.length, plan.targets.length - 1)] : Math.min(shots.length, frame.shots - 1);
@@ -68,9 +78,9 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
   const current = plan.targets ? (shots.length < plan.targets.length ? shotIndex : null) : shots.length < frame.shots ? shots.length : null;
 
   // Latest values for the timer (it runs outside React's render).
-  const live = useRef({ st, shots, sound, onDone, count: plan.count, targets: plan.targets });
+  const live = useRef({ st, shots, sound, onDone, count: plan.count, targets: plan.targets, ms: countdown * 1000 });
   useEffect(() => {
-    live.current = { st, shots, sound, onDone, count: plan.count, targets: plan.targets };
+    live.current = { st, shots, sound, onDone, count: plan.count, targets: plan.targets, ms: countdown * 1000 };
   });
 
   useEffect(() => {
@@ -82,9 +92,9 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
       if (st.paused !== null || busy.current) return;
       if (st.phase === "wait") {
         // Start once the camera shows a picture.
-        if (v && v.videoWidth) setSt({ phase: "count", until: t0 + COUNTDOWN_S * 1000, paused: null });
+        if (v && v.videoWidth) setSt({ phase: "count", until: t0 + live.current.ms, paused: null });
       } else if (st.phase === "rest" && t0 >= st.until) {
-        setSt({ phase: "count", until: t0 + COUNTDOWN_S * 1000, paused: null });
+        setSt({ phase: "count", until: t0 + live.current.ms, paused: null });
       } else if (st.phase === "count" && t0 >= st.until && v) {
         busy.current = true;
         if (live.current.sound) shutter(audio);
@@ -97,8 +107,9 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
           const { targets } = live.current;
           setLanded({ shot: targets ? targets[next.length - 1] : next.length - 1, n: next.length });
           if (next.length >= live.current.count) {
+            // The last one is shown a moment too before moving on.
             setSt({ phase: "rest", until: Infinity, paused: null });
-            setTimeout(() => live.current.onDone(next), 700);
+            setTimeout(() => live.current.onDone(next), 1200);
           } else {
             setSt({ phase: "rest", until: performance.now() + REST_S * 1000, paused: null });
           }
@@ -113,7 +124,7 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
   const paused = st.paused !== null;
   const left = paused ? st.paused! : st.until - now;
   const seconds = Math.max(1, Math.ceil(left / 1000));
-  const progress = st.phase === "count" ? 1 - Math.max(0, left) / (COUNTDOWN_S * 1000) : 0;
+  const progress = st.phase === "count" ? 1 - Math.max(0, left) / (countdown * 1000) : 0;
 
   function togglePause() {
     const t0 = performance.now();
@@ -128,7 +139,7 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
   function retakeLast() {
     if (!shots.length || busy.current) return;
     setShots(shots.slice(0, -1));
-    setSt({ phase: "count", until: performance.now() + COUNTDOWN_S * 1000, paused: null });
+    setSt({ phase: "count", until: performance.now() + countdown * 1000, paused: null });
   }
 
   // Computer: Space pauses, R retakes the last shot, Esc exits (asks first once there are shots).
@@ -154,7 +165,9 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
   useEffect(() => () => urls.forEach((u) => URL.revokeObjectURL(u)), [urls]);
 
   const n = Math.min(shots.length + 1, plan.count);
-  const final = st.phase === "count" && seconds <= 3;
+  const review = urls[urls.length - 1];
+  // The last seconds (the last two of a 3 s countdown): the number turns red.
+  const final = st.phase === "count" && seconds <= Math.min(3, countdown - 1);
 
   return (
     <div className="relative flex h-full flex-col">
@@ -167,11 +180,6 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
           <p className={`${mono} text-[11px] font-bold uppercase tracking-[0.2em]`} aria-live="polite">
             {t("booth.shotOf", { n, total: plan.count })}
           </p>
-          <div aria-hidden className="flex gap-1">
-            {Array.from({ length: plan.count }, (_, i) => (
-              <span key={i} className={`h-2.5 w-4 border-2 border-[#1d1612] ${i < shots.length ? "bg-[#c8432f]" : i === shots.length ? "bg-[#eaa63c]" : ""}`} />
-            ))}
-          </div>
         </div>
         <div className="flex gap-2">
           <Btn className="px-2.5 py-2" aria-label={t("booth.sound")} aria-pressed={sound} onClick={() => onSound(!sound)}>
@@ -206,22 +214,41 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
           )}
           overlay={
             <>
+              {/* The countdown on a card in the corner (D-162): the face stays in view. */}
               {st.phase === "count" && (
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                  <div className="relative flex h-36 w-36 items-center justify-center">
-                    <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
-                      <circle cx="50" cy="50" r="44" fill="rgba(29,22,18,0.35)" stroke="#f3e9d6" strokeOpacity={0.35} strokeWidth="5" />
-                      <circle cx="50" cy="50" r="44" fill="none" stroke={final ? "#c8432f" : "#eaa63c"} strokeWidth="5" strokeDasharray={276.5} strokeDashoffset={276.5 * (1 - progress)} />
-                    </svg>
-                    <span
-                      key={seconds}
-                      data-countdown
-                      className={`${serif} animate-[booth-pop_0.35s_ease-out] leading-none ${final ? "text-[96px]" : "text-7xl"} text-[#f3e9d6] [-webkit-text-stroke:2px_#1d1612] [paint-order:stroke_fill] drop-shadow-[3px_3px_0_#0b0806]`}
-                      style={display}
-                    >
-                      {seconds}
+                <div className="pointer-events-none absolute top-3 right-3 z-10 w-[min(9.5rem,34vw)] rotate-[2deg] border-2 border-[#1d1612] bg-[#f3e9d6] px-3 pt-2 pb-3 text-center text-[#1d1612] shadow-[4px_4px_0_#0b0806] md:w-44">
+                  <span
+                    key={seconds}
+                    data-countdown
+                    className={`${serif} block animate-[booth-pop_0.35s_ease-out] leading-none ${final ? "text-[64px] text-[#c8432f] md:text-[76px]" : "text-[52px] md:text-[64px]"}`}
+                    style={{ ...display, textShadow: `3px 3px 0 ${final ? "#1d1612" : "#c8432f"}` }}
+                  >
+                    {seconds}
+                  </span>
+                  <span className={`${mono} mt-1.5 inline-block -rotate-1 border-2 border-[#1d1612] bg-[#eaa63c] px-2 py-0.5 text-[10px] font-bold uppercase leading-tight tracking-[0.08em] shadow-[2px_2px_0_#0b0806]`}>
+                    {t(`booth.pose.${(poseSeed + shots.length) % POSES}` as MessageKey)}
+                  </span>
+                  <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 origin-left bg-[#c8432f]" style={{ transform: `scaleX(${progress})` }} />
+                </div>
+              )}
+              {/* The shot just taken, big, for the rest (D-162); tap it to take it again. */}
+              {st.phase === "rest" && review && (
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-[#120d0a]/90 px-6 backdrop-blur-sm">
+                  <button
+                    type="button"
+                    disabled={st.until === Infinity}
+                    onClick={retakeLast}
+                    aria-label={t("booth.retakeLast")}
+                    className="animate-[booth-pop_0.3s_ease-out] border-2 border-[#1d1612] bg-[#f6efe2] p-2.5 pb-0 shadow-[6px_6px_0_#0b0806]"
+                    style={{ rotate: shots.length % 2 ? "1.5deg" : "-1.5deg" }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element -- a local blob URL */}
+                    <img src={review} alt="" className="block max-h-[52dvh] max-w-full" />
+                    <span className={`${mono} block py-2.5 text-[11px] font-bold uppercase tracking-[0.25em] text-[#1d1612]/70`}>
+                      {st.until === Infinity ? t("booth.rollDone") : t("booth.nextShot")}
                     </span>
-                  </div>
+                  </button>
+                  {st.until !== Infinity && <span className={`${mono} text-[10px] uppercase tracking-[0.2em] opacity-70`}>↺ {t("booth.tapRetake")}</span>}
                 </div>
               )}
               {st.phase === "wait" && <p className={`${mono} pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-sm font-bold uppercase tracking-[0.3em]`}>{t("booth.getReady")}</p>}
@@ -234,10 +261,17 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
       {/* The shots so far, as little prints; retake the last one. */}
       <div className="flex min-h-[92px] shrink-0 items-center justify-between gap-3 border-t-2 border-[#0b0806] bg-[#120d0a] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div className="flex min-w-0 flex-1 gap-2 overflow-x-auto py-1 pl-1">
-          {urls.map((u, i) => (
-            // eslint-disable-next-line @next/next/no-img-element -- a local blob URL
-            <img key={u} src={u} alt="" data-shot={i} className="h-14 w-auto animate-[booth-drop_0.45s_ease-out] border-[3px] border-[#f6efe2] shadow-[3px_3px_0_#0b0806]" style={{ rotate: `${i % 2 ? 3 : -3}deg` }} />
-          ))}
+          {/* One slot per shot (D-162): taken ones show the picture, the rest are numbered. */}
+          {Array.from({ length: plan.count }, (_, i) =>
+            urls[i] ? (
+              // eslint-disable-next-line @next/next/no-img-element -- a local blob URL
+              <img key={urls[i]} src={urls[i]} alt="" data-shot={i} className="h-14 w-auto shrink-0 animate-[booth-drop_0.45s_ease-out] border-[3px] border-[#f6efe2] shadow-[3px_3px_0_#0b0806]" style={{ rotate: `${i % 2 ? 3 : -3}deg` }} />
+            ) : (
+              <span key={`slot-${i}`} aria-hidden className={`${mono} flex h-14 w-12 shrink-0 items-center justify-center border-2 border-dashed text-xs ${i === shots.length ? "border-[#eaa63c] text-[#eaa63c]" : "border-[#f3e9d6]/35 text-[#f3e9d6]/45"}`}>
+                {i + 1}
+              </span>
+            ),
+          )}
         </div>
         {/* Keys: only where there's room for them (a computer). */}
         <p className={`${mono} ml-auto hidden shrink-0 text-[10px] uppercase tracking-[0.15em] opacity-50 lg:block`}>{t("booth.keys.shoot")}</p>

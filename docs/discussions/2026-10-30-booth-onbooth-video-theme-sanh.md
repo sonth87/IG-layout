@@ -173,3 +173,28 @@ Màn rộng hơn giữ hai ô cạnh nhau. Việc nhỏ, làm được ngay khi 
 
 ## Câu hỏi cho chủ dự án
 Xem [open-questions.md](../roadmap/open-questions.md) mục Photobooth (Q-P28 → Q-P35).
+
+---
+
+## 8. Chủ dự án trả lời (2026-10-30)
+- **Mục 1:** không gấp đôi — khung 8 mà chụp 16 là quá nhiều. Số kiểu theo bảng: **1 ô → 1 (chụp luôn), 2 → 5, 3 → 6, 4 → 7, 5 → 8, 6 → 10, 8 → 12** (7 ô nội suy → 11). Trước khi chụp **chọn thời gian đếm 3 / 5 / 8 s** → D-162 (bỏ đề xuất "kiểu đầu 8 s, kiểu sau 5 s").
+- **Mục 2:** ok → D-163.
+- **Mục 3:** chủ dự án hỏi "chụp chung một ô" có phải **tách người khỏi nền rồi ghép chung một khung** không — trả lời bên dưới, chờ chốt.
+- **Mục 4:** ok → D-164.
+- **Mục 5:** theme **phải đẹp, có hiệu ứng, đủ bộ**; **nhớ theme đang ở**, mở lại vẫn giữ → D-164.
+- **Mục 6:** ok → D-164.
+
+### "Chung một ô" không phải tách nền (giải thích Q-P30)
+Ở ONBOOTH (IMG_4213) polaroid Duo chỉ là **hai nửa camera đặt cạnh nhau**: nửa trái là video máy A, nửa phải là video máy B, có đường kẻ ở giữa — **không tách người khỏi nền**. Mỗi ô của bản in sẽ trông như vậy: hai nửa ảnh (mỗi người một nền phòng riêng) ghép sát nhau, chụp cùng một khoảnh khắc. Làm được dễ: mỗi máy cắt camera của mình theo đúng nửa ô (như đang cắt theo ô bây giờ), ghép hai nửa khi in.
+Muốn **hai người "đứng chung một phông"** thật thì mới cần tách nền (app đã có mô hình xoá nền ormbg, D-79) + nền chung theo theme — đẹp hơn nhưng nặng (mỗi kiểu tách nền 1–3 s trên điện thoại, viền tóc có thể lởm). Đề xuất: làm **hai nửa** trước; "chung phông" là tuỳ chọn nâng cấp sau.
+
+## 9. Đã làm: sảnh xếp dọc + luồng chụp mới (2026-10-30)
+- **Sảnh** (`Home.tsx`): dưới 640 px, "Mở phòng chụp chung" và "Vào bằng mã" xếp dọc, rộng hết; ô mã + nút Vào cùng một hàng. Từ 640 px giữ hai ô cạnh nhau.
+- **Chọn khung** (`Setup.tsx`): mục **Đếm ngược 3 / 5 / 8 giây** (nhớ lần trước, mặc định 8); ô chụp dư ghi rõ "Chụp 7 kiểu rồi chọn 4 tấm đẹp nhất", **mặc định bật** (khoá lưu mới `spares` — ai đã tắt "+2" kiểu cũ cũng được bật lại một lần); khung 1 ô không có ô này. Dòng dưới nút: "7 kiểu · đếm 3 giây, nghỉ 2 giây".
+- **Số kiểu** (`timing.ts`, `takesFor`): 1 → 1, 2 → 5, 3 → 6, 4 → 7, 5 → 8, 6 → 10, 7 → 11, 8 → 12, trên 8 → +4.
+- **Chụp** (`Shoot.tsx`):
+  - Số đếm trên **thẻ giấy nhỏ góc trên phải**, nghiêng nhẹ, vạch đỏ chạy dưới đáy thẻ; vài giây cuối số đổi đỏ. Dưới số là **gợi ý tạo dáng** (16 câu song ngữ, mỗi cuộn bắt đầu ở một câu ngẫu nhiên).
+  - Chụp xong: **ảnh vừa chụp hiện to giữa màn** trong 2 s nghỉ ("Kiểu tiếp theo…"), nền tối + mờ; **chạm ảnh = chụp lại kiểu đó**. Kiểu cuối hiện "Xong cuộn phim!" ~1,2 s rồi sang chọn ảnh.
+  - Dải dưới: **mỗi kiểu một ô**, ô đã chụp là ảnh, ô chưa chụp nét đứt đánh số, ô sắp chụp viền vàng. Bỏ dãy ô vuông nhỏ trên thanh trên (12 ô không vừa).
+- **Phòng chụp chung** vẫn đếm 8 s (chưa có chỗ cho chủ phòng chọn) — làm khi làm Duo.
+- e2e `booth-solo.mjs` viết lại theo luồng mới (sảnh xếp dọc, 3 s, 7 kiểu, thẻ góc, xem lại + chạm chụp lại, chọn 4, Polaroid không có chụp dư); `booth-desktop`, `booth-sticker`, `booth-zoom-retake` sửa theo mặc định mới — đều qua.

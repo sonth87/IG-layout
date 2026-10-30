@@ -30,7 +30,7 @@ check(pip.width > 180, `bigger corner view (${Math.round(pip.width)} px)`);
 
 console.log("2. Keys");
 await page.keyboard.press("Enter");
-await page.getByText("Shot 1 of 4").waitFor({ timeout: 3000 });
+await page.getByText("Shot 1 of 7").waitFor({ timeout: 3000 });
 check(true, "Enter starts shooting");
 await page.waitForTimeout(1500);
 await page.keyboard.press(" ");

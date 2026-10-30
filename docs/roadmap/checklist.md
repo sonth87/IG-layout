@@ -584,3 +584,9 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [x] Theme theo nhóm (19 theme / 10 nhóm), mỗi theme đủ bộ + không khí màn chụp / sửa; chọn theme trước khi chụp; e2e `booth-theme.mjs`
 - [x] Sửa chung trong phòng (D-148): khung, theme, filter, bố cục, hoạ tiết, chữ, lật đồng bộ giữa các máy; "X đang sửa · thẻ"; mở bản in thì hỏi bản mới nhất; chủ phòng chọn theme cho cả phòng; e2e `booth-room.mjs` mục 5
 - [ ] Thử phòng thật trên 2 điện thoại khác mạng (Wi-Fi ↔ 4G) → có cần TURN?
+- [x] Phân tích ONBOOTH solo / Duo, ảnh động, theme sảnh, khung IG trong booth (docs/discussions/2026-10-30-booth-onbooth-video-theme-sanh.md); chốt D-162 → D-164
+- [x] Sảnh trên điện thoại xếp một cột (D-164); luồng chụp kiểu ONBOOTH (D-162): chụp dư mặc định theo bảng (4 ô → 7 kiểu…, 1 ô chụp luôn), chọn đếm 3 / 5 / 8 s, số đếm ở thẻ góc + gợi ý tạo dáng, ảnh vừa chụp hiện to 2 s (chạm để chụp lại), ô chờ đánh số; e2e `booth-solo.mjs`
+- [ ] Ảnh động (D-163): quay clip quanh mỗi kiểu → MP4 + Boomerang → GIF; trang thử Live Photo / Motion Photo
+- [ ] Theme sảnh (D-164): khung vuốt + ô màu, nhớ theme; Noel, Tết, Halloween, Cyberpunk, Glitch + theme bản in đi kèm
+- [ ] Khung / template IG trong booth (D-164): khung rời làm ô → bộ sưu tập theo theme → template IG làm khung
+- [ ] Duo (chờ Q-P30)

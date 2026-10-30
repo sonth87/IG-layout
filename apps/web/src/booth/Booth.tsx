@@ -23,11 +23,11 @@ import { Mood } from "./Mood";
 import { useSharedRoll } from "./share";
 import { themeById } from "@ig-layout/core/booth/themes";
 import { floorStyle } from "./ui";
-import { SPARE } from "./timing";
+import { COUNTDOWN_S, takesFor } from "./timing";
 
 // The booth app (/booth, D-150 / D-152): its own screens and look (Cinema), sharing logic and
 // assets with IG Layout through packages/core. Flow: lobby → frame (camera on) → shoot
-// (8 s countdown, 2 s rest, D-154) → pick (only with spare shots, D-157) → result (print,
+// (3 / 5 / 8 s countdown, 2 s rest, D-162) → pick (only with spare shots, D-157 / D-162) → result (print,
 // save, retake one shot). Rolls are kept on the device (D-156).
 
 type Screen = "home" | "setup" | "shoot" | "pick" | "result" | "decorate" | "room";
@@ -47,14 +47,17 @@ interface Prefs {
   frameId: string;
   /** The theme new rolls start in (picked before shooting; sets the booth's mood). */
   theme?: string;
-  spare: boolean;
+  /** Spare shots, then pick (D-162). A new key: on by default even for those who had the old +2 off. */
+  spares: boolean;
+  /** Seconds counted down before each shot (3 / 5 / 8, D-162). */
+  countdown: number;
   sound: boolean;
 }
 
 const PREFS_KEY = "ig-layout:booth";
 
 function loadPrefs(): Prefs {
-  const base: Prefs = { frameId: "strip4", spare: false, sound: true };
+  const base: Prefs = { frameId: "strip4", spares: true, countdown: COUNTDOWN_S, sound: true };
   try {
     return { ...base, ...JSON.parse(localStorage.getItem(PREFS_KEY) ?? "{}") };
   } catch {
@@ -238,16 +241,18 @@ function BoothApp() {
           camera={camera}
           facing={facing}
           frameId={prefs.frameId}
-          spare={prefs.spare}
+          spare={prefs.spares}
+          countdown={prefs.countdown}
           onFrame={(frameId) => setPrefs({ frameId })}
-          onSpare={(spare) => setPrefs({ spare })}
+          onSpare={(spares) => setPrefs({ spares })}
+          onCountdown={(countdown) => setPrefs({ countdown })}
           theme={themeById(prefs.theme).id}
           onTheme={(theme) => setPrefs({ theme })}
           onFacing={() => setFacing((f) => (f === "user" ? "environment" : "user"))}
           onRetryCamera={() => setCameraTry((n) => n + 1)}
           onBack={() => setScreen("home")}
           onStart={() => {
-            setPlan({ count: frameById(prefs.frameId).shots + (prefs.spare ? SPARE : 0), targets: null });
+            setPlan({ count: takesFor(frameById(prefs.frameId).shots, prefs.spares), targets: null });
             setRoll(null);
             setScreen("shoot");
           }}
@@ -262,6 +267,7 @@ function BoothApp() {
           plan={plan}
           base={plan.targets ? roll?.shots : undefined}
           look={shootLook}
+          countdown={prefs.countdown}
           sound={prefs.sound}
           onSound={(sound) => setPrefs({ sound })}
           onDone={shootDone}
