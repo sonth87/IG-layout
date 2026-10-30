@@ -254,3 +254,9 @@ Chủ dự án: "cứ làm thử cái live photo/motion photo xem sao, tôi sẽ
 Chủ dự án (ảnh iPhone): "lúc select ảnh sao mấy cái vòng tròn ngoài trông xấu quá vậy" — vòng elip đỏ kiểu bút chì khoanh bị kéo dài theo ảnh dọc, đè lên mặt và lấn sang ảnh bên cạnh.
 - Mỗi kiểu là một **tấm ảnh in nhỏ** (viền kem, số khung ở mép dưới). Chọn: tấm ảnh **nhấc lên**, **viền vàng ôm sát**, **thẻ số thứ tự vuông** nghiêng ở góc trên trái + ✓ ở mép dưới (học cách ONBOOTH đánh dấu ảnh chọn — IMG_4209 — nhưng giữ số thứ tự vào ô của mình). Đủ số ảnh thì các tấm còn lại **mờ + xám**.
 - Điện thoại **3 cột** (ảnh cắt 3:4 cho đều): cả cuộn 6–7 tấm nằm gọn một màn, không phải cuộn.
+
+### Hỏi đáp: "Live Photo không phải là tệp .heic sao? Sao lại .jpg + .mov?" (2026-10-30)
+- Live Photo trên iPhone **luôn là 2 phần**: một **ảnh tĩnh** + một **video .MOV** ~3 giây, nối với nhau bằng một mã chung. App Ảnh gộp lại thành một mục có chữ LIVE. Xuất ra dạng tệp (AirDrop "Tất cả dữ liệu ảnh", Image Capture trên Mac…) sẽ thấy 2 tệp `IMG_1234.HEIC` + `IMG_1234.MOV`.
+- **HEIC chỉ là định dạng của phần ảnh tĩnh** (mặc định từ iOS 11, Cài đặt → Camera → Định dạng → "Hiệu suất cao"). Chọn "Tương thích nhất" thì iPhone chụp Live Photo ra **JPG + MOV** — cũng là Live Photo thật. Nên cặp JPG + MOV của trang thử là hợp lệ.
+- Không làm HEIC vì trình duyệt không tạo được tệp HEIC (canvas chỉ xuất JPEG / PNG / WebP); muốn có thì phải nhúng bộ mã hoá HEVC chạy WASM (nặng vài MB, vướng bản quyền HEVC) mà không giải quyết được gì thêm.
+- Chỗ chưa chắc vẫn là **app Ảnh có ghép 2 tệp đó lại khi lưu từ trình duyệt hay không** — đó là điều cần thử trên máy.
