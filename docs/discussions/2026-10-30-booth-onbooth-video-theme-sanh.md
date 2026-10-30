@@ -260,3 +260,9 @@ Chủ dự án (ảnh iPhone): "lúc select ảnh sao mấy cái vòng tròn ngo
 - **HEIC chỉ là định dạng của phần ảnh tĩnh** (mặc định từ iOS 11, Cài đặt → Camera → Định dạng → "Hiệu suất cao"). Chọn "Tương thích nhất" thì iPhone chụp Live Photo ra **JPG + MOV** — cũng là Live Photo thật. Nên cặp JPG + MOV của trang thử là hợp lệ.
 - Không làm HEIC vì trình duyệt không tạo được tệp HEIC (canvas chỉ xuất JPEG / PNG / WebP); muốn có thì phải nhúng bộ mã hoá HEVC chạy WASM (nặng vài MB, vướng bản quyền HEVC) mà không giải quyết được gì thêm.
 - Chỗ chưa chắc vẫn là **app Ảnh có ghép 2 tệp đó lại khi lưu từ trình duyệt hay không** — đó là điều cần thử trên máy.
+
+### Hỏi đáp: đánh giá một đoạn hướng dẫn "tạo Live Photo bằng JavaScript" chủ dự án gửi (2026-10-30)
+- **Đúng:** Live Photo = ảnh tĩnh + video có chung mã; video dùng `com.apple.quicktime.content.identifier` — trang thử đã làm vậy.
+- **Sai / không chạy:** (1) mã trong ảnh không phải thẻ EXIF `0x859c` mà là thẻ 17 trong MakerNote của Apple (`Apple:ContentIdentifier`), piexifjs không ghi được vào đó; (2) `ffmpeg -metadata com.apple.quicktime.content.identifier=…` khi xuất MOV bỏ khoá lạ nếu thiếu `-movflags use_metadata_tags`; (3) ffmpeg.wasm (~30 MB, mã hoá phần mềm) không cần — đã có mediabunny (WebCodecs); (4) cách dùng server trái nguyên tắc không server / ảnh không rời máy; (5) LivePhotosKit JS chỉ là trình phát trên web, không tạo tệp.
+- **Thiếu ở cả hai:** track metadata `still-image-time` trong video — bước tiếp theo nếu iPhone nhận cặp tệp nhưng không ra Live Photo.
+- **Ý có ích:** chuyển cặp tệp bằng **AirDrop** (từ Mac sang iPhone) — đã thêm vào hướng dẫn ở trang thử.

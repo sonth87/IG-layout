@@ -159,7 +159,7 @@ export function LivePhotoLab() {
             <b>Android:</b> bấm «Chia sẻ / Lưu» → chọn Google Photos (hoặc Tải về rồi mở trong Google Photos / Thư viện). Mở ảnh: góc trên có nút <b>Motion / Chuyển động</b>, nhấn giữ hoặc bấm nút thì ảnh chạy? Samsung: thử cả Gallery của Samsung.
           </p>
           <p>
-            <b>iPhone:</b> bấm «Chia sẻ / Lưu» → <b>Lưu 2 mục</b> (Save 2 Items). Mở app Ảnh: có ra <b>một</b> ảnh với chữ <b>LIVE</b> ở góc, nhấn giữ thì chạy? Hay thành 2 mục riêng (một ảnh, một video)? Thử thêm: Tải về → mở app Tệp → chọn cả 2 tệp → Lưu vào Ảnh.
+            <b>iPhone:</b> bấm «Chia sẻ / Lưu» → <b>Lưu 2 mục</b> (Save 2 Items). Mở app Ảnh: có ra <b>một</b> ảnh với chữ <b>LIVE</b> ở góc, nhấn giữ thì chạy? Hay thành 2 mục riêng (một ảnh, một video)? Thử thêm: Tải về → mở app Tệp → chọn cả 2 tệp → Lưu vào Ảnh. Và trên máy Mac: mở trang này, Tải về, chọn cả 2 tệp → AirDrop sang iPhone.
           </p>
           <p>Báo lại kết quả từng máy (tên máy, bản iOS / Android). Không được thì bỏ tính năng này.</p>
         </div>
