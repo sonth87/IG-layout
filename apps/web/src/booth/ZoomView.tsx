@@ -47,8 +47,9 @@ export function ZoomView({ children, label }: { children: (step: number) => Reac
       onPointerDownCapture={(e) => {
         pts.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
         moved.current = false;
-        // A cell being placed by hand takes one-finger drags; two fingers are always ours.
-        const onCell = (e.target as Element).closest("[data-cell]");
+        // Something being placed by hand — a cell (free layout) or a sticker, with its handles —
+        // takes one-finger drags; two fingers are always ours.
+        const onCell = (e.target as Element).closest("[data-cell], [data-sticker]");
         if (pts.current.size === 2 || (z.k > 1 && !onCell)) {
           const [a, b] = [...pts.current.values()];
           const m = b ? { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 } : a;

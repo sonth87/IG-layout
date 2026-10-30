@@ -203,3 +203,6 @@ Chủ dự án: "màn booth không scroll page; các cái đã chụp nằm dư�
 
 ## 17. Nút "Bắt đầu chụp" bị khuất trên điện thoại (2026-10-30)
 Chủ dự án (ảnh chụp iPhone): "lúc vào chụp ảnh, cái nút chụp nằm bên dưới hoàn toàn nên không nhìn thấy, user sẽ lúng túng". Bảng lựa chọn dưới camera cao tối đa ~½ màn và tự cuộn; nút nằm cuối phần cuộn. Sửa: **khung / theme / chụp dư cuộn, nút "Bắt đầu chụp" + dòng "đếm 8 giây…" là thanh cố định ở đáy bảng** (to hơn, rộng hết bề ngang), luôn thấy. e2e `booth-solo.mjs` kiểm nút nằm trong màn 390 × 844 mà không cần cuộn.
+
+## 18. Sticker khi đang zoom (2026-10-30)
+Chủ dự án: "thêm sticker rồi zoom lên thì không resize / xoay / di chuyển được sticker, phải zoom out mới thao tác được". Khi đã zoom, kéo 1 ngón là để dời bản in — trừ ô đang đặt tay (bố cục Tự do); sticker và núm của nó chưa nằm trong ngoại lệ đó. Sửa: kéo 1 ngón trên **sticker (cả núm xoay / góc phóng / nút xoá)** luôn là thao tác sticker, kể cả khi zoom; kéo chỗ trống mới dời bản in; 2 ngón vẫn là zoom. e2e `booth-sticker.mjs`: zoom rồi kéo sticker (bản in không trôi) và phóng ở góc.
