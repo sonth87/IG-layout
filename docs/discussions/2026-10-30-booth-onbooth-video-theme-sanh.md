@@ -293,3 +293,9 @@ Chủ dự án: "theme ở ngoài home thay đổi thì ui bên trong cũng nên
 - Gốc booth đặt biến theo cảnh đang chọn, **đổi ngay khi vuốt sang cảnh khác**; trang xem trước booth trong IG Layout cũng vậy. Nền các màn (không khí) vẫn theo theme bản in — mà cảnh sảnh đã chọn sẵn theme bản in cùng chủ đề.
 - Thẻ Theme ở màn trang trí: **nhóm của cảnh đang chọn lên đầu**.
 - e2e `booth-lobby.mjs`: thanh trên màn chọn khung mang màu Halloween, đổi sang cảnh Cyberpunk thì đổi theo. Toàn bộ test booth qua.
+
+### Đánh giá repo `oodicraft/turn-video-into-live-photo` (2026-10-30, chủ dự án hỏi có dùng được không)
+- Là một trang web (React + Vite + ffmpeg.wasm), giấy phép MIT, fork từ dự án của flashlab (motion-live). Làm được: **nhận diện / xem trước** Motion Photo (Google, Xiaomi, OPPO), cắt / nén / xoay video bằng ffmpeg.wasm, **tạo Motion Photo** ("thử nghiệm", OPPO / Xiaomi chạy đủ), xem trước cặp ảnh + video như Live Photo bằng LivePhotosKit JS.
+- **Không tạo Live Photo cho iPhone**: README ghi phải xuất sẵn HEIC / JPG + MOV từ iPhone rồi mới nạp vào; không có MakerNote / content identifier / still-image-time → không giúp được phần iPhone.
+- **Không nên dùng nguyên repo**: cả một app riêng, ffmpeg.wasm nặng (~30 MB) trong khi mình đã có mediabunny; định dạng Motion Photo của họ giống của mình.
+- **Học được một điểm và đã áp dụng**: khối XMP của họ có thêm thẻ riêng của **OPPO** (`OpCamera:MotionPhotoOwner`, `OLivePhotoVersion`, `VideoLength`, `MotionPhotoPrimaryPresentationTimestampUs`) và **Xiaomi** (`MiCamera:XMPMeta`) → đã thêm vào tệp Motion Photo của trang thử để thư viện ảnh OPPO / Xiaomi cũng nhận. Samsung vẫn chưa (Samsung dùng định dạng riêng ở cuối tệp).
