@@ -198,3 +198,18 @@ Muốn **hai người "đứng chung một phông"** thật thì mới cần tá
   - Dải dưới: **mỗi kiểu một ô**, ô đã chụp là ảnh, ô chưa chụp nét đứt đánh số, ô sắp chụp viền vàng. Bỏ dãy ô vuông nhỏ trên thanh trên (12 ô không vừa).
 - **Phòng chụp chung** vẫn đếm 8 s (chưa có chỗ cho chủ phòng chọn) — làm khi làm Duo.
 - e2e `booth-solo.mjs` viết lại theo luồng mới (sảnh xếp dọc, 3 s, 7 kiểu, thẻ góc, xem lại + chạm chụp lại, chọn 4, Polaroid không có chụp dư); `booth-desktop`, `booth-sticker`, `booth-zoom-retake` sửa theo mặc định mới — đều qua.
+
+## 10. Đã làm: ảnh động — MP4, Boomerang, GIF (D-163, 2026-10-30)
+- **Quay** (`apps/web/src/booth/clips.ts`): trong lúc chụp, camera được chép liên tục thành khung JPEG nhỏ (cạnh dài 480 px, **12 hình / giây**), giữ 1,5 s gần nhất; bấm chụp thì lấy thêm 1,5 s sau → clip ~3 s (~36 khung, ~0,7–1 MB) gắn với kiểu đó. Không lật gương, cắt vào ô y như ảnh. Chụp lại / chọn ảnh khi chụp dư / chụp bù một ô đều mang clip theo đúng ô.
+  - Chọn cách chép khung JPEG thay vì MediaRecorder: tự kiểm soát được từng khung (cắt đúng 1,5 s trước lúc bấm, không phụ thuộc định dạng WebM / MP4 của từng trình duyệt), giải mã lại chỉ cần `createImageBitmap`.
+- **Lưu**: `BoothRoll.clips` cùng thứ tự với ảnh, trong IndexedDB cùng cuộn → mở lại cuộn vẫn có ảnh động. Cuộn tải ảnh lên / chụp trong phòng chưa có clip.
+- **Cách phát** (`packages/core/booth/live.ts`): mọi ô chạy cùng lúc, **khoảnh khắc bấm máy của các ô trùng nhau**.
+  - **Động** (lặp): clip, đến lúc bấm máy thì **giữ ảnh gốc nét 0,5 s** (giống Live Photo), rồi chạy tiếp.
+  - **Boomerang**: chạy xuôi rồi ngược, không giữ, nối vòng không giật.
+- **Màn kết quả**: thêm hàng **Ảnh · Động · Boomerang** (chỉ hiện khi cuộn có clip). Chọn Động / Boomerang thì bản in **chuyển động ngay trên màn** (giải mã từng khung khi cần, áp filter của cuộn bằng đường lọc video của IG Layout — không giữ cả cuộn trong bộ nhớ). Nút chính thành **Lưu video**, cạnh đó **↓ GIF** (khi đang ở Động / Boomerang, nút Trang trí tạm ẩn — về Ảnh để trang trí). Nút hiện "Đang làm video… n %".
+- **Xuất**:
+  - **MP4** (H.264, 24 fps, mediabunny): Bản in / Post 4:5 / Story 9:16; Động lặp 3 lần (~10 s), Boomerang 2 vòng (~12 s). Bản in dải 3: ~0,7 MB.
+  - **GIF** (`gifenc`, MIT): một vòng, tự lặp, cạnh dài 720 px, ~1 MB.
+  - Tên file: `booth_…_loop.mp4`, `…_story_boomerang.mp4`, `…_boomerang.gif`.
+- **Chưa làm**: Live Photo (iPhone) / Motion Photo (Android) — cần trang thử trên máy thật; video hậu trường; ảnh động trong phòng chụp chung; "Mở trong IG Layout" với ô là video.
+- e2e `booth-live.mjs` (ffprobe): có lựa chọn, bản in chuyển động thật, MP4 600 × 1800 H.264 ~10,5 s, Boomerang Story 1080 × 1920, GIF 720 px > 30 khung, còn sau khi tải lại. `tag-switch.mjs`: dời điểm lấy mẫu màu (tấm vé ở sảnh dài ra sau khi xếp dọc, che điểm cũ). Toàn bộ test booth qua.

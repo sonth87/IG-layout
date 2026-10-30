@@ -4,9 +4,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { snap, type Facing } from "@ig-layout/core/booth/camera";
 import { shotAspect, type BoothFrame } from "@ig-layout/core/booth/frames";
 import type { RenderOptions } from "@ig-layout/core/booth/render";
+import type { BoothClip } from "@ig-layout/core/storage/booth";
 import type { MessageKey } from "@ig-layout/core/i18n/en";
 import { useT } from "@/store/settings";
 import { CameraView, type Camera } from "./CameraView";
+import { ClipRecorder } from "./clips";
 import { DualView, type ViewKind } from "./DualView";
 import { FrameLive } from "./FrameLive";
 import { REST_S } from "./timing";
@@ -18,6 +20,7 @@ import { Btn, Confirm, display, mono, serif } from "./ui";
 // (tap it to retake it), next shot — on its own until the roll is done. Numbered slots below
 // show how many are left. Pause, exit (asks first once there are shots). Each shot is a
 // full-resolution frame from the camera, not mirrored (D-153); render.ts crops it into the cell.
+// Around each shot a short clip is kept too (D-163, clips.ts) for the moving print.
 
 /** Pose ideas, one per shot (booth.pose.0 … booth.pose.N-1). */
 const POSES = 16;
@@ -45,7 +48,7 @@ export function Shoot({ camera, facing, frame, plan, base, look, countdown, soun
   countdown: number;
   sound: boolean;
   onSound: (on: boolean) => void;
-  onDone: (shots: Blob[]) => void;
+  onDone: (shots: Blob[], clips: (BoothClip | null)[]) => void;
   onExit: () => void;
 }) {
   const t = useT();
@@ -59,6 +62,14 @@ export function Shoot({ camera, facing, frame, plan, base, look, countdown, soun
   const [view, setView] = useState<ViewKind>("me");
   const [landed, setLanded] = useState<{ shot: number; n: number } | null>(null);
   const busy = useRef(false);
+  // The clips, one per shot (in the same order), done a moment after their shot.
+  const recorder = useRef<ClipRecorder | null>(null);
+  const clips = useRef<Promise<BoothClip | null>[]>([]);
+  useEffect(() => {
+    const r = new ClipRecorder(() => video.current);
+    recorder.current = r;
+    return () => r.stop();
+  }, []);
   const audio = useRef<AudioContext | null>(null);
   // Where the pose ideas start: a different run each roll.
   const [poseSeed] = useState(() => Math.floor(Math.random() * POSES));
@@ -99,9 +110,11 @@ export function Shoot({ camera, facing, frame, plan, base, look, countdown, soun
         busy.current = true;
         if (live.current.sound) shutter(audio);
         setFlash((f) => f + 1);
+        const clip = recorder.current?.mark() ?? Promise.resolve(null);
         void snap(v).then((blob) => {
           busy.current = false;
           if (!blob) return;
+          clips.current = [...clips.current.slice(0, shots.length), clip];
           const next = [...shots, blob];
           setShots(next);
           const { targets } = live.current;
@@ -109,7 +122,9 @@ export function Shoot({ camera, facing, frame, plan, base, look, countdown, soun
           if (next.length >= live.current.count) {
             // The last one is shown a moment too before moving on.
             setSt({ phase: "rest", until: Infinity, paused: null });
-            setTimeout(() => live.current.onDone(next), 1200);
+            // …and its clip has its last second and a half.
+            const all = clips.current;
+            void Promise.all([Promise.all(all), new Promise((r) => setTimeout(r, 1200))]).then(([c]) => live.current.onDone(next, c as (BoothClip | null)[]));
           } else {
             setSt({ phase: "rest", until: performance.now() + REST_S * 1000, paused: null });
           }

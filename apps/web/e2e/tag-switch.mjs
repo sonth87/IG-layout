@@ -17,7 +17,8 @@ const check = (ok, label) => {
   console.log(`  ${ok ? "✓" : "✗"} ${label}`);
   if (!ok) failed++;
 };
-const centre = { x: 60, y: 600 };
+// Below the ticket, on the dark stage floor (the ticket grew when its buttons stacked, D-164).
+const centre = { x: 195, y: 800 };
 /** Brightness at a point, from a 1 px screenshot (0…255). */
 async function light() {
   const png = await page.screenshot({ clip: { ...centre, width: 1, height: 1 } });

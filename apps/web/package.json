@@ -15,6 +15,7 @@
     "@ig-layout/core": "workspace:*",
     "@mediabunny/aac-encoder": "1.61.5",
     "fflate": "^0.8.3",
+    "gifenc": "1.0.3",
     "idb": "^8.0.4",
     "konva": "^10.8.0",
     "lucide-static": "1.57.0",

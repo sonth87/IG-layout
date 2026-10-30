@@ -1,19 +1,24 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { LiveMode } from "@ig-layout/core/booth/live";
 import { deleteRoll, type BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
 import { HandoffSheet } from "./HandoffSheet";
+import { hasClips, liveGif, liveVideo, useLivePlayer } from "./live";
 import { formatBlob, lookOptions, rollFrame, useRollImages, useStickersLoaded, type Format } from "./look";
 import { Btn, Confirm, display, mono, serif } from "./ui";
 
 // The print (design §2.6, ColorME's printer): a little booth printer — sign, blinking light,
 // slot — pushes the print out in motor steps with a whirr (tap to skip). Then one main button
-// to save, flip (D-153), tap a photo to retake it, take the missing ones, new roll.
+// to save, flip (D-153), tap a photo to retake it, take the missing ones, new roll. A roll
+// with clips (D-163) can also be a moving print: still / live / boomerang, saved as an MP4.
 
 const PRINT_MS = 2600;
 const FORMATS: Format[] = ["print", "post", "story"];
+type Kind = "still" | LiveMode;
+const KINDS: Kind[] = ["still", "loop", "boomerang"];
 
 export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, onHome, inRoom }: {
   roll: BoothRoll;
@@ -39,6 +44,13 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
   const [saving, setSaving] = useState(false);
   const [format, setFormat] = useState<Format>("print");
   const [handoff, setHandoff] = useState(false);
+  const moving = hasClips(roll);
+  const [kind, setKind] = useState<Kind>("still");
+  const live = moving && kind !== "still";
+  /** Making the video: how far (0…1). */
+  const [making, setMaking] = useState<number | null>(null);
+  const liveCanvas = useRef<HTMLCanvasElement>(null);
+  const previewScale = Math.min(1, 1200 / Math.max(frame.width, frame.height));
   const missing = !onRetake ? [] : Array.from({ length: frame.shots }, (_, i) => i).filter((i) => !roll.shots[i]);
   const date = new Date(roll.createdAt);
   const printing = !!images && !printed;
@@ -49,22 +61,27 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
     return whirr(PRINT_MS);
   }, [printing, sound]);
 
-  async function save() {
+  useLivePlayer(liveCanvas, { roll, frame, stills: images, look, scale: previewScale, mode: kind === "boomerang" ? "boomerang" : "loop", on: live && printed });
+
+  async function save(gif = false) {
     if (!images) return;
     setSaving(true);
     try {
-      const blob = await formatBlob(roll, format);
+      const blob = !live ? await formatBlob(roll, format) : gif ? await liveGif(roll, format, kind as LiveMode, setMaking) : await liveVideo(roll, format, kind as LiveMode, setMaking);
       const pad = (n: number) => String(n).padStart(2, "0");
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = `booth_${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${format === "print" ? "" : `_${format}`}.jpg`;
+      a.download = `booth_${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${format === "print" ? "" : `_${format}`}${live ? `_${kind}.${gif ? "gif" : "mp4"}` : ".jpg"}`;
       a.click();
-      setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
+      setTimeout(() => URL.revokeObjectURL(a.href), 30_000);
     } finally {
       setSaving(false);
+      setMaking(null);
     }
   }
 
+  // Room for the extra row of choices when the roll can move.
+  const printHeight = moving ? "max-h-[calc(100dvh-490px)] lg:max-h-[calc(100dvh-150px)]" : "max-h-[calc(100dvh-440px)] lg:max-h-[calc(100dvh-150px)]";
   const status = printing ? t("booth.printing") : missing.length ? t("booth.missing", { count: missing.length }) : selected !== null ? t("booth.retakeShot", { n: selected + 1 }) : t("booth.tapCell");
 
   return (
@@ -95,15 +112,20 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
               className={`h-fit max-h-full transition-transform duration-500 ${printed ? "rotate-[-1.5deg]" : "animate-[booth-feed_2.6s_linear_both]"}`}
               onAnimationEnd={() => setPrinted(true)}
             >
-              <FrameCanvas
-                frame={frame}
-                images={images}
-                scale={Math.min(1, 1200 / Math.max(frame.width, frame.height))}
-                look={look}
-                numbers
-                className="block max-h-[calc(100dvh-440px)] lg:max-h-[calc(100dvh-150px)] max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]"
-                onCell={printed && onRetake ? (shot) => setSelected((s) => (s === shot ? null : shot)) : undefined}
-              />
+              {live && printed ? (
+                // The moving print (D-163), drawn by useLivePlayer.
+                <canvas ref={liveCanvas} data-live={kind} aria-label={t(`booth.kind.${kind}`)} className={`block ${printHeight} max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]`} style={{ aspectRatio: `${frame.width} / ${frame.height}` }} />
+              ) : (
+                <FrameCanvas
+                  frame={frame}
+                  images={images}
+                  scale={previewScale}
+                  look={look}
+                  numbers
+                  className={`block ${printHeight} max-w-full shadow-[5px_6px_0_rgba(11,8,6,0.85)]`}
+                  onCell={printed && onRetake ? (shot) => setSelected((s) => (s === shot ? null : shot)) : undefined}
+                />
+              )}
             </div>
           )}
         </div>
@@ -127,6 +149,23 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
             </div>
           ) : (
             <>
+              {/* Still or moving (D-163): only when the roll has clips. */}
+              {moving && (
+                <div role="radiogroup" aria-label={t("booth.kind")} className="grid grid-cols-3 border-2 border-[#1d1612]">
+                  {KINDS.map((k) => (
+                    <button
+                      key={k}
+                      type="button"
+                      role="radio"
+                      aria-checked={kind === k}
+                      onClick={() => setKind(k)}
+                      className={`${mono} border-r-2 border-[#1d1612] py-2 text-xs font-bold uppercase tracking-[0.1em] last:border-r-0 ${kind === k ? "bg-[#c8432f] text-[#f3e9d6]" : ""}`}
+                    >
+                      {t(`booth.kind.${k}`)}
+                    </button>
+                  ))}
+                </div>
+              )}
               {/* Save as: the print itself, or the print on an Instagram-sized sheet. */}
               <div role="radiogroup" aria-label={t("booth.saveAs")} className="grid grid-cols-3 border-2 border-[#1d1612]">
                 {FORMATS.map((f) => (
@@ -143,12 +182,19 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
                 ))}
               </div>
               <div className="grid grid-cols-[1fr_auto] gap-3">
-                <Btn tone="main" className="py-4 text-[15px]" disabled={!images || saving} onClick={save}>
-                  ↓ {t("booth.save")}
+                <Btn tone="main" className="py-4 text-[15px]" disabled={!images || saving} onClick={() => void save()}>
+                  {making !== null ? t("booth.making", { pct: Math.round(making * 100) }) : live ? `↓ ${t("booth.saveVideo")}` : `↓ ${t("booth.save")}`}
                 </Btn>
-                <Btn className="py-4 text-[15px]" onClick={onDecorate}>
-                  ✎ {t("booth.decorate")}
-                </Btn>
+                {/* Moving: the other file is a GIF (chats); decorating is on the Photo side. */}
+                {live ? (
+                  <Btn className="py-4 text-[15px]" disabled={saving} onClick={() => void save(true)}>
+                    ↓ GIF
+                  </Btn>
+                ) : (
+                  <Btn className="py-4 text-[15px]" onClick={onDecorate}>
+                    ✎ {t("booth.decorate")}
+                  </Btn>
+                )}
               </div>
               <Btn tone="ink" className="py-3.5 text-[13px]" disabled={!images} onClick={() => setHandoff(true)}>
                 ▦ {t("booth.openInLayout")}

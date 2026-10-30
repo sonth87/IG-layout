@@ -4,11 +4,21 @@ import { type DBSchema, type IDBPDatabase, openDB } from "idb";
 // laid out in, so the home screen can show recent rolls and reopen one. A database of its
 // own (not "ig-layout"), so the booth never has to upgrade the projects' database.
 
+/** A few seconds of camera around one shot (D-163): small JPEG frames at `fps`, the shot
+ * taken at frame `shutter`. Not mirrored, the whole camera picture (cropped like the shot). */
+export interface BoothClip {
+  fps: number;
+  frames: Blob[];
+  shutter: number;
+}
+
 export interface BoothRoll {
   id: string;
   frameId: string;
   /** Full-resolution shots, in order (null = not taken yet). */
   shots: (Blob | null)[];
+  /** The clip around each shot, same order (D-163); missing for uploads and group rolls. */
+  clips?: (BoothClip | null)[];
   flip: boolean;
   /** Decoration (step 2): theme id (default Cinema), filter id (null = none, undefined =
    * the theme's), caption title (undefined = the theme's), date under it (default on). */

@@ -171,7 +171,12 @@ export async function formatCanvas(roll: BoothRoll, format: Format): Promise<HTM
   const { print, theme } = await printCanvas(roll);
   if (format === "print") return print;
   const out = backdropCanvas(theme, format);
-  const c = out.getContext("2d")!;
+  drawOnSheet(out.getContext("2d")!, print, format);
+  return out;
+}
+
+/** The print placed on an Instagram-sized sheet already painted on `c`. */
+export function drawOnSheet(c: CanvasRenderingContext2D, print: HTMLCanvasElement, format: "post" | "story") {
   for (const p of placements(print, format).list) {
     c.save();
     c.translate(p.cx, p.cy);
@@ -182,7 +187,6 @@ export async function formatCanvas(roll: BoothRoll, format: Format): Promise<HTM
     c.drawImage(print, -p.w / 2, -p.h / 2, p.w, p.h);
     c.restore();
   }
-  return out;
 }
 
 export async function formatBlob(roll: BoothRoll, format: Format) {

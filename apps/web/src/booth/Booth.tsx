@@ -5,7 +5,7 @@ import { openCamera, stopCamera, type Facing } from "@ig-layout/core/booth/camer
 import type { Camera } from "./CameraView";
 import { frameById } from "@ig-layout/core/booth/frames";
 import { frameBlob } from "@ig-layout/core/booth/render";
-import { saveRoll, type BoothRoll } from "@ig-layout/core/storage/booth";
+import { saveRoll, type BoothClip, type BoothRoll } from "@ig-layout/core/storage/booth";
 import { registerServiceWorker } from "@/lib/pwa";
 import { boothMono, boothSerif } from "./fonts";
 import { BoothHome } from "./Home";
@@ -92,7 +92,7 @@ function BoothApp() {
   const [roll, setRoll] = useState<BoothRoll | null>(null);
   const [plan, setPlan] = useState<Plan>({ count: 4, targets: null });
   /** All shots of a roll with spares, before picking. */
-  const [takes, setTakes] = useState<Blob[]>([]);
+  const [takes, setTakes] = useState<{ shots: Blob[]; clips: (BoothClip | null)[] }>({ shots: [], clips: [] });
   const frame = frameById(roll && screen !== "setup" ? roll.frameId : prefs.frameId);
   const shootLook = useMemo(() => ({ theme: themeById(plan.targets && roll ? roll.theme : prefs.theme) }), [plan.targets, roll, prefs.theme]);
   /** The group room we're in (kept across the room, print and decorate screens). */
@@ -189,22 +189,27 @@ function BoothApp() {
   });
   useEffect(() => () => roomRef.current?.leave(), []);
 
-  function newRoll(shots: (Blob | null)[], frameId = prefs.frameId): BoothRoll {
+  function newRoll(shots: (Blob | null)[], frameId = prefs.frameId, clips?: (BoothClip | null)[]): BoothRoll {
     const now = Date.now();
-    return withTheme({ id: crypto.randomUUID(), frameId, shots, flip: false, createdAt: now, updatedAt: now, thumbnail: new Blob() }, themeById(prefs.theme));
+    return withTheme({ id: crypto.randomUUID(), frameId, shots, clips, flip: false, createdAt: now, updatedAt: now, thumbnail: new Blob() }, themeById(prefs.theme));
   }
 
-  function shootDone(blobs: Blob[]) {
+  function shootDone(blobs: Blob[], clips: (BoothClip | null)[]) {
     if (plan.targets && roll) {
       const shots = [...roll.shots];
-      plan.targets.forEach((t, i) => (shots[t] = blobs[i] ?? shots[t]));
-      setRoll({ ...roll, shots, updatedAt: Date.now() });
+      const rollClips = roll.shots.map((_, i) => roll.clips?.[i] ?? null);
+      plan.targets.forEach((t, i) => {
+        if (!blobs[i]) return;
+        shots[t] = blobs[i];
+        rollClips[t] = clips[i] ?? null;
+      });
+      setRoll({ ...roll, shots, clips: rollClips, updatedAt: Date.now() });
       setScreen(plan.back ?? "result");
     } else if (blobs.length > frame.shots) {
-      setTakes(blobs);
+      setTakes({ shots: blobs, clips });
       setScreen("pick");
     } else {
-      setRoll(newRoll(blobs));
+      setRoll(newRoll(blobs, undefined, clips));
       setScreen("result");
     }
   }
@@ -277,11 +282,17 @@ function BoothApp() {
     case "pick":
       return (
         <Pick
-          takes={takes}
+          takes={takes.shots}
           need={frame.shots}
           onDone={(order) => {
-            setRoll(newRoll(order.map((i) => takes[i])));
-            setTakes([]);
+            setRoll(
+              newRoll(
+                order.map((i) => takes.shots[i]),
+                undefined,
+                order.map((i) => takes.clips[i] ?? null),
+              ),
+            );
+            setTakes({ shots: [], clips: [] });
             setScreen("result");
           }}
         />
