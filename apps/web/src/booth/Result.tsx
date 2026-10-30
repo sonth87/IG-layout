@@ -110,18 +110,18 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
       </div>
 
       <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:flex lg:w-[420px] lg:flex-col lg:justify-center lg:border-t-0 lg:border-l-2 lg:px-8">
-        <p className={`${mono} text-center text-[11px] font-bold uppercase tracking-[0.2em] ${printing ? "" : missing.length ? "text-[#c8432f]" : "opacity-60"}`} aria-live="polite">
+        <p className={`${mono} text-center text-[13px] font-bold uppercase tracking-[0.18em] ${printing ? "" : missing.length ? "text-[#c8432f]" : "opacity-60"}`} aria-live="polite">
           {printed && !missing.length && selected === null ? t("booth.printDone") : status}
         </p>
-        {printed && onRetake && !missing.length && selected === null && <p className={`${mono} mt-0.5 text-center text-[10px] opacity-55`}>{t("booth.tapCell")}</p>}
+        {printed && onRetake && !missing.length && selected === null && <p className={`${mono} mt-0.5 text-center text-xs opacity-60`}>{t("booth.tapCell")}</p>}
         <div className="mx-auto mt-3 flex max-w-sm flex-col gap-3">
           {selected !== null && onRetake && <Btn onClick={() => onRetake([selected])}>↺ {t("booth.retakeShot", { n: selected + 1 })}</Btn>}
           {missing.length > 0 ? (
             <div className="grid grid-cols-[1fr_auto] gap-3">
-              <Btn tone="main" className="py-4 text-sm" onClick={() => onRetake?.(missing)}>
+              <Btn tone="main" className="py-4 text-[15px]" onClick={() => onRetake?.(missing)}>
                 {t("booth.fill")}
               </Btn>
-              <Btn className="py-4 text-sm" onClick={onDecorate}>
+              <Btn className="py-4 text-[15px]" onClick={onDecorate}>
                 ✎ {t("booth.decorate")}
               </Btn>
             </div>
@@ -136,42 +136,42 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
                     role="radio"
                     aria-checked={format === f}
                     onClick={() => setFormat(f)}
-                    className={`${mono} border-r-2 border-[#1d1612] py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] last:border-r-0 ${format === f ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
+                    className={`${mono} border-r-2 border-[#1d1612] py-2 text-xs font-bold uppercase tracking-[0.1em] last:border-r-0 ${format === f ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
                   >
                     {t(`booth.format.${f}`)}
                   </button>
                 ))}
               </div>
               <div className="grid grid-cols-[1fr_auto] gap-3">
-                <Btn tone="main" className="py-4 text-sm" disabled={!images || saving} onClick={save}>
+                <Btn tone="main" className="py-4 text-[15px]" disabled={!images || saving} onClick={save}>
                   ↓ {t("booth.save")}
                 </Btn>
-                <Btn className="py-4 text-sm" onClick={onDecorate}>
+                <Btn className="py-4 text-[15px]" onClick={onDecorate}>
                   ✎ {t("booth.decorate")}
                 </Btn>
               </div>
-              <Btn tone="ink" className="py-3" disabled={!images} onClick={() => setHandoff(true)}>
+              <Btn tone="ink" className="py-3.5 text-[13px]" disabled={!images} onClick={() => setHandoff(true)}>
                 ▦ {t("booth.openInLayout")}
               </Btn>
             </>
           )}
           <div className={`grid gap-2 ${inRoom ? "grid-cols-3" : "grid-cols-4"}`}>
-            <Btn aria-pressed={roll.flip} className={`px-1 py-2.5 text-[9px] tracking-[0.08em] ${roll.flip ? "!bg-[#1d1612] !text-[#f3e9d6]" : ""}`} onClick={() => onChange({ ...roll, flip: !roll.flip })}>
-              ⇋<br />
+            <Btn aria-pressed={roll.flip} className={`px-1 py-3 text-[11px] leading-tight tracking-[0.06em] ${roll.flip ? "!bg-[#1d1612] !text-[#f3e9d6]" : ""}`} onClick={() => onChange({ ...roll, flip: !roll.flip })}>
+              <span aria-hidden className="mb-1 block text-2xl leading-none">⇋</span>
               {t("booth.flip")}
             </Btn>
-            <Btn className="px-1 py-2.5 text-[9px] tracking-[0.08em]" onClick={onAgain}>
-              ✶<br />
+            <Btn className="px-1 py-3 text-[11px] leading-tight tracking-[0.06em]" onClick={onAgain}>
+              <span aria-hidden className="mb-1 block text-2xl leading-none">✶</span>
               {inRoom ? t("booth.room.back") : t("booth.again")}
             </Btn>
             {!inRoom && (
-              <Btn className="px-1 py-2.5 text-[9px] tracking-[0.08em]" onClick={onHome}>
-                ⌂<br />
+              <Btn className="px-1 py-3 text-[11px] leading-tight tracking-[0.06em]" onClick={onHome}>
+                <span aria-hidden className="mb-1 block text-2xl leading-none">⌂</span>
                 {t("booth.home")}
               </Btn>
             )}
-            <Btn tone="danger" className="px-1 py-2.5 text-[9px] tracking-[0.08em]" onClick={() => setDeleting(true)}>
-              ✕<br />
+            <Btn tone="danger" className="px-1 py-3 text-[11px] leading-tight tracking-[0.06em]" onClick={() => setDeleting(true)}>
+              <span aria-hidden className="mb-1 block text-2xl leading-none">✕</span>
               {t("booth.deleteRoll")}
             </Btn>
           </div>

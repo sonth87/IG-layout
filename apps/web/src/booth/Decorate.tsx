@@ -119,7 +119,7 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
                 role="tab"
                 aria-selected={tab === k}
                 onClick={() => setTab(k)}
-                className={`${mono} border-r-2 border-[#1d1612] py-3 text-[9px] font-bold uppercase tracking-[0.04em] last:border-r-0 ${tab === k ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
+                className={`${mono} border-r-2 border-[#1d1612] py-3 text-[11px] font-bold uppercase tracking-[0.03em] last:border-r-0 ${tab === k ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
               >
                 {t(`booth.tab.${k}`)}
               </button>
