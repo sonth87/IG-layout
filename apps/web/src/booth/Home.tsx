@@ -8,6 +8,7 @@ import { SwitchTag } from "@/components/SwitchTag";
 import { LAYOUT_TAG, LayoutTagFace } from "@/components/TagFaces";
 import { useSettings, useT } from "@/store/settings";
 import { Bulbs, Label, Paper, Perforation, Ticker, display, mono, serif } from "./ui";
+import { Stage } from "./Stage";
 
 // The booth lobby (design §2.1): the running band and the bulb sign of a cinema front, a
 // paper ticket with the three ways in (solo, start a group room, join one by code), upload, and recent prints
@@ -26,21 +27,23 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen }: { onSolo: () => 
 
   return (
     <div className="h-full overflow-y-auto pb-16">
+      <Stage />
+      <div className="relative">
       <Ticker items={t("booth.ticker").split("|")} />
-      {/* Phone: one column. Computer: the ticket on the left, recent prints on the right. */}
-      <div className="mx-auto max-w-md px-5 lg:grid lg:max-w-5xl lg:grid-cols-[28rem_1fr] lg:gap-x-14 lg:px-10">
-        {/* The sign; its right side is kept clear for the hanging tag. */}
-        <div className="mt-7 mr-20 animate-[booth-pop_0.5s_ease-out] lg:col-start-1">
+      {/* One column on the stage, centred; it grows with the screen (phone → tablet → computer). */}
+      <div className="mx-auto flex max-w-md flex-col px-5 pt-12 md:max-w-xl md:pt-20 lg:max-w-2xl">
+        {/* The sign; on a phone its right side is kept clear for the hanging tag. */}
+        <div className="mr-24 animate-[booth-pop_0.5s_ease-out] md:mx-auto md:w-[min(100%,34rem)]">
           <Bulbs>
-            <p className={`${mono} text-center text-[10px] font-bold uppercase tracking-[0.35em] text-[#eaa63c]`}>{t("booth.kicker")}</p>
-            <h1 className={`${serif} text-center text-[32px] leading-none text-[#f3e9d6] [text-shadow:0_0_18px_rgba(234,166,60,0.45)]`} style={display}>
+            <p className={`${mono} text-center text-[10px] font-bold uppercase tracking-[0.35em] text-[#eaa63c] md:text-xs`}>{t("booth.kicker")}</p>
+            <h1 className={`${serif} text-center text-[32px] leading-none text-[#f3e9d6] [text-shadow:0_0_18px_rgba(234,166,60,0.45)] md:text-6xl lg:text-7xl`} style={display}>
               {t("booth.title")}
             </h1>
           </Bulbs>
         </div>
-        <p className={`${mono} mt-5 pr-20 text-sm leading-relaxed opacity-80 lg:col-start-1`}>{t("booth.tagline")}</p>
+        <p className={`${mono} mt-5 pr-20 text-sm leading-relaxed opacity-85 md:pr-0 md:text-center md:text-base`}>{t("booth.tagline")}</p>
 
-        <Paper notch tilt={-0.8} className="mt-7 lg:col-start-1">
+        <Paper notch tilt={-0.8} className="mx-auto mt-7 w-full md:mt-10 md:max-w-lg">
           <div className="px-5 pt-5 pb-6">
             <Label className="text-center">{t("booth.admit")}</Label>
             <button
@@ -106,16 +109,18 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen }: { onSolo: () => 
         </Paper>
 
         {rolls.length > 0 && (
-          <section className="mt-10 lg:col-start-2 lg:row-span-4 lg:row-start-1 lg:mt-28">
-            <p className={`${mono} text-[11px] font-bold uppercase tracking-[0.3em] text-[#eaa63c]`}>{t("booth.recent")}</p>
-            <div className="mt-4 flex gap-4 overflow-x-auto px-1 pt-2 pb-4 lg:flex-wrap lg:gap-6 lg:overflow-visible">
+          <section className="mt-12">
+            <p className={`${mono} text-[11px] font-bold uppercase tracking-[0.3em] text-[#eaa63c] md:text-center`}>{t("booth.recent")}</p>
+            {/* Pinned on a line, like prints on a string: scroll on a phone, wrap and centre wider. */}
+            <div className="mt-4 flex gap-4 overflow-x-auto px-1 pt-2 pb-4 md:flex-wrap md:justify-center md:gap-6 md:overflow-visible">
               {rolls.map((r, i) => (
                 <RollThumb key={r.id} roll={r} tilt={i % 2 ? 2.5 : -2} label={t("booth.openRoll", { date: new Date(r.createdAt).toLocaleString(locale === "vi" ? "vi-VN" : "en-GB") })} onOpen={() => onOpen(r)} />
               ))}
             </div>
           </section>
         )}
-        <p className={`${mono} mt-8 text-center text-[10px] uppercase tracking-[0.25em] opacity-45 lg:col-start-1`}>{t("booth.privacy")}</p>
+        <p className={`${mono} mt-8 text-center text-[10px] uppercase tracking-[0.25em] opacity-55`}>{t("booth.privacy")}</p>
+      </div>
       </div>
       <SwitchTag label={`${t("booth.switchTo")} IG Layout`} face={<LayoutTagFace />} {...LAYOUT_TAG} string="#f3e9d6" onSwitch={toLayout.onSwitch} onProgress={toLayout.onProgress} />
       {toLayout.overlay}

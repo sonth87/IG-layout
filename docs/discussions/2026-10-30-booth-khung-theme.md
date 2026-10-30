@@ -172,3 +172,10 @@ Chủ dự án gửi ảnh mẫu (`sample/4`, photoboothtemplates.com, Etsy "har
 - **Ô trống**: "chụp 3 ảnh chọn layout 4 thì đừng hiện hình người, biết đâu họ muốn 1 ô trống để trang trí" → ô không có ảnh giờ là **ô trơn màu theme** (màn trang trí có dấu "+" mờ để chạm chụp); hình người xám chỉ còn ở **xem trước khung / lúc chụp**.
 - **"Layout 3 ảnh nhưng chia lưới 4 ô"** → thêm 2 khung có **ô chữ riêng** (ô thứ 4 là tấm thẻ tiêu đề theo theme, chữ to hơn): **3 ảnh + chữ** (lưới 2 × 2, 4 × 5 in) và **Dải + chữ** (thẻ tiêu đề trên cùng + 3 ảnh, kiểu dải "Thank you"). Tổng **10 khung** (D-152 trước đây là tối đa 8 — chủ dự án yêu cầu thêm).
 - **Nút "Chụp ngay"** lúc đếm ngược (cạnh khay ảnh; trên máy tính: Enter) — bỏ phần đếm còn lại, chụp luôn. Chỉ khi chụp một mình (trong phòng giữ nhịp chung).
+
+## 13. Nền sân khấu cho sảnh + bố cục co giãn (2026-10-30)
+Chủ dự án (gửi ảnh sảnh trên máy tính, nội dung dồn sang trái): "cái nền cho cả trang này này, với cả nên là responsive chứ không phải chỉ dành cho mobile" → ý "thiếu nền" là **nền của trang booth** (không phải nền bản in / phông sau lưng người).
+- **Nền sân khấu rạp** (`apps/web/src/booth/Stage.tsx`, vẽ bằng CSS / SVG, kiểu riêng — không chép sọc đỏ của ONBOOTH): rèm nhung đỏ có nếp gấp **vén sang hai bên, buộc dây vàng có tua**, **diềm rèm hình vỏ sò viền vàng** chạy ngang mép trên, **đèn rọi** từ trên xuống giữa, **sàn sân khấu** gỗ và vũng sáng. Rèm hẹp trên điện thoại (vé nằm trước), rộng trên máy tính.
+- **Sảnh co giãn**: một cột **căn giữa sân khấu**, to dần theo màn hình — điện thoại (như cũ, chừa chỗ tag), tablet / máy tính: biển đèn rộng hơn, chữ "Photobooth" 60–72 px, dòng giới thiệu căn giữa, vé rộng tối đa ~512 px; cuộn phim gần đây xếp hàng căn giữa dưới vé (cuộn ngang trên điện thoại).
+- Các màn khác từ cỡ tablet (≥ 768 px): danh sách khung, theme, cách xếp **xuống dòng thành lưới** thay vì cuộn ngang trên một dải rộng; máy tính (≥ 1024 px) vẫn hai cột như §17 của 2026-10-29-booth-thiet-ke.md.
+- Kiểm bằng ảnh chụp 390, 820, 1280, 1600 px.

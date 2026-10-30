@@ -247,7 +247,7 @@ function FilterRow({ images, value, onChange }: { images: (ShotImage | null)[] |
   const ids: (string | null)[] = [null, ...BOOTH_FILTERS];
 
   return (
-    <div role="radiogroup" aria-label={t("booth.tab.filter")} className="flex gap-3 overflow-x-auto px-5 pt-4 pb-4 lg:flex-wrap lg:overflow-visible">
+    <div role="radiogroup" aria-label={t("booth.tab.filter")} className="flex gap-3 overflow-x-auto px-5 pt-4 pb-4 md:flex-wrap md:overflow-visible">
       {ids.map((id) => {
         const on = (id ?? undefined) === value;
         return (

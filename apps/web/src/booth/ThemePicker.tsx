@@ -44,7 +44,7 @@ export function ThemePicker({ value, onPick, preview, compact }: { value: string
         return (
           <section key={g}>
             <p className={`${mono} text-[10px] font-bold uppercase tracking-[0.25em] text-[#c8432f]`}>{t(`booth.group.${g}` as Parameters<typeof t>[0])}</p>
-            <div className="mt-1.5 flex gap-3 overflow-x-auto pt-1 pb-2 lg:flex-wrap lg:overflow-visible">{cards}</div>
+            <div className="mt-1.5 flex gap-3 overflow-x-auto pt-1 pb-2 md:flex-wrap md:overflow-visible">{cards}</div>
           </section>
         );
       })}
