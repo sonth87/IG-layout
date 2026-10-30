@@ -106,25 +106,30 @@ export function Setup(props: {
           )}
         </div>
 
-        <div className="max-h-[50dvh] shrink-0 overflow-y-auto border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(1rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:max-h-none lg:w-[440px] lg:border-t-0 lg:border-l-2 lg:pt-2">
-          <Label className="px-5 pt-4">{t("booth.frame")}</Label>
-          <FramePicker value={frame.id} onChange={props.onFrame} look={PICKER_LOOK} />
-        <Label className="px-5">{t("booth.tab.theme")}</Label>
-        <ThemePicker compact value={props.theme} onPick={(th) => props.onTheme(th.id)} />
-          <div className="flex flex-col gap-3 px-5">
-            <label className={`${mono} relative flex cursor-pointer items-center gap-3 text-xs`}>
+        {/* The choices scroll; the start button stays in view below them (owner, 2026-10-30:
+            on a phone it was under the fold, people didn't know how to shoot). */}
+        <div className="flex max-h-[54dvh] shrink-0 flex-col border-t-2 border-[#0b0806] bg-[#f3e9d6] text-[#1d1612] lg:max-h-none lg:w-[440px] lg:border-t-0 lg:border-l-2">
+          <div className="min-h-0 flex-1 overflow-y-auto lg:pt-2">
+            <Label className="px-5 pt-4">{t("booth.frame")}</Label>
+            <FramePicker value={frame.id} onChange={props.onFrame} look={PICKER_LOOK} />
+            <Label className="px-5">{t("booth.tab.theme")}</Label>
+            <ThemePicker compact value={props.theme} onPick={(th) => props.onTheme(th.id)} />
+            <label className={`${mono} relative mx-5 mb-3 flex cursor-pointer items-center gap-3 text-xs`}>
               <input type="checkbox" className="peer absolute top-0 left-0 h-6 w-6 cursor-pointer opacity-0" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />
               <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[#1d1612] bg-[#f3e9d6] text-sm font-bold text-[#c8432f] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">
                 {props.spare ? "✕" : ""}
               </span>
               {t("booth.spare")}
             </label>
-            <Btn tone="main" className="py-4 text-sm" disabled={!props.camera} onClick={props.onStart}>
+          </div>
+          <div className="shrink-0 border-t-2 border-dashed border-[#1d1612]/25 px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_16px_rgba(243,233,214,0.9)]">
+            <Btn tone="main" className="w-full py-4 text-[15px]" disabled={!props.camera} onClick={props.onStart}>
               ✶ {t("booth.start")}
             </Btn>
-            <p className={`${mono} -mt-1 text-center text-[10px] uppercase tracking-[0.2em] opacity-55`}>{t("booth.countdown", { seconds: COUNTDOWN_S })}
-            <span className="hidden [@media(pointer:fine)]:inline"> · {t("booth.keys.start")}</span>
-          </p>
+            <p className={`${mono} mt-2 text-center text-[10px] uppercase tracking-[0.2em] opacity-55`}>
+              {t("booth.countdown", { seconds: COUNTDOWN_S })}
+              <span className="hidden [@media(pointer:fine)]:inline"> · {t("booth.keys.start")}</span>
+            </p>
           </div>
         </div>
       </div>

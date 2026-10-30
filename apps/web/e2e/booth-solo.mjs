@@ -32,6 +32,8 @@ check((await page.getByRole("radiogroup", { name: "Frame" }).getByRole("radio").
 await page.getByRole("radio", { name: /Strip of 4/ }).click();
 await page.waitForFunction(() => document.querySelector("video")?.videoWidth > 0, null, { timeout: 10000 });
 check(await page.getByText("Try the camera again").isHidden(), "camera opened (fake device)");
+const start = await page.getByRole("button", { name: "Start shooting" }).boundingBox();
+check(start && start.y + start.height <= 844, `"Start shooting" is on screen without scrolling (bottom ${start && Math.round(start.y + start.height)})`);
 check((await page.locator("video.absolute").evaluate((v) => v.style.transform)) === "scaleX(-1)", "front camera shown mirrored");
 await page.screenshot({ path: path.join(OUT, "booth-setup.png") });
 

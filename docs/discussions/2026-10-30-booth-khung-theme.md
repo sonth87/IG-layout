@@ -200,3 +200,6 @@ Chủ dự án: "màn booth không scroll page; các cái đã chụp nằm dư�
 - Sảnh **không cuộn dọc** (khoảng cách trên co theo chiều cao màn); e2e kiểm không phần tử nào cuộn dọc.
 - **Ảnh gần đây ló lên từ mép dưới sân khấu**, mỗi tấm thấy phần trên (~40 %), dòng "Cuộn phim gần đây" ngay trên. **Rê chuột vào tấm nào → riêng tấm đó nhô hẳn lên**, rời chuột → tụt xuống; điện thoại: **giữ ~¼ giây hoặc chạm** → tấm đó nhô lên, chạm lần nữa → mở; chạm chỗ khác → tụt. **Lăn chuột → hàng ảnh cuộn ngang**; ít ảnh thì căn giữa.
 - (Bản đầu làm thành một ngăn kéo chung nhô lên cả — chủ dự án không muốn, đã bỏ.)
+
+## 17. Nút "Bắt đầu chụp" bị khuất trên điện thoại (2026-10-30)
+Chủ dự án (ảnh chụp iPhone): "lúc vào chụp ảnh, cái nút chụp nằm bên dưới hoàn toàn nên không nhìn thấy, user sẽ lúng túng". Bảng lựa chọn dưới camera cao tối đa ~½ màn và tự cuộn; nút nằm cuối phần cuộn. Sửa: **khung / theme / chụp dư cuộn, nút "Bắt đầu chụp" + dòng "đếm 8 giây…" là thanh cố định ở đáy bảng** (to hơn, rộng hết bề ngang), luôn thấy. e2e `booth-solo.mjs` kiểm nút nằm trong màn 390 × 844 mà không cần cuộn.
