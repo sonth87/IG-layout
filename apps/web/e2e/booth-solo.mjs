@@ -100,7 +100,12 @@ await page.getByText(/^Pick 4 shots/).waitFor({ timeout: 60000 });
 const total = (Date.now() - t0) / 1000;
 check(total > 30 && total < 50, `7 shots (+1 retake) ≈ 8 × 3 + 7 × 2 s (${total.toFixed(1)} s)`);
 check((await page.locator("button[aria-pressed] img").count()) === 7, "7 shots to pick from");
-for (const i of [6, 4, 2, 0]) await page.locator("button[aria-pressed]").nth(i).click();
+for (const i of [6, 4, 2]) await page.locator("button[aria-pressed]").nth(i).click();
+await page.waitForTimeout(300);
+await page.screenshot({ path: path.join(OUT, "booth-pick.png") });
+await page.locator("button[aria-pressed]").nth(0).click();
+await page.waitForTimeout(300);
+await page.screenshot({ path: path.join(OUT, "booth-pick-full.png") });
 await page.getByRole("button", { name: /Next · 4\/4/ }).click();
 await page.getByText("Printing…").waitFor({ timeout: 5000 });
 

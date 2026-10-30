@@ -249,3 +249,8 @@ Chủ dự án: "cứ làm thử cái live photo/motion photo xem sao, tôi sẽ
 - **iPhone · Live Photo**: **hai tệp** `IMG_….JPG` + `IMG_….MOV` có **cùng một mã** (UUID): trong JPEG nằm ở MakerNote của Apple (thẻ 17), trong MOV ở metadata `com.apple.quicktime.content.identifier`. Chưa có track `still-image-time` như máy Apple tự quay (phức tạp hơn; thêm sau nếu iPhone đã nhận cặp tệp nhưng chưa coi là Live Photo).
   - Rủi ro đã nói từ trước: web không có cách ghi thẳng Live Photo vào app Ảnh; "Lưu 2 mục" qua bảng chia sẻ có thể ra 2 mục riêng. Đây là chỗ cần thử thật.
 - Cấu trúc tệp đã kiểm tra tự động (e2e `booth-livephoto.mjs`, ffprobe): XMP đúng, MP4 nằm đúng ở đuôi và phát được, MakerNote có mã, ffprobe đọc được mã trong MOV và khớp với JPEG. **Chưa thử trên điện thoại thật** — chờ chủ dự án.
+
+## 14. Màn chọn ảnh: bỏ vòng khoanh đỏ (2026-10-30)
+Chủ dự án (ảnh iPhone): "lúc select ảnh sao mấy cái vòng tròn ngoài trông xấu quá vậy" — vòng elip đỏ kiểu bút chì khoanh bị kéo dài theo ảnh dọc, đè lên mặt và lấn sang ảnh bên cạnh.
+- Mỗi kiểu là một **tấm ảnh in nhỏ** (viền kem, số khung ở mép dưới). Chọn: tấm ảnh **nhấc lên**, **viền vàng ôm sát**, **thẻ số thứ tự vuông** nghiêng ở góc trên trái + ✓ ở mép dưới (học cách ONBOOTH đánh dấu ảnh chọn — IMG_4209 — nhưng giữ số thứ tự vào ô của mình). Đủ số ảnh thì các tấm còn lại **mờ + xám**.
+- Điện thoại **3 cột** (ảnh cắt 3:4 cho đều): cả cuộn 6–7 tấm nằm gọn một màn, không phải cuộn.

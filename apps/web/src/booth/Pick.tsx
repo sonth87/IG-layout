@@ -5,8 +5,10 @@ import { useT } from "@/store/settings";
 import { Btn, Label, display, mono, serif } from "./ui";
 
 // Pick the shots that go into the frame when spares were taken (design §2.4, D-157): a
-// contact sheet — tap in the order they go into the cells (a red grease-pencil circle with
-// the number), tap again to drop one.
+// contact sheet of little prints — tap in the order they go into the cells (the print lifts,
+// an amber edge hugs it, a numbered tab on its corner), tap again to drop one. Once enough
+// are picked, the rest go grey. (The red grease-pencil ellipse it had was stretched by tall
+// shots and ran over faces and the next print — owner, 2026-10-30.)
 
 export function Pick({ takes, need, onDone }: { takes: Blob[]; need: number; onDone: (order: number[]) => void }) {
   const t = useT();
@@ -28,19 +30,33 @@ export function Pick({ takes, need, onDone }: { takes: Blob[]; need: number; onD
       </div>
       {/* The contact sheet: dark film with frame numbers. */}
       <div className="min-h-0 flex-1 overflow-y-auto bg-[#1d1612] p-4">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-x-3 gap-y-5 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-5xl grid-cols-3 gap-x-2.5 gap-y-3 md:grid-cols-4 md:gap-x-4 md:gap-y-5 lg:grid-cols-5">
           {urls.map((u, i) => {
             const n = order.indexOf(i);
+            const on = n >= 0;
+            const muted = !on && order.length >= need;
             return (
-              <button key={u} type="button" aria-pressed={n >= 0} onClick={() => toggle(i)} className="relative text-left">
+              <button
+                key={u}
+                type="button"
+                aria-pressed={on}
+                aria-label={`${String(i + 1).padStart(2, "0")}${on ? ` · ${n + 1}` : ""}`}
+                onClick={() => toggle(i)}
+                className={`relative bg-[#f6efe2] p-1 pb-0 text-left transition-[transform,box-shadow,opacity,filter] duration-200 ease-out ${on ? "-translate-y-1 shadow-[0_0_0_3px_#eaa63c,4px_6px_0_#0b0806]" : "shadow-[3px_3px_0_#0b0806]"} ${muted ? "opacity-40 grayscale" : ""}`}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element -- a local blob URL */}
-                <img src={u} alt="" className={`block w-full transition-opacity ${n >= 0 || order.length < need ? "" : "opacity-45"}`} />
-                <span className={`${mono} mt-1 block text-[10px] font-bold tracking-[0.2em] text-[#eaa63c]`}>▸ {String(i + 1).padStart(2, "0")}A</span>
-                {n >= 0 && (
-                  <span aria-hidden className="pointer-events-none absolute -inset-1.5 animate-[booth-pop_0.2s_ease-out] rounded-[50%] border-[3px] border-[#c8432f]" style={{ rotate: `${i % 2 ? 2 : -3}deg` }}>
-                    <span className={`${serif} absolute -top-3 -right-1 flex h-9 w-9 items-center justify-center rounded-full bg-[#c8432f] text-xl text-[#f3e9d6]`} style={display}>
-                      {n + 1}
-                    </span>
+                <img src={u} alt="" className="block aspect-[3/4] w-full object-cover" />
+                <span className={`${mono} flex items-center justify-between px-0.5 py-1 text-[9px] font-bold tracking-[0.15em] text-[#1d1612]/60`}>
+                  <span>{String(i + 1).padStart(2, "0")}A</span>
+                  {on && <span className="text-[#c8432f]">✓</span>}
+                </span>
+                {on && (
+                  <span
+                    aria-hidden
+                    className={`${serif} absolute -top-2 -left-2 flex h-8 w-8 animate-[booth-pop_0.2s_ease-out] items-center justify-center border-2 border-[#1d1612] bg-[#eaa63c] text-lg leading-none text-[#1d1612] shadow-[2px_2px_0_#0b0806]`}
+                    style={{ ...display, rotate: "-6deg" }}
+                  >
+                    {n + 1}
                   </span>
                 )}
               </button>
