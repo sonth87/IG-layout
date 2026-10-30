@@ -3,7 +3,7 @@
 // gives the print back as it was; kept after a reload and in the saved file.
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES, OUT, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES, OUT, URL_ARG, openRoll } from "./lib.mjs";
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
@@ -57,7 +57,7 @@ console.log("3. Kept");
 await page.getByRole("button", { name: "Done" }).click();
 await page.waitForTimeout(900);
 await page.reload();
-await page.getByRole("button", { name: /Open roll from/ }).first().click();
+await openRoll(page);
 await page.getByRole("button", { name: /Decorate/ }).click();
 await page.getByRole("tab", { name: "Decor" }).click();
 check((await look()) === final, "same decorations after a reload");

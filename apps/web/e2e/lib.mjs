@@ -85,3 +85,14 @@ export async function openTemplate(page, name) {
   await page.getByRole("searchbox", { name: "Search" }).fill(name);
   await page.getByRole("dialog", { name: "Search" }).getByRole("button", { name, exact: true }).first().click();
 }
+
+/** Booth lobby: raise the newest print peeking from the bottom (mouse over it) and open it. */
+export async function openRoll(page) {
+  const first = page.locator("[data-roll]").first();
+  await first.waitFor();
+  const b = await first.boundingBox();
+  await page.mouse.move(b.x + b.width / 2, Math.min(b.y + 20, page.viewportSize().height - 10));
+  await page.locator("[data-roll='up']").first().waitFor();
+  await page.waitForTimeout(350);
+  await page.getByRole("button", { name: /Open roll from/ }).first().click();
+}

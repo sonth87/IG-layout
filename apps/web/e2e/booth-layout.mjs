@@ -3,7 +3,7 @@
 // print follows, realign, the choice survives a reload, the saved file is drawn the same.
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES, OUT, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES, OUT, URL_ARG, openRoll } from "./lib.mjs";
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
@@ -82,7 +82,7 @@ const freeLook = await pixels();
 await page.getByRole("button", { name: "Done" }).click();
 await page.waitForTimeout(900);
 await page.reload();
-await page.getByRole("button", { name: /Open roll from/ }).first().click();
+await openRoll(page);
 await page.getByRole("button", { name: /Decorate/ }).click();
 await page.getByRole("tab", { name: "Layout" }).click();
 await page.waitForTimeout(500);

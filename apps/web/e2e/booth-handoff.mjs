@@ -4,7 +4,7 @@
 import { chromium } from "playwright-core";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { chromePath, FIXTURES, OUT, skipOnboarding, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES, OUT, skipOnboarding, URL_ARG, openRoll } from "./lib.mjs";
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, acceptDownloads: true });
@@ -35,7 +35,7 @@ const projects = () =>
   );
 async function toPrint() {
   await page.goto(new URL("booth", URL_ARG).href);
-  await page.getByRole("button", { name: /Open roll from/ }).first().click();
+  await openRoll(page);
   await page.getByText("Fresh off the press!").waitFor({ timeout: 8000 });
 }
 

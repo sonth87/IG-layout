@@ -4,7 +4,7 @@
 // 3 + title frame, and "Shoot now".
 import { chromium } from "playwright-core";
 import path from "node:path";
-import { chromePath, FIXTURES, OUT, skipOnboarding, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES, OUT, skipOnboarding, URL_ARG, openRoll } from "./lib.mjs";
 
 const browser = await chromium.launch({ executablePath: chromePath(), args: ["--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream"] });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
@@ -63,7 +63,7 @@ console.log("3. Kept");
 await page.getByRole("button", { name: "Done" }).click();
 await page.waitForTimeout(900);
 await page.reload();
-await page.getByRole("button", { name: /Open roll from/ }).first().click();
+await openRoll(page);
 await page.getByRole("button", { name: /Decorate/ }).click();
 await page.getByRole("tab", { name: "Sticker" }).click();
 await page.waitForTimeout(600);

@@ -194,3 +194,9 @@ Chủ dự án: "export sang IG layout nên có tùy chọn bật/tắt nền, h
 - **Tag nảy khi rê chuột:** hiệu ứng "chuột quẹt dây" đẩy cả điểm treo tag → giờ chỉ đẩy phần dây, nhẹ hơn, và không đẩy khi chuột đang trên tag.
 - **Nghiêng máy:** trước đọc góc nghiêng (gamma / beta) — khi dựng máy đứng các góc này đảo lung tung (Android nhảy); iPhone cần xin quyền từ một lần chạm "thật" mà trước xin ở lúc vừa đặt ngón. Nay đọc **hướng trọng lực từ gia tốc kế** (`devicemotion`, iOS / Android ngược dấu nhau), làm mượt, máy nằm phẳng thì thẳng xuống, xoay ngang màn hình vẫn đúng; iPhone xin quyền khi **nhấc ngón khỏi tag** lần đầu. (Cần chủ dự án thử lại trên iPhone + Android.)
 - **Preview khi kéo:** tấm trượt vào là **màn hình thật** của app kia (sảnh booth với sân khấu; home IG Layout với banner, template), tải khi bắt đầu chạm tag; thả → phủ kín → đổi trang ngay dưới nó (bỏ tấm "màn" trượt ra ở trang mới vì trang thật đã giống hệt).
+
+## 16. Sảnh không cuộn, ảnh gần đây ló từ đáy (2026-10-30)
+Chủ dự án: "màn booth không scroll page; các cái đã chụp nằm dưới cùng, hiện 2/3 hoặc 1 phần; hover chuột / trên mobile giữ 1 chút thì nó nhô lên; click ra ngoài thì tụt xuống; cuộn chuột thì scroll trái phải" → rồi: "hover vào cái nào thì cái đấy nhô lên, chứ không phải cả một ngăn bên dưới nhô cả".
+- Sảnh **không cuộn dọc** (khoảng cách trên co theo chiều cao màn); e2e kiểm không phần tử nào cuộn dọc.
+- **Ảnh gần đây ló lên từ mép dưới sân khấu**, mỗi tấm thấy phần trên (~40 %), dòng "Cuộn phim gần đây" ngay trên. **Rê chuột vào tấm nào → riêng tấm đó nhô hẳn lên**, rời chuột → tụt xuống; điện thoại: **giữ ~¼ giây hoặc chạm** → tấm đó nhô lên, chạm lần nữa → mở; chạm chỗ khác → tụt. **Lăn chuột → hàng ảnh cuộn ngang**; ít ảnh thì căn giữa.
+- (Bản đầu làm thành một ngăn kéo chung nhô lên cả — chủ dự án không muốn, đã bỏ.)

@@ -5,7 +5,7 @@
 import { chromium } from "playwright-core";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { chromePath, OUT, URL_ARG } from "./lib.mjs";
+import { chromePath, OUT, URL_ARG, openRoll } from "./lib.mjs";
 
 const browser = await chromium.launch({
   executablePath: chromePath(),
@@ -115,7 +115,21 @@ await page.waitForTimeout(600);
 await page.reload();
 await page.getByText("Recent rolls").waitFor({ timeout: 5000 });
 check((await page.getByRole("button", { name: /Open roll from/ }).count()) === 1, "1 roll in Recent rolls after reload");
-await page.getByRole("button", { name: /Open roll from/ }).click();
+// The lobby doesn't scroll; recent prints peek up from the bottom, each rises under the mouse.
+check((await page.locator("[data-roll='down']").count()) === 1, "the print starts lowered (only its top shows)");
+const scrollers = await page.evaluate(() =>
+  [document.scrollingElement, ...document.querySelectorAll("*")]
+    .filter((el) => el && !el.closest("[data-roll]") && el.scrollHeight > el.clientHeight + 1 && (el === document.scrollingElement || /auto|scroll/.test(getComputedStyle(el).overflowY)))
+    .map((el) => el.tagName + "." + String(el.className).slice(0, 40)),
+);
+check(scrollers.length === 0, `nothing in the lobby scrolls up and down ${scrollers.join(" | ")}`);
+const pr = await page.locator("[data-roll]").boundingBox();
+await page.mouse.move(pr.x + pr.width / 2, Math.min(pr.y + 20, 830));
+await page.locator("[data-roll='up']").waitFor({ timeout: 2000 });
+await page.mouse.move(pr.x + pr.width / 2, 120);
+await page.locator("[data-roll='down']").waitFor({ timeout: 2000 });
+check(true, "mouse over the print → it rises, away → it goes back down");
+await openRoll(page);
 await page.getByRole("button", { name: /Flip photos/ }).waitFor();
 check((await page.getByRole("button", { name: /Flip photos/ }).getAttribute("aria-pressed")) === "true", "reopened roll keeps flip");
 

@@ -4,7 +4,7 @@
 import { chromium } from "playwright-core";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { chromePath, FIXTURES, OUT, URL_ARG } from "./lib.mjs";
+import { chromePath, FIXTURES, OUT, URL_ARG, openRoll } from "./lib.mjs";
 
 const browser = await chromium.launch({ executablePath: chromePath() });
 const context = await browser.newContext({ viewport: { width: 390, height: 844 }, acceptDownloads: true });
@@ -93,7 +93,7 @@ check(w === 1200 && h === 1800, `saved ${w}×${h}`);
 console.log("6. Reload");
 await page.waitForTimeout(800);
 await page.reload();
-await page.getByRole("button", { name: /Open roll from/ }).first().click();
+await openRoll(page);
 await page.getByRole("button", { name: /Decorate/ }).click();
 await page.getByRole("tab", { name: "Theme" }).click();
 check((await page.getByRole("radio", { name: "Candy" }).getAttribute("aria-checked")) === "true", "theme kept");

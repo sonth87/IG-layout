@@ -27,12 +27,14 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen, preview }: { onSol
   }, []);
 
   return (
-    <div className="h-full overflow-y-auto pb-16">
+    // The lobby never scrolls (owner, 2026-10-30): the stage fills the screen, recent prints
+    // peek up from its bottom edge.
+    <div className="h-full overflow-hidden">
       <Stage />
       <div className="relative">
       <Ticker items={t("booth.ticker").split("|")} />
       {/* One column on the stage, centred; it grows with the screen (phone → tablet → computer). */}
-      <div className="mx-auto flex max-w-md flex-col px-5 pt-12 md:max-w-xl md:pt-20 lg:max-w-2xl">
+      <div className="mx-auto flex max-w-md flex-col px-5 pt-[min(3rem,5dvh)] md:max-w-xl md:pt-[min(5rem,7dvh)] lg:max-w-2xl">
         {/* The sign; on a phone its right side is kept clear for the hanging tag. */}
         <div className="mr-24 animate-[booth-pop_0.5s_ease-out] md:mx-auto md:w-[min(100%,34rem)]">
           <Bulbs>
@@ -109,22 +111,83 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen, preview }: { onSol
           </div>
         </Paper>
 
-        {rolls.length > 0 && (
-          <section className="mt-12">
-            <p className={`${mono} text-[11px] font-bold uppercase tracking-[0.3em] text-[#eaa63c] md:text-center`}>{t("booth.recent")}</p>
-            {/* Pinned on a line, like prints on a string: scroll on a phone, wrap and centre wider. */}
-            <div className="mt-4 flex gap-4 overflow-x-auto px-1 pt-2 pb-4 md:flex-wrap md:justify-center md:gap-6 md:overflow-visible">
-              {rolls.map((r, i) => (
-                <RollThumb key={r.id} roll={r} tilt={i % 2 ? 2.5 : -2} label={t("booth.openRoll", { date: new Date(r.createdAt).toLocaleString(locale === "vi" ? "vi-VN" : "en-GB") })} onOpen={() => onOpen(r)} />
-              ))}
-            </div>
-          </section>
-        )}
-        <p className={`${mono} mt-8 text-center text-[10px] uppercase tracking-[0.25em] opacity-55`}>{t("booth.privacy")}</p>
+        <p className={`${mono} mt-6 text-center text-[10px] uppercase tracking-[0.25em] opacity-55`}>{t("booth.privacy")}</p>
       </div>
       </div>
+      {rolls.length > 0 && !preview && (
+        <RollShelf
+          title={t("booth.recent")}
+          rolls={rolls}
+          label={(r) => t("booth.openRoll", { date: new Date(r.createdAt).toLocaleString(locale === "vi" ? "vi-VN" : "en-GB") })}
+          onOpen={onOpen}
+        />
+      )}
       {!preview && <SwitchTag label={`${t("booth.switchTo")} IG Layout`} face={<LayoutTagFace />} {...LAYOUT_TAG} string="#f3e9d6" onSwitch={toLayout.onSwitch} onProgress={toLayout.onProgress} />}
       {!preview && toLayout.overlay}
+    </div>
+  );
+}
+
+/** Recent prints peeking up from the bottom edge of the stage (owner, 2026-10-30): each shows
+ * its top; the one under the mouse (computer) or held / tapped (phone) rises all the way, a tap
+ * elsewhere lowers it, a tap on a raised one opens it. The wheel scrolls the row sideways. */
+function RollShelf({ title, rolls, label, onOpen }: { title: string; rolls: BoothRoll[]; label: (r: BoothRoll) => string; onOpen: (r: BoothRoll) => void }) {
+  const row = useRef<HTMLDivElement>(null);
+  const [up, setUp] = useState<string | null>(null);
+  const hold = useRef(0);
+  useEffect(() => {
+    const outside = (e: PointerEvent) => {
+      if (!(e.target as Element).closest?.("[data-roll]")) setUp(null);
+    };
+    addEventListener("pointerdown", outside);
+    const el = row.current;
+    const wheel = (e: WheelEvent) => {
+      if (!el || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    };
+    el?.addEventListener("wheel", wheel, { passive: false });
+    return () => {
+      removeEventListener("pointerdown", outside);
+      el?.removeEventListener("wheel", wheel);
+    };
+  }, []);
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-30">
+      {/* Just above the lowered prints. */}
+      <p className={`${mono} pointer-events-none absolute inset-x-0 bottom-[84px] text-center text-[10px] font-bold uppercase tracking-[0.3em] text-[#eaa63c]/80`}>{title}</p>
+      {/* Tall enough for a raised print; the lowered ones run off the bottom edge. */}
+      <div ref={row} className="no-scrollbar h-[200px] overflow-x-auto overflow-y-hidden">
+        <div className="mx-auto flex h-full w-max items-end gap-5 px-6">
+          {rolls.map((r, i) => {
+            const raised = up === r.id;
+            return (
+              <div
+                key={r.id}
+                data-roll={raised ? "up" : "down"}
+                className="shrink-0 transition-transform duration-300 ease-out"
+                style={{ transform: raised ? "translateY(-14px)" : "translateY(58%)" }}
+                onPointerEnter={(e) => e.pointerType === "mouse" && setUp(r.id)}
+                onPointerLeave={(e) => e.pointerType === "mouse" && setUp((u) => (u === r.id ? null : u))}
+                onPointerDown={(e) => {
+                  if (e.pointerType === "mouse" || raised) return;
+                  hold.current = window.setTimeout(() => setUp(r.id), 250);
+                }}
+                onPointerUp={() => window.clearTimeout(hold.current)}
+                onClickCapture={(e) => {
+                  // A lowered print: the first tap only raises it.
+                  if (!raised) {
+                    e.stopPropagation();
+                    setUp(r.id);
+                  }
+                }}
+              >
+                <RollThumb roll={r} tilt={i % 2 ? 2.5 : -2} label={label(r)} onOpen={() => onOpen(r)} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
