@@ -241,7 +241,7 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
             </div>
           ) : (
             <div className="flex items-center gap-3 px-5 py-3" data-host-frame={frame.id}>
-              <FrameCanvas frame={frame} images={EMPTY} scale={200 / Math.max(frame.width, frame.height)} className="max-h-20 max-w-20" />
+              <FrameCanvas frame={frame} images={EMPTY} look={{ placeholders: true }} scale={200 / Math.max(frame.width, frame.height)} className="max-h-20 max-w-20" />
               <span className={`${mono} text-xs font-bold uppercase tracking-[0.12em]`}>
                 {t(`booth.frame.${frame.id}` as Parameters<typeof t>[0])} · {t("booth.shots", { count: frame.shots })}
                 {s.theme && <> · {t(`booth.theme.${s.theme}` as Parameters<typeof t>[0])}</>}

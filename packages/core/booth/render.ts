@@ -1,6 +1,7 @@
 import type { BoothFrame } from "./frames";
 import { drawDecor, type Decor } from "./decor";
 import { shapePath } from "./layout";
+import { drawStickers, type StickerDraw } from "./stickers";
 import { THEMES, type BoothTheme, type FontRole } from "./themes";
 
 // Draws a booth frame (D-152) with its shots in a theme (themes.ts): the previews and the
@@ -26,8 +27,13 @@ export interface RenderOptions {
   date?: Date;
   /** Font family per role (unloaded roles fall back to serif / monospace). */
   fonts?: Partial<Record<FontRole, string>>;
+  /** Stickers placed by hand (stickers.ts), on top of everything. */
+  stickers?: StickerDraw[];
   /** Drawn decorations (decor.ts), behind and over the photos. */
   decor?: Decor[];
+  /** Empty cells show a grey figure — a shot still to take (frame previews, shooting). Off,
+   * an empty cell is a plain panel: room to decorate. */
+  placeholders?: boolean;
   /** Number the empty cells (picker thumbnails, shots still to take). */
   numbers?: boolean;
 }
@@ -103,16 +109,36 @@ export function renderFrame(canvas: HTMLCanvasElement, frame: BoothFrame, shots:
       if (opts.flip) c.scale(-1, 1);
       c.drawImage(img.source, (-img.width * k) / 2, (-img.height * k) / 2, img.width * k, img.height * k);
     } else {
-      empty(c, { x: -w / 2, y: -h / 2, w, h }, th, opts.numbers ? box.shot + 1 : null, font(opts, "mono"));
+      empty(c, { x: -w / 2, y: -h / 2, w, h }, th, opts.numbers ? box.shot + 1 : null, font(opts, "mono"), !!opts.placeholders);
     }
     c.restore();
   }
   drawDecor(c, frame, opts.decor, "front");
+  if (frame.footPanel) panel(c, frame, th);
   caption(c, frame, th, opts);
+  drawStickers(c, opts.stickers, font(opts, "candy"));
 }
 
 function font(opts: RenderOptions, role: FontRole) {
   return opts.fonts?.[role] ?? (role === "mono" ? "monospace" : "serif");
+}
+
+/** A cell of its own for the caption (frames with a title cell): a card in the theme. */
+function panel(c: CanvasRenderingContext2D, f: BoothFrame, th: BoothTheme) {
+  const { x, y, w, h } = f.foot;
+  const b = th.cellBorder;
+  c.save();
+  c.translate(x + w / 2, y + h / 2);
+  if (b) {
+    c.fillStyle = b.color;
+    shapePath(c, f.shape === "polaroid" ? "rect" : (f.shape ?? "rect"), w, h, 99, (th.cellRadius ?? 0) + b.width);
+    c.fill();
+  }
+  c.fillStyle = th.empty;
+  const inset = b ? b.width : 0;
+  shapePath(c, f.shape === "polaroid" ? "rect" : (f.shape ?? "rect"), w - inset * 2, h - inset * 2, 99, th.cellRadius ?? 0);
+  c.fill();
+  c.restore();
 }
 
 function shadow(c: CanvasRenderingContext2D, size: number) {
@@ -377,9 +403,22 @@ function decor(c: CanvasRenderingContext2D, f: Sheet, th: BoothTheme) {
 }
 
 /** An empty cell: a grey figure, like ColorME's "Ảnh 2". */
-function empty(c: CanvasRenderingContext2D, cell: Box, th: BoothTheme, n: number | null, mono: string) {
+function empty(c: CanvasRenderingContext2D, cell: Box, th: BoothTheme, n: number | null, mono: string, ghost: boolean) {
   c.fillStyle = th.empty;
   c.fillRect(cell.x, cell.y, cell.w, cell.h);
+  if (!ghost) {
+    // A plain panel; on screen a faint "+" says it can still be shot.
+    if (n !== null) {
+      c.fillStyle = th.ink;
+      c.globalAlpha = 0.28;
+      c.font = `400 ${Math.round(Math.min(cell.w, cell.h) * 0.22)}px ${mono}`;
+      c.textAlign = "center";
+      c.textBaseline = "middle";
+      c.fillText("+", cell.x + cell.w / 2, cell.y + cell.h / 2);
+      c.globalAlpha = 1;
+    }
+    return;
+  }
   const r = Math.min(cell.w, cell.h) * 0.16;
   const cx = cell.x + cell.w / 2;
   const cy = cell.y + cell.h * 0.45;
@@ -432,7 +471,7 @@ function caption(c: CanvasRenderingContext2D, f: BoothFrame, th: BoothTheme, opt
   c.textAlign = "center";
   c.textBaseline = "middle";
   // Sizes follow the foot's short side, so every frame gets a caption that fits.
-  const unit = Math.min(vertical ? w : h, 260);
+  const unit = Math.min(vertical ? w : h, f.footPanel ? 420 : 260);
   const title = Math.round(unit * (vertical ? 0.24 : 0.34) * (th.title.font === "y2k" ? 0.8 : 1));
   const small = Math.max(14, Math.round(unit * 0.1));
   const cx = x + w / 2;

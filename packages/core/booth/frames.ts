@@ -29,6 +29,8 @@ export interface BoothFrame {
   holes?: "sides" | "top-bottom";
   /** Shown in the picker: how it's printed / used. */
   size: string;
+  /** The caption has a cell of its own (a title card among the photos). */
+  footPanel?: boolean;
   /** Cell outline (layout.ts); rectangle when absent. */
   shape?: import("./layout").CellShape;
 }
@@ -52,6 +54,10 @@ export const FRAMES: BoothFrame[] = [
   { id: "grid4", width: 1200, height: 1800, shots: 4, cells: grid(50, 50, 540, 660, 2, 2, 20), foot: { x: 50, y: 1440, w: 1100, h: 310 }, size: "4×6 in" },
   { id: "grid6", width: 1200, height: 1800, shots: 6, cells: grid(50, 50, 540, 430, 2, 3, 20), foot: { x: 50, y: 1400, w: 1100, h: 350 }, size: "4×6 in" },
   // 6 × 2 in, side by side: suits a group standing in a row. Caption on the right.
+  // 3 photos in a 2 × 2 grid, the fourth square a title card (owner, 2026-10-30).
+  { id: "grid3", width: 1200, height: 1500, shots: 3, cells: grid(50, 50, 540, 690, 2, 2, 20).slice(0, 3), foot: { x: 610, y: 760, w: 540, h: 690 }, footPanel: true, size: "4×5 in" },
+  // A strip with its title card on top, like the "Thank you" strips.
+  { id: "strip3t", width: 600, height: 1800, shots: 3, cells: column(40, 470, 520, 410, 3, 20, 0), foot: { x: 40, y: 40, w: 520, h: 410 }, footPanel: true, holes: "sides", size: "2×6 in" },
   { id: "row4", width: 1800, height: 600, shots: 4, cells: [0, 1, 2, 3].map((i) => ({ x: 40 + i * 375, y: 40, w: 355, h: 520, shot: i })), foot: { x: 1540, y: 40, w: 220, h: 520 }, holes: "top-bottom", size: "6×2 in" },
   { id: "polaroid", width: 1050, height: 1260, shots: 1, cells: [{ x: 60, y: 60, w: 930, h: 930, shot: 0 }], foot: { x: 60, y: 1010, w: 930, h: 220 }, size: "3.5×4.2 in" },
   // Instagram Post 4:5: two copies of the 4-shot strip, like the two strips on a 4 × 6 print.

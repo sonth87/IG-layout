@@ -37,7 +37,7 @@ export function FrameLive({ frame, shots, current, stream, facing, fake, look, l
   return (
     <div className="flex h-full w-full items-center justify-center [container-type:size]">
       <div className="relative shadow-[5px_6px_0_rgba(11,8,6,0.85)]" style={{ width: `min(100cqw, calc(100cqh * ${ar}))`, aspectRatio: `${frame.width} / ${frame.height}` }}>
-        <FrameCanvas frame={frame} images={images ?? NONE} look={look} numbers scale={Math.min(1, 900 / Math.max(frame.width, frame.height))} className="absolute inset-0 h-full w-full" />
+        <FrameCanvas frame={frame} images={images ?? NONE} look={{ ...look, placeholders: true }} numbers scale={Math.min(1, 900 / Math.max(frame.width, frame.height))} className="absolute inset-0 h-full w-full" />
         {cells.map((c, i) => (
           <div
             key={`${current}-${i}`}

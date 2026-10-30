@@ -5,7 +5,7 @@ import { deleteRoll, type BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
 import { HandoffSheet } from "./HandoffSheet";
-import { formatBlob, lookOptions, rollFrame, useRollImages, type Format } from "./look";
+import { formatBlob, lookOptions, rollFrame, useRollImages, useStickersLoaded, type Format } from "./look";
 import { Btn, Confirm, display, mono, serif } from "./ui";
 
 // The print (design §2.6, ColorME's printer): a little booth printer — sign, blinking light,
@@ -30,7 +30,8 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
   const t = useT();
   const frame = useMemo(() => rollFrame(roll), [roll]);
   const images = useRollImages(roll);
-  const look = useMemo(() => lookOptions(roll), [roll]);
+  const loaded = useStickersLoaded(roll.stickers);
+  const look = useMemo(() => lookOptions(roll), [roll, loaded]); // eslint-disable-line react-hooks/exhaustive-deps -- `loaded`: redraw when the sticker pictures arrive
   // Reduced motion: no feed animation (its end would never come), the print is just there.
   const [printed, setPrinted] = useState(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
   const [selected, setSelected] = useState<number | null>(null);

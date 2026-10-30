@@ -120,6 +120,11 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
     setSt((s) => (s.paused === null ? { ...s, paused: Math.max(0, s.until - t0) } : { ...s, until: t0 + s.paused, paused: null }));
   }
 
+  /** Skip the rest of the countdown: shoot now. */
+  function shootNow() {
+    setSt((s) => (s.phase === "count" && s.paused === null ? { ...s, until: performance.now() } : s));
+  }
+
   function retakeLast() {
     if (!shots.length || busy.current) return;
     setShots(shots.slice(0, -1));
@@ -127,15 +132,16 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
   }
 
   // Computer: Space pauses, R retakes the last shot, Esc exits (asks first once there are shots).
-  const keys = useRef({ togglePause, retakeLast, exit: () => (shots.length ? setAsking(true) : onExit()) });
+  const keys = useRef({ togglePause, retakeLast, shootNow, exit: () => (shots.length ? setAsking(true) : onExit()) });
   useEffect(() => {
-    keys.current = { togglePause, retakeLast, exit: () => (shots.length ? setAsking(true) : onExit()) };
+    keys.current = { togglePause, retakeLast, shootNow, exit: () => (shots.length ? setAsking(true) : onExit()) };
   });
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).closest("input")) return;
       if (e.key === " ") keys.current.togglePause();
       else if (e.key === "r" || e.key === "R") keys.current.retakeLast();
+      else if (e.key === "Enter") keys.current.shootNow();
       else if (e.key === "Escape") keys.current.exit();
       else return;
       e.preventDefault();
@@ -234,6 +240,11 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
           ))}
         </div>
         <p className={`${mono} ml-auto hidden shrink-0 text-[10px] uppercase tracking-[0.15em] opacity-50 [@media(pointer:fine)]:block`}>{t("booth.keys.shoot")}</p>
+        {st.phase === "count" && !paused && (
+          <Btn tone="main" className="shrink-0 py-2.5 text-[10px]" onClick={shootNow}>
+            📸 {t("booth.shootNow")}
+          </Btn>
+        )}
         {shots.length > 0 && shots.length < plan.count && (
           <Btn className="shrink-0 py-2.5 text-[10px]" onClick={retakeLast}>
             ↺ {t("booth.retakeLast")}

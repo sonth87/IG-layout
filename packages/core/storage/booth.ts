@@ -18,6 +18,8 @@ export interface BoothRoll {
   showDate?: boolean;
   /** Layout (D-161): arrangement, cell shape, seed of the random ones, hand-placed cells. */
   layout?: import("../booth/layout").LayoutChoice;
+  /** Stickers placed by hand (props, occasions — 2026-10-30). */
+  stickers?: import("../booth/stickers").BoothSticker[];
   /** Drawn decorations (D-161 step 2). */
   decor?: import("../booth/decor").Decor[];
   /** Shot together in a group room (D-159): its code, everyone's names (host first), and the

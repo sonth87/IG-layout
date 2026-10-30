@@ -1,10 +1,13 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { frameById } from "@ig-layout/core/booth/frames";
 import { layoutFrame } from "@ig-layout/core/booth/layout";
 import { paintBackdrop, renderFrame, type RenderOptions, type ShotImage } from "@ig-layout/core/booth/render";
 import { themeById, themePieces, type BoothTheme } from "@ig-layout/core/booth/themes";
 import { newSeed } from "@ig-layout/core/booth/layout";
 import { filterById } from "@ig-layout/core/color/filters";
+import { PROPS } from "@ig-layout/core/elements/props";
+import { stickerSvg } from "@ig-layout/core/elements/stickers";
+import { stickerAspect, type BoothSticker, type StickerDraw } from "@ig-layout/core/booth/stickers";
 import { NO_ADJUST, shaderParams } from "@ig-layout/core/color/params";
 import { processImage } from "@ig-layout/core/color/processor";
 import type { BoothRoll } from "@ig-layout/core/storage/booth";
@@ -50,8 +53,57 @@ export function rollFrame(roll: Pick<BoothRoll, "frameId" | "layout">) {
   return layoutFrame(frameById(roll.frameId), roll.layout);
 }
 
+// ---- stickers: their SVG pictures, loaded once per sticker + colour ----
+
+const stickerImages = new Map<string, HTMLImageElement>();
+const stickerLoads = new Map<string, Promise<void>>();
+const stickerKey = (s: BoothSticker) => `${s.key}|${s.color ?? PROPS[s.key]?.color ?? ""}`;
+
+function loadSticker(s: BoothSticker): Promise<void> {
+  const k = stickerKey(s);
+  let p = stickerLoads.get(k);
+  if (!p) {
+    p = new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        stickerImages.set(k, img);
+        resolve();
+      };
+      img.onerror = () => resolve();
+      img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(stickerSvg(s.key, s.color ?? PROPS[s.key]?.color ?? "#000", 600))}`;
+    });
+    stickerLoads.set(k, p);
+  }
+  return p;
+}
+
+export function loadStickers(list: BoothSticker[] | undefined) {
+  return Promise.all((list ?? []).map(loadSticker)).then(() => {});
+}
+
+/** The roll's stickers that are loaded, ready to draw. */
+function stickerDraws(list: BoothSticker[] | undefined): StickerDraw[] {
+  return (list ?? []).flatMap((s) => {
+    const img = stickerImages.get(stickerKey(s));
+    return img ? [{ ...s, img, h: s.w * stickerAspect(s.key) }] : [];
+  });
+}
+
+/** Re-render when the roll's sticker pictures arrive. */
+export function useStickersLoaded(list: BoothSticker[] | undefined) {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    let gone = false;
+    void loadStickers(list).then(() => !gone && setN((x) => x + 1));
+    return () => {
+      gone = true;
+    };
+  }, [list]);
+  return n;
+}
+
 export function lookOptions(roll: BoothRoll): RenderOptions {
-  return { theme: themeById(roll.theme), decor: roll.decor, flip: roll.flip, title: roll.title, showDate: roll.showDate, date: new Date(roll.createdAt), fonts: canvasFonts };
+  return { theme: themeById(roll.theme), decor: roll.decor, stickers: stickerDraws(roll.stickers), flip: roll.flip, title: roll.title, showDate: roll.showDate, date: new Date(roll.createdAt), fonts: canvasFonts };
 }
 
 /** The roll's shots, filtered, for drawing (null until decoded). */
@@ -63,6 +115,7 @@ export function useRollImages(roll: BoothRoll) {
 
 /** Everything a render of the roll needs, outside React (thumbnail, export). */
 export async function rollRender(roll: BoothRoll) {
+  await loadStickers(roll.stickers);
   const filterId = rollFilter(roll);
   const images = (await shotImages(roll.shots)).map((i) => (i ? filtered(i, filterId) : null));
   return { frame: rollFrame(roll), images, opts: lookOptions(roll) };

@@ -51,7 +51,7 @@ export function LayoutPanel({ frameId, layout, look, onFrame, onLayout }: {
             }}
           >
             <span className="flex h-14 items-center">
-              <FrameCanvas frame={layoutFrame(base, { arrange: a === "free" ? "scatter" : a, shape, seed: layout.seed ?? 1 })} images={EMPTY} look={{ ...look, showDate: false, title: "" }} scale={140 / Math.max(base.width, base.height)} className="max-h-14 max-w-[60px]" />
+              <FrameCanvas frame={layoutFrame(base, { arrange: a === "free" ? "scatter" : a, shape, seed: layout.seed ?? 1 })} images={EMPTY} look={{ ...look, showDate: false, title: "", placeholders: true }} scale={140 / Math.max(base.width, base.height)} className="max-h-14 max-w-[60px]" />
             </span>
             <span className={`${mono} text-[9px] font-bold uppercase tracking-wider`}>{t(`booth.arrange.${a}`)}</span>
           </button>

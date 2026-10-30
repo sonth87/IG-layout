@@ -1,4 +1,5 @@
 import { DOODLES } from "./doodles";
+import { PROPS } from "./props";
 
 // Sticker set (M11, S13). Our own drawings (D-66: no copied artwork), as SVG.
 // `{c}` is the main colour (changeable with the Color tool); other colours are fixed.
@@ -94,8 +95,8 @@ function scallop(cx: number, cy: number, outer: number, inner: number, bumps: nu
 /** Our own stickers (Featured); doodles (M20) are their own group. */
 export const STICKER_KEYS = Object.keys(STICKERS);
 
-// Doodles render like the other stickers (SVG with `{c}`).
-Object.assign(STICKERS, DOODLES);
+// Doodles and photo props / occasions (2026-10-30) render like the other stickers (SVG with `{c}`).
+Object.assign(STICKERS, DOODLES, PROPS);
 
 export function isSticker(key: string) {
   return key in STICKERS;

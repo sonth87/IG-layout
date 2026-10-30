@@ -10,7 +10,7 @@ import type { Room } from "./room";
 // the others for theirs (catch up after being elsewhere). "Who's decorating" goes around
 // every few seconds. Zoom and the tab you're on stay yours.
 
-export const SHARED = ["frameId", "theme", "filter", "layout", "decor", "title", "showDate", "flip"] as const;
+export const SHARED = ["frameId", "theme", "filter", "layout", "decor", "stickers", "title", "showDate", "flip"] as const;
 type Field = (typeof SHARED)[number];
 type Versions = Partial<Record<Field, { v: number; by: string }>>;
 

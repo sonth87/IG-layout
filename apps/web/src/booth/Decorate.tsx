@@ -11,9 +11,12 @@ import type { BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
 import { DecorPanel } from "./DecorPanel";
+import { StickerEditor } from "./StickerEditor";
+import { StickerPanel } from "./StickerPanel";
+import type { BoothSticker } from "@ig-layout/core/booth/stickers";
 import { LayoutEditor } from "./LayoutEditor";
 import { LayoutPanel } from "./LayoutPanel";
-import { lookOptions, rollFrame, rollFilter, useRollImages, withTheme } from "./look";
+import { lookOptions, rollFrame, rollFilter, useRollImages, useStickersLoaded, withTheme } from "./look";
 import { ThemePicker } from "./ThemePicker";
 import { Btn, Confirm, display, mono, serif } from "./ui";
 import { ZoomView } from "./ZoomView";
@@ -22,8 +25,8 @@ import { ZoomView } from "./ZoomView";
 // (paper, ink, decoration, caption face — themes.ts), the filter (IG Layout's colour pipeline)
 // and the caption (title, date). Every change redraws the print above; stickers come next.
 
-type Tab = "frame" | "theme" | "decor" | "filter" | "text";
-const TABS: Tab[] = ["frame", "theme", "decor", "filter", "text"];
+type Tab = "frame" | "theme" | "decor" | "sticker" | "filter" | "text";
+const TABS: Tab[] = ["frame", "theme", "decor", "sticker", "filter", "text"];
 
 export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab }: {
   roll: BoothRoll;
@@ -44,7 +47,12 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
   const frame = useMemo(() => rollFrame(roll), [roll]);
   const theme = themeById(roll.theme);
   const images = useRollImages(roll);
-  const look = useMemo(() => lookOptions(roll), [roll]);
+  /** Stickers while a finger moves one (drawn live, saved on release). */
+  const [liveStickers, setLiveStickers] = useState<BoothSticker[] | null>(null);
+  const [picked, setPicked] = useState<string | null>(null);
+  const stickers = roll.stickers ?? [];
+  const loaded = useStickersLoaded(liveStickers ?? roll.stickers);
+  const look = useMemo(() => lookOptions(liveStickers ? { ...roll, stickers: liveStickers } : roll), [roll, liveStickers, loaded]); // eslint-disable-line react-hooks/exhaustive-deps -- `loaded`: redraw when the pictures arrive
   const set = (patch: Partial<BoothRoll>) => onChange({ ...roll, ...patch });
   /** Free layout: the cells while a finger moves one (drawn live, saved on release). */
   const [draft, setDraft] = useState<PlacedCell[] | null>(null);
@@ -88,10 +96,13 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
                     scale={Math.min(Math.sqrt(16e6 / (frame.width * frame.height)), (1400 / Math.max(frame.width, frame.height)) * step)}
                     className="absolute inset-0 h-full w-full"
                     // Tap a photo (or an empty cell) to shoot that one again — solo rolls only.
-                    onCell={onRetake && !(tab === "frame" && roll.layout?.arrange === "free") ? (shot) => setRetaking(shot) : undefined}
+                    onCell={onRetake && !(tab === "frame" && roll.layout?.arrange === "free") && tab !== "sticker" ? (shot) => setRetaking(shot) : undefined}
                   />
                   {tab === "frame" && roll.layout?.arrange === "free" && (
                     <LayoutEditor frame={frame} onLive={setDraft} onChange={(cells) => set({ layout: { ...roll.layout, cells } })} />
+                  )}
+                  {tab === "sticker" && (
+                    <StickerEditor width={frame.width} height={frame.height} stickers={stickers} selected={picked} onSelect={setPicked} onLive={setLiveStickers} onChange={(st) => set({ stickers: st })} />
                   )}
                 </div>
               )
@@ -100,7 +111,7 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
         </div>
 
         <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:w-[460px] lg:overflow-y-auto lg:border-t-0 lg:border-l-2">
-          <div role="tablist" className="grid grid-cols-5 border-b-2 border-[#1d1612]">
+          <div role="tablist" className="grid grid-cols-6 border-b-2 border-[#1d1612]">
             {TABS.map((k) => (
               <button
                 key={k}
@@ -108,7 +119,7 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
                 role="tab"
                 aria-selected={tab === k}
                 onClick={() => setTab(k)}
-                className={`${mono} border-r-2 border-[#1d1612] py-3 text-[10px] font-bold uppercase tracking-[0.08em] last:border-r-0 ${tab === k ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
+                className={`${mono} border-r-2 border-[#1d1612] py-3 text-[9px] font-bold uppercase tracking-[0.04em] last:border-r-0 ${tab === k ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
               >
                 {t(`booth.tab.${k}`)}
               </button>
@@ -142,6 +153,29 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
             )}
 
             {tab === "decor" && <DecorPanel value={roll.decor ?? []} onChange={(decor) => set({ decor })} />}
+
+            {tab === "sticker" && (
+              <StickerPanel
+                selected={stickers.find((x) => x.id === picked) ?? null}
+                onAdd={(key) => {
+                  // In the middle of the print, a fifth of its width, slightly turned.
+                  const id = crypto.randomUUID();
+                  set({ stickers: [...stickers, { id, key, x: frame.width / 2, y: frame.height * 0.4, w: Math.min(frame.width, frame.height) * 0.38, rot: Math.round((Math.random() - 0.5) * 16) }] });
+                  setPicked(id);
+                }}
+                onEdit={(patch) => set({ stickers: stickers.map((x) => (x.id === picked ? { ...x, ...patch } : x)) })}
+                onOrder={(front) => {
+                  const it = stickers.find((x) => x.id === picked);
+                  if (!it) return;
+                  const rest = stickers.filter((x) => x.id !== picked);
+                  set({ stickers: front ? [...rest, it] : [it, ...rest] });
+                }}
+                onRemove={() => {
+                  set({ stickers: stickers.filter((x) => x.id !== picked) });
+                  setPicked(null);
+                }}
+              />
+            )}
 
             {tab === "filter" && <FilterRow images={images} value={rollFilter(roll)} onChange={(filter) => set({ filter })} />}
 

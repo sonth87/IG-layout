@@ -12,6 +12,7 @@ import { drawOverlay, OVERLAY_KINDS, OVERLAYS, overlayBlob, type OverlayKind } f
 import { SHAPE_GROUPS } from "@ig-layout/core/elements/shapeLibrary";
 import { drawShape, libraryShape } from "@ig-layout/core/elements/shapes";
 import { DOODLE_KEYS } from "@ig-layout/core/elements/doodles";
+import { PROP_GROUPS, propsIn } from "@ig-layout/core/elements/props";
 import { STICKER_KEYS, STICKERS } from "@ig-layout/core/elements/stickers";
 import { slideRect } from "@ig-layout/core/project/layout";
 import { imageElement } from "@ig-layout/core/project/placement";
@@ -298,6 +299,8 @@ export function LibrarySheet({ kind, onClose, onNotice }: { kind: LibraryKind; o
     const featured = allItems(["sticker"]).filter(({ item }) => item.collections.includes("featured") && (!q || fold(item.search).includes(fold(q))));
     groups.push({ id: "featured", title: t("lib.featured"), items: [...STICKER_KEYS.filter((k) => match(STICKERS[k].name[locale])).map(sticker), ...featured.map(({ item }) => packItem(item, "sticker"))] });
     groups.push({ id: "doodles", title: t("lib.doodles"), items: DOODLE_KEYS.filter((k) => match(STICKERS[k].name[locale])).map(sticker) });
+    // Photo props and occasions (2026-10-30, shared with the booth): one group each.
+    for (const g of PROP_GROUPS) groups.push({ id: `props-${g}`, title: t(`lib.props.${g}`), items: propsIn(g).filter((k) => match(STICKERS[k].name[locale])).map(sticker) });
     groups.push(...packGroups("sticker"));
     groups.push({
       id: "overlays",
