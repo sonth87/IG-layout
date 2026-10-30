@@ -112,8 +112,8 @@ export function Setup(props: {
         <Label className="px-5">{t("booth.tab.theme")}</Label>
         <ThemePicker compact value={props.theme} onPick={(th) => props.onTheme(th.id)} />
           <div className="flex flex-col gap-3 px-5">
-            <label className={`${mono} flex cursor-pointer items-center gap-3 text-xs`}>
-              <input type="checkbox" className="peer sr-only" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />
+            <label className={`${mono} relative flex cursor-pointer items-center gap-3 text-xs`}>
+              <input type="checkbox" className="peer absolute top-0 left-0 h-6 w-6 cursor-pointer opacity-0" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />
               <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[#1d1612] bg-[#f3e9d6] text-sm font-bold text-[#c8432f] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">
                 {props.spare ? "✕" : ""}
               </span>

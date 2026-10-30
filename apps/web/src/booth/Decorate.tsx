@@ -192,8 +192,8 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
                   />
                 </label>
                 <div className="flex items-center justify-between gap-3">
-                  <label className={`${mono} flex cursor-pointer items-center gap-3 text-xs`}>
-                    <input type="checkbox" className="peer sr-only" checked={roll.showDate !== false} onChange={(e) => set({ showDate: e.target.checked })} />
+                  <label className={`${mono} relative flex cursor-pointer items-center gap-3 text-xs`}>
+                    <input type="checkbox" className="peer absolute top-0 left-0 h-6 w-6 cursor-pointer opacity-0" checked={roll.showDate !== false} onChange={(e) => set({ showDate: e.target.checked })} />
                     <span aria-hidden className="flex h-6 w-6 items-center justify-center border-2 border-[#1d1612] bg-[#fbf6ec] text-sm font-bold text-[#c8432f] peer-focus-visible:outline peer-focus-visible:outline-2">
                       {roll.showDate !== false ? "✕" : ""}
                     </span>

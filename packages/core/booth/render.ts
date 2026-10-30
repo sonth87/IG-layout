@@ -123,20 +123,15 @@ function font(opts: RenderOptions, role: FontRole) {
   return opts.fonts?.[role] ?? (role === "mono" ? "monospace" : "serif");
 }
 
-/** A cell of its own for the caption (frames with a title cell): a card in the theme. */
+/** A cell of its own for the caption (frames with a title cell): a plain card in the theme,
+ * no border (owner, 2026-10-30) — it reads as part of the paper, not as a missing photo. */
 function panel(c: CanvasRenderingContext2D, f: BoothFrame, th: BoothTheme) {
   const { x, y, w, h } = f.foot;
-  const b = th.cellBorder;
   c.save();
   c.translate(x + w / 2, y + h / 2);
-  if (b) {
-    c.fillStyle = b.color;
-    shapePath(c, f.shape === "polaroid" ? "rect" : (f.shape ?? "rect"), w, h, 99, (th.cellRadius ?? 0) + b.width);
-    c.fill();
-  }
   c.fillStyle = th.empty;
-  const inset = b ? b.width : 0;
-  shapePath(c, f.shape === "polaroid" ? "rect" : (f.shape ?? "rect"), w - inset * 2, h - inset * 2, 99, th.cellRadius ?? 0);
+  c.globalAlpha = 0.55;
+  shapePath(c, f.shape === "polaroid" ? "rect" : (f.shape ?? "rect"), w, h, 99, th.cellRadius ?? 0);
   c.fill();
   c.restore();
 }

@@ -69,8 +69,9 @@ export function Booth() {
     () => true,
     () => false,
   );
+  // overflow: clip — nothing (a focused field, scrollIntoView) can scroll the booth's frame away.
   return (
-    <div className={`${boothSerif.variable} ${boothMono.variable} fixed inset-0 overflow-hidden text-[#f3e9d6]`} style={floorStyle}>
+    <div className={`${boothSerif.variable} ${boothMono.variable} fixed inset-0 overflow-clip text-[#f3e9d6]`} style={floorStyle}>
       {isClient && <BoothApp />}
     </div>
   );

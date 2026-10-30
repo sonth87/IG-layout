@@ -94,7 +94,9 @@ await page.getByRole("button", { name: /Start shooting/ }).click();
 await page.getByText("Shot 1 of 4").waitFor();
 await page.locator("[data-countdown]").waitFor();
 const t0 = Date.now();
-await page.getByRole("button", { name: /Shoot now/ }).click();
+const now = await page.getByRole("button", { name: /Shoot now/ }).boundingBox();
+check(now && now.x + now.width <= 390, "the button is on screen");
+await page.getByRole("button", { name: /Shoot now/ }).click({ timeout: 5000 });
 await page.locator("img[data-shot='0']").waitFor({ timeout: 3000 });
 check(Date.now() - t0 < 2500, `"Shoot now" takes it at once (${Date.now() - t0} ms)`);
 

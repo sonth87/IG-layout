@@ -233,13 +233,14 @@ export function Shoot({ camera, facing, frame, plan, base, look, sound, onSound,
 
       {/* The shots so far, as little prints; retake the last one. */}
       <div className="flex min-h-[92px] shrink-0 items-center justify-between gap-3 border-t-2 border-[#0b0806] bg-[#120d0a] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <div className="flex gap-2 overflow-x-auto py-1 pl-1">
+        <div className="flex min-w-0 flex-1 gap-2 overflow-x-auto py-1 pl-1">
           {urls.map((u, i) => (
             // eslint-disable-next-line @next/next/no-img-element -- a local blob URL
             <img key={u} src={u} alt="" data-shot={i} className="h-14 w-auto animate-[booth-drop_0.45s_ease-out] border-[3px] border-[#f6efe2] shadow-[3px_3px_0_#0b0806]" style={{ rotate: `${i % 2 ? 3 : -3}deg` }} />
           ))}
         </div>
-        <p className={`${mono} ml-auto hidden shrink-0 text-[10px] uppercase tracking-[0.15em] opacity-50 [@media(pointer:fine)]:block`}>{t("booth.keys.shoot")}</p>
+        {/* Keys: only where there's room for them (a computer). */}
+        <p className={`${mono} ml-auto hidden shrink-0 text-[10px] uppercase tracking-[0.15em] opacity-50 lg:block`}>{t("booth.keys.shoot")}</p>
         {st.phase === "count" && !paused && (
           <Btn tone="main" className="shrink-0 py-2.5 text-[10px]" onClick={shootNow}>
             📸 {t("booth.shootNow")}

@@ -124,6 +124,9 @@ console.log("6. Spare shots");
 await page.getByRole("button", { name: "New roll" }).click();
 await page.getByRole("radio", { name: /Polaroid/ }).click();
 await page.getByText("2 spare shots").click();
+// Ticking it must not scroll the booth's frame away (owner, 2026-10-30: the top bar vanished).
+const top = await page.getByRole("heading", { name: "Pick your frame" }).boundingBox();
+check(top && top.y >= 0, `ticking "spare shots" keeps the top bar in view (y ${top && Math.round(top.y)})`);
 await page.getByRole("button", { name: "Start shooting" }).click();
 await page.getByText("Shot 1 of 3").waitFor();
 await page.getByText("Pick 1 shot").waitFor({ timeout: 40000 });
