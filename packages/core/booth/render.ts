@@ -385,6 +385,167 @@ function decor(c: CanvasRenderingContext2D, f: Sheet, th: BoothTheme) {
       c.fill();
     }
     c.globalAlpha = 1;
+  } else if (th.decor === "plaid") {
+    // Tartan: wide bands of the accent and of shadow both ways, a thin light line in each.
+    const band = 64 * unit;
+    c.fillStyle = th.accent;
+    c.globalAlpha = 0.24;
+    for (let x = 0; x < f.width; x += band * 2) c.fillRect(x, 0, band * 0.55, f.height);
+    for (let y = 0; y < f.height; y += band * 2) c.fillRect(0, y, f.width, band * 0.55);
+    c.fillStyle = "#000000";
+    c.globalAlpha = 0.14;
+    for (let x = band; x < f.width; x += band * 2) c.fillRect(x, 0, band * 0.3, f.height);
+    for (let y = band; y < f.height; y += band * 2) c.fillRect(0, y, f.width, band * 0.3);
+    c.fillStyle = "#ffffff";
+    c.globalAlpha = 0.3;
+    for (let x = band * 0.75; x < f.width; x += band * 2) c.fillRect(x, 0, 1.4 * unit, f.height);
+    for (let y = band * 0.75; y < f.height; y += band * 2) c.fillRect(0, y, f.width, 1.4 * unit);
+    c.globalAlpha = 1;
+  } else if (th.decor === "clouds") {
+    // Auspicious clouds (Tết): curled clouds in the accent, scattered, clear of the caption.
+    const r = rng(11);
+    const size = 30 * unit;
+    c.strokeStyle = th.accent;
+    c.lineWidth = 2.4 * unit;
+    c.lineCap = "round";
+    c.globalAlpha = 0.42;
+    for (let y = size; y < f.height; y += size * 3.2)
+      for (let x = (Math.round(y / size) % 2 ? size * 1.6 : 0) + size; x < f.width; x += size * 3.6) {
+        const ft = f.foot;
+        if (ft && x > ft.x - size && x < ft.x + ft.w + size && y > ft.y - size && y < ft.y + ft.h + size) continue;
+        const k = 0.7 + r() * 0.6;
+        c.save();
+        c.translate(x + (r() - 0.5) * size, y + (r() - 0.5) * size);
+        c.scale(k, k);
+        c.beginPath();
+        c.arc(-size * 0.6, 0, size * 0.42, Math.PI * 0.9, Math.PI * 2.05);
+        c.arc(0, -size * 0.18, size * 0.55, Math.PI * 1.05, Math.PI * 1.98);
+        c.arc(size * 0.65, 0, size * 0.42, Math.PI * 1.1, Math.PI * 2.1);
+        c.moveTo(-size * 1.05, size * 0.12);
+        c.lineTo(size * 1.08, size * 0.12);
+        // The curl inside.
+        c.moveTo(-size * 0.05, -size * 0.12);
+        c.arc(-size * 0.05, -size * 0.25, size * 0.13, Math.PI * 0.5, Math.PI * 2.3);
+        c.stroke();
+        c.restore();
+      }
+    c.globalAlpha = 1;
+  } else if (th.decor === "web") {
+    // Spider webs in two corners, and a few little bats.
+    const webAt = (cx: number, cy: number, a0: number, rad: number) => {
+      c.save();
+      c.strokeStyle = th.ink;
+      c.globalAlpha = 0.4;
+      c.lineWidth = 1.2 * unit;
+      const spokes = 7;
+      const ang = (k: number) => a0 + (k / (spokes - 1)) * (Math.PI / 2);
+      for (let k = 0; k < spokes; k++) {
+        c.beginPath();
+        c.moveTo(cx, cy);
+        c.lineTo(cx + Math.cos(ang(k)) * rad, cy + Math.sin(ang(k)) * rad);
+        c.stroke();
+      }
+      for (let ring = 1; ring <= 5; ring++) {
+        const rr = (rad * ring) / 5.4;
+        c.beginPath();
+        for (let k = 0; k < spokes; k++) {
+          const x = cx + Math.cos(ang(k)) * rr;
+          const y = cy + Math.sin(ang(k)) * rr;
+          if (k === 0) c.moveTo(x, y);
+          else {
+            // Threads sag between the spokes.
+            const m = (ang(k) + ang(k - 1)) / 2;
+            c.quadraticCurveTo(cx + Math.cos(m) * rr * 0.86, cy + Math.sin(m) * rr * 0.86, x, y);
+          }
+        }
+        c.stroke();
+      }
+      c.restore();
+    };
+    const rad = Math.min(f.width, f.height) * 0.42;
+    webAt(0, 0, 0, rad);
+    webAt(f.width, f.height, Math.PI, rad);
+    const r = rng(17);
+    c.fillStyle = th.ink;
+    c.globalAlpha = 0.5;
+    for (let i = 0; i < 6; i++) {
+      const x = f.width * (0.15 + r() * 0.7);
+      const y = f.height * (0.1 + r() * 0.8);
+      const w = (10 + r() * 10) * unit;
+      c.beginPath();
+      c.moveTo(x, y);
+      c.quadraticCurveTo(x - w * 0.5, y - w * 0.45, x - w, y - w * 0.1);
+      c.quadraticCurveTo(x - w * 0.6, y + w * 0.05, x - w * 0.5, y + w * 0.25);
+      c.quadraticCurveTo(x - w * 0.25, y + w * 0.05, x, y + w * 0.2);
+      c.quadraticCurveTo(x + w * 0.25, y + w * 0.05, x + w * 0.5, y + w * 0.25);
+      c.quadraticCurveTo(x + w * 0.6, y + w * 0.05, x + w, y - w * 0.1);
+      c.quadraticCurveTo(x + w * 0.5, y - w * 0.45, x, y);
+      c.fill();
+    }
+    c.globalAlpha = 1;
+  } else if (th.decor === "circuit") {
+    // A circuit board: right-angled traces ending in pads, glowing in the accent.
+    const r = rng(23);
+    const g = 22 * unit;
+    c.save();
+    c.strokeStyle = th.accent;
+    c.fillStyle = th.accent;
+    c.shadowColor = th.accent;
+    c.shadowBlur = 6 * unit;
+    c.lineWidth = 1.6 * unit;
+    c.globalAlpha = 0.45;
+    const n = Math.round((f.width * f.height) / (g * g * 14));
+    for (let i = 0; i < n; i++) {
+      let x = Math.round((r() * f.width) / g) * g;
+      let y = Math.round((r() * f.height) / g) * g;
+      c.beginPath();
+      c.moveTo(x, y);
+      for (let s = 0; s < 3 + Math.floor(r() * 4); s++) {
+        const len = (1 + Math.floor(r() * 4)) * g;
+        if (r() < 0.5) x += r() < 0.5 ? len : -len;
+        else y += r() < 0.5 ? len : -len;
+        c.lineTo(x, y);
+      }
+      c.stroke();
+      c.beginPath();
+      c.arc(x, y, 3 * unit, 0, Math.PI * 2);
+      c.fill();
+    }
+    c.restore();
+  } else if (th.decor === "scan") {
+    // A screen: scanlines in the ink, and a few bars of broken colour.
+    c.fillStyle = th.ink;
+    c.globalAlpha = 0.07;
+    for (let y = 0; y < f.height; y += 4 * unit) c.fillRect(0, y, f.width, 1.4 * unit);
+    const r = rng(29);
+    const bars = ["#00ffe1", "#ff00e1", "#00ff9c", th.accent];
+    for (let i = 0; i < 16; i++) {
+      c.fillStyle = bars[i % bars.length];
+      c.globalAlpha = 0.25 + r() * 0.35;
+      c.fillRect(r() * f.width * 0.9, r() * f.height, (20 + r() * 140) * unit, (1.5 + r() * 5) * unit);
+    }
+    c.globalAlpha = 1;
+  } else if (th.decor === "bokeh") {
+    // Out-of-focus lights: soft discs in the accent, white and gold.
+    const r = rng(31);
+    const n = Math.round((f.width * f.height) / (5200 * unit * unit));
+    const cols = [th.accent, "#ffffff", "#ffd88a"];
+    for (let i = 0; i < n; i++) {
+      const x = r() * f.width;
+      const y = r() * f.height;
+      const rad = (8 + r() * 34) * unit;
+      const g = c.createRadialGradient(x, y, 0, x, y, rad);
+      const col = cols[i % cols.length];
+      g.addColorStop(0, col);
+      g.addColorStop(0.7, col);
+      g.addColorStop(1, "transparent");
+      c.fillStyle = g;
+      c.globalAlpha = 0.08 + r() * 0.22;
+      c.beginPath();
+      c.arc(x, y, rad, 0, Math.PI * 2);
+      c.fill();
+    }
+    c.globalAlpha = 1;
   } else if (th.decor === "grain") {
     const r = rng(3);
     const n = Math.round((f.width * f.height) / 260);

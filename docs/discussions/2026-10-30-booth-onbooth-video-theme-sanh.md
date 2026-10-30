@@ -272,3 +272,16 @@ Chủ dự án (ảnh iPhone): "lúc select ảnh sao mấy cái vòng tròn ngo
 - **Q-P31:** có, theo mùa (D-165) → đã làm: trong mùa Halloween (7/10 – 1/11), Giáng sinh (25/11 – 27/12), Tết (3 tuần trước – 1 tuần sau mùng 1) lần đầu mở sảnh tự sang cảnh đó (và theme bản in đi kèm), mỗi mùa mỗi năm một lần; chọn cảnh khác thì giữ. Các bộ e2e booth chạy với `?today=2026-06-15` (ngoài mùa) để kết quả không đổi theo ngày thật.
 - **Q-P32:** chủ dự án hỏi "ô vuông là ô gì" → là dãy ô vuông nhỏ chỉ cảnh sảnh (ý của chủ dự án ở mục 5 hôm trước), góc trái vì góc phải có tag; chờ góp ý.
 - **Q-P33:** có, **5–7 theme bản in mỗi cảnh** (D-166).
+
+## 16. Đã làm: 27 theme bản in theo cảnh + 6 hoạ tiết nền mới (D-166, 2026-10-30)
+- Bảng Theme có **nhóm riêng cho từng cảnh sảnh**, xếp đầu: Giáng sinh, Tết, Halloween, Cyberpunk, Glitch (mỗi nhóm 6 theme), Rạp phim thêm 2 (Bảng đèn, Thảm đỏ). Theme gốc của mỗi cảnh (Giáng sinh, Tết, Halloween, Cyberpunk, Glitch) chuyển vào nhóm đó; nhóm "Tương lai" bỏ (2 theme của nó đã sang Cyberpunk / Glitch).
+  | Nhóm | Theme mới |
+  |---|---|
+  | Giáng sinh | Ca-rô Noel, Ngày tuyết, Ánh vàng, Kẹo gậy, Đêm ấm |
+  | Tết | Bao lì xì, Hoa mai, Hoa đào, Sơn mài, Giao thừa |
+  | Halloween | Mạng nhện, Ruộng bí ngô, Chất nhờn, Ma con, Trăng máu |
+  | Cyberpunk | Mạch điện, Synthwave, Ảnh ba chiều, Mưa neon, Chợ đêm |
+  | Glitch | Băng VHS, Màn hình xanh, Điểm ảnh, Lệch màu, Dòng lệnh |
+  | Rạp phim | Bảng đèn, Thảm đỏ |
+- **6 hoạ tiết nền mới** (`render.ts`): kẻ ca-rô (tartan), mây cát tường, mạng nhện + dơi, mạch điện phát sáng, scanline + vệt lỗi màu, đốm sáng (bokeh).
+- Hạn chế (đúng ý Q-P27): khung dải dọc ảnh che gần hết giấy nên hoạ tiết chỉ lộ ở mép — cần item to (khung, sticker…) từ kho IG; chờ nghiên cứu UI (D-167).

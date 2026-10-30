@@ -52,7 +52,7 @@ check((await page.locator("[data-theme-id='candy']").getAttribute("aria-checked"
 console.log("2. Filter");
 await page.getByRole("tab", { name: "Filter" }).click();
 const before = await saturation();
-await page.getByRole("radio", { name: "Noir" }).click();
+await page.getByRole("radio", { name: "Noir", exact: true }).click();
 await page.waitForTimeout(500);
 const after = await saturation();
 check(after < before * 0.25, `Noir greys the photos (saturation ${before.toFixed(0)} → ${after.toFixed(0)})`);
@@ -89,9 +89,9 @@ await page.reload();
 await openRoll(page);
 await page.getByRole("button", { name: /Decorate/ }).click();
 await page.getByRole("tab", { name: "Theme" }).click();
-check((await page.getByRole("radio", { name: "Candy" }).getAttribute("aria-checked")) === "true", "theme kept");
+check((await page.getByRole("radio", { name: "Candy", exact: true }).getAttribute("aria-checked")) === "true", "theme kept");
 await page.getByRole("tab", { name: "Filter" }).click();
-check((await page.getByRole("radio", { name: "Noir" }).getAttribute("aria-checked")) === "true", "filter kept");
+check((await page.getByRole("radio", { name: "Noir", exact: true }).getAttribute("aria-checked")) === "true", "filter kept");
 await page.getByRole("tab", { name: "Text" }).click();
 check((await page.getByRole("textbox").inputValue()) === "Sinh nhật Mai", "title kept");
 
