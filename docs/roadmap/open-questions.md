@@ -38,7 +38,7 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P17.** ~~Đếm ngược?~~ 8 giây, nghỉ 2 giây — D-154.
 - **Q-P18.** ~~Mở trong IG Layout dạng gì?~~ Hỏi người dùng, kèm lựa chọn "Bất ngờ" — D-155.
 - **Q-P19.** ~~Lưu strip?~~ Có — D-156.
-- **Q-P20.** Video hậu trường: **gác lại** — chủ dự án chưa thấy mục đích (2026-10-29).
+- **Q-P20.** Video hậu trường: ~~gác lại~~ (2026-10-29) → 2026-10-30 chủ dự án thấy ONBOOTH cho tải video và muốn làm ảnh động — xem Q-P29.
 - *Khung tự do, đồ trang trí, theme theo chủ đề (2026-10-30 — [2026-10-30-booth-khung-theme.md](../discussions/2026-10-30-booth-khung-theme.md)):*
 - **Q-P21.** ~~Làm phần này **trước** sửa chung trong phòng (vì sửa chung s…~~ Đồng ý — D-161 (2026-10-30).
 - **Q-P22.** ~~Bảy cách xếp (dọc, ngang, lưới, dọc lệch, ngang lệch, lưới l…~~ Đồng ý — D-161 (2026-10-30).
@@ -47,6 +47,15 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P25.** ~~Nhóm theme bản đầu: Cinema, Rừng, Candy, Đêm hội, Lãng mạn,…~~ Đồng ý — D-161 (2026-10-30).
 - **Q-P26.** ~~Theme đổi cả **không khí màn chụp / sửa** (nền mờ đổi màu +…~~ Đồng ý — D-161 (2026-10-30).
 - **Q-P27.** Theme "chưa thực sự đã mắt" (2026-10-30): thiếu nhất ở đâu — (a) nền còn phẳng, muốn **ảnh minh hoạ / texture thật** (giấy, vải, gỗ, bầu trời…); (b) **chữ tiêu đề** cần hiệu ứng (viền, bóng, chuyển màu, chữ uốn); (c) **đồ trang trí** cần to / dày / nhiều lớp hơn; (d) ảnh trong ô cần **viền / khung** đậm chất theme hơn (tem, film, khung tranh); (e) cần **sticker nhân vật / hình minh hoạ** theo chủ đề? Có app / tiệm nào anh/chị thấy đẹp để mình tham khảo không?
+- *ONBOOTH solo / Duo, ảnh động, theme sảnh, khung IG (2026-10-30 — [2026-10-30-booth-onbooth-video-theme-sanh.md](../discussions/2026-10-30-booth-onbooth-video-theme-sanh.md)):*
+- **Q-P28.** Chụp dư **mặc định bật, gấp đôi số ô** (khung 4 → 8 kiểu)? Khi đó 8 s × 8 kiểu quá dài → **kiểu đầu 8 s, kiểu sau 5 s** (sửa D-154)?
+- **Q-P29.** Ảnh động: làm **MP4 + Boomerang** trước, rồi GIF; **Live Photo (iPhone) / Motion Photo (Android)** làm trang thử trên máy thật rồi mới quyết — đồng ý?
+- **Q-P30.** Duo của ONBOOTH là "mỗi người 2 tấm" hay "hai người chung một ô (chia đôi)"? Cần thử tới màn kết quả với 2 máy có camera. Đề xuất mình làm **chung một ô**.
+- **Q-P31.** Theme sảnh: 6 theme (Cinema, Noel, Tết, Halloween, Cyberpunk, Glitch) như bảng §5 — ok? **Tự mở theme theo mùa** (tháng 12 → Noel…) hay luôn mở theme lần trước?
+- **Q-P32.** Ô vuông chỉ theme đặt ở **góc trên trái** (tag IG Layout đã ở góc phải) — ok? Chạm ô để nhảy thẳng tới theme?
+- **Q-P33.** Chọn theme sảnh thì **cuộn mới mặc định theme bản in cùng chủ đề** (vẫn đổi được)? Mỗi theme sảnh kèm 2–3 theme bản in mới?
+- **Q-P34.** Khung IG trong booth: thứ tự mức 1 (khung ảnh rời làm ô) → mức 3 (bộ sưu tập theo theme) → mức 2 (template IG làm khung, xuất khổ IG) — ok?
+- **Q-P35.** Thứ tự làm §7 (sảnh dọc → luồng chụp → ảnh động → theme sảnh → khung IG → Duo) — ok, hay ưu tiên theme Noel trước vì sắp tới mùa?
 
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?

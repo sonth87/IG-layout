@@ -1,0 +1,175 @@
+# 2026-10-30 — Booth: học luồng chụp ONBOOTH, ảnh động, Duo, theme sảnh, khung từ IG Layout
+
+> Trạng thái: **Đề xuất** — chưa chốt, chưa code. Câu hỏi: Q-P28 → Q-P35 ([open-questions.md](../roadmap/open-questions.md)).
+> Nền: [2026-10-29-booth-thiet-ke.md](2026-10-29-booth-thiet-ke.md), [2026-10-30-booth-khung-theme.md](2026-10-30-booth-khung-theme.md).
+> Ảnh: `sample/5/IMG_4204 → 4214` (chủ dự án chụp onboothvn.com trên iPhone, 2026-10-30).
+
+## Ý của chủ dự án
+1. Chụp solo ở ONBOOTH: **chụp nhiều hơn số ô** (khung 3 → chụp 6), chọn tấm ưng, chụp lại được; chụp xong **hiện tấm vừa chụp ~2 s** rồi chụp tiếp; **số đếm ngược ở góc** để không che người. Chọn xong mới làm đẹp. Luồng hợp lý → học theo.
+2. ONBOOTH **quay video ngắn** thay vì chỉ chụp → tải được "video" = khung có các ô chuyển động. Mình làm hơn được không: **video / GIF / Live Photo**.
+3. Duo (IMG_4213, 4214): cách hiển thị; đoán là khung 4 thì mỗi người chụp 2.
+4. Sảnh booth trên điện thoại: các nút **xếp một hàng dọc**.
+5. Sảnh có **nhiều theme** ngoài rạp chiếu phim: **Noel, Tết, Halloween, Cyberpunk, Glitch**. Đổi theme bằng **vuốt ngang**; góc màn có **ô vuông nhỏ theo màu theme** để biết đang ở theme nào. Theme sảnh cũng dùng được làm theme cho khung.
+6. Đưa **khung / template của IG Layout** vào booth (xé giấy, phim, khung tranh…) để bổ trợ theme.
+
+---
+
+## 1. Đọc ảnh ONBOOTH — chụp solo
+
+| Ảnh | Màn | Thấy gì |
+|---|---|---|
+| 4204 | Chụp | Thanh trên kem, viền lỗ phim đỏ. Camera trong **polaroid lớn hơi nghiêng**, chú thích "you". Nhãn **SHOT 1/6** trên polaroid. **Thẻ đếm ngược ở góc trên phải**: số to (serif, bóng đỏ) + nhãn vàng **gợi ý tạo dáng** ("HANDS UP!"). Thẻ đè lên mép polaroid, không đè mặt. Dưới: **CAPTURE NOW** (đỏ), MIRROR, LEAVE. |
+| 4206 | Chụp | SHOT 3/6, thẻ đếm "7 · DUCK FACE!" (mỗi kiểu một gợi ý khác). Dưới polaroid: **6 ô chờ** — ô đã chụp là ảnh nhỏ, ô chưa chụp là **khung nét đứt đánh số 3, 4, 5, 6**. |
+| 4207 | Sau khi chụp | Cả màn tối đi, **ảnh vừa chụp hiện thành polaroid lớn ở giữa** + dòng "NEXT SHOT COMING UP…"; nút CAPTURE NOW ẩn. Ô số 3 dưới đáy đã có ảnh. |
+| 4208 | Chọn ảnh | "THE ROLL IS DEVELOPED" / **Pick your favorites** / "your picks are just for you — everyone chooses their own". **0/3 PICKED**, lưới 2 × 3 ảnh đánh số 01–06, nút mờ "pick 3 more". |
+| 4209 | Chọn ảnh | Ảnh đã chọn: **viền vàng + dấu ✓**; 3/3 → nút đỏ **PRINT THE STRIP →**. Không có thứ tự chọn (số trên ảnh là số kiểu). |
+| 4210 | Chờ in | Strip mờ + nhãn **✨ BEAUTIFYING…**, **confetti rơi**; trên cùng "↓ scroll down to pick a theme ↓". Strip mặc định trắng, chữ ONBOOTH + ngày dưới đáy. |
+| 4211 | Kết quả | Kéo lên một tấm giấy: **THEME (JUST FOR YOU) · PICK A THEME PACK**, tab **Simple / Patterns**, thẻ Black · White · Cream · Pink… vuốt ngang có chấm trang. **FILTER**: Original · Beauty · Vintage warm · Classic film… Nút: **KEEP IT ↓** (lưu), **SHARE TO STORY ↗**, **DOWNLOAD VIDEO 🎥**, CHANGE PICKS, NEW ROLL. |
+
+### So với booth của mình hiện tại
+
+| Điểm | ONBOOTH | Booth mình (code hiện tại) |
+|---|---|---|
+| Chụp dư | **Luôn gấp đôi** số ô (3 → 6) | Tuỳ chọn "chụp dư", **+2 kiểu**, mặc định tắt (D-157, `SPARE = 2`) |
+| Đếm ngược | **Thẻ nhỏ ở góc**, kèm gợi ý tạo dáng | Vòng tròn + số to **giữa màn** (`Shoot.tsx`) — che mặt người chụp |
+| Sau mỗi kiểu | Ảnh vừa chụp **phủ lên giữa màn ~2 s** ("kiểu tiếp theo…") | Ảnh bay xuống dải thumbnail ở đáy, nghỉ 2 s (D-154) — mắt đang nhìn camera nên dễ không thấy |
+| Ô chờ | Ô nét đứt đánh số dưới camera | Dải ô vuông nhỏ trên thanh trên + thumbnail đáy |
+| Chọn ảnh | Chạm để chọn, không có thứ tự | Chạm theo thứ tự, có số thứ tự (Pick.tsx) — **của mình tốt hơn** (biết ảnh nào vào ô nào) |
+| Chụp lại | Không thấy nút chụp lại một kiểu (chỉ CHANGE PICKS / NEW ROLL) | "Chụp lại kiểu vừa rồi" lúc chụp |
+| Sau chọn | Màn "BEAUTIFYING…" + confetti, rồi theme / filter ngay dưới bản in | Màn kết quả → Trang trí (đủ hơn nhiều: bố cục, sticker, chữ…) |
+| Video | **DOWNLOAD VIDEO** | Chưa có (Q-P20 gác) |
+
+### Đề xuất sửa luồng chụp solo
+1. **Chụp dư mặc định bật, gấp đôi số ô** (khung 3 → 6, khung 4 → 8). Vẫn tắt được. Khung 1 ô (polaroid) → 3 kiểu.
+   - Thời gian: 8 s đếm + 2 s nghỉ (D-154) × 8 kiểu = **80 s** cho khung 4 — dài. Đề xuất: **kiểu đầu 8 s, các kiểu sau 5 s** (người ta đã vào tư thế). Cần chủ dự án chốt (**Q-P28**).
+2. **Đếm ngược chuyển ra góc**: thẻ giấy nhỏ nghiêng ở góc trên (bên phải; nếu tay phải cầm máy thì vẫn không che), số to + **gợi ý tạo dáng** đổi theo từng kiểu (song ngữ, ~20 câu: "Giơ tay lên!", "Mặt ngầu!", "Nhìn sang trái", "Tim bằng tay"…). 3 giây cuối thẻ nảy + đổi đỏ. Tắt được gợi ý. Vòng tiến độ chuyển thành **viền chạy quanh polaroid camera** (thấy được mà không che).
+3. **Xem lại ảnh vừa chụp 2 s**: dùng chính 2 s nghỉ hiện có — sau loé trắng, ảnh vừa chụp hiện thành polaroid lớn giữa màn (camera mờ phía sau), "Kiểu tiếp theo…", rồi **bay vào ô của nó** ở dải dưới. Chạm vào ảnh lúc đó = **chụp lại kiểu này** (thay cho nút riêng).
+4. **Ô chờ nét đứt đánh số** dưới camera thay cho dải ô vuông nhỏ trên thanh trên (giống 4206) — rõ còn mấy kiểu.
+5. **Chọn ảnh** giữ cách của mình (chọn theo thứ tự, có số), thêm: **giữ lâu để xem to**, nút **"Chụp thêm 1 kiểu"** nếu không ưng tấm nào, và từ màn kết quả có **"Chọn lại ảnh"** (như CHANGE PICKS).
+6. Màn chờ "đang tráng phim…" + confetti (~1 s) trước khi ra bản in: hợp với hoạt ảnh máy in đã đề xuất (§2.6 booth-thiet-ke). Nhỏ, làm kèm.
+
+---
+
+## 2. Ảnh động: video / GIF / Live Photo
+
+ONBOOTH gọi là "download video": bản in với **mỗi ô là một đoạn video ngắn** — chính là "live strip" đã giải thích ở Q-P20. Chủ dự án giờ đã thấy mục đích → đề xuất **bỏ gác Q-P20, làm**.
+
+### Cách quay
+- Trong lúc chụp, ghi camera liên tục bằng **MediaRecorder** (iOS Safari ≥ 14.5 ghi MP4, Chrome ghi WebM/MP4), cắt thành từng đoạn: **~1,5 s trước + ~1,5 s sau** lúc bấm chụp → mỗi kiểu một clip ~3 s. Không thêm thao tác nào cho người dùng.
+- Ảnh tĩnh vẫn chụp như cũ (độ nét cao); clip chỉ cần 720p.
+- Chụp dư 8 kiểu × 3 s × ~1–1,5 MB ≈ 10 MB/cuộn → lưu cùng cuộn trong IndexedDB (mở lại cuộn vẫn xuất video được). Khi xoá cuộn thì xoá clip.
+- Clip gắn với kiểu: chọn ảnh nào vào ô thì clip đó vào ô; chụp lại thì thay clip.
+
+### Dạng xuất (đề xuất, theo thứ tự ưu tiên)
+| Dạng | Mô tả | Khả thi |
+|---|---|---|
+| **Video MP4** (chính) | Bản in đầy đủ (theme, sticker, chữ) với các ô **chuyển động cùng lúc**, lặp 2–3 lần, ~6–9 s. Khổ bản in hoặc Story 9:16 / Post 4:5. | **Cao** — vẽ từng khung hình bằng chính hàm vẽ bản in, mã hoá bằng **mediabunny** đã có (D-81). |
+| **Boomerang** | Mỗi ô chạy xuôi rồi ngược (kiểu IG Boomerang), loop mượt không giật ở chỗ nối. | **Cao** — cùng đường MP4, chỉ đổi thứ tự khung. Hợp đăng Story / Reels. |
+| **GIF** | Bản nhỏ (≤ 540 px, 10–12 fps, ~3 s) để gửi chat / dán. | **Cao**, file to (3–8 MB). Cần thư viện mã hoá GIF nhỏ (vd. `gifenc`, MIT) chạy trong worker. |
+| **Video hậu trường** | Nối các clip theo thứ tự chụp, có tiếng màn trập + loé, cuối là bản in. | Trung bình — làm sau MP4. |
+| **Motion Photo (Android)** | Một file JPEG có kèm video (định dạng Google Motion Photo: JPEG + MP4 nối đuôi + XMP). Google Photos / Samsung Gallery hiện thành ảnh động. | **Làm được trên web** (chỉ là ghép byte) — nhưng phải thử máy thật. |
+| **Live Photo (iPhone)** | Cần **cặp JPEG + MOV** có chung "content identifier" (siêu dữ liệu Apple). Web không có API lưu Live Photo vào Ảnh; chia sẻ 2 file qua share sheet **thường bị lưu thành 2 mục riêng**. | **Thấp / chưa chắc** — cần trang thử trên iPhone thật trước khi hứa. Instagram cũng không đăng Live Photo như ảnh động (Story có thể biến thành boomerang tuỳ phiên bản). |
+
+**Đề xuất:** làm **MP4 + Boomerang** trước (dùng lại mediabunny), GIF ngay sau. Motion Photo / Live Photo làm **trang thử** (`/labs/livephoto`) trên máy thật rồi mới quyết (**Q-P29**).
+
+### Ở màn kết quả
+- Thêm công tắc **Ảnh / Động** ngay trên bản in: bật "Động" thì bản in xem trước chạy luôn (người dùng thấy ngay ảnh động trông ra sao — ONBOOTH không cho xem trước).
+- Nút lưu theo dạng đang xem: Ảnh → PNG/JPEG như cũ; Động → MP4 (mặc định) · Boomerang · GIF.
+- "Mở trong IG Layout": các ô thành **video** trong project (IG Layout đã hỗ trợ video, M13) → chỉnh tiếp như mọi video.
+
+### Phòng chụp chung
+Mỗi máy quay clip của mình; gửi clip qua WebRTC nặng hơn ảnh nhiều (~1 MB/clip). Đề xuất **làm sau solo**, khi đó gửi clip đã nén 480p.
+
+---
+
+## 3. Duo (IMG_4213, 4214)
+
+**Thấy gì:** phòng có mã (BOOTH d55k3jp · COPY LINK). Không phải mỗi người một polaroid như phòng nhóm — mà **một polaroid duy nhất chia đôi dọc**: nửa trái là mình (nhãn vàng "H (you)" / "Host"), nửa phải là bạn (nhãn đỏ "Partner", chưa vào thì chữ cái đầu + "WAITING…"); dưới polaroid chữ **DUO**. Nút chính **PICK A LAYOUT →**, rồi MIC, CAM, MIRROR, LEAVE. Ảnh 4214 là lúc trình duyệt xin quyền micro (cam/mic chưa bật → MIC× CAM× đỏ).
+
+**Đoán "khung 4 thì mỗi người chụp 2 tấm":** từ 2 ảnh này **chưa chắc**. Cách hiển thị chia đôi một polaroid gợi ý cách khác: **mỗi kiểu chụp là một ô chứa cả hai người đứng cạnh nhau** (nửa trái / nửa phải ghép lại, như đứng chung một booth) → khung 4 = chụp 4 kiểu, mỗi ô có cả 2 người. Cần thử tới màn kết quả với 2 máy có camera để biết (**Q-P30**).
+
+**Đề xuất cho mình:** làm **Duo = "chung một ô"** (cách thứ hai), vì đó là điểm khác thật so với phòng nhóm hiện tại (phòng nhóm đã xếp mỗi người vào ô riêng theo thứ tự). Cụ thể:
+- Ô được chia đôi (dọc cho ô đứng, ngang cho ô nằm… hoặc luôn dọc), mỗi máy chụp cắt đúng nửa của mình; khung xem trước chụp hiện **cả hai nửa ghép trong một polaroid** như ONBOOTH.
+- Có đường nối mềm / để trống mảnh giấy giữa hai nửa tuỳ theme.
+- Nếu chủ dự án muốn "mỗi người 2 tấm" thì đó chính là phòng nhóm hiện tại với 2 người — giữ như cũ.
+
+---
+
+## 4. Sảnh trên điện thoại: nút xếp dọc
+
+Hiện tại (ảnh chủ dự án gửi): vé "ADMIT ONE" — **Shoot solo** to, dưới là hai ô cạnh nhau **Start a group room** | **Join with a code** (ô mã + GO bị ép nhỏ), rồi "Have photos already? Upload them".
+
+Đề xuất trên điện thoại (< 640 px): **một cột**
+1. Chụp một mình (thẻ đỏ to, như cũ)
+2. Mở phòng chụp chung (rộng hết)
+3. Vào bằng mã: ô mã rộng + nút Vào trên **cùng một hàng**, rộng hết
+4. Đã có ảnh? Tải lên (dòng chữ)
+
+Màn rộng hơn giữ hai ô cạnh nhau. Việc nhỏ, làm được ngay khi chủ dự án đồng ý.
+
+---
+
+## 5. Theme cho sảnh booth
+
+### Thay đổi so với đã chốt
+§4 booth-thiet-ke ghi "giao diện booth luôn theo Cinema". Giờ: **sảnh có nhiều theme**; các màn sau (chọn khung, chụp, trang trí) đã có "không khí" theo theme bản in (Mood.tsx) — giữ nguyên.
+
+### 6 theme sảnh (Cinema + 5 mới), tất cả vẽ bằng code (SVG / CSS / canvas), không dùng hình có bản quyền
+| Theme | Cảnh nền | Chuyển động | Vé / nút | Ô màu ở góc |
+|---|---|---|---|---|
+| **Cinema** (hiện tại) | Rèm nhung đỏ, đèn sân khấu, viền bóng đèn | Đèn nhấp nháy nhẹ | Vé "ADMIT ONE" kem / đỏ | đỏ nhung |
+| **Noel** | Cửa sổ đêm tuyết, cây thông, dây đèn nhiều màu, vòng nguyệt quế | Tuyết rơi, đèn nháy chậm | Vé thành **thiệp / thẻ quà** buộc nơ đỏ | xanh thông + đỏ |
+| **Tết** | Nền đỏ son, câu đối, đèn lồng treo, cành mai / đào | Hoa mai rơi, đèn lồng đung đưa | Vé thành **bao lì xì** (viền vàng, chữ Phúc vẽ bằng nét) | đỏ + vàng |
+| **Halloween** | Đêm tím, trăng to, hàng rào, bí ngô khắc mặt phát sáng, mạng nhện góc | Dơi bay, sương trôi, bí ngô lập loè | **Vé nhà ma** (cam / đen, mép rách) | cam bí ngô |
+| **Cyberpunk** | Phố đêm mưa, biển hiệu neon (hồng / cyan), toà nhà cao | Mưa xiên, neon chập chờn | **Thẻ hologram** viền neon, chữ mono | hồng neon |
+| **Glitch** | Màn CRT cong, scanline, khối nhiễu | Tách kênh RGB, chữ giật theo nhịp | **Hộp thoại lỗi** kiểu hệ điều hành cũ ("Shoot.exe") | xanh lục / tím lệch kênh |
+
+- Mỗi theme sảnh có **giọng chữ riêng** (font tiêu đề + câu chào), song ngữ.
+- **Glitch / Cyberpunk an toàn mắt**: không nhấp nháy quá 3 lần / giây, không mảng lớn sáng tối đột ngột; **`prefers-reduced-motion` → tắt giật / hạt rơi**, chỉ còn cảnh tĩnh.
+
+### Đổi theme
+- **Vuốt ngang** trên vùng sân khấu (không phải trên hàng ảnh gần đây ló từ đáy — hàng đó đang cuộn ngang, §16 khung-theme) → cảnh **đi theo ngón tay**, các lớp chạy lệch tốc độ (parallax: rèm / cửa sổ gần đi nhanh, nền xa đi chậm), thả tay thì **hít về theme gần nhất** bằng lò xo; vuốt nhanh thì sang luôn.
+- **Ô vuông nhỏ ở góc** (dưới tag IG Layout hoặc góc trên trái): mỗi theme một ô màu, ô đang chọn to hơn / có viền; **chạm ô để nhảy thẳng tới theme**. Trên máy tính thêm phím ← → và mũi tên mờ hai mép.
+- Vuốt vòng (theme cuối → theme đầu).
+- **Nhớ theme lần trước.** Đề xuất thêm: theo mùa tự mở theme hợp (tháng 12 → Noel, quanh Tết → Tết, tháng 10 → Halloween) — app đã có `templates/seasons.ts` (**Q-P31**).
+- Hiệu năng: chỉ dựng theme đang xem + 2 theme kề; mỗi theme tách file, tải lười; hạt rơi dùng chung `Mood.tsx`.
+
+### Theme sảnh → theme bản in
+- Mỗi theme sảnh **dẫn tới một nhóm theme bản in**: chọn "Chụp một mình" từ sảnh Tết → cuộn mới mặc định theme bản in Tết (vẫn đổi được).
+- 24 theme bản in hiện có đã có Cyberpunk (nhóm Tương lai) và tuyết; **cần thêm** theme bản in **Tết, Halloween, Glitch** (và Noel đủ bộ) theo đúng nét của sảnh — cùng bảng màu, hoạ tiết, font. Đề xuất mỗi theme sảnh có 2–3 theme bản in đi kèm.
+
+---
+
+## 6. Khung / template IG Layout trong booth
+
+### Hiện có
+- Booth: **10 khung** (ô vẽ bằng code) + **24 theme** (giấy + hoạ tiết vẽ bằng code).
+- IG Layout: **~450 template** (28 nhóm: phim, xé giấy, scrapbook, Tết, mùa đông, holidays, hoài cổ…) và **17 gói khung có cửa sổ ảnh** (`public/packs/frame`: gen-film, gen-instant, gen-torn-photos, gen-torn-collage, gen-torn-backed, gen-picture-frames, gilded-frames, wooden-frames, vintage-photo-mounts, gen-stamps, postcards, gen-album, gen-camera, gen-notebook, gen-envelopes, labels-cards, ornaments) + **44 bộ sưu tập** (có bộ theo mùa: tet, halloween, christmas, newYear…).
+
+### Ba mức đưa vào (đề xuất)
+1. **Khung ảnh rời làm "ô" của booth** (dễ, giá trị cao). Mỗi khung trong gói có cửa sổ ảnh (D-88) → ô booth hình đó: ảnh chụp vào cửa sổ, viền phim / mép xé / khung gỗ / tem nằm trên. Dùng trong màn **Bố cục** của booth như một **"hình ô"** mới (hiện đã có vuông, bo góc, polaroid, vòm, tròn, tim, xé giấy). Ví dụ: dải 4 ô mà mỗi ô là một **tem thư**, hay một **khung phim** thật.
+2. **Template IG làm khung booth** (trung bình). Template 1 slide có 2–8 ô ảnh → thành khung booth: số kiểu chụp = số ô; xuất ra **đúng khổ IG** (Post 4:5 / Story 9:16) chứ không phải khổ in 2×6. Template nhiều slide → kết quả là **carousel**. Lúc chụp, camera hiện trong ô đang chụp **ngay trên template** (FrameLive cần hỗ trợ lớp art đè trên ảnh + ô xoay). Đây là cầu nối mạnh nhất booth → IG Layout.
+3. **Bộ sưu tập theo theme** (dễ). Theme sảnh / theme bản in chỉ tới bộ sưu tập IG tương ứng (Tết → `tet`, Noel → `christmas`, Halloween → `halloween`, Cyberpunk / Glitch → `neon`, `digital`, `y2k`): sticker gợi ý ở màn trang trí và khung / template gợi ý ở màn chọn khung lấy từ đó.
+
+### Giao diện chọn khung
+- Màn chọn khung thêm nhóm **"Từ IG Layout"** chia theo loại (Phim · Xé giấy · Khung tranh · Tem / bưu thiếp · Polaroid · Theo mùa), **lọc theo số kiểu** (2 / 3 / 4 / 6…). Theme sảnh đang chọn → nhóm theo mùa đó lên đầu.
+- Khung IG khác khổ in: ghi rõ trên thẻ "Post 4:5" / "Story" / "Carousel 3".
+
+### Lưu ý
+- Giấy phép: các gói khung / template đã dùng trong IG Layout (licenses.json) → dùng trong booth cùng app không phát sinh thêm (cần soát lại gói nào là ảnh nguồn ngoài).
+- Phòng chụp chung chỉ cần gửi **id khung / template** — dữ liệu có sẵn ở mọi máy.
+- Ảnh động (§2) chạy được trên khung IG: video vào cửa sổ y như ảnh.
+- Cửa sổ ảnh xoay / không phải chữ nhật → xem trước camera phải cắt theo đúng hình (đã làm cho ô hình tim / vòm, mở rộng thêm cho mask raster).
+
+---
+
+## 7. Thứ tự làm (đề xuất)
+1. **Sảnh điện thoại xếp dọc** (§4) — nhỏ.
+2. **Luồng chụp kiểu ONBOOTH** (§1): chụp dư mặc định ×2, đếm ở góc + gợi ý dáng, xem lại 2 s, ô chờ nét đứt, chọn lại ảnh.
+3. **Ảnh động**: quay clip quanh mỗi kiểu → MP4 + Boomerang → GIF (§2). Trang thử Live Photo / Motion Photo song song.
+4. **Theme sảnh**: khung vuốt + ô màu, rồi từng theme Noel → Tết → Halloween → Cyberpunk → Glitch (Noel trước vì sắp tới mùa); kèm theme bản in đi theo.
+5. **Khung IG trong booth**: mức 1 (khung ảnh rời làm ô) → mức 3 (bộ sưu tập theo theme) → mức 2 (template IG làm khung).
+6. **Duo "chung một ô"** sau khi thử xong Q-P30.
+
+## Câu hỏi cho chủ dự án
+Xem [open-questions.md](../roadmap/open-questions.md) mục Photobooth (Q-P28 → Q-P35).
