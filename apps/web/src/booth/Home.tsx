@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { isRoomCode } from "@ig-layout/core/booth/protocol";
 import { listRolls, type BoothRoll } from "@ig-layout/core/storage/booth";
-import { SwitchCurtain, useAppSwitch } from "@/components/AppSwitch";
+import { useAppSwitch } from "@/components/AppSwitch";
 import { SwitchTag } from "@/components/SwitchTag";
 import { LAYOUT_TAG, LayoutTagFace } from "@/components/TagFaces";
 import { useSettings, useT } from "@/store/settings";
@@ -14,7 +14,8 @@ import { Stage } from "./Stage";
 // paper ticket with the three ways in (solo, start a group room, join one by code), upload, and recent prints
 // pinned under it. The hanging tag goes back to IG Layout (D-151).
 
-export function BoothHome({ onSolo, onRoom, onUpload, onOpen }: { onSolo: () => void; onRoom: (code: string | null) => void; onUpload: (files: File[]) => void; onOpen: (roll: BoothRoll) => void }) {
+/** `preview`: drawn as IG Layout's peek at the booth (no tag, nothing to tap). */
+export function BoothHome({ onSolo, onRoom, onUpload, onOpen, preview }: { onSolo: () => void; onRoom: (code: string | null) => void; onUpload: (files: File[]) => void; onOpen: (roll: BoothRoll) => void; preview?: boolean }) {
   const t = useT();
   const toLayout = useAppSwitch("layout");
   const locale = useSettings((s) => s.locale);
@@ -122,9 +123,8 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen }: { onSolo: () => 
         <p className={`${mono} mt-8 text-center text-[10px] uppercase tracking-[0.25em] opacity-55`}>{t("booth.privacy")}</p>
       </div>
       </div>
-      <SwitchTag label={`${t("booth.switchTo")} IG Layout`} face={<LayoutTagFace />} {...LAYOUT_TAG} string="#f3e9d6" onSwitch={toLayout.onSwitch} onProgress={toLayout.onProgress} />
-      {toLayout.overlay}
-      <SwitchCurtain kind="booth" />
+      {!preview && <SwitchTag label={`${t("booth.switchTo")} IG Layout`} face={<LayoutTagFace />} {...LAYOUT_TAG} string="#f3e9d6" onSwitch={toLayout.onSwitch} onProgress={toLayout.onProgress} />}
+      {!preview && toLayout.overlay}
     </div>
   );
 }

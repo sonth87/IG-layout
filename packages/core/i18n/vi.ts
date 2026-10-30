@@ -1172,4 +1172,6 @@ export const vi: Record<MessageKey, string> = {
   "booth.sticker.front": "Lên trên",
   "booth.sticker.back": "Xuống dưới",
   "booth.sticker.remove": "Xoá",
+  "booth.handoff.backdrop": "Kèm nền theme",
+  "booth.handoff.backdropHint": "Bản in là ảnh kéo thả được; nền đổi hoặc bỏ được trong IG Layout.",
 };

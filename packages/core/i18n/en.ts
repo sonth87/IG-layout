@@ -1173,6 +1173,8 @@ export const en = {
   "booth.sticker.front": "To front",
   "booth.sticker.back": "To back",
   "booth.sticker.remove": "Remove",
+  "booth.handoff.backdrop": "With the theme's background",
+  "booth.handoff.backdropHint": "The print is a photo you can move; the background can be changed or removed in IG Layout.",
 } as const;
 
 export type MessageKey = keyof typeof en;

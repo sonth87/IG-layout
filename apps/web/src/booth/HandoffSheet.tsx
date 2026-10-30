@@ -11,6 +11,8 @@ import { Label, Paper, display, mono, serif } from "./ui";
 // "Open in IG Layout" (D-155): ask what to make — Post, Carousel, Story, or a surprise —
 // build the project, then go to the editor. The surprise unwraps a gift first.
 
+const BACKDROP_KEY = "ig-layout:booth-backdrop";
+
 const KINDS: { kind: Handoff; icon: string }[] = [
   { kind: "post", icon: "▭" },
   { kind: "carousel", icon: "▭▭" },
@@ -24,13 +26,21 @@ export function HandoffSheet({ roll, onClose }: { roll: BoothRoll; onClose: () =
   const router = useRouter();
   const [working, setWorking] = useState<Handoff | null>(null);
   const [failed, setFailed] = useState(false);
+  // The theme's paper as the slide's background, or not (remembered).
+  const [backdrop, setBackdrop] = useState(() => {
+    try {
+      return localStorage.getItem(BACKDROP_KEY) !== "0";
+    } catch {
+      return true;
+    }
+  });
 
   async function go(kind: Handoff) {
     setWorking(kind);
     setFailed(false);
     try {
       const wait = kind === "surprise" ? new Promise((r) => setTimeout(r, 900)) : null;
-      await openInLayout(roll, kind, t("booth.projectName", { date: formatShortDate(roll.createdAt, locale) }));
+      await openInLayout(roll, kind, t("booth.projectName", { date: formatShortDate(roll.createdAt, locale) }), backdrop);
       await wait;
       router.push("/");
     } catch (e) {
@@ -75,6 +85,26 @@ export function HandoffSheet({ roll, onClose }: { roll: BoothRoll; onClose: () =
                   </button>
                 ))}
               </div>
+              <label className={`${mono} relative mt-4 flex cursor-pointer items-center gap-3 text-xs`}>
+                <input
+                  type="checkbox"
+                  className="peer absolute top-0 left-0 h-6 w-6 cursor-pointer opacity-0"
+                  checked={backdrop}
+                  onChange={(e) => {
+                    setBackdrop(e.target.checked);
+                    try {
+                      localStorage.setItem(BACKDROP_KEY, e.target.checked ? "1" : "0");
+                    } catch {}
+                  }}
+                />
+                <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[#1d1612] bg-[#fbf6ec] text-sm font-bold text-[#c8432f]">
+                  {backdrop ? "✕" : ""}
+                </span>
+                <span>
+                  {t("booth.handoff.backdrop")}
+                  <span className="block text-[10px] opacity-60">{t("booth.handoff.backdropHint")}</span>
+                </span>
+              </label>
               {failed && <p className={`${mono} mt-3 text-center text-xs text-[#c8432f]`}>{t("booth.handoff.failed")}</p>}
             </div>
           )}

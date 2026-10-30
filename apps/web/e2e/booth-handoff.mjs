@@ -65,11 +65,32 @@ for (const [kind, expect] of [
   await page.locator("canvas").first().waitFor({ timeout: 15000 });
   await page.waitForTimeout(800);
   await page.screenshot({ path: path.join(OUT, `booth-handoff-${kind.split(" ")[0].toLowerCase()}.png`) });
+  check(!(await page.getByRole("button", { name: "Switch to Photobooth" }).isVisible().catch(() => false)), `${kind}: straight into the editor, not the home screen`);
   const list = await projects();
   const p = list.find((x) => x.name.startsWith("Photobooth") && expect(x));
   check(!!p, `${kind} → editor, saved project ${p ? `${p.type} ${p.ratio} ×${p.slides}` : JSON.stringify(list)}`);
   await toPrint();
 }
+
+console.log("3. The print as a photo, the theme's paper as the background (or not)");
+const shape = () => page.evaluate(() => {
+  const d = window.__igEditor?.getState().doc;
+  return d ? { bg: d.background.kind, images: d.elements.filter((e) => e.type === "image").length } : null;
+});
+await page.getByRole("button", { name: /Open in IG Layout/ }).click();
+await page.getByRole("dialog").getByRole("button", { name: /Post 4:5/ }).click();
+await page.waitForURL((u) => !u.pathname.includes("booth"), { timeout: 15000 });
+await page.waitForFunction(() => window.__igEditor?.getState().doc, null, { timeout: 15000 });
+let sh = await shape();
+check(sh?.bg === "texture" && sh.images >= 1, `with the background: paper as the slide's background, the print a photo (${JSON.stringify(sh)})`);
+await toPrint();
+await page.getByRole("button", { name: /Open in IG Layout/ }).click();
+await page.getByText("With the theme's background").click();
+await page.getByRole("dialog").getByRole("button", { name: /Post 4:5/ }).click();
+await page.waitForURL((u) => !u.pathname.includes("booth"), { timeout: 15000 });
+await page.waitForFunction(() => window.__igEditor?.getState().doc, null, { timeout: 15000 });
+sh = await shape();
+check(sh?.bg === "color" && sh.images >= 1, `without: plain background (${JSON.stringify(sh)})`);
 
 check(errors.length === 0, `no page errors ${errors.length ? JSON.stringify(errors) : ""}`);
 await browser.close();

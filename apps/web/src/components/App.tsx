@@ -98,6 +98,17 @@ export function App() {
     const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1500));
     idle(() => void loadEditor());
     const stopAutosave = startAutosave();
+    // Coming from the booth's "Open in IG Layout": straight into the editor with that project,
+    // even if the page was loaded afresh on the way (then the store starts empty).
+    try {
+      const id = sessionStorage.getItem("ig-layout:open-project");
+      if (id) {
+        sessionStorage.removeItem("ig-layout:open-project");
+        if (useEditor.getState().projectId !== id) void useEditor.getState().openProject(id);
+      }
+    } catch {
+      // ignore
+    }
     return () => {
       stopAutosave?.();
       window.removeEventListener("error", onError);

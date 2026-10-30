@@ -7,7 +7,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 // Pull it down past a threshold (or, if `side`, sideways towards the middle) and let go →
 // onSwitch; a short tug only makes it swing (like a lamp's pull cord). A tap or Enter also
 // switches. While pulling, onProgress(0…1) lets the page show the other app coming in.
-// On a phone, gravity follows how the phone is held (device orientation), so tilting it
+// On a phone, gravity follows how the phone is held (the accelerometer), so tilting it
 // swings the tag. The string is a Verlet rope (points + distance constraints), drawn into an
 // SVG path; the tag follows the last segment. Nothing re-renders per frame. Each app gives
 // its own face (TagFaces.tsx).
@@ -78,31 +78,42 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
     if (!reduced) pts.forEach((p, i) => (p.px = p.x + (i / N) * 2.5));
 
     // Gravity's direction on the screen (unit vector): straight down until the phone says
-    // otherwise. Smoothed, so a shaky hand doesn't jitter the tag.
+    // otherwise. From the accelerometer's gravity (steady at any angle — the orientation
+    // angles flip around when the phone stands upright), smoothed so a shaky hand doesn't
+    // jitter the tag. iOS reports gravity's direction, Android the opposite: flip for Android.
     const down = { x: 0, y: 1 };
     const want = { x: 0, y: 1 };
-    const orient = (e: DeviceOrientationEvent) => {
-      if (e.gamma === null || e.beta === null) return;
-      // Roll (gamma) tips gravity sideways; screen rotation turns it with the screen.
-      const roll = (e.gamma * Math.PI) / 180;
+    type IOSMotion = typeof DeviceMotionEvent & { requestPermission?: () => Promise<"granted" | "denied"> };
+    const ask = typeof DeviceMotionEvent === "undefined" ? undefined : (DeviceMotionEvent as IOSMotion).requestPermission;
+    const ios = !!ask || /iP(hone|ad|od)/.test(navigator.userAgent);
+    const motion = (e: DeviceMotionEvent) => {
+      const a = e.accelerationIncludingGravity;
+      if (!a || a.x === null || a.y === null) return;
+      const sign = ios ? 1 : -1;
+      // Portrait screen axes: x right, y down.
+      const gx = (sign * a.x) / 9.81;
+      const gy = (-sign * a.y) / 9.81;
+      const len = Math.hypot(gx, gy);
+      // Lying flat, the screen has no "down": keep straight down.
+      if (len < 0.35) {
+        want.x = 0;
+        want.y = 1;
+        return;
+      }
       const turn = ((screen.orientation?.angle ?? 0) * Math.PI) / 180;
-      // Lying flat (beta ≈ 0), the phone can't tell "down" on the screen: keep straight down.
-      const upright = Math.min(1, Math.abs(Math.sin((e.beta * Math.PI) / 180)) * 1.6);
-      const gx = Math.sin(roll) * upright;
-      const gy = Math.sqrt(Math.max(0, 1 - gx * gx));
-      want.x = gx * Math.cos(turn) + gy * Math.sin(turn);
-      want.y = -gx * Math.sin(turn) + gy * Math.cos(turn);
+      const x = gx / len;
+      const y = gy / len;
+      want.x = x * Math.cos(turn) - y * Math.sin(turn);
+      want.y = x * Math.sin(turn) + y * Math.cos(turn);
     };
     const touch = matchMedia("(pointer: coarse)").matches;
     let listening = false;
     const listen = () => {
       if (listening || reduced || !touch) return;
       listening = true;
-      addEventListener("deviceorientation", orient);
+      addEventListener("devicemotion", motion);
     };
-    // iOS asks first (on a tap); remember the answer so it's asked once.
-    type IOSOrientation = typeof DeviceOrientationEvent & { requestPermission?: () => Promise<"granted" | "denied"> };
-    const ask = typeof DeviceOrientationEvent === "undefined" ? undefined : (DeviceOrientationEvent as IOSOrientation).requestPermission;
+    // iOS asks first, and only from a real tap (touchend / click); remember the answer.
     let answer: string | null = null;
     try {
       answer = localStorage.getItem(TILT_KEY);
@@ -111,14 +122,17 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
     const askOnce = () => {
       if (!ask || answer !== null) return;
       answer = "asking";
-      void ask.call(DeviceOrientationEvent).then(
+      void ask.call(DeviceMotionEvent).then(
         (r) => {
+          answer = r;
           try {
             localStorage.setItem(TILT_KEY, r);
           } catch {}
           if (r === "granted") listen();
         },
-        () => {},
+        () => {
+          answer = null;
+        },
       );
     };
 
@@ -215,7 +229,6 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
 
     const el = tag.current!;
     const pdown = (e: PointerEvent) => {
-      askOnce();
       el.setPointerCapture(e.pointerId);
       const end = pts[N - 1];
       grab = { id: e.pointerId, x: end.x, y: end.y, ox: e.clientX - end.x, oy: e.clientY - end.y, sx: e.clientX, sy: e.clientY, moved: false, armed: false };
@@ -246,15 +259,16 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
       }
     };
     // The pointer brushing past the string pushes it (mouse / pen only — touch can't hover).
+    // Only the string, not the tag: a pointer resting on the tag must not make it bounce.
     const brush = (e: PointerEvent) => {
       if (grab || e.pointerType === "touch") return;
       const prevHover = hover;
       hover = { x: e.clientX, y: e.clientY };
-      if (!prevHover) return;
-      const vx = hover.x - prevHover.x;
-      for (let i = 1; i < N; i++) {
+      if (!prevHover || el.contains(e.target as Node)) return;
+      const vx = Math.max(-12, Math.min(12, hover.x - prevHover.x));
+      for (let i = 1; i < N - 1; i++) {
         const p = pts[i];
-        if (Math.hypot(p.x - hover.x, p.y - hover.y) < 28) p.px -= vx * 0.35;
+        if (Math.hypot(p.x - hover.x, p.y - hover.y) < 18) p.px -= vx * 0.2;
       }
     };
     const key = (e: KeyboardEvent) => {
@@ -268,6 +282,7 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
     el.addEventListener("pointerup", up);
     el.addEventListener("pointercancel", up);
     el.addEventListener("keydown", key);
+    el.addEventListener("touchend", askOnce);
     addEventListener("pointermove", brush);
     addEventListener("resize", place);
     return () => {
@@ -277,9 +292,10 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
       el.removeEventListener("pointerup", up);
       el.removeEventListener("pointercancel", up);
       el.removeEventListener("keydown", key);
+      el.removeEventListener("touchend", askOnce);
       removeEventListener("pointermove", brush);
       removeEventListener("resize", place);
-      removeEventListener("deviceorientation", orient);
+      removeEventListener("devicemotion", motion);
     };
   }, [right, width]);
 

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { TemplatePreview } from "@/components/layout/TemplatePreview";
 import { Icon } from "@/components/ui/Icon";
-import { SwitchCurtain, useAppSwitch } from "@/components/AppSwitch";
+import { useAppSwitch } from "@/components/AppSwitch";
 import { SwitchTag } from "@/components/SwitchTag";
 import { BOOTH_TAG, BoothTagFace } from "@/components/TagFaces";
 import { formatRelative } from "@ig-layout/core/format";
@@ -371,7 +371,8 @@ function TemplateDetail({ tpl, onBack, onOpen, onUse }: { tpl: Template; onBack:
   );
 }
 
-export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Template) => void }) {
+/** `preview`: drawn as the booth's peek at IG Layout (no tag, nothing to tap). */
+export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Template) => void; preview?: boolean }) {
   const t = useT();
   const toBooth = useAppSwitch("booth");
   const locale = useSettings((s) => s.locale);
@@ -635,9 +636,8 @@ export function HomeScreen(props: { onNew: () => void; onUseTemplate: (tpl: Temp
       )}
       {/* The hanging tag to the booth (D-151: on the home screen only, not over its sub-screens).
           A little photobooth strip on a light string: it hangs over the banner photo. */}
-      {!top && <SwitchTag label={`${t("booth.switchTo")} Photobooth`} face={<BoothTagFace />} {...BOOTH_TAG} string="#f3e9d6" onSwitch={toBooth.onSwitch} onProgress={toBooth.onProgress} />}
-      {toBooth.overlay}
-      <SwitchCurtain kind="layout" />
+      {!top && !props.preview && <SwitchTag label={`${t("booth.switchTo")} Photobooth`} face={<BoothTagFace />} {...BOOTH_TAG} string="#f3e9d6" onSwitch={toBooth.onSwitch} onProgress={toBooth.onProgress} />}
+      {!props.preview && toBooth.overlay}
       {top?.kind === "detail" && <TemplateDetail key={top.tpl.id} tpl={top.tpl} onBack={pop} onOpen={open} onUse={props.onUseTemplate} />}
     </main>
   );
