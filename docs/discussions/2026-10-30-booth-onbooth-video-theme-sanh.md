@@ -285,3 +285,11 @@ Chủ dự án (ảnh iPhone): "lúc select ảnh sao mấy cái vòng tròn ngo
   | Rạp phim | Bảng đèn, Thảm đỏ |
 - **6 hoạ tiết nền mới** (`render.ts`): kẻ ca-rô (tartan), mây cát tường, mạng nhện + dơi, mạch điện phát sáng, scanline + vệt lỗi màu, đốm sáng (bokeh).
 - Hạn chế (đúng ý Q-P27): khung dải dọc ảnh che gần hết giấy nên hoạ tiết chỉ lộ ở mép — cần item to (khung, sticker…) từ kho IG; chờ nghiên cứu UI (D-167).
+
+## 17. Giao diện bên trong theo cảnh sảnh (2026-10-30)
+Chủ dự án: "theme ở ngoài home thay đổi thì ui bên trong cũng nên đổi theo đấy nhé" (thay quy tắc cũ "giao diện booth luôn theo Cinema" — §4 2026-10-29-booth-thiet-ke).
+- Mọi màu viết cứng của các màn chọn khung, chụp, chọn ảnh, kết quả, trang trí, phòng, bảng Mở trong IG Layout (~244 chỗ, 20 tệp) đổi thành **biến CSS** theo vai trò: `--c-paper` (tấm giấy, chữ sáng trên nền tối / nút chính), `--c-ink` (chữ, viền, tấm tối), `--c-red` (nút chính, nhãn), `--c-amber` (điểm nhấn), `--c-shadow` (bóng cứng), `--c-paper2`, `--c-field`, `--c-floor`. Màu vẽ canvas giữ nguyên.
+- Mỗi cảnh có một bộ màu (`lobby/themes.ts` `CHROME`): Rạp phim (kem / nâu / đỏ gạch — như cũ), Giáng sinh (trắng ngà / xanh thông / đỏ), Tết (vàng kem / đỏ sẫm / đỏ son / vàng), Halloween (kem cũ / tím than / cam), Cyberpunk (**tối**: tím than / chữ sáng / hồng neon / xanh neon), Glitch (xám Windows cũ / đen / xanh navy / xanh lục).
+- Gốc booth đặt biến theo cảnh đang chọn, **đổi ngay khi vuốt sang cảnh khác**; trang xem trước booth trong IG Layout cũng vậy. Nền các màn (không khí) vẫn theo theme bản in — mà cảnh sảnh đã chọn sẵn theme bản in cùng chủ đề.
+- Thẻ Theme ở màn trang trí: **nhóm của cảnh đang chọn lên đầu**.
+- e2e `booth-lobby.mjs`: thanh trên màn chọn khung mang màu Halloween, đổi sang cảnh Cyberpunk thì đổi theo. Toàn bộ test booth qua.

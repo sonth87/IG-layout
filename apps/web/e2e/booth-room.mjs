@@ -38,6 +38,21 @@ await host.getByRole("button", { name: "Start a group room" }).click();
 await name(host, "An");
 const code = (await host.locator("[data-room-code]").textContent({ timeout: 10000 })).trim();
 check(/^[2-9A-Z]{4}$/.test(code), `room code made for the host: ${code}`);
+const domMeta = await host.evaluate(() => ({
+  title: document.title,
+  desc: document.querySelector('meta[name="description"]')?.getAttribute("content") ?? "",
+  ogTitle: document.querySelector('meta[property="og:title"]')?.getAttribute("content") ?? "",
+  ogDesc: document.querySelector('meta[property="og:description"]')?.getAttribute("content") ?? "",
+}));
+check(
+  domMeta.title.includes(code) && domMeta.desc.includes(code) && domMeta.ogTitle.includes(code) && domMeta.ogDesc.includes(code),
+  `DOM title & meta description/OG carry room code ${code}`,
+);
+const rawHtml = await fetch(new URL(`booth?r=${code}`, URL_ARG).href).then((r) => r.text());
+check(
+  rawHtml.includes(`<title>`) && rawHtml.includes(code) && rawHtml.includes(`og:title`) && rawHtml.includes(`og:description`),
+  `server HTML <head> metadata for /booth?r=${code} includes room code ${code}`,
+);
 const guests = [];
 for (const n of ["Binh", "Chi"]) {
   const g = await open();

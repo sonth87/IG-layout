@@ -117,10 +117,19 @@ export function loadLobby(): LobbyId {
   }
 }
 
+const listeners = new Set<() => void>();
+
 export function saveLobby(id: LobbyId) {
   try {
     localStorage.setItem(KEY, id);
   } catch {}
+  for (const l of listeners) l();
+}
+
+/** For useSyncExternalStore: the booth's screens follow the scene picked in the lobby. */
+export function subscribeLobby(l: () => void) {
+  listeners.add(l);
+  return () => void listeners.delete(l);
 }
 
 const SEASON_KEY = "ig-layout:booth-lobby-season";
@@ -142,6 +151,25 @@ export function seasonalLobby(): LobbyId | null {
     return null;
   }
   return SEASONS[event.id]!;
+}
+
+/** The booth's own screens (frame, shoot, pick, print, decorate) in the scene's colours
+ * (owner, 2026-10-30: the inside follows the lobby). Same roles as the cinema look they
+ * replace: paper (panels, and light text on dark / main), ink (text, borders, dark
+ * panels), red (the main button, labels), amber (highlights), shadow (hard shadows), paper2
+ * (second panels), field (inputs), floor (behind everything). */
+export const CHROME: Record<LobbyId, Record<"paper" | "ink" | "red" | "amber" | "shadow" | "paper2" | "field" | "floor", string>> = {
+  cinema: { paper: "#f3e9d6", ink: "#1d1612", red: "#c8432f", amber: "#eaa63c", shadow: "#0b0806", paper2: "#e7d9bd", field: "#fbf6ec", floor: "#1a1310" },
+  noel: { paper: "#fffaf0", ink: "#14301f", red: "#c62828", amber: "#ffd36e", shadow: "#06140c", paper2: "#e4f0e6", field: "#ffffff", floor: "#0b2416" },
+  tet: { paper: "#fff4d6", ink: "#5c0610", red: "#c8102e", amber: "#ffc93a", shadow: "#3a0409", paper2: "#fbe3a6", field: "#fffaf0", floor: "#4a0509" },
+  halloween: { paper: "#f4e3c3", ink: "#1e1029", red: "#c2410c", amber: "#ff9a3a", shadow: "#08040c", paper2: "#e8d0a6", field: "#fff6e6", floor: "#120a1a" },
+  cyber: { paper: "#140a2a", ink: "#e8f7ff", red: "#ff2bd6", amber: "#2df6ff", shadow: "#ff2bd6", paper2: "#1f1240", field: "#0b0618", floor: "#07021a" },
+  glitch: { paper: "#c3c3c3", ink: "#0b0b0b", red: "#000080", amber: "#00ff9c", shadow: "#000000", paper2: "#d6d6d6", field: "#ffffff", floor: "#050608" },
+};
+
+/** The booth's screens' colours as CSS variables (--c-paper…), set on the booth's root. */
+export function chromeVars(id: LobbyId): CSSProperties {
+  return Object.fromEntries(Object.entries(CHROME[id]).map(([k, v]) => [`--c-${k}`, v])) as CSSProperties;
 }
 
 /** The theme's colours as CSS variables on its page. */

@@ -1,7 +1,11 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { THEME_GROUPS, THEMES, type BoothTheme } from "@ig-layout/core/booth/themes";
+import { THEME_GROUPS, THEMES, type BoothTheme, type ThemeGroup } from "@ig-layout/core/booth/themes";
+import { loadLobby, type LobbyId } from "./lobby/themes";
+
+/** The lobby scene's own group goes first (owner, 2026-10-30: the inside follows the lobby). */
+const SCENE_GROUP: Record<LobbyId, ThemeGroup> = { cinema: "cinema", noel: "xmas", tet: "tet", halloween: "halloween", cyber: "cyber", glitch: "glitch" };
 import { useT } from "@/store/settings";
 import { mono } from "./ui";
 
@@ -12,7 +16,7 @@ export function ThemePicker({ value, onPick, preview, compact }: { value: string
   const t = useT();
   return (
     <div role="radiogroup" aria-label={t("booth.tab.theme")} className={compact ? "flex gap-2 overflow-x-auto px-5 pt-2 pb-3" : "flex flex-col gap-3 px-5 pt-3 pb-4"}>
-      {THEME_GROUPS.map((g) => {
+      {[SCENE_GROUP[loadLobby()], ...THEME_GROUPS.filter((g) => g !== SCENE_GROUP[loadLobby()])].map((g) => {
         const list = THEMES.filter((th) => th.group === g);
         const cards = list.map((th) => {
           const on = th.id === value;
@@ -25,12 +29,12 @@ export function ThemePicker({ value, onPick, preview, compact }: { value: string
               aria-label={t(`booth.theme.${th.id}` as Parameters<typeof t>[0])}
               data-theme-id={th.id}
               onClick={() => onPick(th)}
-              className={`flex shrink-0 flex-col items-center gap-1.5 border-2 border-[#1d1612] p-1.5 transition-[transform,box-shadow] duration-100 ${compact ? "w-[72px]" : "w-[92px]"} ${on ? "-translate-y-1 bg-[#1d1612] text-[#f3e9d6] shadow-[4px_4px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[3px_3px_0_#0b0806]"}`}
+              className={`flex shrink-0 flex-col items-center gap-1.5 border-2 border-[var(--c-ink)] p-1.5 transition-[transform,box-shadow] duration-100 ${compact ? "w-[72px]" : "w-[92px]"} ${on ? "-translate-y-1 bg-[var(--c-ink)] text-[var(--c-paper)] shadow-[4px_4px_0_var(--c-red)]" : "bg-[var(--c-paper2)] shadow-[3px_3px_0_var(--c-shadow)]"}`}
             >
               {preview ? (
                 <span className="flex h-[96px] items-center">{preview(th)}</span>
               ) : (
-                <span aria-hidden className="flex h-9 w-full overflow-hidden border border-[#1d1612]/40">
+                <span aria-hidden className="flex h-9 w-full overflow-hidden border border-[var(--c-ink)]/40">
                   {th.swatch.map((c) => (
                     <span key={c} className="flex-1" style={{ background: c }} />
                   ))}
@@ -43,7 +47,7 @@ export function ThemePicker({ value, onPick, preview, compact }: { value: string
         if (compact) return cards;
         return (
           <section key={g}>
-            <p className={`${mono} text-[10px] font-bold uppercase tracking-[0.25em] text-[#c8432f]`}>{t(`booth.group.${g}` as Parameters<typeof t>[0])}</p>
+            <p className={`${mono} text-[10px] font-bold uppercase tracking-[0.25em] text-[var(--c-red)]`}>{t(`booth.group.${g}` as Parameters<typeof t>[0])}</p>
             <div className="mt-1.5 flex gap-3 overflow-x-auto pt-1 pb-2 md:flex-wrap md:overflow-visible">{cards}</div>
           </section>
         );

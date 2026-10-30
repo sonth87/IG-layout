@@ -77,7 +77,7 @@ export function CameraView({ camera, facing, aspect, videoRef, caption, tilt = -
   return (
     <div ref={box} className="flex h-full w-full items-center justify-center">
       <div
-        className={`bg-[var(--booth-polaroid,#f6efe2)] transition-transform duration-500 ${compact ? "" : "shadow-[6px_6px_0_#0b0806]"}`}
+        className={`bg-[var(--booth-polaroid,#f6efe2)] transition-transform duration-500 ${compact ? "" : "shadow-[6px_6px_0_var(--c-shadow)]"}`}
         style={{ padding: `${pad}px ${pad}px 0`, transform: compact ? undefined : `rotate(${tilt}deg)`, visibility: pw ? "visible" : "hidden" }}
       >
         <div className="relative overflow-hidden bg-[#2a231d] transition-[width,height] duration-300 ease-out" style={{ width: pw, height: ph }}>
@@ -96,7 +96,7 @@ export function CameraView({ camera, facing, aspect, videoRef, caption, tilt = -
           />
           {children}
         </div>
-        <div className={`${mono} flex items-center px-1 text-[13px] font-bold text-[#1d1612]`} style={{ height: capH }}>
+        <div className={`${mono} flex items-center px-1 text-[13px] font-bold text-[var(--c-ink)]`} style={{ height: capH }}>
           {!compact && caption}
         </div>
       </div>

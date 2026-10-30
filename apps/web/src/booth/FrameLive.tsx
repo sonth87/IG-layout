@@ -41,7 +41,7 @@ export function FrameLive({ frame, shots, current, stream, facing, fake, look, l
         {cells.map((c, i) => (
           <div
             key={`${current}-${i}`}
-            className="absolute overflow-hidden outline outline-2 outline-offset-2 outline-[#eaa63c]"
+            className="absolute overflow-hidden outline outline-2 outline-offset-2 outline-[var(--c-amber)]"
             style={{ left: pct(c.x + border, frame.width), top: pct(c.y + border, frame.height), width: pct(c.w - border * 2, frame.width), height: pct(c.h - border * 2, frame.height) }}
           >
             <LiveVideo stream={stream} mirror={facing === "user" && !fake} />

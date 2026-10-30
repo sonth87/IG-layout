@@ -86,21 +86,21 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
     <div className="flex h-full flex-col lg:flex-row">
       <div className="relative flex min-h-0 flex-1 flex-col items-center px-5 pt-[max(0.75rem,env(safe-area-inset-top))] lg:pt-8">
         {/* The printer. */}
-        <div className="relative z-10 w-full max-w-[340px] shrink-0 rounded-t-[18px] lg:max-w-[640px] border-2 border-[#0b0806] bg-[#3a2a20] px-4 pt-3 pb-4 shadow-[5px_5px_0_#0b0806]">
+        <div className="relative z-10 w-full max-w-[340px] shrink-0 rounded-t-[18px] lg:max-w-[640px] border-2 border-[var(--c-shadow)] bg-[#3a2a20] px-4 pt-3 pb-4 shadow-[5px_5px_0_var(--c-shadow)]">
           <div className="flex items-center justify-between">
             <span aria-hidden className="flex gap-1.5">
-              <span className={`h-2.5 w-2.5 rounded-full border border-[#0b0806] ${printing ? "animate-[booth-led_0.5s_steps(2)_infinite] bg-[#eaa63c]" : "bg-[#6fbf73]"}`} />
-              <span className="h-2.5 w-2.5 rounded-full border border-[#0b0806] bg-[#c8432f]/60" />
+              <span className={`h-2.5 w-2.5 rounded-full border border-[var(--c-shadow)] ${printing ? "animate-[booth-led_0.5s_steps(2)_infinite] bg-[var(--c-amber)]" : "bg-[#6fbf73]"}`} />
+              <span className="h-2.5 w-2.5 rounded-full border border-[var(--c-shadow)] bg-[var(--c-red)]/60" />
             </span>
-            <p className={`${serif} text-xl text-[#f3e9d6] [text-shadow:0_0_12px_rgba(234,166,60,0.5)]`} style={display}>
+            <p className={`${serif} text-xl text-[var(--c-paper)] [text-shadow:0_0_12px_rgba(234,166,60,0.5)]`} style={display}>
               {t("booth.title")}
             </p>
-            <span aria-hidden className={`${mono} text-[9px] font-bold tracking-[0.2em] text-[#eaa63c]/70`}>
+            <span aria-hidden className={`${mono} text-[9px] font-bold tracking-[0.2em] text-[var(--c-amber)]/70`}>
               Nº{String(date.getDate()).padStart(2, "0")}
             </span>
           </div>
           {/* The slot. */}
-          <div className="mt-3 h-3 rounded-full bg-[#0b0806] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)]" />
+          <div className="mt-3 h-3 rounded-full bg-[var(--c-shadow)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.9)]" />
         </div>
 
         {/* The print, clipped at the slot so it seems to come out of it. */}
@@ -129,8 +129,8 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
         </div>
       </div>
 
-      <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:flex lg:w-[420px] lg:flex-col lg:justify-center lg:border-t-0 lg:border-l-2 lg:px-8">
-        <p className={`${mono} text-center text-[13px] font-bold uppercase tracking-[0.18em] ${printing ? "" : missing.length ? "text-[#c8432f]" : "opacity-60"}`} aria-live="polite">
+      <div className="shrink-0 border-t-2 border-[var(--c-shadow)] bg-[var(--c-paper)] px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] text-[var(--c-ink)] lg:flex lg:w-[420px] lg:flex-col lg:justify-center lg:border-t-0 lg:border-l-2 lg:px-8">
+        <p className={`${mono} text-center text-[13px] font-bold uppercase tracking-[0.18em] ${printing ? "" : missing.length ? "text-[var(--c-red)]" : "opacity-60"}`} aria-live="polite">
           {printed && !missing.length && selected === null ? t("booth.printDone") : status}
         </p>
         {printed && onRetake && !missing.length && selected === null && <p className={`${mono} mt-0.5 text-center text-xs opacity-60`}>{t("booth.tapCell")}</p>}
@@ -149,7 +149,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
             <>
               {/* Still or moving (D-163): only when the roll has clips. */}
               {moving && (
-                <div role="radiogroup" aria-label={t("booth.kind")} className="grid grid-cols-3 border-2 border-[#1d1612]">
+                <div role="radiogroup" aria-label={t("booth.kind")} className="grid grid-cols-3 border-2 border-[var(--c-ink)]">
                   {KINDS.map((k) => (
                     <button
                       key={k}
@@ -157,7 +157,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
                       role="radio"
                       aria-checked={kind === k}
                       onClick={() => setKind(k)}
-                      className={`${mono} border-r-2 border-[#1d1612] py-2 text-xs font-bold uppercase tracking-[0.1em] last:border-r-0 ${kind === k ? "bg-[#c8432f] text-[#f3e9d6]" : ""}`}
+                      className={`${mono} border-r-2 border-[var(--c-ink)] py-2 text-xs font-bold uppercase tracking-[0.1em] last:border-r-0 ${kind === k ? "bg-[var(--c-red)] text-[var(--c-paper)]" : ""}`}
                     >
                       {t(`booth.kind.${k}`)}
                     </button>
@@ -185,7 +185,7 @@ export function Result({ roll, sound, onChange, onRetake, onDecorate, onAgain, o
             </>
           )}
           <div className={`grid gap-2 ${inRoom ? "grid-cols-3" : "grid-cols-4"}`}>
-            <Btn aria-pressed={roll.flip} className={`px-1 py-3 text-[11px] leading-tight tracking-[0.06em] ${roll.flip ? "!bg-[#1d1612] !text-[#f3e9d6]" : ""}`} onClick={() => onChange({ ...roll, flip: !roll.flip })}>
+            <Btn aria-pressed={roll.flip} className={`px-1 py-3 text-[11px] leading-tight tracking-[0.06em] ${roll.flip ? "!bg-[var(--c-ink)] !text-[var(--c-paper)]" : ""}`} onClick={() => onChange({ ...roll, flip: !roll.flip })}>
               <span aria-hidden className="mb-1 block text-2xl leading-none">⇋</span>
               {t("booth.flip")}
             </Btn>

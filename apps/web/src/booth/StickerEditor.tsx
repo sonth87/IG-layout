@@ -82,7 +82,7 @@ export function StickerEditor({ width, height, stickers, selected, onSelect, onL
             aria-pressed={on}
             data-sticker={s.key}
             onPointerDown={(e) => start(e, i, "move")}
-            className={`absolute cursor-move ${on ? "outline outline-2 outline-[#eaa63c]" : ""}`}
+            className={`absolute cursor-move ${on ? "outline outline-2 outline-[var(--c-amber)]" : ""}`}
             style={{ left: pct(s.x - s.w / 2, width), top: pct(s.y - h / 2, height), width: pct(s.w, width), height: pct(h, height), transform: `rotate(${s.rot}deg)`, zIndex: 10 + i, ...OUTLINE }}
           >
             {on && (

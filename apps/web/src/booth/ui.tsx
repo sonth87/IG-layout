@@ -25,10 +25,10 @@ export const display: CSSProperties = { fontVariationSettings: '"SOFT" 100, "WON
 type Tone = "main" | "paper" | "ink" | "danger";
 
 const TONES: Record<Tone, string> = {
-  main: "bg-[#c8432f] text-[#f3e9d6] border-[#1d1612]",
-  paper: "bg-[#f3e9d6] text-[#1d1612] border-[#1d1612]",
-  ink: "bg-[#1d1612] text-[#f3e9d6] border-[#f3e9d6]/70",
-  danger: "bg-[#f3e9d6] text-[#c8432f] border-[#c8432f]",
+  main: "bg-[var(--c-red)] text-[var(--c-paper)] border-[var(--c-ink)]",
+  paper: "bg-[var(--c-paper)] text-[var(--c-ink)] border-[var(--c-ink)]",
+  ink: "bg-[var(--c-ink)] text-[var(--c-paper)] border-[var(--c-paper)]/70",
+  danger: "bg-[var(--c-paper)] text-[var(--c-red)] border-[var(--c-red)]",
 };
 
 /** A button printed on paper: hard shadow, sinks into it when pressed. */
@@ -37,7 +37,7 @@ export function Btn({ tone = "paper", className = "", ...props }: ButtonHTMLAttr
     <button
       type="button"
       {...props}
-      className={`${mono} border-2 px-4 py-3 text-xs font-bold uppercase tracking-[0.16em] shadow-[4px_4px_0_#0b0806] transition-[transform,box-shadow] duration-75 enabled:active:translate-x-[3px] enabled:active:translate-y-[3px] enabled:active:shadow-[1px_1px_0_#0b0806] disabled:opacity-45 ${TONES[tone]} ${className}`}
+      className={`${mono} border-2 px-4 py-3 text-xs font-bold uppercase tracking-[0.16em] shadow-[4px_4px_0_var(--c-shadow)] transition-[transform,box-shadow] duration-75 enabled:active:translate-x-[3px] enabled:active:translate-y-[3px] enabled:active:shadow-[1px_1px_0_var(--c-shadow)] disabled:opacity-45 ${TONES[tone]} ${className}`}
     />
   );
 }
@@ -47,7 +47,7 @@ export function Paper({ children, className = "", notch, tilt = 0, style }: { ch
   const mask = notch ? "radial-gradient(circle 11px at 0 50%, transparent 10px, #000 11px) left / 51% 100% no-repeat, radial-gradient(circle 11px at 100% 50%, transparent 10px, #000 11px) right / 51% 100% no-repeat" : undefined;
   return (
     <div className={`relative ${className}`} style={{ transform: tilt ? `rotate(${tilt}deg)` : undefined, filter: "drop-shadow(5px 5px 0 #0b0806)", ...style }}>
-      <div className="h-full border-2 border-[#1d1612] bg-[#f3e9d6] text-[#1d1612]" style={{ WebkitMask: mask, mask }}>
+      <div className="h-full border-2 border-[var(--c-ink)] bg-[var(--c-paper)] text-[var(--c-ink)]" style={{ WebkitMask: mask, mask }}>
         {children}
       </div>
     </div>
@@ -56,20 +56,20 @@ export function Paper({ children, className = "", notch, tilt = 0, style }: { ch
 
 /** A dashed tear line. */
 export function Perforation({ className = "" }: { className?: string }) {
-  return <div aria-hidden className={`border-t-2 border-dashed border-[#1d1612]/35 ${className}`} />;
+  return <div aria-hidden className={`border-t-2 border-dashed border-[var(--c-ink)]/35 ${className}`} />;
 }
 
 /** Small red spaced caps, the ticket's printed labels. */
 export function Label({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <p className={`${mono} text-[11px] font-bold uppercase tracking-[0.3em] text-[#c8432f] ${className}`}>{children}</p>;
+  return <p className={`${mono} text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--c-red)] ${className}`}>{children}</p>;
 }
 
 /** The scrolling band at the top, like the text running on a cinema's front. */
 export function Ticker({ items }: { items: string[] }) {
   const text = items.map((s) => `✶ ${s} `).join("");
   return (
-    <div aria-hidden className="relative overflow-hidden border-b-2 border-[#0b0806] bg-[#0f0b09] py-2">
-      <div className={`${mono} flex w-max animate-[booth-marquee_28s_linear_infinite] whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.3em] text-[#eaa63c]`}>
+    <div aria-hidden className="relative overflow-hidden border-b-2 border-[var(--c-shadow)] bg-[#0f0b09] py-2">
+      <div className={`${mono} flex w-max animate-[booth-marquee_28s_linear_infinite] whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--c-amber)]`}>
         <span className="pr-6">{text.repeat(3)}</span>
         <span className="pr-6">{text.repeat(3)}</span>
       </div>
@@ -89,7 +89,7 @@ export function Bulbs({ children, className = "", colors = ["#ffd88a"], board = 
       backgroundRepeat: dir === "x" ? "repeat-x" : "repeat-y",
     }) satisfies CSSProperties;
   return (
-    <div className={`relative rounded-[14px] border-2 border-[#0b0806] p-4 shadow-[5px_5px_0_#0b0806] ${className}`} style={{ background: board }}>
+    <div className={`relative rounded-[14px] border-2 border-[var(--c-shadow)] p-4 shadow-[5px_5px_0_var(--c-shadow)] ${className}`} style={{ background: board }}>
       <span aria-hidden className="absolute inset-x-3 top-0.5 h-3 animate-[booth-bulbs_1.2s_steps(2)_infinite]" style={dots("x")} />
       <span aria-hidden className="absolute inset-x-3 bottom-0.5 h-3 animate-[booth-bulbs_1.2s_steps(2)_infinite_0.6s]" style={dots("x")} />
       <span aria-hidden className="absolute inset-y-3 left-0.5 w-3 animate-[booth-bulbs_1.2s_steps(2)_infinite_0.6s]" style={dots("y")} />
@@ -101,7 +101,8 @@ export function Bulbs({ children, className = "", colors = ["#ffd88a"], board = 
 
 /** The dark cinema floor: warm spotlight from the top, a fine dot texture. */
 export const floorStyle: CSSProperties = {
-  backgroundColor: C.floor,
+  // The lobby scene's floor (lobby/themes.ts CHROME), cinema by default.
+  backgroundColor: `var(--c-floor, ${C.floor})`,
   backgroundImage: "radial-gradient(ellipse 80% 45% at 50% -5%, rgba(234,166,60,0.18), transparent 70%), radial-gradient(rgba(243,233,214,0.05) 1px, transparent 1.2px)",
   backgroundSize: "100% 100%, 14px 14px",
 };

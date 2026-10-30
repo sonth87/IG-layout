@@ -187,7 +187,7 @@ export function Shoot({ camera, facing, frame, plan, base, look, countdown, soun
   return (
     <div className="relative flex h-full flex-col">
       {/* Top: exit, which shot (one box per shot, filled when taken), sound, pause. */}
-      <header className="flex shrink-0 items-center justify-between gap-2 border-b-2 border-[#0b0806] bg-[#f3e9d6] px-3 py-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] text-[#1d1612]">
+      <header className="flex shrink-0 items-center justify-between gap-2 border-b-2 border-[var(--c-shadow)] bg-[var(--c-paper)] px-3 py-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] text-[var(--c-ink)]">
         <Btn className="px-3 py-2" aria-label={t("booth.exit")} onClick={() => (shots.length ? setAsking(true) : onExit())}>
           ✕
         </Btn>
@@ -231,35 +231,35 @@ export function Shoot({ camera, facing, frame, plan, base, look, countdown, soun
             <>
               {/* The countdown on a card in the corner (D-162): the face stays in view. */}
               {st.phase === "count" && (
-                <div className="pointer-events-none absolute top-3 right-3 z-10 w-[min(9.5rem,34vw)] rotate-[2deg] border-2 border-[#1d1612] bg-[#f3e9d6] px-3 pt-2 pb-3 text-center text-[#1d1612] shadow-[4px_4px_0_#0b0806] md:w-44">
+                <div className="pointer-events-none absolute top-3 right-3 z-10 w-[min(9.5rem,34vw)] rotate-[2deg] border-2 border-[var(--c-ink)] bg-[var(--c-paper)] px-3 pt-2 pb-3 text-center text-[var(--c-ink)] shadow-[4px_4px_0_var(--c-shadow)] md:w-44">
                   <span
                     key={seconds}
                     data-countdown
-                    className={`${serif} block animate-[booth-pop_0.35s_ease-out] leading-none ${final ? "text-[64px] text-[#c8432f] md:text-[76px]" : "text-[52px] md:text-[64px]"}`}
+                    className={`${serif} block animate-[booth-pop_0.35s_ease-out] leading-none ${final ? "text-[64px] text-[var(--c-red)] md:text-[76px]" : "text-[52px] md:text-[64px]"}`}
                     style={{ ...display, textShadow: `3px 3px 0 ${final ? "#1d1612" : "#c8432f"}` }}
                   >
                     {seconds}
                   </span>
-                  <span className={`${mono} mt-1.5 inline-block -rotate-1 border-2 border-[#1d1612] bg-[#eaa63c] px-2 py-0.5 text-[10px] font-bold uppercase leading-tight tracking-[0.08em] shadow-[2px_2px_0_#0b0806]`}>
+                  <span className={`${mono} mt-1.5 inline-block -rotate-1 border-2 border-[var(--c-ink)] bg-[var(--c-amber)] px-2 py-0.5 text-[10px] font-bold uppercase leading-tight tracking-[0.08em] shadow-[2px_2px_0_var(--c-shadow)]`}>
                     {t(`booth.pose.${(poseSeed + shots.length) % POSES}` as MessageKey)}
                   </span>
-                  <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 origin-left bg-[#c8432f]" style={{ transform: `scaleX(${progress})` }} />
+                  <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 origin-left bg-[var(--c-red)]" style={{ transform: `scaleX(${progress})` }} />
                 </div>
               )}
               {/* The shot just taken, big, for the rest (D-162); tap it to take it again. */}
               {st.phase === "rest" && review && (
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-[#120d0a]/90 px-6 backdrop-blur-sm">
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-[var(--c-floor)]/90 px-6 backdrop-blur-sm">
                   <button
                     type="button"
                     disabled={st.until === Infinity}
                     onClick={retakeLast}
                     aria-label={t("booth.retakeLast")}
-                    className="animate-[booth-pop_0.3s_ease-out] border-2 border-[#1d1612] bg-[#f6efe2] p-2.5 pb-0 shadow-[6px_6px_0_#0b0806]"
+                    className="animate-[booth-pop_0.3s_ease-out] border-2 border-[var(--c-ink)] bg-[#f6efe2] p-2.5 pb-0 shadow-[6px_6px_0_var(--c-shadow)]"
                     style={{ rotate: shots.length % 2 ? "1.5deg" : "-1.5deg" }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element -- a local blob URL */}
                     <img src={review} alt="" className="block max-h-[52dvh] max-w-full" />
-                    <span className={`${mono} block py-2.5 text-[11px] font-bold uppercase tracking-[0.25em] text-[#1d1612]/70`}>
+                    <span className={`${mono} block py-2.5 text-[11px] font-bold uppercase tracking-[0.25em] text-[var(--c-ink)]/70`}>
                       {st.until === Infinity ? t("booth.rollDone") : t("booth.nextShot")}
                     </span>
                   </button>
@@ -267,22 +267,22 @@ export function Shoot({ camera, facing, frame, plan, base, look, countdown, soun
                 </div>
               )}
               {st.phase === "wait" && <p className={`${mono} pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-sm font-bold uppercase tracking-[0.3em]`}>{t("booth.getReady")}</p>}
-              {paused && <div className="pointer-events-none absolute inset-0 bg-[#1d1612]/50" />}
+              {paused && <div className="pointer-events-none absolute inset-0 bg-[var(--c-ink)]/50" />}
             </>
           }
         />
       </div>
 
       {/* The shots so far, as little prints; retake the last one. */}
-      <div className="flex min-h-[92px] shrink-0 items-center justify-between gap-3 border-t-2 border-[#0b0806] bg-[#120d0a] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <div className="flex min-h-[92px] shrink-0 items-center justify-between gap-3 border-t-2 border-[var(--c-shadow)] bg-[var(--c-floor)] px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div className="flex min-w-0 flex-1 gap-2 overflow-x-auto py-1 pl-1">
           {/* One slot per shot (D-162): taken ones show the picture, the rest are numbered. */}
           {Array.from({ length: plan.count }, (_, i) =>
             urls[i] ? (
               // eslint-disable-next-line @next/next/no-img-element -- a local blob URL
-              <img key={urls[i]} src={urls[i]} alt="" data-shot={i} className="h-14 w-auto shrink-0 animate-[booth-drop_0.45s_ease-out] border-[3px] border-[#f6efe2] shadow-[3px_3px_0_#0b0806]" style={{ rotate: `${i % 2 ? 3 : -3}deg` }} />
+              <img key={urls[i]} src={urls[i]} alt="" data-shot={i} className="h-14 w-auto shrink-0 animate-[booth-drop_0.45s_ease-out] border-[3px] border-[#f6efe2] shadow-[3px_3px_0_var(--c-shadow)]" style={{ rotate: `${i % 2 ? 3 : -3}deg` }} />
             ) : (
-              <span key={`slot-${i}`} aria-hidden className={`${mono} flex h-14 w-12 shrink-0 items-center justify-center border-2 border-dashed text-xs ${i === shots.length ? "border-[#eaa63c] text-[#eaa63c]" : "border-[#f3e9d6]/35 text-[#f3e9d6]/45"}`}>
+              <span key={`slot-${i}`} aria-hidden className={`${mono} flex h-14 w-12 shrink-0 items-center justify-center border-2 border-dashed text-xs ${i === shots.length ? "border-[var(--c-amber)] text-[var(--c-amber)]" : "border-[var(--c-paper)]/35 text-[var(--c-paper)]/45"}`}>
                 {i + 1}
               </span>
             ),

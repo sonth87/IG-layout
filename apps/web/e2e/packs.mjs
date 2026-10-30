@@ -1,6 +1,6 @@
 // A small fake catalog served in place of /packs/ (M20): two packs made from the
 // fixture photos, so the libraries can be tested before real packs exist.
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 import { FIXTURES } from "./lib.mjs";
@@ -45,7 +45,8 @@ export async function fakePacks() {
   const frame = { id: "test-frames/gold", name: { en: "Gold frame", vi: "Khung vàng" }, search: "gold frame khung vàng", collections: ["vintage"], file: "frame/test-frames/gold.webp", thumb: "frame/test-frames/gold.thumb.webp", width: 600, height: 750, credit: 0, windows: [{ x: 0.1, y: 0.08, w: 0.8, h: 0.5 }, { x: 0.25, y: 0.53, w: 0.5, h: 0.26, shape: "ellipse" }] };
   files["frame/test-frames.json"] = JSON.stringify([frame]);
   // Two fonts made from a font file of the build (any woff2 will do for the test).
-  const media = path.join(FIXTURES, "..", "..", "out", "_next", "static", "media");
+  const nextMedia = path.join(FIXTURES, "..", "..", ".next", "static", "media");
+  const media = existsSync(nextMedia) ? nextMedia : path.join(FIXTURES, "..", "..", "out", "_next", "static", "media");
   const woff = readdirSync(media).find((f) => f.endsWith(".woff2"));
   files["font/test/test-hand/latin-400.woff2"] = readFileSync(path.join(media, woff));
   files["font/test/test-jp/jp-400.woff2"] = readFileSync(path.join(media, woff));

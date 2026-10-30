@@ -27,7 +27,7 @@ export function LayoutPanel({ frameId, layout, look, onFrame, onLayout }: {
   const arrange = layout.arrange ?? "straight";
   const shape = layout.shape ?? "rect";
   const base = frameById(frameId);
-  const chip = (on: boolean) => `flex shrink-0 flex-col items-center gap-1 border-2 border-[#1d1612] p-1.5 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-0.5 bg-[#1d1612] text-[#f3e9d6] shadow-[3px_3px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[2px_2px_0_#0b0806]"}`;
+  const chip = (on: boolean) => `flex shrink-0 flex-col items-center gap-1 border-2 border-[var(--c-ink)] p-1.5 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-0.5 bg-[var(--c-ink)] text-[var(--c-paper)] shadow-[3px_3px_0_var(--c-red)]" : "bg-[var(--c-paper2)] shadow-[2px_2px_0_var(--c-shadow)]"}`;
 
   return (
     <div className="pb-2">

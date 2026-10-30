@@ -24,24 +24,24 @@ export function StickerPanel({ selected, onAdd, onEdit, onOrder, onRemove }: {
   const [group, setGroup] = useState<PropGroup>("props");
   const urls = useMemo(() => Object.fromEntries(propsIn(group).map((k) => [k, `data:image/svg+xml;charset=utf-8,${encodeURIComponent(stickerSvg(k, PROPS[k].color, 96))}`])), [group]);
   const prop = selected ? PROPS[selected.key] : null;
-  const chip = (on: boolean) => `${mono} shrink-0 border-2 border-[#1d1612] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.08em] ${on ? "bg-[#1d1612] text-[#f3e9d6]" : "bg-[#e7d9bd]"}`;
+  const chip = (on: boolean) => `${mono} shrink-0 border-2 border-[var(--c-ink)] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.08em] ${on ? "bg-[var(--c-ink)] text-[var(--c-paper)]" : "bg-[var(--c-paper2)]"}`;
 
   return (
     <div className="pb-3">
       {selected && prop && (
-        <div className="flex flex-col gap-2 border-b-2 border-dashed border-[#1d1612]/25 px-5 pt-3 pb-3" data-sticker-tools>
+        <div className="flex flex-col gap-2 border-b-2 border-dashed border-[var(--c-ink)]/25 px-5 pt-3 pb-3" data-sticker-tools>
           {prop.text && (
             <input
               value={selected.text ?? prop.text.value}
               maxLength={24}
               aria-label={t("booth.sticker.words")}
               onChange={(e) => onEdit({ text: e.target.value })}
-              className={`${mono} border-2 border-[#1d1612] bg-[#fbf6ec] px-3 py-2 text-base outline-none focus:shadow-[3px_3px_0_#c8432f]`}
+              className={`${mono} border-2 border-[var(--c-ink)] bg-[var(--c-field)] px-3 py-2 text-base outline-none focus:shadow-[3px_3px_0_var(--c-red)]`}
             />
           )}
           <div className="flex flex-wrap items-center gap-1.5">
             {COLORS.map((c) => (
-              <button key={c} type="button" aria-label={c} onClick={() => onEdit({ color: c })} className={`h-7 w-7 rounded-full border-2 ${(selected.color ?? prop.color) === c ? "border-[#c8432f] ring-2 ring-[#c8432f]" : "border-[#1d1612]"}`} style={{ background: c }} />
+              <button key={c} type="button" aria-label={c} onClick={() => onEdit({ color: c })} className={`h-7 w-7 rounded-full border-2 ${(selected.color ?? prop.color) === c ? "border-[var(--c-red)] ring-2 ring-[var(--c-red)]" : "border-[var(--c-ink)]"}`} style={{ background: c }} />
             ))}
           </div>
           <div className="flex flex-wrap gap-2">
@@ -54,7 +54,7 @@ export function StickerPanel({ selected, onAdd, onEdit, onOrder, onRemove }: {
             <button type="button" className={chip(false)} onClick={() => onOrder(false)}>
               ↓ {t("booth.sticker.back")}
             </button>
-            <button type="button" className={`${chip(false)} !text-[#c8432f]`} onClick={onRemove}>
+            <button type="button" className={`${chip(false)} !text-[var(--c-red)]`} onClick={onRemove}>
               ✕ {t("booth.sticker.remove")}
             </button>
           </div>
@@ -69,7 +69,7 @@ export function StickerPanel({ selected, onAdd, onEdit, onOrder, onRemove }: {
       </div>
       <div className="grid grid-cols-5 gap-2 px-5 pt-1 lg:grid-cols-6">
         {propsIn(group).map((k) => (
-          <button key={k} type="button" aria-label={PROPS[k].name.en} title={PROPS[k].name.en} onClick={() => onAdd(k)} className="flex aspect-square items-center justify-center border-2 border-[#1d1612] bg-[#fbf6ec] p-1.5 shadow-[2px_2px_0_#0b0806] active:translate-x-[1px] active:translate-y-[1px]">
+          <button key={k} type="button" aria-label={PROPS[k].name.en} title={PROPS[k].name.en} onClick={() => onAdd(k)} className="flex aspect-square items-center justify-center border-2 border-[var(--c-ink)] bg-[var(--c-field)] p-1.5 shadow-[2px_2px_0_var(--c-shadow)] active:translate-x-[1px] active:translate-y-[1px]">
             {/* eslint-disable-next-line @next/next/no-img-element -- an inline SVG sticker */}
             <img src={urls[k]} alt="" className="max-h-full max-w-full" />
           </button>

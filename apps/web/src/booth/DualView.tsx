@@ -61,7 +61,7 @@ export function DualView({ main, onSwap, me, frame, overlay, label }: {
       <button
         type="button"
         aria-label={label}
-        className={`absolute z-20 touch-none overflow-hidden border-2 border-[#1d1612] bg-[#2a1d16] shadow-[4px_4px_0_#0b0806] ${drag ? "" : "transition-[left,top] duration-200 ease-out"}`}
+        className={`absolute z-20 touch-none overflow-hidden border-2 border-[var(--c-ink)] bg-[var(--c-floor)] shadow-[4px_4px_0_var(--c-shadow)] ${drag ? "" : "transition-[left,top] duration-200 ease-out"}`}
         style={{ left: pos.x, top: pos.y, width: W, height: H, visibility: size.w ? "visible" : "hidden" }}
         onPointerDown={(e) => {
           e.currentTarget.setPointerCapture(e.pointerId);
@@ -99,7 +99,7 @@ export function DualView({ main, onSwap, me, frame, overlay, label }: {
         }}
       >
         <span className="pointer-events-none block h-full w-full p-1.5">{view(small, true)}</span>
-        <span aria-hidden className="pointer-events-none absolute right-1 bottom-1 flex h-5 w-5 items-center justify-center bg-[#f3e9d6] text-[11px] font-bold text-[#1d1612]">
+        <span aria-hidden className="pointer-events-none absolute right-1 bottom-1 flex h-5 w-5 items-center justify-center bg-[var(--c-paper)] text-[11px] font-bold text-[var(--c-ink)]">
           ⤢
         </span>
       </button>

@@ -1107,6 +1107,8 @@ export const en = {
   "booth.room.knockHint": "The host will let you in.",
   "booth.room.cancel": "Cancel",
   "booth.room.label": "Room",
+  "booth.room.metaTitle": "Room {code} · Photobooth — IG Layout",
+  "booth.room.metaDesc": "Room code: {code} — Join the group photobooth on IG Layout.",
   "booth.room.copy": "Copy link",
   "booth.room.copied": "Copied!",
   "booth.room.people": "{n}/{max} people",

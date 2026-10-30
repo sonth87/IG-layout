@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
-// Client-only app: exported as static files (no server). See docs/architecture/overview.md.
 const nextConfig: NextConfig = {
-  output: "export",
+  // Always render <title> and <meta> inside <head> for link-preview crawlers (Zalo, Messenger, Telegram, etc.).
+  htmlLimitedBots: /.*/,
   images: { unoptimized: true },
   // Shared packages (packages/core, packages/canvas) are TypeScript source, compiled with the app.
   transpilePackages: ["@ig-layout/core", "@ig-layout/canvas"],

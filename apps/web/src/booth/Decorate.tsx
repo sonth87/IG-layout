@@ -61,7 +61,7 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex shrink-0 items-center justify-between gap-3 border-b-2 border-[#0b0806] bg-[#f3e9d6] px-3 py-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] text-[#1d1612]">
+      <header className="flex shrink-0 items-center justify-between gap-3 border-b-2 border-[var(--c-shadow)] bg-[var(--c-paper)] px-3 py-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] text-[var(--c-ink)]">
         <span className="w-16" />
         <h1 className={`${serif} text-2xl`} style={display}>
           {t("booth.decorate")}
@@ -73,7 +73,7 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
 
       {/* Decorating together: who else is on this print right now. */}
       {others.length > 0 && (
-        <div role="status" className="flex shrink-0 flex-wrap items-center gap-2 border-b-2 border-[#0b0806] bg-[#eaa63c] px-4 py-1.5 text-[#1d1612]" data-others>
+        <div role="status" className="flex shrink-0 flex-wrap items-center gap-2 border-b-2 border-[var(--c-shadow)] bg-[var(--c-amber)] px-4 py-1.5 text-[var(--c-ink)]" data-others>
           {others.map((o) => (
             <span key={o.id} className={`${mono} text-[11px] font-bold`}>
               ✎ {t("booth.share.editing", { name: o.name, tab: t(`booth.tab.${o.tab}` as Parameters<typeof t>[0]) })}
@@ -110,8 +110,8 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
           </ZoomView>
         </div>
 
-        <div className="shrink-0 border-t-2 border-[#0b0806] bg-[#f3e9d6] pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[#1d1612] lg:w-[460px] lg:overflow-y-auto lg:border-t-0 lg:border-l-2">
-          <div role="tablist" className="grid grid-cols-6 border-b-2 border-[#1d1612]">
+        <div className="shrink-0 border-t-2 border-[var(--c-shadow)] bg-[var(--c-paper)] pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[var(--c-ink)] lg:w-[460px] lg:overflow-y-auto lg:border-t-0 lg:border-l-2">
+          <div role="tablist" className="grid grid-cols-6 border-b-2 border-[var(--c-ink)]">
             {TABS.map((k) => (
               <button
                 key={k}
@@ -119,7 +119,7 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
                 role="tab"
                 aria-selected={tab === k}
                 onClick={() => setTab(k)}
-                className={`${mono} border-r-2 border-[#1d1612] py-3 text-[11px] font-bold uppercase tracking-[0.03em] last:border-r-0 ${tab === k ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
+                className={`${mono} border-r-2 border-[var(--c-ink)] py-3 text-[11px] font-bold uppercase tracking-[0.03em] last:border-r-0 ${tab === k ? "bg-[var(--c-ink)] text-[var(--c-paper)]" : ""}`}
               >
                 {t(`booth.tab.${k}`)}
               </button>
@@ -182,19 +182,19 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
             {tab === "text" && (
               <div className="flex flex-col gap-4 px-5 pt-4 pb-3">
                 <label className="flex flex-col gap-1.5">
-                  <span className={`${mono} text-[11px] font-bold uppercase tracking-[0.25em] text-[#c8432f]`}>{t("booth.text.title")}</span>
+                  <span className={`${mono} text-[11px] font-bold uppercase tracking-[0.25em] text-[var(--c-red)]`}>{t("booth.text.title")}</span>
                   <input
                     value={roll.title ?? theme.title.text}
                     maxLength={28}
                     placeholder={t("booth.text.placeholder")}
                     onChange={(e) => set({ title: e.target.value })}
-                    className={`${mono} border-2 border-[#1d1612] bg-[#fbf6ec] px-3 py-3 text-base outline-none focus:shadow-[3px_3px_0_#c8432f]`}
+                    className={`${mono} border-2 border-[var(--c-ink)] bg-[var(--c-field)] px-3 py-3 text-base outline-none focus:shadow-[3px_3px_0_var(--c-red)]`}
                   />
                 </label>
                 <div className="flex items-center justify-between gap-3">
                   <label className={`${mono} relative flex cursor-pointer items-center gap-3 text-xs`}>
                     <input type="checkbox" className="peer absolute top-0 left-0 h-6 w-6 cursor-pointer opacity-0" checked={roll.showDate !== false} onChange={(e) => set({ showDate: e.target.checked })} />
-                    <span aria-hidden className="flex h-6 w-6 items-center justify-center border-2 border-[#1d1612] bg-[#fbf6ec] text-sm font-bold text-[#c8432f] peer-focus-visible:outline peer-focus-visible:outline-2">
+                    <span aria-hidden className="flex h-6 w-6 items-center justify-center border-2 border-[var(--c-ink)] bg-[var(--c-field)] text-sm font-bold text-[var(--c-red)] peer-focus-visible:outline peer-focus-visible:outline-2">
                       {roll.showDate !== false ? "✕" : ""}
                     </span>
                     {t("booth.text.date")}
@@ -257,7 +257,7 @@ function FilterRow({ images, value, onChange }: { images: (ShotImage | null)[] |
             role="radio"
             aria-checked={on}
             onClick={() => onChange(id)}
-            className={`flex w-[84px] shrink-0 flex-col items-center gap-1.5 border-2 border-[#1d1612] p-1.5 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-1 bg-[#1d1612] text-[#f3e9d6] shadow-[4px_4px_0_#c8432f]" : "bg-[#e7d9bd] shadow-[3px_3px_0_#0b0806]"}`}
+            className={`flex w-[84px] shrink-0 flex-col items-center gap-1.5 border-2 border-[var(--c-ink)] p-1.5 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-1 bg-[var(--c-ink)] text-[var(--c-paper)] shadow-[4px_4px_0_var(--c-red)]" : "bg-[var(--c-paper2)] shadow-[3px_3px_0_var(--c-shadow)]"}`}
           >
             <FilterThumb base={base} id={id} />
             <span className={`${mono} text-[10px] font-bold uppercase tracking-wider`}>{id ? filterById(id)?.name : t("booth.filter.none")}</span>

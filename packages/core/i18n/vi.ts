@@ -1106,6 +1106,8 @@ export const vi: Record<MessageKey, string> = {
   "booth.room.knockHint": "Chờ chủ phòng cho vào nhé.",
   "booth.room.cancel": "Thôi",
   "booth.room.label": "Phòng",
+  "booth.room.metaTitle": "Phòng {code} · Photobooth — IG Layout",
+  "booth.room.metaDesc": "Mã phòng: {code} — Vào chụp photobooth chung trên IG Layout.",
   "booth.room.copy": "Sao chép link",
   "booth.room.copied": "Đã chép!",
   "booth.room.people": "{n}/{max} người",

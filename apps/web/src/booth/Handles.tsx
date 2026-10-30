@@ -20,11 +20,11 @@ export function Handles({ onTurn, onScale, onRemove }: { onTurn: (e: PointerEven
   return (
     <>
       <Anchor at="top-0 left-1/2">
-        <span aria-hidden className="absolute -top-2 -left-px h-2 w-0.5 bg-[#eaa63c]" />
-        <span aria-label="Turn" data-turn onPointerDown={onTurn} className="absolute -top-7 -left-2.5 h-5 w-5 cursor-grab rounded-full border-2 border-[#1d1612] bg-[#eaa63c]" />
+        <span aria-hidden className="absolute -top-2 -left-px h-2 w-0.5 bg-[var(--c-amber)]" />
+        <span aria-label="Turn" data-turn onPointerDown={onTurn} className="absolute -top-7 -left-2.5 h-5 w-5 cursor-grab rounded-full border-2 border-[var(--c-ink)] bg-[var(--c-amber)]" />
       </Anchor>
       <Anchor at="right-0 bottom-0">
-        <span aria-label="Scale" data-scale onPointerDown={onScale} className="absolute -top-2.5 -left-2.5 h-5 w-5 cursor-nwse-resize border-2 border-[#1d1612] bg-[#f3e9d6]" />
+        <span aria-label="Scale" data-scale onPointerDown={onScale} className="absolute -top-2.5 -left-2.5 h-5 w-5 cursor-nwse-resize border-2 border-[var(--c-ink)] bg-[var(--c-paper)]" />
       </Anchor>
       {onRemove && (
         <Anchor at="top-0 left-0">
@@ -33,7 +33,7 @@ export function Handles({ onTurn, onScale, onRemove }: { onTurn: (e: PointerEven
             aria-label="Remove"
             onPointerDown={(e) => e.stopPropagation()}
             onClick={onRemove}
-            className="absolute -top-3 -left-3 flex h-6 w-6 items-center justify-center rounded-full border-2 border-[#1d1612] bg-[#c8432f] text-xs font-bold text-[#f3e9d6]"
+            className="absolute -top-3 -left-3 flex h-6 w-6 items-center justify-center rounded-full border-2 border-[var(--c-ink)] bg-[var(--c-red)] text-xs font-bold text-[var(--c-paper)]"
           >
             ✕
           </button>

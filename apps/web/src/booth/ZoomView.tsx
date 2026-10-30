@@ -101,7 +101,7 @@ export function ZoomView({ children, label }: { children: (step: number) => Reac
           type="button"
           aria-label={label}
           onClick={() => setZ({ k: 1, x: 0, y: 0 })}
-          className={`${mono} absolute top-3 right-3 z-20 border-2 border-[#1d1612] bg-[#f3e9d6] px-2.5 py-1.5 text-[11px] font-bold text-[#1d1612] shadow-[3px_3px_0_#0b0806]`}
+          className={`${mono} absolute top-3 right-3 z-20 border-2 border-[var(--c-ink)] bg-[var(--c-paper)] px-2.5 py-1.5 text-[11px] font-bold text-[var(--c-ink)] shadow-[3px_3px_0_var(--c-shadow)]`}
         >
           ⟲ {Math.round(z.k * 100)}%
         </button>

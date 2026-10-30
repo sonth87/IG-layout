@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import { Booth } from "@/booth/Booth";
+import { buildBoothMetadata } from "@/booth/meta";
 
-export const metadata: Metadata = { title: "Photobooth — IG Layout", description: "A photobooth in your browser: pick a frame, strike a pose, save the strip." };
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ r?: string | string[] }>;
+}): Promise<Metadata> {
+  const { r } = await searchParams;
+  return buildBoothMetadata(r);
+}
 
 export default function Page() {
   return <Booth />;

@@ -78,7 +78,7 @@ export function HandoffSheet({ roll, onClose, live = null }: { roll: BoothRoll; 
               {/* Photos or video (only a roll with clips can move). */}
               {moving && (
                 <>
-                  <div role="radiogroup" aria-label={t("booth.handoff.as")} className="mt-4 grid grid-cols-2 border-2 border-[#1d1612]">
+                  <div role="radiogroup" aria-label={t("booth.handoff.as")} className="mt-4 grid grid-cols-2 border-2 border-[var(--c-ink)]">
                     {([false, true] as const).map((v) => (
                       <button
                         key={String(v)}
@@ -86,7 +86,7 @@ export function HandoffSheet({ roll, onClose, live = null }: { roll: BoothRoll; 
                         role="radio"
                         aria-checked={video === v}
                         onClick={() => setVideo(v)}
-                        className={`${mono} border-r-2 border-[#1d1612] py-2 text-xs font-bold uppercase tracking-[0.1em] last:border-r-0 ${video === v ? "bg-[#1d1612] text-[#f3e9d6]" : ""}`}
+                        className={`${mono} border-r-2 border-[var(--c-ink)] py-2 text-xs font-bold uppercase tracking-[0.1em] last:border-r-0 ${video === v ? "bg-[var(--c-ink)] text-[var(--c-paper)]" : ""}`}
                       >
                         {v ? `▶ ${t("booth.handoff.asVideo")}` : t("booth.handoff.asPhoto")}
                       </button>
@@ -101,7 +101,7 @@ export function HandoffSheet({ roll, onClose, live = null }: { roll: BoothRoll; 
                     key={kind}
                     type="button"
                     onClick={() => void go(kind)}
-                    className={`flex flex-col items-start gap-1 border-2 border-[#1d1612] p-3 text-left shadow-[3px_3px_0_#0b0806] transition-[transform,box-shadow] duration-75 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0_#0b0806] ${kind === "surprise" ? "bg-[#c8432f] text-[#f3e9d6]" : "bg-[#e7d9bd]"}`}
+                    className={`flex flex-col items-start gap-1 border-2 border-[var(--c-ink)] p-3 text-left shadow-[3px_3px_0_var(--c-shadow)] transition-[transform,box-shadow] duration-75 active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0_var(--c-shadow)] ${kind === "surprise" ? "bg-[var(--c-red)] text-[var(--c-paper)]" : "bg-[var(--c-paper2)]"}`}
                   >
                     <span aria-hidden className={`${mono} text-lg font-bold leading-none`}>
                       {icon}
@@ -123,7 +123,7 @@ export function HandoffSheet({ roll, onClose, live = null }: { roll: BoothRoll; 
                     } catch {}
                   }}
                 />
-                <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[#1d1612] bg-[#fbf6ec] text-sm font-bold text-[#c8432f]">
+                <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[var(--c-ink)] bg-[var(--c-field)] text-sm font-bold text-[var(--c-red)]">
                   {backdrop ? "✕" : ""}
                 </span>
                 <span>
@@ -131,7 +131,7 @@ export function HandoffSheet({ roll, onClose, live = null }: { roll: BoothRoll; 
                   <span className="block text-[10px] opacity-60">{t("booth.handoff.backdropHint")}</span>
                 </span>
               </label>
-              {failed && <p className={`${mono} mt-3 text-center text-xs text-[#c8432f]`}>{t("booth.handoff.failed")}</p>}
+              {failed && <p className={`${mono} mt-3 text-center text-xs text-[var(--c-red)]`}>{t("booth.handoff.failed")}</p>}
             </div>
           )}
         </Paper>

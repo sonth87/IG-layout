@@ -7,7 +7,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(here, "..", "out");
+const appRoot = path.resolve(here, "..");
+const nextBuild = path.join(appRoot, ".next", "BUILD_ID");
+const root = path.join(appRoot, "out");
 // SUITES=m3.mjs,m8.mjs node e2e/run.mjs  → run only those.
 const ALL = ["m1.mjs", "m2.mjs", "m3.mjs", "m4.mjs", "m5.mjs", "m6.mjs", "m7.mjs", "m8.mjs", "m9.mjs", "m10.mjs", "m11.mjs", "m13.mjs", "m13b.mjs", "m13c.mjs", "m14.mjs", "m15.mjs", "m16.mjs", "m17.mjs", "m18.mjs", "m19.mjs", "m19b.mjs", "m19c.mjs", "m19d.mjs", "m20a.mjs", "m20b.mjs", "m20c.mjs", "m20d.mjs", "m20e.mjs", "crop.mjs", "zoom-smooth.mjs", "slots.mjs", "create-errors.mjs", "ios-pinch.mjs", "widgets.mjs", "wheel-zoom.mjs", "effects.mjs", "stretch.mjs", "colors.mjs", "filters.mjs", "sheets.mjs", "cutout.mjs", "booth-solo.mjs", "booth-live.mjs", "booth-livephoto.mjs", "booth-lobby.mjs", "booth-decorate.mjs", "booth-handoff.mjs", "booth-layout.mjs", "booth-decor.mjs", "booth-theme.mjs", "booth-zoom-retake.mjs", "booth-sticker.mjs", "booth-desktop.mjs", "tag.mjs", "tag-switch.mjs", "offline.mjs"];
 const SUITES = process.env.SUITES ? process.env.SUITES.split(",") : ALL;
@@ -15,34 +17,51 @@ const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/cs
 
 let url = process.argv[2];
 let server;
+let nextProc;
 if (!url) {
-  if (!existsSync(root)) {
-    console.error("out/ not found — run `pnpm build` first.");
+  if (existsSync(nextBuild)) {
+    const tmp = http.createServer();
+    await new Promise((r) => tmp.listen(0, r));
+    const port = tmp.address().port;
+    await new Promise((r) => tmp.close(r));
+    const nextBin = path.join(appRoot, "node_modules", "next", "dist", "bin", "next");
+    nextProc = spawn(process.execPath, [nextBin, "start", "-p", String(port)], { cwd: appRoot, stdio: "ignore" });
+    url = `http://localhost:${port}/`;
+    for (let i = 0; i < 60; i++) {
+      try {
+        const res = await fetch(url);
+        if (res.ok) break;
+      } catch {}
+      await new Promise((r) => setTimeout(r, 150));
+    }
+  } else if (existsSync(root)) {
+    server = http.createServer((req, res) => {
+      let file = path.join(root, decodeURIComponent(new URL(req.url, "http://x").pathname));
+      if (!path.extname(file) && existsSync(`${file}.html`)) file = `${file}.html`;
+      if (existsSync(file) && statSync(file).isDirectory()) file = path.join(file, "index.html");
+      if (!existsSync(file)) file = path.join(root, "404.html");
+      res.setHeader("Content-Type", TYPES[path.extname(file)] ?? "application/octet-stream");
+      createReadStream(file).pipe(res);
+    });
+    await new Promise((r) => server.listen(0, r));
+    url = `http://localhost:${server.address().port}/`;
+  } else {
+    console.error(".next/ or out/ not found — run `pnpm build` first.");
     process.exit(1);
   }
-  server = http.createServer((req, res) => {
-    let file = path.join(root, decodeURIComponent(new URL(req.url, "http://x").pathname));
-    // /booth → booth.html (Next's export; Vercel serves it the same way).
-    if (!path.extname(file) && existsSync(`${file}.html`)) file = `${file}.html`;
-    if (existsSync(file) && statSync(file).isDirectory()) file = path.join(file, "index.html");
-    if (!existsSync(file)) file = path.join(root, "404.html");
-    res.setHeader("Content-Type", TYPES[path.extname(file)] ?? "application/octet-stream");
-    createReadStream(file).pipe(res);
-  });
-  await new Promise((r) => server.listen(0, r));
-  url = `http://localhost:${server.address().port}/`;
 }
 
 let failed = 0;
 for (const suite of SUITES) {
   console.log(`\n▶ ${suite}  (${url})`);
   // Run each suite in its own process so a crash doesn't hide the others.
-  // (Async: the static server lives in this process and must keep serving.)
+  // (Async: the server lives in this process and must keep serving.)
   const code = await new Promise((resolve) =>
     spawn(process.execPath, [path.join(here, suite), url], { stdio: "inherit" }).on("exit", resolve),
   );
   if (code !== 0) failed++;
 }
 server?.close();
+nextProc?.kill();
 console.log(failed ? `\n✗ ${failed} suite(s) failed` : "\n✓ all suites passed");
 process.exit(failed ? 1 : 0);

@@ -7,8 +7,10 @@ import { frameById } from "@ig-layout/core/booth/frames";
 import { frameBlob } from "@ig-layout/core/booth/render";
 import { saveRoll, type BoothClip, type BoothRoll } from "@ig-layout/core/storage/booth";
 import { registerServiceWorker } from "@/lib/pwa";
+import { useT } from "@/store/settings";
 import { boothMono, boothSerif } from "./fonts";
 import { BoothHome } from "./Home";
+import { syncBoothDocumentMeta } from "./meta";
 import { Pick } from "./Pick";
 import { Decorate } from "./Decorate";
 import { Result } from "./Result";
@@ -24,7 +26,7 @@ import { useSharedRoll } from "./share";
 import { themeById } from "@ig-layout/core/booth/themes";
 import { floorStyle } from "./ui";
 import { COUNTDOWN_S, takesFor } from "./timing";
-import type { LobbyTheme } from "./lobby/themes";
+import { chromeVars, loadLobby, subscribeLobby, type LobbyTheme } from "./lobby/themes";
 
 // The booth app (/booth, D-150 / D-152): its own screens and look (Cinema), sharing logic and
 // assets with IG Layout through packages/core. Flow: lobby → frame (camera on) → shoot
@@ -99,15 +101,18 @@ export function Booth() {
     () => true,
     () => false,
   );
+  // The screens take the colours of the lobby's scene (owner, 2026-10-30), as CSS variables.
+  const lobby = useSyncExternalStore(subscribeLobby, loadLobby, () => "cinema" as const);
   // overflow: clip — nothing (a focused field, scrollIntoView) can scroll the booth's frame away.
   return (
-    <div className={`${boothSerif.variable} ${boothMono.variable} fixed inset-0 overflow-clip text-[#f3e9d6]`} style={floorStyle}>
+    <div className={`${boothSerif.variable} ${boothMono.variable} fixed inset-0 overflow-clip text-[var(--c-paper)]`} style={{ ...chromeVars(lobby), ...floorStyle }}>
       {isClient && <BoothApp />}
     </div>
   );
 }
 
 function BoothApp() {
+  const t = useT();
   const [screen, setScreen] = useState<Screen>("home");
   // Same app, same offline worker as IG Layout (opening /booth first installs it too).
   useEffect(() => void registerServiceWorker(), []);
@@ -241,6 +246,20 @@ function BoothApp() {
     roomRef.current = room;
   });
   useEffect(() => () => roomRef.current?.leave(false), []);
+
+  // Keep <title> and <meta> (description, og:title, og:description, twitter:*) in sync with the active room code.
+  const activeRoomCode = room?.code ?? askName?.code ?? null;
+  useEffect(() => {
+    syncBoothDocumentMeta(
+      activeRoomCode,
+      activeRoomCode
+        ? {
+            title: t("booth.room.metaTitle", { code: activeRoomCode }),
+            description: t("booth.room.metaDesc", { code: activeRoomCode }),
+          }
+        : undefined,
+    );
+  }, [activeRoomCode, t]);
 
   // Warn before accidentally refreshing or closing the tab while in a room or mid-shoot.
   const warnUnload = (!!room && room.session.status !== "error") || screen === "shoot" || screen === "pick";

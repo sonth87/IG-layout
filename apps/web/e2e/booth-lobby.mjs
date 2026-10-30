@@ -2,7 +2,7 @@
 // a swipe left / right moves to the next / previous one (a short drag springs back, and is no
 // tap); the squares in the corner jump to any; the scene is remembered after a reload; picking
 // one starts new rolls in its print theme; in season (Christmas, Tết, Halloween) the season's
-// scene opens once; ← → on a computer. Screenshots of every scene on a
+// scene opens once; the screens inside take the scene's colours; ← → on a computer. Screenshots of every scene on a
 // phone and a computer.
 import { chromium } from "playwright-core";
 import path from "node:path";
@@ -78,6 +78,14 @@ check(prefs.theme === "halloween", `new rolls start in the Halloween print theme
 await page.getByRole("button", { name: "Shoot solo" }).click();
 await page.getByRole("heading", { name: "Pick your frame" }).waitFor();
 check((await page.locator("canvas[data-mood='fireflies']").count()) === 1, "frame screen in the Halloween mood");
+const headerBg = () => page.locator("header").first().evaluate((h) => getComputedStyle(h).backgroundColor);
+check((await headerBg()) === "rgb(244, 227, 195)", `the screens inside take the Halloween colours (${await headerBg()})`);
+await page.getByRole("button", { name: "Back" }).click();
+await page.getByRole("radiogroup", { name: "Lobby scene" }).getByRole("radio").nth(4).click();
+await page.waitForTimeout(500);
+await page.getByRole("button", { name: "Shoot solo" }).click();
+await page.getByRole("heading", { name: "Pick your frame" }).waitFor();
+check((await headerBg()) === "rgb(20, 10, 42)", `…and change with the scene: cyberpunk (${await headerBg()})`);
 await ctx.close();
 
 console.log("3b. In season");

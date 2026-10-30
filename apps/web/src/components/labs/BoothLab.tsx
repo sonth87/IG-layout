@@ -5,6 +5,7 @@ import { BoothSession, randomCode, type ErrorCode, type Peer } from "@ig-layout/
 import { renderStrip } from "@ig-layout/core/booth/strip";
 import { isRoomCode } from "@ig-layout/core/booth/protocol";
 import { openCamera, snap } from "@ig-layout/core/booth/camera";
+import { syncBoothDocumentMeta } from "@/booth/meta";
 
 // Booth lab (/labs/booth, 2026-10-29): try a shared online photobooth room — room code,
 // host lets people in, everyone's camera on screen, one countdown for all, each phone shoots
@@ -50,6 +51,10 @@ export function BoothLab() {
   }, []);
   useEffect(() => session?.subscribe(rerender), [session]);
   useEffect(() => () => session?.leave(false), [session]);
+  useEffect(() => {
+    const active = session ? code : isRoomCode(code) ? code : null;
+    syncBoothDocumentMeta(active, active ? undefined : { title: "Booth lab — IG Layout" });
+  }, [session, code]);
 
   async function start(create: boolean) {
     const { stream, fake } = await openCamera("user", name || "?");
@@ -71,6 +76,8 @@ export function BoothLab() {
   function leave() {
     session?.leave();
     session?.stream.getTracks().forEach((t) => t.stop());
+    history.replaceState(null, "", location.pathname);
+    setCode("");
     setSession(null);
   }
 

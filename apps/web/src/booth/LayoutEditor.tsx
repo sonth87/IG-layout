@@ -98,7 +98,7 @@ export function LayoutEditor({ frame, onChange, onLive }: { frame: Laid; onChang
           aria-pressed={sel === i}
           data-cell={i}
           onPointerDown={(e) => start(e, i, "move")}
-          className={`absolute cursor-move ${sel === i ? "outline outline-2 outline-[#eaa63c]" : "outline outline-1 outline-dashed outline-white/50"}`}
+          className={`absolute cursor-move ${sel === i ? "outline outline-2 outline-[var(--c-amber)]" : "outline outline-1 outline-dashed outline-white/50"}`}
           style={{ left: pct(c.x, frame.width), top: pct(c.y, frame.height), width: pct(c.w, frame.width), height: pct(c.h, frame.height), transform: `rotate(${c.rot}deg)`, zIndex: c.z + 1, ...OUTLINE }}
         >
           {sel === i && <Handles onTurn={(e) => start(e, i, "turn")} onScale={(e) => start(e, i, "scale")} />}
