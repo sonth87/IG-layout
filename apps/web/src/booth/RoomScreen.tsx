@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { composeDuo, type DuoArrange } from "@ig-layout/core/booth/duo";
 import { frameById, shotAspect } from "@ig-layout/core/booth/frames";
 import { tileShot } from "@ig-layout/core/booth/group";
 import { MAX_MEMBERS } from "@ig-layout/core/booth/protocol";
@@ -8,12 +9,13 @@ import type { BoothRoll } from "@ig-layout/core/storage/booth";
 import { useT } from "@/store/settings";
 import { FrameCanvas } from "./FrameCanvas";
 import { FramePicker } from "./FramePicker";
+import { DuoPicker } from "./LayoutPanel";
 import { ThemePicker } from "./ThemePicker";
 import type { Room } from "./room";
 import { useSession } from "./room";
 import { shutter } from "./Shoot";
 import type { MessageKey } from "@ig-layout/core/i18n/en";
-import { COUNTDOWN_S, REST_S } from "./timing";
+import { COUNTDOWN_S, REST_S, takesFor } from "./timing";
 import { Btn, Confirm, Label, Paper, display, mono, serif } from "./ui";
 
 // The group room (D-148, D-159; design: docs/discussions/2026-10-29-booth-thiet-ke.md §20).
@@ -32,11 +34,23 @@ const RECEIVE_TIMEOUT = 25_000;
 const GET_READY_MS = 2500;
 const POSES = 16;
 
-export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, onRoll, onLeave }: {
+export interface DuoTakes {
+  shots: Blob[];
+  pairs: ([Blob, Blob] | null)[];
+  arrange: DuoArrange;
+  frameId: string;
+  room: NonNullable<BoothRoll["room"]>;
+}
+
+export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, spare = true, onSpare, onPick, onRoll, onLeave }: {
   room: Room;
   sound: boolean;
   /** The host's countdown (seconds), used when they start a roll. */
   countdown?: number;
+  /** Shoot spare shots in a 2-person duo room so each person picks their favourites (Q-P37). */
+  spare?: boolean;
+  onSpare?: (on: boolean) => void;
+  onPick?: (takes: DuoTakes) => void;
   /** The host's own theme (they pick it here for everyone). */
   theme: string;
   onRoll: (roll: BoothRoll) => void;
@@ -107,16 +121,52 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, onRoll
       const known = new Map(s.everyone().map((m) => [m.id, m.name]));
       const order = last.members.filter((id) => known.has(id));
       const names = order.map((id) => known.get(id)!);
+      const roomMeta = { code: room.code, names, key: `${room.code}:${s.everyone().find((m) => m.host)?.id ?? ""}:${last.id}` };
+      const at = Date.now();
+      if (order.length === 2) {
+        const arrange = last.duo ?? s.duo ?? "side";
+        const allShots: (Blob | null)[] = [];
+        const pairs: ([Blob, Blob] | null)[] = [];
+        for (let k = 0; k < last.shots; k++) {
+          const byMember = s.photos.get(last.id)?.get(k);
+          const a = byMember?.get(order[0]);
+          const b = byMember?.get(order[1]);
+          const cell = shotAspect(f, Math.min(k, f.shots - 1));
+          if (a && b) {
+            pairs.push([a, b]);
+            allShots.push(await composeDuo(a, b, arrange, cell));
+          } else if (a || b) {
+            pairs.push(null);
+            allShots.push(await tileShot([a ?? b!], cell));
+          } else {
+            pairs.push(null);
+            allShots.push(null);
+          }
+        }
+        const validShots: Blob[] = [];
+        const validPairs: ([Blob, Blob] | null)[] = [];
+        allShots.forEach((b, i) => {
+          if (b) {
+            validShots.push(b);
+            validPairs.push(pairs[i] ?? null);
+          }
+        });
+        if (validShots.length > f.shots && onPick) {
+          onPick({ shots: validShots, pairs: validPairs, arrange, frameId: f.id, room: roomMeta });
+          return;
+        }
+        onRoll({ id: crypto.randomUUID(), frameId: f.id, shots: allShots.slice(0, f.shots), duo: { pairs: pairs.slice(0, f.shots), arrange }, flip: false, room: roomMeta, createdAt: at, updatedAt: at, thumbnail: new Blob() });
+        return;
+      }
       const shots: (Blob | null)[] = [];
       for (let k = 0; k < f.shots; k++) {
         const byMember = s.photos.get(last.id)?.get(k);
         const blobs = order.map((id) => byMember?.get(id)).filter((b): b is Blob => !!b);
         shots.push(blobs.length ? await tileShot(blobs, shotAspect(f, k)) : null);
       }
-      const at = Date.now();
-      onRoll({ id: crypto.randomUUID(), frameId: f.id, shots, flip: false, room: { code: room.code, names, key: `${room.code}:${s.everyone().find((m) => m.host)?.id ?? ""}:${last.id}` }, createdAt: at, updatedAt: at, thumbnail: new Blob() });
+      onRoll({ id: crypto.randomUUID(), frameId: f.id, shots, flip: false, room: roomMeta, createdAt: at, updatedAt: at, thumbnail: new Blob() });
     })();
-  }, [last, roll, got, total, timedOut, s, room, onRoll]);
+  }, [last, roll, got, total, timedOut, s, room, onPick, onRoll]);
 
   // The host left and someone took over: say who, for a moment.
   const hostNow = people.find((m) => m.host);
@@ -173,6 +223,9 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, onRoll
   }
 
   const link = `${location.origin}/booth?r=${room.code}`;
+  const isDuo = people.length === 2 || (people.length === 1 && !!room.duo);
+  const maxTakes = takesFor(frame.shots, true);
+  const shootCount = people.length === 2 ? takesFor(frame.shots, spare) : frame.shots;
   const cols = people.length <= 1 ? "grid-cols-1 max-w-xs" : people.length <= 4 ? "grid-cols-2 max-w-lg" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 max-w-4xl";
 
   return (
@@ -229,36 +282,66 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, onRoll
                 </span>
               </div>
             ))}
-          <div className={`mx-auto grid gap-4 ${cols}`}>
-            {people.map((m, i) => {
-              const self = m.id === s.me?.id;
-              const peer = peers.get(m.id);
-              const isAway = s.away.has(m.id);
-              return (
-                <Polaroid
-                  key={m.id}
-                  stream={self ? room.stream : (peer?.stream ?? null)}
-                  self={self}
-                  mirror={self && !room.fake}
-                  tilt={i % 2 ? 1.2 : -1.2}
-                  name={m.name}
-                  host={m.host}
-                  you={self ? t("booth.room.you") : undefined}
-                  hostLabel={t("booth.room.host")}
-                  ready={!m.host && s.ready.has(m.id) ? t("booth.room.readyBadge") : undefined}
-                  status={
-                    isAway
-                      ? t("booth.room.reconnecting")
-                      : !self && peer && peer.link !== "connected"
-                        ? peer.link === "failed"
-                          ? t("booth.room.noLink")
-                          : t("booth.room.connecting")
-                        : undefined
-                  }
-                />
-              );
-            })}
-          </div>
+          {isDuo ? (
+            <DuoPolaroid
+              people={people.map((m) => {
+                const self = m.id === s.me?.id;
+                const peer = peers.get(m.id);
+                const isAway = s.away.has(m.id);
+                return {
+                  id: m.id,
+                  name: m.name,
+                  stream: self ? room.stream : (peer?.stream ?? null),
+                  self,
+                  mirror: self && !room.fake,
+                  host: m.host,
+                  you: self ? t("booth.room.you") : undefined,
+                  hostLabel: t("booth.room.host"),
+                  ready: !m.host && s.ready.has(m.id) ? t("booth.room.readyBadge") : undefined,
+                  status: isAway
+                    ? t("booth.room.reconnecting")
+                    : !self && peer && peer.link !== "connected"
+                      ? peer.link === "failed"
+                        ? t("booth.room.noLink")
+                        : t("booth.room.connecting")
+                      : undefined,
+                };
+              })}
+              badge={t("booth.duo.badge")}
+              waiting={t("booth.duo.waiting")}
+            />
+          ) : (
+            <div className={`mx-auto grid gap-4 ${cols}`}>
+              {people.map((m, i) => {
+                const self = m.id === s.me?.id;
+                const peer = peers.get(m.id);
+                const isAway = s.away.has(m.id);
+                return (
+                  <Polaroid
+                    key={m.id}
+                    stream={self ? room.stream : (peer?.stream ?? null)}
+                    self={self}
+                    mirror={self && !room.fake}
+                    tilt={i % 2 ? 1.2 : -1.2}
+                    name={m.name}
+                    host={m.host}
+                    you={self ? t("booth.room.you") : undefined}
+                    hostLabel={t("booth.room.host")}
+                    ready={!m.host && s.ready.has(m.id) ? t("booth.room.readyBadge") : undefined}
+                    status={
+                      isAway
+                        ? t("booth.room.reconnecting")
+                        : !self && peer && peer.link !== "connected"
+                          ? peer.link === "failed"
+                            ? t("booth.room.noLink")
+                            : t("booth.room.connecting")
+                          : undefined
+                    }
+                  />
+                );
+              })}
+            </div>
+          )}
           {people.length === 1 && <p className={`${mono} mx-auto mt-5 max-w-xs text-center text-xs leading-relaxed opacity-70`}>{t("booth.room.alone")}</p>}
 
           {/* The countdown, over everyone. */}
@@ -292,13 +375,29 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, onRoll
           {host ? (
             <div className={roll ? "pointer-events-none opacity-50" : ""}>
               <FramePicker value={frame.id} onChange={(id) => s.setFrame(id)} />
+              {isDuo && (
+                <>
+                  <Label className="px-5 pt-1">{t("booth.duo.arrange")}</Label>
+                  <DuoPicker value={s.duo} onChange={(d) => s.setDuo(d)} />
+                </>
+              )}
               <ThemePicker compact value={s.theme ?? theme} onPick={(th) => s.setFrame(frame.id, th.id)} />
+              {people.length === 2 && maxTakes > frame.shots && onSpare && (
+                <label className={`${mono} relative flex cursor-pointer items-center gap-3 px-5 pb-2 text-xs`}>
+                  <input type="checkbox" className="peer absolute top-0 left-5 h-6 w-6 cursor-pointer opacity-0" checked={spare} onChange={(e) => onSpare(e.target.checked)} />
+                  <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[var(--c-ink)] bg-[var(--c-field)] text-sm font-bold text-[var(--c-red)] peer-focus-visible:outline peer-focus-visible:outline-2">
+                    {spare ? "✕" : ""}
+                  </span>
+                  {t("booth.spare", { takes: maxTakes, need: frame.shots })}
+                </label>
+              )}
             </div>
           ) : (
             <div className="flex items-center gap-3 px-5 py-3" data-host-frame={frame.id}>
               <FrameCanvas frame={frame} images={EMPTY} look={{ placeholders: true }} scale={200 / Math.max(frame.width, frame.height)} className="max-h-20 max-w-20" />
               <span className={`${mono} text-xs font-bold uppercase tracking-[0.12em]`}>
                 {t(`booth.frame.${frame.id}` as Parameters<typeof t>[0])} · {t("booth.shots", { count: frame.shots })}
+                {isDuo && <> · {t(`booth.duo.${s.duo}` as Parameters<typeof t>[0])}</>}
                 {s.theme && <> · {t(`booth.theme.${s.theme}` as Parameters<typeof t>[0])}</>}
               </span>
             </div>
@@ -306,8 +405,8 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, onRoll
           <div className="flex items-stretch gap-2 px-5 pt-1 lg:mt-auto lg:pb-4">
             {host ? (
               // The host starts once everyone has said they're ready.
-              <Btn tone="main" className="flex-1 py-4 text-sm" disabled={!!roll || receiving || s.away.size > 0 || !allReady} onClick={() => s.shoot(frame.shots, (countdown + REST_S) * 1000, GET_READY_MS + countdown * 1000)}>
-                {allReady || roll ? `✶ ${t("booth.room.shoot", { count: frame.shots })}` : t("booth.room.waitReady", { n: readyCount, total: guests.length })}
+              <Btn tone="main" className="flex-1 py-4 text-sm" disabled={!!roll || receiving || s.away.size > 0 || !allReady} onClick={() => s.shoot(shootCount, (countdown + REST_S) * 1000, GET_READY_MS + countdown * 1000)}>
+                {allReady || roll ? `✶ ${t("booth.room.shoot", { count: shootCount })}` : t("booth.room.waitReady", { n: readyCount, total: guests.length })}
               </Btn>
             ) : (
               <div className="flex flex-1 flex-col gap-1">
@@ -347,6 +446,76 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, onRoll
           onNo={() => setAsking(false)}
         />
       )}
+    </div>
+  );
+}
+
+interface PersonView {
+  id: string;
+  name: string;
+  stream: MediaStream | null;
+  self?: boolean;
+  mirror?: boolean;
+  host?: boolean;
+  you?: string;
+  hostLabel?: string;
+  status?: string;
+  ready?: string;
+}
+
+/** Two people in one shared split polaroid (ONBOOTH style, Q-P37). */
+function DuoPolaroid({ people, badge, waiting }: { people: PersonView[]; badge: string; waiting: string }) {
+  return (
+    <figure data-duo-polaroid className="mx-auto max-w-md -rotate-[0.6deg] bg-[var(--booth-polaroid,#f6efe2)] p-2.5 pb-0 shadow-[5px_5px_0_var(--c-shadow)]">
+      <div className="grid grid-cols-2 gap-1.5">
+        {people.map((p) => (
+          <DuoHalf key={p.id} person={p} />
+        ))}
+        {people.length < 2 && (
+          <div className="relative flex aspect-[3/4] flex-col items-center justify-center gap-2 border-2 border-dashed border-[var(--c-ink)]/30 bg-[#2a231d]/85 p-3 text-center">
+            <span className={`${serif} text-4xl text-[var(--c-paper)]/35`} style={display}>
+              +
+            </span>
+            <span className={`${mono} text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--c-paper)]/65`}>{waiting}</span>
+          </div>
+        )}
+      </div>
+      <figcaption className={`${mono} flex h-10 items-center justify-between gap-2 px-1 text-[13px] font-bold text-[var(--c-ink)]`}>
+        <span className="truncate">
+          {people.map((p, i) => (
+            <span key={p.id}>
+              {i > 0 && " & "}
+              {p.name}
+              {p.you && <span className="font-normal opacity-55"> ({p.you})</span>}
+            </span>
+          ))}
+        </span>
+        <span className="shrink-0 border border-[var(--c-ink)] bg-[var(--c-red)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--c-paper)]">{badge}</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+function DuoHalf({ person }: { person: PersonView }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    v.srcObject = person.stream;
+    if (person.stream) void v.play().catch(() => {});
+  }, [person.stream]);
+  const initial = useMemo(() => person.name.trim().slice(0, 1).toUpperCase(), [person.name]);
+  return (
+    <div className="relative aspect-[3/4] overflow-hidden bg-[#2a231d]" data-person={person.name}>
+      {!person.stream && (
+        <span className={`${serif} absolute inset-0 flex items-center justify-center text-6xl text-[var(--c-paper)]/40`} style={display}>
+          {initial}
+        </span>
+      )}
+      <video ref={ref} muted={person.self} playsInline autoPlay className="h-full w-full object-cover" style={{ transform: person.mirror ? "scaleX(-1)" : undefined }} />
+      {person.host && <span className={`${mono} absolute top-1.5 left-1.5 bg-[var(--c-amber)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--c-ink)]`}>★ {person.hostLabel}</span>}
+      {person.ready && <span className={`${mono} absolute top-1.5 right-1.5 animate-[booth-pop_0.25s_ease-out] border border-[var(--c-ink)] bg-[#7fc8a9] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[#10241b]`}>{person.ready}</span>}
+      {person.status && <span className={`${mono} absolute inset-x-0 bottom-0 bg-black/60 py-1 text-center text-[10px] uppercase tracking-[0.12em] text-[var(--c-paper)]`}>{person.status}</span>}
     </div>
   );
 }

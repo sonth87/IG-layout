@@ -593,7 +593,7 @@ Kế hoạch: [m20-plan.md](m20-plan.md) · Định dạng: [asset-catalog.md](.
 - [ ] Ảnh động trong phòng chụp chung
 - [x] Theme sảnh (D-164): 6 cảnh (Rạp phim, Giáng sinh, Tết, Halloween, Cyberpunk, Glitch) vuốt ngang có parallax + ô màu góc trái, nhớ cảnh, cảnh → theme bản in (thêm Halloween, Glitch); e2e `booth-lobby.mjs`
 - [ ] Khung / template IG trong booth (D-164): khung rời làm ô → bộ sưu tập theo theme → template IG làm khung
-- [ ] Duo (chờ Q-P30)
+- [x] Duo (Q-P30, Q-P37): nút "Chụp cặp đôi" ở sảnh, polaroid chia đôi khi phòng có 2 người, 6 cách ghép (`side`, `stack`, `twin`, `tilt`, `offset`, `overlap`) đổi được cả ở màn Trang trí
 - [x] Phòng: sẵn sàng / Chuẩn bị / đếm theo chủ phòng, đổi chủ phòng thay vì đóng, kiểm tra link phòng ở sảnh, giảm lag sửa chung (D-168); e2e `booth-room.mjs`
 - [ ] Deploy server phòng mới (`apps/signal`, Node ≥ 22) — chủ dự án
-- [ ] Phòng: chụp dư + mỗi người tự chọn, Duo chia đôi (Q-P37)
+- [x] Phòng: chụp dư + mỗi người tự chọn, Duo chia đôi (Q-P37); sửa tag treo `SwitchTag` (bỏ cảm biến nghiêng máy, thêm gió thổi từ phải qua trái)

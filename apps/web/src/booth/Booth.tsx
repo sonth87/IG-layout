@@ -14,7 +14,8 @@ import { syncBoothDocumentMeta } from "./meta";
 import { Pick } from "./Pick";
 import { Decorate } from "./Decorate";
 import { Result } from "./Result";
-import { NamePrompt, RoomScreen } from "./RoomScreen";
+import { NamePrompt, RoomScreen, type DuoTakes } from "./RoomScreen";
+import { rearrange } from "./duo";
 import { openRoom, peekRoom, type Room } from "./room";
 import { randomCode } from "@ig-layout/core/booth/session";
 import { isRoomCode } from "@ig-layout/core/booth/protocol";
@@ -124,8 +125,8 @@ function BoothApp() {
   const [roll, setRoll] = useState<BoothRoll | null>(null);
   const [plan, setPlan] = useState<Plan>({ count: 4, targets: null });
   /** All shots of a roll with spares, before picking. */
-  const [takes, setTakes] = useState<{ shots: Blob[]; clips: (BoothClip | null)[] }>({ shots: [], clips: [] });
-  const frame = frameById(roll && screen !== "setup" ? roll.frameId : prefs.frameId);
+  const [takes, setTakes] = useState<{ shots: Blob[]; clips: (BoothClip | null)[]; duo?: DuoTakes }>({ shots: [], clips: [] });
+  const frame = frameById(screen === "pick" && takes.duo ? takes.duo.frameId : roll && screen !== "setup" ? roll.frameId : prefs.frameId);
   const shootLook = useMemo(() => ({ theme: themeById(plan.targets && roll ? roll.theme : prefs.theme) }), [plan.targets, roll, prefs.theme]);
   /** The group room we're in (kept across the room, print and decorate screens). */
   const [room, setRoom] = useState<Room | null>(null);
@@ -135,7 +136,7 @@ function BoothApp() {
   /** A change to the print: shared with the room when it's a group print. */
   const change = (r: BoothRoll) => (room && r.room?.key ? shared.edit(r) : setRoll({ ...r, updatedAt: Date.now() }));
   /** Asking for a name before opening / joining a room. */
-  const [askName, setAskName] = useState<{ code: string | null; viaLink?: boolean } | null>(null);
+  const [askName, setAskName] = useState<{ code: string | null; viaLink?: boolean; duo?: boolean } | null>(null);
 
   const setPrefs = (p: Partial<Prefs>) =>
     setPrefsState((old) => {
@@ -192,13 +193,13 @@ function BoothApp() {
   const [checking, setChecking] = useState<string | null>(null);
   const [noRoom, setNoRoom] = useState<{ code: string; full: boolean } | null>(null);
 
-  async function enterRoom(code: string | null, name: string, viaLink = false) {
+  async function enterRoom(code: string | null, name: string, viaLink = false, duo = false) {
     const actualCode = (code ?? randomCode()).toUpperCase();
     const saved = loadRoomSession();
     const id = saved?.code === actualCode ? saved.id : crypto.randomUUID().slice(0, 8);
     saveRoomSession({ code: actualCode, id, name });
     history.replaceState(null, "", `${location.pathname}?r=${actualCode}`);
-    const r = await openRoom({ code: actualCode, name, create: !code, id });
+    const r = await openRoom({ code: actualCode, name, create: !code, id, duo });
     if (viaLink) {
       const bounceIfEnded = () => {
         if (r.session.status === "in" || r.session.status === "waiting") {
@@ -220,9 +221,9 @@ function BoothApp() {
     setRoll(null);
     setScreen("room");
   }
-  function startRoom(code: string | null, viaLink = false) {
+  function startRoom(code: string | null, viaLink = false, duo = false) {
     const norm = code?.toUpperCase() ?? null;
-    if (!norm) return joinRoom(null, viaLink);
+    if (!norm) return joinRoom(null, viaLink, duo);
     // A code: is the room there? (On the lobby, with a "looking for the room" card.)
     setChecking(norm);
     void peekRoom(norm).then((r) => {
@@ -233,14 +234,14 @@ function BoothApp() {
         setNoRoom({ code: norm, full: r === "full" });
         return;
       }
-      joinRoom(norm, viaLink);
+      joinRoom(norm, viaLink, duo);
     });
   }
-  function joinRoom(norm: string | null, viaLink: boolean) {
+  function joinRoom(norm: string | null, viaLink: boolean, duo = false) {
     const saved = norm ? loadRoomSession() : null;
     const knownName = (saved?.code === norm ? saved.name : undefined) ?? prefs.name;
-    if (knownName) void enterRoom(norm, knownName, viaLink);
-    else setAskName({ code: norm, viaLink });
+    if (knownName) void enterRoom(norm, knownName, viaLink, duo);
+    else setAskName({ code: norm, viaLink, duo });
   }
   function leaveRoom() {
     room?.leave(true);
@@ -347,6 +348,7 @@ function BoothApp() {
           // A lobby scene starts new rolls in its print theme (D-164).
           onTheme={pickLobby}
           onSolo={() => setScreen("setup")}
+          onDuo={() => startRoom(null, false, true)}
           onRoom={startRoom}
           onUpload={upload}
           onOpen={(r) => {
@@ -400,6 +402,32 @@ function BoothApp() {
           takes={takes.shots}
           need={frame.shots}
           onDone={(order) => {
+            if (takes.duo) {
+              const { pairs, arrange, frameId: fId, room: roomMeta } = takes.duo;
+              const pickedShots = order.map((i) => takes.shots[i] ?? null);
+              const pickedPairs = order.map((i) => pairs[i] ?? null);
+              const now = Date.now();
+              const base = withTheme(
+                {
+                  id: crypto.randomUUID(),
+                  frameId: fId,
+                  shots: pickedShots,
+                  duo: { pairs: pickedPairs, arrange },
+                  flip: false,
+                  room: roomMeta,
+                  createdAt: now,
+                  updatedAt: now,
+                  thumbnail: new Blob(),
+                },
+                themeById(room?.session.theme ?? prefs.theme),
+              );
+              setTakes({ shots: [], clips: [] });
+              void rearrange(base, arrange).then((r) => {
+                setRoll(r);
+                setScreen("result");
+              });
+              return;
+            }
             setRoll(
               newRoll(
                 order.map((i) => takes.shots[i]),
@@ -455,7 +483,13 @@ function BoothApp() {
           room={room}
           sound={prefs.sound}
           countdown={prefs.countdown}
+          spare={prefs.spares}
+          onSpare={(spares) => setPrefs({ spares })}
           theme={themeById(prefs.theme).id}
+          onPick={(d) => {
+            setTakes({ shots: d.shots, clips: [], duo: d });
+            setScreen("pick");
+          }}
           onRoll={(r) => {
             // The host's theme: every phone starts from the same print.
             setRoll(withTheme(r, themeById(room.session.theme ?? prefs.theme)));
@@ -514,7 +548,7 @@ function BoothApp() {
           onName={(name) => {
             setPrefs({ name });
             setAskName(null);
-            void enterRoom(askName.code, name, askName.viaLink);
+            void enterRoom(askName.code, name, askName.viaLink, askName.duo);
           }}
         />
       )}

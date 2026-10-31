@@ -58,7 +58,12 @@ Kéo sticker / ô chỉ gửi **một lần khi thả tay**, nên lag không đ�
 ### Cần làm để chạy trên bản thật
 **Deploy server phòng** (đổi chủ phòng + kiểm tra link chỉ có ở server mới): `cd apps/signal && pnpm run deploy` (wrangler cần **Node ≥ 22**). Web đã chạy được với server cũ (rơi về cách cũ).
 
-## Đề xuất tiếp (chờ chủ dự án — Q-P37)
-- **Chụp dư trong phòng + mỗi người tự chọn ảnh** như ONBOOTH (6 kiểu giữ 4; "lựa chọn của bạn chỉ của bạn"). Mỗi máy đã có đủ ảnh của mọi người nên làm được; bản in của mỗi người có thể khác nhau → **sửa chung** chỉ còn chung theme / bố cục / chữ, hoặc tắt sửa chung khi mỗi người chọn khác.
-- **Duo = một polaroid chia đôi** ở màn phòng khi có đúng 2 người (thay vì 2 polaroid) — chỉ khác cách hiện, ảnh chụp vẫn như cũ.
-- Màn chọn ảnh trên iPad ngang: bản in bên trái (ô trống "Thêm ảnh"), lưới bên phải — như ảnh ONBOOTH.
+## Đã làm tiếp (chủ dự án chốt Q-P37 — 2026-10-31)
+- **Nút "Chụp cặp đôi" ở sảnh** (`Home.tsx`): đặt cạnh nút "Tạo phòng chụp chung", mở phòng ở chế độ polaroid chia đôi ngay từ lúc đợi người thứ hai vào.
+- **Polaroid chia đôi ở màn phòng** (`RoomScreen.tsx` — `DuoPolaroid`): khi phòng có đúng 2 người (hoặc vừa mở từ nút Chụp cặp đôi), hiện chung một thẻ polaroid chia đôi có gắn nhãn `DUO`.
+- **6 cách ghép đôi** (`packages/core/booth/duo.ts`, `LayoutPanel.tsx` — `DuoPicker`):
+  - Chung khung: `side` (trái–phải), `stack` (trên–dưới).
+  - Hai polaroid riêng trên nền trong suốt (PNG để lộ giấy của bản in): `twin` (đứng thẳng), `tilt` (nghiêng hai bên), `offset` (so le), `overlap` (đè lên nhau).
+  - Chủ phòng chọn trước ở màn phòng (`s.setDuo`), và ở màn **Trang trí → Khung** vẫn đổi lại cách ghép hoặc đổi khung bất kỳ lúc nào vì mỗi máy giữ cặp ảnh gốc `roll.duo.pairs` (`rearrange`).
+- **Chụp dư + mỗi người tự chọn ảnh**: khi phòng có 2 người và bật chụp dư (`takesFor`), cả hai chụp đủ số kiểu dư rồi mỗi máy vào màn `Pick` tự chọn các kiểu ưng ý cho bản in của mình; sửa chung vẫn đồng bộ theme, khung, bố cục, chữ và tự ghép lại cặp ảnh theo tỉ lệ ô mới.
+- **Tag treo chuyển app (`SwitchTag.tsx`)**: bỏ hoàn toàn phần đọc cảm biến nghiêng máy (`devicemotion`) gây lỗi trên iOS/Android; giữ dây treo thẳng tự nhiên, tăng nhẹ biên độ đung đưa nghỉ và thêm hiệu ứng **gió thổi định kỳ từ phải qua trái** (mỗi ~4,5–9 giây một cơn gió đẩy dây nghiêng sang trái kèm gợn rung nhẹ rồi thả về).
