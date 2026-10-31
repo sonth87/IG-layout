@@ -12,23 +12,31 @@ import { ThemePicker } from "./ThemePicker";
 import type { Room } from "./room";
 import { useSession } from "./room";
 import { shutter } from "./Shoot";
+import type { MessageKey } from "@ig-layout/core/i18n/en";
 import { COUNTDOWN_S, REST_S } from "./timing";
 import { Btn, Confirm, Label, Paper, display, mono, serif } from "./ui";
 
 // The group room (D-148, D-159; design: docs/discussions/2026-10-29-booth-thiet-ke.md §20).
 // The code is the ticket; everyone is a polaroid with their live camera and voice; the host
-// lets people in, picks the frame (everyone sees it) and starts the roll; one countdown on
-// every phone (8 s, 2 s rest — D-154); each phone shoots its own camera and the photos are
+// lets people in, picks the frame (everyone sees it) and starts the roll once everyone has
+// said they're ready (owner, 2026-10-31, as ONBOOTH does); "Get ready" with a pose idea, then
+// one countdown on every phone (the host's 3 / 5 / 8 s, 2 s rest); each phone shoots its own
+// camera and the photos are
 // swapped peer-to-peer; when everyone's photos are in, each shot becomes everyone tiled in
 // its cell and the roll goes to the print screen — on every phone.
 
 const EMPTY: never[] = [];
 /** Stop waiting for someone's photos after this long (they may have dropped). */
 const RECEIVE_TIMEOUT = 25_000;
+/** "Get ready" before the first countdown. */
+const GET_READY_MS = 2500;
+const POSES = 16;
 
-export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
+export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, onRoll, onLeave }: {
   room: Room;
   sound: boolean;
+  /** The host's countdown (seconds), used when they start a roll. */
+  countdown?: number;
   /** The host's own theme (they pick it here for everyone). */
   theme: string;
   onRoll: (roll: BoothRoll) => void;
@@ -61,7 +69,8 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
   const shotAt = (k: number) => roll!.startAt + roll!.lead + roll!.gap * k;
   const next = roll ? Array.from({ length: roll.shots }, (_, k) => k).find((k) => shotAt(k) > now) : undefined;
   const left = roll && next !== undefined ? shotAt(next) - now : 0;
-  const counting = roll && next !== undefined && left <= COUNTDOWN_S * 1000;
+  // The roll's countdown is its gap less the rest (the host's 3 / 5 / 8 s).
+  const counting = roll && next !== undefined && left <= roll.gap - REST_S * 1000;
   const seconds = Math.max(1, Math.ceil(left / 1000));
   const taken = roll ? (next ?? roll.shots) : 0;
 
@@ -108,6 +117,26 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
       onRoll({ id: crypto.randomUUID(), frameId: f.id, shots, flip: false, room: { code: room.code, names, key: `${room.code}:${s.everyone().find((m) => m.host)?.id ?? ""}:${last.id}` }, createdAt: at, updatedAt: at, thumbnail: new Blob() });
     })();
   }, [last, roll, got, total, timedOut, s, room, onRoll]);
+
+  // The host left and someone took over: say who, for a moment.
+  const hostNow = people.find((m) => m.host);
+  const prevHost = useRef(hostNow?.id);
+  const [newHost, setNewHost] = useState<string | null>(null);
+  useEffect(() => {
+    if (!hostNow || prevHost.current === hostNow.id) return;
+    const had = prevHost.current;
+    prevHost.current = hostNow.id;
+    if (!had) return;
+    setNewHost(hostNow.name);
+    const id = setTimeout(() => setNewHost(null), 4000);
+    return () => clearTimeout(id);
+  }, [hostNow]);
+
+  // ---- ready: everyone says so, then the host can start ----
+  const meReady = !!s.me && s.ready.has(s.me.id);
+  const guests = people.filter((m) => !m.host);
+  const readyCount = guests.filter((m) => s.ready.has(m.id)).length;
+  const allReady = s.allReady();
 
   // ---- before being in: opening, knocking, errors ----
   if (s.status !== "in") {
@@ -176,6 +205,11 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
       <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
         {/* Everyone. */}
         <div className="relative min-h-0 flex-1 overflow-y-auto px-4 pt-4 pb-6">
+          {newHost && (
+            <div role="status" data-new-host className="mx-auto mb-3 flex max-w-lg animate-[booth-pop_0.25s_ease-out] items-center justify-center border-2 border-[var(--c-ink)] bg-[var(--c-amber)] px-3 py-2 text-[var(--c-ink)] shadow-[4px_4px_0_var(--c-shadow)]">
+              <span className={`${mono} text-xs font-bold`}>★ {t("booth.room.newHost", { name: newHost })}</span>
+            </div>
+          )}
           {[...s.away.values()].map((m) => (
             <div key={`away-${m.id}`} role="status" data-away={m.name} className="mx-auto mb-3 flex max-w-lg animate-[booth-pop_0.25s_ease-out] items-center justify-between gap-3 border-2 border-[var(--c-ink)] bg-[var(--c-paper)] px-3 py-2 text-[var(--c-ink)] shadow-[4px_4px_0_var(--c-shadow)]">
               <span className={`${mono} text-xs font-bold`}>{t(m.host ? "booth.room.hostAway" : "booth.room.memberAway", { name: m.name })}</span>
@@ -211,6 +245,7 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
                   host={m.host}
                   you={self ? t("booth.room.you") : undefined}
                   hostLabel={t("booth.room.host")}
+                  ready={!m.host && s.ready.has(m.id) ? t("booth.room.readyBadge") : undefined}
                   status={
                     isAway
                       ? t("booth.room.reconnecting")
@@ -233,8 +268,14 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
                 <span key={seconds} data-countdown className={`${serif} animate-[booth-pop_0.35s_ease-out] text-[120px] leading-none text-[var(--c-paper)] [-webkit-text-stroke:3px_var(--c-ink)] [paint-order:stroke_fill] drop-shadow-[4px_4px_0_var(--c-shadow)]`} style={display}>
                   {seconds}
                 </span>
+              ) : taken > 0 ? (
+                <span className={`${mono} rounded-full bg-black/60 px-5 py-2 text-sm font-bold uppercase tracking-[0.25em]`}>{t("booth.room.rest")}</span>
               ) : (
-                <span className={`${mono} rounded-full bg-black/60 px-5 py-2 text-sm font-bold uppercase tracking-[0.25em]`}>{taken > 0 ? t("booth.room.rest") : t("booth.getReady")}</span>
+                // Before the first countdown: "Get ready", and a pose to try.
+                <div className="flex animate-[booth-pop_0.35s_ease-out] flex-col items-center gap-4 bg-black/45 px-8 py-6">
+                  <span className={`${mono} text-4xl font-bold uppercase tracking-[0.35em] text-[var(--c-paper)] [text-shadow:3px_3px_0_var(--c-shadow)]`}>{t("booth.getReady")}</span>
+                  <span className={`${mono} -rotate-2 border-2 border-[var(--c-ink)] bg-[var(--c-amber)] px-3 py-1.5 text-sm font-bold uppercase tracking-[0.12em] text-[var(--c-ink)] shadow-[3px_3px_0_var(--c-shadow)]`}>{t(`booth.pose.${roll.id % POSES}` as MessageKey)}</span>
+                </div>
               )}
             </div>
           )}
@@ -264,11 +305,17 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
           )}
           <div className="flex items-stretch gap-2 px-5 pt-1 lg:mt-auto lg:pb-4">
             {host ? (
-              <Btn tone="main" className="flex-1 py-4 text-sm" disabled={!!roll || receiving || s.away.size > 0} onClick={() => s.shoot(frame.shots, (COUNTDOWN_S + REST_S) * 1000, COUNTDOWN_S * 1000)}>
-                ✶ {t("booth.room.shoot", { count: frame.shots })}
+              // The host starts once everyone has said they're ready.
+              <Btn tone="main" className="flex-1 py-4 text-sm" disabled={!!roll || receiving || s.away.size > 0 || !allReady} onClick={() => s.shoot(frame.shots, (countdown + REST_S) * 1000, GET_READY_MS + countdown * 1000)}>
+                {allReady || roll ? `✶ ${t("booth.room.shoot", { count: frame.shots })}` : t("booth.room.waitReady", { n: readyCount, total: guests.length })}
               </Btn>
             ) : (
-              <p className={`${mono} flex flex-1 items-center justify-center border-2 border-dashed border-[var(--c-ink)]/40 px-2 text-center text-[11px] font-bold uppercase tracking-[0.1em] opacity-70`}>{t("booth.room.waitHost")}</p>
+              <div className="flex flex-1 flex-col gap-1">
+                <Btn tone={meReady ? "paper" : "main"} aria-pressed={meReady} className="w-full py-3 text-sm" disabled={!!roll} onClick={() => s.setReady(!meReady)}>
+                  {meReady ? `✓ ${t("booth.room.ready")}` : t("booth.room.imReady")}
+                </Btn>
+                <p className={`${mono} text-center text-[10px] uppercase tracking-[0.12em] opacity-70`}>{meReady ? t("booth.room.waitHost") : t("booth.room.readyHint")}</p>
+              </div>
             )}
             <Btn
               aria-label={t("booth.room.mic")}
@@ -305,7 +352,7 @@ export function RoomScreen({ room, sound, theme, onRoll, onLeave }: {
 }
 
 /** One person: their live camera in a polaroid, name under it. Remote ones play their voice. */
-function Polaroid({ stream, self, mirror, tilt = 0, name, host, you, hostLabel, status }: {
+function Polaroid({ stream, self, mirror, tilt = 0, name, host, you, hostLabel, status, ready }: {
   stream: MediaStream | null;
   self?: boolean;
   mirror?: boolean;
@@ -315,6 +362,8 @@ function Polaroid({ stream, self, mirror, tilt = 0, name, host, you, hostLabel, 
   you?: string;
   hostLabel?: string;
   status?: string;
+  /** "Ready ✓", when they've said so. */
+  ready?: string;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
@@ -331,6 +380,7 @@ function Polaroid({ stream, self, mirror, tilt = 0, name, host, you, hostLabel, 
         {/* Own video muted (no echo); others' play their voice. */}
         <video ref={ref} muted={self} playsInline autoPlay className="h-full w-full object-cover" style={{ transform: mirror ? "scaleX(-1)" : undefined }} />
         {host && <span className={`${mono} absolute top-1.5 left-1.5 bg-[var(--c-amber)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--c-ink)]`}>★ {hostLabel}</span>}
+        {ready && <span className={`${mono} absolute top-1.5 right-1.5 animate-[booth-pop_0.25s_ease-out] border border-[var(--c-ink)] bg-[#7fc8a9] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[#10241b]`}>{ready}</span>}
         {status && <span className={`${mono} absolute inset-x-0 bottom-0 bg-black/60 py-1 text-center text-[10px] uppercase tracking-[0.12em] text-[var(--c-paper)]`}>{status}</span>}
       </div>
       <figcaption className={`${mono} flex h-9 items-center gap-1 truncate px-0.5 text-[13px] font-bold text-[var(--c-ink)]`}>

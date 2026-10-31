@@ -15,7 +15,7 @@ import { Pick } from "./Pick";
 import { Decorate } from "./Decorate";
 import { Result } from "./Result";
 import { NamePrompt, RoomScreen } from "./RoomScreen";
-import { openRoom, type Room } from "./room";
+import { openRoom, peekRoom, type Room } from "./room";
 import { randomCode } from "@ig-layout/core/booth/session";
 import { isRoomCode } from "@ig-layout/core/booth/protocol";
 import { Setup } from "./Setup";
@@ -24,7 +24,7 @@ import { loadThemeFonts, rollRender, withTheme } from "./look";
 import { Mood } from "./Mood";
 import { useSharedRoll } from "./share";
 import { themeById } from "@ig-layout/core/booth/themes";
-import { floorStyle } from "./ui";
+import { Btn, Label, Paper, display, floorStyle, mono, serif } from "./ui";
 import { COUNTDOWN_S, takesFor } from "./timing";
 import { chromeVars, loadLobby, subscribeLobby, type LobbyTheme } from "./lobby/themes";
 
@@ -164,21 +164,33 @@ function BoothApp() {
     };
   }, [wantCamera, facing, cameraTry]);
 
-  // Keep the roll on the device whenever it changes (D-156).
+  // Keep the roll on the device whenever it changes (D-156) — a moment after the last change,
+  // so a run of edits (yours or the room's) doesn't redraw the thumbnail and write each time.
   useEffect(() => {
     if (!roll) return;
     let gone = false;
-    void (async () => {
+    const timer = setTimeout(async () => {
       const { frame: f, images, opts } = await rollRender(roll);
       await loadThemeFonts(roll.theme);
       if (gone) return;
       const thumbnail = await frameBlob(f, images, { ...opts, scale: 360 / Math.max(f.width, f.height) });
       if (!gone) await saveRoll({ ...roll, thumbnail });
-    })();
+    }, 600);
     return () => {
       gone = true;
+      clearTimeout(timer);
     };
   }, [roll]);
+
+  // In a room, the camera goes to the others only on the room screen (less work while
+  // printing / decorating together — owner, 2026-10-31: "khá lag").
+  useEffect(() => {
+    room?.session.setVideo(screen === "room");
+  }, [room, screen]);
+
+  /** Looking up a room code before going in; a code with no room. */
+  const [checking, setChecking] = useState<string | null>(null);
+  const [noRoom, setNoRoom] = useState<{ code: string; full: boolean } | null>(null);
 
   async function enterRoom(code: string | null, name: string, viaLink = false) {
     const actualCode = (code ?? randomCode()).toUpperCase();
@@ -210,6 +222,21 @@ function BoothApp() {
   }
   function startRoom(code: string | null, viaLink = false) {
     const norm = code?.toUpperCase() ?? null;
+    if (!norm) return joinRoom(null, viaLink);
+    // A code: is the room there? (On the lobby, with a "looking for the room" card.)
+    setChecking(norm);
+    void peekRoom(norm).then((r) => {
+      setChecking(null);
+      if (r === "missing" || r === "full") {
+        if (viaLink) history.replaceState(null, "", location.pathname);
+        if (loadRoomSession()?.code === norm) saveRoomSession(null);
+        setNoRoom({ code: norm, full: r === "full" });
+        return;
+      }
+      joinRoom(norm, viaLink);
+    });
+  }
+  function joinRoom(norm: string | null, viaLink: boolean) {
     const saved = norm ? loadRoomSession() : null;
     const knownName = (saved?.code === norm ? saved.name : undefined) ?? prefs.name;
     if (knownName) void enterRoom(norm, knownName, viaLink);
@@ -427,6 +454,7 @@ function BoothApp() {
         <RoomScreen
           room={room}
           sound={prefs.sound}
+          countdown={prefs.countdown}
           theme={themeById(prefs.theme).id}
           onRoll={(r) => {
             // The host's theme: every phone starts from the same print.
@@ -450,6 +478,32 @@ function BoothApp() {
       </div>
       {/* After the screen in the page (its canvases come first), behind it on screen. */}
       <Mood theme={moodTheme} />
+      {(checking || noRoom) && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-6" onClick={() => setNoRoom(null)}>
+          <div role={noRoom ? "alertdialog" : "status"} aria-label={noRoom ? t("booth.room.noRoom", { code: noRoom.code }) : undefined} onClick={(e) => e.stopPropagation()} className="w-full max-w-sm animate-[booth-pop_0.2s_ease-out]">
+            <Paper notch tilt={-1}>
+              <div className="p-6 text-center">
+                <Label>{t("booth.room.label")} · {checking ?? noRoom?.code}</Label>
+                {checking ? (
+                  <p className={`${mono} mt-3 animate-pulse text-sm font-bold uppercase tracking-[0.2em]`}>{t("booth.room.looking")}</p>
+                ) : (
+                  noRoom && (
+                    <>
+                      <p className={`${serif} mt-2 text-2xl leading-tight`} style={display}>
+                        {t(noRoom.full ? "booth.room.err.full" : "booth.room.noRoom", { code: noRoom.code })}
+                      </p>
+                      {!noRoom.full && <p className={`${mono} mt-2 text-xs opacity-70`}>{t("booth.room.noRoomHint")}</p>}
+                      <Btn tone="main" className="mt-5 w-full" onClick={() => setNoRoom(null)}>
+                        {t("booth.room.ok")}
+                      </Btn>
+                    </>
+                  )
+                )}
+              </div>
+            </Paper>
+          </div>
+        </div>
+      )}
       {askName && (
         <NamePrompt
           initial={prefs.name ?? ""}

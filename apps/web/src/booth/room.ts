@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { openCamera, snap, stopCamera } from "@ig-layout/core/booth/camera";
+import type { RoomPeek } from "@ig-layout/core/booth/protocol";
 import { BoothSession } from "@ig-layout/core/booth/session";
 
 // A group room for the booth (D-148, D-159): the camera with the mic (voice), a hidden
@@ -56,4 +57,18 @@ export async function openRoom(opts: { code: string; name: string; create: boole
 export function useSession(room: Room | null) {
   const [, tick] = useReducer((n: number) => n + 1, 0);
   useEffect(() => room?.session.subscribe(tick), [room]);
+}
+
+/** Is there a room to join at `code`? Asked before showing the room (owner, 2026-10-31: an old
+ * link shouldn't open a waiting screen and then bounce). "unknown" when the server can't say
+ * (offline, an older server): the room screen then finds out as before. */
+export async function peekRoom(code: string): Promise<"open" | "missing" | "full" | "unknown"> {
+  try {
+    const res = await fetch(`${SIGNAL_URL.replace(/^ws/, "http")}/room/${code}?peek=1`, { signal: AbortSignal.timeout(6000), cache: "no-store" });
+    if (!res.ok) return "unknown";
+    const p = (await res.json()) as RoomPeek;
+    return !p.open ? "missing" : p.full ? "full" : "open";
+  } catch {
+    return "unknown";
+  }
 }

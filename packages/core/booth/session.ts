@@ -32,6 +32,7 @@ export interface Roll {
 }
 
 type PeerMsg =
+  | { t: "ready"; on: boolean }
   | { t: "shoot"; roll: number; shots: number; gap: number; lead?: number; delay: number; frameId?: string; order?: string[] }
   | { t: "app"; data: unknown }
   | { t: "frame"; frameId: string; theme?: string }
@@ -65,6 +66,9 @@ export class BoothSession {
   theme: string | null = null;
   /** photos[roll][shot][memberId] */
   photos = new Map<number, Map<number, Map<string, Blob>>>();
+  /** Who said they're ready for the next roll (owner, 2026-10-31: the host can start once
+   * everyone is). Cleared when a roll starts. */
+  ready = new Set<string>();
 
   readonly stream: MediaStream;
   private ws: WebSocket;
@@ -73,6 +77,8 @@ export class BoothSession {
   private listeners = new Set<() => void>();
   private onShot: (roll: number, shot: number) => Promise<Blob | null>;
   private appListeners = new Set<(from: Member, data: unknown) => void>();
+  /** Sending our camera to the others (off while we're not on the room screen: less work). */
+  private video = true;
 
   constructor(opts: { server: string; code: string; name: string; create: boolean; id?: string; stream: MediaStream; onShot: (roll: number, shot: number) => Promise<Blob | null> }) {
     this.stream = opts.stream;
@@ -102,6 +108,28 @@ export class BoothSession {
     const seen = new Set(active.map((m) => m.id));
     const all = [...active, ...[...this.away.values()].filter((m) => !seen.has(m.id))];
     return all.sort((a, b) => Number(b.host) - Number(a.host));
+  }
+
+  /** Say we're ready (or not) for the next roll. */
+  setReady(on: boolean) {
+    if (!this.me) return;
+    if (on) this.ready.add(this.me.id);
+    else this.ready.delete(this.me.id);
+    for (const l of this.links.values()) sendJson(l.dc, { t: "ready", on });
+    this.emit();
+  }
+
+  /** Everyone but the host has said they're ready (connected people; nobody away). */
+  allReady() {
+    return this.away.size === 0 && this.peers().every((p) => p.member.host || this.ready.has(p.member.id)) && (!!this.me?.host || this.ready.has(this.me?.id ?? ""));
+  }
+
+  /** Send our camera to the others, or not (the room screen shows it; the print and decorate
+   * screens don't — the phone then doesn't encode video for everyone). Voice keeps going. */
+  setVideo(on: boolean) {
+    if (this.video === on) return;
+    this.video = on;
+    for (const l of this.links.values()) applyVideo(l.pc, this.stream, on);
   }
 
   admit(id: string, ok: boolean) {
@@ -180,13 +208,21 @@ export class BoothSession {
         this.link(msg.member); // they call us; this keeps their name for when the offer comes
         break;
       case "away":
+        this.ready.delete(msg.member.id);
         this.links.get(msg.member.id)?.pc.close();
         this.links.delete(msg.member.id);
         this.away.set(msg.member.id, msg.member);
         if (this.roll) this.cancelRoll();
         break;
+      case "host":
+        // The host left: someone else hosts now (their phone picks the frame, starts rolls).
+        for (const m of [this.me, ...this.peers().map((p) => p.member), ...this.away.values()]) if (m) m.host = m.id === msg.id;
+        for (const l of this.links.values()) l.peer = { ...l.peer, member: { ...l.peer.member, host: l.peer.member.id === msg.id } };
+        this.ready.clear();
+        break;
       case "left":
         this.away.delete(msg.id);
+        this.ready.delete(msg.id);
         this.knocks = this.knocks.filter((k) => k.id !== msg.id);
         this.links.get(msg.id)?.pc.close();
         this.links.delete(msg.id);
@@ -218,6 +254,7 @@ export class BoothSession {
     if (existing) return existing;
     const pc = new RTCPeerConnection({ iceServers: ICE });
     for (const track of this.stream.getTracks()) pc.addTrack(track, this.stream);
+    applyVideo(pc, this.stream, this.video);
     // Same pre-agreed channel on both sides: no "who creates it" asymmetry.
     const dc = pc.createDataChannel("booth", { negotiated: true, id: 0 });
     dc.binaryType = "arraybuffer";
@@ -232,9 +269,10 @@ export class BoothSession {
       this.emit();
     };
     dc.onmessage = (e) => this.onPeer(l, e.data);
-    // The host tells a newcomer which frame is picked.
+    // The host tells a newcomer which frame is picked; everyone says whether they're ready.
     dc.onopen = () => {
       if (this.me?.host && this.frameId) sendJson(dc, { t: "frame", frameId: this.frameId, theme: this.theme ?? undefined });
+      if (this.me && this.ready.has(this.me.id)) sendJson(dc, { t: "ready", on: true });
     };
     this.links.set(member.id, l);
     return l;
@@ -279,7 +317,11 @@ export class BoothSession {
       return;
     }
     const msg = JSON.parse(data) as PeerMsg;
-    if (msg.t === "shoot" && l.peer.member.host) this.startRoll(msg.roll, msg.shots, msg.gap, msg.lead ?? msg.gap, msg.delay, msg.frameId, msg.order);
+    if (msg.t === "ready") {
+      if (msg.on) this.ready.add(l.peer.member.id);
+      else this.ready.delete(l.peer.member.id);
+      this.emit();
+    } else if (msg.t === "shoot" && l.peer.member.host) this.startRoll(msg.roll, msg.shots, msg.gap, msg.lead ?? msg.gap, msg.delay, msg.frameId, msg.order);
     else if (msg.t === "app") for (const fn of this.appListeners) fn(l.peer.member, msg.data);
     else if (msg.t === "frame" && l.peer.member.host) {
       this.frameId = msg.frameId;
@@ -293,6 +335,8 @@ export class BoothSession {
     const startAt = performance.now() + delay;
     this.roll = { id, shots, gap, lead, startAt, frameId, members: order ?? this.everyone().map((m) => m.id) };
     this.lastRoll = this.roll;
+    // Ready again for the next one.
+    this.ready.clear();
     if (frameId) this.frameId = frameId;
     this.emit();
     for (let shot = 0; shot < shots; shot++) {
@@ -341,6 +385,26 @@ export class BoothSession {
 interface Signal {
   sdp?: RTCSessionDescriptionInit;
   ice?: RTCIceCandidateInit;
+}
+
+/** The camera as everyone else sees it: a small preview (the photos are shot on each phone at
+ * full size), or nothing while `on` is false. No renegotiation: the same sender, its track
+ * swapped and its encoding capped. */
+function applyVideo(pc: RTCPeerConnection, stream: MediaStream, on: boolean) {
+  const track = stream.getVideoTracks()[0] ?? null;
+  for (const sender of pc.getSenders()) {
+    if (sender.track?.kind === "audio" || (!sender.track && !track)) continue;
+    if (sender.track && sender.track.kind !== "video") continue;
+    void sender.replaceTrack(on ? track : null).catch(() => {});
+    if (!on || !track) continue;
+    const w = track.getSettings().width ?? 640;
+    const params = sender.getParameters();
+    if (!params.encodings?.length) continue;
+    params.encodings[0].maxBitrate = 600_000;
+    params.encodings[0].maxFramerate = 20;
+    params.encodings[0].scaleResolutionDownBy = Math.max(1, w / 640);
+    void sender.setParameters(params).catch(() => {});
+  }
 }
 
 function sendJson(dc: RTCDataChannel, msg: PeerMsg) {

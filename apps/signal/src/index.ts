@@ -1,9 +1,12 @@
 import { DurableObject } from "cloudflare:workers";
-import { isRoomCode, MAX_MEMBERS, type ClientMsg, type Member, type ServerMsg } from "@ig-layout/core/booth/protocol";
+import { isRoomCode, MAX_MEMBERS, type ClientMsg, type Member, type RoomPeek, type ServerMsg } from "@ig-layout/core/booth/protocol";
 
 // Booth signaling (docs/discussions/2026-10-29-photobooth.md).
 //   GET /room/AB12?create=1&name=…  → WebSocket; creates room AB12 ("taken" if it exists)
 //   GET /room/AB12?name=…           → WebSocket; knocks on room AB12, the host admits or denies
+//   GET /room/AB12?peek=1           → JSON { open, full }: is there a room to join (a link's check)
+// When the host leaves (or doesn't come back), the next person becomes the host instead of
+// the room closing (owner, 2026-10-31); the room closes when nobody is left.
 // Every request for a code reaches the same Durable Object, wherever it comes from, so the
 // room's people can live in that object. Sockets use the Hibernation API: an idle room isn't
 // billed, and who's who is kept on each socket (serializeAttachment), not in memory.
@@ -21,11 +24,16 @@ const worker = {
     if (!m) return new Response("Not found", { status: 404 });
     const origin = req.headers.get("Origin") ?? "";
     if (!allowed(origin, env.ALLOWED_ORIGINS)) return new Response("Forbidden", { status: 403 });
-    if (req.headers.get("Upgrade") !== "websocket") return new Response("Expected a WebSocket", { status: 426 });
     const code = m[1].toUpperCase();
     if (!isRoomCode(code)) return new Response("Bad room code", { status: 400 });
+    const peek = url.searchParams.has("peek");
+    if (!peek && req.headers.get("Upgrade") !== "websocket") return new Response("Expected a WebSocket", { status: 426 });
     // Rooms are made from Vietnam: keep the object in Asia-Pacific.
     const room = env.ROOM.get(env.ROOM.idFromName(code), { locationHint: "apac" });
+    if (peek) {
+      const res = await room.fetch(req);
+      return new Response(res.body, { headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": origin, Vary: "Origin", "Cache-Control": "no-store" } });
+    }
     return room.fetch(req);
   },
 };
@@ -52,6 +60,11 @@ export class Room extends DurableObject<Env> {
 
   async fetch(req: Request): Promise<Response> {
     const url = new URL(req.url);
+    if (url.searchParams.has("peek")) {
+      const admitted = this.seats().filter((s) => s.admitted).length + this.away.size;
+      const peek: RoomPeek = { open: admitted > 0 && this.hasHost(), full: admitted >= MAX_MEMBERS };
+      return Response.json(peek);
+    }
     const name = (url.searchParams.get("name") ?? "").trim().slice(0, 24) || "?";
     const create = url.searchParams.has("create");
     const seatId = (url.searchParams.get("id") ?? "").trim().slice(0, 16);
@@ -180,7 +193,7 @@ export class Room extends DurableObject<Env> {
       this.away.delete(seat.id);
     }
     if (seat.host) {
-      this.closeRoom(ws);
+      this.passHost(seat.id, ws);
       return;
     }
     if (seat.admitted) {
@@ -210,7 +223,7 @@ export class Room extends DurableObject<Env> {
     const timer = setTimeout(() => {
       this.away.delete(seat.id);
       if (seat.host) {
-        this.closeRoom();
+        this.passHost(seat.id);
       } else {
         for (const other of this.ctx.getWebSockets()) {
           if (seatOf(other)?.admitted) send(other, { t: "left", id: seat.id });
@@ -223,6 +236,31 @@ export class Room extends DurableObject<Env> {
       if (this.emptyTimer) clearTimeout(this.emptyTimer);
       this.emptyTimer = setTimeout(() => this.clearAway(), EMPTY_GRACE_MS);
     }
+  }
+
+  /** The host is gone for good (`oldId`): the person who's been in the room longest takes over
+   * (their phone gets the knocks and the frame picker); nobody left → the room closes.
+   * `leaving`: the host's own socket, when they left on purpose. */
+  private passHost(oldId: string, leaving?: WebSocket) {
+    const next = this.ctx.getWebSockets().find((ws) => ws !== leaving && seatOf(ws)?.admitted);
+    const seat = next && seatOf(next);
+    if (!next || !seat) {
+      this.closeRoom(leaving);
+      return;
+    }
+    seat.host = true;
+    next.serializeAttachment(seat);
+    for (const other of this.ctx.getWebSockets()) {
+      if (other === leaving || !seatOf(other)?.admitted) continue;
+      send(other, { t: "left", id: oldId });
+      send(other, { t: "host", id: seat.id });
+    }
+    // Whoever is knocking now asks the new host.
+    for (const k of this.seats().filter((s) => !s.admitted)) send(next, { t: "knock", id: k.id, name: k.name });
+  }
+
+  private hasHost() {
+    return this.seats().some((s) => s.host) || [...this.away.values()].some((a) => a.seat.host);
   }
 
   private closeRoom(except?: WebSocket) {

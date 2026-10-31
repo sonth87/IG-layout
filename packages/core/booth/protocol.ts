@@ -34,5 +34,13 @@ export type ServerMsg =
   | { t: "joined"; member: Member }
   | { t: "away"; member: Member } // someone refreshed / dropped temporarily
   | { t: "left"; id: string }
+  | { t: "host"; id: string } // the host left: `id` is the host now (owner, 2026-10-31)
   | { t: "signal"; from: string; data: unknown }
   | { t: "error"; code: "taken" | "not-found" | "full" | "denied" | "closed" | "bad-request" };
+
+/** GET /room/AB12?peek=1 (no WebSocket): is there a room to join? Asked before showing the
+ * room, so an old link says "no such room" on the lobby instead of a waiting screen. */
+export interface RoomPeek {
+  open: boolean;
+  full: boolean;
+}

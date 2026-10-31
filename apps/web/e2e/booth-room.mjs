@@ -1,8 +1,10 @@
 // The group room in the booth (D-159): the host creates a room from the lobby (the code is
 // made for them, name asked once), two friends join by typing the code in the lobby, knock,
 // get let in; everyone sees and hears everyone (video + audio tracks); the host picks the
-// frame (the others see it), starts; one countdown everywhere; every phone ends on the same
-// print (each shot = the 3 people tiled); back to the room; the host leaves → room closed.
+// frame (the others see it); the host can start only once both guests say they're ready;
+// "Get ready", then one countdown everywhere; every phone ends on the same print (each shot =
+// the 3 people tiled); back to the room; the host leaves → the next person is the host; when
+// everyone has left the room is gone, and its old link says so on the lobby.
 // Needs the room server: `pnpm signal` (ws://localhost:8787) and a build without
 // NEXT_PUBLIC_SIGNAL_URL (or with it pointing there).
 import { chromium } from "playwright-core";
@@ -84,8 +86,18 @@ for (const g of guests) await g.locator("[data-host-frame='strip3']").waitFor({ 
 check(true, "guests see the host's frame (Strip of 3)");
 await guests[0].screenshot({ path: path.join(OUT, "booth-room-guest.png") });
 
-console.log("4. Shoot together");
+console.log("4. Ready, then shoot together");
+const start = host.getByRole("button", { name: /Waiting for everyone|Shoot 3 shots/ });
+check((await start.textContent()).includes("0/2") && (await start.isDisabled()), `host can't start before everyone is ready (${await start.textContent()})`);
+await guests[0].getByRole("button", { name: "I’m ready" }).click();
+await host.getByRole("button", { name: /1\/2 ready/ }).waitFor({ timeout: 5000 });
+check((await host.locator("[data-person='Binh']").getByText("Ready ✓").count()) === 1, "the host sees Binh ready");
+await guests[1].getByRole("button", { name: "I’m ready" }).click();
+await host.getByRole("button", { name: /Shoot 3 shots/ }).waitFor({ timeout: 5000 });
+check(!(await host.getByRole("button", { name: /Shoot 3 shots/ }).isDisabled()), "everyone ready → the host can start");
 await host.getByRole("button", { name: /Shoot 3 shots/ }).click();
+await Promise.all(guests.map((p) => p.getByText("Get ready").waitFor({ timeout: 4000 })));
+check(true, "“Get ready” before the first countdown, on every phone");
 await Promise.all(all.map((p) => p.locator("[data-countdown]").waitFor({ timeout: 6000 })));
 check(true, "the countdown runs on every phone");
 await host.screenshot({ path: path.join(OUT, "booth-room-countdown.png") });
@@ -152,15 +164,28 @@ for (const p of all) {
 }
 check(true, "guest refreshed (F5) → auto-rejoined without knocking again");
 
+// The host leaves: the room goes on, Binh (in the longest) is the host now.
 await host.getByRole("button", { name: "Leave" }).click();
 await host.getByRole("alertdialog").getByRole("button", { name: "Leave" }).click();
-for (const g of guests) await g.getByText("The host closed the room.").waitFor({ timeout: 10000 });
-check(true, "host left → room closed for the guests");
+for (const g of guests) await g.getByText("Binh is the host now").waitFor({ timeout: 10000 });
+check(true, "host left → the room stays, Binh is the host now (both guests are told)");
+await g1.getByRole("radiogroup", { name: "Frame" }).first().waitFor({ timeout: 5000 });
+check((await g2.locator("[data-person='Binh']").getByText(/Host/).count()) === 1, "Binh picks the frame now; Chi sees Binh as the host");
+check((await g1.getByRole("button", { name: /Shoot 3 shots|Waiting for everyone/ }).count()) === 1, "the new host has the start button");
+for (const p of [g1, g2]) {
+  await p.getByRole("button", { name: "Leave" }).click();
+  await p.getByRole("alertdialog").getByRole("button", { name: "Leave" }).click();
+  await p.getByRole("button", { name: "Start a group room" }).waitFor({ timeout: 10000 });
+}
+check(true, "everyone left");
 
-// Opening the old link after the session ended bounces back to Home lobby.
+// The old link after the room is gone: the lobby, a moment looking, then "no room".
 await g1.goto(new URL(`booth?r=${code}`, URL_ARG).href);
-await g1.getByRole("button", { name: "Start a group room" }).waitFor({ timeout: 10000 });
-check(new URL(g1.url()).searchParams.get("r") === null, "opening ended room URL bounces to Home and strips ?r=");
+await g1.getByRole("alertdialog", { name: `No room ${code} anymore` }).waitFor({ timeout: 10000 });
+check((await g1.locator("[data-room-code]").count()) === 0, "old link → stays on the lobby (no waiting screen), says the room is gone");
+check(new URL(g1.url()).searchParams.get("r") === null, "…and drops ?r= from the address");
+await g1.getByRole("button", { name: "OK" }).click();
+await g1.getByRole("button", { name: "Start a group room" }).waitFor();
 
 check(errors.length === 0, `no page errors ${errors.length ? JSON.stringify(errors) : ""}`);
 await browser.close();

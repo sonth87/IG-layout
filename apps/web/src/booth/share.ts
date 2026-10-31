@@ -64,6 +64,12 @@ export function useSharedRoll(room: Room | null, roll: BoothRoll | null, setRoll
       const cur = rollRef.current;
       if (msg.t === "here") {
         setEditors((m) => {
+          // Still on the same tab: just note the time (no re-render every heartbeat).
+          const e = m.get(from.id);
+          if (msg.tab !== null && e && e.tab === msg.tab && e.key === msg.key) {
+            e.at = Date.now();
+            return m;
+          }
           const next = new Map(m);
           if (msg.tab === null) next.delete(from.id);
           else next.set(from.id, { id: from.id, name: from.name, tab: msg.tab, key: msg.key, at: Date.now() });

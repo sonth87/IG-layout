@@ -57,6 +57,7 @@ Khi có câu trả lời: chuyển xuống mục "Đã trả lời", ghi ngày v
 - **Q-P34.** ~~Khung IG trong booth theo 3 mức~~ Đồng ý — D-164.
 - **Q-P35.** Thứ tự làm §7 (sảnh dọc → luồng chụp → ảnh động → theme sảnh → khung IG → Duo) — ok, hay ưu tiên theme Noel trước vì sắp tới mùa?
 - **Q-P36.** Đưa kho IG sang booth (Q-P27, D-167): chọn phương án — PA1 bộ theme đầy đủ tự sắp item, PA2 kho IG trong booth (tìm kiếm, kiểu Canva), PA3 mẫu bản in thiết kế sẵn (kiểu tiệm Hàn); đề xuất PA1 → PA3 → PA2 bản nhỏ — xem [2026-10-30-booth-kho-ig.md](../discussions/2026-10-30-booth-kho-ig.md).
+- **Q-P37.** Phòng chụp chung như ONBOOTH: **chụp dư + mỗi người tự chọn ảnh** (bản in mỗi người có thể khác → sửa chung chỉ còn theme / bố cục / chữ)? **Duo = một polaroid chia đôi** khi có 2 người? — xem [2026-10-31-booth-phong-onbooth.md](../discussions/2026-10-31-booth-phong-onbooth.md).
 
 ### Kỹ thuật
 - **Q-13.** Có cần analytics (đếm lượt dùng) không? Nếu có, loại nào tôn trọng quyền riêng tư?
