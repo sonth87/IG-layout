@@ -68,6 +68,7 @@ await page.mouse.up();
 await page.waitForTimeout(400);
 
 // 1c. Countdown 3 s; spares on by default: strip of 4 → 7 shots (D-162).
+await page.getByRole("tab", { name: "Countdown" }).click();
 check(await page.getByText("7 shots, then pick the best 4").isVisible(), "spares on by default: 7 shots for 4 cells");
 await page.getByRole("radio", { name: "3 s", exact: true }).click();
 check((await page.getByRole("radio", { name: "3 s", exact: true }).getAttribute("aria-checked")) === "true", "3 s countdown picked");

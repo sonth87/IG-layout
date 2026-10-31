@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { composeDuo, type DuoArrange } from "@ig-layout/core/booth/duo";
+import { composeDuo, isDuoCards, type DuoArrange } from "@ig-layout/core/booth/duo";
 import { frameById, shotAspect } from "@ig-layout/core/booth/frames";
 import { tileShot } from "@ig-layout/core/booth/group";
 import { MAX_MEMBERS } from "@ig-layout/core/booth/protocol";
@@ -34,6 +34,8 @@ const RECEIVE_TIMEOUT = 25_000;
 const GET_READY_MS = 2500;
 const POSES = 16;
 
+type RoomTab = "frame" | "duo" | "theme";
+
 export interface DuoTakes {
   shots: Blob[];
   pairs: ([Blob, Blob] | null)[];
@@ -63,6 +65,7 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, spare 
   const [mic, setMic] = useState(true);
   const [asking, setAsking] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [tab, setTab] = useState<RoomTab>("frame");
   const people = s.everyone();
   const peers = new Map(s.peers().map((p) => [p.member.id, p]));
   const frame = frameById(s.frameId ?? "strip4");
@@ -226,17 +229,33 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, spare 
   const isDuo = people.length === 2 || (people.length === 1 && !!room.duo);
   const maxTakes = takesFor(frame.shots, true);
   const shootCount = people.length === 2 ? takesFor(frame.shots, spare) : frame.shots;
+  const activeTab: RoomTab = !isDuo && tab === "duo" ? "frame" : tab;
+  const roomTabs: { id: RoomTab; label: string }[] = isDuo
+    ? [
+        { id: "frame", label: t("booth.frame") },
+        { id: "duo", label: t("booth.duo.arrange") },
+        { id: "theme", label: t("booth.tab.theme") },
+      ]
+    : [
+        { id: "frame", label: t("booth.frame") },
+        { id: "theme", label: t("booth.tab.theme") },
+      ];
   const cols = people.length <= 1 ? "grid-cols-1 max-w-xs" : people.length <= 4 ? "grid-cols-2 max-w-lg" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 max-w-4xl";
 
   return (
     <div className="flex h-full flex-col">
-      {/* The ticket: room code, copy link, head count. */}
-      <header className="flex shrink-0 items-center justify-between gap-3 border-b-2 border-[var(--c-shadow)] bg-[var(--c-paper)] px-4 py-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] text-[var(--c-ink)]">
-        <div className="flex items-baseline gap-3">
-          <Label>{t("booth.room.label")}</Label>
-          <span className={`${mono} text-2xl font-bold tracking-[0.3em]`} data-room-code>
-            {room.code}
-          </span>
+      {/* The ticket: exit on the top-left (like solo mode), room code, copy link, head count. */}
+      <header className="flex shrink-0 items-center justify-between gap-2 border-b-2 border-[var(--c-shadow)] bg-[var(--c-paper)] px-3 py-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] text-[var(--c-ink)]">
+        <div className="flex items-center gap-3">
+          <Btn className="px-3 py-2" aria-label={t("booth.room.leave")} onClick={() => setAsking(true)}>
+            ✕
+          </Btn>
+          <div className="flex items-baseline gap-2.5">
+            <Label>{t("booth.room.label")}</Label>
+            <span className={`${mono} text-2xl font-bold tracking-[0.3em]`} data-room-code>
+              {room.code}
+            </span>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <span className={`${mono} hidden text-[10px] uppercase tracking-[0.15em] opacity-60 sm:inline`}>{t("booth.room.people", { n: people.length, max: MAX_MEMBERS })}</span>
@@ -284,6 +303,7 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, spare 
             ))}
           {isDuo ? (
             <DuoPolaroid
+              arrange={s.duo}
               people={people.map((m) => {
                 const self = m.id === s.me?.id;
                 const peer = peers.get(m.id);
@@ -369,32 +389,46 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, spare 
           )}
         </div>
 
-        {/* The frame (the host picks) and the controls. */}
-        <div className="shrink-0 border-t-2 border-[var(--c-shadow)] bg-[var(--c-paper)] pb-[max(0.75rem,env(safe-area-inset-bottom))] text-[var(--c-ink)] lg:flex lg:w-[440px] lg:flex-col lg:overflow-y-auto lg:border-t-0 lg:border-l-2">
-          <Label className="px-5 pt-3">{t("booth.room.frameBy")}</Label>
+        {/* The frame (the host picks) and the controls — tabbed so the camera area above stays large. */}
+        <div className="shrink-0 border-t-2 border-[var(--c-shadow)] bg-[var(--c-paper)] pb-[max(0.625rem,env(safe-area-inset-bottom))] text-[var(--c-ink)] lg:flex lg:w-[440px] lg:flex-col lg:overflow-y-auto lg:border-t-0 lg:border-l-2">
           {host ? (
             <div className={roll ? "pointer-events-none opacity-50" : ""}>
-              <FramePicker value={frame.id} onChange={(id) => s.setFrame(id)} />
-              {isDuo && (
-                <>
-                  <Label className="px-5 pt-1">{t("booth.duo.arrange")}</Label>
-                  <DuoPicker value={s.duo} onChange={(d) => s.setDuo(d)} />
-                </>
-              )}
-              <ThemePicker compact value={s.theme ?? theme} onPick={(th) => s.setFrame(frame.id, th.id)} />
-              {people.length === 2 && maxTakes > frame.shots && onSpare && (
-                <label className={`${mono} relative flex cursor-pointer items-center gap-3 px-5 pb-2 text-xs`}>
-                  <input type="checkbox" className="peer absolute top-0 left-5 h-6 w-6 cursor-pointer opacity-0" checked={spare} onChange={(e) => onSpare(e.target.checked)} />
-                  <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[var(--c-ink)] bg-[var(--c-field)] text-sm font-bold text-[var(--c-red)] peer-focus-visible:outline peer-focus-visible:outline-2">
-                    {spare ? "✕" : ""}
-                  </span>
-                  {t("booth.spare", { takes: maxTakes, need: frame.shots })}
-                </label>
-              )}
+              <div role="tablist" aria-label={t("booth.room.frameBy")} className={`grid border-b-2 border-[var(--c-ink)] ${isDuo ? "grid-cols-3" : "grid-cols-2"}`}>
+                {roomTabs.map((k) => (
+                  <button
+                    key={k.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeTab === k.id}
+                    onClick={() => setTab(k.id)}
+                    className={`${mono} truncate border-r-2 border-[var(--c-ink)] px-2 py-2.5 text-[11px] font-bold uppercase tracking-[0.05em] last:border-r-0 ${activeTab === k.id ? "bg-[var(--c-ink)] text-[var(--c-paper)]" : ""}`}
+                  >
+                    {k.label}
+                  </button>
+                ))}
+              </div>
+              <div className="min-h-[108px]">
+                {activeTab === "frame" && <FramePicker compact value={frame.id} onChange={(id) => s.setFrame(id)} />}
+                {activeTab === "duo" && isDuo && (
+                  <div className="flex flex-col">
+                    <DuoPicker value={s.duo} onChange={(d) => s.setDuo(d)} className="px-4 py-2.5" />
+                    {people.length === 2 && maxTakes > frame.shots && onSpare && (
+                      <label className={`${mono} relative flex cursor-pointer items-center gap-3 px-4 pb-2 text-xs`}>
+                        <input type="checkbox" className="peer absolute top-0 left-4 h-6 w-6 cursor-pointer opacity-0" checked={spare} onChange={(e) => onSpare(e.target.checked)} />
+                        <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[var(--c-ink)] bg-[var(--c-field)] text-sm font-bold text-[var(--c-red)] peer-focus-visible:outline peer-focus-visible:outline-2">
+                          {spare ? "✕" : ""}
+                        </span>
+                        {t("booth.spare", { takes: maxTakes, need: frame.shots })}
+                      </label>
+                    )}
+                  </div>
+                )}
+                {activeTab === "theme" && <ThemePicker compact value={s.theme ?? theme} onPick={(th) => s.setFrame(frame.id, th.id)} />}
+              </div>
             </div>
           ) : (
-            <div className="flex items-center gap-3 px-5 py-3" data-host-frame={frame.id}>
-              <FrameCanvas frame={frame} images={EMPTY} look={{ placeholders: true }} scale={200 / Math.max(frame.width, frame.height)} className="max-h-20 max-w-20" />
+            <div className="flex items-center gap-3 px-4 py-2.5" data-host-frame={frame.id}>
+              <FrameCanvas frame={frame} images={EMPTY} look={{ placeholders: true }} scale={160 / Math.max(frame.width, frame.height)} className="max-h-14 max-w-14" />
               <span className={`${mono} text-xs font-bold uppercase tracking-[0.12em]`}>
                 {t(`booth.frame.${frame.id}` as Parameters<typeof t>[0])} · {t("booth.shots", { count: frame.shots })}
                 {isDuo && <> · {t(`booth.duo.${s.duo}` as Parameters<typeof t>[0])}</>}
@@ -402,10 +436,10 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, spare 
               </span>
             </div>
           )}
-          <div className="flex items-stretch gap-2 px-5 pt-1 lg:mt-auto lg:pb-4">
+          <div className="flex items-stretch gap-2 px-4 pt-1.5 lg:mt-auto lg:pb-4">
             {host ? (
               // The host starts once everyone has said they're ready.
-              <Btn tone="main" className="flex-1 py-4 text-sm" disabled={!!roll || receiving || s.away.size > 0 || !allReady} onClick={() => s.shoot(shootCount, (countdown + REST_S) * 1000, GET_READY_MS + countdown * 1000)}>
+              <Btn tone="main" className="flex-1 py-3.5 text-sm" disabled={!!roll || receiving || s.away.size > 0 || !allReady} onClick={() => s.shoot(shootCount, (countdown + REST_S) * 1000, GET_READY_MS + countdown * 1000)}>
                 {allReady || roll ? `✶ ${t("booth.room.shoot", { count: shootCount })}` : t("booth.room.waitReady", { n: readyCount, total: guests.length })}
               </Btn>
             ) : (
@@ -426,9 +460,6 @@ export function RoomScreen({ room, sound, theme, countdown = COUNTDOWN_S, spare 
               }}
             >
               {mic ? "🎙" : "🔇"}
-            </Btn>
-            <Btn tone="danger" className="px-3.5" aria-label={t("booth.room.leave")} onClick={() => setAsking(true)}>
-              ✕
             </Btn>
           </div>
         </div>
@@ -463,40 +494,87 @@ interface PersonView {
   ready?: string;
 }
 
-/** Two people in one shared split polaroid (ONBOOTH style, Q-P37). */
-function DuoPolaroid({ people, badge, waiting }: { people: PersonView[]; badge: string; waiting: string }) {
+const DUO_CARD_SLOT: Record<Exclude<DuoArrange, "side" | "stack">, [string, string]> = {
+  twin: ["rotate-0", "rotate-0"],
+  tilt: ["-rotate-[6deg] -translate-y-0.5", "rotate-[5.5deg] translate-y-1"],
+  offset: ["-translate-y-3 -rotate-[2deg]", "translate-y-3.5 rotate-[3deg]"],
+  overlap: ["translate-x-3 -translate-y-1 -rotate-[5deg] z-10", "-translate-x-3 translate-y-2.5 rotate-[7deg] scale-[0.9] z-20"],
+};
+
+/** Two people in a duo room (ONBOOTH style, Q-P37): morphs live between a shared split
+ * polaroid (`side` left-right, `stack` top-bottom) and two separate polaroids (`twin`,
+ * `tilt`, `offset`, `overlap`). Keeps `<DuoHalf>` in the same React tree position across
+ * all 6 ways so `<video>` never unmounts when switching. */
+function DuoPolaroid({ arrange, people, badge, waiting }: { arrange: DuoArrange; people: PersonView[]; badge: string; waiting: string }) {
+  const cards = isDuoCards(arrange);
+  const stack = arrange === "stack";
+  const aspect = stack ? "aspect-[16/10]" : cards ? "aspect-[4/5]" : "aspect-[3/4]";
+  const slotCls = (i: 0 | 1) =>
+    cards
+      ? `bg-[var(--booth-polaroid,#f6efe2)] p-2 pb-0 shadow-[5px_5px_0_var(--c-shadow)] transition-all duration-300 ${DUO_CARD_SLOT[arrange][i]}`
+      : "transition-all duration-300";
+
   return (
-    <figure data-duo-polaroid className="mx-auto max-w-md -rotate-[0.6deg] bg-[var(--booth-polaroid,#f6efe2)] p-2.5 pb-0 shadow-[5px_5px_0_var(--c-shadow)]">
-      <div className="grid grid-cols-2 gap-1.5">
-        {people.map((p) => (
-          <DuoHalf key={p.id} person={p} />
+    <figure
+      data-duo-polaroid
+      data-duo-arrange={arrange}
+      className={
+        cards
+          ? "mx-auto max-w-md py-3 transition-all duration-300"
+          : `mx-auto -rotate-[0.6deg] bg-[var(--booth-polaroid,#f6efe2)] p-2.5 pb-0 shadow-[5px_5px_0_var(--c-shadow)] transition-all duration-300 ${stack ? "max-w-[290px]" : "max-w-md"}`
+      }
+    >
+      <div className={stack ? "grid grid-cols-1 gap-1.5" : cards ? "grid grid-cols-2 items-center gap-2.5" : "grid grid-cols-2 gap-1.5"}>
+        {people.map((p, i) => (
+          <div key={p.id} className={slotCls((i ? 1 : 0) as 0 | 1)}>
+            <DuoHalf person={p} aspect={aspect} />
+            {cards && (
+              <div className={`${mono} flex h-8 items-center justify-between gap-1 px-0.5 text-xs font-bold text-[var(--c-ink)]`}>
+                <span className="truncate">
+                  {p.name}
+                  {p.you && <span className="font-normal opacity-55"> · {p.you}</span>}
+                </span>
+                {i === 1 && <span className="shrink-0 border border-[var(--c-ink)] bg-[var(--c-red)] px-1 py-0.5 text-[8px] font-bold uppercase tracking-[0.15em] text-[var(--c-paper)]">{badge}</span>}
+              </div>
+            )}
+          </div>
         ))}
         {people.length < 2 && (
-          <div className="relative flex aspect-[3/4] flex-col items-center justify-center gap-2 border-2 border-dashed border-[var(--c-ink)]/30 bg-[#2a231d]/85 p-3 text-center">
-            <span className={`${serif} text-4xl text-[var(--c-paper)]/35`} style={display}>
-              +
-            </span>
-            <span className={`${mono} text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--c-paper)]/65`}>{waiting}</span>
+          <div key="__wait" className={slotCls(1)}>
+            <div className={`relative flex ${aspect} flex-col items-center justify-center gap-2 border-2 border-dashed border-[var(--c-ink)]/30 bg-[#2a231d]/85 p-3 text-center`}>
+              <span className={`${serif} text-4xl text-[var(--c-paper)]/35`} style={display}>
+                +
+              </span>
+              <span className={`${mono} text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--c-paper)]/65`}>{waiting}</span>
+            </div>
+            {cards && (
+              <div className={`${mono} flex h-8 items-center justify-between gap-1 px-0.5 text-xs font-bold text-[var(--c-ink)]/55`}>
+                <span className="truncate">…</span>
+                <span className="shrink-0 border border-[var(--c-ink)] bg-[var(--c-red)] px-1 py-0.5 text-[8px] font-bold uppercase tracking-[0.15em] text-[var(--c-paper)]">{badge}</span>
+              </div>
+            )}
           </div>
         )}
       </div>
-      <figcaption className={`${mono} flex h-10 items-center justify-between gap-2 px-1 text-[13px] font-bold text-[var(--c-ink)]`}>
-        <span className="truncate">
-          {people.map((p, i) => (
-            <span key={p.id}>
-              {i > 0 && " & "}
-              {p.name}
-              {p.you && <span className="font-normal opacity-55"> ({p.you})</span>}
-            </span>
-          ))}
-        </span>
-        <span className="shrink-0 border border-[var(--c-ink)] bg-[var(--c-red)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--c-paper)]">{badge}</span>
-      </figcaption>
+      {!cards && (
+        <figcaption className={`${mono} flex h-10 items-center justify-between gap-2 px-1 text-[13px] font-bold text-[var(--c-ink)]`}>
+          <span className="truncate">
+            {people.map((p, i) => (
+              <span key={p.id}>
+                {i > 0 && " & "}
+                {p.name}
+                {p.you && <span className="font-normal opacity-55"> ({p.you})</span>}
+              </span>
+            ))}
+          </span>
+          <span className="shrink-0 border border-[var(--c-ink)] bg-[var(--c-red)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--c-paper)]">{badge}</span>
+        </figcaption>
+      )}
     </figure>
   );
 }
 
-function DuoHalf({ person }: { person: PersonView }) {
+function DuoHalf({ person, aspect = "aspect-[3/4]" }: { person: PersonView; aspect?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const v = ref.current;
@@ -506,7 +584,7 @@ function DuoHalf({ person }: { person: PersonView }) {
   }, [person.stream]);
   const initial = useMemo(() => person.name.trim().slice(0, 1).toUpperCase(), [person.name]);
   return (
-    <div className="relative aspect-[3/4] overflow-hidden bg-[#2a231d]" data-person={person.name}>
+    <div className={`relative ${aspect} overflow-hidden bg-[#2a231d] transition-all duration-300`} data-person={person.name}>
       {!person.stream && (
         <span className={`${serif} absolute inset-0 flex items-center justify-center text-6xl text-[var(--c-paper)]/40`} style={display}>
           {initial}

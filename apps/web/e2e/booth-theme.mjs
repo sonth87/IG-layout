@@ -43,6 +43,7 @@ check((await page.locator("[data-mood='snow']").count()) === 1, "Christmas → s
 console.log("3. Theme before shooting");
 await page.getByRole("button", { name: "Done" }).click();
 await page.getByRole("button", { name: /New roll/ }).click();
+await page.getByRole("tab", { name: "Theme" }).click();
 await page.getByRole("radiogroup", { name: "Theme" }).locator("[data-theme-id='fireworks']").click();
 check((await page.locator("[data-mood='sparks']").count()) === 1, "picking Fireworks sets the shooting screen's mood");
 await page.screenshot({ path: path.join(OUT, "booth-theme-setup.png") });

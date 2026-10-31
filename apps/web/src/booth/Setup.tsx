@@ -22,6 +22,8 @@ const NO_SHOTS: never[] = [];
 /** Thumbnails on white paper: the layout of the cells reads at a glance. */
 const PICKER_LOOK = { theme: themeById("classic"), showDate: false, title: "" };
 
+type SetupTab = "frame" | "theme" | "timer";
+
 export function Setup(props: {
   camera: Camera | null;
   facing: Facing;
@@ -40,6 +42,7 @@ export function Setup(props: {
 }) {
   const t = useT();
   const frame = frameById(props.frameId);
+  const [tab, setTab] = useState<SetupTab>("frame");
   // Choosing a frame: the whole frame big by default (you see how the cells are laid out).
   const [view, setView] = useState<ViewKind>("frame");
   // Switching camera only makes sense with two (phones; most computers have one).
@@ -63,11 +66,17 @@ export function Setup(props: {
     return () => removeEventListener("keydown", key);
   }, [camera, onStart]);
 
+  const tabs: { id: SetupTab; label: string }[] = [
+    { id: "frame", label: t("booth.frame") },
+    { id: "theme", label: t("booth.tab.theme") },
+    { id: "timer", label: t("booth.countdownPick") },
+  ];
+
   return (
     <div className="flex h-full flex-col">
       <header className="flex shrink-0 items-center justify-between gap-3 border-b-2 border-[var(--c-shadow)] bg-[var(--c-paper)] px-3 py-2.5 pt-[max(0.625rem,env(safe-area-inset-top))] text-[var(--c-ink)]">
         <Btn className="px-3 py-2" aria-label={t("common.back")} onClick={props.onBack}>
-          ←
+          ✕
         </Btn>
         <h1 className={`${serif} text-2xl`} style={display}>
           {t("booth.setupTitle")}
@@ -91,7 +100,7 @@ export function Setup(props: {
             label={view === "me" ? t("booth.view.frame") : t("booth.view.me")}
             me={(small) => <CameraView compact={small} camera={props.camera} facing={props.facing} aspect={shotAspect(frame, 0)} caption={t("booth.you")} />}
             frame={(small) => (
-              <div className={`h-full w-full ${small ? "" : "px-6 py-5"}`}>
+              <div className={`h-full w-full ${small ? "" : "px-6 py-4"}`}>
                 <FrameLive frame={frame} shots={NO_SHOTS} current={0} stream={props.camera?.stream ?? null} facing={props.facing} fake={props.camera?.fake} look={{ theme: themeById(props.theme) }} />
               </div>
             )}
@@ -108,46 +117,60 @@ export function Setup(props: {
           )}
         </div>
 
-        {/* The choices scroll; the start button stays in view below them (owner, 2026-10-30:
-            on a phone it was under the fold, people didn't know how to shoot). */}
-        <div className="flex max-h-[54dvh] shrink-0 flex-col border-t-2 border-[var(--c-shadow)] bg-[var(--c-paper)] text-[var(--c-ink)] lg:max-h-none lg:w-[440px] lg:border-t-0 lg:border-l-2">
-          <div className="min-h-0 flex-1 overflow-y-auto lg:pt-2">
-            <Label className="px-5 pt-4">{t("booth.frame")}</Label>
-            <FramePicker value={frame.id} onChange={props.onFrame} look={PICKER_LOOK} />
-            <Label className="px-5">{t("booth.tab.theme")}</Label>
-            <ThemePicker compact value={props.theme} onPick={(th) => props.onTheme(th.id)} />
-            {/* Countdown (D-162): picked before shooting, kept for next time. */}
-            <Label className="px-5">{t("booth.countdownPick")}</Label>
-            <div role="radiogroup" aria-label={t("booth.countdownPick")} className="mx-5 mb-4 grid grid-cols-3 gap-2">
-              {COUNTDOWNS.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  role="radio"
-                  aria-checked={props.countdown === s}
-                  onClick={() => props.onCountdown(s)}
-                  className={`${mono} border-2 border-[var(--c-ink)] py-2 text-sm font-bold shadow-[2px_2px_0_var(--c-shadow)] ${props.countdown === s ? "bg-[var(--c-ink)] text-[var(--c-paper)]" : "bg-[var(--c-paper2)]"}`}
-                >
-                  {t("booth.seconds", { seconds: s })}
-                </button>
-              ))}
-            </div>
-            {/* Spare shots (D-162): a 1-cell frame just shoots once. */}
-            {frame.shots > 1 && (
-              <label className={`${mono} relative mx-5 mb-3 flex cursor-pointer items-center gap-3 text-xs`}>
-                <input type="checkbox" className="peer absolute top-0 left-0 h-6 w-6 cursor-pointer opacity-0" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />
-                <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[var(--c-ink)] bg-[var(--c-paper)] text-sm font-bold text-[var(--c-red)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">
-                  {props.spare ? "✕" : ""}
-                </span>
-                {t("booth.spare", { takes: takesFor(frame.shots, true), cells: frame.shots })}
-              </label>
+        {/* Tabbed picker (owner, 2026-10-31): one row of choices at a time so the camera above stays large. */}
+        <div className="flex shrink-0 flex-col border-t-2 border-[var(--c-shadow)] bg-[var(--c-paper)] text-[var(--c-ink)] lg:w-[440px] lg:border-t-0 lg:border-l-2">
+          <div role="tablist" className="grid grid-cols-3 border-b-2 border-[var(--c-ink)]">
+            {tabs.map((k) => (
+              <button
+                key={k.id}
+                type="button"
+                role="tab"
+                aria-selected={tab === k.id}
+                onClick={() => setTab(k.id)}
+                className={`${mono} border-r-2 border-[var(--c-ink)] px-2 py-2.5 text-[11px] font-bold uppercase tracking-[0.05em] last:border-r-0 ${tab === k.id ? "bg-[var(--c-ink)] text-[var(--c-paper)]" : ""}`}
+              >
+                {k.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="min-h-[112px] overflow-y-auto lg:flex-1">
+            {tab === "frame" && <FramePicker compact value={frame.id} onChange={props.onFrame} look={PICKER_LOOK} />}
+            {tab === "theme" && <ThemePicker compact value={props.theme} onPick={(th) => props.onTheme(th.id)} />}
+            {tab === "timer" && (
+              <div className="flex flex-col gap-3 px-4 py-3">
+                <div role="radiogroup" aria-label={t("booth.countdownPick")} className="grid grid-cols-3 gap-2">
+                  {COUNTDOWNS.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      role="radio"
+                      aria-checked={props.countdown === s}
+                      onClick={() => props.onCountdown(s)}
+                      className={`${mono} border-2 border-[var(--c-ink)] py-2 text-sm font-bold shadow-[2px_2px_0_var(--c-shadow)] ${props.countdown === s ? "bg-[var(--c-ink)] text-[var(--c-paper)]" : "bg-[var(--c-paper2)]"}`}
+                    >
+                      {t("booth.seconds", { seconds: s })}
+                    </button>
+                  ))}
+                </div>
+                {frame.shots > 1 && (
+                  <label className={`${mono} relative flex cursor-pointer items-center gap-3 text-xs`}>
+                    <input type="checkbox" className="peer absolute top-0 left-0 h-6 w-6 cursor-pointer opacity-0" checked={props.spare} onChange={(e) => props.onSpare(e.target.checked)} />
+                    <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[var(--c-ink)] bg-[var(--c-paper)] text-sm font-bold text-[var(--c-red)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2">
+                      {props.spare ? "✕" : ""}
+                    </span>
+                    {t("booth.spare", { takes: takesFor(frame.shots, true), cells: frame.shots })}
+                  </label>
+                )}
+              </div>
             )}
           </div>
-          <div className="shrink-0 border-t-2 border-dashed border-[var(--c-ink)]/25 px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_16px_rgba(243,233,214,0.9)]">
-            <Btn tone="main" className="w-full py-4 text-[15px]" disabled={!props.camera} onClick={props.onStart}>
+
+          <div className="shrink-0 border-t-2 border-dashed border-[var(--c-ink)]/25 px-4 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] lg:mt-auto">
+            <Btn tone="main" className="w-full py-3.5 text-[15px]" disabled={!props.camera} onClick={props.onStart}>
               ✶ {t("booth.start")}
             </Btn>
-            <p className={`${mono} mt-2 text-center text-[10px] uppercase tracking-[0.2em] opacity-55`}>
+            <p className={`${mono} mt-1.5 text-center text-[10px] uppercase tracking-[0.2em] opacity-55`}>
               {t("booth.countdown", { seconds: props.countdown, takes: takesFor(frame.shots, props.spare), rest: REST_S })}
               <span className="hidden [@media(pointer:fine)]:inline"> · {t("booth.keys.start")}</span>
             </p>
