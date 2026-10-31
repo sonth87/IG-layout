@@ -36,6 +36,8 @@ export interface RenderOptions {
   placeholders?: boolean;
   /** Number the empty cells (picker thumbnails, shots still to take). */
   numbers?: boolean;
+  /** Each shot is already two polaroid cards on a clear background (duo.ts): let the paper show through. */
+  duoCards?: boolean;
 }
 
 /** Kept for callers that only need the Cinema colours. */
@@ -66,6 +68,14 @@ export function renderFrame(canvas: HTMLCanvasElement, frame: BoothFrame, shots:
     if (rot) c.rotate((rot * Math.PI) / 180);
     let w = box.w;
     let h = box.h;
+    if (opts.duoCards && img) {
+      // The shot is already two polaroid cards on a transparent PNG: draw it straight onto the paper.
+      const k = Math.min(w / img.width, h / img.height);
+      if (opts.flip) c.scale(-1, 1);
+      c.drawImage(img.source, (-img.width * k) / 2, (-img.height * k) / 2, img.width * k, img.height * k);
+      c.restore();
+      continue;
+    }
     let oy = 0;
     // A turned or polaroid print casts a soft shadow, so prints on top read as on top.
     const lifted = rot !== 0 || shape === "polaroid";

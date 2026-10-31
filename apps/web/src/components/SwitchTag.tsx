@@ -3,14 +3,13 @@
 import { useEffect, useRef, type ReactNode } from "react";
 
 // The hanging tag that switches between IG Layout and the booth (D-151: home screen only).
-// A tag on a string from the top edge: it sways, the pointer brushes it, it can be grabbed.
-// Pull it down past a threshold (or, if `side`, sideways towards the middle) and let go →
-// onSwitch; a short tug only makes it swing (like a lamp's pull cord). A tap or Enter also
-// switches. While pulling, onProgress(0…1) lets the page show the other app coming in.
-// On a phone, gravity follows how the phone is held (the accelerometer), so tilting it
-// swings the tag. The string is a Verlet rope (points + distance constraints), drawn into an
-// SVG path; the tag follows the last segment. Nothing re-renders per frame. Each app gives
-// its own face (TagFaces.tsx).
+// A tag on a string from the top edge: it sways gently, occasional gusts blow it from right
+// to left, the pointer brushes it, and it can be grabbed. Pull it down past a threshold (or,
+// if `side`, sideways towards the middle) and let go → onSwitch; a short tug only makes it
+// swing (like a lamp's pull cord). A tap or Enter also switches. While pulling,
+// onProgress(0…1) lets the page show the other app coming in. The string is a Verlet rope
+// (points + distance constraints), drawn into an SVG path; the tag follows the last segment.
+// Nothing re-renders per frame. Each app gives its own face (TagFaces.tsx).
 
 export interface TagPhysics {
   /** String length, px. */
@@ -27,13 +26,12 @@ export interface TagPhysics {
   sway: boolean;
 }
 
-export const DEFAULT_TAG: TagPhysics = { length: 84, gravity: 2200, damping: 0.985, threshold: 64, side: 140, sway: true };
+export const DEFAULT_TAG: TagPhysics = { length: 84, gravity: 2200, damping: 0.988, threshold: 64, side: 140, sway: true };
 
 const N = 9; // rope points, the first one pinned
 const STEP = 1 / 120;
 /** Where the string meets the tag, from its top edge. */
 const EYE = 7;
-const TILT_KEY = "ig-layout:tag-tilt";
 
 interface Props {
   /** Accessible name ("Switch to Photobooth"). */
@@ -75,66 +73,7 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
     };
     place();
     // A small swing on arrival (towards the middle), so the tag is noticed.
-    if (!reduced) pts.forEach((p, i) => (p.px = p.x + (i / N) * 2.5));
-
-    // Gravity's direction on the screen (unit vector): straight down until the phone says
-    // otherwise. From the accelerometer's gravity (steady at any angle — the orientation
-    // angles flip around when the phone stands upright), smoothed so a shaky hand doesn't
-    // jitter the tag. iOS reports gravity's direction, Android the opposite: flip for Android.
-    const down = { x: 0, y: 1 };
-    const want = { x: 0, y: 1 };
-    type IOSMotion = typeof DeviceMotionEvent & { requestPermission?: () => Promise<"granted" | "denied"> };
-    const ask = typeof DeviceMotionEvent === "undefined" ? undefined : (DeviceMotionEvent as IOSMotion).requestPermission;
-    const ios = !!ask || /iP(hone|ad|od)/.test(navigator.userAgent);
-    const motion = (e: DeviceMotionEvent) => {
-      const a = e.accelerationIncludingGravity;
-      if (!a || a.x === null || a.y === null) return;
-      const sign = ios ? 1 : -1;
-      // Portrait screen axes: x right, y down.
-      const gx = (sign * a.x) / 9.81;
-      const gy = (-sign * a.y) / 9.81;
-      const len = Math.hypot(gx, gy);
-      // Lying flat, the screen has no "down": keep straight down.
-      if (len < 0.35) {
-        want.x = 0;
-        want.y = 1;
-        return;
-      }
-      const turn = ((screen.orientation?.angle ?? 0) * Math.PI) / 180;
-      const x = gx / len;
-      const y = gy / len;
-      want.x = x * Math.cos(turn) - y * Math.sin(turn);
-      want.y = x * Math.sin(turn) + y * Math.cos(turn);
-    };
-    const touch = matchMedia("(pointer: coarse)").matches;
-    let listening = false;
-    const listen = () => {
-      if (listening || reduced || !touch) return;
-      listening = true;
-      addEventListener("devicemotion", motion);
-    };
-    // iOS asks first, and only from a real tap (touchend / click); remember the answer.
-    let answer: string | null = null;
-    try {
-      answer = localStorage.getItem(TILT_KEY);
-    } catch {}
-    if (!ask || answer === "granted") listen();
-    const askOnce = () => {
-      if (!ask || answer !== null) return;
-      answer = "asking";
-      void ask.call(DeviceMotionEvent).then(
-        (r) => {
-          answer = r;
-          try {
-            localStorage.setItem(TILT_KEY, r);
-          } catch {}
-          if (r === "granted") listen();
-        },
-        () => {
-          answer = null;
-        },
-      );
-    };
+    if (!reduced) pts.forEach((p, i) => (p.px = p.x + (i / N) * 3.5));
 
     // x, y: where the string's end is held (the pointer minus where on the tag it was grabbed).
     let grab: { id: number; x: number; y: number; ox: number; oy: number; sx: number; sy: number; moved: boolean; armed: boolean } | null = null;
@@ -143,6 +82,10 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
     let last = performance.now();
     let acc = 0;
     let t = 0;
+    // Occasional wind gusts blowing from right to left (-x), on top of the continuous sway.
+    let gustStart = 2.0;
+    let gustDur = 2.4;
+    let gustPeak = 420;
 
     const progress = () => {
       if (!grab) return 0;
@@ -156,17 +99,32 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
       const c = cfg.current;
       const seg = c.length / (N - 1);
       t += STEP;
-      down.x += (want.x - down.x) * 0.06;
-      down.y += (want.y - down.y) * 0.06;
-      const breeze = c.sway && !reduced ? Math.sin(t * 1.3) * 18 + Math.sin(t * 3.1) * 6 : 0;
+      let breeze = 0;
+      if (c.sway && !reduced) {
+        if (t > gustStart + gustDur) {
+          gustStart = t + 4.5 + Math.random() * 4.5;
+          gustDur = 2.0 + Math.random() * 1.2;
+          gustPeak = 380 + Math.random() * 140;
+        }
+        const idle = Math.sin(t * 1.8) * 110 + Math.sin(t * 3.1) * 55 + Math.cos(t * 0.95) * 40;
+        let gust = 0;
+        if (t >= gustStart && t <= gustStart + gustDur) {
+          const u = (t - gustStart) / gustDur;
+          const env = Math.sin(Math.PI * u) ** 2;
+          // Wind from right to left (-x) with natural flutter ripples.
+          gust = -env * gustPeak * (0.65 + 0.35 * Math.sin(t * 5.4) + 0.2 * Math.sin(t * 8.7));
+        }
+        breeze = idle + gust;
+      }
       for (let i = 1; i < N; i++) {
         const p = pts[i];
         const vx = (p.x - p.px) * c.damping;
         const vy = (p.y - p.py) * c.damping;
         p.px = p.x;
         p.py = p.y;
-        p.x += vx + (breeze * (i / N) + c.gravity * down.x) * STEP * STEP;
-        p.y += vy + c.gravity * down.y * STEP * STEP;
+        const wind = breeze * Math.pow(i / (N - 1), 1.2);
+        p.x += vx + wind * STEP * STEP;
+        p.y += vy + c.gravity * STEP * STEP;
       }
       const end = pts[N - 1];
       if (grab) {
@@ -282,7 +240,6 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
     el.addEventListener("pointerup", up);
     el.addEventListener("pointercancel", up);
     el.addEventListener("keydown", key);
-    el.addEventListener("touchend", askOnce);
     addEventListener("pointermove", brush);
     addEventListener("resize", place);
     return () => {
@@ -292,10 +249,8 @@ export function SwitchTag({ label, face, width, height, string = "#3d4047", righ
       el.removeEventListener("pointerup", up);
       el.removeEventListener("pointercancel", up);
       el.removeEventListener("keydown", key);
-      el.removeEventListener("touchend", askOnce);
       removeEventListener("pointermove", brush);
       removeEventListener("resize", place);
-      removeEventListener("devicemotion", motion);
     };
   }, [right, width]);
 

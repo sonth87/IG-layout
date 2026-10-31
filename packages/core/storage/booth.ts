@@ -17,6 +17,9 @@ export interface BoothRoll {
   frameId: string;
   /** Full-resolution shots, in order (null = not taken yet). */
   shots: (Blob | null)[];
+  /** A duo roll (two people in a room, 2026-10-31): each shot's two photos (host's order), same
+   * order as `shots`, and how they're put together; `shots` are the put-together pictures. */
+  duo?: { pairs: ([Blob, Blob] | null)[]; arrange: import("../booth/duo").DuoArrange };
   /** The clip around each shot, same order (D-163); missing for uploads and group rolls. */
   clips?: (BoothClip | null)[];
   flip: boolean;

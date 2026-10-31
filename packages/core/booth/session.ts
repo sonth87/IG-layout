@@ -1,3 +1,4 @@
+import type { DuoArrange } from "./duo";
 import { CODE_ALPHABET, CODE_LENGTH, type ClientMsg, type Member, type ServerMsg } from "./protocol";
 
 // One booth session (lab, /labs/booth — docs/discussions/2026-10-29-photobooth.md).
@@ -28,14 +29,15 @@ export interface Roll {
   lead: number;
   startAt: number; // performance.now() on this device
   frameId?: string;
+  duo?: DuoArrange;
   members: string[];
 }
 
 type PeerMsg =
   | { t: "ready"; on: boolean }
-  | { t: "shoot"; roll: number; shots: number; gap: number; lead?: number; delay: number; frameId?: string; order?: string[] }
+  | { t: "shoot"; roll: number; shots: number; gap: number; lead?: number; delay: number; frameId?: string; duo?: DuoArrange; order?: string[] }
   | { t: "app"; data: unknown }
-  | { t: "frame"; frameId: string; theme?: string }
+  | { t: "frame"; frameId: string; theme?: string; duo?: DuoArrange }
   | { t: "photo"; roll: number; shot: number; size: number };
 
 interface Link {
@@ -61,9 +63,10 @@ export class BoothSession {
   roll: Roll | null = null;
   /** The last roll started (kept after it ends, to know whose photos to wait for). */
   lastRoll: Roll | null = null;
-  /** The frame and theme the host picked (the host decides for everyone). */
+  /** The frame, theme and duo arrangement the host picked (the host decides for everyone). */
   frameId: string | null = null;
   theme: string | null = null;
+  duo: DuoArrange = "side";
   /** photos[roll][shot][memberId] */
   photos = new Map<number, Map<number, Map<string, Blob>>>();
   /** Who said they're ready for the next roll (owner, 2026-10-31: the host can start once
@@ -139,12 +142,18 @@ export class BoothSession {
   }
 
   /** Host: the frame for everyone (sent now, and to whoever joins later). */
-  setFrame(frameId: string, theme = this.theme ?? undefined) {
+  setFrame(frameId: string, theme = this.theme ?? undefined, duo = this.duo) {
     if (!this.me?.host) return;
     this.frameId = frameId;
     this.theme = theme ?? null;
-    for (const l of this.links.values()) sendJson(l.dc, { t: "frame", frameId, theme });
+    this.duo = duo;
+    for (const l of this.links.values()) sendJson(l.dc, { t: "frame", frameId, theme, duo });
     this.emit();
+  }
+
+  /** Host: how a room of two puts each shot together. */
+  setDuo(duo: DuoArrange) {
+    this.setFrame(this.frameId ?? "strip4", this.theme ?? undefined, duo);
   }
 
   /** Host: start a roll for everyone — the first shot `lead` ms after the start, then every `gap`. */
@@ -153,10 +162,11 @@ export class BoothSession {
     const roll = (Math.max(0, ...this.photos.keys()) || 0) + 1;
     const delay = 1500; // time for the message to reach everyone; latency skew is a few tens of ms
     const frameId = this.frameId ?? undefined;
+    const duo = this.duo;
     // The host's order of people, so every phone tiles each shot the same way.
     const order = this.everyone().map((m) => m.id);
-    for (const l of this.links.values()) sendJson(l.dc, { t: "shoot", roll, shots, gap, lead, delay, frameId, order });
-    this.startRoll(roll, shots, gap, lead, delay, frameId, order);
+    for (const l of this.links.values()) sendJson(l.dc, { t: "shoot", roll, shots, gap, lead, delay, frameId, duo, order });
+    this.startRoll(roll, shots, gap, lead, delay, frameId, order, duo);
   }
 
   /** The app's own messages to everyone in the room (shared decorating). */
@@ -271,7 +281,7 @@ export class BoothSession {
     dc.onmessage = (e) => this.onPeer(l, e.data);
     // The host tells a newcomer which frame is picked; everyone says whether they're ready.
     dc.onopen = () => {
-      if (this.me?.host && this.frameId) sendJson(dc, { t: "frame", frameId: this.frameId, theme: this.theme ?? undefined });
+      if (this.me?.host && this.frameId) sendJson(dc, { t: "frame", frameId: this.frameId, theme: this.theme ?? undefined, duo: this.duo });
       if (this.me && this.ready.has(this.me.id)) sendJson(dc, { t: "ready", on: true });
     };
     this.links.set(member.id, l);
@@ -321,19 +331,21 @@ export class BoothSession {
       if (msg.on) this.ready.add(l.peer.member.id);
       else this.ready.delete(l.peer.member.id);
       this.emit();
-    } else if (msg.t === "shoot" && l.peer.member.host) this.startRoll(msg.roll, msg.shots, msg.gap, msg.lead ?? msg.gap, msg.delay, msg.frameId, msg.order);
+    } else if (msg.t === "shoot" && l.peer.member.host) this.startRoll(msg.roll, msg.shots, msg.gap, msg.lead ?? msg.gap, msg.delay, msg.frameId, msg.order, msg.duo);
     else if (msg.t === "app") for (const fn of this.appListeners) fn(l.peer.member, msg.data);
     else if (msg.t === "frame" && l.peer.member.host) {
       this.frameId = msg.frameId;
       this.theme = msg.theme ?? null;
+      if (msg.duo) this.duo = msg.duo;
       this.emit();
     } else if (msg.t === "photo") l.incoming = { roll: msg.roll, shot: msg.shot, size: msg.size, parts: [], got: 0 };
   }
 
-  private startRoll(id: number, shots: number, gap: number, lead: number, delay: number, frameId?: string, order?: string[]) {
+  private startRoll(id: number, shots: number, gap: number, lead: number, delay: number, frameId?: string, order?: string[], duo?: DuoArrange) {
     this.cancelRoll();
     const startAt = performance.now() + delay;
-    this.roll = { id, shots, gap, lead, startAt, frameId, members: order ?? this.everyone().map((m) => m.id) };
+    if (duo) this.duo = duo;
+    this.roll = { id, shots, gap, lead, startAt, frameId, duo: duo ?? this.duo, members: order ?? this.everyone().map((m) => m.id) };
     this.lastRoll = this.roll;
     // Ready again for the next one.
     this.ready.clear();

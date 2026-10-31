@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react";
 import { listRolls, saveRoll, type BoothRoll } from "@ig-layout/core/storage/booth";
+import { rearrange } from "./duo";
 import type { Room } from "./room";
 
 // Decorating together in a group room (D-148, docs/discussions/2026-10-30-booth-khung-theme.md
@@ -87,8 +88,11 @@ export function useSharedRoll(room: Room | null, roll: BoothRoll | null, setRoll
       }
       const take = merge(msg.key, msg.patch, msg.ver);
       if (!Object.keys(take).length) return;
-      if (cur?.room?.key === msg.key) setRoll((r) => (r && r.room?.key === msg.key ? { ...r, ...take, updatedAt: Date.now() } : r));
-      else
+      if (cur?.room?.key === msg.key) {
+        const next = { ...cur, ...take, updatedAt: Date.now() };
+        if (next.duo && take.frameId) void rearrange(next, next.duo.arrange).then((r) => setRoll((now) => (now && now.room?.key === msg.key ? r : now)));
+        else setRoll((r) => (r && r.room?.key === msg.key ? next : r));
+      } else
         // Not the print on screen: update the kept copy.
         void listRolls().then((all) => {
           const kept = all.find((r) => r.room?.key === msg.key);

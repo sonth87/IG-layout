@@ -15,13 +15,15 @@ export interface Room {
   session: BoothSession;
   stream: MediaStream;
   fake: boolean;
+  /** Opened from the "Shoot as a duo" button on the ticket (starts in the split polaroid view). */
+  duo?: boolean;
   /** Rolls already turned into a print (the room screen comes and goes; a roll is printed once). */
   printed: Set<number>;
   setMic: (on: boolean) => void;
   leave: (explicit?: boolean) => void;
 }
 
-export async function openRoom(opts: { code: string; name: string; create: boolean; id?: string }): Promise<Room> {
+export async function openRoom(opts: { code: string; name: string; create: boolean; id?: string; duo?: boolean }): Promise<Room> {
   const cam = await openCamera("user", opts.name.slice(0, 1).toUpperCase() || "?", true);
   const video = document.createElement("video");
   video.muted = true;
@@ -43,6 +45,7 @@ export async function openRoom(opts: { code: string; name: string; create: boole
     session,
     stream: cam.stream,
     fake: cam.fake,
+    duo: opts.duo,
     printed: new Set(),
     setMic: (on) => cam.stream.getAudioTracks().forEach((t) => (t.enabled = on)),
     leave: (explicit = true) => {

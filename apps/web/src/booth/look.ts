@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { isDuoCards } from "@ig-layout/core/booth/duo";
 import { frameById } from "@ig-layout/core/booth/frames";
 import { layoutFrame } from "@ig-layout/core/booth/layout";
 import { paintBackdrop, renderFrame, type RenderOptions, type ShotImage } from "@ig-layout/core/booth/render";
@@ -103,7 +104,17 @@ export function useStickersLoaded(list: BoothSticker[] | undefined) {
 }
 
 export function lookOptions(roll: BoothRoll): RenderOptions {
-  return { theme: themeById(roll.theme), decor: roll.decor, stickers: stickerDraws(roll.stickers), flip: roll.flip, title: roll.title, showDate: roll.showDate, date: new Date(roll.createdAt), fonts: canvasFonts };
+  return {
+    theme: themeById(roll.theme),
+    decor: roll.decor,
+    stickers: stickerDraws(roll.stickers),
+    flip: roll.flip,
+    title: roll.title,
+    showDate: roll.showDate,
+    date: new Date(roll.createdAt),
+    fonts: canvasFonts,
+    duoCards: !!roll.duo && isDuoCards(roll.duo.arrange),
+  };
 }
 
 /** The roll's shots, filtered, for drawing (null until decoded). */
@@ -208,7 +219,7 @@ export async function shotBlobs(roll: BoothRoll): Promise<Blob[]> {
       g.scale(-1, 1);
     }
     g.drawImage(img.source, 0, 0);
-    out.push(await toBlob(c));
+    out.push(await toBlob(c, opts.duoCards ? "image/png" : "image/jpeg"));
   }
   return out;
 }

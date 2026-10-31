@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { DUO_ARRANGES, type DuoArrange } from "@ig-layout/core/booth/duo";
 import { frameById } from "@ig-layout/core/booth/frames";
 import { ARRANGES, SHAPES, layoutFrame, newSeed, shapePath, type Arrange, type CellShape, type LayoutChoice } from "@ig-layout/core/booth/layout";
 import type { RenderOptions } from "@ig-layout/core/booth/render";
@@ -16,23 +17,34 @@ import { Btn, Label, mono } from "./ui";
 
 const EMPTY: never[] = [];
 
-export function LayoutPanel({ frameId, layout, look, onFrame, onLayout }: {
+const chipCls = (on: boolean) =>
+  `flex shrink-0 flex-col items-center gap-1 border-2 border-[var(--c-ink)] p-1.5 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-0.5 bg-[var(--c-ink)] text-[var(--c-paper)] shadow-[3px_3px_0_var(--c-red)]" : "bg-[var(--c-paper2)] shadow-[2px_2px_0_var(--c-shadow)]"}`;
+
+export function LayoutPanel({ frameId, layout, look, duo, onFrame, onLayout, onDuo }: {
   frameId: string;
   layout: LayoutChoice;
   look: RenderOptions;
+  duo?: DuoArrange;
   onFrame: (id: string) => void;
   onLayout: (l: LayoutChoice) => void;
+  onDuo?: (a: DuoArrange) => void;
 }) {
   const t = useT();
   const arrange = layout.arrange ?? "straight";
   const shape = layout.shape ?? "rect";
   const base = frameById(frameId);
-  const chip = (on: boolean) => `flex shrink-0 flex-col items-center gap-1 border-2 border-[var(--c-ink)] p-1.5 transition-[transform,box-shadow] duration-100 ${on ? "-translate-y-0.5 bg-[var(--c-ink)] text-[var(--c-paper)] shadow-[3px_3px_0_var(--c-red)]" : "bg-[var(--c-paper2)] shadow-[2px_2px_0_var(--c-shadow)]"}`;
 
   return (
     <div className="pb-2">
       <Label className="px-5 pt-3">{t("booth.frame")}</Label>
       <FramePicker value={frameId} look={look} onChange={onFrame} />
+
+      {duo && onDuo && (
+        <>
+          <Label className="px-5">{t("booth.duo.arrange")}</Label>
+          <DuoPicker value={duo} onChange={onDuo} />
+        </>
+      )}
 
       <Label className="px-5">{t("booth.arrange")}</Label>
       <div role="radiogroup" aria-label={t("booth.arrange")} className="flex gap-2.5 overflow-x-auto px-5 pt-2 pb-3">
@@ -42,7 +54,7 @@ export function LayoutPanel({ frameId, layout, look, onFrame, onLayout }: {
             type="button"
             role="radio"
             aria-checked={arrange === a}
-            className={`${chip(arrange === a)} w-[76px]`}
+            className={`${chipCls(arrange === a)} w-[76px]`}
             onClick={() => {
               if (a === arrange) return;
               // Free starts from what's on screen now.
@@ -61,7 +73,7 @@ export function LayoutPanel({ frameId, layout, look, onFrame, onLayout }: {
       <Label className="px-5">{t("booth.shape")}</Label>
       <div role="radiogroup" aria-label={t("booth.shape")} className="flex gap-2 overflow-x-auto px-5 pt-2 pb-3">
         {SHAPES.map((s) => (
-          <button key={s} type="button" role="radio" aria-checked={shape === s} aria-label={t(`booth.shape.${s}`)} title={t(`booth.shape.${s}`)} className={`${chip(shape === s)} w-12`} onClick={() => onLayout({ ...layout, shape: s })}>
+          <button key={s} type="button" role="radio" aria-checked={shape === s} aria-label={t(`booth.shape.${s}`)} title={t(`booth.shape.${s}`)} className={`${chipCls(shape === s)} w-12`} onClick={() => onLayout({ ...layout, shape: s })}>
             <ShapeIcon shape={s} on={shape === s} />
           </button>
         ))}
@@ -84,6 +96,76 @@ export function LayoutPanel({ frameId, layout, look, onFrame, onLayout }: {
       </div>
     </div>
   );
+}
+
+/** Picker for how a duo shot puts its two photos together (shared frame vs two polaroid cards). */
+export function DuoPicker({ value, onChange, className = "px-5 pt-2 pb-3" }: { value: DuoArrange; onChange: (a: DuoArrange) => void; className?: string }) {
+  const t = useT();
+  return (
+    <div role="radiogroup" aria-label={t("booth.duo.arrange")} className={`flex gap-2 overflow-x-auto ${className}`}>
+      {DUO_ARRANGES.map((a) => (
+        <button key={a} type="button" role="radio" aria-checked={value === a} className={`${chipCls(value === a)} w-[72px]`} onClick={() => onChange(a)}>
+          <DuoIcon arrange={a} on={value === a} />
+          <span className={`${mono} text-[9px] font-bold uppercase tracking-wider`}>{t(`booth.duo.${a}`)}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function DuoIcon({ arrange, on }: { arrange: DuoArrange; on: boolean }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const c = ref.current?.getContext("2d");
+    if (!c) return;
+    const d = devicePixelRatio || 1;
+    ref.current!.width = 44 * d;
+    ref.current!.height = 36 * d;
+    c.setTransform(d, 0, 0, d, 22 * d, 18 * d);
+    const fg = on ? "#f3e9d6" : "#1d1612";
+    const bg = on ? "#1d1612" : "#e7d9bd";
+    if (arrange === "side") {
+      c.fillStyle = fg;
+      c.fillRect(-17, -12, 16, 24);
+      c.fillRect(1, -12, 16, 24);
+      return;
+    }
+    if (arrange === "stack") {
+      c.fillStyle = fg;
+      c.fillRect(-17, -12, 34, 11);
+      c.fillRect(-17, 1, 34, 11);
+      return;
+    }
+    const card = (x: number, y: number, w: number, rot: number) => {
+      const h = w * 1.28;
+      c.save();
+      c.translate(x, y);
+      c.rotate((rot * Math.PI) / 180);
+      c.fillStyle = fg;
+      c.strokeStyle = bg;
+      c.lineWidth = 1.2;
+      c.fillRect(-w / 2, -h / 2, w, h);
+      c.strokeRect(-w / 2, -h / 2, w, h);
+      c.fillStyle = bg;
+      const pw = w * 0.76;
+      c.fillRect(-pw / 2, -h / 2 + w * 0.11, pw, pw * 0.88);
+      c.restore();
+    };
+    if (arrange === "twin") {
+      card(-9, 0, 15, 0);
+      card(9, 0, 15, 0);
+    } else if (arrange === "tilt") {
+      card(-8, 1, 15, -9);
+      card(8, 1, 15, 8);
+    } else if (arrange === "offset") {
+      card(-8, -3, 14, -3);
+      card(8, 3, 14, 4);
+    } else {
+      card(-5, -1, 16, -7);
+      card(6, 2, 14, 10);
+    }
+  }, [arrange, on]);
+  return <canvas ref={ref} className="h-9 w-11" />;
 }
 
 /** The shape itself, small. */

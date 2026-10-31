@@ -1277,6 +1277,16 @@ export const en = {
   "booth.room.reconnecting": "reconnecting…",
   "booth.room.hostAway": "Host ({name}) is reconnecting — paused, please wait…",
   "booth.room.memberAway": "{name} is reconnecting — paused, please wait…",
+  "booth.duo": "Shoot as a duo",
+  "booth.duo.badge": "DUO",
+  "booth.duo.waiting": "Waiting for your partner…",
+  "booth.duo.arrange": "How to put the two together",
+  "booth.duo.side": "Left & right",
+  "booth.duo.stack": "Top & bottom",
+  "booth.duo.twin": "Two cards",
+  "booth.duo.tilt": "Tilted apart",
+  "booth.duo.offset": "Staggered",
+  "booth.duo.overlap": "Overlapping",
 } as const;
 
 export type MessageKey = keyof typeof en;

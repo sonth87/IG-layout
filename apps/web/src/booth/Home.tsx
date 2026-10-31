@@ -25,6 +25,7 @@ import { LOBBIES, loadLobby, lobbyById, lobbyVars, saveLobby, seasonalLobby, typ
 
 interface Ways {
   onSolo: () => void;
+  onDuo: () => void;
   onRoom: (code: string | null) => void;
   /** Open the file picker (one for the lobby, not one per scene). */
   onUpload: () => void;
@@ -32,7 +33,7 @@ interface Ways {
 
 /** `preview`: drawn as IG Layout's peek at the booth (no tag, nothing to tap). `onTheme`: a
  * scene was picked (new rolls start in its print theme). */
-export function BoothHome({ onSolo, onRoom, onUpload, onOpen, onTheme, preview }: Omit<Ways, "onUpload"> & { onUpload: (files: File[]) => void; onOpen: (roll: BoothRoll) => void; onTheme?: (t: LobbyTheme) => void; preview?: boolean }) {
+export function BoothHome({ onSolo, onDuo, onRoom, onUpload, onOpen, onTheme, preview }: Omit<Ways, "onUpload" | "onDuo"> & { onDuo?: () => void; onUpload: (files: File[]) => void; onOpen: (roll: BoothRoll) => void; onTheme?: (t: LobbyTheme) => void; preview?: boolean }) {
   const t = useT();
   const toLayout = useAppSwitch("layout");
   const locale = useSettings((s) => s.locale);
@@ -95,7 +96,7 @@ export function BoothHome({ onSolo, onRoom, onUpload, onOpen, onTheme, preview }
     if (id) pick(id);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once
   const file = useRef<HTMLInputElement>(null);
-  const ways = useMemo(() => ({ onSolo, onRoom, onUpload: () => file.current?.click() }), [onSolo, onRoom]);
+  const ways = useMemo(() => ({ onSolo, onDuo: onDuo ?? (() => onRoom(null)), onRoom, onUpload: () => file.current?.click() }), [onSolo, onDuo, onRoom]);
   const page = (th: LobbyTheme, active: boolean) => <LobbyPage theme={th} active={active} ways={ways} code={code} onCode={setCode} />;
 
   return (
@@ -422,42 +423,51 @@ function Ticket({ theme, ways, code, onCode }: { theme: LobbyTheme; ways: Ways; 
           ✶
         </span>
       </button>
-      {/* Group room (D-159): create one (the code is made for you) or join with a code. One
-          column on a phone (D-164), side by side from a wider screen. */}
-      <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {/* Duo or group room (D-159, Q-P37): create a 2-person split-polaroid room or a group
+          room (the code is made for you), or join with a code below. */}
+      <div className="mt-3 grid grid-cols-2 gap-2.5">
+        <button
+          type="button"
+          onClick={ways.onDuo}
+          className={`${mono} flex min-h-13 items-center justify-center gap-1.5 border-2 px-2 text-center text-[11px] font-bold uppercase leading-snug tracking-[0.12em] shadow-[3px_3px_0_var(--l-shadow)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0_var(--l-shadow)]`}
+          style={{ background: v("second"), color: v("secondInk"), borderColor: v("edge") }}
+        >
+          <span aria-hidden className="text-xs opacity-80">◫</span>
+          <span>{t("booth.duo")}</span>
+        </button>
         <button
           type="button"
           onClick={() => ways.onRoom(null)}
-          className={`${mono} flex min-h-13 items-center justify-center border-2 px-2 text-center text-[11px] font-bold uppercase leading-snug tracking-[0.12em] shadow-[3px_3px_0_var(--l-shadow)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0_var(--l-shadow)] sm:min-h-16`}
+          className={`${mono} flex min-h-13 items-center justify-center border-2 px-2 text-center text-[11px] font-bold uppercase leading-snug tracking-[0.12em] shadow-[3px_3px_0_var(--l-shadow)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0_var(--l-shadow)]`}
           style={{ background: v("second"), color: v("secondInk"), borderColor: v("edge") }}
         >
           {t("booth.room")}
         </button>
-        <form
-          className="flex min-h-13 flex-col justify-center gap-1.5 border-2 p-1.5 shadow-[3px_3px_0_var(--l-shadow)]"
-          style={{ background: v("second"), color: v("secondInk"), borderColor: v("edge") }}
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (isRoomCode(code)) ways.onRoom(code);
-          }}
-        >
-          <span className={`${mono} text-center text-[10px] font-bold uppercase tracking-[0.1em]`}>{t("booth.join")}</span>
-          <span className="flex gap-1">
-            <input
-              value={code}
-              onChange={(e) => onCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4))}
-              placeholder={t("booth.codePlaceholder")}
-              aria-label={t("booth.join")}
-              autoCapitalize="characters"
-              className={`${mono} w-0 min-w-0 flex-1 border-2 px-1.5 py-1.5 text-center text-sm font-bold tracking-[0.2em] outline-none placeholder:opacity-50`}
-              style={{ background: v("field"), color: v("fieldInk"), borderColor: v("edge") }}
-            />
-            <button type="submit" disabled={!isRoomCode(code)} className={`${mono} border-2 px-4 text-[11px] font-bold uppercase disabled:opacity-40 sm:px-2 sm:text-[10px]`} style={{ background: v("main"), color: v("mainInk"), borderColor: v("edge") }}>
-              {t("booth.go")}
-            </button>
-          </span>
-        </form>
       </div>
+      <form
+        className="mt-2.5 flex min-h-13 flex-col justify-center gap-1.5 border-2 p-1.5 shadow-[3px_3px_0_var(--l-shadow)]"
+        style={{ background: v("second"), color: v("secondInk"), borderColor: v("edge") }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (isRoomCode(code)) ways.onRoom(code);
+        }}
+      >
+        <span className={`${mono} text-center text-[10px] font-bold uppercase tracking-[0.1em]`}>{t("booth.join")}</span>
+        <span className="flex gap-1">
+          <input
+            value={code}
+            onChange={(e) => onCode(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4))}
+            placeholder={t("booth.codePlaceholder")}
+            aria-label={t("booth.join")}
+            autoCapitalize="characters"
+            className={`${mono} w-0 min-w-0 flex-1 border-2 px-1.5 py-1.5 text-center text-sm font-bold tracking-[0.2em] outline-none placeholder:opacity-50`}
+            style={{ background: v("field"), color: v("fieldInk"), borderColor: v("edge") }}
+          />
+          <button type="submit" disabled={!isRoomCode(code)} className={`${mono} border-2 px-4 text-[11px] font-bold uppercase disabled:opacity-40`} style={{ background: v("main"), color: v("mainInk"), borderColor: v("edge") }}>
+            {t("booth.go")}
+          </button>
+        </span>
+      </form>
       <div aria-hidden className="my-5 border-t-2 border-dashed opacity-35" style={{ borderColor: v("ink") }} />
       <button type="button" className={`${mono} w-full text-center text-xs font-bold uppercase tracking-[0.15em] underline decoration-2 underline-offset-4`} style={{ color: v("ink") }} onClick={ways.onUpload}>
         {t("booth.upload")}

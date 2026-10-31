@@ -16,6 +16,7 @@ import { StickerPanel } from "./StickerPanel";
 import type { BoothSticker } from "@ig-layout/core/booth/stickers";
 import { LayoutEditor } from "./LayoutEditor";
 import { LayoutPanel } from "./LayoutPanel";
+import { rearrange } from "./duo";
 import { lookOptions, rollFrame, rollFilter, useRollImages, useStickersLoaded, withTheme } from "./look";
 import { ThemePicker } from "./ThemePicker";
 import { Btn, Confirm, display, mono, serif } from "./ui";
@@ -132,9 +133,15 @@ export function Decorate({ roll, onChange, onDone, onRetake, others = [], onTab 
                 frameId={roll.frameId}
                 layout={roll.layout ?? {}}
                 look={look}
-                // Another frame: hand-placed cells don't fit it any more.
-                onFrame={(frameId) => set({ frameId, layout: { ...roll.layout, cells: undefined } })}
+                duo={roll.duo?.arrange}
+                // Another frame: hand-placed cells don't fit it any more; duo shots re-fit the new cell shape.
+                onFrame={(frameId) => {
+                  const next = { ...roll, frameId, layout: { ...roll.layout, cells: undefined } };
+                  if (roll.duo) void rearrange(next, roll.duo.arrange).then(onChange);
+                  else onChange(next);
+                }}
                 onLayout={(layout) => set({ layout })}
+                onDuo={(a) => void rearrange(roll, a).then(onChange)}
               />
             )}
 
